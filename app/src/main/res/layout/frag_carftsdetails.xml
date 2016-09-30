@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/progress_serviceCarftsDetails"
+        layout="@layout/progress" />
+
+    <TextView
+        android:id="@+id/tv_serviceCarftsDetails_Nodata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂无数据"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defult_color_white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_15" >
+
+        <com.don.view.CircleImageView
+            android:id="@+id/civ_servicecarftsDetail_image"
+            style="@style/civ_avatar_type_Size80" />
+
+        <TextView
+            android:id="@+id/tv_ServiceCarftsDetail_CarftsMan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_12"
+            android:textColor="@color/Defult_Color_Grey"
+            android:textSize="@dimen/font_extra_large" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_6"
+        android:background="@color/defult_color_white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_15" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提供服务:"
+            android:textColor="@color/defult_text_Shallowcolor"
+            android:textSize="@dimen/font_large" />
+
+        <TextView
+            android:id="@+id/tv_ServiceCarftsDetail_ServiceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_15"
+            android:lines="1"
+            android:textColor="@color/defult_text_Shallowcolor"
+            android:textSize="@dimen/font_large" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/Defult_Color_LineGrey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defult_color_white"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_15" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提供说明:"
+            android:textColor="@color/defult_text_Shallowcolor"
+            android:textSize="@dimen/font_large" />
+
+        <TextView
+            android:id="@+id/tv_ServiceCarftsDetail_ServiceIntro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_15"
+            android:textColor="@color/defult_text_Shallowcolor"
+            android:textSize="@dimen/font_large" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defult_color_white"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_15" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="服务地址:"
+            android:textColor="@color/defult_text_Shallowcolor"
+            android:textSize="@dimen/font_large" />
+
+        <TextView
+            android:id="@+id/tv_ServiceCarftsDetail_ServiceIntro_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_15"
+            android:textColor="@color/defult_text_Shallowcolor"
+            android:textSize="@dimen/font_large" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/Defult_Color_LineGrey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defult_color_white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_15" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="服务价格:"
+            android:textColor="@color/defult_text_Shallowcolor"
+            android:textSize="@dimen/font_large" />
+
+        <TextView
+            android:id="@+id/tv_ServiceCarftsDetail_ServicePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_15"
+            android:lines="1"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/font_large" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="@color/defult_color_white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:background="@color/Defult_Color_LineGrey" />
+
+            <TextView
+                android:id="@+id/tv_ServiceCarftsDetail_ServiceContact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dip"
+                android:layout_marginTop="15dip"
+                android:paddingLeft="@dimen/padding_15"
+                android:textColor="@color/defult_text_Shallowcolor"
+                android:textSize="@dimen/font_large" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_ServiceCarftsDetail_ServiceCall"
+            style="@style/bt_carftscall_tyle"
+            android:lines="1"
+            android:text="呼叫"
+            android:textSize="@dimen/font_extra_large" />
+    </LinearLayout>
+
+</LinearLayout>

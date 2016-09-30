@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defult_color_white"
+        android:orientation="vertical"
+        android:paddingBottom="58dp"
+        android:paddingTop="58dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/img_about_logo" />
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:text="嗨社区 v2.0"
+            android:textColor="@color/Defult_Color_AppGreen"
+            android:textSize="13sp"
+            android:textStyle="bold|italic" />
+    </LinearLayout>
+
+    <cn.hi028.android.highcommunity.view.RevealLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/defult_color_white"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/padding_12" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/defult_color_white"
+                android:gravity="center_vertical"
+                android:text="客服电话"
+                android:textColor="@color/Defult_Color_MidGrey"
+                android:textSize="@dimen/font_small" />
+
+            <TextView
+                android:id="@+id/tv_constants_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/padding_12"
+                android:background="@color/defult_color_white"
+                android:gravity="center_vertical|right"
+                android:paddingRight="@dimen/padding_12"
+                android:singleLine="true"
+                android:text="400-663-4899"
+                android:textColor="@color/Defult_Color_MidGrey"
+                android:textSize="@dimen/font_small" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:background="@color/color_gray_e8e8e8" >
+        </View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/defult_color_white"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/padding_12" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/defult_color_white"
+                android:gravity="center_vertical"
+                android:text="QQ"
+                android:textColor="@color/Defult_Color_MidGrey"
+                android:textSize="@dimen/font_small" />
+
+            <TextView
+                android:id="@+id/tv_constants_qq"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/padding_12"
+                android:background="@color/defult_color_white"
+                android:gravity="center_vertical|right"
+                android:paddingRight="@dimen/padding_12"
+                android:singleLine="true"
+                android:text="235978845"
+                android:textColor="@color/Defult_Color_MidGrey"
+                android:textSize="@dimen/font_small" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:background="@color/color_gray_e8e8e8" >
+        </View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/defult_color_white"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/padding_12" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/defult_color_white"
+                android:gravity="center_vertical"
+                android:text="微信公众号"
+                android:textColor="@color/Defult_Color_MidGrey"
+                android:textSize="@dimen/font_small" />
+
+            <TextView
+                android:id="@+id/tv_constants_wx"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/padding_12"
+                android:background="@color/defult_color_white"
+                android:gravity="center_vertical|right"
+                android:paddingRight="@dimen/padding_12"
+                android:singleLine="true"
+                android:text="嗨社区"
+                android:textColor="@color/Defult_Color_MidGrey"
+                android:textSize="@dimen/font_small" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:background="@color/color_gray_e8e8e8" >
+        </View>
+    </cn.hi028.android.highcommunity.view.RevealLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="@color/defult_color_white"
+        android:gravity="bottom|center_horizontal"
+        android:paddingBottom="12dp"
+        android:text="\@四川天美生活科技有限公司"
+        android:textColor="@color/Defult_Color_Grey"
+        android:textSize="@dimen/font_small" />
+
+</LinearLayout>

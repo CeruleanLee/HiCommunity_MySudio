@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:focusable="false"
+    android:focusableInTouchMode="false" >
+<!-- 帖子详情布局 不是item-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/ll_communitydetails_spokerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="45dip"
+            android:layout_alignParentBottom="true"
+            android:background="@color/defult_color_white"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:background="@color/Defult_Color_Grey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <com.don.view.CircleImageView
+                    android:id="@+id/civ_communitydetails_spokerImage"
+                    style="@style/civ_avatar_type2"
+                    android:layout_marginLeft="@dimen/margin_8" />
+
+                <EditText
+                    android:id="@+id/ev_communitydetails_spokerContent"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:paddingLeft="8dp"
+                    android:singleLine="true"
+                    android:textColor="@color/Defult_Color_MidGrey"
+                    android:textColorHint="@color/Defult_Color_Grey" />
+
+                <ImageView
+                    android:id="@+id/ev_communitydetails_spokerButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/padding_12"
+                    android:src="@drawable/tag_speakerbutton_selector" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ListView
+            
+            android:id="@+id/ptrlv_communitydetails_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/ll_communitydetails_spokerLayout"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/white"
+            android:divider="@color/Defult_Color_ShallowGrey"
+            android:dividerHeight="0.5dip"
+            android:fadingEdge="none"
+            android:scrollbars="none"
+            android:transcriptMode="normal" />
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/ll_NoticeDetails_Progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/progress"
+        android:background="@color/defult_color_white" />
+
+    <TextView
+        android:id="@+id/tv_NoticeDetails_noData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/defult_color_white"
+        android:gravity="center"
+        android:text="暂无数据"
+        android:textColor="@color/Service_title_text_color"
+        android:textSize="15dp"
+        android:visibility="gone" />
+
+</FrameLayout>

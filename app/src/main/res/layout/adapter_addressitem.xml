@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/defult_color_white"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/padding_8"
+            android:paddingLeft="@dimen/padding_24"
+            android:paddingRight="@dimen/padding_24"
+            android:paddingTop="@dimen/padding_8">
+
+            <TextView
+                android:id="@+id/tv_addressItem_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/padding_15"
+                android:text="王二娃"
+                android:textColor="@color/Defult_Color_DeepGrey"
+                android:textSize="@dimen/font_middle" />
+
+            <TextView
+                android:id="@+id/tv_addressItem_Phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_15"
+                android:text="183****3333"
+                android:textSize="@dimen/font_middle" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/padding_12"
+            android:paddingLeft="@dimen/padding_24"
+            android:paddingRight="@dimen/padding_24">
+
+            <TextView
+                android:id="@+id/tv_addressItem_isDefult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/img_address_defult"
+                android:textSize="@dimen/font_extra_small" />
+
+            <TextView
+                android:id="@+id/tv_addressItem_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_15"
+                android:layout_weight="1"
+                android:text="宿舍罗浮店"
+                android:textColor="@color/Defult_Color_Grey"
+                android:textSize="@dimen/font_small" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_addressItem_Modify"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="@dimen/padding_15"
+        android:padding="@dimen/padding_8"
+        android:scaleType="fitXY"
+        android:src="@mipmap/img_address_modify" />
+</LinearLayout>

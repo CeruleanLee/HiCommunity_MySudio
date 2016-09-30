@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title_status_height"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/padding_15"
+    android:background="@color/Defult_Color_AppGreen"
+    android:orientation="horizontal" />

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">嗨社区</string>
+
+    <item name="tag_first" type="id"></item>
+    <item name="tag_second" type="id"></item>
+
+    <string name="RequestTimeout">网络请求超时,请重新请求！</string>
+    <string name="RequestEnd">已加载到最后一页</string>
+    <string name="ShouldLogin">请先登录，再操作</string>
+
+</resources>

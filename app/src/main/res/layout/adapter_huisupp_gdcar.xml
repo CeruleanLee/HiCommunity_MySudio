@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/defult_color_white"
+    android:paddingBottom="11dp"
+    android:layout_height="wrap_content">
+    <FrameLayout  android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <ImageView
+        android:id="@+id/img_goods_ch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:layout_gravity="bottom"
+        android:src="@drawable/img_check_selector" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="85dp" >
+            <ImageView
+                android:id="@+id/img_goods_pic"
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:layout_marginBottom="11dp"
+                android:layout_marginTop="11dp"
+                android:scaleType="centerCrop" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toRightOf="@+id/img_goods_pic"
+                android:layout_centerVertical="true">
+                <TextView
+                    android:id="@+id/tv_goods_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:singleLine="true"
+                    android:text="青椒肉丝"
+                    android:textColor="@color/Defult_Color_MidGrey"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_goods_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="8dp"
+                    android:singleLine="true"
+                    android:text="￥12.50"
+                    android:textColor="@color/color_deep_red"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </RelativeLayout>
+</LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_goods_num"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/img_select_num"
+            >
+            <TextView
+                android:id="@+id/tv_goods_reduce"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="-"
+                android:gravity="center"
+                android:textColor="@color/Defult_Color_MidGrey"
+                android:textSize="14sp" />
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/Defult_Color_LineGrey" />
+            <TextView
+                android:id="@+id/tv_goods_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:text="1"
+                android:textColor="@color/Defult_Color_MidGrey"
+                android:textSize="10sp" />
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/Defult_Color_LineGrey" />
+            <TextView
+                android:id="@+id/tv_goods_add"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="+"
+                android:textColor="@color/Defult_Color_MidGrey"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </FrameLayout>
+    <TextView
+        android:id="@+id/tv_total_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:layout_gravity="right"
+        android:layout_marginRight="12dp"
+        android:text="小计￥196.00"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/Service_title_text_color"
+        android:textSize="@dimen/font_extra_small_half" />
+</LinearLayout>

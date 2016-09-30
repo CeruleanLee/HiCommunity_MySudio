@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- android:baselineAligned="_baseline" -->
+
+    <RelativeLayout
+        android:id="@+id/service_scrollView_LinearLayoutContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         android:visibility="gone"
+        android:orientation="vertical" >
+
+        <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+            android:id="@+id/service_scrollView_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp" >
+
+                    <net.duohuo.dhroid.view.AutoScrollViewPager
+                        android:id="@+id/view_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@android:color/white" />
+
+                    <net.duohuo.dhroid.view.CirclePageIndicator
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/home_cpi"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|bottom"
+                        android:layout_marginBottom="13dp"
+                        android:background="@android:color/transparent"
+                        android:padding="3dp"
+                        app:fillColor="@color/Defult_Color_AppGreen"
+                        app:pageColor="@color/color_gray_no1"
+                        app:radius="3dp"
+                        app:strokeColor="@color/Defult_Color_AppGreen"
+                        app:strokeWidth="0dp" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dip"
+                        android:background="@color/Defult_Color_LineGrey" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="35dip"
+                        android:background="@color/Defult_Color_ShallowGrey"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/padding_8"
+                        android:text="生活服务"
+                        android:textColor="@color/Service_title_text_color" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="0.25dip"
+                        android:background="@color/Defult_Color_LineGrey" />
+
+                    <com.handmark.pulltorefresh.library.PullToRefreshGridView
+                        android:id="@+id/ptrgv_service_thirdParty"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dip"
+                        android:background="@color/defult_color_white"
+                        android:horizontalSpacing="0.25dip"
+                        android:listSelector="@drawable/selector_service_btn_bg"
+                        android:numColumns="4"
+                        android:smoothScrollbar="true"
+                        android:stretchMode="columnWidth"
+                        android:verticalSpacing="0.25dip" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="0.25dip"
+                        android:background="@color/Defult_Color_LineGrey" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="35dip"
+                        android:background="@color/Defult_Color_ShallowGrey"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/padding_8"
+                        android:text="物业服务"
+                        android:textColor="@color/Service_title_text_color" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="0.5dip"
+                        android:background="@color/Defult_Color_LineGrey" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="90dip"
+                        android:background="@color/defult_color_white"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <LinearLayout
+                            android:id="@+id/ll_service_tenement2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_third_service_selector"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="vertical" >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="@dimen/padding_8"
+                                android:src="@mipmap/ic_fuwu" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="自治大厅" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="0.5dip"
+                            android:layout_height="match_parent"
+                            android:background="@color/Defult_Color_LineGrey" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_service_payment"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_third_service_selector"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="vertical" >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="@dimen/padding_8"
+                                android:src="@mipmap/img_payment_service" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="缴费" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="0.5dip"
+                            android:layout_height="match_parent"
+                            android:background="@color/Defult_Color_LineGrey" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_service_tenement"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_third_service_selector"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="vertical" >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="@dimen/padding_8"
+                                android:src="@mipmap/img_tenement" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="租房" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="0.5dip"
+                            android:layout_height="match_parent"
+                            android:background="@color/Defult_Color_LineGrey" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_service_notice"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_third_service_selector"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="vertical" >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="@dimen/padding_8"
+                                android:src="@mipmap/img_notice_servcie" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="公告" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="0.5dip"
+                            android:layout_height="match_parent"
+                            android:background="@color/Defult_Color_LineGrey" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="0.5dip"
+                        android:background="@color/Defult_Color_LineGrey" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="35dip"
+                        android:background="@color/Defult_Color_ShallowGrey"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/padding_8"
+                        android:text="政务服务"
+                        android:textColor="@color/Service_title_text_color" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="0.5dip"
+                        android:background="@color/Defult_Color_LineGrey" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="90dip"
+                        android:background="@color/defult_color_white"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <LinearLayout
+                            android:id="@+id/ll_service_voluntary"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_third_service_selector"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="visible" >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/ic_zyzfw" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="志愿服务" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="0.5dip"
+                            android:layout_height="match_parent"
+                            android:background="@color/Defult_Color_LineGrey"
+                            android:visibility="visible" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_service_guide"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_third_service_selector"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="vertical" >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="@dimen/padding_8"
+                                android:src="@mipmap/img_service_guide" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="办事指南" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="0.5dip"
+                            android:layout_height="match_parent"
+                            android:background="@color/Defult_Color_LineGrey" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_service_research"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_third_service_selector"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="vertical" >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="@dimen/padding_8"
+                                android:src="@mipmap/img_research" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="调查天地" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="0.5dip"
+                            android:layout_height="match_parent"
+                            android:background="@color/Defult_Color_LineGrey" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_service_notice_one"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_third_service_selector"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="vertical" >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="@dimen/padding_8"
+                                android:src="@mipmap/img_notice_one" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="    公告    " />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="0.5dip"
+                        android:background="@color/Defult_Color_LineGrey" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="35dip"
+                        android:background="@color/Defult_Color_ShallowGrey"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/padding_8"
+                        android:text="手艺人"
+                        android:textColor="@color/Defult_Color_Grey" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="0.5dip"
+                        android:background="@color/Defult_Color_LineGrey" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="90dip"
+                        android:background="@color/defult_color_white"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <LinearLayout
+                            android:id="@+id/ll_service_craftsman"
+                            android:layout_width="0dp"
+                            android:layout_height="90dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_third_service_selector"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="vertical" >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="@dimen/padding_8"
+                                android:src="@mipmap/img_craftsman_h" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="    手艺人    " />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="0.5dip"
+                            android:layout_height="match_parent"
+                            android:background="@color/Defult_Color_LineGrey" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_service_become_craftsman"
+                            android:layout_width="0dp"
+                            android:layout_height="90dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_third_service_selector"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="vertical" >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="@dimen/padding_8"
+                                android:src="@mipmap/img_craftsman_service" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="成为手艺人" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="0.5dip"
+                            android:layout_height="match_parent"
+                            android:background="@color/Defult_Color_LineGrey" />
+
+                        <!-- &lt;!&ndash; <LinearLayout -->
+                        <!-- android:layout_width="wrap_content" -->
+                        <!-- android:layout_height="match_parent" -->
+                        <!-- android:layout_weight="1" -->
+                        <!-- android:gravity="center" -->
+                        <!-- android:orientation="vertical" -->
+                        <!-- android:visibility="invisible"> -->
+
+
+                        <!-- <ImageView -->
+                        <!-- android:layout_width="wrap_content" -->
+                        <!-- android:layout_height="wrap_content" -->
+                        <!-- android:src="@mipmap/img_login_qq" /> -->
+
+
+                        <!-- <TextView -->
+                        <!-- android:layout_width="wrap_content" -->
+                        <!-- android:layout_height="wrap_content" -->
+                        <!-- android:text="缴费" /> -->
+                        <!-- </LinearLayout> -->
+
+
+                        <!-- <View -->
+                        <!-- android:layout_width="0.5dip" -->
+                        <!-- android:layout_height="match_parent" -->
+                        <!-- android:background="@color/Defult_Color_LineGrey" -->
+                        <!-- android:visibility="invisible" /> -->
+
+
+                        <!-- <LinearLayout -->
+                        <!-- android:layout_width="wrap_content" -->
+                        <!-- android:layout_height="" -->
+                        <!-- android:layout_weight="1" -->
+                        <!-- android:gravity="center" -->
+                        <!-- android:orientation="vertical" -->
+                        <!-- android:visibility="invisible"> -->
+
+
+                        <!-- <ImageView -->
+                        <!-- android:layout_width="wrap_content" -->
+                        <!-- android:layout_height="wrap_content" -->
+                        <!-- android:src="@mipmap/img_login_qq" /> -->
+                        <!-- <TextView -->
+                        <!-- android:layout_width="wrap_content" -->
+                        <!-- android:layout_height="wrap_content" -->
+                        <!-- android:text="缴费" /> -->
+                        <!-- </LinearLayout>&ndash;&gt; -->
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dip"
+                        android:background="@color/Defult_Color_LineGrey" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+    </RelativeLayout>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        layout="@layout/v_loadingview"
+     />
+
+</RelativeLayout>

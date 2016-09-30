@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rl_groupitem_ItemLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_12"
+        android:visibility="visible">
+
+        <com.don.view.CircleImageView
+            android:id="@+id/civ_groupitem_img"
+            style="@style/civ_avatar_type40"
+            android:layout_marginLeft="@dimen/padding_4" />
+
+        <TextView
+            android:id="@+id/tv_groupitem_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_8"
+            android:layout_marginRight="@dimen/padding_4"
+            android:layout_marginTop="@dimen/padding_4"
+            android:layout_toRightOf="@id/civ_groupitem_img"
+            android:text="家有萌宠" />
+
+        <TextView
+            android:id="@+id/tv_groupitem_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_4"
+            android:layout_marginRight="@dimen/padding_4"
+            android:layout_marginTop="@dimen/margin_6"
+            android:layout_toRightOf="@id/tv_groupitem_name"
+            android:text="67人"
+            android:textColor="@color/color_deep_red"
+            android:textSize="@dimen/font_extra_small" />
+
+        <TextView
+            android:id="@+id/tv_groupitem_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_groupitem_name"
+            android:layout_marginLeft="@dimen/margin_8"
+            android:layout_marginRight="@dimen/padding_24"
+            android:layout_toRightOf="@id/civ_groupitem_img"
+            android:lines="1"
+            android:text="猫星人$汪星人 相亲相爱么么哒"
+            android:textColor="@color/Defult_Color_Grey"
+            android:textSize="@dimen/font_extra_small" />
+
+        <ImageView
+            android:id="@+id/iv_groupitem_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/padding_8"
+            android:src="@drawable/bg_groupitem_selector" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_groupitem_GroupLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Defult_Color_ShallowHalfGrey"
+        android:padding="@dimen/padding_12"
+        android:text="我的关注"
+        android:textColor="@color/defult_text_Shallowcolor"
+        android:visibility="gone" />
+
+</RelativeLayout>

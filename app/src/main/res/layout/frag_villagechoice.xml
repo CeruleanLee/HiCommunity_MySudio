@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_village"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_secondlevel"></include>
+
+    <include
+        android:id="@+id/ll_NoticeDetails_Progress"
+        layout="@layout/progress" />
+
+    <TextView
+        android:id="@+id/tv_NoticeDetails_noData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂无数据"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/fl_vallage_search"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/defult_color_white"
+        android:clickable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:drawableLeft="@mipmap/img_citiy_search"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:hint="@string/ed_vallage_search_hint"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:singleLine="true" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:background="@color/defult_color_white"
+            android:orientation="horizontal">
+
+            <ListView
+                android:id="@+id/lv_vallage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="#00000000"
+                android:divider="@color/Defult_Color_LineGrey"
+                android:dividerHeight="0.5dp"
+                android:scrollbars="none" />
+
+            <TextView
+                android:id="@+id/tv_dialog"
+                android:layout_width="80.0dip"
+                android:layout_height="80.0dip"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:background="@color/Defult_Color_ShallowGrey"
+                android:gravity="center"
+                android:padding="5dip"
+                android:textColor="@color/Defult_Color_AppGreen"
+                android:textSize="35.0dip"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <com.don.view.MyLetterListView
+            android:id="@+id/mlv_village_Letter"
+            android:layout_width="25dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="25dp"
+            android:background="@android:color/transparent" />
+    </RelativeLayout>
+</LinearLayout>

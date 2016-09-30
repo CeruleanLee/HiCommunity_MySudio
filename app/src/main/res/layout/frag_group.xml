@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_LineGrey"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/pg_grouplayout_progress"
+        layout="@layout/progress" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="47dip"
+        android:background="@color/defult_color_white" >
+
+        <ImageView
+            android:id="@+id/tv_group_create"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:padding="8dp"
+            android:src="@mipmap/img_create_group_tag" />
+
+        <ImageView
+            android:id="@+id/et_groupclass_search"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+             android:padding="8dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/tv_group_create"
+            android:clickable="true"
+            android:src="@drawable/ic_search_group" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="47dip"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="60dp"
+            android:layout_toLeftOf="@id/et_groupclass_search"
+            android:background="@color/defult_color_white"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/padding_12"
+            android:paddingRight="@dimen/padding_12"
+            android:paddingTop="@dimen/padding_15" >
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/tv_group_hot"
+                    style="@style/rb_groupclass_style"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="热门" />
+
+                <RadioButton
+                    android:id="@+id/tv_group_new"
+                    style="@style/rb_groupclass_style"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:text="最新" />
+
+                <RadioButton
+                    android:id="@+id/tv_group_mine"
+                    style="@style/rb_groupclass_style"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:text="我的" />
+            </RadioGroup>
+        </LinearLayout>
+    </RelativeLayout>
+    <!-- com.don.view.DrawableCenterTextView -->
+
+    <TextView
+        android:id="@+id/tv_group_nodata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂无该分组数据"
+        android:textColor="@color/defult_text_color" />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/ptrlv_group_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/padding_8"
+        android:background="@color/defult_color_white"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:dividerHeight="1dip"
+        android:listSelector="@drawable/ll_leftmenu_bg_selector" />
+
+</LinearLayout>

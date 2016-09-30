@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/defult_color_transparent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/v_community_out_space"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/Defult_Color_translucentGrey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Defult_Color_ShallowGrey"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dip"
+            android:background="@color/defult_color_white"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/padding_12"
+            android:text="分享到"
+            android:textColor="@color/Defult_Color_Grey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/defult_color_white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/padding_12">
+
+            <LinearLayout
+                android:id="@+id/ll_community_share_weixin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/padding_12"
+                android:paddingRight="@dimen/padding_12">
+
+                <ImageView
+                    android:layout_width="51dip"
+                    android:layout_height="51dip"
+                    android:layout_weight="1"
+                    android:src="@mipmap/img_setting_thirdweixin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_6"
+                    android:text="微信"
+                    android:textColor="@color/Defult_Color_Grey" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_community_share_qq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="51dip"
+                    android:layout_height="51dip"
+                    android:layout_weight="1"
+                    android:src="@mipmap/img_setting_thirdqq" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_6"
+                    android:text="QQ"
+                    android:textColor="@color/Defult_Color_Grey" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_community_share_weibo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="51dip"
+                    android:layout_height="51dip"
+                    android:layout_weight="1"
+                    android:src="@mipmap/img_setting_thirdweibo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_6"
+                    android:text="微博"
+                    android:textColor="@color/Defult_Color_Grey" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:background="@color/Defult_Color_ShallowHalfGrey" />
+
+        <TextView
+            android:id="@+id/tv_community_share_delete"
+            style="@style/bt_white_style"
+            android:gravity="center"
+            android:text="删除" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:background="@color/Defult_Color_ShallowHalfGrey" />
+
+        <TextView
+            android:id="@+id/tv_community_share_collection"
+            style="@style/bt_white_style"
+            android:gravity="center"
+            android:text="收藏" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:background="@color/Defult_Color_ShallowHalfGrey" />
+
+        <TextView
+            android:id="@+id/tv_community_share_report"
+            style="@style/bt_white_style"
+            android:gravity="center"
+            android:text="举报" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:background="@color/Defult_Color_ShallowHalfGrey" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:layout_marginTop="@dimen/margin_12"
+            android:background="@color/Defult_Color_ShallowHalfGrey" />
+
+        <TextView
+            android:id="@+id/tv_community_share_cancle"
+            style="@style/bt_white_style"
+            android:gravity="center"
+            android:text="取消" />
+    </LinearLayout>
+
+</LinearLayout>

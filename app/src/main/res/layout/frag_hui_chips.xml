@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey" >
+
+    <LinearLayout
+        android:id="@+id/frag_chips_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/Defult_Color_ShallowGrey"
+        android:orientation="vertical" >
+
+        <include
+            android:id="@+id/ll_NoticeDetails_Progress"
+            layout="@layout/progress" />
+
+        <TextView
+            android:id="@+id/tv_NoticeDetails_noData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="暂无数据"
+            android:visibility="gone" />
+
+        <GridView
+            android:id="@+id/gv_chips"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:gravity="fill"
+            android:horizontalSpacing="11dp"
+            android:listSelector="@drawable/bg_third_service_selector"
+            android:numColumns="2"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="11dp" >
+        </GridView>
+    </LinearLayout>
+
+    <cn.hi028.android.highcommunity.view.LoadingView
+        android:id="@+id/loadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+
+</RelativeLayout>

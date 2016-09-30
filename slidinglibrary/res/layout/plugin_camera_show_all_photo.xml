@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey">
+
+    <include
+        android:id="@+id/title_secondTitle_Hight"
+        layout="@layout/title_status_height" />
+
+    <RelativeLayout
+        android:id="@+id/showallphoto_headview"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/title_secondTitle_Hight"
+        android:background="@color/Defult_Color_AppGreen"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/showallphoto_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/Defult_Color_AppGreen"
+            android:drawableLeft="@drawable/img_back_nomal"
+            android:drawablePadding="8dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="@string/album"
+            android:textColor="@color/defult_color_white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/showallphoto_headtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:singleLine="true"
+            android:text="@string/photo"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/showallphoto_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/Defult_Color_AppGreen"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="@string/camera_cancel"
+            android:textColor="@color/defult_color_white"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/showallphoto_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/Defult_Color_AppGreen">
+
+        <Button
+            android:id="@+id/showallphoto_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@color/Defult_Color_AppGreen"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="@string/preview"
+            android:textColor="@color/defult_color_white"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/showallphoto_ok_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@color/Defult_Color_AppGreen"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:textColor="@color/defult_color_white"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/showallphoto_myGrid"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/showallphoto_bottom_layout"
+        android:layout_below="@id/showallphoto_headview"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="2dp"
+        android:background="@color/Defult_Color_ShallowGrey"
+        android:horizontalSpacing="10dp"
+        android:numColumns="4"
+        android:verticalSpacing="10dp" />
+
+    <ProgressBar
+        android:id="@+id/showallphoto_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#7ACEED"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/fl_shake"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="665dp"
+            android:background="@drawable/bg_shake_stripe"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:src="@mipmap/img_shake_top_title" />
+
+            <ImageView
+                android:id="@+id/img_shake_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@mipmap/img_shake_center_bg"
+                android:scaleType="center"
+                android:src="@mipmap/img_shake_center"></ImageView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/img_shake_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@mipmap/img_shake_time_title"
+                    android:paddingRight="4dp"
+                    android:scaleType="center"
+                    android:layout_marginBottom="10dp"
+                    android:src="@mipmap/img_shake_time_three"></ImageView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/bg_shake_act"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="24dp"
+                        android:src="@mipmap/img_shake_act_title"></ImageView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:paddingLeft="40dp"
+                        android:singleLine="true"
+                        android:text="奖品类别：积分、物业折扣券、购物优惠券随机摇奖。"
+                        android:textColor="@color/Defult_Color_DeepGrey"
+                        android:textSize="@dimen/font_small" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:paddingLeft="40dp"
+                        android:singleLine="true"
+                        android:text="活动规则：每名用户每日可获得3次摇奖机会"
+                        android:textColor="@color/Defult_Color_DeepGrey"
+                        android:textSize="@dimen/font_small" />
+
+                    <ImageView
+                        android:id="@+id/img_shake_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="10dp"
+                        android:src="@mipmap/img_shake_more"></ImageView>
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_shake_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#7ACEED"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <FrameLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="vertical"
+                android:padding="12dp"
+               >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/bg_shake_list">
+
+                    <cn.hi028.android.highcommunity.view.CustomList
+                        android:id="@+id/cl_shake_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:divider="@color/Defult_Color_LineGrey"
+                        android:dividerHeight="0.5dp"
+                        android:cacheColorHint="#00000000"
+                        android:padding="12dp">
+
+                    </cn.hi028.android.highcommunity.view.CustomList>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@mipmap/img_shake_top_list" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

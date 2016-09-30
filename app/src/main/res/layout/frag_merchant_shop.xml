@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/ac_merchant_content_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <ListView
+            android:id="@+id/ac_merchant_content_left_listview"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:divider="@color/gray"
+            android:dividerHeight="0.8dp"
+            android:gravity="center"
+            android:listSelector="@color/transparent"
+            android:scrollbars="none" >
+        </ListView>
+
+        <ListView
+            android:id="@+id/ac_merchant_content_right_listview"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3.5"
+            android:background="#FFFFFF"
+            android:divider="@null"
+            android:listSelector="@color/transparent"
+            android:scrollbars="none" >
+        </ListView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/frag_merchant_popup_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" >
+
+            <ListView
+                android:id="@+id/popup_pay_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none" >
+            </ListView>
+        </FrameLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/Defult_Color_LineGrey" />
+
+    <RelativeLayout
+        android:id="@+id/frag_merchant_bottom_rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/go_pay_orange_bottom" >
+
+        <FrameLayout
+            android:id="@+id/ac_merchant_shop_car_fl"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp" >
+
+            <RelativeLayout
+                android:id="@+id/frag_merchant_list_shoppingcar_rl"
+                android:layout_width="40dp"
+                android:layout_height="40dp" >
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@mipmap/shop_car" />
+
+                <TextView
+                    android:id="@+id/ac_merchant_shop_count"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/shape_shopping_car_tv"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/ac_merchant_shop_car_fl"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp" >
+
+            <TextView
+                android:id="@+id/ac_merchant_shop_car_allprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.0"
+                android:textColor="#FE0000" />
+
+            <!-- android:id="@+id/ac_merchant_shop_car_get" -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="获取金额" />
+        </LinearLayout>
+
+        <cn.hi028.android.highcommunity.view.RevealLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true" >
+
+            <Button
+                android:id="@+id/ac_merchant_shop_car_go_pay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFA52B"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="去支付"
+                android:textColor="@color/white" />
+        </cn.hi028.android.highcommunity.view.RevealLayout>
+    </RelativeLayout>
+
+</LinearLayout>

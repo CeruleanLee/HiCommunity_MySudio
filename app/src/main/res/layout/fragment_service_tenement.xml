@@ -1,0 +1,26 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+ >
+    <TextView
+        android:id="@+id/tv_Nodata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂无数据"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/lv_tenement"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="#00000000"
+        android:divider="@color/Defult_Color_LineGrey"
+        android:dividerHeight="0.5dp"
+        android:scrollbars="none" />
+    <include
+        android:id="@+id/ll_NoticeDetails_Progress"
+        layout="@layout/progress" />
+</FrameLayout>

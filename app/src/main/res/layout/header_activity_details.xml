@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
+
+        <net.duohuo.dhroid.view.AutoScrollViewPager
+            android:id="@+id/asvp_activity_header_viewpage"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="@android:color/white" />
+
+        <net.duohuo.dhroid.view.CirclePageIndicator xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cpi_activity_header_dot"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="@dimen/padding_8"
+            android:background="@android:color/transparent"
+            android:padding="3dp"
+            app:fillColor="@color/Defult_Color_AppGreen"
+            app:pageColor="@color/color_gray_no1"
+            app:radius="3dp"
+            app:strokeColor="@color/Defult_Color_AppGreen"
+            app:strokeWidth="0dp" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_activity_header_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defult_color_white"
+        android:paddingBottom="@dimen/padding_8"
+        android:paddingLeft="@dimen/padding_15"
+        android:paddingRight="@dimen/padding_15"
+        android:paddingTop="@dimen/padding_12"
+        android:text="--"
+        android:textColor="@color/Defult_Color_MidGrey"
+        android:textSize="@dimen/font_large"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defult_color_white"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/padding_8"
+        android:paddingLeft="@dimen/padding_15"
+        android:paddingRight="@dimen/padding_15">
+
+        <TextView
+            android:id="@+id/tv_activity_header_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_12"
+            android:layout_marginRight="@dimen/padding_24"
+            android:text="--"
+            android:textColor="@color/Defult_Color_MidGrey"
+            android:textSize="@dimen/font_extra_small" />
+
+        <TextView
+            android:id="@+id/tv_activity_header_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="--"
+            android:textColor="@color/Defult_Color_MidGrey"
+            android:textSize="@dimen/font_extra_small" />
+
+        <TextView
+            android:id="@+id/tv_activity_header_deadtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/padding_12"
+            android:text="--"
+            android:textColor="@color/Defult_Color_MidGrey"
+            android:textSize="@dimen/font_extra_small" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_activity_header_Username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_8"
+        android:background="@color/defult_color_white"
+        android:paddingBottom="@dimen/padding_8"
+        android:paddingLeft="@dimen/padding_24"
+        android:paddingRight="@dimen/padding_15"
+        android:paddingTop="@dimen/padding_12"
+        android:text="--"
+        android:textColor="@color/Defult_Color_MidGrey"
+        android:textSize="@dimen/font_middle" />
+
+    <TextView
+        android:id="@+id/tv_activity_header_unjoin_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defult_color_white"
+        android:paddingBottom="@dimen/padding_12"
+        android:paddingLeft="@dimen/padding_24"
+        android:paddingRight="@dimen/padding_15"
+        android:text="参与活动后显示发起人联系方式"
+        android:textColor="@color/Defult_Color_MidGrey"
+        android:textSize="@dimen/font_extra_small_half" />
+
+    <LinearLayout
+        android:id="@+id/tv_activity_header_joined_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defult_color_white"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/padding_8"
+        android:paddingLeft="@dimen/padding_15"
+        android:paddingRight="@dimen/padding_15"
+        android:paddingTop="@dimen/padding_4"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_activity_header_qq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_12"
+            android:layout_marginRight="@dimen/padding_24"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/img_activity_detail_qq"
+            android:drawablePadding="@dimen/margin_6"
+            android:gravity="center_vertical"
+            android:text="--"
+            android:textColor="@color/Defult_Color_MidGrey"
+            android:textSize="@dimen/font_extra_small" />
+
+        <TextView
+            android:id="@+id/tv_activity_header_weixin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/img_activity_detail_weixin"
+            android:drawablePadding="@dimen/margin_6"
+            android:text="--"
+            android:textColor="@color/Defult_Color_MidGrey"
+            android:textSize="@dimen/font_extra_small" />
+
+        <TextView
+            android:id="@+id/tv_activity_header_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/padding_12"
+            android:drawableLeft="@mipmap/img_activity_detail_phone"
+            android:drawablePadding="@dimen/margin_6"
+            android:gravity="right"
+            android:text="--"
+            android:textColor="@color/Defult_Color_MidGrey"
+            android:textSize="@dimen/font_extra_small" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_8"
+        android:background="@color/defult_color_white"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_15"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="@dimen/padding_15"
+            android:gravity="top"
+            android:text="活动介绍:"
+            android:textColor="@color/Defult_Color_MidGrey"
+            android:textSize="@dimen/font_middle" />
+
+        <TextView
+            android:id="@+id/tv_activity_header_actContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:lineSpacingExtra="3dip"
+            android:text="--"
+            android:textColor="@color/Defult_Color_MidGrey"
+            android:textSize="@dimen/font_middle" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/padding_8"
+        android:background="@color/defult_color_white"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/padding_15"
+        android:paddingRight="@dimen/padding_24"
+        android:paddingTop="@dimen/padding_15">
+
+        <TextView
+            android:id="@+id/tv_commDetails_Assist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingLeft="19dp"
+            android:paddingRight="12dp"
+            android:singleLine="true"
+            android:text="参与人员:"
+            android:textColor="@color/Defult_Color_MidGrey"
+            android:textSize="@dimen/font_size13" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@color/defult_color_white"
+            android:orientation="vertical">
+
+            <com.handmark.pulltorefresh.library.PullToRefreshGridView
+                android:id="@+id/ptrgv_activitydetail_member_grideview"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:numColumns="7"
+                android:background="@color/defult_color_white"
+                android:cacheColorHint="#00000000"
+                android:horizontalSpacing="4dp"
+                android:listSelector="@drawable/ll_leftmenu_bg_selector"
+                android:paddingRight="@dimen/padding_15"
+                android:smoothScrollbar="true"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="4dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_activitydetail_commentNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="1dip"
+        android:layout_marginTop="@dimen/padding_8"
+        android:background="@color/defult_color_white"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/padding_8"
+        android:paddingLeft="19dp"
+        android:paddingRight="@dimen/padding_15"
+        android:paddingTop="@dimen/padding_8"
+        android:singleLine="true"
+        android:text="评论"
+        android:textColor="@color/Defult_Color_MidGrey"
+        android:textSize="@dimen/font_size13" />
+
+</LinearLayout>

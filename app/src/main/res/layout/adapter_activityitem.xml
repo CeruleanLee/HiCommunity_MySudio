@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_third_service_selector"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_activityitem_image"
+        android:layout_width="match_parent"
+        android:layout_height="180dip"
+        android:contentDescription="图片"
+        android:scaleType="centerCrop" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/padding_8"
+        android:paddingLeft="@dimen/padding_24"
+        android:paddingRight="@dimen/padding_24"
+        android:paddingTop="@dimen/padding_8">
+
+        <TextView
+            android:id="@+id/tv_activityitem_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="大家电抢先定"
+            android:textColor="@color/Defult_Color_DeepGrey"
+            android:textSize="@dimen/font_small" />
+
+        <TextView
+            android:id="@+id/tv_activityitem_isJoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_activityitem_join_selector" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/padding_12"
+        android:paddingLeft="@dimen/padding_24"
+        android:paddingRight="@dimen/padding_24">
+
+        <TextView
+            android:id="@+id/tv_activityitem_Numbers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1234人参与"
+            android:textColor="@color/Defult_Color_Grey"
+            android:textSize="@dimen/font_extra_small" />
+
+        <TextView
+            android:id="@+id/tv_activityitem_Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_15"
+            android:layout_weight="1"
+            android:text="宿舍罗浮店"
+            android:textColor="@color/Defult_Color_Grey"
+            android:textSize="@dimen/font_extra_small" />
+
+        <TextView
+            android:id="@+id/tv_activityitem_DeadTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_15"
+            android:text="截至2016年2月7日"
+            android:textColor="@color/Defult_Color_Grey"
+            android:textSize="@dimen/font_extra_small" />
+
+    </LinearLayout>
+
+</LinearLayout>

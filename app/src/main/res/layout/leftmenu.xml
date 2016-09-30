@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_leftmenu_grandient"
+    android:orientation="vertical">
+
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/ptrsv_leftmenu_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <RelativeLayout
+                    android:id="@+id/rl_leftmenu_userinfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="@drawable/ll_leftmenu_bg_selector"
+                    android:clickable="true"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="@dimen/padding_24"
+                    android:paddingRight="@dimen/padding_8" >
+
+                    <com.don.view.CircleImageView
+                        android:id="@+id/img_LeftFrag_Avatar"
+                        style="@style/civ_avatar_type1"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tx_LeftFrag_userName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/img_LeftFrag_Avatar"
+                        android:layout_marginBottom="@dimen/padding_8"
+                        android:layout_marginLeft="@dimen/padding_12"
+                        android:layout_marginTop="@dimen/padding_8"
+                        android:layout_toRightOf="@id/img_LeftFrag_Avatar"
+                        android:text="name"
+                        android:textColor="@color/defult_color_white"
+                        android:textSize="@dimen/font_middle" />
+
+                    <TextView
+                        android:id="@+id/tx_LeftFrag_userSex"
+                        style="@style/cb_community_sex"
+                        android:layout_alignBottom="@id/img_LeftFrag_Avatar"
+                        android:layout_marginBottom="@dimen/padding_8"
+                        android:layout_marginTop="@dimen/padding_8"
+                        android:layout_toRightOf="@id/tx_LeftFrag_userName"
+                        android:text="未知" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/tx_LeftFrag_userlocation_layout"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/rl_leftmenu_userinfo"
+                    android:layout_height="wrap_content" 
+                        android:background="@drawable/ll_leftmenu_bg_selector"
+                        android:focusable="true"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
+                        android:paddingLeft="@dimen/padding_24"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" 
+                        android:layout_gravity="center_vertical"
+                        android:padding="@dimen/padding_4"
+                        android:src="@mipmap/img_label_location"/>
+
+                    <TextView
+                        android:id="@+id/tx_LeftFrag_userlocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="3dp"
+                        android:text="所在小区:"
+                        android:textColor="@color/Defult_Color_ShallowGrey"
+                        android:textSize="@dimen/font_extra_small_half" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_leftMenu_topic"
+                style="@style/ll_leftmenu_style"
+                android:layout_marginTop="28dip"
+                
+                android:clickable="true" >
+
+                <com.don.view.DrawableCenterTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/img_leftmenu_topic"
+                    android:drawablePadding="@dimen/padding_12"
+                    android:text="话题"
+                    android:textColor="@color/defult_color_white"
+                    android:textSize="@dimen/font_middle" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dip"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_leftMenu_topic_Num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dip"
+                    android:layout_marginRight="30dip"
+                    android:background="@drawable/bg_leftmenu_num"
+                    android:paddingBottom="@dimen/margin_2"
+                    android:paddingLeft="@dimen/padding_8"
+                    android:paddingRight="@dimen/padding_8"
+                    android:paddingTop="@dimen/margin_2"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_extra_small_half"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_leftMenu_collection"
+                style="@style/ll_leftmenu_style"
+                android:clickable="true" >
+
+                <com.don.view.DrawableCenterTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/img_leftmenu_collection"
+                    android:drawablePadding="@dimen/padding_12"
+                    android:text="我的收藏"
+                    android:textColor="@color/defult_color_white"
+                    android:textSize="@dimen/font_middle" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dip"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_leftMenu_collection_Num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dip"
+                    android:layout_marginRight="30dip"
+                    android:background="@drawable/bg_leftmenu_num"
+                    android:paddingBottom="@dimen/margin_2"
+                    android:paddingLeft="@dimen/padding_8"
+                    android:paddingRight="@dimen/padding_8"
+                    android:paddingTop="@dimen/margin_2"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_extra_small_half"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_leftMenu_wallet"
+                style="@style/ll_leftmenu_style"
+                android:clickable="true" >
+
+                <com.don.view.DrawableCenterTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/img_leftmenu_wallet"
+                    android:drawablePadding="@dimen/padding_12"
+                    android:text="我的钱包"
+                    android:textColor="@color/defult_color_white"
+                    android:textSize="@dimen/font_middle" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dip"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_leftMenu_wallet_Num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dip"
+                    android:layout_marginRight="30dip"
+                    android:background="@drawable/bg_leftmenu_num"
+                    android:paddingBottom="@dimen/margin_2"
+                    android:paddingLeft="@dimen/padding_8"
+                    android:paddingRight="@dimen/padding_8"
+                    android:paddingTop="@dimen/margin_2"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_extra_small_half"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_leftMenu_cart"
+                style="@style/ll_leftmenu_style"
+                android:clickable="true" >
+
+                <com.don.view.DrawableCenterTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/img_leftmenu_cart"
+                    android:drawablePadding="@dimen/padding_12"
+                    android:text="购物车"
+                    android:textColor="@color/defult_color_white"
+                    android:textSize="@dimen/font_middle" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dip"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_leftMenu_Cart_Num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dip"
+                    android:layout_marginRight="30dip"
+                    android:background="@drawable/bg_leftmenu_num"
+                    android:paddingBottom="@dimen/margin_2"
+                    android:paddingLeft="@dimen/padding_8"
+                    android:paddingRight="@dimen/padding_8"
+                    android:paddingTop="@dimen/margin_2"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_extra_small_half"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_leftMenu_bill"
+                style="@style/ll_leftmenu_style"
+                android:clickable="true" >
+
+                <com.don.view.DrawableCenterTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/img_leftmenu_bill"
+                    android:drawablePadding="@dimen/padding_12"
+                    android:text="物业账单"
+                    android:textColor="@color/defult_color_white"
+                    android:textSize="@dimen/font_middle" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dip"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_leftMenu_bill_Num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dip"
+                    android:background="@drawable/bg_leftmenu_num"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/margin_2"
+                    android:paddingLeft="@dimen/padding_8"
+                    android:paddingRight="@dimen/padding_8"
+                    android:paddingTop="@dimen/margin_2"
+                    android:text="+12"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_extra_small_half"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_leftMenu_Order"
+                style="@style/ll_leftmenu_style"
+                android:clickable="true" >
+
+                <com.don.view.DrawableCenterTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/img_leftmenu_order"
+                    android:drawablePadding="@dimen/padding_12"
+                    android:text="我的订单"
+                    android:textColor="@color/defult_color_white"
+                    android:textSize="@dimen/font_middle" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dip"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_leftMenu_Order_Num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dip"
+                    android:layout_marginRight="30dip"
+                    android:background="@drawable/bg_leftmenu_num"
+                    android:paddingBottom="@dimen/margin_2"
+                    android:paddingLeft="@dimen/padding_8"
+                    android:paddingRight="@dimen/padding_8"
+                    android:paddingTop="@dimen/margin_2"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_extra_small_half"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_leftMenu_alliance_Order"
+                style="@style/ll_leftmenu_style"
+                android:clickable="true" >
+
+                <com.don.view.DrawableCenterTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/img_leftmenu_order"
+                    android:drawablePadding="@dimen/padding_12"
+                    android:text="联盟订单"
+                    android:textColor="@color/defult_color_white"
+                    android:textSize="@dimen/font_middle" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dip"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_leftMenu_alliance_Order_Num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dip"
+                    android:layout_marginRight="30dip"
+                    android:background="@drawable/bg_leftmenu_num"
+                    android:paddingBottom="@dimen/margin_2"
+                    android:paddingLeft="@dimen/padding_8"
+                    android:paddingRight="@dimen/padding_8"
+                    android:paddingTop="@dimen/margin_2"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_extra_small_half"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_leftMenu_ZhongCou"
+                style="@style/ll_leftmenu_style"
+                android:clickable="true" >
+
+                <com.don.view.DrawableCenterTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/img_leftmenu_zhongcou"
+                    android:drawablePadding="@dimen/padding_12"
+                    android:text="我的众筹"
+                    android:textColor="@color/defult_color_white"
+                    android:textSize="@dimen/font_middle" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dip"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_leftMenu_ZhongCou_Num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dip"
+                    android:layout_marginRight="30dip"
+                    android:background="@drawable/bg_leftmenu_num"
+                    android:paddingBottom="@dimen/margin_2"
+                    android:paddingLeft="@dimen/padding_8"
+                    android:paddingRight="@dimen/padding_8"
+                    android:paddingTop="@dimen/margin_2"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_extra_small_half"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_leftMenu_Carft"
+                style="@style/ll_leftmenu_style"
+                android:clickable="true" >
+
+                <com.don.view.DrawableCenterTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/img_leftmenu_carft"
+                    android:drawablePadding="@dimen/padding_12"
+                    android:text="我的手艺"
+                    android:textColor="@color/defult_color_white"
+                    android:textSize="@dimen/font_middle" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dip"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_leftMenu_Carft_Num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dip"
+                    android:layout_marginRight="30dip"
+                    android:background="@drawable/bg_leftmenu_num"
+                    android:paddingBottom="@dimen/margin_2"
+                    android:paddingLeft="@dimen/padding_8"
+                    android:paddingRight="@dimen/padding_8"
+                    android:paddingTop="@dimen/margin_2"
+                    android:textSize="@dimen/font_extra_small_half"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="55dip" />
+        </LinearLayout>
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_leftMenu_setting"
+        style="@style/ll_leftmenu_style"
+        android:clickable="true" >
+
+        <com.don.view.DrawableCenterTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/img_leftmenu_setting"
+            android:drawablePadding="@dimen/padding_12"
+            android:gravity="center_vertical"
+            android:text="设置"
+            android:textColor="@color/defult_color_white"
+            android:textSize="@dimen/font_middle" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dip"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_leftMenu_setting_Num"
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:layout_marginRight="30dip"
+            android:background="@drawable/bg_leftmenu_num"
+            android:paddingBottom="@dimen/margin_2"
+            android:paddingLeft="@dimen/padding_8"
+            android:paddingRight="@dimen/padding_8"
+            android:paddingTop="@dimen/margin_2"
+            android:textColor="@color/defult_text_color"
+            android:textSize="@dimen/font_extra_small_half"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>

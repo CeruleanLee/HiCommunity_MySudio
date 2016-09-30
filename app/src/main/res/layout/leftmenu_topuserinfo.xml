@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff9900"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_leftmenu_userinfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_15"
+        android:background="@drawable/ll_leftmenu_bg_selector"
+        android:clickable="true"
+        android:paddingLeft="@dimen/padding_24"
+        android:paddingRight="@dimen/padding_8" >
+
+        <com.don.view.CircleImageView
+            android:id="@+id/img_LeftFrag_Avatar"
+            style="@style/civ_avatar_type1"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tx_LeftFrag_userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/img_LeftFrag_Avatar"
+            android:layout_marginBottom="@dimen/padding_8"
+            android:layout_marginLeft="@dimen/padding_12"
+            android:layout_marginTop="@dimen/padding_8"
+            android:layout_toRightOf="@id/img_LeftFrag_Avatar"
+            android:text="name"
+            android:textColor="@color/defult_color_white"
+            android:textSize="@dimen/font_middle" />
+
+        <TextView
+            android:id="@+id/tx_LeftFrag_userSex"
+            style="@style/cb_community_sex"
+            android:layout_alignBottom="@id/img_LeftFrag_Avatar"
+            android:layout_marginBottom="@dimen/padding_8"
+            android:layout_marginTop="@dimen/padding_8"
+            android:layout_toRightOf="@id/tx_LeftFrag_userName"
+            android:text="未知" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tx_LeftFrag_userlocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rl_leftmenu_userinfo"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@mipmap/img_label_location"
+        android:drawablePadding="@dimen/padding_4"
+        android:focusable="true"
+        android:paddingLeft="@dimen/padding_24"
+        android:text="所在小区:"
+        android:textColor="@color/Defult_Color_ShallowGrey"
+        android:textSize="@dimen/font_extra_small_half" />
+
+</RelativeLayout>

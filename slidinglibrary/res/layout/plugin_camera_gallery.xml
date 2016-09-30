@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey">
+
+    <include
+        android:id="@+id/title_secondTitle_Hight"
+        layout="@layout/title_status_height" />
+
+    <RelativeLayout
+        android:id="@+id/headview"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/title_secondTitle_Hight"
+        android:background="@color/Defult_Color_AppGreen"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/gallery_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/Defult_Color_AppGreen"
+            android:drawableLeft="@drawable/img_back_nomal"
+            android:drawablePadding="8dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="@string/album"
+            android:textColor="@color/defult_color_white"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/gallery_del"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="15dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="15dp"
+            android:src="@drawable/plugin_camera_del_state" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/Defult_Color_AppGreen">
+
+        <Button
+            android:id="@+id/send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@color/Defult_Color_AppGreen"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="@string/finish"
+            android:textColor="@color/defult_color_white" />
+
+    </RelativeLayout>
+
+    <photo.zoom.ViewPagerFixed
+        android:id="@+id/gallery01"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottom_layout"
+        android:layout_below="@id/headview"
+        android:layout_centerHorizontal="true"
+        android:background="@color/Defult_Color_ShallowGrey"
+        android:unselectedAlpha="1" />
+
+</RelativeLayout>
+  

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" >
+
+        <LinearLayout
+            android:id="@+id/layout0"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/ac_shopdetail_mypicdetail"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:background="@drawable/frag_picdetail_checktextview_selector"
+                android:button="@null"
+                android:checked="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="图文详情"
+                android:textColor="@color/color_group_selector" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/gray" />
+
+            <RadioButton
+                android:id="@+id/ac_shopdetail_mycommentdetail"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:background="@drawable/frag_picdetail_checktextview_selector"
+                android:button="@null"
+                android:checked="false"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="商品评价"
+                android:textColor="@color/color_group_selector" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/ac_shopdetail_FrameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        
+    </LinearLayout>
+
+</LinearLayout>

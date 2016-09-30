@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_third_service_selector"
+    android:padding="10dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp" >
+
+        <ImageView
+            android:id="@+id/item_evaluation_iv"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/evaluation_icon" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="@+id/item_evaluation_iv"
+            android:layout_alignTop="@+id/item_evaluation_iv"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/item_evaluation_iv" >
+
+            <TextView
+                android:id="@+id/item_username_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="张三"
+                 android:layout_alignParentTop="true"
+                android:textColor="@color/item_shopdeatil_commentdetail_title"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/item_evalutaion_merchantname_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/item_username_tv"
+                android:textColor="#5F605E"
+                android:text="海螺店" />
+
+            <TextView
+                android:id="@+id/item_evaluation_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:textColor="#5F605E"
+                android:text="time" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/item_evalution_content_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#5F605E"
+        android:text="content" />
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        
+        />
+
+    <cn.hi028.android.highcommunity.view.CustomGridView
+        android:id="@+id/item_evaluation_gridview"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        android:horizontalSpacing="10dp"
+        android:listSelector="@null"
+        android:numColumns="4"
+        android:visibility="gone"
+        android:paddingBottom="5dp"
+        android:scrollbars="none"
+        android:verticalSpacing="5dp" >
+    </cn.hi028.android.highcommunity.view.CustomGridView>
+
+</LinearLayout>

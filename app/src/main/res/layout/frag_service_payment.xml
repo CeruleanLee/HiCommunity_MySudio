@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+    
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dip"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_payment_service_wuguan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/padding_4"
+            android:background="@mipmap/img_woguan"
+            android:clickable="true" />
+
+        <TextView
+            android:id="@+id/tv_payment_service_water"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_4"
+            android:layout_marginRight="@dimen/padding_4"
+            android:background="@mipmap/img_water"
+            android:clickable="true" />
+
+        <TextView
+            android:id="@+id/tv_payment_service_dian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_4"
+            android:layout_marginRight="@dimen/padding_4"
+            android:background="@mipmap/img_dian"
+            android:clickable="true" />
+
+        <TextView
+            android:id="@+id/tv_payment_service_qi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_4"
+            android:background="@mipmap/img_qi"
+            android:clickable="true" />
+    </LinearLayout>
+     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dip"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_seri_repairr_jj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/img_seri_repair_jj"
+            android:clickable="true" />
+
+        <ImageView
+            android:id="@+id/img_seri_repair_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/img_seri_repair_order"
+            android:clickable="true" />
+
+        <ImageView
+            android:layout_weight="1"
+            android:id="@+id/img_seri_repair_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/img_seri_repair_record"
+            android:clickable="true" />
+
+    </LinearLayout>
+    
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="173dip"
+        android:src="@mipmap/tag_service_bg" />
+
+</LinearLayout>

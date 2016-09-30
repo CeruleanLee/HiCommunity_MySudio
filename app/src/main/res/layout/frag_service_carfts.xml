@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/progress_serviceCarfts"
+        layout="@layout/progress" />
+
+    <TextView
+        android:id="@+id/tv_serviceCarfts_Nodata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂无数据"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/layout_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_4"
+        android:layout_marginLeft="@dimen/padding_12"
+        android:layout_marginRight="@dimen/padding_12"
+        android:layout_marginTop="@dimen/padding_8"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:visibility="gone" >
+
+        <EditText
+            android:id="@+id/et_carftssearch_content"
+            android:layout_width="match_parent"
+            android:layout_height="30dip"
+            android:background="@drawable/bg_carfts_search"
+            android:gravity="center"
+            android:hint="搜索服务"
+            android:textSize="@dimen/font_small" />
+
+        <ImageView
+            android:id="@+id/iv_carftsearch_tag"
+            android:layout_width="20dip"
+            android:layout_height="20dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="55dip"
+            android:src="@mipmap/img_citiy_search" />
+    </RelativeLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/ptrlv_serviceCarfts_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/padding_4"
+        android:background="@color/defult_color_white"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:scrollbars="none" />
+    <!-- android:listSelector="@drawable/ll_leftmenu_bg_selector" -->
+
+</LinearLayout>

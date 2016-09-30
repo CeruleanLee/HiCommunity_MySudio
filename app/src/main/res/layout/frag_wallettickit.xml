@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/progress_walletTickit"
+        layout="@layout/progress" />
+
+    <TextView
+        android:id="@+id/tv_walletTickit_Nodata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂无优惠券"
+        android:visibility="visible" />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/tv_walletTickit_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="#00000000"
+        android:paddingTop="8dp"
+        android:divider="@color/defult_color_white"
+        android:dividerHeight="9dip"
+        android:background="@color/defult_color_white"
+        android:listSelector="@drawable/ll_leftmenu_bg_selector"
+        android:scrollbars="none" />
+</LinearLayout>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:orientation="vertical" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:layout_marginTop="25dp"
+        android:background="@color/Defult_Color_LineGrey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defult_color_white"
+        android:paddingLeft="@dimen/padding_12" >
+
+        <ImageView
+            style="@style/et_login_defulttype"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:src="@mipmap/img_password_tag" />
+
+        <EditText
+            android:id="@+id/edt_old_psd"
+            style="@style/et_login_defulttype"
+            android:layout_width="fill_parent"
+            android:background="@null"
+            android:hint="请输入旧密码"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:paddingLeft="@dimen/padding_8"
+            android:textColorHint="@color/Defult_Color_Grey"
+            android:textSize="@dimen/font_small" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/Defult_Color_LineGrey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defult_color_white"
+        android:paddingLeft="@dimen/padding_12" >
+
+        <ImageView
+            style="@style/et_login_defulttype"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:src="@mipmap/img_password_tag" />
+
+        <EditText
+            android:id="@+id/edt_new_psd"
+            style="@style/et_login_defulttype"
+            android:layout_width="fill_parent"
+            android:background="@null"
+            android:hint="请输入新密码"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:paddingLeft="@dimen/padding_8"
+            android:textColorHint="@color/Defult_Color_Grey"
+            android:textSize="@dimen/font_small" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/Defult_Color_LineGrey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defult_color_white"
+        android:paddingLeft="@dimen/padding_12" >
+
+        <ImageView
+            style="@style/et_login_defulttype"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:src="@mipmap/img_password_tag" />
+
+        <EditText
+            android:id="@+id/edt_conform_psd"
+            style="@style/et_login_defulttype"
+            android:layout_width="fill_parent"
+            android:background="@null"
+            android:hint="再次输入新密码"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:paddingLeft="@dimen/padding_8"
+            android:textColorHint="@color/Defult_Color_Grey"
+            android:textSize="@dimen/font_small" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/Defult_Color_LineGrey" />
+
+    <cn.hi028.android.highcommunity.view.RevealLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+          android:layout_marginTop="@dimen/padding_36"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_modify"
+            style="@style/bt_appdefult_tyle"
+          
+            android:clickable="true"
+            android:text="修改"
+            android:textSize="@dimen/font_small" />
+    </cn.hi028.android.highcommunity.view.RevealLayout>
+
+</LinearLayout>

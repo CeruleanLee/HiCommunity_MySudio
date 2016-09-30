@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/defult_color_white">
+        <RadioGroup
+            android:id="@+id/rg_huil_ife"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="8dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_order_all"
+                style="@style/rb_huilife_style"
+                android:checked="true"
+                android:text="全部订单" />
+
+            <RadioButton
+                android:id="@+id/rb_no_pay"
+                style="@style/rb_huilife_style"
+                android:text="待付款"
+                android:checked="false" />
+            <RadioButton
+                android:id="@+id/rb_reserve"
+                style="@style/rb_huilife_style"
+                android:text="待收货"
+                android:checked="false" />
+            <RadioButton
+                android:id="@+id/rb_comment"
+                style="@style/rb_huilife_style"
+                android:text="待评价"
+                android:checked="false" />
+        </RadioGroup>
+    </LinearLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vPager"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/defult_color_white"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation" />
+</LinearLayout>

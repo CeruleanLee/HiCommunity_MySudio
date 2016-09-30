@@ -1,0 +1,50 @@
+09-17 22:59:13.496: D/_(13903): ------------CommunityFragonAttach
+09-17 22:59:13.496: D/_(13903): ------------CommunityFragonCreate
+09-17 22:59:13.501: D/_(13903): ------------CommunityFragonCreateView
+09-17 22:59:13.506: D/_(13903): ------------CommunityFrag---initView
+09-17 22:59:13.726: D/_(13903): ------------CommunityFrag initView   startLoading
+09-17 22:59:14.056: D/_(13903): ------------CommunityFragonActivityCreated
+09-17 22:59:14.066: D/_(13903): ------------CommunityFragonStart
+09-17 22:59:14.066: D/_(13903): ------------CommunityFrag---onResume
+09-17 22:59:14.076: D/_(13903): ------------CommunityFrag   GetMessage
+09-17 22:59:14.086: D/_(13903): ------------CommunityFragGetMessage2 
+09-17 22:59:17.806: D/_(13903): ------------CommunityFragonSuccess
+09-17 22:59:17.811: D/_(13903): ------------CommunityFragonSuccess---
+
+cn.hi028.android.highcommunity.bean.CommunityListBean@43423200
+下拉刷新一次
+09-17 22:59:34.746: D/_(13903): ------------CommunityFragRefreshData 
+09-17 22:59:35.581: D/_(13903): ------------CommunityFragonSuccess
+09-17 22:59:35.581: D/_(13903): ------------CommunityFragonSuccess---
+
+cn.hi028.android.highcommunity.bean.CommunityListBean@433f9be0
+两次
+09-17 23:00:19.131: D/_(13903): ------------CommunityFragRefreshData 
+09-17 23:00:19.441: D/_(13903): ------------CommunityFragonSuccess
+09-17 23:00:19.441: D/_(13903): ------------CommunityFragonSuccess---
+
+cn.hi028.android.highcommunity.bean.CommunityListBean@433f4d80
+三次 四次
+09-17 23:01:31.351: D/_(22050): ------------CommunityFragRefreshData 
+09-17 23:01:31.536: D/_(22050): ------------CommunityFragonSuccess
+09-17 23:01:31.536: D/_(22050): ------------CommunityFragonSuccess---
+
+cn.hi028.android.highcommunity.bean.CommunityListBean@4439c998
+09-17 23:01:46.696: D/_(22050): ------------CommunityFragRefreshData 
+09-17 23:01:46.906: D/_(22050): ------------CommunityFragonSuccess
+09-17 23:01:46.906: D/_(22050): ------------CommunityFragonSuccess---
+
+cn.hi028.android.highcommunity.bean.CommunityListBean@44304a18
+
+
+点击进入详情后返回
+09-17 23:01:51.776: D/_(22050): ------------CommunityFragonPause
+09-17 23:01:52.376: D/_(22050): ------------CommunityFragonStop
+09-17 23:01:54.821: D/_(22050): ------------CommunityFragonStart
+09-17 23:01:54.826: D/_(22050): ------------CommunityFrag---onResume
+09-17 23:01:54.826: D/_(22050): ------------CommunityFrag   GetMessage
+09-17 23:01:54.836: D/_(22050): ------------CommunityFragGetMessage2 
+09-17 23:01:54.996: D/_(22050): ------------CommunityFragonSuccess
+09-17 23:01:55.001: D/_(22050): ------------CommunityFragonSuccess---
+
+cn.hi028.android.highcommunity.bean.CommunityListBean@43421ee0

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical" >
+<!--  评价界面布局-->
+    <include
+        android:id="@+id/evluate_include"
+        layout="@layout/title_secondlevel" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#ffffff"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp" >
+
+        <ImageView
+            android:id="@+id/ac_evluate_goods_imageview"
+            android:layout_width="65dp"
+            android:layout_height="65dp" />
+
+        <TextView
+            android:id="@+id/ac_evluate_goods_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/ac_evluate_shop_name_tv"
+            android:layout_toRightOf="@+id/ac_evluate_goods_imageview"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="name"
+            android:textColor="@color/black2"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/ac_evluate_goods_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ac_evluate_goods_name_tv"
+            android:layout_below="@+id/ac_evluate_goods_name_tv"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:text="¥99"
+            android:textColor="@color/black2" />
+
+        <TextView
+            android:id="@+id/ac_evluate_shop_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="name"
+            android:textColor="@color/black2" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/ac_evluate_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:gravity="start"
+        android:hint="写下对产品的评价吧，对其他人帮助很大哟！"
+        android:padding="5dp"
+        android:paddingLeft="5dp"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/ac_evaluate_send_tv"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="end"
+        android:background="@color/Defult_Color_AppGreen"
+        android:gravity="center"
+        android:text="发表评论"
+        android:textColor="@color/white" />
+
+</LinearLayout>

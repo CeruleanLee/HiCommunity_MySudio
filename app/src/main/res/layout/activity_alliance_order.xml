@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/alliance_title"
+        layout="@layout/title_secondlevel" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_24"
+        android:paddingRight="@dimen/padding_24"
+        android:weightSum="4">
+
+        <LinearLayout style="@style/alliance_order_title_layout">
+
+            <TextView
+                android:id="@+id/alliance_title_unPay"
+                style="@style/alliance_order_title_text"
+                android:text="待付款" />
+
+            <View
+                android:id="@+id/alliance_title_unPay_line"
+                style="@style/alliance_order_title_line" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/alliance_order_title_layout">
+
+            <TextView
+                android:id="@+id/alliance_title_unRec"
+                style="@style/alliance_order_title_text"
+                android:text="待收货" />
+
+            <View
+                android:id="@+id/alliance_title_unRec_line"
+                style="@style/alliance_order_title_line" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/alliance_order_title_layout">
+
+            <TextView
+                android:id="@+id/alliance_title_unComm"
+                style="@style/alliance_order_title_text"
+                android:text="待评价" />
+
+            <View
+                android:id="@+id/alliance_title_unComm_line"
+                style="@style/alliance_order_title_line" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/alliance_order_title_layout">
+
+            <TextView
+                android:id="@+id/alliance_title_all_order"
+                style="@style/alliance_order_title_text"
+                android:text="全部订单" />
+
+            <View
+                android:id="@+id/alliance_title_all_order_line"
+                style="@style/alliance_order_title_line" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/main_tab_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+</LinearLayout>

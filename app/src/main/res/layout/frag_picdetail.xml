@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+   <WebView
+        android:id="@+id/ac_good_detail_webview"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        />
+   <RelativeLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:padding="10dp" >
+
+            <TextView
+                android:id="@+id/shop_detail_service_telephone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="客服电话：1231231231321"
+                android:textColor="@color/Defult_Color_AppGreen" />
+
+            <TextView
+                android:id="@+id/ac_shop_detail_service_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/shop_detail_service_telephone"
+                android:layout_marginTop="3dp"
+                android:text="服务时间：9:00-22:00" />
+
+            <View
+                android:id="@+id/call"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/phone_img" />
+        </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/defult_color_white"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/padding_8"
+        android:paddingLeft="@dimen/padding_12"
+        android:paddingRight="@dimen/padding_12"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_repair_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2015年12月15"
+            android:layout_gravity="center_vertical|left"
+            android:textColor="@color/Defult_Color_Grey"
+            android:textSize="@dimen/font_extra_small" />
+
+
+
+        <TextView
+            android:id="@+id/tv_repair_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已报修"
+            android:layout_gravity="center_vertical|right"
+            android:textSize="@dimen/font_extra_small_half"
+            android:textColor="@color/Service_title_text_color" />
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/Defult_Color_LineGrey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="19dp"
+        android:paddingLeft="@dimen/padding_12"
+        android:paddingRight="@dimen/padding_12"
+        android:paddingTop="19dp">
+
+        <TextView
+            android:id="@+id/tv_repair_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textSize="@dimen/font_extra_small_half"
+            android:drawableRight="@mipmap/img_notice_arrow"
+            android:drawablePadding="8dp"
+            android:ellipsize="end"
+            android:textColor="@color/Service_title_text_color"
+            android:text="因自来水工程建设 斯科拉大家放" />
+
+    </LinearLayout>
+
+</LinearLayout>

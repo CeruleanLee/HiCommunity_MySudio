@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/progress_addressModify"
+        layout="@layout/progress" />
+
+    <TextView
+        android:id="@+id/tv_addressModify_Nodata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂无数据"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_8"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_15"
+                    android:text="姓名:"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+
+                <EditText
+                    android:id="@+id/et_addressModify_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="请输入姓名"
+                    android:padding="@dimen/padding_15"
+                    android:singleLine="true"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_15"
+                    android:text="联系电话:"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+
+                <EditText
+                    android:id="@+id/et_addressModify_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="请输入联系电话"
+                    android:inputType="number"
+                    android:padding="@dimen/padding_15"
+                    android:singleLine="true"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/padding_24"
+                android:layout_marginTop="@dimen/padding_8"
+                android:background="@color/defult_color_white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_15"
+                    android:text="城市:"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+
+                <TextView
+                    android:id="@+id/et_addressModify_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:gravity="right"
+                    android:hint="请选择城市"
+                    android:padding="@dimen/padding_15"
+                    android:singleLine="true"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_15"
+                    android:text="区县:"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+
+                <TextView
+                    android:id="@+id/et_addressModify_quxian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:gravity="right"
+                    android:hint="请选择区县"
+                    android:padding="@dimen/padding_15"
+                    android:singleLine="true"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_15"
+                    android:text="小区名:"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+
+                <TextView
+                    android:id="@+id/et_addressModify_xiaoqu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:gravity="right"
+                    android:hint="请选择小区"
+                    android:padding="@dimen/padding_15"
+                    android:singleLine="true"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_15"
+                    android:text="楼栋:"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+
+                <EditText
+                    android:id="@+id/et_addressModify_build"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="必填"
+                    android:inputType="number"
+                    android:padding="@dimen/padding_15"
+                    android:singleLine="true"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+
+                <View
+                    android:layout_width="1dip"
+                    android:layout_height="25dip"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/Defult_Color_ShallowGrey" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_15"
+                    android:text="栋"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_15"
+                    android:text="单元:"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+
+                <EditText
+                    android:id="@+id/et_addressModify_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="非必填"
+                    android:inputType="number"
+                    android:padding="@dimen/padding_15"
+                    android:singleLine="true"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+
+                <View
+                    android:layout_width="1dip"
+                    android:layout_height="25dip"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/Defult_Color_ShallowGrey" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_15"
+                    android:text="单元"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_15"
+                    android:text="门牌号:"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+
+                <EditText
+                    android:id="@+id/et_addressModify_doorNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="请输入门牌号"
+                    android:inputType="number"
+                    android:padding="@dimen/padding_15"
+                    android:singleLine="true"
+                    android:textColor="@color/color_hulf_black"
+                    android:textSize="@dimen/font_middle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_AddressModify_DefultLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/padding_8"
+                android:paddingLeft="@dimen/padding_15"
+                android:paddingRight="@dimen/padding_15"
+                android:paddingTop="@dimen/padding_8">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="设置为默认地址"
+                        android:textColor="@color/color_hulf_black"
+                        android:textSize="@dimen/font_middle" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding_4"
+                        android:text="注:每次下单时会使用该地址"
+                        android:textColor="@color/Defult_Color_Grey"
+                        android:textSize="@dimen/font_small" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_AddressModify_SetDefult"
+                    android:layout_width="23dip"
+                    android:layout_height="23dip"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/padding_4"
+                    android:background="@drawable/bt_payment_selector" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_addressModify_submit"
+        style="@style/bt_appdefult_tyle"
+        android:text="保存" />
+
+</LinearLayout>

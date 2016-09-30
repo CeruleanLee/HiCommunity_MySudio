@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:orientation="vertical" >
+
+    <GridView
+        android:id="@+id/report_radiobut_gv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="2" >
+    </GridView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defult_color_white"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_12"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/cb_reportResone_type1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_15"
+                android:layout_weight="1"
+                android:text="广告        " />
+
+            <CheckBox
+                android:id="@+id/cb_reportResone_type2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/padding_15"
+                android:layout_weight="1"
+                android:text="淫秽色情" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/cb_reportResone_type3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_15"
+                android:layout_weight="1"
+                android:text="有害信息" />
+
+            <CheckBox
+                android:id="@+id/cb_reportResone_type4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/padding_15"
+                android:layout_weight="1"
+                android:text="违法信息" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/cb_reportResone_type5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_15"
+                android:layout_weight="1"
+                android:text="垃圾信息" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="淫秽色情"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <cn.hi028.android.highcommunity.view.RevealLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dip"
+        android:layout_marginTop="@dimen/padding_15"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_report_submit"
+            style="@style/bt_appdefult_tyle"
+            android:clickable="true"
+            android:text="提交" />
+    </cn.hi028.android.highcommunity.view.RevealLayout>
+
+</LinearLayout>

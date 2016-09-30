@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+ <resources> 
+  <color name="Defult_Color_AppGreen">#1fc796</color>
+    <color name="Defult_Color_AppBotton">#1FC796</color>
+    <!--<color name="tb_selected_color">#0b93d2</color>-->
+    <color name="tb_normal_color">#c5c5c5</color>
+    <color name="Defult_Color_DeepGrey">#585858</color>
+    <color name="Defult_Color_MidGrey">#666666</color>
+    <color name="Defult_Color_Grey">#aaaaaa</color>
+    <color name="Defult_Color_ShallowHalfGrey">#f5f5f5</color>
+    <color name="Defult_Color_ShallowGrey">#f7f7f7</color>
+     <color name="defult_color_white">#ffffff</color>
+ </resources>

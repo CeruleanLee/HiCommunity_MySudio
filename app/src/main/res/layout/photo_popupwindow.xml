@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#887f7f7f"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/PhotoPopupWindow_OutView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/PhotoPopupWindow_photo"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:text="拍照"
+        android:textColor="#6D6D6D"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#F1F1F1" />
+
+    <TextView
+        android:id="@+id/PhotoPopupWindow_file"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:text="从相册选择"
+        android:textColor="#6D6D6D"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="#F1F1F1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dip"
+        android:background="#F5F5F5" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="#F1F1F1" />
+
+    <TextView
+        android:id="@+id/PhotoPopupWindow_cancal"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="#6D6D6D"
+        android:textSize="15sp" />
+
+</LinearLayout>

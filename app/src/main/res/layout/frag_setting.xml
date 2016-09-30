@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:orientation="vertical" >
+
+    <cn.hi028.android.highcommunity.view.RevealLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_settings_modifyPassword"
+                style="@style/tv_settings_tyle"
+                android:layout_marginTop="@dimen/padding_8"
+                android:text="密码修改" />
+
+            <TextView
+                style="@style/tv_settings_tyle"
+                android:layout_marginTop="@dimen/padding_8"
+                android:text="绑定帐号:" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal"
+                android:paddingBottom="20dip" >
+
+                <LinearLayout
+                    android:id="@+id/ll_setting_thirdPary_weixin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="42dip"
+                        android:layout_height="42dip"
+                        android:layout_weight="1"
+                        android:src="@mipmap/img_setting_thirdweixin" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding_6"
+                        android:text="微信"
+                        android:textColor="@color/Defult_Color_Grey" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_setting_thirdPary_qq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="42dip"
+                        android:layout_height="42dip"
+                        android:layout_weight="1"
+                        android:src="@mipmap/img_setting_thirdqq" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding_6"
+                        android:text="QQ"
+                        android:textColor="@color/Defult_Color_Grey" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_setting_thirdPary_weibo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="42dip"
+                        android:layout_height="42dip"
+                        android:layout_weight="1"
+                        android:src="@mipmap/img_setting_thirdweibo" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding_6"
+                        android:text="微博"
+                        android:textColor="@color/Defult_Color_Grey" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_settings_ReciveAddress"
+                style="@style/tv_settings_tyle"
+                android:layout_marginTop="@dimen/padding_8"
+                android:text="收货地址" />
+
+            <TextView
+                android:id="@+id/tv_settings_PhoneNumber"
+                style="@style/tv_settings_tyle"
+                android:layout_marginTop="@dimen/padding_8"
+                android:text="客服电话"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_settings_AppUpdate"
+                style="@style/tv_settings_tyle"
+                android:layout_marginTop="1dip"
+                android:text="软件更新" />
+
+            <TextView
+                android:id="@+id/tv_settings_clear"
+                style="@style/tv_settings_tyle"
+                android:layout_marginTop="1dip"
+                android:text="缓存清理" />
+
+            <TextView
+                android:id="@+id/tv_settings_AboutUs"
+                style="@style/tv_settings_tyle"
+                android:layout_marginTop="1dip"
+                android:text="关于我们" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_settings_Logout"
+            style="@style/bt_appdefult_tyle"
+            android:layout_marginTop="1dip"
+            android:text="退出" />
+    </cn.hi028.android.highcommunity.view.RevealLayout>
+
+</LinearLayout>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/Defult_Color_ShallowGrey"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_8"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/padding_12"
+                android:paddingLeft="@dimen/padding_24"
+                android:paddingRight="@dimen/padding_24"
+                android:paddingTop="@dimen/padding_12">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="活动名称:"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_small" />
+
+                <EditText
+                    android:id="@+id/et_activityCreate_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="请输入活动名称"
+                    android:singleLine="true"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_small" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:background="@color/defult_color_white"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/padding_8"
+                android:paddingLeft="@dimen/padding_24"
+                android:paddingRight="@dimen/padding_24"
+                android:paddingTop="@dimen/padding_12">
+
+                <EditText
+                    android:id="@+id/et_activityCreate_activityContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dip"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:hint="请输入活动内容"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_small" />
+
+                <com.handmark.pulltorefresh.library.PullToRefreshGridView
+                    android:id="@+id/ptrgv_activityCreate_PostImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:cacheColorHint="#00000000"
+                    android:divider="@null"
+                    android:dividerHeight="0.7dip"
+                    android:horizontalSpacing="@dimen/margin_2"
+                    android:listSelector="@drawable/ll_leftmenu_bg_selector"
+                    android:numColumns="4"
+                    android:scrollbars="none"
+                    android:smoothScrollbar="true"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="@dimen/padding_4" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_8"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/padding_12"
+                android:paddingLeft="@dimen/padding_24"
+                android:paddingRight="@dimen/padding_24"
+                android:paddingTop="@dimen/padding_12">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="活动开始时间:"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_small" />
+
+                <TextView
+                    android:id="@+id/et_activityCreate_StartTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_small" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_8"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/padding_12"
+                android:paddingLeft="@dimen/padding_24"
+                android:paddingRight="@dimen/padding_24"
+                android:paddingTop="@dimen/padding_12">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="活动结束时间:"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_small" />
+
+                <TextView
+                    android:id="@+id/et_activityCreate_EndTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_small" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/padding_12"
+                android:paddingLeft="@dimen/padding_24"
+                android:paddingRight="@dimen/padding_24"
+                android:paddingTop="@dimen/padding_12">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="活动地点:"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_middle" />
+
+                <EditText
+                    android:id="@+id/et_activityCreate_Location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_small" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_8"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/padding_12"
+                android:paddingLeft="@dimen/padding_24"
+                android:paddingRight="@dimen/padding_24"
+                android:paddingTop="@dimen/padding_12">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="手机号:"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_middle" />
+
+                <EditText
+                    android:id="@+id/et_activityCreate_Phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_small" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/padding_12"
+                android:paddingLeft="@dimen/padding_24"
+                android:paddingRight="@dimen/padding_24"
+                android:paddingTop="@dimen/padding_12">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="QQ号:"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_middle" />
+
+                <EditText
+                    android:id="@+id/et_activityCreate_QQ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_small" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/padding_12"
+                android:paddingLeft="@dimen/padding_24"
+                android:paddingRight="@dimen/padding_24"
+                android:paddingTop="@dimen/padding_12">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="微信号:"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_middle" />
+
+                <EditText
+                    android:id="@+id/et_activityCreate_Weixin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_small" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_activityCreate_submit"
+        style="@style/bt_appdefult_tyle"
+        android:text="发起活动" />
+</LinearLayout>

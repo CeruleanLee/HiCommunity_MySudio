@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/defult_color_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="10dp">
+
+
+        <TextView
+            android:id="@+id/tv_ServiceNotice_item_Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/tv_ServiceNotice_item_Time"
+            android:textColor="@color/Defult_Color_MidGrey"
+            android:textSize="@dimen/font_large" />
+
+        <TextView
+            android:id="@+id/tv_ServiceNotice_item_Time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textColor="@color/Service_title_text_color" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_ServiceNotice_item_Content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingRight="@dimen/padding_4"
+        android:layout_marginTop="6dp"
+        android:visibility="gone"
+        android:textColor="@color/Service_title_text_color"
+        android:textSize="16dp" />
+</LinearLayout>

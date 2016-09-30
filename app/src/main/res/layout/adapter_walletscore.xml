@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/padding_24"
+    android:paddingTop="@dimen/padding_24">
+
+
+    <TextView
+        android:id="@+id/tv_walletScore_Content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_ServiceCarftsItem_Name"
+        android:layout_marginLeft="@dimen/padding_12"
+        android:text="成都市双流县中和镇磨盘街上段34号"
+        android:textColor="@color/Defult_Color_DeepGrey"
+        android:textSize="@dimen/font_middle" />
+
+    <TextView
+        android:id="@+id/tv_walletScore_Time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_ServiceCarftsItem_Name"
+        android:layout_marginRight="@dimen/padding_12"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:text="2015-11-24"
+        android:textColor="@color/Defult_Color_Grey"
+        android:textSize="@dimen/font_extra_small_half" />
+
+</LinearLayout>

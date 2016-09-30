@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_sort"
+    android:layout_width="fill_parent"
+    android:layout_height="120px"
+    android:layout_gravity="center"
+    android:layout_margin="5px"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="5px"
+    android:paddingLeft="10px"
+    android:paddingRight="10px"
+    android:paddingTop="5px" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:fadingEdge="vertical"
+        android:scrollbars="vertical" >
+
+        <LinearLayout
+            android:id="@+id/layout_sort0"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/layout_sort1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:gravity="left"
+                android:orientation="vertical" >
+
+                <RadioGroup
+                    android:id="@+id/orderBy"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                   
+                    android:orientation="vertical" >
+
+                    <RadioButton
+                        android:id="@+id/orderBy1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="名称" />
+
+                    <RadioButton
+                        android:id="@+id/orderBy2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="120px"
+                        android:layout_marginTop="-48px"
+                        android:text="日期" />
+
+                    <RadioButton
+                        android:id="@+id/orderBy3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="类型" />
+
+                    <RadioButton
+                        android:id="@+id/orderBy4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="120px"
+                        android:layout_marginTop="-48px"
+                        android:text="大小" />
+
+                    <RadioButton
+                        android:id="@+id/orderBy5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="系统默认" />
+                </RadioGroup>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:background="#ff666666" />
+
+                <RadioGroup
+                    android:id="@+id/orderLx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <RadioButton
+                        android:id="@+id/orderLx1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="升序" />
+
+                    <RadioButton
+                        android:id="@+id/orderLx2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="120px"
+                        android:layout_marginTop="-48px"
+                        android:text="降序" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_sort2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/sortOk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5px"
+                    android:text="确定" />
+
+                <Button
+                    android:id="@+id/sortCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5px"
+                    android:text="取消" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/loadingview_Container"
+        android:layout_width="match_parent"
+        
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/ll_act"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <include
+                android:id="@+id/progress_activity_notice"
+                layout="@layout/progress" />
+
+            <TextView
+                android:id="@+id/tv_activity_Nodata"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="暂无数据"
+                android:visibility="gone" />
+
+            <com.handmark.pulltorefresh.library.PullToRefreshListView
+                android:id="@+id/ptrlv_activity_listView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/padding_4"
+                android:cacheColorHint="#00000000"
+                android:divider="@color/Defult_Color_ShallowGrey"
+                android:dividerHeight="5dip"
+                android:listSelector="@drawable/ll_leftmenu_bg_selector"
+                android:scrollbars="none" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_activity_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ll_act"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/padding_6"
+            android:layout_marginRight="@dimen/padding_8"
+            android:background="@drawable/bg_activityitem_create_selector"
+            android:clickable="true" />
+    </RelativeLayout>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        layout="@layout/v_loadingview" />
+
+</RelativeLayout>

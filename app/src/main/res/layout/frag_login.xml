@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/title_mainlevel" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_marginTop="@dimen/padding_12"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:background="@color/Defult_Color_LineGrey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/defult_color_white"
+            android:paddingLeft="@dimen/padding_12">
+
+            <ImageView
+                style="@style/et_login_defulttype"
+                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:src="@mipmap/img_phone_tag" />
+
+            <EditText
+                android:id="@+id/ET_Login_UserName"
+                style="@style/et_login_defulttype"
+                android:layout_width="fill_parent"
+                android:background="@null"
+                android:hint="请输入手机号"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:paddingLeft="@dimen/padding_8"
+                android:textColorHint="@color/Defult_Color_Grey"
+                android:textSize="@dimen/font_small" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:background="@color/Defult_Color_LineGrey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/defult_color_white"
+            android:paddingLeft="@dimen/padding_12">
+
+            <ImageView
+                style="@style/et_login_defulttype"
+                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:src="@mipmap/img_password_tag" />
+
+            <EditText
+                android:id="@+id/ET_Login_Passowrd"
+                style="@style/et_login_defulttype"
+                android:layout_width="fill_parent"
+                android:background="@null"
+                android:hint="请输入密码"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/padding_8"
+                android:textColorHint="@color/Defult_Color_Grey"
+                android:textSize="@dimen/font_small" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:background="@color/Defult_Color_LineGrey" />
+
+        <TextView
+            android:id="@+id/TV_login_button"
+            style="@style/bt_appdefult_tyle"
+            android:layout_marginTop="@dimen/padding_36"
+            android:clickable="true"
+            android:text="登录"
+            android:textSize="@dimen/font_small" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/padding_24"
+            android:paddingRight="@dimen/padding_24"
+            android:paddingTop="@dimen/padding_12">
+
+            <TextView
+                android:id="@+id/TV_login_forgetPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="忘记密码?"
+                android:textColor="@color/Defult_Color_AppGreen"
+                android:textSize="@dimen/font_extra_small_half" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/TV_login_tourist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="游客模式"
+                android:textColor="@color/Defult_Color_AppGreen"
+                android:textSize="@dimen/font_extra_small_half" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/padding_12"
+        android:paddingLeft="@dimen/padding_24"
+        android:paddingRight="@dimen/padding_24">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.7dip"
+                android:layout_weight="1"
+                android:background="@color/Defult_Color_Grey" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_6"
+                android:layout_marginRight="@dimen/padding_6"
+                android:text="第三方登录"
+                android:textColor="@color/Defult_Color_Grey" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.7dip"
+                android:layout_weight="1"
+                android:background="@color/Defult_Color_Grey" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/padding_8">
+
+            <LinearLayout
+                android:id="@+id/ll_login_thirdPary_weixin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@mipmap/img_login_weixin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_6"
+                    android:text="微信"
+                    android:textColor="@color/Defult_Color_Grey" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_login_thirdPary_qq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@mipmap/img_login_qq" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_6"
+                    android:text="QQ"
+                    android:textColor="@color/Defult_Color_Grey" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_login_thirdPary_weibo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@mipmap/img_login_weibo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_6"
+                    android:text="微博"
+                    android:textColor="@color/Defult_Color_Grey" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

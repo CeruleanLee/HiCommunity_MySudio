@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:orientation="vertical" >
+
+    <cn.hi028.android.highcommunity.view.RevealLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_AboutUs_AppVersion"
+                style="@style/tv_settings_tyle"
+                android:layout_marginTop="@dimen/padding_8"
+                android:text="软件版本"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_AboutUs_Protocol"
+                style="@style/tv_settings_tyle"
+                android:layout_marginTop="@dimen/padding_8"
+                android:text="用户协议" />
+
+            <TextView
+                android:id="@+id/tv_AboutUs_FunctionIntro"
+                style="@style/tv_settings_tyle"
+                android:layout_marginTop="1dip"
+                android:text="功能介绍" />
+
+            <TextView
+                android:id="@+id/tv_AboutUs_Share"
+                style="@style/tv_settings_tyle"
+                android:layout_marginTop="1dip"
+                android:text="分享给好友" />
+
+            <TextView
+                android:id="@+id/tv_AboutUs_ContactUs"
+                style="@style/tv_settings_tyle"
+                android:layout_marginTop="1dip"
+                android:text="联系我们" />
+
+            <TextView
+                android:id="@+id/tv_AboutUs_UpdateContent"
+                style="@style/tv_settings_tyle"
+                android:layout_marginTop="1dip"
+                android:text="更新内容"
+                android:visibility="gone" />
+        </LinearLayout>
+    </cn.hi028.android.highcommunity.view.RevealLayout>
+
+</LinearLayout>

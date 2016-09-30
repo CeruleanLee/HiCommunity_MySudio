@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/layout_loading"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:orientation="vertical" 
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_loading_bg"
+        android:gravity="center"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_loading_logo" />
+
+            <ImageView
+                android:id="@+id/img_loading_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_loading_wrapper_white" />
+
+        </RelativeLayout>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数据加载中"
+            android:textColor="#ffffff"
+            android:layout_marginTop="5dp"
+            />
+    </LinearLayout>
+	<LinearLayout 
+	    android:id="@+id/layout_failed"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical"
+	    android:gravity="center"
+	    android:visibility="gone"
+	    android:background="#ffffff"
+	    >
+	    <ImageView 
+	        android:layout_width="100dp"
+	        android:layout_height="100dp"
+	        android:src="@drawable/ic_nonet"
+	        />
+	    <TextView 
+	        android:id="@+id/tv_tips"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="接收网络数据失败"
+	        android:layout_margin="15dp"
+	        />
+	    <TextView 
+	        android:id="@+id/tv_tryagain"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="重新加载"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:paddingLeft="15dp"
+	        android:paddingRight="15dp"
+	        android:textColor="#ffffff"
+	        android:textSize="13sp"
+	        android:background="@drawable/selector_join_now_bg"
+	        />
+	</LinearLayout>
+</RelativeLayout>

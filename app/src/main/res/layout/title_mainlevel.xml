@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/Defult_Color_AppGreen"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_status_height" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height">
+
+        <ImageView
+            android:id="@+id/tv_mainlevel_LeftButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:paddingLeft="@dimen/padding_12"
+            android:paddingRight="42dp"
+            android:src="@mipmap/img_title_left" />
+
+        <ImageView
+            android:id="@+id/iv_mainlevel_LeftNewMessage"
+            android:layout_width="5dip"
+            android:layout_height="5dip"
+            android:layout_marginLeft="-40dp"
+            android:layout_marginTop="14dip"
+            android:layout_toRightOf="@id/tv_mainlevel_LeftButton"
+            android:clickable="true"
+            android:src="@mipmap/img_title_new_message"
+           />
+
+        <TextView
+            android:id="@+id/tv_mainlevel_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textColor="@color/defult_color_white"
+            android:textSize="@dimen/font_extra_large"
+            android:visibility="gone" />
+
+        <RadioGroup
+            android:id="@+id/rg_maintitle_group"
+            android:layout_width="wrap_content"
+            android:layout_height="25dip"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_maintitle_radiogroup"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <RadioButton
+                android:id="@+id/rb_maintitle_leftbutton"
+                style="@style/My_RadioButton_Style"
+                android:checked="true"
+                android:text="社区" />
+
+            <RadioButton
+                android:id="@+id/rb_maintitle_rightbutton"
+                style="@style/My_RadioButton_Style"
+                android:text="群组" />
+        </RadioGroup>
+
+        <ImageView
+            android:id="@+id/iv_mainlevel_RightButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/padding_12"
+            android:clickable="true"
+            android:src="@mipmap/img_title_message"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_mainlevel_RightNewMessage"
+            android:layout_width="5dip"
+            android:layout_height="5dip"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="11dip"
+            android:layout_marginTop="@dimen/padding_12"
+            android:clickable="true"
+            android:src="@mipmap/img_title_new_message"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_mainlevel_RightnMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingRight="@dimen/padding_12"
+            android:text="注册"
+            android:textColor="@color/defult_color_white"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

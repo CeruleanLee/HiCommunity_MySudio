@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_header_title"
+        android:layout_width="match_parent"
+        android:layout_height="26dip"
+        android:background="@color/Defult_Color_ShallowGrey"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/padding_12"
+        android:textSize="13sp"
+        android:textColor="@color/Defult_Color_MidGrey" />
+    <TextView
+        android:id="@+id/tv_vallage_city"
+        android:layout_width="match_parent"
+        android:layout_height="42dip"
+        android:background="@color/defult_color_white"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/padding_24"
+        android:textSize="13sp"
+        android:textColor="@color/Defult_Color_MidGrey" />
+
+</LinearLayout>

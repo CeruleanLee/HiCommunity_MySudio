@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="10dp" >
+
+    <ImageView
+        android:id="@+id/alliance_order_item_pic"
+        android:layout_width="80dp"
+        android:scaleType="centerCrop"
+        android:layout_height="80dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/alliance_order_item_pic"
+        android:orientation="vertical"
+        android:paddingLeft="10dp" >
+
+        <TextView
+            android:id="@+id/alliance_order_item_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black2"
+            android:textSize="@dimen/font_middle" />
+
+        <TextView
+            android:id="@+id/alliance_order_item_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/red"
+            android:textSize="@dimen/font_middle" />
+
+        <TextView
+            android:id="@+id/alliance_order_item_prices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textSize="@dimen/font_size13" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/alliance_order_item_counts"
+        android:padding="4dp"
+        android:text="x"
+        android:textSize="@dimen/font_extra_large" />
+
+    <TextView
+        android:id="@+id/alliance_order_item_counts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textSize="@dimen/font_extra_large" />
+
+</RelativeLayout>

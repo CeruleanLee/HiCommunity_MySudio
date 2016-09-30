@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@mipmap/tag_group_selectlin" android:state_selected="true"></item>
+    <item android:drawable="@mipmap/tag_group_selectlin" android:state_checked="true"></item>
+    <item android:drawable="@mipmap/tag_group_selectnomal" />
+
+</selector>

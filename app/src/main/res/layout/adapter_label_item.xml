@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="55dip"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.don.view.CircleImageView
+        android:id="@+id/civ_labelitem_img"
+        style="@style/civ_avatar_type50"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/padding_8" />
+
+    <ImageView
+        android:id="@+id/civ_labelitem_Clicked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/civ_labelitem_img"
+        android:layout_marginTop="5dip"
+        android:src="@mipmap/img_labelitem_clicked"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_labelitem_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/civ_labelitem_img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/padding_4"
+        android:text="跳蚤市场"
+        android:textColor="@color/defult_color_white" />
+
+</RelativeLayout>

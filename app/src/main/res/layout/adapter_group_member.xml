@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="45dip"
+    android:layout_height="45dip"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <com.don.view.CircleImageView
+        android:id="@+id/civ_groupmember_img"
+        style="@style/civ_avatar_type40" />
+
+</LinearLayout>

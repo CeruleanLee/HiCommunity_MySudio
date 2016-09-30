@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_searchTitle_Hight"
+        layout="@layout/title_status_height" />
+
+    <RelativeLayout
+        android:id="@+id/ll_merchant_id"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/Defult_Color_AppGreen"
+        android:orientation="vertical"
+        android:paddingBottom="6.5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="5dp"
+        android:paddingTop="6.5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_toLeftOf="@+id/tv_cancel"
+                android:background="#1ADBA2"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/edt_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#1ADBA2"
+                    android:drawableLeft="@mipmap/img_draw_search"
+                    android:drawablePadding="8dp"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="40dp"
+                    android:singleLine="true"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#f2f2f2"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/img_clear_edt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:onClick="onClick"
+                    android:padding="10dp"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="取消"
+                android:textColor="@color/defult_color_white"
+                android:textSize="15sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_billpay_Nodata"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="无数据"
+            android:textColor="@color/Defult_Color_Grey"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <ListView
+            android:id="@+id/lv_search"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/Defult_Color_ShallowGrey"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@color/Defult_Color_LineGrey"
+            android:dividerHeight="0.5dp"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none"></ListView>
+    </FrameLayout>
+</LinearLayout>

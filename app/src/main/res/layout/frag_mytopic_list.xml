@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/layoutContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <include
+            android:id="@+id/progress_Community"
+            layout="@layout/progress" />
+
+        <TextView
+            android:id="@+id/tv_community_Nodata"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="暂无数据"
+            android:visibility="visible" />
+
+        <RelativeLayout
+            android:id="@+id/frag_community_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <com.handmark.pulltorefresh.library.PullToRefreshListView
+                android:id="@+id/ptrlv_community_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:divider="@color/Defult_Color_ShallowGrey"
+                android:dividerHeight="5dip"
+                android:fadingEdge="none" />
+
+            <ImageView
+                android:id="@+id/iv_community_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/ptrlv_community_listview"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="@dimen/padding_6"
+                android:layout_marginRight="@dimen/padding_8"
+                android:background="@mipmap/change_community" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+   <cn.hi028.android.highcommunity.view.LoadingView
+        android:id="@+id/loadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_gravity="center" />
+
+
+</RelativeLayout>

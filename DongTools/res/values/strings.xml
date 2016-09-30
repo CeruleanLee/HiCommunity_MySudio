@@ -1,0 +1,12 @@
+<resources>
+
+    <string name="app_name">HiCommunity</string>
+
+    <item name="tag_first" type="id"></item>
+    <item name="tag_second" type="id"></item>
+
+    <string name="RequestTimeout">Request timeout</string>
+    <string name="RequestEnd">Loaded to the last page.</string>
+    <string name="ShouldLogin">Should login first</string>
+
+</resources>

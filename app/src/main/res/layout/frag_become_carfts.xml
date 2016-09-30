@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                style="@style/ll_becomeworker_style"
+                android:layout_marginTop="@dimen/padding_8"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="姓名"
+                    android:textSize="@dimen/font_large" />
+
+                <EditText
+                    android:id="@+id/iv_becarfts_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="请输入姓名"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/ll_becCarftImage_style"
+                android:layout_marginTop="1dip"
+                android:background="@color/defult_color_white" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="头像"
+                    android:textSize="@dimen/font_large" />
+
+                <ImageView
+                    android:id="@+id/iv_becarfts_avatar"
+                    android:layout_width="75dip"
+                    android:layout_height="60dip"
+                    android:src="@mipmap/img_becomeworker_add" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/ll_becomeworker_style"
+                android:layout_marginTop="@dimen/padding_8"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系地址"
+                    android:textSize="@dimen/font_large" />
+
+                <EditText
+                    android:id="@+id/iv_becarfts_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="请输入地址"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/ll_becomeworker_style"
+                android:layout_marginTop="1dip"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系方式"
+                    android:textSize="@dimen/font_large" />
+
+                <EditText
+                    android:id="@+id/iv_becarfts_constact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="请输入联系电话"
+                    android:inputType="phone"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_8"
+                android:background="@color/defult_color_white"
+                android:orientation="vertical"
+                android:paddingBottom="7dip"
+                android:paddingLeft="@dimen/padding_15"
+                android:paddingRight="@dimen/padding_15"
+                android:paddingTop="7dip" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="身份证照片 (必填)"
+                    android:textSize="@dimen/font_large" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_8"
+                    android:gravity="top"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dip"
+                        android:text="示例"
+                        android:textColor="@color/Defult_Color_demoGrey"
+                        android:textSize="@dimen/font_large" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="59dip"
+                            android:src="@mipmap/img_becarfts_idcard" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dip"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:layout_marginRight="@dimen/padding_8"
+                    android:layout_marginTop="@dimen/padding_4"
+                    android:background="@color/Defult_Color_ShallowGrey" />
+
+                <LinearLayout
+                    style="@style/ll_becCarftImage_style"
+                    android:background="@color/defult_color_white" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="正面"
+                        android:textSize="@dimen/font_large" />
+
+                    <ImageView
+                        android:id="@+id/iv_becarfts_idcard_obverse"
+                        android:layout_width="75dip"
+                        android:layout_height="60dip"
+                        android:src="@mipmap/img_becomeworker_add" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dip"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:layout_marginRight="@dimen/padding_8"
+                    android:layout_marginTop="@dimen/padding_4"
+                    android:background="@color/Defult_Color_ShallowGrey" />
+
+                <LinearLayout
+                    style="@style/ll_becCarftImage_style"
+                    android:background="@color/defult_color_white" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="背面"
+                        android:textSize="@dimen/font_large" />
+
+                    <ImageView
+                        android:id="@+id/iv_becarfts_idcard_back"
+                        android:layout_width="75dip"
+                        android:layout_height="60dip"
+                        android:src="@mipmap/img_becomeworker_add" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dip"
+                android:layout_marginTop="@dimen/padding_8"
+                android:background="@color/defult_color_white"
+                android:orientation="vertical"
+                android:paddingBottom="7dip"
+                android:paddingLeft="@dimen/padding_15"
+                android:paddingRight="@dimen/padding_15"
+                android:paddingTop="7dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="手持身份证照片 (必填)"
+                    android:textSize="@dimen/font_large" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_8"
+                    android:gravity="top"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dip"
+                        android:text="示例"
+                        android:textColor="@color/Defult_Color_demoGrey"
+                        android:textSize="@dimen/font_large" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="59dip"
+                            android:src="@mipmap/img_becarfts_withidcard" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dip"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:layout_marginRight="@dimen/padding_8"
+                    android:layout_marginTop="@dimen/padding_8"
+                    android:background="@color/Defult_Color_ShallowGrey" />
+
+                <LinearLayout
+                    style="@style/ll_becCarftImage_style"
+                    android:background="@color/defult_color_white" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="照片"
+                        android:textSize="@dimen/font_large" />
+
+                    <ImageView
+                        android:id="@+id/iv_becarfts_idcard_withHands"
+                        android:layout_width="75dip"
+                        android:layout_height="60dip"
+                        android:src="@mipmap/img_becomeworker_add" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dip"
+                android:layout_marginTop="@dimen/padding_8"
+                android:background="@color/defult_color_white"
+                android:orientation="vertical"
+                android:paddingBottom="7dip"
+                android:paddingLeft="@dimen/padding_15"
+                android:paddingRight="@dimen/padding_15"
+                android:paddingTop="7dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="资格正面 (相关证书、资质证明)"
+                    android:textSize="@dimen/font_large" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_8"
+                    android:gravity="top"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dip"
+                        android:text="示例"
+                        android:textColor="@color/Defult_Color_demoGrey"
+                        android:textSize="@dimen/font_large" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="59dip"
+                            android:src="@mipmap/img_becarfts_ziliao" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dip"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:layout_marginRight="@dimen/padding_8"
+                    android:layout_marginTop="@dimen/padding_8"
+                    android:background="@color/Defult_Color_ShallowGrey" />
+
+                <LinearLayout
+                    style="@style/ll_becCarftImage_style"
+                    android:background="@color/defult_color_white" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="封面"
+                        android:textSize="@dimen/font_large" />
+
+                    <ImageView
+                        android:id="@+id/iv_becarfts_ziliao_cover"
+                        android:layout_width="75dip"
+                        android:layout_height="60dip"
+                        android:src="@mipmap/img_becomeworker_add" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dip"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:layout_marginRight="@dimen/padding_8"
+                    android:layout_marginTop="@dimen/padding_4"
+                    android:background="@color/Defult_Color_ShallowGrey" />
+
+                <LinearLayout
+                    style="@style/ll_becCarftImage_style"
+                    android:background="@color/defult_color_white" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="内页"
+                        android:textSize="@dimen/font_large" />
+
+                    <ImageView
+                        android:id="@+id/iv_becomeworker_ziliao_inside"
+                        android:layout_width="75dip"
+                        android:layout_height="60dip"
+                        android:src="@mipmap/img_becomeworker_add" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/ll_becomeworker_style"
+                android:layout_marginTop="@dimen/padding_8"
+                android:background="@color/defult_color_white" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="提供服务"
+                    android:textSize="@dimen/font_large" />
+
+                <EditText
+                    android:id="@+id/iv_becomeworker_service_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="请填写您能提供的服务项目"
+                    android:lines="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/ll_becomeworker_style"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:background="@color/defult_color_white" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="服务说明"
+                    android:textSize="@dimen/font_large" />
+
+                <EditText
+                    android:id="@+id/iv_becomeworker_service_intro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="请填写服务说明"
+                    android:lines="4" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/ll_becomeworker_style"
+                android:layout_marginTop="1dip"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="服务价格"
+                    android:textSize="@dimen/font_large" />
+
+                <EditText
+                    android:id="@+id/iv_becomeworker_service_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint=""
+                    android:inputType="numberDecimal"
+                    android:lines="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="元/次"
+                    android:textSize="@dimen/font_large" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/defult_color_white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_12" >
+
+                <CheckBox
+                    android:id="@+id/frag_cn_mb"
+                    style="@style/CustomCheckboxTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_register_agree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="0.32"
+                    android:clickable="true"
+                    android:text="同意《嗨社区服务协议》"
+                    android:textColor="@color/Defult_Color_AppGreen"
+                    android:textSize="@dimen/font_small" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dip"
+                android:layout_marginBottom="@dimen/padding_8"
+                android:layout_marginTop="@dimen/padding_8"
+                android:background="@color/defult_color_white" />
+
+            <TextView
+                android:id="@+id/tv_becarfts_submit"
+                style="@style/bt_appdefult_tyle"
+                android:clickable="true"
+                android:text="提交" />
+        </LinearLayout>
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+</LinearLayout>

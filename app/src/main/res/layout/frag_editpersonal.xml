@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <include
+                android:id="@+id/progress_UserInfo"
+                layout="@layout/progress" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_8"
+                android:background="@color/defult_color_white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="20dip"
+                android:paddingLeft="@dimen/padding_15"
+                android:paddingTop="20dip">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="头像"
+                    android:textColor="@color/color_UserInfoTextColor"
+                    android:textSize="@dimen/font_middle" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dip"
+                    android:layout_weight="1" />
+
+                <com.don.view.CircleImageView
+                    android:id="@+id/civ_EditPersonal_Avatar"
+                    style="@style/civ_avatar_type50"
+                    android:layout_marginRight="@dimen/padding_24" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_8"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dip"
+                    android:paddingTop="20dip"
+                    android:text="昵称:"
+                    android:textColor="@color/color_UserInfoTextColor"
+                    android:textSize="@dimen/font_middle" />
+
+                <EditText
+                    android:id="@+id/tv_UserInfo_NickName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:background="@null"
+                    android:paddingBottom="20dip"
+                    android:paddingTop="20dip"
+                    android:singleLine="true"
+                    android:text="cherish"
+                    android:textColor="@color/color_UserInfoTextColor"
+                    android:textSize="@dimen/font_middle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dip"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dip"
+                    android:paddingTop="20dip"
+                    android:text="年龄:"
+                    android:textColor="@color/color_UserInfoTextColor"
+                    android:textSize="@dimen/font_middle" />
+
+                <EditText
+                    android:id="@+id/tv_EditPersonal_UserAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:background="@null"
+                    android:paddingBottom="20dip"
+                    android:paddingTop="20dip"
+                    android:singleLine="true"
+                    android:text="22岁"
+                    android:textColor="@color/color_UserInfoTextColor"
+                    android:textSize="@dimen/font_middle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dip"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dip"
+                    android:paddingTop="20dip"
+                    android:text="性别:"
+                    android:textColor="@color/color_UserInfoTextColor"
+                    android:textSize="@dimen/font_middle" />
+
+                <TextView
+                    android:id="@+id/tv_EditPersonal_UserSex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:paddingBottom="20dip"
+                    android:paddingTop="20dip"
+                    android:text="女"
+                    android:textColor="@color/color_UserInfoTextColor"
+                    android:textSize="@dimen/font_middle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dip"
+                android:layout_marginTop="6dip"
+                android:background="@color/defult_color_white"
+                android:gravity="top"
+                android:orientation="horizontal"
+                android:paddingBottom="20dip"
+                android:paddingLeft="@dimen/padding_15"
+                android:paddingTop="20dip">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="个人签名:"
+                    android:textColor="@color/color_UserInfoTextColor"
+                    android:textSize="@dimen/font_middle" />
+
+                <EditText
+                    android:id="@+id/et_EditPersonal_UserIntro"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:text="cherish"
+                    android:textColor="@color/color_UserInfoTextColor"
+                    android:textSize="@dimen/font_middle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dip"
+                android:background="@color/defult_color_white"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dip"
+                    android:paddingTop="20dip"
+                    android:text="认证资料:"
+                    android:textColor="@color/color_UserInfoTextColor"
+                    android:textSize="@dimen/font_middle" />
+
+                <TextView
+                    android:id="@+id/tv_EditPersonal_AuthZiliao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_8"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:drawableRight="@mipmap/img_arrow_right"
+                    android:paddingBottom="20dip"
+                    android:paddingTop="20dip"
+                    android:textColor="@color/color_UserInfoTextColor"
+                    android:textSize="@dimen/font_middle" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_EditPersonal_submit"
+        style="@style/bt_appdefult_tyle"
+        android:text="保存" />
+</LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+	
+    <LinearLayout
+        android:id="@+id/v_loadmore"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:clickable="true" >
+
+        <ProgressBar
+            android:id="@+id/v_loadmore_progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:visibility="visible"
+            android:indeterminate="false" />
+
+        <TextView
+            android:id="@+id/v_loadmore_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textColor="#999999"
+            android:text="正在加载数据..."
+            android:textSize="15sp" />
+    </LinearLayout>
+    <TextView
+            android:id="@+id/v_loadmore_failedTv"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:textColor="#999999"
+            android:text="加载失败，点击重试"
+            android:background="#ffffff"
+            android:visibility="gone"
+            android:textSize="15sp" />
+</RelativeLayout>

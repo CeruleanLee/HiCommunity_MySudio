@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/defult_color_white" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="42dp"
+        android:fillViewport="true"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="219dp" >
+
+                <net.duohuo.dhroid.view.AutoScrollViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@android:color/white" />
+
+                <net.duohuo.dhroid.view.CirclePageIndicator
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/view_cpi"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginBottom="8dp"
+                    android:background="@android:color/transparent"
+                    android:padding="6dp"
+                    app:fillColor="@color/Defult_Color_AppGreen"
+                    app:pageColor="#8EE2C9"
+                    app:radius="5dp"
+                    app:strokeColor="@color/Defult_Color_AppGreen"
+                    app:strokeWidth="0dp" />
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+              >
+
+                <TextView
+                    android:id="@+id/tv_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="12dp"
+                    android:textColor="@color/Defult_Color_Grey"
+                    android:textSize="@dimen/font_extra_small_half" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/tv_count"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="12dp"
+                    android:textColor="@color/Defult_Color_MidGrey"
+                    android:textSize="@dimen/font_small" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawablePadding="9dp"
+                        android:drawableTop="@mipmap/img_dw_person_num"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="参与人数"
+                        android:textColor="@color/Defult_Color_Grey"
+                        android:textSize="@dimen/font_extra_small_half" />
+
+                    <TextView
+                        android:id="@+id/tv_chips_person_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="--"
+                        android:textColor="@color/Defult_Color_MidGrey"
+                        android:textSize="@dimen/font_small" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawablePadding="9dp"
+                        android:drawableTop="@mipmap/img_dw_price"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="当前价格"
+                        android:textColor="@color/Defult_Color_Grey"
+                        android:textSize="@dimen/font_extra_small_half" />
+
+                    <TextView
+                        android:id="@+id/tv_chips_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="--"
+                        android:textColor="@color/Defult_Color_MidGrey"
+                        android:textSize="@dimen/font_small" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawablePadding="9dp"
+                        android:drawableTop="@mipmap/img_dw_time"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="剩余时间"
+                        android:textColor="@color/Defult_Color_Grey"
+                        android:textSize="@dimen/font_extra_small_half" />
+
+                    <TextView
+                        android:id="@+id/tv_chips_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="--"
+                        android:textColor="@color/Defult_Color_MidGrey"
+                        android:textSize="@dimen/font_small" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lc_chips"
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="25dp" >
+            </com.github.mikephil.charting.charts.LineChart>
+
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="16dp"
+                android:lineSpacingExtra="10dp"
+                android:text=""
+                android:textColor="@color/Defult_Color_MidGrey"
+                android:textSize="@dimen/font_extra_small_half" />
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_join_chips"
+        style="@style/bt_appdefult_tyle"
+        android:layout_gravity="bottom"
+        android:clickable="true"
+        android:text="参与众筹"
+        android:textSize="@dimen/font_small" />
+
+</FrameLayout>

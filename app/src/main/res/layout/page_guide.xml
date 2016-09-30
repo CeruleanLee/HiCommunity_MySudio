@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/rel_middle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rel_bottom"
+        android:layout_below="@+id/rel_top" >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/middle_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/rel_img_scale"
+            android:layout_centerHorizontal="true" >
+            
+        </android.support.v4.view.ViewPager>
+
+        <RelativeLayout
+            android:id="@+id/rel_img_scale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="@dimen/padding_15" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_radio_false" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_radio_false" />
+                
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_radio_false" />
+                
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_radio_false" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/cur_dot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_radio_true" />
+        </RelativeLayout>
+    </FrameLayout>

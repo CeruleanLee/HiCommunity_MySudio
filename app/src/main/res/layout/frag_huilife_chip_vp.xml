@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defult_color_white"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:id="@+id/rg_huil_ife"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:paddingTop="8dp">
+
+            <RadioButton
+                android:id="@+id/rb_no_pay"
+                style="@style/rb_huilife_style"
+                android:checked="true"
+                android:layout_marginRight="20dp"
+                android:text="未支付" />
+
+
+            <RadioButton
+                android:id="@+id/rb_send"
+                style="@style/rb_huilife_style"
+                android:checked="false"
+                android:layout_marginRight="20dp"
+                android:text="送货中" />
+
+            <RadioButton
+                android:id="@+id/rb_completed"
+                style="@style/rb_huichips_style"
+                android:checked="false"
+                android:layout_weight="1"
+                android:text="已完成" />
+
+        </RadioGroup>
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vPager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:background="@color/defult_color_white"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation" />
+</LinearLayout>

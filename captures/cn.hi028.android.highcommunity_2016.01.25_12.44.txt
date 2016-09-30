@@ -1,0 +1,141 @@
+AGGREGATED OVER LAST 24 HOURS:
+System memory usage:
+  SOff/Norm: 12 samples:
+    Cached: 431MB min, 662MB avg, 1.0GB max
+    Free: 47MB min, 169MB avg, 475MB max
+    ZRam: 0.00 min, 0.00 avg, 0.00 max
+    Kernel: 67MB min, 82MB avg, 127MB max
+    Native: 52MB min, 58MB avg, 67MB max
+       Mod : 1 samples:
+    Cached: 573MB min, 573MB avg, 573MB max
+    Free: 449MB min, 449MB avg, 449MB max
+    ZRam: 0.00 min, 0.00 avg, 0.00 max
+    Kernel: 70MB min, 70MB avg, 70MB max
+    Native: 54MB min, 54MB avg, 54MB max
+  SOn /Norm: 10 samples:
+    Cached: 336MB min, 646MB avg, 1.0GB max
+    Free: 47MB min, 124MB avg, 269MB max
+    ZRam: 0.00 min, 0.00 avg, 0.00 max
+    Kernel: 68MB min, 87MB avg, 122MB max
+    Native: 55MB min, 60MB avg, 72MB max
+       Mod : 7 samples:
+    Cached: 345MB min, 396MB avg, 551MB max
+    Free: 46MB min, 127MB avg, 386MB max
+    ZRam: 0.00 min, 0.00 avg, 0.00 max
+    Kernel: 59MB min, 65MB avg, 74MB max
+    Native: 52MB min, 55MB avg, 58MB max
+       Low : 2 samples:
+    Cached: 561MB min, 562MB avg, 564MB max
+    Free: 185MB min, 206MB avg, 226MB max
+    ZRam: 0.00 min, 0.00 avg, 0.00 max
+    Kernel: 68MB min, 69MB avg, 70MB max
+    Native: 53MB min, 53MB avg, 53MB max
+
+Summary:
+
+Run time Stats:
+  SOff/Norm: +1h36m25s807ms
+       Mod : +44s912ms
+       Low : +878ms
+       Crit: +1s909ms
+  SOn /Norm: +6h18m34s0ms
+       Mod : +29m1s126ms
+       Low : +9m18s647ms
+       Crit: +3m31s822ms
+      TOTAL: +8h37m39s101ms
+
+Memory usage:
+  Kernel : 84MB (189 samples)
+  Native : 59MB (189 samples)
+  Persist: 238MB (2331 samples)
+  Top    : 201MB (1727 samples)
+  ImpFg  : 389MB (8068 samples)
+  ImpBg  : 25MB (2271 samples)
+  Service: 125MB (10132 samples)
+  Receivr: 496KB (5634 samples)
+  LastAct: 8.2MB (139 samples)
+  CchAct : 5.7MB (114 samples)
+  CchEmty: 150MB (4590 samples)
+  Cached : 634MB (189 samples)
+  Free   : 133MB (189 samples)
+  TOTAL  : 2.0GB
+  ServRst: 1.7MB (2084 samples)
+
+          Start time: 2016-01-24 09:15:22
+  Total elapsed time: +1d0h40m10s213ms (partial) libart.so
+
+AGGREGATED OVER LAST 3 HOURS:
+System memory usage:
+  SOff/Norm: 3 samples:
+    Cached: 517MB min, 789MB avg, 1.0GB max
+    Free: 55MB min, 108MB avg, 175MB max
+    ZRam: 0.00 min, 0.00 avg, 0.00 max
+    Kernel: 91MB min, 104MB avg, 127MB max
+    Native: 62MB min, 64MB avg, 67MB max
+  SOn /Norm: 2 samples:
+    Cached: 529MB min, 780MB avg, 1.0GB max
+    Free: 93MB min, 101MB avg, 108MB max
+    ZRam: 0.00 min, 0.00 avg, 0.00 max
+    Kernel: 114MB min, 118MB avg, 122MB max
+    Native: 63MB min, 68MB avg, 72MB max
+
+Summary:
+
+Run time Stats:
+  SOff/Norm: +26m44s470ms
+  SOn /Norm: +1h27m35s370ms
+      TOTAL: +1h54m19s840ms
+
+Memory usage:
+  Kernel : 108MB (38 samples)
+  Native : 65MB (38 samples)
+  Persist: 249MB (159 samples)
+  Top    : 55MB (99 samples)
+  ImpFg  : 373MB (582 samples)
+  ImpBg  : 19MB (154 samples)
+  Service: 132MB (1013 samples)
+  Receivr: 589KB (796 samples)
+  LastAct: 9.9MB (16 samples)
+  CchAct : 13MB (9 samples)
+  CchEmty: 185MB (438 samples)
+  Cached : 787MB (38 samples)
+  Free   : 106MB (38 samples)
+  TOTAL  : 2.1GB
+  ServRst: 6.6MB (228 samples)
+
+          Start time: 2016-01-25 09:46:18
+  Total elapsed time: +2h57m27s421ms (partial) libart.so
+
+CURRENT STATS:
+System memory usage:
+  SOn /Norm: 1 samples:
+    Cached: 1.0GB min, 1.0GB avg, 1.0GB max
+    Free: 108MB min, 108MB avg, 108MB max
+    ZRam: 0.00 min, 0.00 avg, 0.00 max
+    Kernel: 114MB min, 114MB avg, 114MB max
+    Native: 63MB min, 63MB avg, 63MB max
+
+Summary:
+
+Run time Stats:
+  SOff/Norm: +38s315ms
+  SOn /Norm: +6m49s163ms (running)
+      TOTAL: +7m27s478ms
+
+Memory usage:
+  Kernel : 114MB (8 samples)
+  Native : 63MB (8 samples)
+  Persist: 223MB (60 samples)
+  Top    : 51MB (18 samples)
+  ImpFg  : 265MB (140 samples)
+  ImpBg  : 18MB (23 samples)
+  Service: 103MB (221 samples)
+  Receivr: 3.2MB (138 samples)
+  CchEmty: 139MB (139 samples)
+  Cached : 1.0GB (8 samples)
+  Free   : 108MB (8 samples)
+  TOTAL  : 2.1GB
+  ServRst: 228KB (31 samples)
+
+          Start time: 2016-01-25 12:27:53
+  Total elapsed time: +16m35s281ms (partial) libart.so

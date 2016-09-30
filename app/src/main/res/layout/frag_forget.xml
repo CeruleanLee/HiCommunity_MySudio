@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_marginTop="@dimen/padding_12"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:background="@color/Defult_Color_LineGrey" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/defult_color_white"
+            android:paddingLeft="@dimen/padding_12">
+
+            <TextView
+                style="@style/et_register_defulttype"
+                android:layout_width="wrap_content"
+                android:background="@null"
+                android:paddingLeft="@dimen/padding_8"
+                android:text="@string/tv_register_phone"
+                android:textSize="@dimen/font_large" />
+
+            <EditText
+                android:id="@+id/et_forget_phone"
+                style="@style/et_register_defulttype"
+                android:layout_width="fill_parent"
+                android:background="@null"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:paddingLeft="@dimen/padding_8"
+                android:textColorHint="@color/Defult_Color_Grey"
+                android:textSize="@dimen/font_middle" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:background="@color/Defult_Color_LineGrey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/defult_color_white"
+            android:paddingLeft="@dimen/padding_12">
+
+            <TextView
+                style="@style/et_register_defulttype"
+                android:layout_width="wrap_content"
+                android:background="@null"
+                android:paddingLeft="@dimen/padding_8"
+                android:text="@string/tv_register_identify"
+                android:textSize="@dimen/font_large" />
+
+            <EditText
+                android:id="@+id/et_forget_identifycode"
+                style="@style/et_register_defulttype"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:paddingLeft="@dimen/padding_8"
+                android:textColorHint="@color/Defult_Color_Grey"
+                android:textSize="@dimen/font_middle" />
+
+            <TextView
+                android:id="@+id/tv_forget_getIdentyCode"
+                style="@style/et_register_defulttype"
+                android:layout_width="wrap_content"
+                android:layout_marginRight="@dimen/padding_24"
+                android:background="@null"
+                android:clickable="true"
+                android:text="@string/tv_register_get_identifycode"
+                android:textColor="@color/Defult_Color_AppGreen"
+                android:textSize="@dimen/font_middle" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:background="@color/Defult_Color_LineGrey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/defult_color_white"
+            android:paddingLeft="@dimen/padding_12">
+
+            <TextView
+                style="@style/et_register_defulttype"
+                android:layout_width="wrap_content"
+                android:background="@null"
+                android:paddingLeft="@dimen/padding_8"
+                android:text="密　　码"
+                android:textSize="@dimen/font_large" />
+
+            <EditText
+                android:id="@+id/et_forget_password"
+                style="@style/et_register_defulttype"
+                android:layout_width="fill_parent"
+                android:background="@null"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/padding_8"
+                android:textColorHint="@color/Defult_Color_Grey"
+                android:textSize="@dimen/font_middle" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:background="@color/Defult_Color_LineGrey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/defult_color_white"
+            android:paddingLeft="@dimen/padding_12">
+
+            <TextView
+                style="@style/et_register_defulttype"
+                android:layout_width="wrap_content"
+                android:background="@null"
+                android:paddingLeft="@dimen/padding_8"
+                android:text="@string/tv_register_psdrepeat"
+                android:textSize="@dimen/font_large" />
+
+            <EditText
+                android:id="@+id/et_forget_psdrepeat"
+                style="@style/et_register_defulttype"
+                android:layout_width="fill_parent"
+                android:background="@null"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/padding_8"
+                android:textColorHint="@color/Defult_Color_Grey"
+                android:textSize="@dimen/font_middle" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:background="@color/Defult_Color_LineGrey" />
+
+        <TextView
+            android:id="@+id/tv_forget_button"
+            style="@style/bt_appdefult_tyle"
+            android:layout_marginTop="@dimen/padding_36"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="@string/tv_forget_modify" />
+
+    </LinearLayout>
+
+</RelativeLayout>

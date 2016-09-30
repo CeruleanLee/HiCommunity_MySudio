@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_secondlevel" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:layout_marginTop="13dip"
+        android:background="@color/defult_color_white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/padding_8"
+        android:paddingLeft="@dimen/padding_24"
+        android:paddingRight="@dimen/padding_24"
+        android:paddingTop="@dimen/padding_8">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="头像"
+            android:textColor="@color/defult_text_color"
+            android:textSize="@dimen/font_middle" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dip"
+            android:layout_weight="1" />
+
+        <com.don.view.CircleImageView
+            android:id="@+id/civ_creategroup_avatar"
+            style="@style/civ_avatar_type50" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dip"
+        android:layout_marginTop="10dip"
+        android:background="@color/defult_color_white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/padding_8"
+        android:paddingLeft="@dimen/padding_24"
+        android:paddingRight="@dimen/padding_24"
+        android:paddingTop="@dimen/padding_8">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="名称:"
+            android:textColor="@color/defult_text_color"
+            android:textSize="@dimen/font_middle" />
+
+        <EditText
+            android:id="@+id/civ_creategroup_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_8"
+            android:background="@null"
+            android:hint="请输入群组名称"
+            android:textColor="@color/defult_text_color"
+            android:textSize="@dimen/font_middle" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:background="@color/defult_color_white"
+        android:gravity="top"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/padding_24"
+        android:paddingLeft="@dimen/padding_24"
+        android:paddingRight="@dimen/padding_24"
+        android:paddingTop="@dimen/padding_24">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="简介:"
+            android:textColor="@color/defult_text_color"
+            android:textSize="@dimen/font_middle" />
+
+        <EditText
+            android:id="@+id/tv_creategrpu_intro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_8"
+            android:background="@null"
+            android:hint="请输入群组简介"
+            android:lineSpacingExtra="5dip"
+            android:textColor="@color/defult_text_color"
+            android:textSize="@dimen/font_middle" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/civ_creategroup_submit"
+        style="@style/bt_appdefult_tyle"
+        android:layout_marginTop="34dip"
+        android:clickable="true"
+        android:text="提交" />
+</LinearLayout>
