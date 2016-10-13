@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#aaa"
+    android:orientation="vertical">
+
+
+   <!-- <LinearLayout
+        style="@style/autoact_containerlayout_imgs"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="#DD6264"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_weight="3"
+                android:background="#DD6264"
+                android:padding="10dp"
+                android:src="@mipmap/img_auto_notice" />
+
+            <TextView
+                style="@style/autoact_tag_text"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="50dp"
+                android:text="公告" />
+
+        </RelativeLayout>
+
+
+        <ImageView
+            style="@style/autoact_tag_img"
+            android:layout_weight="4"
+
+            android:background="@color/Defult_Color_AppGreen"
+            android:src="@mipmap/img_auto_vote" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/autoact_containerlayout_imgs"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="#EC7B17"
+            android:scaleType="center"
+            android:src="@mipmap/img_auto_namelist" />
+
+        <ImageView
+            style="@style/autoact_tag_img"
+            android:layout_weight="3"
+            android:background="#0078D7"
+            android:src="@mipmap/img_auto_motion" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/autoact_containerlayout_imgs"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="#80397B"
+            android:scaleType="center"
+            android:src="@mipmap/img_auto_supervise" />
+
+        <ImageView
+            style="@style/autoact_tag_img"
+            android:layout_weight="4"
+            android:background="#DC3C00"
+            android:src="@mipmap/img_auto_groupchat" />
+    </LinearLayout>
+-->
+
+</LinearLayout>

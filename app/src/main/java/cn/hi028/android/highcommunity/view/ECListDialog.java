@@ -1,8 +1,5 @@
 package cn.hi028.android.highcommunity.view;
 
-import java.util.Arrays;
-import java.util.List;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +9,9 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.Arrays;
+import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.IBaseAdapter;
@@ -31,7 +31,7 @@ public class ECListDialog extends ECAlertDialog implements AdapterView.OnItemCli
         mCheckIndex = -1;
         mListener = null;
         mListView = null;
-        // setTitleNormalColor();
+//         setTitleNormalColor();
         View contatinView = LayoutInflater.from(context).inflate(R.layout.dialog_include_simplelist, null);
         setContentView(contatinView);
         setContentPadding(0, 0, -1, 0);
@@ -61,7 +61,17 @@ public class ECListDialog extends ECAlertDialog implements AdapterView.OnItemCli
         this(context);
         setAdapter(new ListDialogAdapter(getContext(), strs));
     }
-
+    /**
+     * 根据集合数组创建 带标题
+     *
+     * @param context
+     * @param strs
+     */
+    public ECListDialog(Context context, List<String> strs,String title) {
+        this(context);
+        setTitle(title);
+        setAdapter(new ListDialogAdapter(getContext(), strs));
+    }
     public ECListDialog(Context context, List<String> strs, int checkPosition) {
         this(context, strs);
         this.mCheckIndex = checkPosition;

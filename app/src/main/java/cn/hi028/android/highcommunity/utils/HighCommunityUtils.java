@@ -1277,7 +1277,7 @@ public class HighCommunityUtils extends DongUtils {
 
 	/**
 	 * 初始化静态图片数组，并加入第一张图片
-	 *
+	 *发帖界面添加图片
 	 * @param num
 	 */
 	public static void InitLabelList(int num) {
@@ -1285,7 +1285,8 @@ public class HighCommunityUtils extends DongUtils {
 		PublicWay.num = num;
 		Bimp.tempSelectBitmap.clear();
 		ImageItem mItem = new ImageItem();
-		mItem.setImagePath("drawable://" + R.mipmap.img_upload_addpic);
+		mItem.setImagePath("drawable://" + R.mipmap.img_upload_addpic_white);
+//		mItem.setImagePath("drawable://" + R.mipmap.img_upload_addpic);
 		Bimp.tempSelectBitmap.add(mItem);
 	}
 

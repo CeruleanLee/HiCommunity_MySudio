@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        style="@style/autoact_containerlayout_imgs"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            style="@style/autoact_tag_relativelayout"
+            android:id="@+id/autoFrg_notic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@drawable/bg_autofrag_selector_notice"
+            >
+
+
+            <ImageView
+                style="@style/autoact_tag_img"
+                android:src="@mipmap/img_auto_notice" />
+
+            <LinearLayout style="@style/autoact_tag_layou">
+
+                <View style="@style/autoact_tag_view" />
+
+                <TextView
+                    style="@style/autoact_tag_text"
+                    android:text="公告" />
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/autoact_tag_relativelayout"
+            android:id="@+id/autoFrg_vote"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@drawable/bg_autofrag_selector_vote">
+
+            <ImageView
+                style="@style/autoact_tag_img"
+                android:src="@mipmap/img_auto_vote" />
+
+            <LinearLayout style="@style/autoact_tag_layou">
+
+                <View style="@style/autoact_tag_view" />
+
+                <TextView
+                    style="@style/autoact_tag_text"
+                    android:text="投票" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/autoact_containerlayout_imgs"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            style="@style/autoact_tag_relativelayout"
+            android:id="@+id/autoFrg_namelist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@drawable/bg_autofrag_selector_namelist">
+
+            <ImageView
+                style="@style/autoact_tag_img"
+                android:src="@mipmap/img_auto_namelist" />
+
+            <LinearLayout style="@style/autoact_tag_layou">
+
+                <View style="@style/autoact_tag_view" />
+
+                <TextView
+                    style="@style/autoact_tag_text"
+                    android:text="名单" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/autoact_tag_relativelayout"
+            android:id="@+id/autoFrg_motion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@drawable/bg_autofrag_selector_motion">
+
+            <ImageView
+                style="@style/autoact_tag_img"
+                android:src="@mipmap/img_auto_motion" />
+
+            <LinearLayout style="@style/autoact_tag_layou">
+
+                <View style="@style/autoact_tag_view" />
+
+                <TextView
+                    style="@style/autoact_tag_text"
+                    android:text="提案" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/autoact_containerlayout_imgs"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            style="@style/autoact_tag_relativelayout"
+            android:id="@+id/autoFrg_supervise"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@drawable/bg_autofrag_selector_supervise">
+
+            <ImageView
+                style="@style/autoact_tag_img"
+                android:src="@mipmap/img_auto_supervise" />
+
+            <LinearLayout style="@style/autoact_tag_layou">
+
+                <View style="@style/autoact_tag_view" />
+
+                <TextView
+                    style="@style/autoact_tag_text"
+                    android:text="监督" />
+
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/autoact_tag_relativelayout"
+            android:id="@+id/autoFrg_groupchat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@drawable/bg_autofrag_selector_groupchat">
+
+            <ImageView
+                style="@style/autoact_tag_img"
+                android:src="@mipmap/img_auto_groupchat"/>
+
+            <LinearLayout style="@style/autoact_tag_layou">
+
+                <View style="@style/autoact_tag_view" />
+
+                <TextView
+                    style="@style/autoact_tag_text"
+                    android:text="群聊" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

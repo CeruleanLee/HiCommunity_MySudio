@@ -38,6 +38,11 @@ import cn.hi028.android.highcommunity.bean.AliParamBean;
 import cn.hi028.android.highcommunity.bean.AllTicketBean;
 import cn.hi028.android.highcommunity.bean.AllianceOrderBean;
 import cn.hi028.android.highcommunity.bean.AlliancePayBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_DoorBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_InitBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_NameListBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_NoticeListBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_UnitBean;
 import cn.hi028.android.highcommunity.bean.BillBean;
 import cn.hi028.android.highcommunity.bean.BillSimpleBean;
 import cn.hi028.android.highcommunity.bean.CarftsBean;
@@ -1415,6 +1420,189 @@ public class HTTPHelper {
 		mParamMap.put("id", id);
 		post(mParamMap, mIbpi, url);
 	}
+
+	/**
+	 * 自治大厅初始化
+	 **/
+	public static void InitAutoAct(BpiHttpHandler.IBpiHttpHandler mIbpi) {
+		String url = HTTPPOSTURL + "yinit/index.html";
+		HashMap<String, String> mParamMap = getBaseParamMap();
+		post(mParamMap, mIbpi, url);
+	}
+
+	/**
+	 * 解析自治大厅初始化数据
+	 * @param result
+     * @return
+     */
+	public static Auto_InitBean.Auto_Init_DataEntity ResolveDataEntity(String result) {
+		return gson.fromJson(result, Auto_InitBean.Auto_Init_DataEntity.class);
+	}
+	/**
+	 * 自治大厅公告列表
+	 **/
+	public static void AutoNoticeList(BpiHttpHandler.IBpiHttpHandler mIbpi) {
+		String url = HTTPPOSTURL + "ynotice/index.html";
+		HashMap<String, String> mParamMap = getBaseParamMap();
+		post(mParamMap, mIbpi, url);
+	}
+
+	/**
+	 * 解析自治大厅公告列表
+	 * @param result
+	 * @return
+	 */
+	public static List<Auto_NoticeListBean.NoticeListDataEntity> ResolveAutoNoticeListEntity(String result) {
+		List<Auto_NoticeListBean.NoticeListDataEntity> mlist = new ArrayList<Auto_NoticeListBean.NoticeListDataEntity>();
+		try {
+			JSONArray mArray = new JSONArray(result);
+			for (int i = 0; i < mArray.length(); i++) {
+				Auto_NoticeListBean.NoticeListDataEntity mBean = gson.fromJson(mArray.getString(i),
+						Auto_NoticeListBean.NoticeListDataEntity.class);
+				mlist.add(mBean);
+			}
+			return mlist;
+		} catch (JSONException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * 自治大厅名单
+	 **/
+	public static void AutoNamelistList(BpiHttpHandler.IBpiHttpHandler mIbpi) {
+		String url = HTTPPOSTURL + "ymember/index.html";
+		HashMap<String, String> mParamMap = getBaseParamMap();
+		post(mParamMap, mIbpi, url);
+	}
+
+	/**
+	 * 解析自治大厅名单
+	 * @param result
+	 * @return
+	 */
+	public static Auto_NameListBean.NameListDataEntity ResolveAutoNamelistListEntity(String result) {
+		return gson.fromJson(result, Auto_NameListBean.NameListDataEntity.class);
+	}
+
+
+	/**
+	 * 自治大厅-业主认证-获取验证码
+	 **/
+	public static void Auto_Send(BpiHttpHandler.IBpiHttpHandler mIbpi, String tel) {
+		String url = HTTPPOSTURL + "yinit/captcha.html";
+		HashMap<String, String> mParamMap = getBaseParamMap();
+//		mParamMap.put("tel", Base64(tel));
+		mParamMap.put("tel", tel);
+		post(mParamMap, mIbpi, url);
+	}
+
+	/**
+	 * 自治大厅-提交数据
+	 **/
+//	public static void Auto_Commit(BpiHttpHandler.IBpiHttpHandler mIbpi,
+//									 String name, String address, String tel, String title,
+//									 String content, String price, String head_pic, String IDCard_A,
+//									 String IDCard_B, String IDCard_hand, String certificate_cover,
+//									 String certificate_inside) {
+	public static void Auto_Commit(BpiHttpHandler.IBpiHttpHandler mIbpi,
+								   String name, String  village_id, String  building_id, String unit_id,
+								   String  door_id, String tel, String captcha, String IDCard_A,
+								   String IDCard_B, String house_certificate) {
+		String url = HTTPPOSTURL + "yinit/submit.html";
+		RequestParams mParamMap = new RequestParams(getBaseParamMap());
+		mParamMap.put("name", name);
+		mParamMap.put("village_id", village_id);
+		mParamMap.put("building_id", building_id);
+		mParamMap.put("unit_id", unit_id);
+		mParamMap.put("door_id", door_id);
+		mParamMap.put("tel", tel);
+		mParamMap.put("captcha", captcha);
+		try {
+			mParamMap.put("IDCard", ImageUtil.getImage(IDCard_A));
+			mParamMap.put("IDCard_F", ImageUtil.getImage(IDCard_B));
+			mParamMap.put("house_certificate", ImageUtil.getImage(house_certificate));
+//			if (!TextUtils.isEmpty(certificate_cover))
+//				mParamMap.put("certificate_cover",
+//						ImageUtil.getImage(certificate_cover));
+//			if (!TextUtils.isEmpty(certificate_inside))
+//				mParamMap.put("certificate_inside",
+//						ImageUtil.getImage(certificate_inside));
+		} catch (FileNotFoundException e) {
+
+		}
+		Debug.verbose(DongConstants.EDUCATIONHTTPTAG, "URL:" + url
+				+ "   ling params:" + mParamMap.toString());
+		BpiHttpClient.getInstance().post(url, mParamMap,
+				BpiHttpHandler.getInstance(mIbpi));
+	}
+
+	/**
+	 * 自治大厅-获取单元数据(根据楼栋)
+	 **/
+	public static void Auto_GetUnit(BpiHttpHandler.IBpiHttpHandler mIbpi,String building_id) {
+		String url = HTTPPOSTURL + "yinit/get-unit.html";
+		HashMap<String, String> mParamMap = getBaseParamMap();
+		mParamMap.put("building_id", building_id);
+		post(mParamMap, mIbpi, url);
+	}
+
+	/**
+	 * 解析自治大厅单元数据
+	 * @param result
+	 * @return
+	 */
+	public static List<Auto_UnitBean.UnitDataEntity> ResolveUnitDataEntity(String result) {
+		List<Auto_UnitBean.UnitDataEntity> mlist = new ArrayList<Auto_UnitBean.UnitDataEntity>();
+		try {
+			JSONArray mArray = new JSONArray(result);
+			for (int i = 0; i < mArray.length(); i++) {
+				Auto_UnitBean.UnitDataEntity mBean = gson.fromJson(mArray.getString(i),
+						Auto_UnitBean.UnitDataEntity.class);
+				mlist.add(mBean);
+			}
+			return mlist;
+		} catch (JSONException e) {
+			return null;
+		}
+	}
+
+
+	/**
+	 * 自治大厅-获取单元数据(根据楼栋)
+	 **/
+	public static void Auto_GetDoor(BpiHttpHandler.IBpiHttpHandler mIbpi,String unit_id) {
+		String url = HTTPPOSTURL + "yinit/get-door.html";
+		HashMap<String, String> mParamMap = getBaseParamMap();
+		mParamMap.put("unit_id", unit_id);
+		post(mParamMap, mIbpi, url);
+	}
+
+	/**
+	 * 解析自治大厅单元数据
+	 * @param result
+	 * @return
+	 */
+	public static List<Auto_DoorBean.DoorDataEntity> ResolveDoorDataEntity(String result) {
+		List<Auto_DoorBean.DoorDataEntity> mlist = new ArrayList<Auto_DoorBean.DoorDataEntity>();
+		try {
+			JSONArray mArray = new JSONArray(result);
+			for (int i = 0; i < mArray.length(); i++) {
+				Auto_DoorBean.DoorDataEntity mBean = gson.fromJson(mArray.getString(i),
+						Auto_DoorBean.DoorDataEntity.class);
+				mlist.add(mBean);
+			}
+			return mlist;
+		} catch (JSONException e) {
+			return null;
+		}
+	}
+
+
+
+
+
+
 
 	/**
 	 * 支付请求的接口
@@ -2801,7 +2989,6 @@ public class HTTPHelper {
 	 **/
 	private static void post(HashMap<String, String> params,
 			BpiHttpHandler.IBpiHttpHandler imh, String URL) {
-		LogUtil.d("------post请求");
 		BpiHttpClient.post(URL, params, imh);
 	}
 

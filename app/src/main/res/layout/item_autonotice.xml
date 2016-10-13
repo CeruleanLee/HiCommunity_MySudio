@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/margin_8"
+    android:paddingRight="@dimen/margin_8"
+    android:background="@drawable/bg_third_service_selector"
+    android:paddingTop="@dimen/margin_12">
+
+    <TextView
+        android:id="@+id/item_autonotice_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="content"
+        android:textSize="16sp"
+
+        />
+
+    <TextView
+        android:id="@+id/item_autonotice_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/item_autonotice_title"
+        android:layout_marginBottom="@dimen/margin_12"
+        android:text="2016/10/11"
+        android:layout_marginTop="12dp"
+        android:textSize="12sp"
+        android:textColor="@color/Defult_Color_Grey" />
+
+
+</RelativeLayout>

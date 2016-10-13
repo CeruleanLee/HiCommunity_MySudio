@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/bg_third_service_selector"
+    android:paddingLeft="@dimen/margin_8"
+    android:paddingRight="@dimen/margin_8">
+
+    <com.don.view.CircleImageView
+        android:id="@+id/item_autonamelistYZDB_avatar"
+      style="@style/autoact_namelist_avatar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/item_autonamelistYZDB_avatar">
+
+
+        <TextView
+            android:id="@+id/item_autonamelistYZDB_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="name"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/item_autonamelistYZDB_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_autonamelistYZDB_name"
+            android:layout_marginTop="20dp"
+            android:text="电话："
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/item_autonamelistYZDB_building"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="address"
+            android:textSize="14sp"
+            />
+
+    </RelativeLayout>
+    <View
+        style="@style/autoact_line_grey_05Horizontal"
+        android:visibility="gone"
+        android:layout_below="@id/item_autonamelistYZDB_avatar" />
+</RelativeLayout>

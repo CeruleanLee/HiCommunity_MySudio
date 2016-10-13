@@ -469,13 +469,18 @@ public class LabelAct extends BaseFragmentActivity {
             CommunityFrag.isNeedRefresh = true;
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
 //
-            if (type == 0) {
-                Intent goMainIntent = new Intent(LabelAct.this, MainActivity.class);
-                goMainIntent.putExtra("communityFlag", 0x22);
-                startActivity(goMainIntent);
-            } else {
-                LabelAct.this.finish();
-            }
+            Intent goMainIntent = new Intent(LabelAct.this, MainActivity.class);
+            goMainIntent.putExtra("communityFlag", 0x222);
+            startActivity(goMainIntent);
+            LabelAct.this.finish();
+
+//            if (type == 0) {
+//                Intent goMainIntent = new Intent(LabelAct.this, MainActivity.class);
+//                goMainIntent.putExtra("communityFlag", 0x22);
+//                startActivity(goMainIntent);
+//            } else {
+//                LabelAct.this.finish();
+//            }
         }
 
         @Override

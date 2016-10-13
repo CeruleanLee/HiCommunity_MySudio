@@ -176,7 +176,7 @@ public class VillageChoiceAdapter extends BaseExpandableListAdapter {
 //                            .getMessageCount()
 //                            - EducationApplication.mMenuListData.get(3)
 //                            .getMessageCount()
-//                            - Constants.mClassUserBean.getOfflineCount();
+//                            - MyConstants.mClassUserBean.getOfflineCount();
 //                    if (count > 99) {
 //                        mViewHolder.mCount.setVisibility(View.VISIBLE);
 //                        mViewHolder.mCount.setText("99+");

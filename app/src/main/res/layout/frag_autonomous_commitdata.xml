@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                style="@style/autoact_relativelayout">
+
+                <TextView
+                    android:id="@+id/auto_star"
+                    style="@style/autoact_star"
+                    android:textColor="#ff0000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/auto_star"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="    姓名："
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/autoAct_ed_name"
+                        style="@style/autoact_edittext_and_textview"
+                        android:layout_width="0dp"
+                        android:singleLine="true"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View style="@style/autoact_line_grey_05Horizontal" />
+
+            <RelativeLayout style="@style/autoact_relativelayout">
+
+                <TextView
+                    android:id="@+id/auto_star2"
+                    style="@style/autoact_star"
+                    android:textColor="#ffffff" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/auto_star2"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="小区名："
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/autoAct_ed_quName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_autoact_edittext"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="10dp"
+                        android:singleLine="true"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View style="@style/autoact_line_grey_05Horizontal" />
+
+            <RelativeLayout
+                style="@style/autoact_relativelayout">
+
+                <TextView
+                    android:id="@+id/auto_star3"
+                    style="@style/autoact_star"
+                    android:textColor="#ff0000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/auto_star3"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="楼栋号："
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <CheckedTextView
+                        android:id="@+id/autoAct_ed_louNum"
+                        style="@style/autoact_edittext_and_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColorHint="#101010"
+                        android:hint="请选择楼栋号"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <View style="@style/autoact_line_grey_05Horizontal" />
+
+            <RelativeLayout style="@style/autoact_relativelayout">
+
+                <TextView
+                    android:id="@+id/auto_star4"
+                    style="@style/autoact_star"
+                    android:textColor="#ff0000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/auto_star4"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="单元号："
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <CheckedTextView
+                        android:id="@+id/autoAct_ed_danyuanNum"
+                        style="@style/autoact_edittext_and_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请选择单元号"
+                        android:textColorHint="#101010"
+
+                        android:textSize="12sp"
+                        android:singleLine="true" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View style="@style/autoact_line_grey_05Horizontal" />
+
+            <RelativeLayout style="@style/autoact_relativelayout">
+
+                <TextView
+                    android:id="@+id/auto_star5"
+                    style="@style/autoact_star"
+                    android:textColor="#ff0000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/auto_star5"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="门牌号："
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <CheckedTextView
+                        android:id="@+id/autoAct_ed_menNum"
+                        style="@style/autoact_edittext_and_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请选择门牌号"
+                        android:textSize="12sp"
+                        android:textColorHint="#101010"
+                        android:singleLine="true" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View style="@style/autoact_line_grey_05Horizontal" />
+
+            <RelativeLayout style="@style/autoact_relativelayout">
+
+
+                <TextView
+                    android:id="@+id/auto_star6"
+                    style="@style/autoact_star"
+                    android:textColor="#ff0000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/auto_star6"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="身份证正面："
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3" />
+
+                    <ImageView
+                        android:id="@+id/autoAct_ed_idZ"
+                        style="@style/upload_pic_grey" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0" />
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <View style="@style/autoact_line_grey_05Horizontal" />
+
+            <RelativeLayout style="@style/autoact_relativelayout">
+
+                <TextView
+                    android:id="@+id/auto_star7"
+                    style="@style/autoact_star"
+                    android:textColor="#ff0000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/auto_star7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="身份证反面："
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/autoAct_ed_idF"
+                        style="@style/upload_pic_grey" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0" />
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <View style="@style/autoact_line_grey_05Horizontal" />
+
+            <RelativeLayout style="@style/autoact_relativelayout">
+
+                <TextView
+                    android:id="@+id/auto_star8"
+                    style="@style/autoact_star"
+                    android:textColor="#ff0000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/auto_star8"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="        产权证："
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/autoAct_eproperty"
+                        style="@style/upload_pic_grey" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <View style="@style/autoact_line_grey_05Horizontal" />
+
+
+            <RelativeLayout style="@style/autoact_relativelayout">
+
+                <TextView
+                    android:id="@+id/auto_getviryCode"
+                    style="@style/autoact_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="24dp"
+
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="获取验证码"
+                    android:textColor="#ffffff" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30dp"
+                    android:layout_toLeftOf="@id/auto_getviryCode"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="    电话："
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/autoAct_telNum"
+                        style="@style/autoact_edittext_and_textview"
+                        android:background="@drawable/bg_autoact_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+
+                        />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <View style="@style/autoact_line_grey_05Horizontal" />
+
+            <RelativeLayout style="@style/autoact_relativelayout">
+
+                <TextView
+                    android:id="@+id/auto_star9"
+                    style="@style/autoact_star"
+                    android:textColor="#ff0000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/auto_star9"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="验证码："
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/autoAct_putverifyCode"
+                        style="@style/autoact_edittext_and_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View style="@style/autoact_line_grey_05Horizontal" />
+
+
+            <TextView
+                android:id="@+id/autoAct_commit"
+                style="@style/autoact_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="提交"
+                android:textColor="#ffffff"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="注:带*号为必填选项，请完整"
+                android:textColor="#ff0000" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

@@ -310,8 +310,8 @@
                 <com.don.view.DrawableCenterTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/img_leftmenu_order"
-                    android:drawablePadding="@dimen/padding_12"
+                    android:drawableLeft="@mipmap/img_leftmenu_alliorder"
+                    android:drawablePadding="12dp"
                     android:text="联盟订单"
                     android:textColor="@color/defult_color_white"
                     android:textSize="@dimen/font_middle" />

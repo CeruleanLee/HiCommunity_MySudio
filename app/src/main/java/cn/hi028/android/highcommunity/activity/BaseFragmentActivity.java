@@ -7,14 +7,12 @@ package cn.hi028.android.highcommunity.activity;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.don.tools.SystemBarTintManager;
 
 import net.duohuo.dhroid.activity.BaseActivity;
-import net.duohuo.dhroid.activity.BaseFragment;
 
 import cn.hi028.android.highcommunity.R;
 
@@ -61,5 +59,12 @@ public class BaseFragmentActivity extends BaseActivity {
         }
         win.setAttributes(winParams);
     }
-    
+
+
+
+
+
+
+
+
 }

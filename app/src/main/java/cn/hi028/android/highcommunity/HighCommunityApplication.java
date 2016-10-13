@@ -3,6 +3,8 @@ package cn.hi028.android.highcommunity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.view.Gravity;
 import android.view.View;
@@ -16,10 +18,12 @@ import com.don.tools.MyImageDownloader;
 import com.lidroid.xutils.util.LogUtils;
 
 import net.duohuo.dhroid.BaseApplication;
+import net.duohuo.dhroid.util.LogUtil;
 
 import org.xutils.x;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import cn.hi028.android.highcommunity.bean.UserInfoBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
@@ -42,12 +46,15 @@ public class HighCommunityApplication extends BaseApplication implements
     public static UserInfoBean mUserInfo = new UserInfoBean();
     HighCommunityUtils mDongUtils = null;
     public static Typeface TypeFaceYaHei;
+
     public static HighCommunityApplication getApp() {
         return app;
     }
 
     static HighCommunityApplication app;
     static boolean isAliPayInStalled;
+
+
     @Override
     public void onCreate() {
         LogUtils.d("~~~初始化App");
@@ -62,18 +69,13 @@ public class HighCommunityApplication extends BaseApplication implements
         // DOMAINNAME,
         // ":8888");
         TypeFaceYaHei = Typeface.createFromAsset(getAssets(), "ltjianhei.ttf");
-        try
-        {
+        try {
             Field field = Typeface.class.getDeclaredField("SERIF");
             field.setAccessible(true);
             field.set(null, TypeFaceYaHei);
-        }
-        catch (NoSuchFieldException e)
-        {
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
-        }
-        catch (IllegalAccessException e)
-        {
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
 //		Fresco.in
@@ -94,8 +96,15 @@ public class HighCommunityApplication extends BaseApplication implements
         mLocationClient = new LocationClient(this.getApplicationContext());
         mLocationClient.registerLocationListener(this);
         x.Ext.init(this);
-        isAliPayInStalled=isAliPayInStalled();
+        isAliPayInStalled = isAliPayInStalled();
+//        Toast.makeText(getApplicationContext(), "是否安装支付宝：" + isAliPayInStalled, Toast.LENGTH_SHORT).show();
+
+        LogUtil.d("---是否安装支付宝：" + isAliPayInStalled);
+//       new UpdateUtil(getApplicationContext()).checkUpdate();
+
     }
+
+
 
     public static void SaveUser() {
         if (mUserInfo != null) {
@@ -111,25 +120,28 @@ public class HighCommunityApplication extends BaseApplication implements
 
     /**
      * 判断支付宝是否安装
+     *
      * @return
      */
 
-    public static boolean isAliPayInStalled(){
-        boolean isAliPayInStalled=false;
-//        PackageManager pm=app.getPackageManager();
-//        List<PackageInfo> list2=pm.getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES);
-//        for (PackageInfo packageInfo : list2) {
-//            String appName=packageInfo.applicationInfo.loadLabel(app.getPackageManager()).toString();
-//            String packageName=packageInfo.packageName;
-//            if(packageName.equals("com.eg.android.AlipayGphone")){
-//                isAliPayInStalled=true;
-//                return isAliPayInStalled;
-//            }
-//        }
+    public static boolean isAliPayInStalled() {
+        boolean isAliPayInStalled = false;
+        PackageManager pm = app.getPackageManager();
+        List<PackageInfo> list2 = pm.getInstalledPackages(0);
+        for (PackageInfo packageInfo : list2) {
+            String appName = packageInfo.applicationInfo.loadLabel(app.getPackageManager()).toString();
+            String packageName = packageInfo.packageName;
+            if (packageName.equals("com.eg.android.AlipayGphone")) {
+                isAliPayInStalled = true;
+                return isAliPayInStalled;
+            }
+        }
         return isAliPayInStalled;
     }
+
     static PopupWindow waitPop;
-    public static void showDialog(final View v){
+
+    public static void showDialog(final View v) {
 
         ECAlertDialog dialog = ECAlertDialog.buildAlert(app, "请先安装支付宝", "确定", "取消", new Dialog.OnClickListener() {
             @Override
@@ -147,9 +159,7 @@ public class HighCommunityApplication extends BaseApplication implements
     }
 
     //----检测更新--------------------------------------------------------
-
-
-
+//
 
 
 

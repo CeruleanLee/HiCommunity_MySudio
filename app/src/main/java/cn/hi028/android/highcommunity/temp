@@ -151,8 +151,89 @@
 	}
 
 
+ <!--
+<layer-list  >
+
+&lt;!&ndash; 阴影部分 &ndash;&gt;
+&lt;!&ndash; 个人觉得更形象的表达：top代表下边的阴影高度，left代表右边的阴影宽度。其实也就是相对应的offset，solid中的颜色是阴影的颜色，也可以设置角度等等 &ndash;&gt;
+<item
+    android:left="2dp"
+    android:top="2dp"
+    android:right="2dp"
+    android:bottom="2dp">
+    <shape android:shape="rectangle" >
+
+        <gradient
+            android:angle="270"
+            android:endColor="#0F000000"
+            android:startColor="#0F000000" />
+
+        <corners
+            android:bottomLeftRadius="6dip"
+            android:bottomRightRadius="6dip"
+            android:topLeftRadius="6dip"
+            android:topRightRadius="6dip" />
+    </shape>
+</item>
+
+&lt;!&ndash; 背景部分 &ndash;&gt;
+&lt;!&ndash; 形象的表达：bottom代表背景部分在上边缘超出阴影的高度，right代表背景部分在左边超出阴影的宽度（相对应的offset） &ndash;&gt;
+<item
+    android:left="3dp"
+    android:top="3dp"
+    android:right="3dp"
+    android:bottom="5dp">
+    <shape android:shape="rectangle" >
+
+        <gradient
+            android:angle="270"
+            android:endColor="#FFFFFF"
+            android:startColor="#FFFFFF" />
+
+        <corners
+            android:bottomLeftRadius="6dip"
+            android:bottomRightRadius="6dip"
+            android:topLeftRadius="6dip"
+            android:topRightRadius="6dip" />
+    </shape>
+</item>
+</layer-list>-->
 
 
 
+ <include
+        android:id="@+id/title_secondTitle_Hight"
+        layout="@layout/title_status_height" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/Defult_Color_AppGreen">
+
+        <ImageView
+            android:id="@+id/autoAct_img_back"
+            android:layout_width="@dimen/title_height"
+            android:layout_height="@dimen/title_height"
+            android:layout_gravity="start"
+            android:clickable="true"
+            android:contentDescription="@string/app_name"
+            android:onClick="onBack"
+            android:scaleType="center"
+            android:src="@drawable/img_back_selector" />
+
+        <TextView
+            android:id="@+id/tv_secondtitle_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="64dp"
+            android:layout_marginRight="64dp"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:text="自治大厅"
+            android:textColor="#ffffff"
+            android:textSize="15dp" />
+        <!-- android:textSize="@dimen/font_extra_large" -->
+    </RelativeLayout>
 

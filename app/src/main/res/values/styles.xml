@@ -1,16 +1,16 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Light" mce_bogus="1">
+    <style name="AppTheme" mce_bogus="1" parent="android:Theme.Light">
         <!-- Customize your theme here. -->
         <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
         <item name="android:typeface">serif</item>
-       <item name="android:textColor">@color/defult_text_color</item>
+        <item name="android:textColor">@color/defult_text_color</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:theme">@android:style/Theme.Translucent.NoTitleBar</item>
     </style>
-<!-- <item name="android:typeface">serif</item>  -->
-    <style name="AnimationActivity" parent="@android:style/Animation.Activity" mce_bogus="1" >
+    <!-- <item name="android:typeface">serif</item>  -->
+    <style name="AnimationActivity" mce_bogus="1" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/anim_enter</item>
         <item name="android:activityOpenExitAnimation">@anim/anim_exit</item>
         <item name="android:activityCloseEnterAnimation">@anim/back_enter</item>
@@ -238,7 +238,7 @@
     <style name="rb_groupclass_style">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        
+
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
         <item name="android:singleLine">true</item>
@@ -488,4 +488,126 @@
         <item name="android:background">@color/Defult_Color_AppGreen</item>
     </style>
 
+    <style name="dialogWindowAnim" parent="android:Animation">
+        <item name="android:windowExitAnimation">@anim/anim_exit</item>
+    </style>
+    <!-- 自治大厅editext-->
+    <style name="autoact_edittext_and_textview">
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:background">@drawable/bg_autoact_edittext2</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">12sp</item>
+        <!--<item name="android:layout_height">wrap_content</item>-->
+    </style>
+    <!-- 自治大厅textview-->
+    <style name="autoact_textview">
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:background">@drawable/bg_autoact_textview</item>
+        <!-- <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>-->
+    </style>
+
+    <!-- 自治大厅relativelayout-->
+    <style name="autoact_relativelayout">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- 自治大厅小红星-->
+    <style name="autoact_star">
+
+        <item name="android:padding">2dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:text">*</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!--横向0.5 的线-->
+    <style name="autoact_line_grey_05Horizontal">
+        <item name="android:background">@color/Defult_Color_LineGrey</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+    </style>
+    <!--上传图片 灰色-->
+    <style name="upload_pic_grey">
+        <item name="android:layout_width">75dip</item>
+        <item name="android:layout_height">60dip</item>
+        <item name="android:src">@mipmap/img_becomeworker_add</item>
+    </style>
+    <!--认证情况下 自治大厅-6个tag-->
+    <style name="autoact_tag_img">
+        <item name="android:scaleType">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">-16dp</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_gravity">center</item>
+
+    </style>
+
+    <!--认证情况下 自治大厅-6个tagtext-->
+    <style name="autoact_tag_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+
+    </style>
+    <!--认证情况下 自治大厅-6个占位适配layout-->
+    <style name="autoact_tag_layou">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+
+    </style>
+    <!--认证情况下 自治大厅-6个占位适配relativelayout-->
+    <style name="autoact_tag_relativelayout">
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+
+    </style>
+    <!--认证情况下 自治大厅-6个占位适配view-->
+    <style name="autoact_tag_view">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">3</item>
+
+    </style>
+
+    <!--认证情况下 自治大厅-装tag的容器-->
+    <style name="autoact_containerlayout_imgs">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+    </style>
+
+<!--自治大厅 业主头像-->
+    <style name="autoact_namelist_avatar">
+        <item name="android:layout_height">80dip</item>
+        <item name="android:layout_width">80dip</item>
+        <item name="border_color">@color/color_gray_e8e8e8</item>
+        <item name="android:src">@mipmap/defult_avatar</item>
+        <item name="android:layout_margin">12dp</item>
+        <item name="border_width">0dip</item>
+    </style>
 </resources>

@@ -1,12 +1,12 @@
 package cn.hi028.android.highcommunity.utils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import android.annotation.SuppressLint;
 
 import com.don.tools.TimeFormat;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @SuppressLint("SimpleDateFormat")
 public class TimeUtil {
@@ -161,18 +161,40 @@ public class TimeUtil {
         SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
         return format.format(new Date(time));
     }
+
     public static String getDayAllTime(long time) {
         SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd HH:mm");
-        return format.format(new Date(time*1000));
+        return format.format(new Date(time * 1000));
     }
+
     public static String getDayTime(long time) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        return format.format(new Date(time*1000));
+        return format.format(new Date(time * 1000));
     }
+
     public static String getHourAndMin(long time) {
         SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         return format.format(new Date(time));
     }
+
+    public static String getYearMonthDay(long time) {
+
+        String dateString = getDayTime(time);
+        String pat1 = "yyyy-MM-dd";
+        String pat2 = "yyyy年MM月dd日";
+        SimpleDateFormat sdf1 = new SimpleDateFormat(pat1); // 实例化模板对象
+        SimpleDateFormat sdf2 = new SimpleDateFormat(pat2); // 实例化模板对象
+        Date d = null;
+        try {
+            d = sdf1.parse(dateString); // 将给定的字符串中的日期提取出来
+        } catch (Exception e) { // 如果提供的字符串格式有错误，则进行异常处理
+            e.printStackTrace(); // 打印异常信息
+        }
+        return sdf2.format(d);
+
+
+    }
+
 
     /**
      * 获取聊天时间：因为sdk的时间默认到秒故应该乘1000

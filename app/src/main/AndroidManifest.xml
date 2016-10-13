@@ -305,6 +305,7 @@
         <activity
             android:name="cn.hi028.android.highcommunity.activity.Service_AutonomousActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="cn.hi028.android.highcommunity.activity.Service_ManageGuideActivity"
@@ -340,6 +341,12 @@
             android:name="cn.hi028.android.highcommunity.activity.alliance.GoodsDetailActivity3"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="cn.hi028.android.highcommunity.activity.AutonomousAct_Second"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"></activity>
+
+
 
         <service
             android:name="com.baidu.location.f"
@@ -360,7 +367,9 @@
         <service
             android:name="com.umeng.update.net.DownloadingService"
             android:process=":DownloadingService"></service>
-
+        <service
+            android:name="cn.hi028.android.highcommunity.utils.updateutil.UpdateService" >
+        </service>
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>

@@ -16,11 +16,13 @@
         android:visibility="visible" />
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
+
         android:id="@+id/ptrlv_GroupMessage_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
         android:divider="@color/Defult_Color_ShallowGrey"
+
         android:dividerHeight="5dip"
         android:fadingEdge="none" />
 

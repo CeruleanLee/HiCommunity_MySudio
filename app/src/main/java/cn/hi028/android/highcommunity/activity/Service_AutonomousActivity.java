@@ -1,273 +1,176 @@
 package cn.hi028.android.highcommunity.activity;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import cn.hi028.android.highcommunity.HighCommunityApplication;
-import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.bean.UserCenterBean.UserCenter;
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.ClipData;
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Build;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Parcelable;
-import android.provider.MediaStore;
-import android.support.v4.media.session.MediaSessionCompat.Token;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebSettings.LayoutAlgorithm;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.webkit.WebChromeClient.FileChooserParams;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class Service_AutonomousActivity extends Activity {
+import com.don.tools.BpiHttpHandler;
 
-	private WebView mWebView;
-	private ImageView back;
+import net.duohuo.dhroid.util.LogUtil;
 
-	private ValueCallback<Uri> mUploadMessage;// 琛ㄥ崟鐨勬暟鎹俊鎭�
-	private ValueCallback<Uri[]> mUploadCallbackAboveL;
-	private final static int FILECHOOSER_RESULTCODE = 1;
-	private Uri imageUri;
-	private TextView mTitle;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.fragment.AutoCommitDataFrag;
+import cn.hi028.android.highcommunity.activity.fragment.AutonomousMainFrag;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_InitBean;
+import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
-	private void init() {
-		mTitle = (TextView) findViewById(R.id.tv_secondtitle_name);
-		mTitle.setText("自治大厅");
-		mWebView = (WebView) findViewById(R.id.community_webview);
-		mWebView.getSettings().setDomStorageEnabled(true);
-		// mWebView.getSettings().setAppCacheMaxSize(1024*1024*8);
-		String appCachePath = getApplicationContext().getCacheDir()
-				.getAbsolutePath();
-		mWebView.getSettings().setAppCachePath(appCachePath);
-		mWebView.getSettings().setAllowFileAccess(true);
-		mWebView.getSettings().setAppCacheEnabled(true);
-		mWebView.setWebChromeClient(new WebChromeClient());
-		back = (ImageView) findViewById(R.id.img_back);
-		WebSettings webSettings = mWebView.getSettings();
-		// 设置WebView编码
-		webSettings.setDefaultTextEncodingName("UTF-8");
-		mWebView.getSettings().setRenderPriority(
-				WebSettings.RenderPriority.HIGH);
-		webSettings.setUseWideViewPort(true);
-		webSettings.setLoadWithOverviewMode(true);
-		// 设置WebView属性，能够执行Javascript脚本
-		webSettings.setJavaScriptEnabled(true);
-		// 设置可以访问文件
-		webSettings.setAllowFileAccess(true);
-		// 自适应屏幕
-		WebSettings settings = mWebView.getSettings();
-		settings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
-		// 支持H5伸缩
-		// webSettings.setBuiltInZoomControls(true);
-		back.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-		
-	}
+/**
+ * * @功能：自治大厅Act<br>
+ *
+ * @作者： Lee_yting<br>
+ * @时间：2016/10/9<br>
+ */
+public class Service_AutonomousActivity extends BaseFragmentActivity {
+    String Tag = "~~~1   Service_AutonomousActivity";
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
-			mWebView.goBack();
-			return true;
+    public static final String ACTIVITYTAG = "AutonomousActivity";
+    public static final String INTENTTAG = "AutonomousActivityIntent";
+    @Bind(R.id.autoAct_img_back)
+    ImageView img_Back;
+    @Bind(R.id.tv_secondtitle_name)
+    TextView tv_title;
 
-		}
+    @Bind(R.id.auto_identified_tomian)
+    LinearLayout identifiedToFrag;
+    @Bind(R.id.auto_tv_check)
+    TextView tv_Check;
+    @Bind(R.id.auto_checking)
+    LinearLayout checking_Layout;
+    @Bind(R.id.auto_commitData)
+    LinearLayout commitData_Layout;
+    @Bind(R.id.auto_nodata)
+    TextView tv_Nodata;
 
-		return super.onKeyDown(keyCode, event);
 
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.act_autonomous);
+        ButterKnife.bind(this);
+        initViews();
+    }
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_community);
-		init();
-		// 这里就是在加载页面
-		mWebView.loadUrl("http://028hi.cn/ywh/notice/index2.html?token="
-				+ HighCommunityApplication.mUserInfo.getToken());// loadurl这个方法是直接加载链接地址
-		// mWebView.loadDataWithBaseURL(null,
-		// "http://028hi.cn/ywh/owner/index.html", "text/html", "utf-8",
-		// null);//这个方法是加载包含H5标签的内容，你服务器娶过来的应该就是包含H5标签的文字，到时候你直接把他放到上面就行了
+    private void initDatas() {
+        LogUtil.d(Tag + "initDatas");
+        HTTPHelper.InitAutoAct(mIbpi);
+        LogUtil.d(Tag + "initDatas2");
 
-		mWebView.setWebViewClient(new WebViewClient() {
-			@Override
-			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				view.loadUrl(url);
-				return true;
-			}
+    }
+    public Auto_InitBean.Auto_Init_DataEntity mData;
+    BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
+        @Override
+        public void onError(int id, String message) {
+            Toast.makeText(Service_AutonomousActivity.this, "访问shibai", Toast.LENGTH_SHORT).show();
+            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+        }
 
-			// @Override
-			// public void onPageStarted(WebView view, String url, Bitmap
-			// favicon) {
-			// super.onPageStarted(view, url, favicon);
-			// }
-			// @Override
-			// public void onPageFinished(WebView view, String url) {
-			// super.onPageFinished(view, url);
-			// }
-		});
-		mWebView.setWebChromeClient(new WebChromeClient() {
-			// android5.0以上
-			@Override
-			public boolean onShowFileChooser(WebView webView,
-					ValueCallback<Uri[]> filePathCallback,
-					FileChooserParams fileChooserParams) {
-				mUploadCallbackAboveL = filePathCallback;
-				take();
-				return true;
+        @Override
+        public void onSuccess(Object message) {
+            if (null == message) {
+                return;
+            }
 
-			}
+            mData = (Auto_InitBean.Auto_Init_DataEntity) message;
+            if (mData.getStatus() == 0 || mData.getStatus() == -1) {
+                //审核中 审核失败
+                dataChecking();
+            } else if (mData.getStatus() == 2) {
 
-			// android 3.0以下：
-			public void openFileChooser(ValueCallback<Uri> uploadMsg) {
-				mUploadMessage = uploadMsg;
-				take();
-			}
+                //进入提交资料页
+                toCommitData();
 
-			// android 3.0以上，android4.0以下：
-			public void openFileChooser(ValueCallback<Uri> uploadMsg,
-					String acceptType) {
-				mUploadMessage = uploadMsg;
-				take();
-			}
+            } else if (mData.getStatus() == 1) {
+                //进入frag
+                toAutoFrag();
+            }
+        }
+        @Override
+        public Object onResolve(String result) {
+            return HTTPHelper.ResolveDataEntity(result);
+        }
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
+        }
+        @Override
+        public void cancleAsyncTask() {
+        }
+    };
 
-			// android4.4.4
-			public void openFileChooser(ValueCallback<Uri> uploadMsg,
-					String acceptType, String capture) {
-				mUploadMessage = uploadMsg;
-				take();
-			}
-		});
+    FragmentManager fm;
+    FragmentTransaction ft;
+    private void initViews() {
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+        AutonomousMainFrag mAutFrag = new AutonomousMainFrag();
+        ft.replace(R.id.auto_identified_tomian, mAutFrag, AutonomousMainFrag.FRAGMENTTAG);
 
-	}
+//        AutoCommitDataFrag mCommitFrag = new AutoCommitDataFrag();
+//        mBundle.putParcelable("data",mData);
+//        mCommitFrag.setArguments(mBundle);
+//        ft.replace(R.id.auto_commitData, mCommitFrag, AutoCommitDataFrag.FRAGMENTTAG);
+        Bundle mBundle=new Bundle();
+        ft.commit();
+        img_Back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        initDatas();
+    }
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == FILECHOOSER_RESULTCODE) {
-			if (null == mUploadMessage && null == mUploadCallbackAboveL)
-				return;
-			Uri result = data == null || resultCode != RESULT_OK ? null : data
-					.getData();
-			if (mUploadCallbackAboveL != null) {
-				onActivityResultAboveL(requestCode, resultCode, data);
-			} else if (mUploadMessage != null) {
-				Log.e("result", result + "");
-				if (result == null) {
-					// mUploadMessage.onReceiveValue(imageUri);
-					mUploadMessage.onReceiveValue(imageUri);
-					mUploadMessage = null;
+    /**
+     * 去自治大厅主界面
+     */
+    private void toAutoFrag() {
+        identifiedToFrag.setVisibility(View.VISIBLE);
+        commitData_Layout.setVisibility(View.GONE);
+        checking_Layout.setVisibility(View.GONE);
+    }
 
-					Log.e("imageUri", imageUri + "");
-				} else {
-					mUploadMessage.onReceiveValue(result);
-					mUploadMessage = null;
-				}
+    /**
+     * 进入提交资料页
+     */
+    private void toCommitData() {
+        FragmentManager fm2 = getSupportFragmentManager();
+        FragmentTransaction ft2 = fm2.beginTransaction();
+//
+//        ft.commit();
+        AutoCommitDataFrag mCommitFrag = new AutoCommitDataFrag();
+        Bundle mBundle=new Bundle();
+        if (mData!=null){
 
-			}
-		}
-	}
+            Log.d(Tag,"mData "+mData.toString());
+            mBundle.putParcelable("data",mData);
+            mCommitFrag.setArguments(mBundle);
+            ft2.replace(R.id.auto_commitData, mCommitFrag, AutoCommitDataFrag.FRAGMENTTAG);
+            ft2.commit();
+        }
+        commitData_Layout.setVisibility(View.VISIBLE);
+        checking_Layout.setVisibility(View.GONE);
+        identifiedToFrag.setVisibility(View.GONE);
+    }
 
-	@SuppressLint("NewApi")
-	private void onActivityResultAboveL(int requestCode, int resultCode,
-			Intent data) {
-		if (requestCode != FILECHOOSER_RESULTCODE
-				|| mUploadCallbackAboveL == null) {
-			return;
-		}
+    /**
+     * 资料审核中 或是审核失败
+     */
+    private void dataChecking() {
+        checking_Layout.setVisibility(View.VISIBLE);
+        identifiedToFrag.setVisibility(View.GONE);
+        commitData_Layout.setVisibility(View.GONE);
+//        tv_Check.setText();
+    }
 
-		Uri[] results = null;
-		if (resultCode == Activity.RESULT_OK) {
-			if (data == null) {
-				results = new Uri[] { imageUri };
-			} else {
-				String dataString = data.getDataString();
-				ClipData clipData = data.getClipData();
 
-				if (clipData != null) {
-					results = new Uri[clipData.getItemCount()];
-					for (int i = 0; i < clipData.getItemCount(); i++) {
-						ClipData.Item item = clipData.getItemAt(i);
-						results[i] = item.getUri();
-					}
-				}
-
-				if (dataString != null)
-					results = new Uri[] { Uri.parse(dataString) };
-			}
-
-		}
-		if (results != null) {
-			mUploadCallbackAboveL.onReceiveValue(results);
-			mUploadCallbackAboveL = null;
-		} else {
-			results = new Uri[] { imageUri };
-			mUploadCallbackAboveL.onReceiveValue(results);
-			mUploadCallbackAboveL = null;
-		}
-
-		return;
-	}
-
-	private void take() {
-		File imageStorageDir = new File(
-				Environment
-						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-				"MyApp");
-		// Create the storage directory if it does not exist
-		if (!imageStorageDir.exists()) {
-			imageStorageDir.mkdirs();
-		}
-		File file = new File(imageStorageDir + File.separator + "IMG_"
-				+ String.valueOf(System.currentTimeMillis()) + ".jpg");
-		imageUri = Uri.fromFile(file);
-
-		final List<Intent> cameraIntents = new ArrayList<Intent>();
-		final Intent captureIntent = new Intent(
-				MediaStore.ACTION_IMAGE_CAPTURE);
-		final PackageManager packageManager = getPackageManager();
-		final List<ResolveInfo> listCam = packageManager.queryIntentActivities(
-				captureIntent, 0);
-		for (ResolveInfo res : listCam) {
-			final String packageName = res.activityInfo.packageName;
-			final Intent i = new Intent(captureIntent);
-			i.setComponent(new ComponentName(res.activityInfo.packageName,
-					res.activityInfo.name));
-			i.setPackage(packageName);
-			i.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-			cameraIntents.add(i);
-
-		}
-		Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-		i.addCategory(Intent.CATEGORY_OPENABLE);
-		i.setType("image/*");
-		Intent chooserIntent = Intent.createChooser(i, "Image Chooser");
-		chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS,
-				cameraIntents.toArray(new Parcelable[] {}));
-		Service_AutonomousActivity.this.startActivityForResult(chooserIntent,
-				FILECHOOSER_RESULTCODE);
-
-	}
 
 }

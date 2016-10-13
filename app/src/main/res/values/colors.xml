@@ -5,13 +5,13 @@
     <color name="Defult_Color_AppGreen">#1fc796</color>
     <color name="Defult_Color_AppGreen_Alpha">#ff1fc796</color>
     <color name="Text_Color_Black">#000000</color>
-     <color name="Defult_Text_Color">#0D0D0D</color>
-   
-      <color name="bg_Loading">#dd1fc796</color>
+    <color name="Defult_Text_Color">#0D0D0D</color>
+
+    <color name="bg_Loading">#dd1fc796</color>
     <!-- 主色调透明   联盟订单item用 -->
     <color name="Defult_Color_AppGreen_Alph">#441fc796</color>
-    
-        <color name="reveal_color">#1b000000</color>
+
+    <color name="reveal_color">#1b000000</color>
     <color name="Defult_Color_AppBotton">#1FC796</color>
     <!-- <color name="tb_selected_color">#0b93d2</color> -->
     <color name="tb_normal_color">#c5c5c5</color>
@@ -86,8 +86,7 @@
     <drawable name="diliver_msg">#f7f7f7</drawable>
     <drawable name="diliver_related_msg">#e5e5e5</drawable>
 
-    
-    
+
     <color name="app_bg_color">#fff8f8f8</color>
     <color name="black2">#aa000000</color>
     <color name="gray">#DBDBDB</color>
@@ -95,17 +94,11 @@
     <color name="alpha_00">#00000000</color>
     <color name="gray2">#80000000</color>
     <color name="red">#E83433</color>
-    
-    
-        <color name="gray_mynew">#5F605E</color>
-    
-    
-        <color name="item_merch_right_title">#6F6F6F</color>
-         <color name="item_shopdeatil_commentdetail_title">#5A5A59</color>
-    
-    
-    
-    
-    
+
+    <color name="gray_mynew">#5F605E</color>
+
+    <color name="item_merch_right_title">#6F6F6F</color>
+    <color name="item_shopdeatil_commentdetail_title">#5A5A59</color>
+    <color name="auto_act_textviewgb_grey">#C9C9C9</color>
 
 </resources>

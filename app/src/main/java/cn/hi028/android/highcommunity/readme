@@ -1,5 +1,14 @@
 所有listView等item的点击效果：                android:background="@drawable/bg_third_service_selector"
 
+http://028hi.cn:8080/Apk/version.xml
+
+http://bbs.csdn.net/topics/390953117
+
+
+http://www.android100.org/html/201406/08/21956.html
+http://jingyan.baidu.com/article/e73e26c0cebd1624adb6a7b0.html
+
+
 详情页 ：http://028hi.cn/api/nearby/detail.html?id=51   
 滑动冲突
 
@@ -45,6 +54,10 @@
 顶部布局太丑  计划搜索换成一个图标，创建一个图标  直接跳转
 创建群组的页面可能标题栏少了一截    提交按钮加点击效果
 发动态的背景色略丑  想改
+
+10.8
+修复直供订单支付页无法滑动bug
+正在集成自动更新
 
  
  

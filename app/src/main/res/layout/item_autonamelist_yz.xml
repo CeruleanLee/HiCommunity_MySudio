@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/bg_third_service_selector"
+    android:paddingLeft="@dimen/margin_8"
+    android:paddingRight="@dimen/margin_8"
+    android:paddingTop="@dimen/margin_12">
+
+    <com.don.view.CircleImageView
+        android:id="@+id/item_autonamelistYZ_avatar"
+        style="@style/autoact_namelist_avatar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/item_autonamelistYZ_avatar">
+
+
+        <TextView
+            android:id="@+id/item_autonamelistYZ_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="name"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/item_autonamelistYZ_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_autonamelistYZ_name"
+            android:layout_marginTop="10dp"
+            android:text="电话："
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/item_autonamelistYz_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_autonamelistYZ_tel"
+            android:layout_marginTop="@dimen/margin_8"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="address:"
+            android:textSize="12sp"
+
+
+            />
+
+    </RelativeLayout>
+
+    <View
+        style="@style/autoact_line_grey_05Horizontal"
+        android:visibility="gone"
+        android:layout_below="@id/item_autonamelistYZ_avatar" />
+
+</RelativeLayout>
