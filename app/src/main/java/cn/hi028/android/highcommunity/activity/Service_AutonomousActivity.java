@@ -51,7 +51,7 @@ public class Service_AutonomousActivity extends BaseFragmentActivity {
     @Bind(R.id.auto_nodata)
     TextView tv_Nodata;
 
-
+    boolean isVerified,isCommitData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +66,7 @@ public class Service_AutonomousActivity extends BaseFragmentActivity {
         LogUtil.d(Tag + "initDatas2");
 
     }
+    int mStatus;
     public Auto_InitBean.Auto_Init_DataEntity mData;
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
@@ -79,20 +80,32 @@ public class Service_AutonomousActivity extends BaseFragmentActivity {
             if (null == message) {
                 return;
             }
-
             mData = (Auto_InitBean.Auto_Init_DataEntity) message;
-            if (mData.getStatus() == 0 || mData.getStatus() == -1) {
-                //审核中 审核失败
-                dataChecking();
-            } else if (mData.getStatus() == 2) {
+            mStatus=mData.getStatus();
+            if (mStatus==1){
 
-                //进入提交资料页
-                toCommitData();
+                isVerified=true;
+            }else{
+                isVerified=false;
 
-            } else if (mData.getStatus() == 1) {
-                //进入frag
-                toAutoFrag();
             }
+            if (mStatus==0||mStatus==1){
+                isCommitData=true;
+            }else{
+                isCommitData=false;
+            }
+//            if (mData.getStatus() == 0 || mData.getStatus() == -1) {
+//                //审核中 审核失败
+//                dataChecking();
+//            } else if (mData.getStatus() == 2) {
+//
+//                //进入提交资料页
+//                toCommitData();
+//
+//            } else if (mData.getStatus() == 1) {
+//                //进入frag
+//                toAutoFrag();
+//            }
         }
         @Override
         public Object onResolve(String result) {
@@ -126,7 +139,8 @@ public class Service_AutonomousActivity extends BaseFragmentActivity {
                 onBackPressed();
             }
         });
-        initDatas();
+        toAutoFrag();
+//        initDatas();
     }
 
     /**

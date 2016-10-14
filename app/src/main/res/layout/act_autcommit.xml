@@ -14,7 +14,7 @@
         android:background="@color/Defult_Color_AppGreen">
 
         <ImageView
-            android:id="@+id/autoAct_img_back"
+            android:id="@+id/commitAct_img_back"
             android:layout_width="@dimen/title_height"
             android:layout_height="@dimen/title_height"
             android:layout_gravity="start"
@@ -25,7 +25,7 @@
             android:src="@drawable/img_back_selector" />
 
         <TextView
-            android:id="@+id/tv_secondtitle_name"
+            android:id="@+id/tv_commit_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -34,32 +34,24 @@
             android:layout_marginRight="64dp"
             android:ellipsize="middle"
             android:singleLine="true"
-            android:text="自治大厅"
+            android:text="业主认证"
             android:textColor="#ffffff"
             android:textSize="18dp" />
         <!-- android:textSize="@dimen/font_extra_large" -->
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/auto_nodata"
+        android:id="@+id/commit_nodata"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="该小区暂未开通自治大厅！"
         android:visibility="gone" />
 
-    <LinearLayout
-        android:id="@+id/auto_identified_tomian"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#aaa"
-        android:orientation="vertical"
 
-        ></LinearLayout>
 
     <LinearLayout
-        android:id="@+id/auto_commitData"
+        android:id="@+id/commit_commitData"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -70,7 +62,7 @@
         ></LinearLayout>
 
     <LinearLayout
-        android:id="@+id/auto_checking"
+        android:id="@+id/commit_checking"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -78,12 +70,47 @@
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/auto_tv_check"
+            android:id="@+id/commit_tv_checking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:text="资料审核中……请耐心等待" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/commit_checkFail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/commit_tv_checkFail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="认证失败！" />
+        <Button
+            android:id="@+id/commit_but_checkAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_autoact_textview"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textSize="12sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:text=" 重新认证 "/>
+
+
 
 
     </LinearLayout>

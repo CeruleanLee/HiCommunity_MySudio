@@ -58,8 +58,6 @@ public class AutoFrag_Notice extends BaseFragment {
         initView();
         return view;
     }
-
-
     private void initView() {
         LogUtil.d(Tag + "initView");
         mList = new ArrayList<Auto_NoticeListBean.NoticeListDataEntity>();

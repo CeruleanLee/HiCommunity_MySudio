@@ -11,6 +11,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
@@ -19,43 +24,114 @@ import com.lidroid.xutils.util.LogUtils;
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.LogUtil;
 
+import java.util.List;
+
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.AutonomousAct_Second;
+import cn.hi028.android.highcommunity.adapter.AutoVoteList_Q_Adapter;
+import cn.hi028.android.highcommunity.adapter.AutoVoteList_V_Adapter;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_VoteList_Vote;
+import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
- * @功能：自治大厅认证完成主界面<br>
+ * @功能：自治大厅 投票<br>
  * @作者： Lee_yting<br>
  * @时间：2016/10/11<br>
  */
 
-public class AutoFrag_Vote extends BaseFragment  {
+public class AutoFrag_Vote extends BaseFragment {
     public static final String Tag = "~~~AutoFrag_Vote~~~";
     public static final String FRAGMENTTAG = "AutoFrag_Vote";
+
+    AutoVoteList_Q_Adapter mQuestionAdapter;
+    AutoVoteList_V_Adapter mVoteAdapter;
+    @Bind(R.id.frag_AutoVote_vote)
+    RadioButton but_Vote;
+    @Bind(R.id.frag_AutoVote_Question)
+    RadioButton but_Question;
+    @Bind(R.id.tv_AutoVote_Nodata)
+    TextView tv_Nodata;
+    @Bind(R.id.frag_AutoVote_listview_vote)
+    ListView listview_Vote;
+    @Bind(R.id.frag_AutoVote_listview_questions)
+    ListView listview_Questions;
+    @Bind(R.id.frag_AutoVote_RadioGroup)
+    RadioGroup mRadioGroup;
+    String type = 2 + "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.d(Tag + "onCreateView");
         View view = inflater.inflate(R.layout.frag_auto_votelist, null);
         ButterKnife.bind(this, view);
-
-
         initView();
+//        initDatas();
         return view;
     }
 
+    List<Auto_VoteList_Vote.VoteVVDataEntity> mVoteList;
+    List<Auto_VoteList_Vote.VoteVVDataEntity> mQuestionList;
 
-
-    void initView() {
+    public void initView() {
         LogUtil.d(Tag + "initView");
+        listview_Vote.setEmptyView(tv_Nodata);
+        listview_Questions.setEmptyView(tv_Nodata);
+        mVoteAdapter = new AutoVoteList_V_Adapter(mVoteList, getActivity());
+        mQuestionAdapter = new AutoVoteList_Q_Adapter(mQuestionList, getActivity());
+        listview_Vote.setAdapter(mVoteAdapter);
+        listview_Questions.setAdapter(mQuestionAdapter);
+        but_Vote.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    type = 2 + "";
+                    HTTPHelper.GetAutoVoteList(mIbpi, type);
+                    listview_Questions.setVisibility(View.GONE);
+                    listview_Vote.setVisibility(View.VISIBLE);
+                    but_Question.setChecked(false);
+                }
 
-        initDatas();
+
+            }
+        });
+        but_Question.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    type = 1 + "";
+                    HTTPHelper.GetAutoVoteList(mIbpi, type);
+                    listview_Vote.setVisibility(View.GONE);
+                    listview_Questions.setVisibility(View.VISIBLE);
+                    but_Vote.setChecked(false);
+                }
+            }
+        });
+//        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                switch (checkedId) {
+//                    case R.id.frag_AutoVote_vote:
+//                        type = 2 + "";
+//                        HTTPHelper.GetAutoVoteList(mIbpi, type);
+//                        listview_Questions.setVisibility(View.GONE);
+//                        listview_Vote.setVisibility(View.VISIBLE);
+//                        break;
+//                    case R.id.frag_AutoVote_Question:
+//                        type = 1 + "";
+//                        HTTPHelper.GetAutoVoteList(mIbpi, type);
+//                        listview_Vote.setVisibility(View.GONE);
+//                        listview_Questions.setVisibility(View.VISIBLE);
+//                        break;
+//                }
+//            }
+//        });
+
     }
-
     private void initDatas() {
 
-//        HTTPHelper.GetThirdService(mIbpi);
+        HTTPHelper.GetAutoVoteList(mIbpi, type);
     }
 
 
@@ -65,13 +141,23 @@ public class AutoFrag_Vote extends BaseFragment  {
             LogUtil.d(Tag + "---~~~onError");
             LogUtil.d(Tag + "-------------  initView   onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
-//            if (!isNoNetwork) {
-//                mLoadingView.loadFailed();
-//            }
         }
 
         @Override
         public void onSuccess(Object message) {
+
+            if (type==1+""){
+                mVoteList= (List<Auto_VoteList_Vote.VoteVVDataEntity>) message;
+                mVoteAdapter.AddNewData(mVoteList);
+                listview_Vote.setAdapter(mVoteAdapter);
+
+            }else  if (type==2+""){
+                mQuestionList= (List<Auto_VoteList_Vote.VoteVVDataEntity>) message;
+                mQuestionAdapter.AddNewData(mQuestionList);
+                listview_Questions.setAdapter(mQuestionAdapter);
+            }
+
+
 //			mLoadingView.loadSuccess();
 //			mLoadingView.setVisibility(View.GONE);
 //			LogUtil.d(Tag+"---~~~initViewonSuccess");
@@ -91,8 +177,8 @@ public class AutoFrag_Vote extends BaseFragment  {
         public Object onResolve(String result) {
 //			Log.e("renk", result);
 //			LogUtil.d(Tag+"---~~~iresult"+result);
-//			return HTTPHelper.ResolveThirdService(result);
-            return null;
+			return HTTPHelper.ResolveVoteVVDataEntity(result);
+//            return null;
         }
 
         @Override
@@ -146,7 +232,8 @@ public class AutoFrag_Vote extends BaseFragment  {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-Intent mIntent=new Intent(getActivity(), AutonomousAct_Second.class);
+
+//    Intent mIntent = new Intent(getActivity(), AutonomousAct_Second.class);
 
 
     public class NetworkReceiver extends BroadcastReceiver {
@@ -186,8 +273,6 @@ Intent mIntent=new Intent(getActivity(), AutonomousAct_Second.class);
     }
 
     private boolean isNoNetwork;
-
-
 
 
 }

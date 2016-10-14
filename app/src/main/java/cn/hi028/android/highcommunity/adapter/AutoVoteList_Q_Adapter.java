@@ -15,26 +15,26 @@ import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.AddressListFrag;
-import cn.hi028.android.highcommunity.bean.Autonomous.Auto_NoticeListBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_VoteList_Vote;
 import cn.hi028.android.highcommunity.utils.TimeUtil;
 
 /**
- * @功能：自治大厅公告adapter<br>
+ * @功能：自治大厅 投票列表 - 问卷adapter<br>
  * @作者： Lee_yting<br>
  * @时间：2016/10/12<br>
  */
-public class AutoVoteListAdapter extends BaseFragmentAdapter {
+public class AutoVoteList_Q_Adapter extends BaseFragmentAdapter {
 
     public AddressListFrag mFrag;
-    List<Auto_NoticeListBean.NoticeListDataEntity> mList = new ArrayList<Auto_NoticeListBean.NoticeListDataEntity>();
+    List<Auto_VoteList_Vote.VoteVVDataEntity> mList = new ArrayList<Auto_VoteList_Vote.VoteVVDataEntity>();
     private Context context;
     private LayoutInflater layoutInflater;
 
-    public AutoVoteListAdapter(List<Auto_NoticeListBean.NoticeListDataEntity> list, Context context) {
+    public AutoVoteList_Q_Adapter(List<Auto_VoteList_Vote.VoteVVDataEntity> list, Context context) {
         super();
         this.mList = list;
-        if(this.mList == null){
-            this.mList = new ArrayList<Auto_NoticeListBean.NoticeListDataEntity>();
+        if (this.mList == null) {
+            this.mList = new ArrayList<Auto_VoteList_Vote.VoteVVDataEntity>();
         }
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
@@ -46,7 +46,7 @@ public class AutoVoteListAdapter extends BaseFragmentAdapter {
     }
 
     @Override
-    public Auto_NoticeListBean.NoticeListDataEntity getItem(int position) {
+    public Auto_VoteList_Vote.VoteVVDataEntity getItem(int position) {
         return mList.get(position);
     }
 
@@ -60,34 +60,28 @@ public class AutoVoteListAdapter extends BaseFragmentAdapter {
         ViewHolder mViewHolder;
         if (convertView == null) {
             mViewHolder = new ViewHolder();
-            convertView = layoutInflater.inflate(R.layout.item_autonotice, null);
-            mViewHolder.mTitle = (TextView) convertView
-                    .findViewById(R.id.item_autonotice_title);
-            mViewHolder.mTime = (TextView) convertView
-                    .findViewById(R.id.item_autonotice_time);
-
+            convertView = layoutInflater.inflate(R.layout.item_autovotelist_questions, null);
+            mViewHolder.mTitle = (TextView) convertView.findViewById(R.id.item_autoVotelist_Qtitle);
+            mViewHolder.mTime = (TextView) convertView.findViewById(R.id.item_autoVotelist_Qtime);
+            mViewHolder.mbuilding = (TextView) convertView.findViewById(R.id.item_autoVotelist_Qbuilding);
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
-        final Auto_NoticeListBean.NoticeListDataEntity mBean = mList.get(position);
+        final Auto_VoteList_Vote.VoteVVDataEntity mBean = mList.get(position);
         mViewHolder.mTitle.setText(mBean.getTitle());
 //        TimeUtil.getDayAllTime(Long.parseLong(mBean.getCreate_time()))
         mViewHolder.mTime.setText(TimeUtil.getYearMonthDay(Long.parseLong(mBean.getCreate_time())));
 //        mViewHolder.mTime.setText(TimeUtil.longToDate(Long.parseLong(mBean.getCreate_time()),"yyyy年MM月dd日 HH时mm分ss秒").toString());
+        mViewHolder.mbuilding.setText("适用于：" + mBean.getBuilding());
         return convertView;
     }
 
 
-    class ViewHolder {
-        TextView mTitle;
-        TextView mTime;
-    }
-
     @Override
     public void AddNewData(Object mObject) {
         if (mObject instanceof List<?>) {
-            mList = (List<Auto_NoticeListBean.NoticeListDataEntity>) mObject;
+            mList = (List<Auto_VoteList_Vote.VoteVVDataEntity>) mObject;
         }
         notifyDataSetChanged();
         super.AddNewData(mObject);
@@ -99,4 +93,10 @@ public class AutoVoteListAdapter extends BaseFragmentAdapter {
     }
 
 
+    class ViewHolder {
+        TextView mTitle;
+        TextView mTime;
+        TextView mbuilding;
+
+    }
 }

@@ -66,6 +66,7 @@
 
     <color name="default_circle_indicator_stroke_color">#aaaaaa</color>
 
+
     <dimen name="default_circle_indicator_stroke_width">1dp</dimen>
 
     <color name="color_gray_no1">#cfcfcf</color>
