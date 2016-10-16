@@ -5,10 +5,6 @@
     android:background="@color/Defult_Color_ShallowGrey"
     android:orientation="vertical" >
 
-    <cn.hi028.android.highcommunity.view.RevealLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -141,6 +137,6 @@
             style="@style/bt_appdefult_tyle"
             android:layout_marginTop="1dip"
             android:text="退出" />
-    </cn.hi028.android.highcommunity.view.RevealLayout>
+
 
 </LinearLayout>

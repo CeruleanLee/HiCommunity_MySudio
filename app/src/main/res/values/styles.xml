@@ -185,7 +185,7 @@
         <item name="android:paddingRight">@dimen/padding_24</item>
         <item name="android:paddingTop">@dimen/padding_15</item>
         <item name="android:paddingBottom">@dimen/padding_15</item>
-        <item name="android:background">@color/defult_color_white</item>
+        <item name="android:background">@drawable/bg_whitebutton_select_withoutstroke</item>
         <item name="android:textColor">@color/color_hulf_black</item>
     </style>
 
@@ -489,7 +489,7 @@
     </style>
 
     <style name="dialogWindowAnim" parent="android:Animation">
-        <item name="android:windowExitAnimation">@anim/anim_exit</item>
+        <item name="android:windowExitAnimation">@anim/umeng_update_exit</item>
     </style>
     <!-- 自治大厅editext-->
     <style name="autoact_edittext_and_textview">

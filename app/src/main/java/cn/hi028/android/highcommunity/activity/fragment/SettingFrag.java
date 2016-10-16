@@ -12,10 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.don.tools.GeneratedClassUtils;
-import com.umeng.update.UmengUpdateAgent;
-import com.umeng.update.UmengUpdateListener;
-import com.umeng.update.UpdateResponse;
-import com.umeng.update.UpdateStatus;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 
@@ -31,6 +27,7 @@ import cn.hi028.android.highcommunity.activity.SettingAct;
 import cn.hi028.android.highcommunity.activity.WelcomeAct;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
+import cn.hi028.android.highcommunity.utils.updateutil.UpdateUtil;
 import cn.hi028.android.highcommunity.utils.wchatpay.ClearUtils;
 import cn.hi028.android.highcommunity.view.ECAlertDialog;
 
@@ -122,27 +119,35 @@ public class SettingFrag extends BaseFragment {
 
     @Click(R.id.tv_settings_AppUpdate)
     void update() {
-        UmengUpdateAgent.setUpdateAutoPopup(false);
-        UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
-            @Override
-            public void onUpdateReturned(int i, UpdateResponse updateResponse) {
-                switch (i) {
-                    case UpdateStatus.Yes: // has update
-                        UmengUpdateAgent.showUpdateDialog(getActivity(), updateResponse);
-                        break;
-                    case UpdateStatus.No: // has no update
-                        Toast.makeText(getActivity(), "已经是最新版本了", Toast.LENGTH_SHORT).show();
-                        break;
-                    case UpdateStatus.NoneWifi: // none wifi
-                        Toast.makeText(getActivity(), "没有wifi连接， 只在wifi下更新", Toast.LENGTH_SHORT).show();
-                        break;
-                    case UpdateStatus.Timeout: // time out
-                        Toast.makeText(getActivity(), "超时", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-            }
-        });
-        UmengUpdateAgent.forceUpdate(getActivity());
+        //检查更新
+      boolean isUpdate=  new UpdateUtil(getActivity(), getContext()).checkIsToUpdate();
+        if (isUpdate){
+            new UpdateUtil(getActivity(), getContext()).initUpdate();
+        }else{
+            Toast.makeText(getActivity(), "已经是最新版本了", Toast.LENGTH_SHORT).show();
+        }
+//        UmengUpdateAgent.setUpdateAutoPopup(false);
+//
+//        UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
+//            @Override
+//            public void onUpdateReturned(int i, UpdateResponse updateResponse) {
+//                switch (i) {
+//                    case UpdateStatus.Yes: // has update
+//                        UmengUpdateAgent.showUpdateDialog(getActivity(), updateResponse);
+//                        break;
+//                    case UpdateStatus.No: // has no update
+//                        Toast.makeText(getActivity(), "已经是最新版本了", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case UpdateStatus.NoneWifi: // none wifi
+//                        Toast.makeText(getActivity(), "没有wifi连接， 只在wifi下更新", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case UpdateStatus.Timeout: // time out
+//                        Toast.makeText(getActivity(), "超时", Toast.LENGTH_SHORT).show();
+//                        break;
+//                }
+//            }
+//        });
+//        UmengUpdateAgent.forceUpdate(getActivity());
     }
 
     @Click(R.id.tv_settings_Logout)

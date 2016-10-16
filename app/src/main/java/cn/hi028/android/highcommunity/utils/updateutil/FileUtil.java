@@ -17,7 +17,7 @@ public class FileUtil {
     public static File updateDir = null;
     public static File updateFile = null;
     /***********保存升级APK的目录***********/
-    public static final String KonkaApplication = "konkaUpdateApplication";
+    public static final String AppDir = "hishequ";
 
     public static boolean isCreateFileSucess;
 
@@ -31,7 +31,7 @@ public class FileUtil {
         if (android.os.Environment.MEDIA_MOUNTED.equals(android.os.Environment.getExternalStorageState())) {
             isCreateFileSucess = true;
 
-            updateDir = new File(Environment.getExternalStorageDirectory()+ "/" + KonkaApplication +"/");
+            updateDir = new File(Environment.getExternalStorageDirectory()+ "/" + AppDir +"/");
             updateFile = new File(updateDir + "/" + app_name + ".apk");
             Log.d("~~~~~~","创建的文件名："+updateFile);
             if (!updateDir.exists()) {

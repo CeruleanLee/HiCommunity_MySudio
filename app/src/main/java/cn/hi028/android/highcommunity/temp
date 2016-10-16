@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-    
+    //检查更新
+            new UpdateUtil(MainActivity.this, getApplicationContext()).checkUpdate();
     
     
     cn.hi028.android.highcommunity.view.nine.MyNineGridView

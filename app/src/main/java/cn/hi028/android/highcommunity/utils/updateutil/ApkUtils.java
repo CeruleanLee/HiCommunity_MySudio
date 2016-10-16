@@ -7,7 +7,7 @@ import android.net.Uri;
 import java.io.File;
 
 /**
- * Created by LG on 2016/10/4.
+ * Created by Lee_yting on 2016/10/4.gg
  * Tips:
  */
 public class ApkUtils {

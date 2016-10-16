@@ -3,6 +3,8 @@
 
     <!-- app 主色调 -->
     <color name="Defult_Color_AppGreen">#1fc796</color>
+    <!--主色调透明   友盟更新按钮-->
+    <color name="Defult_Color_AppGreen_alpha">#cc1fc796</color>
     <color name="Defult_Color_AppGreen_Alpha">#ff1fc796</color>
     <color name="Text_Color_Black">#000000</color>
     <color name="Defult_Text_Color">#0D0D0D</color>

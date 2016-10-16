@@ -5,10 +5,7 @@
     android:background="@color/Defult_Color_ShallowGrey"
     android:orientation="vertical" >
 
-    <cn.hi028.android.highcommunity.view.RevealLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,6 +51,6 @@
                 android:text="更新内容"
                 android:visibility="gone" />
         </LinearLayout>
-    </cn.hi028.android.highcommunity.view.RevealLayout>
+
 
 </LinearLayout>

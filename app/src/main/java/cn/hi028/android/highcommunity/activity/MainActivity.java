@@ -121,13 +121,13 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             if (null == mFrag)
                 return;
 //			mFrag.setCurrentPage(0);
-        }else if (intent.getIntExtra("communityFlag", 0) == 0x222){
+        } else if (intent.getIntExtra("communityFlag", 0) == 0x222) {
             tabSelector(0);
             NeighborFrag mFrag = (NeighborFrag) getSupportFragmentManager()
-					.findFragmentByTag(NeighborFrag.FRAGMENTTAG);
+                    .findFragmentByTag(NeighborFrag.FRAGMENTTAG);
             if (null == mFrag)
                 return;
-			mFrag.setCurrentPage(0);
+            mFrag.setCurrentPage(0);
         }
     }
 
@@ -151,7 +151,8 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
         LogUtil.d("~~~~~~主界面视图完成");
 //检查更新
-        new UpdateUtil(MainActivity.this, getApplicationContext()).checkUpdate();
+//        new UpdateUtil(MainActivity.this, getApplicationContext()).checkUpdate();
+        new UpdateUtil(MainActivity.this, getApplicationContext()).initUpdate();
 
         Res.init(this);
         initLeftMenu();
@@ -164,9 +165,8 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             setTag();
             setStyleCustom();
             registerMessageReceiver();
-            Log.d("userinfor","用户信息："+HighCommunityApplication.mUserInfo.toString());
+            Log.d("userinfor", "用户信息：" + HighCommunityApplication.mUserInfo.toString());
         }
-
 
 
     }

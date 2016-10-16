@@ -27,7 +27,9 @@
             android:layout_marginTop="12dp"
             android:text="嗨社区 v2.0"
             android:textColor="@color/Defult_Color_AppGreen"
-            android:textSize="13sp"
+            android:textSize="12sp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
             android:textStyle="bold|italic" />
     </LinearLayout>
 

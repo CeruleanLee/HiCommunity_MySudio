@@ -78,7 +78,9 @@
 <!--更新文本-->
 
     <string name="Update_Content">当前版本：%1$s\n最新版本：%2$s\n新版本大小：%3$s\n\n更新内容\n%4$s</string>
-    <string name="Update_loaded_Content">当前版本：%1$s\n最新版本：%2$s\n最新版本已下载，是否安装？\n\n更新内容\n%3$s</string>
+    <string name="Update_Content2">当前版本：%1$s\n最新版本：%2$s\n\n更新内容\n%3$s</string>
+
+    <string name="Update_loaded_Content">当前版本：%1$s\n最新版本：%2$s\n最新版本已下载，是否安装？\n\n更新内容：\n%3$s</string>
 
     <string name="insert_card">插入卡</string>
     <string name="down_fail">下载失败</string>

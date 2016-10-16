@@ -7,19 +7,18 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.os.Handler;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
-
-import net.duohuo.dhroid.util.LogUtil;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import cn.hi028.android.highcommunity.R;
@@ -29,10 +28,11 @@ import cn.hi028.android.highcommunity.R;
  * 说明：升级服务
  */
 public class UpdateService extends Service {
+    final String Tag="~~~00 UpdateService:";
 
     public static final String Install_Apk = "Install_Apk";
-    /********download progress step*********/
-    private static final int down_step_custom = 1;
+    /**download progress step   现在apk文件比较小 3不会卡  以后文件变大 更新频率太快就会卡  这里注意以后要换掉**/
+    private static final int down_step_custom = 3;
 
     private static final int TIMEOUT = 10 * 1000;// 超时
     private static String down_url;
@@ -46,7 +46,8 @@ public class UpdateService extends Service {
     private Intent updateIntent;
     private PendingIntent pendingIntent;
     private RemoteViews contentView;
-
+    /*** 是否正在下载**/
+    public static boolean downloading;
 
     @Override
     public IBinder onBind(Intent arg0) {
@@ -55,7 +56,7 @@ public class UpdateService extends Service {
 
     /**
      * 方法描述：onStartCommand方法
-     * @param   Intent intent, int flags, int startId
+
      * @return    int
      * @see     UpdateService
      */
@@ -73,7 +74,7 @@ public class UpdateService extends Service {
             createThread();
         }else{
             Toast.makeText(this, R.string.insert_card, Toast.LENGTH_SHORT).show();
-            /***************stop service************/
+            /***stop service**/
             stopSelf();
 
         }
@@ -83,14 +84,14 @@ public class UpdateService extends Service {
 
 
 
-    /********* update UI******/
+    /** update UI**/
     private final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case DOWN_OK:
 
-                    /*********下载完成，点击安装***********/
+                    /***下载完成，点击安装**/
                     Uri uri = Uri.fromFile(FileUtil.updateFile);
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setDataAndType(uri,"application/vnd.android.package-archive");
@@ -102,7 +103,7 @@ public class UpdateService extends Service {
                     notificationManager.notify(R.layout.notification_item, notification);
 
                     /*****安装APK******/
-                    //installApk();
+                    installApk();
 
                     //stopService(updateIntent);
                     /***stop service*****/
@@ -274,5 +275,111 @@ public class UpdateService extends Service {
 
         return downloadCount;
     }
+
+
+    //TODO 断点续传功能下个版本实现  gg
+    /**
+     * 下载文件的线程，支持断点续传(利用缓存文件实现)
+     */
+//    private class DownloadThread extends Thread{
+//        private String fileUrl;
+//        private String filePath;
+//        public DownloadThread(String fileUrl,String filePath){
+//            this.filePath = filePath;
+//            this.fileUrl = fileUrl;
+//        }
+//        @Override
+//        public void run() {
+//            InputStream is = null;
+//            RandomAccessFile raf = null;
+//            try {
+//                URL url = new URL(fileUrl);
+//                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//                conn.setReadTimeout(8000);
+//                conn.setConnectTimeout(8000);
+//                //判断是否存在缓存文件
+//                int startPos = 0;
+//                if(isTemFileExist(filePath)){
+//                    startPos = (int) getTemFileSize(filePath);
+//                    //-1是防止文件已经下载好但是没有重命名而导致错误
+//                    if(startPos != 0){
+//                        startPos -= 1;
+//                    }
+//                    conn.addRequestProperty("Range","bytes="+startPos+"-");
+//                }
+//                int responseCode = conn.getResponseCode();
+//                if(responseCode == 200 || responseCode == 206){//如果设置了访问数据的范围，将返回206
+//                    int contentLength = conn.getContentLength()+startPos;
+//                    handler.sendMessage(handler.obtainMessage(MSG_START_DOWNLOAD,contentLength));
+//                    is = conn.getInputStream();
+//                    File temFile = getTemFile(filePath);
+//                    raf = new RandomAccessFile(temFile,"rw");
+//                    raf.seek(startPos);
+//                    byte[] buff = new byte[1024*4];
+//                    int len;
+//                    int downloadCount = startPos;
+//                    while((len = is.read(buff)) != -1){
+//                        raf.write(buff,0,len);
+//                        downloadCount += len;
+//                        handler.sendMessage(handler.obtainMessage(MSG_DOWNLOADNG,downloadCount,contentLength));
+//                    }
+//                    //缓存文件下载后之后
+//                    File file = new File(filePath);
+//                    temFile.renameTo(file);
+//                    handler.sendMessage(handler.obtainMessage(MSG_SUCCESS,file));
+//                    return;
+//                }
+//            } catch (MalformedURLException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }finally{
+//                if(is != null){
+//                    try {
+//                        is.close();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                if(raf != null){
+//                    try {
+//                        raf.close();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//            handler.sendMessage(handler.obtainMessage(MSG_FALED,"下载失败"));
+//        }
+//
+//        /**
+//         * 判断缓存文件是否存在
+//         * @param filePath
+//         * @return
+//         */
+//        private boolean isTemFileExist(String filePath){
+//            File temFile = getTemFile(filePath);
+//            return temFile.exists();
+//        }
+//
+//        /**
+//         * 获取缓存文件大小
+//         * @param filePath
+//         * @return
+//         */
+//        private long getTemFileSize(String filePath){
+//            File temFile = getTemFile(filePath);
+//            return temFile.length();
+//        }
+//
+//        /**
+//         * 获取缓存文件
+//         * @param filePath
+//         * @return
+//         */
+//        private File getTemFile(String filePath){
+//            return new File(filePath+".tem");
+//        }
+//    }
 
 }
