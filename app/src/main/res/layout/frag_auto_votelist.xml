@@ -17,7 +17,7 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/frag_AutoVote_vote"
+                android:id="@+id/frag_AutoVote_Question"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
@@ -26,22 +26,21 @@
                 android:checked="true"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="选举"
+                android:text="问卷调查"
                 android:textColor="@color/color_group_selector" />
-
-
             <RadioButton
-                android:id="@+id/frag_AutoVote_Question"
+                android:id="@+id/frag_AutoVote_vote"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
                 android:background="@drawable/frag_picdetail_checktextview_selector"
                 android:button="@null"
-                android:checked="false"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="问卷调查"
+                android:text="选举"
                 android:textColor="@color/color_group_selector" />
+
+
 
 
         </RadioGroup>
@@ -66,6 +65,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:divider="@null"
+            android:visibility="gone"
             ></ListView>
 
         <ListView
@@ -75,7 +75,7 @@
             android:background="@android:color/white"
             android:divider="@null"
 
-            android:visibility="gone"></ListView>
+          ></ListView>
     </RelativeLayout>
 
 

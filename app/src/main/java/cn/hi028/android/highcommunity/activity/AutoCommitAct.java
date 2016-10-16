@@ -57,9 +57,9 @@ public class AutoCommitAct extends BaseFragmentActivity {
         setContentView(R.layout.act_autcommit);
         ButterKnife.bind(this);
         isCommitData = getIntent().getBooleanExtra("isCommitData", false);
-        mStatus = getIntent().getIntExtra("mStatus", -1);
+//        mStatus = getIntent().getIntExtra("mStatus", -1);
 //        mData=getIntent().getParcelableExtra("mData");
-        Toast.makeText(this,"isCommitData:"+isCommitData+"mStatus"+mStatus,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this,"isCommitData:"+isCommitData+"mStatus"+mStatus,Toast.LENGTH_SHORT).show();
 //        if (mData!=null){
 //            Toast.makeText(this,"传过来的status:"+mData.getStatus(),Toast.LENGTH_SHORT).show();
 //
@@ -67,8 +67,8 @@ public class AutoCommitAct extends BaseFragmentActivity {
 //            Toast.makeText(this,"过来的data  null",Toast.LENGTH_SHORT).show();
 //
 //        }
+
         initDatas();
-        initView();
     }
     private void initDatas() {
 
@@ -81,20 +81,20 @@ public class AutoCommitAct extends BaseFragmentActivity {
     }
     private void initView() {
         Log.d(Tag,"initView");
-        if (mStatus == 2) {
+        if (mData.getStatus() == 2) {
             Log.d(Tag,"mStatus 2");
             //填写资料
             toCommitData();
 //            layout_CommitData.setVisibility(View.VISIBLE);
 //            layout_Checking.setVisibility(View.GONE);
 //            layout_CheckFail.setVisibility(View.GONE);
-        } else if (mStatus == 0) {
+        } else if (mData.getStatus()== 0) {
             Log.d(Tag,"mStatus 0");
 //正在审核
             layout_Checking.setVisibility(View.VISIBLE);
             layout_CommitData.setVisibility(View.GONE);
             layout_CheckFail.setVisibility(View.GONE);
-        } else if (mStatus == -1) {
+        } else if (mData.getStatus() == -1) {
             Log.d(Tag,"mStatus -1");
             //审核失败
             layout_CheckFail.setVisibility(View.VISIBLE);
@@ -122,6 +122,7 @@ public class AutoCommitAct extends BaseFragmentActivity {
 
                Log.d(Tag,"onSuccess message kong空!!!!!!");
            }
+            initView();
             Log.d(Tag,"kong空才怪");
         }
         @Override
@@ -155,17 +156,19 @@ public class AutoCommitAct extends BaseFragmentActivity {
         FragmentTransaction ft2 = fm2.beginTransaction();
 //
 //        ft.commit();
-        AutoCommitDataFrag mCommitFrag = new AutoCommitDataFrag();  Log.d(Tag,"判断前");
+        AutoCommitDataFrag mCommitFrag = new AutoCommitDataFrag();
+        Log.d(Tag,"判断前");
 
         Bundle mBundle=new Bundle();
         if (mData!=null){
-            Log.d(Tag,"toCommitData mData null");
+            Log.d(Tag,"toCommitData mData no null");
             Log.d(Tag,"mData "+mData.toString());
             mBundle.putParcelable("data",mData);
             mCommitFrag.setArguments(mBundle);
-            ft2.replace(R.id.auto_commitData, mCommitFrag, AutoCommitDataFrag.FRAGMENTTAG);
+            ft2.replace(R.id.commit_commitData, mCommitFrag, AutoCommitDataFrag.FRAGMENTTAG);
             ft2.commit();
         }
+        Log.d(Tag,"toCommitData mData null");
         layout_CommitData.setVisibility(View.VISIBLE);
         layout_Checking.setVisibility(View.GONE);
         layout_CheckFail.setVisibility(View.GONE);

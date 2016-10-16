@@ -59,7 +59,7 @@ public class AutoFrag_Vote extends BaseFragment {
     ListView listview_Questions;
     @Bind(R.id.frag_AutoVote_RadioGroup)
     RadioGroup mRadioGroup;
-    String type = 2 + "";
+    String type = 1 + "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,7 +67,7 @@ public class AutoFrag_Vote extends BaseFragment {
         View view = inflater.inflate(R.layout.frag_auto_votelist, null);
         ButterKnife.bind(this, view);
         initView();
-//        initDatas();
+        initDatas();
         return view;
     }
 
@@ -87,10 +87,13 @@ public class AutoFrag_Vote extends BaseFragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     type = 2 + "";
-                    HTTPHelper.GetAutoVoteList(mIbpi, type);
+                    mQuestionAdapter.ClearData();
+                    HTTPHelper.GetAutoVoteList(mIbpi2, type);
                     listview_Questions.setVisibility(View.GONE);
                     listview_Vote.setVisibility(View.VISIBLE);
                     but_Question.setChecked(false);
+                }else{
+                    listview_Vote.setVisibility(View.GONE);
                 }
 
 
@@ -101,10 +104,13 @@ public class AutoFrag_Vote extends BaseFragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     type = 1 + "";
-                    HTTPHelper.GetAutoVoteList(mIbpi, type);
+//                    mVoteAdapter.ClearData();
+                    HTTPHelper.GetAutoVoteList(mIbpi1, type);
                     listview_Vote.setVisibility(View.GONE);
-                    listview_Questions.setVisibility(View.VISIBLE);
+//                    listview_Questions.setVisibility(View.VISIBLE);
                     but_Vote.setChecked(false);
+                }else{
+                    listview_Questions.setVisibility(View.GONE);
                 }
             }
         });
@@ -131,11 +137,11 @@ public class AutoFrag_Vote extends BaseFragment {
     }
     private void initDatas() {
 
-        HTTPHelper.GetAutoVoteList(mIbpi, type);
+        HTTPHelper.GetAutoVoteList(mIbpi1, type);
     }
 
 
-    BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
+    BpiHttpHandler.IBpiHttpHandler mIbpi2 = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
             LogUtil.d(Tag + "---~~~onError");
@@ -146,16 +152,41 @@ public class AutoFrag_Vote extends BaseFragment {
         @Override
         public void onSuccess(Object message) {
 
-            if (type==1+""){
-                mVoteList= (List<Auto_VoteList_Vote.VoteVVDataEntity>) message;
-                mVoteAdapter.AddNewData(mVoteList);
-                listview_Vote.setAdapter(mVoteAdapter);
-
-            }else  if (type==2+""){
                 mQuestionList= (List<Auto_VoteList_Vote.VoteVVDataEntity>) message;
                 mQuestionAdapter.AddNewData(mQuestionList);
                 listview_Questions.setAdapter(mQuestionAdapter);
-            }
+
+        }
+
+        @Override
+        public Object onResolve(String result) {
+			return HTTPHelper.ResolveVoteVVDataEntity(result);
+//            return null;
+        }
+
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
+
+        }
+
+        @Override
+        public void cancleAsyncTask() {
+
+        }
+    };
+    BpiHttpHandler.IBpiHttpHandler mIbpi1 = new BpiHttpHandler.IBpiHttpHandler() {
+        @Override
+        public void onError(int id, String message) {
+            LogUtil.d(Tag + "---~~~onError");
+            LogUtil.d(Tag + "-------------  initView   onError");
+            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+        }
+
+        @Override
+        public void onSuccess(Object message) {
+                mVoteList= (List<Auto_VoteList_Vote.VoteVVDataEntity>) message;
+                mVoteAdapter.AddNewData(mVoteList);
+                listview_Vote.setAdapter(mVoteAdapter);
 
 
 //			mLoadingView.loadSuccess();
@@ -177,7 +208,7 @@ public class AutoFrag_Vote extends BaseFragment {
         public Object onResolve(String result) {
 //			Log.e("renk", result);
 //			LogUtil.d(Tag+"---~~~iresult"+result);
-			return HTTPHelper.ResolveVoteVVDataEntity(result);
+            return HTTPHelper.ResolveVoteVVDataEntity(result);
 //            return null;
         }
 
