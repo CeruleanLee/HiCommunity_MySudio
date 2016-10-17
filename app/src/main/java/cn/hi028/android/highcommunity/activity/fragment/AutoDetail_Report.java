@@ -11,10 +11,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,13 +25,22 @@ import com.don.view.CircleImageView;
 import com.lidroid.xutils.util.LogUtils;
 
 import net.duohuo.dhroid.activity.BaseFragment;
+import net.duohuo.dhroid.util.ImageLoaderUtil;
 import net.duohuo.dhroid.util.LogUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.adapter.Auto_ReportDetailAdapter;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_ReportDetailBean;
+import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
+import cn.hi028.android.highcommunity.utils.TimeUtil;
 
 /**
  * @功能：自治大厅 汇报详情Frag<br>
@@ -41,51 +52,56 @@ public class AutoDetail_Report extends BaseFragment {
     public static final String Tag = "~~~AutoDetail_Report~~~";
     public static final String FRAGMENTTAG = "AutoDetail_Report";
     @Bind(R.id.reportdetail_spokerImage)
-    CircleImageView img_userImg;
+    CircleImageView mSpeakerImage;
     @Bind(R.id.reportdetail_spokerContent)
-    EditText ed_CommentContent;
+    EditText mSpeakerContent;
     @Bind(R.id.reportdetail_spokerButton)
-    ImageView but_Send;
+    ImageView mSpeakerButton;
     @Bind(R.id.reportdetail_commentListview)
     ListView mCommentListview;
-
-
-
-
+    @Bind(R.id.pg_progress)
+    ProgressBar mProgress;
+    @Bind(R.id.auto_reportDetails_noData)
+    TextView mNoData;
+    List<Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity> mList;
+    @Bind(R.id.reportdetail_spokerLayout)
+    LinearLayout mSpokerLayout;
+    @Bind(R.id.loading_message)
+    TextView loadingMessage;
+Auto_ReportDetailBean.ReportDetailDataEntity mBean=new Auto_ReportDetailBean.ReportDetailDataEntity();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.d(Tag + "onCreateView");
         View view = inflater.inflate(R.layout.frag_auto_detail_report, null);
         ButterKnife.bind(this, view);
+        reportDetailID=getActivity().getIntent().getIntExtra("reportDetail_id",-1);
         initView();
         return view;
     }
 
+    Auto_ReportDetailAdapter mAdapter;
+int reportDetailID;
     private void initView() {
         LogUtil.d(Tag + "initView");
+        mProgress.setVisibility(View.VISIBLE);
+        mCommentListview.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+        mList = new ArrayList<Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity>();
+        mAdapter = new Auto_ReportDetailAdapter(mList, getActivity(), this);
         initHeader();
-//        mList = new ArrayList<Auto_NoticeListBean.NoticeListDataEntity>();
-//        mAdapter = new AutoNoticeAdapter(mList, getActivity());
-//        mListview.setEmptyView(mNodata);
-//        mListview.setAdapter(mAdapter);
-//        mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String url = "http://028hi.cn/ywh/notice/detail.html?id=" + mList.get(position).getId();
-//                BrowseActivity.toBrowseActivity(getActivity(), mList.get(position).getTitle(), url);
-//            }
-//        });
+        mCommentListview.setAdapter(mAdapter);
+        if (HighCommunityApplication.mUserInfo.getId()==0){
+            mSpokerLayout.setVisibility(View.GONE);
+        }else{
+            mSpokerLayout.setVisibility(View.VISIBLE);
+            ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP+HighCommunityApplication.mUserInfo.getHead_pic(),mSpeakerImage);
+        }
+        if (reportDetailID!=-1){
+            initDatas();
+        }
+    }
 
-//        initDatas();
-    }
-    TextView mTitle,mReportorName,mReportTime,mContent;
-    private void initHeader() {
-        LinearLayout header = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.head_auto_report_detail, null);
-        mTitle = (TextView) header.findViewById(R.id.reportdetail_title);
-        mReportorName = (TextView) header.findViewById(R.id.reportdetail_name);
-        mReportTime = (TextView) header.findViewById(R.id.reportdetail_time);
-        mContent = (TextView) header.findViewById(R.id.reportdetail_content);
-    }
+    TextView mTitle, mReportorName, mReportTime, mContent;
+
 
 
 
@@ -93,15 +109,31 @@ public class AutoDetail_Report extends BaseFragment {
         HTTPHelper.AutoNoticeList(mIbpi);
     }
 
+    public void setText(String text, String to_id, String parentId, boolean isReplay) {
+        this.isReplay = isReplay;
+        mSpeakerContent.setHint(text);
+        toid = to_id;
+        ParentId = parentId;
+        InputMethodManager mManager = (InputMethodManager) mSpeakerContent.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mManager.showSoftInput(mSpeakerContent, 0);
+    }
+
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
             LogUtil.d(Tag + "---~~~onError");
+
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
         @Override
         public void onSuccess(Object message) {
+            if (message==null){return;}
+            mBean= (Auto_ReportDetailBean.ReportDetailDataEntity) message;
+setHeadData();
+            mList=mBean.getReply();
+            mAdapter.AddNewData(mList);
+            mCommentListview.setAdapter(mAdapter);
 //            mList = (List<Auto_NoticeListBean.NoticeListDataEntity>) message;
 //            mAdapter.AddNewData(mList);
 //            mListview.setAdapter(mAdapter);
@@ -125,6 +157,24 @@ public class AutoDetail_Report extends BaseFragment {
         }
     };
 
+    private void setHeadData() {
+        mTitle.setText(mBean.getTitle());
+        mReportorName.setText(mBean.getName());
+mReportTime.setText(TimeUtil.getDayTime(Long.parseLong(mBean.getCreate_time())));
+    mContent.setText("  "+mBean.getContent());
+
+
+
+
+    }
+    private void initHeader() {
+        LinearLayout header = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.head_auto_report_detail, null);
+        mTitle = (TextView) header.findViewById(R.id.reportdetail_title);
+        mReportorName = (TextView) header.findViewById(R.id.reportdetail_name);
+        mReportTime = (TextView) header.findViewById(R.id.reportdetail_time);
+        mContent = (TextView) header.findViewById(R.id.reportdetail_content);
+        mCommentListview.addHeaderView(header);
+    }
 
     @Override
     public void onPause() {

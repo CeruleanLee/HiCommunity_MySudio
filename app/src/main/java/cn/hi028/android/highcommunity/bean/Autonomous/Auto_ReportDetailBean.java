@@ -6,7 +6,7 @@ import java.util.List;
  * Created by Lee_yting on 2016/10/17 0017.
  * 说明：汇报详情
  */
-public class Auto_ReportDetail {
+public class Auto_ReportDetailBean {
 
 
     /**
@@ -134,7 +134,7 @@ public class Auto_ReportDetail {
             private String pic;
             private String from_name;
             private String content;
-            private int reply_time;
+            private long reply_time;
             private List<SubReplyEntity> sub_reply;
 
             public void setId(int id) {
@@ -157,7 +157,7 @@ public class Auto_ReportDetail {
                 this.content = content;
             }
 
-            public void setReply_time(int reply_time) {
+            public void setReply_time(long reply_time) {
                 this.reply_time = reply_time;
             }
 
@@ -185,7 +185,7 @@ public class Auto_ReportDetail {
                 return content;
             }
 
-            public int getReply_time() {
+            public long getReply_time() {
                 return reply_time;
             }
 

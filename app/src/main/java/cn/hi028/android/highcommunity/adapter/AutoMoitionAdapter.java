@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.fragment.AddressListFrag;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionBean;
 import cn.hi028.android.highcommunity.utils.TimeUtil;
 
@@ -23,7 +22,6 @@ import cn.hi028.android.highcommunity.utils.TimeUtil;
  */
 public class AutoMoitionAdapter extends BaseFragmentAdapter {
 
-    public AddressListFrag mFrag;
     List<Auto_MotionBean.MotionDataEntity> mList = new ArrayList<Auto_MotionBean.MotionDataEntity>();
     private Context context;
     private LayoutInflater layoutInflater;
