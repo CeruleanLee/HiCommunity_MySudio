@@ -65,6 +65,10 @@ public class Auto_InitBean implements Parcelable {
          */
 
         private int status;
+        private int owner_id;
+
+
+
         private VillageEntity village;
         private List<BuildingEntity> building;
 
@@ -83,7 +87,13 @@ public class Auto_InitBean implements Parcelable {
         public int getStatus() {
             return status;
         }
+        public int getOwner_id() {
+            return owner_id;
+        }
 
+        public void setOwner_id(int owner_id) {
+            this.owner_id = owner_id;
+        }
         public VillageEntity getVillage() {
             return village;
         }

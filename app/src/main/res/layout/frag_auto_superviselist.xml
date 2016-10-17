@@ -11,13 +11,13 @@
         android:orientation="horizontal">
 
         <RadioGroup
-            android:id="@+id/frag_AutoVote_RadioGroup"
+            android:id="@+id/frag_Supervise_RadioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/frag_AutoVote_Question"
+                android:id="@+id/frag_Supervise_Report"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
@@ -26,11 +26,11 @@
                 android:checked="true"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="问卷调查"
+                android:text="汇报"
                 android:textColor="@color/color_group_selector" />
 
             <RadioButton
-                android:id="@+id/frag_AutoVote_vote"
+                android:id="@+id/frag_Supervise_Inquiry"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
@@ -38,34 +38,38 @@
                 android:button="@null"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="选举"
+                android:text="询问"
                 android:textColor="@color/color_group_selector" />
 
         </RadioGroup>
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/listviewContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:background="#ffffff">
 
 
         <TextView
-            android:id="@+id/tv_AutoVote_Nodata"
+            android:id="@+id/tv_Supervise_Nodata"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="暂无数据"
-            android:visibility="visible" />
+            android:visibility="gone" />
         <ListView
-            android:id="@+id/frag_AutoVote_listview_questions"
+            android:id="@+id/frag_Supervise_listview_Report"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
+            android:visibility="gone"
             android:divider="@null"
 
             ></ListView>
         <ListView
-            android:id="@+id/frag_AutoVote_listview_vote"
+            android:id="@+id/frag_Supervise_listview_Inquiry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"

@@ -8,9 +8,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
@@ -19,29 +25,58 @@ import com.lidroid.xutils.util.LogUtils;
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.LogUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.adapter.AutoSuperviseAdapter_Inq;
+import cn.hi028.android.highcommunity.adapter.AutoSuperviseAdapter_Re;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SuperViseBean;
+import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
- * @功能：自治大厅认证完成主界面<br>
+ * @功能：自治大厅 监督页面<br>
  * @作者： Lee_yting<br>
  * @时间：2016/10/11<br>
  */
 
 public class AutoFrag_SuperVise extends BaseFragment {
-    public static final String Tag = "~~~AutonomousMainFrag~~~";
-    public static final String FRAGMENTTAG = "AutonomousMainFrag";
-
+    public static final String Tag = "~~~AutoFrag_SuperVise~~~";
+    public static final String FRAGMENTTAG = "AutoFrag_SuperVise";
+    int owner_id;
+    @Bind(R.id.frag_Supervise_Report)
+    RadioButton but_Report;
+    @Bind(R.id.frag_Supervise_Inquiry)
+    RadioButton but_Inquiry;
+    @Bind(R.id.frag_Supervise_RadioGroup)
+    RadioGroup mRadioGroup;
+    @Bind(R.id.tv_Supervise_Nodata)
+    TextView tv_Nodata;
+    @Bind(R.id.frag_Supervise_listview_Report)
+    ListView mListview_Report;
+    @Bind(R.id.frag_Supervise_listview_Inquiry)
+    ListView mListview_Inquiry;
+    List<List<Auto_SuperViseBean.SuperViseDataEntity>> mList;
+    List<Auto_SuperViseBean.SuperViseDataEntity> mReportList;
+    List<Auto_SuperViseBean.SuperViseDataEntity> mInquiryList;
+    AutoSuperviseAdapter_Re mReportAdapter;
+    AutoSuperviseAdapter_Inq mInquiryAdapter;
+    @Bind(R.id.listviewContainer)
+    RelativeLayout listviewContainer;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.d(Tag + "onCreateView");
-        View view = inflater.inflate(R.layout.frag_autonomous_identified2, null);
+        View view = inflater.inflate(R.layout.frag_auto_superviselist, null);
         ButterKnife.bind(this, view);
-        findView(view);
-        registerListener();
+
+        Bundle bundle = getArguments();
+        owner_id = bundle.getInt("owner_id", -1);
+        Log.d(Tag, "owner_id=" + owner_id);
 
 
         initView();
@@ -49,27 +84,51 @@ public class AutoFrag_SuperVise extends BaseFragment {
     }
 
 
-    private void registerListener() {
-//		payment.setOnClickListener(this);
-//		tenement.setOnClickListener(this);
-    }
-
-
-    private void findView(View view) {
-
-
-    }
-
-
     void initView() {
         LogUtil.d(Tag + "initView");
-
+        mListview_Report.setEmptyView(tv_Nodata);
+        mListview_Inquiry.setEmptyView(tv_Nodata);
+        mReportAdapter = new AutoSuperviseAdapter_Re(mReportList, getActivity());
+        mInquiryAdapter = new AutoSuperviseAdapter_Inq(mInquiryList, getActivity());
+        mReportList = new ArrayList<Auto_SuperViseBean.SuperViseDataEntity>();
+        mInquiryList = new ArrayList<Auto_SuperViseBean.SuperViseDataEntity>();
+//        mListview_Report.setAdapter(mReportAdapter);
+//        mListview_Inquiry.setAdapter(mInquiryAdapter);
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.frag_Supervise_Report:
+                        mListview_Report.setVisibility(View.VISIBLE);
+                        mListview_Inquiry.setVisibility(View.GONE);
+                        break;
+                    case R.id.frag_Supervise_Inquiry:
+                        mListview_Inquiry.setVisibility(View.VISIBLE);
+                        mListview_Report.setVisibility(View.GONE);
+                        break;
+                }
+            }
+        });
+        but_Report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                mListview_Report.setVisibility(View.VISIBLE);
+//                mListview_Inquiry.setVisibility(View.GONE);
+            }
+        });
+        but_Inquiry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                mListview_Inquiry.setVisibility(View.VISIBLE);
+//                mListview_Report.setVisibility(View.GONE);
+            }
+        });
         initDatas();
     }
 
     private void initDatas() {
 
-//        HTTPHelper.GetThirdService(mIbpi);
+        HTTPHelper.GetAutoSuperviseList(mIbpi, owner_id);
     }
 
 
@@ -77,36 +136,35 @@ public class AutoFrag_SuperVise extends BaseFragment {
         @Override
         public void onError(int id, String message) {
             LogUtil.d(Tag + "---~~~onError");
-            LogUtil.d(Tag + "-------------  initView   onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
-//            if (!isNoNetwork) {
-//                mLoadingView.loadFailed();
-//            }
         }
 
         @Override
         public void onSuccess(Object message) {
-//			mLoadingView.loadSuccess();
-//			mLoadingView.setVisibility(View.GONE);
-//			LogUtil.d(Tag+"---~~~initViewonSuccess");
-////						if (null == message) return;
-//			LogUtil.d(Tag+"---~~~ initView   message:"+message);
-//			ThirdServiceBean mBean = (ThirdServiceBean) message;
-//			mAdapter.AddNewData(mBean.getServices());
-//			mGridView.setAdapter(mAdapter);
-//			pagerAdapter.setImageIdList(mBean.getBanners());
-//			HighCommunityUtils.GetInstantiation()
-//			.setThirdServiceGridViewHeight(mGridView, mAdapter, 4);
-//			tatalLayout.setVisibility(View.VISIBLE);
+            mList = (List<List<Auto_SuperViseBean.SuperViseDataEntity>>) message;
+            Log.d(Tag,"list 长度"+mList.size());
+            Log.d(Tag,"list string"+mList.toString());
+
+            if (mList != null) {
+                mReportList = mList.get(0);
+                mReportAdapter.AddNewData(mReportList);
+                mListview_Report.setAdapter(mReportAdapter);
+
+                mInquiryList = mList.get(1);
+                mInquiryAdapter.AddNewData(mInquiryList);
+                mListview_Inquiry.setAdapter(mInquiryAdapter);
+                listviewContainer.setVisibility(View.VISIBLE);
+                mListview_Inquiry.setVisibility(View.GONE);
+                mListview_Report.setVisibility(View.VISIBLE);
+            }
 
         }
 
         @Override
         public Object onResolve(String result) {
-//			Log.e("renk", result);
 //			LogUtil.d(Tag+"---~~~iresult"+result);
-//			return HTTPHelper.ResolveThirdService(result);
-            return null;
+            return HTTPHelper.ResolveSuperViseDataEntity(result);
+//            return null;
         }
 
         @Override
@@ -132,7 +190,6 @@ public class AutoFrag_SuperVise extends BaseFragment {
         super.onResume();
         LogUtil.d(Tag + "onResume");
 
-        //		mLoadingView.startLoading();
         registNetworkReceiver();
     }
 
@@ -161,7 +218,6 @@ public class AutoFrag_SuperVise extends BaseFragment {
         ButterKnife.unbind(this);
     }
 //Intent mIntent=new Intent(getActivity(), AutonomousAct_Second.class);
-
 
 
     public class NetworkReceiver extends BroadcastReceiver {
@@ -201,8 +257,6 @@ public class AutoFrag_SuperVise extends BaseFragment {
     }
 
     private boolean isNoNetwork;
-
-
 
 
 }

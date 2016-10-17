@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<!--只有底边的button 背景-->
+    <item>
+
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="0.5dip"
+                android:color="@color/Defult_Color_LineGrey"/>
+        </shape>
+
+    </item>
+    <item
+        android:left="0.5dp"
+        android:right="0.5dp"
+       android:bottom="0.5dp">
+
+
+        <selector>
+            <item android:state_pressed="true">
+                <shape android:shape="rectangle">
+                    <stroke
+                        android:width="0.5dip"
+                        android:color="@color/white" />
+                    <gradient
+                        android:angle="270.0"
+                        android:endColor="#ffe8ecef"
+                        android:startColor="#ffe8ecef" />
+                </shape>
+            </item>
+            <item android:state_focused="true">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="270.0"
+                        android:endColor="#ffe8ecef"
+                        android:startColor="#ffe8ecef" />
+                    <stroke
+                        android:width="0.5dip"
+                        android:color="@color/white" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+
+                    <stroke
+                        android:width="0.5dip"
+                        android:color="@color/white" />
+                </shape>
+            </item>
+            <!-- <gradient android:angle="270.0" android:endColor="#ffffffff" android:startColor="#ffffffff" />-->
+        </selector>
+    </item>
+    <!-- <selector >
+
+
+
+
+
+         <item android:state_pressed="true">
+             <shape android:shape="rectangle">
+                 <stroke android:width="0.25dip" android:color="@color/Defult_Color_LineGrey" />
+                 <gradient android:angle="270.0" android:endColor="#ffe8ecef" android:startColor="#ffe8ecef" />
+             </shape>
+         </item>
+         <item android:state_focused="true">
+             <shape android:shape="rectangle">
+                 <gradient android:angle="270.0" android:endColor="#ffe8ecef" android:startColor="#ffe8ecef" />
+                 <stroke android:width="0.25dip" android:color="@color/Defult_Color_LineGrey" />
+             </shape>
+         </item>
+         <item>
+             <shape android:shape="rectangle">
+
+                 <stroke android:width="0.25dip" android:color="@color/Defult_Color_LineGrey" />
+             </shape>
+         </item>
+         &lt;!&ndash;  <gradient android:angle="270.0" android:endColor="#ffffffff" android:startColor="#ffffffff" /> &ndash;&gt;
+     </selector>-->
+</layer-list>

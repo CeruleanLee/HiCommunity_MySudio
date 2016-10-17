@@ -43,6 +43,7 @@ import cn.hi028.android.highcommunity.bean.Autonomous.Auto_InitBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_NameListBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_NoticeListBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SuperViseBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_UnitBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_VoteList_Vote;
 import cn.hi028.android.highcommunity.bean.BillBean;
@@ -107,7 +108,7 @@ import it.sauronsoftware.base64.Base64;
  * @时间：2015/12/7<br>
  */
 public class HTTPHelper {
-
+   static  final String Tag="~~~000 HTTPHelper:";
     public static String HTTPPOSTURL = "http://028hi.cn/api/";
     // public static String HTTPPOSTURL =
     // "http://028hi.cn/api/default/";//http://028hi.cn/api/message/index.html
@@ -1551,7 +1552,50 @@ public class HTTPHelper {
             return null;
         }
     }
+    /**
+     * 自治大厅 监督列表
+     *
+     * @param mIbpi
+     * @param owner_id
+     */
+    public static void GetAutoSuperviseList(BpiHttpHandler.IBpiHttpHandler mIbpi, int owner_id) {
+        String url = HTTPPOSTURL + "ywatch/index.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("id", owner_id+"");
+        post(mParamMap, mIbpi, url);
+    }
 
+    /**
+     * 解析自治大厅 监督列表
+     *
+     * @param result
+     * @return
+     */
+    public static List<List<Auto_SuperViseBean.SuperViseDataEntity>> ResolveSuperViseDataEntity(String result) {
+        List<List<Auto_SuperViseBean.SuperViseDataEntity>> mlist = new ArrayList<List<Auto_SuperViseBean.SuperViseDataEntity>>();
+        try {
+            JSONArray mArray = new JSONArray(result);
+            for (int i = 0; i < mArray.length(); i++) {
+                JSONArray mArray2 = new JSONArray(mArray.get(i).toString());
+
+                Log.d(Tag,"mArray2: "+mArray2.toString());
+                Log.d(Tag,"mArray2.lenght: "+mArray2.length());
+
+                List<Auto_SuperViseBean.SuperViseDataEntity> mList_Inner=new ArrayList<Auto_SuperViseBean.SuperViseDataEntity>();
+//                List<Auto_SuperViseBean.SuperViseDataEntity> mlistOuterbean=gson.fromJson(mArray2.getString(i),T);
+                for (int j = 0; j <mArray2.length() ; j++) {
+
+                    Auto_SuperViseBean.SuperViseDataEntity mBean = gson.fromJson(mArray2.getString(j),
+                            Auto_SuperViseBean.SuperViseDataEntity.class);
+                    mList_Inner.add(mBean);
+                }
+                mlist.add(mList_Inner);
+            }
+            return mlist;
+        } catch (JSONException e) {
+            return null;
+        }
+    }
 
     /**
      * 自治大厅-业主认证-获取验证码

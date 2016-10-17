@@ -12,10 +12,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_Groupchat;
+import cn.hi028.android.highcommunity.activity.fragment.AutoDetail_Report;
 import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_Motion;
 import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_NameList;
-import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_Notice;
 import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_SuperVise;
 import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_Vote;
 
@@ -27,18 +26,19 @@ import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_Vote;
  */
 public class AutonomousAct_Third extends BaseFragmentActivity {
 
-    public static final int TAG_NOTIC = 0;
-    public static final int TAG_VOTE = 1;
-    public static final int TAG_NAMELIST = 2;
-    public static final int TAG_MOTION = 3;
-    public static final int TAG_SUPERVISE = 4;
-    public static final int TAG_GROUPCHAT = 5;
+    public static final int TAG_REPORT_DETAIL = 0;
+    public static final int TAG_INQUIRY_DETAIL = 1;
+    public static final int TAG_MOTION_DETAIL = 2;
+    public static final int TAG_VOTE_DETAIL = 3;
+    public static final int TAG_QUESTION_DETAIL = 4;
+//    public static final int TAG_GROUPCHAT = 5;
 
-    @Bind(R.id.auto_sec_img_back)
+
+    @Bind(R.id.auto_third_img_back)
     ImageView img_Back;
-    @Bind(R.id.auto_sec_tv_title)
+    @Bind(R.id.auto_thirdc_tv_title)
     TextView tv_Title;
-    @Bind(R.id.auto_sec_fraglayout)
+    @Bind(R.id.auto_third_fraglayout)
     LinearLayout auto_Fraglayout;
 //    @Bind(R.id.title_status_height)
 //    LinearLayout mHeight;
@@ -46,7 +46,7 @@ public class AutonomousAct_Third extends BaseFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_auto_second);
+        setContentView(R.layout.act_auto_third_details);
         ButterKnife.bind(this);
         initView();
 
@@ -61,36 +61,36 @@ public class AutonomousAct_Third extends BaseFragmentActivity {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         switch (tag) {
-            case TAG_NOTIC:
-                tv_Title.setText("公告");
-                AutoFrag_Notice mNoticeFrag = new AutoFrag_Notice();
-                ft.replace(R.id.auto_sec_fraglayout, mNoticeFrag, AutoFrag_Notice.FRAGMENTTAG);
+            case TAG_REPORT_DETAIL://汇报详情
+                tv_Title.setText("详情");
+                AutoDetail_Report mReportDetail=new AutoDetail_Report();
+                ft.replace(R.id.auto_third_fraglayout,mReportDetail,AutoDetail_Report.FRAGMENTTAG);
                 break;
-            case TAG_VOTE:
+            case TAG_INQUIRY_DETAIL://询问详情
                 tv_Title.setText("投票");
                 AutoFrag_Vote mVoteFrag = new AutoFrag_Vote();
                 ft.replace(R.id.auto_sec_fraglayout, mVoteFrag, AutoFrag_Vote.FRAGMENTTAG);
                 break;
-            case TAG_NAMELIST:
+            case TAG_MOTION_DETAIL://提案详情
                 tv_Title.setText("名单");
                 AutoFrag_NameList mNameList = new AutoFrag_NameList();
                 ft.replace(R.id.auto_sec_fraglayout, mNameList, AutoFrag_NameList.FRAGMENTTAG);
                 break;
-            case TAG_MOTION:
+            case TAG_VOTE_DETAIL://选举详情
                 tv_Title.setText("提案");
                 AutoFrag_Motion mMotion = new AutoFrag_Motion();
                 ft.replace(R.id.auto_sec_fraglayout, mMotion, AutoFrag_Motion.FRAGMENTTAG);
                 break;
-            case TAG_SUPERVISE:
+            case TAG_QUESTION_DETAIL://问卷调查详情
                 tv_Title.setText("监督");
                 AutoFrag_SuperVise mSuperVise = new AutoFrag_SuperVise();
                 ft.replace(R.id.auto_sec_fraglayout, mSuperVise, AutoFrag_SuperVise.FRAGMENTTAG);
                 break;
-            case TAG_GROUPCHAT:
-                tv_Title.setText("群聊");
-                AutoFrag_Groupchat mGroupchat = new AutoFrag_Groupchat();
-                ft.replace(R.id.auto_sec_fraglayout, mGroupchat, AutoFrag_Groupchat.FRAGMENTTAG);
-                break;
+//            case TAG_GROUPCHAT:
+//                tv_Title.setText("群聊");
+//                AutoFrag_Groupchat mGroupchat = new AutoFrag_Groupchat();
+//                ft.replace(R.id.auto_sec_fraglayout, mGroupchat, AutoFrag_Groupchat.FRAGMENTTAG);
+//                break;
         }
         ft.commit();
     }
@@ -100,7 +100,8 @@ public class AutonomousAct_Third extends BaseFragmentActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
     }
-    @OnClick(R.id.auto_sec_img_back)
+
+    @OnClick(R.id.auto_third_img_back)
     public void onClick() {
         onBackPressed();
     }

@@ -42,7 +42,7 @@ public class AutonomousAct_Second extends BaseFragmentActivity {
     LinearLayout auto_Fraglayout;
 //    @Bind(R.id.title_status_height)
 //    LinearLayout mHeight;
-
+int owner_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +57,8 @@ public class AutonomousAct_Second extends BaseFragmentActivity {
 //            mHeight.setVisibility(View.GONE);
 //        }
         int tag = getIntent().getIntExtra("title", -1);
+
+        owner_id = getIntent().getIntExtra("owner_id",-1);
         if (tag == -1) return;
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -84,7 +86,12 @@ public class AutonomousAct_Second extends BaseFragmentActivity {
             case TAG_SUPERVISE:
                 tv_Title.setText("监督");
                 AutoFrag_SuperVise mSuperVise = new AutoFrag_SuperVise();
-                ft.replace(R.id.auto_sec_fraglayout, mSuperVise, AutoFrag_SuperVise.FRAGMENTTAG);
+                Bundle mBundle=new Bundle();
+                if (owner_id!=-1){
+                    mBundle.putInt("owner_id",owner_id);
+                    mSuperVise.setArguments(mBundle);
+                    ft.replace(R.id.auto_sec_fraglayout, mSuperVise, AutoFrag_SuperVise.FRAGMENTTAG);
+                }
                 break;
             case TAG_GROUPCHAT:
                 tv_Title.setText("群聊");

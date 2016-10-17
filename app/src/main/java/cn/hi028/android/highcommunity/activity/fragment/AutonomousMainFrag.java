@@ -112,7 +112,7 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            Toast.makeText(getActivity(), "访问shibai", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), "访问shibai", Toast.LENGTH_SHORT).show();
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
@@ -246,6 +246,7 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
             case R.id.autoFrg_supervise:
                 if (isVerified) {
                     mIntent.putExtra("title", TAG_SUPERVISE);
+                    mIntent.putExtra("owner_id", mData.getOwner_id());
                     startActivity(mIntent);
                 } else {
                     showDialog();
@@ -254,7 +255,7 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
                 break;
             case R.id.autoFrg_groupchat:
                 if (isVerified) {
-                    Toast.makeText(getActivity(), "功能待完善，敬请期待~", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "功能完善中，敬请期待~", Toast.LENGTH_SHORT).show();
 //                mIntent.putExtra("title", TAG_GROUPCHAT);
 //                startActivity(mIntent);
                 } else {
@@ -319,7 +320,7 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
      * 前往资料填写弹窗
      */
     public void showCommitDialog() {
-        ECAlertDialog dialog2 = ECAlertDialog.buildAlert(getActivity(), "该功能需进行业主认证才能使用，前往认证？", "确定", "取消", new DialogInterface.OnClickListener() {
+        ECAlertDialog dialog2 = ECAlertDialog.buildAlert(getActivity(), "该功能需进行业主认证，前往认证？", "确定", "取消", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface arg0, int arg1) {

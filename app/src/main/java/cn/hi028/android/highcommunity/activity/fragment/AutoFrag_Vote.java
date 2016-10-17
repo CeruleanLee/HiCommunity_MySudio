@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -59,7 +58,7 @@ public class AutoFrag_Vote extends BaseFragment {
     ListView listview_Questions;
     @Bind(R.id.frag_AutoVote_RadioGroup)
     RadioGroup mRadioGroup;
-    String type = 1 + "";
+//    String type = 1 + "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,62 +81,78 @@ public class AutoFrag_Vote extends BaseFragment {
         mQuestionAdapter = new AutoVoteList_Q_Adapter(mQuestionList, getActivity());
         listview_Vote.setAdapter(mVoteAdapter);
         listview_Questions.setAdapter(mQuestionAdapter);
-        but_Vote.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    type = 2 + "";
-                    mQuestionAdapter.ClearData();
-                    HTTPHelper.GetAutoVoteList(mIbpi2, type);
-                    listview_Questions.setVisibility(View.GONE);
-                    listview_Vote.setVisibility(View.VISIBLE);
-                    but_Question.setChecked(false);
-                }else{
-                    listview_Vote.setVisibility(View.GONE);
-                }
-
-
-            }
-        });
-        but_Question.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    type = 1 + "";
-//                    mVoteAdapter.ClearData();
-                    HTTPHelper.GetAutoVoteList(mIbpi1, type);
-                    listview_Vote.setVisibility(View.GONE);
-//                    listview_Questions.setVisibility(View.VISIBLE);
-                    but_Vote.setChecked(false);
-                }else{
-                    listview_Questions.setVisibility(View.GONE);
-                }
-            }
-        });
-//        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//        but_Vote.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 //            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                switch (checkedId) {
-//                    case R.id.frag_AutoVote_vote:
-//                        type = 2 + "";
-//                        HTTPHelper.GetAutoVoteList(mIbpi, type);
-//                        listview_Questions.setVisibility(View.GONE);
-//                        listview_Vote.setVisibility(View.VISIBLE);
-//                        break;
-//                    case R.id.frag_AutoVote_Question:
-//                        type = 1 + "";
-//                        HTTPHelper.GetAutoVoteList(mIbpi, type);
-//                        listview_Vote.setVisibility(View.GONE);
-//                        listview_Questions.setVisibility(View.VISIBLE);
-//                        break;
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    Toast.makeText(getActivity(), "选举页显示   调查页隐藏", Toast.LENGTH_SHORT).show();
+////                    Log.d(Tag,"V CHECKED");
+////                    type = 2 + "";
+////                    but_Question.setChecked(false);
+////                    mQuestionAdapter.ClearData();
+////                    HTTPHelper.GetAutoVoteList(mIbpi2, type);
+////                    Log.d(Tag,"V 准备显示隐藏");
+//                    listview_Questions.setVisibility(View.VISIBLE);
+//                    listview_Vote.setVisibility(View.GONE);
+//
+////                    Log.d(Tag,"V 显示隐藏完成");
+//                } else {
+//                    Toast.makeText(getActivity(), "选举页 gone", Toast.LENGTH_SHORT).show();
+//////                    Log.d(Tag,"V UNCHECKED");
+////                    listview_Vote.setVisibility(View.GONE);
+//                }
+//
+//
+//            }
+//        });
+//        but_Question.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    Toast.makeText(getActivity(), "调查页显示   选举页隐藏", Toast.LENGTH_SHORT).show();
+////
+////                    Log.d(Tag,"Q CHECKED");
+////                    but_Vote.setChecked(false);
+//////                    type = 1 + "";
+//////                    mVoteAdapter.ClearData();
+//////                    HTTPHelper.GetAutoVoteList(mIbpi1, type);
+////                    Log.d(Tag,"Q  准备显示 隐藏");
+//
+//                    listview_Questions.setVisibility(View.GONE);
+//                    listview_Vote.setVisibility(View.VISIBLE);
+////                    Log.d(Tag,"Q  显示隐藏完成");
+//                } else {
+//                    Toast.makeText(getActivity(), "问卷页 gone", Toast.LENGTH_SHORT).show();
+//
+//////                    Log.d(Tag,"Q UNCHECKED");
+////                    listview_Questions.setVisibility(View.GONE);
 //                }
 //            }
 //        });
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.frag_AutoVote_vote:
+                        listview_Questions.setVisibility(View.VISIBLE);
+                        listview_Vote.setVisibility(View.GONE);
+                        break;
+                    case R.id.frag_AutoVote_Question:
+                        listview_Questions.setVisibility(View.GONE);
+                        listview_Vote.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+        });
 
     }
+
     private void initDatas() {
 
-        HTTPHelper.GetAutoVoteList(mIbpi1, type);
+        HTTPHelper.GetAutoVoteList(mIbpi1, 1+"");
+        HTTPHelper.GetAutoVoteList(mIbpi2, 2+"");
+//        listview_Questions.setVisibility(View.VISIBLE);
+
     }
 
 
@@ -145,23 +160,23 @@ public class AutoFrag_Vote extends BaseFragment {
         @Override
         public void onError(int id, String message) {
             LogUtil.d(Tag + "---~~~onError");
-            LogUtil.d(Tag + "-------------  initView   onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
         @Override
         public void onSuccess(Object message) {
 
-                mQuestionList= (List<Auto_VoteList_Vote.VoteVVDataEntity>) message;
-                mQuestionAdapter.AddNewData(mQuestionList);
-                listview_Questions.setAdapter(mQuestionAdapter);
+            mQuestionList = (List<Auto_VoteList_Vote.VoteVVDataEntity>) message;
+            mQuestionAdapter.ClearData();
+            mQuestionAdapter.AddNewData(mQuestionList);
+            listview_Questions.setAdapter(mQuestionAdapter);
+            listview_Vote.setVisibility(View.VISIBLE);
 
         }
 
         @Override
         public Object onResolve(String result) {
-			return HTTPHelper.ResolveVoteVVDataEntity(result);
-//            return null;
+            return HTTPHelper.ResolveVoteVVDataEntity(result);
         }
 
         @Override
@@ -178,57 +193,31 @@ public class AutoFrag_Vote extends BaseFragment {
         @Override
         public void onError(int id, String message) {
             LogUtil.d(Tag + "---~~~onError");
-            LogUtil.d(Tag + "-------------  initView   onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
         @Override
         public void onSuccess(Object message) {
-                mVoteList= (List<Auto_VoteList_Vote.VoteVVDataEntity>) message;
-                mVoteAdapter.AddNewData(mVoteList);
-                listview_Vote.setAdapter(mVoteAdapter);
-
-
-//			mLoadingView.loadSuccess();
-//			mLoadingView.setVisibility(View.GONE);
-//			LogUtil.d(Tag+"---~~~initViewonSuccess");
-////						if (null == message) return;
-//			LogUtil.d(Tag+"---~~~ initView   message:"+message);
-//			ThirdServiceBean mBean = (ThirdServiceBean) message;
-//			mAdapter.AddNewData(mBean.getServices());
-//			mGridView.setAdapter(mAdapter);
-//			pagerAdapter.setImageIdList(mBean.getBanners());
-//			HighCommunityUtils.GetInstantiation()
-//			.setThirdServiceGridViewHeight(mGridView, mAdapter, 4);
-//			tatalLayout.setVisibility(View.VISIBLE);
-
+            mVoteList = (List<Auto_VoteList_Vote.VoteVVDataEntity>) message;
+            mVoteAdapter.ClearData();
+            mVoteAdapter.AddNewData(mVoteList);
+            listview_Vote.setAdapter(mVoteAdapter);
+            listview_Questions.setVisibility(View.GONE);
         }
 
         @Override
         public Object onResolve(String result) {
-//			Log.e("renk", result);
-//			LogUtil.d(Tag+"---~~~iresult"+result);
             return HTTPHelper.ResolveVoteVVDataEntity(result);
-//            return null;
         }
 
         @Override
         public void setAsyncTask(AsyncTask asyncTask) {
-
         }
 
         @Override
         public void cancleAsyncTask() {
-
         }
     };
-
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        LogUtil.d(Tag + "onPause");
-    }
 
     @Override
     public void onResume() {
@@ -238,7 +227,6 @@ public class AutoFrag_Vote extends BaseFragment {
         //		mLoadingView.startLoading();
         registNetworkReceiver();
     }
-
 
     /****
      * 与网络状态相关
