@@ -51,6 +51,7 @@ public class AutoFrag_SuperVise extends BaseFragment {
     public static final String FRAGMENTTAG = "AutoFrag_SuperVise";
     public static final int TAG_REPORT_DETAIL = 0;
     public static final int TAG_CREAT_REPORT=5;
+    public static final int TAG_CREAT_INQUIRY=6;
     int owner_id;
     @Bind(R.id.frag_Supervise_Report)
     RadioButton but_Report;
@@ -218,10 +219,21 @@ boolean isReportSelected=true;
     public void onClick() {
         if (isReportSelected){
             ceratReport();
+        }else{
+
+            creatInquiry();
+
         }
 
 
 
+    }
+
+    private void creatInquiry() {
+        Intent mIntent_report=new Intent(getActivity(), AutonomousAct_Third.class);
+        mIntent_report.putExtra("title",TAG_CREAT_INQUIRY);
+        mIntent_report.putExtra("owner_id",owner_id);
+        startActivity(mIntent_report);
     }
 
     private void ceratReport() {

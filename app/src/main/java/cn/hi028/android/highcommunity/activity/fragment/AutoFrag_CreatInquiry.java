@@ -23,16 +23,15 @@ import net.duohuo.dhroid.util.LogUtil;
 
 import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
- * @功能：自治大厅认证完成 创建汇报Frag<br>
+ * @功能：自治大厅认证完成 创建询问  需要业主代表权限<br>
  * @作者： Lee_yting<br>
  * @时间：2016/10/11<br>
  */
 
-public class AutoFrag_CreatReport extends BaseFragment {
+public class AutoFrag_CreatInquiry extends BaseFragment {
     public static final String Tag = "~~~AutoFrag_CreatReport~~~";
     public static final String FRAGMENTTAG = "AutoFrag_CreatReport";
 EditText mTitle,mContent;
@@ -41,7 +40,7 @@ TextView mCommit;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.d(Tag + "onCreateView");
-        View view = inflater.inflate(R.layout.frag_auto_creat_report, null);
+        View view = inflater.inflate(R.layout.frag_auto_creat_inquiry, null);
         Bundle bundle = getArguments();
         owner_id = bundle.getInt("owner_id",-1);
         findView(view);
@@ -51,19 +50,20 @@ TextView mCommit;
     }
 
     private void findView(View view) {
-        mTitle= (EditText) view.findViewById(R.id.creatReport_title);
-        mContent= (EditText) view.findViewById(R.id.creatReport_content);
-        mCommit= (TextView) view.findViewById(R.id.creatReport_commit);
+//        mTitle= (EditText) view.findViewById(R.id.creatReport_title);
+//        mContent= (EditText) view.findViewById(R.id.creatReport_content);
+//        mCommit= (TextView) view.findViewById(R.id.creatReport_commit);
     }
 
     private void initView() {
         LogUtil.d(Tag + "initView");
-        mCommit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HTTPHelper.AutoCreatReport(mIbpi,owner_id+"",mTitle.getText().toString(),mContent.getText().toString());
-            }
-        });
+        Toast.makeText(getActivity(),"需要业主代表才能操作",Toast.LENGTH_SHORT).show();
+//        mCommit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                HTTPHelper.AutoCreatReport(mIbpi,owner_id+"",mTitle.getText().toString(),mContent.getText().toString());
+//            }
+//        });
 
     }
 

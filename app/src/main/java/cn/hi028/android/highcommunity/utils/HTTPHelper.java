@@ -41,6 +41,7 @@ import cn.hi028.android.highcommunity.bean.AlliancePayBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_DoorBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_InitBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionDetailBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_NameListBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_NoticeListBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_ReportDetailBean;
@@ -1643,6 +1644,73 @@ public class HTTPHelper {
         Log.d(Tag,"汇报详情-提交评论:参数--->"+url+",from_id"+from_id+",to_id"+to_id+",watch_id"+watch_id+",parentId"+parentId+",reply_content"+reply_content);
         post(mParamMap, mIbpi, url);
     }
+
+
+    /**
+     * 自治大厅-监督页面-创建汇报
+     * @param mIbpi
+     * @param uid
+     * @param title
+     * @param content
+     */
+    public static void AutoCreatReport(BpiHttpHandler.IBpiHttpHandler mIbpi, String uid,String title,String content) {
+        String url = HTTPPOSTURL + "ywatch/report.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("uid", uid);
+        mParamMap.put("title", title);
+        mParamMap.put("content", content);
+        post(mParamMap, mIbpi, url);
+    }
+
+
+
+    /**
+     * 自治大厅   提案详情
+     * @param mIbpi
+     * @param id  用户id
+     */
+    public static void GetMotionDetail(BpiHttpHandler.IBpiHttpHandler mIbpi, String gid,String id) {
+        String url = HTTPPOSTURL + "ysuggest/detail.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("gid", gid);
+        mParamMap.put("id", id);
+        post(mParamMap, mIbpi, url);
+    }
+    /**
+     * 解析自治大厅 提案详情
+     *
+     * @param result
+     * @return
+     */
+    public static Auto_MotionDetailBean.MotionDetailDataEntity ResolveMotionDetailData(String result) {
+        List<Auto_MotionDetailBean.MotionDetailDataEntity>  mlist = new ArrayList<Auto_MotionDetailBean.MotionDetailDataEntity>();
+        try {
+            JSONArray mArray = new JSONArray(result);
+            for (int i = 0; i < mArray.length(); i++) {
+                Auto_MotionDetailBean.MotionDetailDataEntity mBean = gson.fromJson(mArray.getString(i),
+                        Auto_MotionDetailBean.MotionDetailDataEntity.class);
+                mlist.add(mBean);
+            }
+            return mlist.get(0);
+        } catch (JSONException e) {
+            return null;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //    public static void CommentReportDetail2(BpiHttpHandler.IBpiHttpHandler mIbpi,
 //                                           String from_id, String to_id,  String watch_id, String parentId,

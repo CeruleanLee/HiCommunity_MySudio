@@ -1,6 +1,7 @@
 package cn.hi028.android.highcommunity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.AutonomousAct_Third;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionBean;
 import cn.hi028.android.highcommunity.utils.TimeUtil;
 
@@ -21,7 +23,7 @@ import cn.hi028.android.highcommunity.utils.TimeUtil;
  * @时间：2016/10/12<br>
  */
 public class AutoMoitionAdapter extends BaseFragmentAdapter {
-
+    public static final int TAG_MOTION_DETAIL = 2;
     List<Auto_MotionBean.MotionDataEntity> mList = new ArrayList<Auto_MotionBean.MotionDataEntity>();
     private Context context;
     private LayoutInflater layoutInflater;
@@ -76,7 +78,7 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
             mViewHolder.mBut_Support.setChecked(true);
             mViewHolder.mBut_Support.setText(" 已支持 ");
 
-        }else if (mBean.getIsSuggest()=="1"){
+        }else if (mBean.getIsSuggest()=="0"){
             mViewHolder.mBut_Support.setChecked(false);
             mViewHolder.mBut_Support.setText(" 支持 ");
         }
@@ -89,6 +91,17 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
                 Toast.makeText(context,"已支持",Toast.LENGTH_SHORT).show();
             }
         });
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent_report=new Intent(context, AutonomousAct_Third.class);
+                mIntent_report.putExtra("title",TAG_MOTION_DETAIL);
+                mIntent_report.putExtra("motion_id",mBean.getId());
+                context.startActivity(mIntent_report);
+            }
+        });
+
+
 
         return convertView;
     }

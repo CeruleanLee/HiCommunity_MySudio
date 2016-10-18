@@ -12,11 +12,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.fragment.AutoDetail_Motion;
 import cn.hi028.android.highcommunity.activity.fragment.AutoDetail_Report;
+import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_CreatInquiry;
 import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_CreatReport;
 import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_Motion;
-import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_NameList;
-import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_Notice;
 import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_SuperVise;
 import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_Vote;
 
@@ -63,6 +63,7 @@ public class AutonomousAct_Third extends BaseFragmentActivity {
 //            mHeight.setVisibility(View.GONE);
 //        }
         int tag = getIntent().getIntExtra("title", -1);
+        int owner_id=getIntent().getIntExtra("owner_id",-1);
         if (tag == -1) return;
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -84,9 +85,16 @@ public class AutonomousAct_Third extends BaseFragmentActivity {
                 ft.replace(R.id.auto_sec_fraglayout, mVoteFrag, AutoFrag_Vote.FRAGMENTTAG);
                 break;
             case TAG_MOTION_DETAIL://提案详情
-                tv_Title.setText("名单");
-                AutoFrag_NameList mNameList = new AutoFrag_NameList();
-                ft.replace(R.id.auto_sec_fraglayout, mNameList, AutoFrag_NameList.FRAGMENTTAG);
+                tv_Title.setText("详情");
+                String motion_id=getIntent().getStringExtra("motion_id");
+                AutoDetail_Motion mMotionDetail = new AutoDetail_Motion();
+
+                Bundle mMotionDetailbundle=new Bundle();
+                if (motion_id!=null){
+                    mMotionDetailbundle.putString("motion_id",motion_id);
+                    mMotionDetail.setArguments(mMotionDetailbundle);
+                    ft.replace(R.id.auto_sec_fraglayout, mMotionDetail, AutoDetail_Motion.FRAGMENTTAG);
+                }
                 break;
             case TAG_VOTE_DETAIL://选举详情
                 tv_Title.setText("提案");
@@ -101,12 +109,21 @@ public class AutonomousAct_Third extends BaseFragmentActivity {
             case TAG_CREAT_REPORT://创建汇报
                 tv_Title.setText(" ");
                 AutoFrag_CreatReport mCreatReport=new AutoFrag_CreatReport();
-                Bundle mbundle=new Bundle();
-                if (getIntent().getStringExtra("reportDetail_id")!=null){
-
-                    mbundle.putString("reportDetail_id",getIntent().getStringExtra("reportDetail_id"));
-                    mCreatReport.setArguments(mbundle);
-                    ft.replace(R.id.auto_third_fraglayout,mReportDetail,AutoDetail_Report.FRAGMENTTAG);
+                Bundle mCreatReportbundle=new Bundle();
+                if (owner_id!=-1){
+                    mCreatReportbundle.putInt("owner_id",owner_id);
+                    mCreatReport.setArguments(mCreatReportbundle);
+                    ft.replace(R.id.auto_third_fraglayout,mCreatReport,AutoFrag_CreatReport.FRAGMENTTAG);
+                }
+                break;
+            case TAG_CREAT_INQUIRY://创建询问
+                tv_Title.setText(" ");
+                AutoFrag_CreatInquiry mCreatInquiry=new AutoFrag_CreatInquiry();
+                Bundle mCreatInquirybundle=new Bundle();
+                if (owner_id!=-1){
+                    mCreatInquirybundle.putInt("owner_id",owner_id);
+                    mCreatInquiry.setArguments(mCreatInquirybundle);
+                    ft.replace(R.id.auto_third_fraglayout,mCreatInquiry,AutoFrag_CreatReport.FRAGMENTTAG);
                 }
                 break;
 //            case TAG_GROUPCHAT:
