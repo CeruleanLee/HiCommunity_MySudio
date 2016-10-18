@@ -44,6 +44,7 @@ import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionDetailBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_NameListBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_NoticeListBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_QuestionDeatailBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_ReportDetailBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SuperViseBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_UnitBean;
@@ -1697,7 +1698,27 @@ public class HTTPHelper {
         }
     }
 
+    /**
+     * 自治大厅   问卷调查详情
+     * @param mIbpi
+     * @param id  投票id
+     */
+    public static void GetQuestionDetail(BpiHttpHandler.IBpiHttpHandler mIbpi, String id) {
+        String url = HTTPPOSTURL + "ysuggest/detail.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("id", id);
+        post(mParamMap, mIbpi, url);
+    }
+    /**
+     * 解析自治大厅 问卷调查详情
+     *
+     * @param result
+     * @return
+     */
+    public static Auto_QuestionDeatailBean.QuestionDeatailDataEntity ResolveQuestionDeatailDataEntity(String result) {
+        return gson.fromJson(result, Auto_QuestionDeatailBean.QuestionDeatailDataEntity.class);
 
+    }
 
 
 
