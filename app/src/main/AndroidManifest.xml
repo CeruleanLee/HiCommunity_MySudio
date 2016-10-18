@@ -345,6 +345,10 @@
             android:name="cn.hi028.android.highcommunity.activity.AutonomousAct_Second"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="cn.hi028.android.highcommunity.activity.AutonomousAct_Third"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"></activity>
 
 
         <activity

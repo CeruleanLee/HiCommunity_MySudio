@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    android:orientation="vertical"
+   >
+
+    <EditText
+        android:id="@+id/creatReport_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/bg_autoact_edittext2"
+        android:hint="汇报名称："
+        android:paddingBottom="3dp"
+        android:paddingRight="8dp"
+        android:paddingTop="3dp"
+
+
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/creatReport_commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_default_green_selector"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="14dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/creatReport_commit"
+        android:layout_below="@id/creatReport_title"
+        android:scrollbars="none">
+
+        <EditText
+            android:id="@+id/creatReport_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/bg_default_green_selector"
+            android:hint="汇报内容："
+            android:paddingBottom="3dp"
+            android:paddingRight="8dp"
+            android:paddingTop="3dp"
+            android:textSize="12dp" />
+    </ScrollView>
+
+
+</RelativeLayout>

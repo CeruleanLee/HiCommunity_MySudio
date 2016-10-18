@@ -10,12 +10,13 @@ import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.don.view.CircleImageView;
 
@@ -38,20 +39,26 @@ import cn.hi028.android.highcommunity.utils.TimeUtil;
  * @时间：2016/10/17<br>
  */
 public class Auto_ReportDetailAdapter extends BaseFragmentAdapter {
+    static final String Tag = "~~~000 Auto_ReportDetailAdapter：";
     AutoDetail_Report mFrag;
     List<Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity> mList = new ArrayList<Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity>();
+    /**
+     * 主评论 bean
+     **/
     Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity mTempReplies = new Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity();
+    /**
+     * 小评论 bean
+     **/
     Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity.SubReplyEntity mTempReply = new Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity.SubReplyEntity();
-    PopupWindow mWatingWindow;
     Context mContext;
     private LayoutInflater layoutInflater;
 
-    public Auto_ReportDetailAdapter(List<Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity> mList, Context mContext,AutoDetail_Report mFrag) {
+    public Auto_ReportDetailAdapter(List<Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity> mList, Context mContext, AutoDetail_Report mFrag) {
         super();
         this.mContext = mContext;
         this.mList = mList;
         this.layoutInflater = LayoutInflater.from(mContext);
-        this.mFrag=mFrag;
+        this.mFrag = mFrag;
 
     }
 
@@ -69,12 +76,13 @@ public class Auto_ReportDetailAdapter extends BaseFragmentAdapter {
     public long getItemId(int position) {
         return position;
     }
-   class ViewHolder {
+
+    class ViewHolder {
         CircleImageView mAvatar;
         TextView mName;
         TextView mTime;
         TextView mContent;
-LinearLayout mReplyLayout;
+        LinearLayout mReplyLayout;
     }
 
     @Override
@@ -94,8 +102,8 @@ LinearLayout mReplyLayout;
         }
         final Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity mBean = mList.get(position);
         ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + mBean.getPic(), mViewHolder.mAvatar);
-        mViewHolder.mName.setText(mBean.getFrom_name());
-        mViewHolder.mTime.setText(TimeUtil.getDescriptionTimeFromTimestamp(Long.parseLong(mBean.getReply_time()+"")));
+        mViewHolder.mName.setText(mBean.getFrom_name() + "：");
+        mViewHolder.mTime.setText(TimeUtil.getDescriptionTimeFromTimestamp(Long.parseLong(mBean.getReply_time() + "")));
         mViewHolder.mContent.setText(mBean.getContent());
         if (mBean.getSub_reply().size() > 0) {
             mViewHolder.mReplyLayout.setVisibility(View.VISIBLE);
@@ -105,17 +113,18 @@ LinearLayout mReplyLayout;
             mViewHolder.mReplyLayout.removeAllViews();
             for (int i = 0; i < mBean.getSub_reply().size(); i++) {
                 TextView mText = new TextView(mContext);
-                int hostLength = mBean.getSub_reply().get(i).getTo_name().length();
-                int GuestLength = mBean.getSub_reply().get(i).getFrom_name().length();
-                SpannableString mSpan = new SpannableString(mBean.getSub_reply().get(i).getFrom_name() + "回复" + mBean.getSub_reply().get(i).getTo_name()
+                int toNameLength = mBean.getSub_reply().get(i).getTo_name().length();
+                int fromNameLength = mBean.getSub_reply().get(i).getFrom_name().length();
+                SpannableString mSpan = new SpannableString(mBean.getSub_reply().get(i).getFrom_name() + " 回复 " + mBean.getSub_reply().get(i).getTo_name()
                         + ":" + mBean.getSub_reply().get(i).getContent());
                 mText.setClickable(true);
                 mText.setFocusable(true);
                 mText.setMovementMethod(LinkMovementMethod.getInstance());//超链接
-                final String host = mBean.getSub_reply().get(i).getFrom_name();
-                final String gust = mBean.getSub_reply().get(i).getTo_name();
-                final String hostId = mBean.getId()+"";
-                final String gustId = mBean.getSub_reply().get(i).getFrom_id()+"";
+                final String From_name = mBean.getSub_reply().get(i).getFrom_name();
+                final String To_name = mBean.getSub_reply().get(i).getTo_name();
+                final String To_id = mBean.getSub_reply().get(i).getTo_id() + "";//主评论人id
+                final String From_id = mBean.getSub_reply().get(i).getFrom_id() + "";//小评论里的评论人id
+                Log.d(Tag, "~~~From_name:" + From_name + ",To_name" + To_name + ",From_id" + From_id + ",To_id" + To_id);
                 mSpan.setSpan(new ClickableSpan() {
                     @Override
                     public void updateDrawState(TextPaint ds) {
@@ -126,16 +135,18 @@ LinearLayout mReplyLayout;
 
                     @Override
                     public void onClick(View view) {
-                        mFrag.setText("回复:" + host, hostId, mBean.getId()+"", true);
+                        Log.d(Tag, "点击了：" + From_name + ",hostId" + From_id + ",mBean.getId()评论id " + mBean.getId());
+                        mFrag.setText("回复:" + From_name, From_id, mBean.getId() + "", true);
                         mTempReplies = mBean;
                         avoidHintColor(view);
                         mTempReply = new Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity.SubReplyEntity();
 //                        mTempReply.setGid(hostId);
                         mTempReply.setFrom_id(HighCommunityApplication.mUserInfo.getId());
                         mTempReply.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
-                        mTempReply.setTo_name(host);
+                        mTempReply.setTo_name(From_name);
+                        Log.d(Tag, "点击结束的小回复bean+" + mTempReply.toString());
                     }
-                }, 0, hostLength, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }, 0, fromNameLength, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 mSpan.setSpan(new ClickableSpan() {
                     @Override
                     public void updateDrawState(TextPaint ds) {
@@ -147,15 +158,17 @@ LinearLayout mReplyLayout;
                     @Override
                     public void onClick(View view) {
                         avoidHintColor(view);
-                        mFrag.setText("回复:" + gust, gustId, mBean.getFrom_id()+"", true);
+                        Log.d(Tag, "点击了：" + To_name + ",To_id" + To_id + ",mBean.getId()评论id " + mBean.getId());
+
+                        mFrag.setText("回复:" + To_name, To_id, mBean.getId() + "", true);
                         mTempReplies = mBean;
                         mTempReply = new Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity.SubReplyEntity();
 //                     mTempReply.setGid(hostId);
                         mTempReply.setFrom_id(HighCommunityApplication.mUserInfo.getId());
                         mTempReply.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
-                        mTempReply.setTo_name(host);
+                        mTempReply.setTo_name(To_name);
                     }
-                }, hostLength + 2, hostLength + 2 + GuestLength, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }, fromNameLength + 4, fromNameLength + 4 + toNameLength, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 mText.setText(mSpan);
                 mText.setLayoutParams(mparams);
                 mText.setTextColor(mFrag.getActivity().getResources().getColor(R.color.defult_text_color));
@@ -165,19 +178,23 @@ LinearLayout mReplyLayout;
         } else {
             mViewHolder.mReplyLayout.setVisibility(View.GONE);
         }
-//        mViewHolder.mComment.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mTempReplies = mBean;
-//                mFrag.setText("回复:" + mBean.getNick(), mBean.getId(), mBean.getParentId(), true);
-//                mTempReply = new ReplyBean();
-//                mTempReply.setGid(mBean.getId());
-//
-//                mTempReply.setHid(HighCommunityApplication.mUserInfo.getId() + "");
-//                mTempReply.setHost(HighCommunityApplication.mUserInfo.getNick());
-//                mTempReply.setGuest(mBean.getNick());
-//            }
-//        });
+        mViewHolder.mName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "点击了主评论name ", Toast.LENGTH_SHORT).show();
+                Log.d(Tag, "主评论id： " + mBean.getId() + "");
+                //对监督主评论的回复   parentid=主评论id
+                mTempReplies = mBean;
+                mFrag.setText("回复:" + mBean.getFrom_name(), mBean.getFrom_id() + "", mBean.getId() + "", true);
+                mTempReply = new Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity.SubReplyEntity();
+//                mTempReply.set(mBean.getId());
+
+                mTempReply.setFrom_id(HighCommunityApplication.mUserInfo.getId());
+                mTempReply.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
+                mTempReply.setTo_name(mBean.getFrom_name());
+            }
+        });
+
 
         return convertView;
     }
@@ -198,14 +215,13 @@ LinearLayout mReplyLayout;
             mTempBean.setPic(HighCommunityApplication.mUserInfo.getHead_pic());
             mTempBean.setFrom_id(HighCommunityApplication.mUserInfo.getId());
             mTempBean.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
-            mTempBean.setReply_time(System.currentTimeMillis() / 1000 );
+            mTempBean.setReply_time(System.currentTimeMillis() / 1000);
             mTempBean.setContent(content);
             mTempBean.setSub_reply(new ArrayList<Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity.SubReplyEntity>());
             mList.add(mTempBean);
         }
         notifyDataSetChanged();
     }
-
 
 
     @Override
@@ -222,11 +238,10 @@ LinearLayout mReplyLayout;
         super.RefreshData(mObject);
     }
 
-    private void  avoidHintColor(View view) {
+    private void avoidHintColor(View view) {
         if (view instanceof TextView)
             ((TextView) view).setHighlightColor(mFrag.getActivity().getResources().getColor(R.color.defult_color_transparent));
     }
-
 
 
 }

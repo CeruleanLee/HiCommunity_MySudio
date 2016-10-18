@@ -137,6 +137,19 @@ public class Auto_ReportDetailBean {
             private long reply_time;
             private List<SubReplyEntity> sub_reply;
 
+            @Override
+            public String toString() {
+                return "ReportDetailReplyEntity{" +
+                        "id=" + id +
+                        ", from_id=" + from_id +
+                        ", pic='" + pic + '\'' +
+                        ", from_name='" + from_name + '\'' +
+                        ", content='" + content + '\'' +
+                        ", reply_time=" + reply_time +
+                        ", sub_reply=" + sub_reply +
+                        '}';
+            }
+
             public void setId(int id) {
                 this.id = id;
             }
@@ -204,11 +217,20 @@ public class Auto_ReportDetailBean {
                  */
 
                 private int from_id;
+                private int to_id;
                 private String pic;
                 private String from_name;
                 private String to_name;
                 private String content;
                 private int reply_time;
+
+                public int getTo_id() {
+                    return to_id;
+                }
+
+                public void setTo_id(int to_id) {
+                    this.to_id = to_id;
+                }
 
                 public void setFrom_id(int from_id) {
                     this.from_id = from_id;
@@ -256,6 +278,18 @@ public class Auto_ReportDetailBean {
 
                 public int getReply_time() {
                     return reply_time;
+                }
+
+                @Override
+                public String toString() {
+                    return "SubReplyEntity{" +
+                            "from_id=" + from_id +
+                            ", pic='" + pic + '\'' +
+                            ", from_name='" + from_name + '\'' +
+                            ", to_name='" + to_name + '\'' +
+                            ", content='" + content + '\'' +
+                            ", reply_time=" + reply_time +
+                            '}';
                 }
             }
         }

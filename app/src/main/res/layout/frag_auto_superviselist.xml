@@ -48,10 +48,21 @@
         android:id="@+id/listviewContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible"
-        android:background="#ffffff">
+        android:background="#ffffff"
+        android:visibility="visible">
 
-
+        <ImageButton
+            android:id="@+id/img_Supervise_creat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginRight="30dp"
+            android:background="#ffffffff"
+            android:src="@drawable/img_groupmessage_selector"
+             />
+<!---->
         <TextView
             android:id="@+id/tv_Supervise_Nodata"
             android:layout_width="match_parent"
@@ -59,15 +70,17 @@
             android:gravity="center"
             android:text="暂无数据"
             android:visibility="gone" />
+
         <ListView
             android:id="@+id/frag_Supervise_listview_Report"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
-            android:visibility="gone"
             android:divider="@null"
+            android:visibility="gone"
 
             ></ListView>
+
         <ListView
             android:id="@+id/frag_Supervise_listview_Inquiry"
             android:layout_width="match_parent"

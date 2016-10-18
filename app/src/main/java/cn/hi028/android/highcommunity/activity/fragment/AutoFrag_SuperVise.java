@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -30,7 +31,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.AutonomousAct_Third;
 import cn.hi028.android.highcommunity.adapter.AutoSuperviseAdapter_Inq;
 import cn.hi028.android.highcommunity.adapter.AutoSuperviseAdapter_Re;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SuperViseBean;
@@ -46,6 +49,8 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 public class AutoFrag_SuperVise extends BaseFragment {
     public static final String Tag = "~~~AutoFrag_SuperVise~~~";
     public static final String FRAGMENTTAG = "AutoFrag_SuperVise";
+    public static final int TAG_REPORT_DETAIL = 0;
+    public static final int TAG_CREAT_REPORT=5;
     int owner_id;
     @Bind(R.id.frag_Supervise_Report)
     RadioButton but_Report;
@@ -66,8 +71,10 @@ public class AutoFrag_SuperVise extends BaseFragment {
     AutoSuperviseAdapter_Inq mInquiryAdapter;
     @Bind(R.id.listviewContainer)
     RelativeLayout listviewContainer;
+    @Bind(R.id.img_Supervise_creat)
+    ImageButton but_Creat;
 
-
+boolean isReportSelected=true;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.d(Tag + "onCreateView");
@@ -94,36 +101,25 @@ public class AutoFrag_SuperVise extends BaseFragment {
         mInquiryList = new ArrayList<Auto_SuperViseBean.SuperViseDataEntity>();
 //        mListview_Report.setAdapter(mReportAdapter);
 //        mListview_Inquiry.setAdapter(mInquiryAdapter);
+        initDatas();
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.frag_Supervise_Report:
+                        isReportSelected=true;
                         mListview_Report.setVisibility(View.VISIBLE);
                         mListview_Inquiry.setVisibility(View.GONE);
                         break;
                     case R.id.frag_Supervise_Inquiry:
+                        isReportSelected=false;
                         mListview_Inquiry.setVisibility(View.VISIBLE);
                         mListview_Report.setVisibility(View.GONE);
                         break;
                 }
             }
         });
-        but_Report.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                mListview_Report.setVisibility(View.VISIBLE);
-//                mListview_Inquiry.setVisibility(View.GONE);
-            }
-        });
-        but_Inquiry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                mListview_Inquiry.setVisibility(View.VISIBLE);
-//                mListview_Report.setVisibility(View.GONE);
-            }
-        });
-        initDatas();
+
     }
 
     private void initDatas() {
@@ -142,8 +138,8 @@ public class AutoFrag_SuperVise extends BaseFragment {
         @Override
         public void onSuccess(Object message) {
             mList = (List<List<Auto_SuperViseBean.SuperViseDataEntity>>) message;
-            Log.d(Tag,"list 长度"+mList.size());
-            Log.d(Tag,"list string"+mList.toString());
+            Log.d(Tag, "list 长度" + mList.size());
+            Log.d(Tag, "list string" + mList.toString());
 
             if (mList != null) {
                 mReportList = mList.get(0);
@@ -216,6 +212,25 @@ public class AutoFrag_SuperVise extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @OnClick(R.id.img_Supervise_creat)
+    public void onClick() {
+        if (isReportSelected){
+            ceratReport();
+        }
+
+
+
+    }
+
+    private void ceratReport() {
+
+        Intent mIntent_report=new Intent(getActivity(), AutonomousAct_Third.class);
+        mIntent_report.putExtra("title",TAG_CREAT_REPORT);
+        mIntent_report.putExtra("owner_id",owner_id);
+        startActivity(mIntent_report);
+
     }
 //Intent mIntent=new Intent(getActivity(), AutonomousAct_Second.class);
 

@@ -8,6 +8,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,19 +71,39 @@ public class AutoDetail_Report extends BaseFragment {
     LinearLayout mSpokerLayout;
     @Bind(R.id.loading_message)
     TextView loadingMessage;
-Auto_ReportDetailBean.ReportDetailDataEntity mBean=new Auto_ReportDetailBean.ReportDetailDataEntity();
+    Auto_ReportDetailBean.ReportDetailDataEntity mBean = new Auto_ReportDetailBean.ReportDetailDataEntity();
+    public boolean isReplay = false;
+    /**
+     * 被评论人id
+     ***/
+    String toid = null;
+    /**
+     * 评论id   对监督评论传0，对评论回复传id
+     ****/
+    String ParentId = null;
+    /**
+     * 监督id  可以intent得到 且data 数组返回
+     **/
+    String watch_id;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.d(Tag + "onCreateView");
         View view = inflater.inflate(R.layout.frag_auto_detail_report, null);
         ButterKnife.bind(this, view);
-        reportDetailID=getActivity().getIntent().getIntExtra("reportDetail_id",-1);
+        Bundle bundle = getArguments();
+        watch_id = bundle.getString("reportDetail_id");
+        Log.d(Tag, "reportDetail_id:" + watch_id);
+//        watch_id = getActivity().getIntent().getStringExtra("reportDetail_id");
+
         initView();
         return view;
     }
 
     Auto_ReportDetailAdapter mAdapter;
-int reportDetailID;
+
+    String content;
+
     private void initView() {
         LogUtil.d(Tag + "initView");
         mProgress.setVisibility(View.VISIBLE);
@@ -89,25 +112,43 @@ int reportDetailID;
         mAdapter = new Auto_ReportDetailAdapter(mList, getActivity(), this);
         initHeader();
         mCommentListview.setAdapter(mAdapter);
-        if (HighCommunityApplication.mUserInfo.getId()==0){
+        if (HighCommunityApplication.mUserInfo.getId() == 0) {
             mSpokerLayout.setVisibility(View.GONE);
-        }else{
+        } else {
             mSpokerLayout.setVisibility(View.VISIBLE);
-            ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP+HighCommunityApplication.mUserInfo.getHead_pic(),mSpeakerImage);
+            ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + HighCommunityApplication.mUserInfo.getHead_pic(), mSpeakerImage);
         }
-        if (reportDetailID!=-1){
+        if (watch_id != null) {
             initDatas();
         }
+        boolean flag = getActivity().getIntent().getBooleanExtra(FRAGMENTTAG, false);
+        if (flag) {
+            InputMethodManager mManager = (InputMethodManager) mSpeakerContent.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            mManager.showSoftInput(mSpeakerContent, InputMethodManager.SHOW_FORCED);
+        }
+        initSpoker();
+        mSpeakerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(HighCommunityApplication.mUserInfo.getToken())) {
+                    LogUtil.d("");
+
+                    HighCommunityUtils.GetInstantiation().ShowShouldLogin();
+                    return;
+                }
+                content = mSpeakerContent.getText().toString();
+                if (!TextUtils.isEmpty(content)) {
+                    HTTPHelper.CommentReportDetail(mCommentIbpi, HighCommunityApplication.mUserInfo.getId() + "", toid, watch_id, ParentId, content);
+                } else {
+                    HighCommunityUtils.GetInstantiation().ShowToast("请输入内容", 0);
+                }
+            }
+        });
     }
 
     TextView mTitle, mReportorName, mReportTime, mContent;
+    LinearLayout mInforLayout;
 
-
-
-
-    private void initDatas() {
-        HTTPHelper.AutoNoticeList(mIbpi);
-    }
 
     public void setText(String text, String to_id, String parentId, boolean isReplay) {
         this.isReplay = isReplay;
@@ -118,20 +159,25 @@ int reportDetailID;
         mManager.showSoftInput(mSpeakerContent, 0);
     }
 
+    private void initDatas() {
+        HTTPHelper.GetReportDetail(mIbpi, watch_id);
+    }
+
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
             LogUtil.d(Tag + "---~~~onError");
-
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
         @Override
         public void onSuccess(Object message) {
-            if (message==null){return;}
-            mBean= (Auto_ReportDetailBean.ReportDetailDataEntity) message;
-setHeadData();
-            mList=mBean.getReply();
+            if (message == null) {
+                return;
+            }
+            mBean = (Auto_ReportDetailBean.ReportDetailDataEntity) message;
+            setHeadData();
+            mList = mBean.getReply();
             mAdapter.AddNewData(mList);
             mCommentListview.setAdapter(mAdapter);
 //            mList = (List<Auto_NoticeListBean.NoticeListDataEntity>) message;
@@ -144,7 +190,7 @@ setHeadData();
         @Override
         public Object onResolve(String result) {
             LogUtil.d(Tag + " ~~~result" + result);
-            return HTTPHelper.ResolveAutoNoticeListEntity(result);
+            return HTTPHelper.ResolveReportDetailDataEntity(result);
         }
 
         @Override
@@ -158,23 +204,88 @@ setHeadData();
     };
 
     private void setHeadData() {
-        mTitle.setText(mBean.getTitle());
-        mReportorName.setText(mBean.getName());
-mReportTime.setText(TimeUtil.getDayTime(Long.parseLong(mBean.getCreate_time())));
-    mContent.setText("  "+mBean.getContent());
-
-
+        if (mBean.getTitle() == null || mBean.getTitle() == "") {
+            mInforLayout.setVisibility(View.GONE);
+        } else {
+            mTitle.setText(mBean.getTitle());
+            mReportorName.setText("汇报人:" + mBean.getName());
+            mReportTime.setText(TimeUtil.getDayTime(Long.parseLong(mBean.getCreate_time())));
+            String url = mBean.getContent();
+            CharSequence charSequence = Html.fromHtml(url);
+            mContent.setText("    " + charSequence);
+        }
 
 
     }
+
     private void initHeader() {
         LinearLayout header = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.head_auto_report_detail, null);
         mTitle = (TextView) header.findViewById(R.id.reportdetail_title);
         mReportorName = (TextView) header.findViewById(R.id.reportdetail_name);
         mReportTime = (TextView) header.findViewById(R.id.reportdetail_time);
         mContent = (TextView) header.findViewById(R.id.reportdetail_content);
+        mInforLayout = (LinearLayout) header.findViewById(R.id.inforLayout);
         mCommentListview.addHeaderView(header);
     }
+
+    BpiHttpHandler.IBpiHttpHandler mCommentIbpi = new BpiHttpHandler.IBpiHttpHandler() {
+        @Override
+        public void onError(int id, String message) {
+
+            HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
+            mAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onSuccess(Object message) {
+            HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
+//            if (isReplay) {
+//                mAdapter.setNewData(isReplay, content, null);
+//            } else {
+//                mAdapter.setNewData(isReplay, content, message.toString());
+//            }
+            initSpoker();
+            initDatas();
+        }
+
+
+        @Override
+        public Object onResolve(String result) {
+
+            return result;
+        }
+
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
+
+        }
+
+        @Override
+        public void cancleAsyncTask() {
+
+        }
+    };
+
+    private void initSpoker() {
+//        CommunityFrag.isNeedRefresh = true;
+        this.isReplay = false;
+        mSpeakerContent.setHint("");
+//对监督的评论
+        toid = "0";
+        ParentId = "0";
+        mSpeakerContent.setText("");
+    }
+
+    public void finish() {
+//        Intent result = new Intent();
+//        result.putExtra("PinLun", mPraisesNum);
+//        getActivity().setResult(getActivity().RESULT_OK, result);
+    }
+
+
+    /**********
+     * --------------------------------------------------------------------
+     **********/
 
     @Override
     public void onPause() {

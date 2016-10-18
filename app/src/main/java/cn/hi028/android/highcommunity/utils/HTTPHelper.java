@@ -43,6 +43,7 @@ import cn.hi028.android.highcommunity.bean.Autonomous.Auto_InitBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_NameListBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_NoticeListBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_ReportDetailBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SuperViseBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_UnitBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_VoteList_Vote;
@@ -1598,6 +1599,72 @@ public class HTTPHelper {
     }
 
     /**
+     * 自治大厅   汇报详情
+     * @param mIbpi
+     * @param id  监督id
+     */
+    public static void GetReportDetail(BpiHttpHandler.IBpiHttpHandler mIbpi, String id) {
+        String url = HTTPPOSTURL + "ywatch/repdetail.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("id", id);
+        post(mParamMap, mIbpi, url);
+    }
+    /**
+     * 解析自治大厅 汇报详情
+     *
+     * @param result
+     * @return
+     */
+    public static Auto_ReportDetailBean.ReportDetailDataEntity ResolveReportDetailDataEntity(String result) {
+        return gson.fromJson(result, Auto_ReportDetailBean.ReportDetailDataEntity.class);
+    }
+
+    /**
+     * 自治大厅    汇报详情-提交评论
+     * @param mIbpi
+     * @param watch_id  监督id
+     * @param from_id  评论人id
+     * @param to_id   被评论人id
+     * @param parentId  评论id  对监督评论传0，对评论回复传id
+     * @param reply_content  内容
+     */
+    public static void CommentReportDetail(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                     String from_id, String to_id,  String watch_id, String parentId,
+                                      String reply_content) {
+        String url = HTTPPOSTURL + "ywatch/comment.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("from_id", from_id);
+        mParamMap.put("watch_id", watch_id);
+        if (!TextUtils.isEmpty(to_id))
+            mParamMap.put("to_id", to_id);
+        if (!TextUtils.isEmpty(parentId))
+            mParamMap.put("parentId", parentId);
+        mParamMap.put("reply_content", reply_content);
+        Log.d(Tag,"汇报详情-提交评论:参数--->"+url+",from_id"+from_id+",to_id"+to_id+",watch_id"+watch_id+",parentId"+parentId+",reply_content"+reply_content);
+        post(mParamMap, mIbpi, url);
+    }
+
+//    public static void CommentReportDetail2(BpiHttpHandler.IBpiHttpHandler mIbpi,
+//                                           String from_id, String to_id,  String watch_id, String parentId,
+//                                           String reply_content) {
+//        String url = HTTPPOSTURL + "ywatch/comment.html";
+//
+//        HashMap<String, Object> mParamMap = new HashMap<String, Object>();
+////        HashMap<String, String> mParamMap = getBaseParamMap();
+//        mParamMap.put("from_id", from_id);
+//        mParamMap.put("watch_id", watch_id);
+//        if (!TextUtils.isEmpty(to_id))
+//            mParamMap.put("to_id", to_id);
+//        if (!TextUtils.isEmpty(parentId))
+//            mParamMap.put("parentId", parentId);
+//        mParamMap.put("reply_content", reply_content);
+//        Log.d(Tag,"汇报详情-提交评论:参数--->"+url+",from_id"+from_id+",to_id"+to_id+",watch_id"+watch_id+",parentId"+parentId+",reply_content"+reply_content);
+//        post(mParamMap, mIbpi, url);
+//    }
+
+
+
+    /**
      * 自治大厅-业主认证-获取验证码
      **/
     public static void Auto_Send(BpiHttpHandler.IBpiHttpHandler mIbpi, String tel) {
@@ -3102,7 +3169,13 @@ public class HTTPHelper {
                              BpiHttpHandler.IBpiHttpHandler imh, String URL) {
         BpiHttpClient.post(URL, params, imh);
     }
-
+//    /**
+//     * post请求
+//     **/
+//    private static void post(HashMap<String, Object> params,
+//                             BpiHttpHandler.IBpiHttpHandler imh, String URL) {
+//        BpiHttpClient.post(URL, params, imh);
+//    }
     /**
      * 请求
      **/

@@ -17,12 +17,9 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.view.WindowManager;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.CheckBox;
-import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -245,7 +242,8 @@ public class CommunityDetilsFrag extends BaseFragment {
 			mWatingWindow = HighCommunityUtils.GetInstantiation()
 					.ShowWaittingPopupWindow(getActivity(), mMore, Gravity.CENTER);
 			if (!isReplay) {
-				mPraisesNum++;
+
+					mPraisesNum++;
 			}
 			HTTPHelper.CommentMessage(mCommentIbpi, mid + "", HighCommunityApplication.mUserInfo.getId() + "", toid, ParentId, content);
 		} else {

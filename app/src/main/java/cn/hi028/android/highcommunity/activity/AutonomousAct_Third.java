@@ -13,8 +13,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.AutoDetail_Report;
+import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_CreatReport;
 import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_Motion;
 import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_NameList;
+import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_Notice;
 import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_SuperVise;
 import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_Vote;
 
@@ -31,6 +33,10 @@ public class AutonomousAct_Third extends BaseFragmentActivity {
     public static final int TAG_MOTION_DETAIL = 2;
     public static final int TAG_VOTE_DETAIL = 3;
     public static final int TAG_QUESTION_DETAIL = 4;
+    /**创建汇报**/
+    public static final int TAG_CREAT_REPORT=5;
+    /**创建询问**/
+    public static final int TAG_CREAT_INQUIRY=6;
 //    public static final int TAG_GROUPCHAT = 5;
 
 
@@ -64,7 +70,13 @@ public class AutonomousAct_Third extends BaseFragmentActivity {
             case TAG_REPORT_DETAIL://汇报详情
                 tv_Title.setText("详情");
                 AutoDetail_Report mReportDetail=new AutoDetail_Report();
-                ft.replace(R.id.auto_third_fraglayout,mReportDetail,AutoDetail_Report.FRAGMENTTAG);
+                Bundle mbundle=new Bundle();
+                if (getIntent().getStringExtra("reportDetail_id")!=null){
+
+                    mbundle.putString("reportDetail_id",getIntent().getStringExtra("reportDetail_id"));
+                    mReportDetail.setArguments(mbundle);
+                    ft.replace(R.id.auto_third_fraglayout,mReportDetail,AutoDetail_Report.FRAGMENTTAG);
+                }
                 break;
             case TAG_INQUIRY_DETAIL://询问详情
                 tv_Title.setText("投票");
@@ -85,6 +97,17 @@ public class AutonomousAct_Third extends BaseFragmentActivity {
                 tv_Title.setText("监督");
                 AutoFrag_SuperVise mSuperVise = new AutoFrag_SuperVise();
                 ft.replace(R.id.auto_sec_fraglayout, mSuperVise, AutoFrag_SuperVise.FRAGMENTTAG);
+                break;
+            case TAG_CREAT_REPORT://创建汇报
+                tv_Title.setText(" ");
+                AutoFrag_CreatReport mCreatReport=new AutoFrag_CreatReport();
+                Bundle mbundle=new Bundle();
+                if (getIntent().getStringExtra("reportDetail_id")!=null){
+
+                    mbundle.putString("reportDetail_id",getIntent().getStringExtra("reportDetail_id"));
+                    mCreatReport.setArguments(mbundle);
+                    ft.replace(R.id.auto_third_fraglayout,mReportDetail,AutoDetail_Report.FRAGMENTTAG);
+                }
                 break;
 //            case TAG_GROUPCHAT:
 //                tv_Title.setText("群聊");
