@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_third_service_selector"
     android:paddingLeft="@dimen/margin_8"
     android:paddingRight="@dimen/margin_8"
-    android:background="@drawable/bg_third_service_selector"
     android:paddingTop="@dimen/margin_12">
 
     <TextView
@@ -17,15 +17,23 @@
         android:textSize="16sp"
 
         />
+
     <TextView
         android:id="@+id/item_autoVotelist_isJoin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="已参与"
-        android:textSize="14sp"
         android:layout_alignParentRight="true"
+        android:background="@drawable/bg_coner_button_selector"
+        android:clickable="false"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
+        android:text="  已参与  "
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:visibility="gone"
 
         />
+
     <TextView
         android:id="@+id/item_autoVotelist_Qtime"
         android:layout_width="wrap_content"
@@ -33,21 +41,21 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/item_autoVotelist_Qtitle"
         android:layout_marginBottom="@dimen/margin_12"
-        android:text="2016/10/11"
         android:layout_marginTop="12dp"
-        android:textSize="12sp"
-       />
+        android:text="2016/10/11"
+        android:textSize="12sp" />
+
     <TextView
         android:id="@+id/item_autoVotelist_Qbuilding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/item_autoVotelist_Qtitle"
         android:layout_marginBottom="@dimen/margin_12"
-        android:text="适用于：所有楼栋"
-
         android:layout_marginTop="12dp"
-        android:textSize="10sp"
-        android:textColor="@color/Defult_Color_Grey" />
+
+        android:text="适用于：所有楼栋"
+        android:textColor="@color/Defult_Color_Grey"
+        android:textSize="10sp" />
 
 
 </RelativeLayout>

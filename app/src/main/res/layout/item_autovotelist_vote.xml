@@ -17,6 +17,21 @@
         android:textSize="16sp"
 
         />
+    <TextView
+        android:id="@+id/item_autoVotelist_isJoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_coner_button_selector"
+        android:clickable="false"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
+        android:text="  已参与  "
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:visibility="gone"
+
+        />
 
     <TextView
         android:id="@+id/item_autoVotelist_Vtime"

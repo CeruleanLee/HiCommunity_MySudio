@@ -9,7 +9,7 @@ String vote_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_auto_act__four);
+        setContentView(R.layout.act_auto_act_four);
         vote_id=getIntent().getStringExtra("vote_id");
 
     }

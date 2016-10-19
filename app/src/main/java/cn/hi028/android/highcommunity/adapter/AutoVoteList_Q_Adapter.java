@@ -66,6 +66,7 @@ public class AutoVoteList_Q_Adapter extends BaseFragmentAdapter {
             mViewHolder.mTitle = (TextView) convertView.findViewById(R.id.item_autoVotelist_Qtitle);
             mViewHolder.mTime = (TextView) convertView.findViewById(R.id.item_autoVotelist_Qtime);
             mViewHolder.mbuilding = (TextView) convertView.findViewById(R.id.item_autoVotelist_Qbuilding);
+            mViewHolder.mIsJoin = (TextView) convertView.findViewById(R.id.item_autoVotelist_isJoin);
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
@@ -76,7 +77,11 @@ public class AutoVoteList_Q_Adapter extends BaseFragmentAdapter {
         mViewHolder.mTime.setText(TimeUtil.getYearMonthDay(Long.parseLong(mBean.getCreate_time())));
 //        mViewHolder.mTime.setText(TimeUtil.longToDate(Long.parseLong(mBean.getCreate_time()),"yyyy年MM月dd日 HH时mm分ss秒").toString());
         mViewHolder.mbuilding.setText("适用于：" + mBean.getBuilding());
-
+if (mBean.getIs_voted()==1){
+    mViewHolder.mIsJoin.setVisibility(View.VISIBLE);
+}else{
+    mViewHolder.mIsJoin.setVisibility(View.GONE);
+}
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,7 +120,7 @@ public class AutoVoteList_Q_Adapter extends BaseFragmentAdapter {
     class ViewHolder {
         TextView mTitle;
         TextView mTime;
-        TextView mbuilding;
+        TextView mbuilding,mIsJoin;
 
     }
 }
