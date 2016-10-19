@@ -94,10 +94,13 @@ public class AutoDetail_Questions extends BaseFragment {
     }
 
     AutoDetail_QuestionVotedBean.QuestionVotedDataEntity mAnswersBean;
-
+    List<String> radioAnswers;
+    List<String>  mutilOptionsAnswers;
     private void initView() {
-        LogUtil.d(Tag + "initView");
 
+        LogUtil.d(Tag + "initView");
+        radioAnswers = new ArrayList<String>();
+        mutilOptionsAnswers = new ArrayList<String>();
 //        mProgress.setVisibility(View.VISIBLE);
 //        mCommentListview.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 //        mList = new ArrayList<Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity>();
@@ -342,14 +345,6 @@ Intent mIntent=new Intent(getActivity(), AutoAct_Four.class);
         }
     }
 
-//    @OnClick(R.id.back)
-//    public void onClick() {
-//        getActivity().onBackPressed();
-//    }
-//
-//    @OnClick(R.id.watchResult)
-//    public void onClick() {
-//    }
 
 
     class answerItemOnClickListener implements View.OnClickListener {
@@ -542,8 +537,7 @@ Intent mIntent=new Intent(getActivity(), AutoAct_Four.class);
 
         }
     };
-    List<String> radioAnswers=new ArrayList<String>();
-    List<String>  mutilOptionsAnswers=new ArrayList<String>();
+
     BpiHttpHandler.IBpiHttpHandler mAnswersIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
@@ -558,8 +552,8 @@ Intent mIntent=new Intent(getActivity(), AutoAct_Four.class);
             mAnswersBean = (AutoDetail_QuestionVotedBean.QuestionVotedDataEntity) message;
             radioAnswers = mAnswersBean.getRadio();
             mutilOptionsAnswers = mAnswersBean.getCheckbox();
-//            Log.d(Tag, "radioAnswers---" + radioAnswers.toString());
-//            Log.d(Tag, "mutilOptionsAnswers---" + mutilOptionsAnswers.toString());
+            Log.d(Tag, "radioAnswers---" + radioAnswers.toString());
+            Log.d(Tag, "mutilOptionsAnswers---" + mutilOptionsAnswers.toString());
             HTTPHelper.GetQuestionDetail(mIbpi, question_id);
 //            if (isReplay) {
 //                mAdapter.setNewData(isReplay, content, null);

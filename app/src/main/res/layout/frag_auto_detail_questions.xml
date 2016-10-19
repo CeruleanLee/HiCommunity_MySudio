@@ -88,6 +88,7 @@
                 android:layout_marginBottom="30dp"
                 android:background="@color/Defult_Color_AppGreen"
                 android:gravity="center"
+                android:visibility="gone"
                 android:text="  查看结果  "
                 android:textColor="@android:color/white"
                 android:paddingTop="5dp"
