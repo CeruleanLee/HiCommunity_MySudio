@@ -51,18 +51,7 @@
         android:background="#ffffff"
         android:visibility="visible">
 
-        <ImageButton
-            android:id="@+id/img_Supervise_creat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="25dp"
-            android:background="#ffffffff"
-            android:src="@drawable/img_groupmessage_selector"
-             />
-<!---->
+
         <TextView
             android:id="@+id/tv_Supervise_Nodata"
             android:layout_width="match_parent"
@@ -74,7 +63,7 @@
         <ListView
             android:id="@+id/frag_Supervise_listview_Report"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@android:color/white"
             android:divider="@null"
             android:visibility="gone"
@@ -84,11 +73,21 @@
         <ListView
             android:id="@+id/frag_Supervise_listview_Inquiry"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@android:color/white"
             android:divider="@null"
             android:visibility="gone"></ListView>
-
+        <ImageButton
+            android:id="@+id/img_Supervise_creat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginRight="25dp"
+            android:background="#ffffffff"
+            android:src="@drawable/img_groupmessage_selector" />
+        <!---->
 
     </RelativeLayout>
 

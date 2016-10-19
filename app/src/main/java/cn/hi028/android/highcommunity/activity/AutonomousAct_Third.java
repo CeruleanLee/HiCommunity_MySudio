@@ -8,7 +8,6 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -107,21 +106,19 @@ String inquiry_id=getIntent().getStringExtra("inquiry_id");
                 }
                 break;
             case TAG_VOTE_DETAIL://选举详情
-                tv_Title.setText("选举详情");
-                Toast.makeText(this,"选举详情",Toast.LENGTH_SHORT).show();
-//                AutoFrag_Motion mMotion = new AutoFrag_Motion();
-//                ft.replace(R.id.auto_third_fraglayout, mMotion, AutoFrag_Motion.FRAGMENTTAG);
-                break;
+
             case TAG_QUESTION_DETAIL://问卷调查详情
                 tv_Title.setText(" ");
                 String question_id=getIntent().getStringExtra("question_id");
                 int is_voted=getIntent().getIntExtra("is_voted",-1);
-                Log.d("三级界面","question_id"+question_id+",is_voted"+is_voted);
+                int type=getIntent().getIntExtra("type",-1);
+                Log.d("三级界面","question_id"+question_id+",is_voted"+is_voted+",type"+type);
                 AutoDetail_Questions mQuestions = new AutoDetail_Questions();
                 Bundle mQuestionsbundle=new Bundle();
-                if (question_id!=null||is_voted!=-1){
+                if (question_id!=null||is_voted!=-1||type!=-1){
                     mQuestionsbundle.putString("question_id",question_id);
                     mQuestionsbundle.putInt("is_voted",is_voted);
+                    mQuestionsbundle.putInt("type",type);
                     mQuestions.setArguments(mQuestionsbundle);
                     ft.replace(R.id.auto_third_fraglayout, mQuestions, AutoDetail_Questions.FRAGMENTTAG);
                 }

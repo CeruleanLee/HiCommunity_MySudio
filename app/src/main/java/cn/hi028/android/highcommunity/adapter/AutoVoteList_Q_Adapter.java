@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,11 +80,13 @@ public class AutoVoteList_Q_Adapter extends BaseFragmentAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"mBean.getId() "+mBean.getId(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context,"mBean.getId() "+mBean.getId(),Toast.LENGTH_SHORT).show();
+                //这里要跳去选举详情
                 Intent mIntent_report=new Intent(context, AutonomousAct_Third.class);
                 mIntent_report.putExtra("title",TAG_VOTE_DETAIL);
                 mIntent_report.putExtra("question_id",mBean.getId());
                 mIntent_report.putExtra("is_voted",mBean.getIs_voted());
+                mIntent_report.putExtra("type",2);
 
                 context.startActivity(mIntent_report);
             }

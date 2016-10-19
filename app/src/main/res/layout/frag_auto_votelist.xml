@@ -59,7 +59,7 @@
         <ListView
             android:id="@+id/frag_AutoVote_listview_questions"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@android:color/white"
             android:divider="@null"
 
@@ -67,7 +67,7 @@
         <ListView
             android:id="@+id/frag_AutoVote_listview_vote"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@android:color/white"
             android:divider="@null"
             android:visibility="gone"></ListView>

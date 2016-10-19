@@ -17,7 +17,15 @@
         android:textSize="16sp"
 
         />
+    <TextView
+        android:id="@+id/item_autoVotelist_isJoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已参与"
+        android:textSize="14sp"
+        android:layout_alignParentRight="true"
 
+        />
     <TextView
         android:id="@+id/item_autoVotelist_Qtime"
         android:layout_width="wrap_content"

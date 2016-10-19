@@ -47,7 +47,7 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  */
 
 public class AutoFrag_SuperVise extends BaseFragment {
-    public static final String Tag = "~~~AutoFrag_SuperVise~~~";
+    public static final String Tag = "~~~AutoFrag_SuperVise:";
     public static final String FRAGMENTTAG = "AutoFrag_SuperVise";
     public static final int TAG_REPORT_DETAIL = 0;
     public static final int TAG_CREAT_REPORT=5;
@@ -83,7 +83,7 @@ boolean isReportSelected=true;
         ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
         owner_id = bundle.getInt("owner_id", -1);
-        Log.d(Tag, "owner_id=" + owner_id);
+        Log.d(Tag,"owner_id="+owner_id);
         initView();
         return view;
     }

@@ -75,7 +75,7 @@
     <string name="str_format_itme_total_prices">合计:￥%s</string>
     <string name="str_format_item_count">共%s件商品</string>
     <string name="str_format_item_order_number">订单号:&#160;&#160;%s</string>
-<!--更新文本-->
+    <!--更新文本-->
 
     <string name="Update_Content">当前版本：%1$s\n最新版本：%2$s\n新版本大小：%3$s\n\n更新内容\n%4$s</string>
     <string name="Update_Content2">当前版本：%1$s\n最新版本：%2$s\n\n更新内容\n%3$s</string>
@@ -86,7 +86,6 @@
     <string name="down_fail">下载失败</string>
     <string name="is_downing">正在下载</string>
     <string name="down_sucess">下载成功</string>
-
 
 
 </resources>

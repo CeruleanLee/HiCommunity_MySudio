@@ -127,16 +127,17 @@ public class AutoCommitDataFrag extends BaseFragment {
         initView();
         return contentView;
     }
-
+String village_id;
     private void initView() {
         ed_QuName.setText(mData.getVillage().getVillage_name());
+        village_id=mData.getVillage().getVillage_id();
         ed_TelNum.setText(username);
 
         ed_LouNum.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 Log.d(Tag, "是否有焦点" + hasFocus);
-                Toast.makeText(getActivity(), "是否有焦点" + hasFocus, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "是否有焦点" + hasFocus, Toast.LENGTH_SHORT).show();
 
                 if (!hasFocus) {
                     ed_LouNum.setChecked(false);
@@ -267,6 +268,7 @@ public class AutoCommitDataFrag extends BaseFragment {
 
     List<String> mDoorNumList = new ArrayList<String>();
     ECListDialog mDoorChoice;
+    String mDoorId;
     /**
      * 设置门牌号
      */
@@ -284,6 +286,7 @@ public class AutoCommitDataFrag extends BaseFragment {
                 @Override
                 public void onDialogItemClick(Dialog d, int position) {
                     ed_MenNum.setText(mDoorNumList.get(position));
+                    mDoorId=mDoorList.get(position).getDoor_id();
                     Log.d(Tag, "ed_MenNum--" + ed_MenNum.getText().toString());
                 }
             });
@@ -416,7 +419,7 @@ public class AutoCommitDataFrag extends BaseFragment {
 
 
 
-        HTTPHelper.Auto_Commit(mCommitIbpi, name, quStr, mBuildingID, mUnitID, doorStr, tel, captcha, idZUri, idFUri, epropertyUri);
+        HTTPHelper.Auto_Commit(mCommitIbpi, name, village_id, mBuildingID, mUnitID, mDoorId, tel, captcha, idZUri, idFUri, epropertyUri);
 
         RequestParams mParamMap = new RequestParams(getBaseParamMap());
         mParamMap.put("name", name);

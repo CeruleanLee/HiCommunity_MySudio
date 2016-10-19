@@ -79,6 +79,18 @@ public class AutoNamelist_YWHAdapter extends BaseFragmentAdapter {
         mViewHolder.mYWHName.setText(mBean.getName());
         mViewHolder.mYWHJob.setText("职位："+mBean.getPosition());
         mViewHolder.mYWHTel.setText("电话："+mBean.getTel());
+        mViewHolder.mYWHAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                    Intent mDetails = new Intent(context, GeneratedClassUtils.get(MenuLeftAct.class));
+//                mDetails.putExtra(MenuLeftAct.ACTIVITYTAG, Constacts.MENU_LEFT_USERINFO);
+//                mDetails.putExtra(MenuLeftAct.INTENTTAG, mBean.getId() + "");
+//                startActivity(mDetails);
+
+            }
+        });
+
         return convertView;
     }
 

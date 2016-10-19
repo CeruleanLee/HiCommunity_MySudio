@@ -94,6 +94,17 @@ public class Auto_QuestionDeatailBean {
             @SerializedName("abstract")
             private String abstractX;
 
+
+            @Override
+            public String toString() {
+                return "QuestionDeatailVoteEntity{" +
+                        "id='" + id + '\'' +
+                        ", title='" + title + '\'' +
+                        ", type='" + type + '\'' +
+                        ", abstractX='" + abstractX + '\'' +
+                        '}';
+            }
+
             public void setId(String id) {
                 this.id = id;
             }
@@ -141,6 +152,18 @@ public class Auto_QuestionDeatailBean {
             private List<QuestionDeatailOptionsEntity> options;
             //是否解答
             private int que_state;
+
+
+            @Override
+            public String toString() {
+                return "QuestionDeatailTitlesEntity{" +
+                        "id='" + id + '\'' +
+                        ", name='" + name + '\'' +
+                        ", type='" + type + '\'' +
+                        ", options=" + options +
+                        ", que_state=" + que_state +
+                        '}';
+            }
 
             public int getQue_state() {
                 return que_state;
@@ -191,6 +214,16 @@ public class Auto_QuestionDeatailBean {
                 private String id;
                 private String option;
                 private int ans_state;//选中为1  未选中为o;
+
+                @Override
+                public String toString() {
+                    return "QuestionDeatailOptionsEntity{" +
+                            "id='" + id + '\'' +
+                            ", option='" + option + '\'' +
+                            ", ans_state=" + ans_state +
+                            '}';
+                }
+
                 public void setId(String id) {
                     this.id = id;
                 }

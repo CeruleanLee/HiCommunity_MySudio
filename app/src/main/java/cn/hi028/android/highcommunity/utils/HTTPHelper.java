@@ -38,6 +38,7 @@ import cn.hi028.android.highcommunity.bean.AliParamBean;
 import cn.hi028.android.highcommunity.bean.AllTicketBean;
 import cn.hi028.android.highcommunity.bean.AllianceOrderBean;
 import cn.hi028.android.highcommunity.bean.AlliancePayBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.AutoDetail_QuestionVotedBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_DoorBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_InitBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_InquiryDetailBean;
@@ -1742,7 +1743,7 @@ public class HTTPHelper {
      * @param id  投票id
      */
     public static void GetQuestionDetail(BpiHttpHandler.IBpiHttpHandler mIbpi, String id) {
-        String url = HTTPPOSTURL + "ysuggest/detail.html";
+        String url = HTTPPOSTURL + "yvote/detail.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("id", id);
         post(mParamMap, mIbpi, url);
@@ -1758,9 +1759,24 @@ public class HTTPHelper {
 
     }
 
+    /**
+     * 自治大厅   问卷调查详情-获取答案选中数组
+     * @param mIbpi
+     * @param id  投票id
+     */
+    public static void GetQuestionAnswerArray(BpiHttpHandler.IBpiHttpHandler mIbpi, String id) {
+        String url = HTTPPOSTURL + "yvote/view.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("vote_id", id);
+        post(mParamMap, mIbpi, url);
+    }
 
-
-
+    /**
+     * 解析问卷调查详情-获取答案选中数组
+     */
+    public static AutoDetail_QuestionVotedBean.QuestionVotedDataEntity ResolveQuestionVotedDataEntity(String result) {
+        return gson.fromJson(result, AutoDetail_QuestionVotedBean.QuestionVotedDataEntity.class);
+    }
 
 
 
@@ -2356,8 +2372,9 @@ public class HTTPHelper {
         }
         Debug.verbose(DongConstants.EDUCATIONHTTPTAG, "URL:" + url
                 + "   ling params:" + mParamMap.toString());
-        BpiHttpClient.getInstance().post(url, mParamMap,
-                BpiHttpHandler.getInstance(mIbpi));
+        Log.d(Tag,"上传的手艺人数据："+mParamMap.toString());
+//        BpiHttpClient.getInstance().post(url, mParamMap,
+//                BpiHttpHandler.getInstance(mIbpi));
     }
 
     /**

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="35dp"
+    android:paddingTop="25dp"
 
     >
 
@@ -11,21 +11,27 @@
         android:id="@+id/txt_question_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="45dp"
+        android:layout_marginLeft="20dp"
         android:textColor="#3e3a39"
-        android:text="---"
+
         android:textSize="14sp" />
 
     <LinearLayout
         android:id="@+id/lly_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:background="#aaaaaa"
+        android:background="#33aaaaaa"
         android:orientation="vertical">
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="25dp"
+        android:background="@color/Defult_Color_LineGrey"/>
 
 </LinearLayout>

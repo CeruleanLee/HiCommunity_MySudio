@@ -43,7 +43,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.AutoAct_Four;
 import cn.hi028.android.highcommunity.bean.Autonomous.AutoDetail_QuestionVotedBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_QuestionDeatailBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Title_CommitQuestionAnswer;
@@ -51,12 +50,12 @@ import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
- * @功能：自治大厅 问卷调查详情Frag<br>
+ * @功能：自治大厅 选举详情Frag<br>
  * @作者： Lee_yting<br>
  * @时间：2016/10/11<br>
  */
 
-public class AutoDetail_Questions extends BaseFragment {
+public class AutoDetail_Votedetail extends BaseFragment {
     public static final String Tag = "~~~Detail_Questions:";
     public static final String FRAGMENTTAG = "AutoDetail_Questions";
 
@@ -74,9 +73,6 @@ public class AutoDetail_Questions extends BaseFragment {
     @Bind(R.id.txt_content)
     TextView mContent;
 
-    int type;
-    @Bind(R.id.watchResult)
-    Button mWatchResult;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,7 +82,6 @@ public class AutoDetail_Questions extends BaseFragment {
         Bundle bundle = getArguments();
         question_id = bundle.getString("question_id");
         is_voted = bundle.getInt("is_voted");
-        type = bundle.getInt("type");
         Log.d(Tag, "question_id:" + question_id);
 
         initView();
@@ -113,21 +108,10 @@ public class AutoDetail_Questions extends BaseFragment {
 
         if (is_voted == 1) {
             mSubmit.setVisibility(View.GONE);
-            if (type==1){
-
-                mback.setVisibility(View.VISIBLE);
-                mWatchResult.setVisibility(View.GONE);
-            }else{
-                mWatchResult.setVisibility(View.VISIBLE);
-                mback.setVisibility(View.GONE);
-            }
+            mback.setVisibility(View.VISIBLE);
             HTTPHelper.GetQuestionAnswerArray(mAnswersIbpi, question_id);
 
-        } else {
-            mSubmit.setVisibility(View.VISIBLE);
-            mWatchResult.setVisibility(View.GONE);
-            mback.setVisibility(View.GONE);
-
+        }else{
             HTTPHelper.GetQuestionDetail(mIbpi, question_id);
 
         }
@@ -165,7 +149,7 @@ public class AutoDetail_Questions extends BaseFragment {
                 return;
             }
             mBean = (Auto_QuestionDeatailBean.QuestionDeatailDataEntity) message;
-            if (mBean == null) return;
+            if (mBean==null) return;
             initQuestionHead();
             questionList = mBean.getTitles();
             for (int i = 0; i < questionList.size(); i++) {
@@ -174,47 +158,45 @@ public class AutoDetail_Questions extends BaseFragment {
                 //答案选项要加入的 布局
                 LinearLayout add_layout = (LinearLayout) que_view.findViewById(R.id.lly_answer);
                 if (questionList.get(i).getType().equals("1")) {//单选
-                    set(txt_que, i + 1 + "." + "\u3000" + questionList.get(i).getName(), 0);
+                    set(txt_que, i+1+"."+"\u3000"+questionList.get(i).getName(), 0);
 
                 } else {
-                    set(txt_que, i + 1 + "." + questionList.get(i).getName(), 1);//多选
+                    set(txt_que, i+1+"."+questionList.get(i).getName(), 1);//多选
 
                 }
                 answerList = questionList.get(i).getOptions();
 //                radioAnswers, mutilOptionsAnswers
-                if (is_voted == 1 && radioAnswers != null && mutilOptionsAnswers != null) {
-                    Log.d(Tag, "准备已参与布局");
+                if (is_voted==1&&radioAnswers!=null&&mutilOptionsAnswers!=null){
+                    Log.d(Tag,"准备已参与布局");
                     if (questionList.get(i).getType().equals("1")) {//单选
 //                        set(txt_que, questionList.get(i).getName(), 0);
-                        for (int x = 0; x < answerList.size(); x++) {
-                            Log.d(Tag, "1 answerList.get(x).getId()--->" + answerList.get(x).getId());
-                            for (int y = 0; y < radioAnswers.size(); y++) {
-                                Log.d(Tag, "1 radioAnswers.get(y)--->" + radioAnswers.get(y));
-                                if (answerList.get(x).getId().equals(radioAnswers.get(y))) {
-                                    Log.d(Tag, "1 等了");
+                        for (int x = 0; x <answerList.size() ; x++) {
+                            Log.d(Tag,"1 answerList.get(x).getId()--->"+answerList.get(x).getId());
+                            for (int y = 0; y <radioAnswers.size() ; y++) {
+                                Log.d(Tag,"1 radioAnswers.get(y)--->"+radioAnswers.get(y));
+                                if (answerList.get(x).getId().equals(radioAnswers.get(y))){
+                                    Log.d(Tag,"1 等了");
                                     answerList.get(x).setAns_state(1);
-                                }
-                                ;
+                                };
                             }
                         }
                     } else {
-                        for (int x = 0; x < answerList.size(); x++) {
-                            Log.d(Tag, "2 answerList.get(x).getId()--->" + answerList.get(x).getId());
-                            for (int y = 0; y < mutilOptionsAnswers.size(); y++) {
-                                Log.d(Tag, "2 radioAnswers.get(y)--->" + mutilOptionsAnswers.get(y));
-                                if (answerList.get(x).getId().equals(mutilOptionsAnswers.get(y))) {
-                                    Log.d(Tag, "2 多选等了");
+                        for (int x = 0; x <answerList.size() ; x++) {
+                            Log.d(Tag,"2 answerList.get(x).getId()--->"+answerList.get(x).getId());
+                            for (int y = 0; y <mutilOptionsAnswers.size() ; y++) {
+                                Log.d(Tag,"2 radioAnswers.get(y)--->"+mutilOptionsAnswers.get(y));
+                                if (answerList.get(x).getId().equals(mutilOptionsAnswers.get(y))){
+                                    Log.d(Tag,"2 多选等了");
 
                                     answerList.get(x).setAns_state(1);
-                                }
-                                ;
+                                };
                             }
                         }
 
                     }
                 }
 
-                Log.d(Tag, "Suucess里的answerList--->" + answerList.toString());
+Log.d(Tag,"Suucess里的answerList--->"+answerList.toString());
 
                 imglist2 = new ArrayList<ImageView>();
                 for (int j = 0; j < answerList.size(); j++) {
@@ -256,7 +238,7 @@ public class AutoDetail_Questions extends BaseFragment {
                     imglist2.add(image);
                     txt_ans.setText(answerList.get(j).getOption());
                     LinearLayout lly_answer_size = (LinearLayout) ans_view.findViewById(R.id.lly_answer_size);
-                    if (is_voted == 0) {
+                    if(is_voted==0){
 
                         lly_answer_size.setOnClickListener(new answerItemOnClickListener(i, j, answerList, txt_ans));
                     }
@@ -284,7 +266,7 @@ public class AutoDetail_Questions extends BaseFragment {
 
         private void initQuestionHead() {
             mTitle.setText(mBean.getVote().getTitle());
-            mContent.setText("\u3000\u3000" + mBean.getVote().getAbstractX());
+            mContent.setText("\u3000\u3000"+mBean.getVote().getAbstractX());
 
         }
 
@@ -303,7 +285,7 @@ public class AutoDetail_Questions extends BaseFragment {
 
         }
     };
-/**设置文字后缀**/
+
     private void set(TextView tv_test, String content, int type) {
         //为了加载问题后面的* 和*多选
         // TODO Auto-generated method stub
@@ -326,30 +308,10 @@ public class AutoDetail_Questions extends BaseFragment {
         tv_test.setText(word);
     }
 
-    @OnClick({R.id.submit, R.id.back, R.id.watchResult})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.submit:
-                break;
-            case R.id.back:
-                getActivity().onBackPressed();
-                break;
-            case R.id.watchResult:
-Intent mIntent=new Intent(getActivity(), AutoAct_Four.class);
-                mIntent.putExtra("vote_id",question_id);
-                getActivity().startActivity(mIntent);
-                break;
-        }
+    @OnClick(R.id.back)
+    public void onClick() {
+        getActivity().onBackPressed();
     }
-
-//    @OnClick(R.id.back)
-//    public void onClick() {
-//        getActivity().onBackPressed();
-//    }
-//
-//    @OnClick(R.id.watchResult)
-//    public void onClick() {
-//    }
 
 
     class answerItemOnClickListener implements View.OnClickListener {
@@ -557,8 +519,8 @@ Intent mIntent=new Intent(getActivity(), AutoAct_Four.class);
             mAnswersBean = (AutoDetail_QuestionVotedBean.QuestionVotedDataEntity) message;
             radioAnswers = mAnswersBean.getRadio();
             mutilOptionsAnswers = mAnswersBean.getCheckbox();
-            Log.d(Tag, "radioAnswers---" + radioAnswers.toString());
-            Log.d(Tag, "mutilOptionsAnswers---" + mutilOptionsAnswers.toString());
+            Log.d(Tag,"radioAnswers---"+radioAnswers.toString());
+            Log.d(Tag,"mutilOptionsAnswers---"+mutilOptionsAnswers.toString());
             HTTPHelper.GetQuestionDetail(mIbpi, question_id);
 //            if (isReplay) {
 //                mAdapter.setNewData(isReplay, content, null);
