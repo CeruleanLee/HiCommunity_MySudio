@@ -5,15 +5,18 @@
 package cn.hi028.android.highcommunity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.AutonomousAct_Third;
 import cn.hi028.android.highcommunity.activity.fragment.AddressListFrag;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_VoteList_Vote;
 import cn.hi028.android.highcommunity.utils.TimeUtil;
@@ -24,7 +27,7 @@ import cn.hi028.android.highcommunity.utils.TimeUtil;
  * @时间：2016/10/12<br>
  */
 public class AutoVoteList_Q_Adapter extends BaseFragmentAdapter {
-
+    public static final int TAG_VOTE_DETAIL = 3;
     public AddressListFrag mFrag;
     List<Auto_VoteList_Vote.VoteVVDataEntity> mList = new ArrayList<Auto_VoteList_Vote.VoteVVDataEntity>();
     private Context context;
@@ -74,6 +77,21 @@ public class AutoVoteList_Q_Adapter extends BaseFragmentAdapter {
         mViewHolder.mTime.setText(TimeUtil.getYearMonthDay(Long.parseLong(mBean.getCreate_time())));
 //        mViewHolder.mTime.setText(TimeUtil.longToDate(Long.parseLong(mBean.getCreate_time()),"yyyy年MM月dd日 HH时mm分ss秒").toString());
         mViewHolder.mbuilding.setText("适用于：" + mBean.getBuilding());
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"mBean.getId() "+mBean.getId(),Toast.LENGTH_SHORT).show();
+                Intent mIntent_report=new Intent(context, AutonomousAct_Third.class);
+                mIntent_report.putExtra("title",TAG_VOTE_DETAIL);
+                mIntent_report.putExtra("question_id",mBean.getId());
+                mIntent_report.putExtra("is_voted",mBean.getIs_voted());
+
+                context.startActivity(mIntent_report);
+            }
+        });
+
+
         return convertView;
     }
 

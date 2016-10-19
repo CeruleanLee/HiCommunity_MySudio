@@ -40,6 +40,7 @@ import cn.hi028.android.highcommunity.bean.AllianceOrderBean;
 import cn.hi028.android.highcommunity.bean.AlliancePayBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_DoorBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_InitBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_InquiryDetailBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionDetailBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_NameListBean;
@@ -135,6 +136,10 @@ public class HTTPHelper {
         }
         if (third_uid != null)
             mParamMap.put("third_uid", third_uid);
+
+        Log.d(Tag,"登陆用的数据："+mParamMap.toString());
+
+
         post(mParamMap, mIbpi, url);
     }
 
@@ -1621,6 +1626,28 @@ public class HTTPHelper {
         return gson.fromJson(result, Auto_ReportDetailBean.ReportDetailDataEntity.class);
     }
 
+
+    /**
+     * 自治大厅   问询详情
+     * @param mIbpi
+     * @param id  监督id
+     */
+    public static void GetInquiryDetail(BpiHttpHandler.IBpiHttpHandler mIbpi, String id) {
+        String url = HTTPPOSTURL + "ywatch/condetail.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("id", id);
+        post(mParamMap, mIbpi, url);
+    }
+    /**
+     * 解析自治大厅 问询详情
+     * @param result
+     * @return
+     */
+    public static Auto_InquiryDetailBean.InquiryDetailDataEntity ResolveInquiryDetailDataEntity(String result) {
+        return gson.fromJson(result, Auto_InquiryDetailBean.InquiryDetailDataEntity.class);
+    }
+
+
     /**
      * 自治大厅    汇报详情-提交评论
      * @param mIbpi
@@ -1662,7 +1689,18 @@ public class HTTPHelper {
         mParamMap.put("content", content);
         post(mParamMap, mIbpi, url);
     }
-
+    /** 自治大厅-监督页面-创建询问
+     * @param mIbpi
+     * @param uid
+     * @param content
+     */
+    public static void AutoCreatInquiry(BpiHttpHandler.IBpiHttpHandler mIbpi, String uid,String content) {
+        String url = HTTPPOSTURL + "ywatch/consult.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("uid", uid);
+        mParamMap.put("content", content);
+        post(mParamMap, mIbpi, url);
+    }
 
 
     /**
@@ -1800,6 +1838,7 @@ public class HTTPHelper {
         }
         Debug.verbose(DongConstants.EDUCATIONHTTPTAG, "URL:" + url
                 + "   ling params:" + mParamMap.toString());
+        Log.d(Tag,"上传的认证信息："+mParamMap.toString());
         BpiHttpClient.getInstance().post(url, mParamMap,
                 BpiHttpHandler.getInstance(mIbpi));
     }

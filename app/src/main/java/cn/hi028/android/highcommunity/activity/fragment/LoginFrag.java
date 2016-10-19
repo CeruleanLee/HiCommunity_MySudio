@@ -18,11 +18,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
-import com.mob.tools.utils.UIHandler;
+import com.google.gson.Gson;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.LogUtil;
@@ -37,6 +36,7 @@ import cn.hi028.android.highcommunity.activity.VallageAct;
 import cn.hi028.android.highcommunity.activity.WelcomeSecondAct;
 import cn.hi028.android.highcommunity.bean.LabelBean;
 import cn.hi028.android.highcommunity.bean.UserInfoBean;
+import cn.hi028.android.highcommunity.bean.WeixinBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
@@ -44,7 +44,6 @@ import cn.hi028.android.highcommunity.utils.login.LoginApi;
 import cn.hi028.android.highcommunity.utils.login.OnLoginListener;
 import cn.hi028.android.highcommunity.utils.login.UserInfo;
 import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.PlatformDb;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
@@ -65,7 +64,7 @@ public class LoginFrag extends BaseFragment {
     private TextView mLogin, mForget, mTourist;
     private LinearLayout weixin, qq, weibo;
     private TextView mTitle, mRightButton;
-    ImageView mTopLeft,mTopLeftCount;
+    ImageView mTopLeft, mTopLeftCount;
     private PopupWindow mWatingWindow;
 
     private static final String TAG = "LoginFrag";
@@ -89,8 +88,8 @@ public class LoginFrag extends BaseFragment {
                 R.layout.frag_login, null);
         mTitle = (TextView) mFragmeView.findViewById(R.id.tv_mainlevel_title);
         mRightButton = (TextView) mFragmeView.findViewById(R.id.tv_mainlevel_RightnMenu);
-        mTopLeft=(ImageView) mFragmeView.findViewById(R.id.tv_mainlevel_LeftButton);
-        mTopLeftCount=(ImageView) mFragmeView.findViewById(R.id.iv_mainlevel_LeftNewMessage);
+        mTopLeft = (ImageView) mFragmeView.findViewById(R.id.tv_mainlevel_LeftButton);
+        mTopLeftCount = (ImageView) mFragmeView.findViewById(R.id.iv_mainlevel_LeftNewMessage);
         ShareSDK.initSDK(getActivity());
         mUserName = (EditText) mFragmeView.findViewById(R.id.ET_Login_UserName);
         mPassword = (EditText) mFragmeView.findViewById(R.id.ET_Login_Passowrd);
@@ -107,7 +106,8 @@ public class LoginFrag extends BaseFragment {
         mTitle.setVisibility(View.VISIBLE);
         mTitle.setText(getResources().getString(R.string.tv_login_login));
         mRightButton.setVisibility(View.VISIBLE);
-        mTopLeft.setVisibility(View.GONE);mTopLeftCount.setVisibility(View.GONE);
+        mTopLeft.setVisibility(View.GONE);
+        mTopLeftCount.setVisibility(View.GONE);
         mLogin.setOnClickListener(mListener);
         mRightButton.setOnClickListener(mListener);
         mForget.setOnClickListener(mListener);
@@ -172,10 +172,10 @@ public class LoginFrag extends BaseFragment {
 
         @Override
         public void onSuccess(Object message) {
-        	LogUtil.d("~~~messageonSuccess"+message.toString());
+            LogUtil.d("~~~messageonSuccess" + message.toString());
             if (null == message)
                 return;
-            LogUtil.d("~~~message"+message.toString());
+            LogUtil.d("~~~message" + message.toString());
             HighCommunityApplication.mUserInfo = (UserInfoBean) message;
             HighCommunityApplication.mUserInfo.setV_id(HighCommunityApplication.mUserInfo.getV_id());
             HighCommunityApplication.SaveUser();
@@ -286,15 +286,31 @@ public class LoginFrag extends BaseFragment {
                     typeStr = "1";
                 }
                 PlatformDb platDB = platForm.getDb();//获取数平台数据DB
-                //通过DB获取各种数据
+                if (platformName.equals(Wechat.NAME)){
+                    String weixinInfo= platDB.exportData();
+                    WeixinBean mWeixinBean=new Gson().fromJson(weixinInfo, WeixinBean.class);
+                   Log.d("登陆2", "platDB:" + platDB.toString());
+                    Log.d("登陆2", " platDB.getUserId():" +  platDB.getUserId());
+                    Log.d("登陆2", " exportData" +  platDB.exportData());
+
+                    mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), mFragmeView, Gravity.CENTER);
+                    HTTPHelper.Login(mLoginHandler, null, null, typeStr + "", mWeixinBean.getUnionid(), platDB.getUserName());
+
+                    return false;
+                }else {
+                    //通过DB获取各种数据
 //                platDB.getToken();
 //                platDB.getUserGender();
 //                platDB.getUserIcon();
 //                platDB.getUserName();
+                    Log.d("登陆", "platDB:" + platDB.toString());
+                    Log.d("登陆", " platDB.getUserId():" +  platDB.getUserId());
+                    Log.d("登陆", " exportData" +  platDB.exportData());
 
-                mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), mFragmeView, Gravity.CENTER);
-                HTTPHelper.Login(mLoginHandler, null, null, typeStr + "", platDB.getUserId(), platDB.getUserName());
-                return false;
+                    mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), mFragmeView, Gravity.CENTER);
+                    HTTPHelper.Login(mLoginHandler, null, null, typeStr + "", platDB.getUserId(), platDB.getUserName());
+                    return false;
+                }
             }
 
             public boolean onRegister(UserInfo info) {

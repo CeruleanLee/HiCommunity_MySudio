@@ -350,9 +350,9 @@ public class AutoCommitDataFrag extends BaseFragment {
      * 提交数据
      */
     private void toCommitData() {
-        if (IsClicked) {
-            return;
-        }
+//        if (IsClicked) {
+//            return;
+//        }
         IsClicked = true;
         String name = ed_Name.getText().toString().trim();
 
@@ -416,7 +416,7 @@ public class AutoCommitDataFrag extends BaseFragment {
 
 
 
-//        HTTPHelper.Auto_Commit(mCommitIbpi, name, quStr, louStr, UnitStr, doorStr, tel, captcha, idZUri, idFUri, epropertyUri);
+        HTTPHelper.Auto_Commit(mCommitIbpi, name, quStr, louStr, UnitStr, doorStr, tel, captcha, idZUri, idFUri, epropertyUri);
 
         RequestParams mParamMap = new RequestParams(getBaseParamMap());
         mParamMap.put("name", name);

@@ -21,8 +21,11 @@ import com.lidroid.xutils.util.LogUtils;
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.LogUtil;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
@@ -34,15 +37,18 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 public class AutoFrag_CreatInquiry extends BaseFragment {
     public static final String Tag = "~~~AutoFrag_CreatReport~~~";
     public static final String FRAGMENTTAG = "AutoFrag_CreatReport";
-EditText mTitle,mContent;
-TextView mCommit;
     int owner_id;
+    @Bind(R.id.creatInquiry_content)
+    EditText mContent;
+    @Bind(R.id.creatInquiry_commit)
+    TextView mCommit;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.d(Tag + "onCreateView");
         View view = inflater.inflate(R.layout.frag_auto_creat_inquiry, null);
         Bundle bundle = getArguments();
-        owner_id = bundle.getInt("owner_id",-1);
+        owner_id = bundle.getInt("owner_id", -1);
         findView(view);
         ButterKnife.bind(this, view);
         initView();
@@ -57,13 +63,13 @@ TextView mCommit;
 
     private void initView() {
         LogUtil.d(Tag + "initView");
-        Toast.makeText(getActivity(),"需要业主代表才能操作",Toast.LENGTH_SHORT).show();
-//        mCommit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                HTTPHelper.AutoCreatReport(mIbpi,owner_id+"",mTitle.getText().toString(),mContent.getText().toString());
-//            }
-//        });
+//        Toast.makeText(getActivity(), "需要业主代表才能操作", Toast.LENGTH_SHORT).show();
+        mCommit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HTTPHelper.AutoCreatInquiry(mIbpi, owner_id + "", mContent.getText().toString());
+            }
+        });
 
     }
 
@@ -74,22 +80,24 @@ TextView mCommit;
             LogUtil.d(Tag + "---~~~onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
+
         @Override
         public void onSuccess(Object message) {
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
-
+            getActivity().onBackPressed();
 
         }
 
         @Override
         public Object onResolve(String result) {
-			LogUtil.d(Tag+" ~~~result"+result);
+            LogUtil.d(Tag + " ~~~result" + result);
             return result;
         }
 
         @Override
         public void setAsyncTask(AsyncTask asyncTask) {
         }
+
         @Override
         public void cancleAsyncTask() {
 
@@ -135,6 +143,10 @@ TextView mCommit;
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @OnClick(R.id.creatInquiry_commit)
+    public void onClick() {
     }
 
 

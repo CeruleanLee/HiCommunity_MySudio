@@ -34,14 +34,14 @@ import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
- * @功能：自治大厅 提案详情Frag<br>
+ * @功能：自治大厅 选举详情Frag<br>
  * @作者： Lee_yting<br>
  * @时间：2016/10/11<br>
  */
 
 public class AutoDetail_Vote extends BaseFragment {
-    public static final String Tag = "~~~AutoDetail_Motion~~~";
-    public static final String FRAGMENTTAG = "AutoDetail_Motion";
+    public static final String Tag = "~~~AutoDetail_Vote~~~";
+    public static final String FRAGMENTTAG = "AutoDetail_Vote";
     @Bind(R.id.item_aotumotion_but_support)
     CheckedTextView but_Support;
     @Bind(R.id.pg_progress)

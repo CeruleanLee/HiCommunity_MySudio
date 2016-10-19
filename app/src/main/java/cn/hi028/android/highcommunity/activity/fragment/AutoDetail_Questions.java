@@ -15,6 +15,7 @@ import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,10 @@ import com.lidroid.xutils.util.LogUtils;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.LogUtil;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,16 +57,14 @@ public class AutoDetail_Questions extends BaseFragment {
     public static final String FRAGMENTTAG = "AutoDetail_Questions";
 
     Auto_QuestionDeatailBean.QuestionDeatailDataEntity mBean;
-    String motion_id;
+    String question_id;
     @Bind(R.id.txt_title)
     TextView mTitle;
     @Bind(R.id.lly_test)
     LinearLayout test_layout;
     @Bind(R.id.submit)
     Button mSubmit;
-Context mContext;
-
-
+    Context mContext;
 
 
     @Override
@@ -69,9 +72,10 @@ Context mContext;
         LogUtil.d(Tag + "onCreateView");
         View view = inflater.inflate(R.layout.frag_auto_detail_questions, null);
         ButterKnife.bind(this, view);
-//        Bundle bundle = getArguments();
-//        motion_id = bundle.getString("motion_id");
-//        Log.d(Tag, "motion_id:" + motion_id);
+        Bundle bundle = getArguments();
+        question_id = bundle.getString("question_id");
+        is_voted=bundle.getInt("is_voted");
+        Log.d(Tag, "question_id:" + question_id);
 
         initView();
         return view;
@@ -90,11 +94,12 @@ Context mContext;
 
 
     private void initDatas() {
-        mContext=getActivity();
-        mInflater=LayoutInflater.from(mContext);
+        mContext = getActivity();
+        mInflater = LayoutInflater.from(mContext);
 //TODO 这里的id 是测试值   需要改
-        HTTPHelper.GetQuestionDetail(mIbpi, 2 + "");
+        HTTPHelper.GetQuestionDetail(mIbpi, question_id );
     }
+
     //问题列表
     List<Auto_QuestionDeatailBean.QuestionDeatailDataEntity.QuestionDeatailTitlesEntity> questionList;
     //答案列表
@@ -104,10 +109,11 @@ Context mContext;
     //答案所在的View
     private View ans_view;
     private LayoutInflater mInflater;
-
+int is_voted=0;
+    //TODO 是否参与  应从act传递过来  这里测试用0  未参与
     //下面这两个list是为了实现点击的时候改变图片，因为单选多选时情况不一样，为了方便控制
     //存每个问题下的imageview
-    private ArrayList<ArrayList<ImageView>> imglist=new ArrayList<ArrayList<ImageView>>();
+    private ArrayList<ArrayList<ImageView>> imglist = new ArrayList<ArrayList<ImageView>>();
     //存每个答案的imageview
     private ArrayList<ImageView> imglist2;
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
@@ -124,42 +130,45 @@ Context mContext;
             }
             mBean = (Auto_QuestionDeatailBean.QuestionDeatailDataEntity) message;
             initQuestionHead();
-            questionList=mBean.getTitles();
+            questionList = mBean.getTitles();
             for (int i = 0; i < questionList.size(); i++) {
-                que_view=mInflater.inflate(R.layout.frag_auto_detail_questions_question_layout,null);
-                TextView txt_que=(TextView)que_view.findViewById(R.id.txt_question_item);
-               //答案选项要加入的 布局
-                LinearLayout add_layout=(LinearLayout)que_view.findViewById(R.id.lly_answer);
-if (questionList.get(i).getType().equals("1")){//单选
-    set(txt_que,questionList.get(i).getName(),1);
+                que_view = mInflater.inflate(R.layout.frag_auto_detail_questions_question_layout, null);
+                TextView txt_que = (TextView) que_view.findViewById(R.id.txt_question_item);
+                //答案选项要加入的 布局
+                LinearLayout add_layout = (LinearLayout) que_view.findViewById(R.id.lly_answer);
+                if (questionList.get(i).getType().equals("1")) {//单选
+                    set(txt_que, questionList.get(i).getName(), 0);
 
-}else{
-    set(txt_que,questionList.get(i).getName(),2);
+                } else {
+                    set(txt_que, questionList.get(i).getName(), 1);//多选
 
-}
-answerList=questionList.get(i).getOptions();
-                imglist2=new ArrayList<ImageView>();
+                }
+                answerList = questionList.get(i).getOptions();
+
+                imglist2 = new ArrayList<ImageView>();
                 for (int j = 0; j < answerList.size(); j++) {
-                    ans_view=mInflater.inflate(R.layout.frag_auto_detail_questions_answer_layout, null);
-                    TextView txt_ans=(TextView)ans_view.findViewById(R.id.txt_answer_item);
-                    ImageView image=(ImageView)ans_view.findViewById(R.id.image);
-                    View line_view=ans_view.findViewById(R.id.vw_line);
-//                    if(j==the_answer_list.size()-1){
-//                        //最后一条答案下面不要线是指布局的问题
-//                        line_view.setVisibility(View.GONE);
-//                    }
-//                    //判断单选多选加载不同选项图片
-//                    if(the_quesition_list.get(i).getType().equals("1")){
+                    ans_view = mInflater.inflate(R.layout.frag_auto_detail_questions_answer_layout, null);
+                    TextView txt_ans = (TextView) ans_view.findViewById(R.id.txt_answer_item);
+                    ImageView image = (ImageView) ans_view.findViewById(R.id.image);
+                    View line_view = ans_view.findViewById(R.id.vw_line);
+                    if(j==answerList.size()-1){
+                        //最后一条答案下面不要线是指布局的问题
+                        line_view.setVisibility(View.GONE);
+                    }
+                    //判断单选多选加载不同选项图片
+                    if(questionList.get(i).getType().equals("2")){
+                        image.setBackgroundResource(R.drawable.multiselect_false);
 //                        image.setBackgroundDrawable(getResources().getDrawable(R.drawable.multiselect_false));
-//                    }else{
+                    }else{
+                        image.setBackgroundResource(R.drawable.radio_false);
 //                        image.setBackgroundDrawable(getResources().getDrawable(R.drawable.radio_false));
-//                    }
-//                    Log.e("---", "------"+image);
-//                    imglist2.add(image);
-//                    txt_ans.setText(the_answer_list.get(j).getAnswer_content());
-//                    LinearLayout lly_answer_size=(LinearLayout)ans_view.findViewById(R.id.lly_answer_size);
-//                    lly_answer_size.setOnClickListener(new answerItemOnClickListener(i,j,the_answer_list,txt_ans));
-//                    add_layout.addView(ans_view);
+                    }
+                    Log.e("---", "------"+image);
+                    imglist2.add(image);
+                    txt_ans.setText(answerList.get(j).getOption());
+                    LinearLayout lly_answer_size=(LinearLayout)ans_view.findViewById(R.id.lly_answer_size);
+                    lly_answer_size.setOnClickListener(new answerItemOnClickListener(i,j,answerList,txt_ans));
+                    add_layout.addView(ans_view);
                 }
  /*for(int r=0; r<imglist2.size();r++){
                 Log.e("---", "imglist2--------"+imglist2.get(r));
@@ -200,14 +209,15 @@ answerList=questionList.get(i).getOptions();
 
         }
     };
-    private void set(TextView tv_test, String content,int type) {
+
+    private void set(TextView tv_test, String content, int type) {
         //为了加载问题后面的* 和*多选
         // TODO Auto-generated method stub
         String w;
-        if(type==1){
-            w = content+"*[多选题]";
-        }else{
-            w = content+"*";
+        if (type == 1) {
+            w = content + "*[多选题]";
+        } else {
+            w = content + "*";
         }
 
         int start = content.length();
@@ -223,73 +233,138 @@ answerList=questionList.get(i).getOptions();
     }
 
 
-//    class answerItemOnClickListener implements View.OnClickListener {
-//        private int i;
-//        private int j;
-//        private TextView txt;
-//        private ArrayList<Answer> the_answer_lists;
-//        public answerItemOnClickListener(int i,int j, ArrayList<Answer> the_answer_list,TextView text){
-//            this.i=i;
-//            this.j=j;
-//            this.the_answer_lists=the_answer_list;
-//            this.txt=text;
-//
-//        }
-//        //实现点击选项后改变选中状态以及对应图片
-//        @Override
-//        public void onClick(View arg0) {
-//            // TODO Auto-generated method stub
-//            //判断当前问题是单选还是多选
-//            /*Log.e("------", "选择了-----第"+i+"题");
-//            for(int q=0;q<imglist.size();q++){
-//                for(int w=0;w<imglist.get(q).size();w++){
-////                  Log.e("---", "共有------"+imglist.get(q).get(w));
-//                }
-//            }
-//            Log.e("----", "点击了---"+imglist.get(i).get(j));*/
-//
-//            if(the_quesition_list.get(i).getType().equals("1")){
-//                //多选
-//                if(the_answer_lists.get(j).getAns_state()==0){
-//                    //如果未被选中
-//                    txt.setTextColor(Color.parseColor("#EA5514"));
+    class answerItemOnClickListener implements View.OnClickListener {
+        private int i;
+        private int j;
+        private TextView txt;
+//        List<Auto_QuestionDeatailBean.QuestionDeatailDataEntity.QuestionDeatailTitlesEntity.QuestionDeatailOptionsEntity> answerList;
+
+        private List<Auto_QuestionDeatailBean.QuestionDeatailDataEntity.QuestionDeatailTitlesEntity.QuestionDeatailOptionsEntity> the_answer_lists;
+        public answerItemOnClickListener(int i, int j, List<Auto_QuestionDeatailBean.QuestionDeatailDataEntity.QuestionDeatailTitlesEntity.QuestionDeatailOptionsEntity> the_answer_list, TextView text){
+            this.i=i;
+            this.j=j;
+            this.the_answer_lists=the_answer_list;
+            this.txt=text;
+
+        }
+        //实现点击选项后改变选中状态以及对应图片
+        @Override
+        public void onClick(View arg0) {
+            // TODO Auto-generated method stub
+            //判断当前问题是单选还是多选
+            /*Log.e("------", "选择了-----第"+i+"题");
+            for(int q=0;q<imglist.size();q++){
+                for(int w=0;w<imglist.get(q).size();w++){
+//                  Log.e("---", "共有------"+imglist.get(q).get(w));
+                }
+            }
+            Log.e("----", "点击了---"+imglist.get(i).get(j));*/
+
+            if(questionList.get(i).getType().equals("2")){
+                //多选
+                if(the_answer_lists.get(j).getAns_state()==0){
+                    //如果未被选中
+                    txt.setTextColor(Color.parseColor("#EA5514"));
 //                    imglist.get(i).get(j).setBackgroundDrawable(getResources().getDrawable(R.drawable.multiselect_true));
-//                    the_answer_lists.get(j).setAns_state(1);
-//                    the_quesition_list.get(i).setQue_state(1);
-//                }else{
-//                    txt.setTextColor(Color.parseColor("#595757"));
-//                    imglist.get(i).get(j).setBackgroundDrawable(getResources().getDrawable(R.drawable.multiselect_false));
-//                    the_answer_lists.get(j).setAns_state(0);
-//                    the_quesition_list.get(i).setQue_state(1);
-//                }
-//            }else{
-//                //单选
-//
-//                for(int z=0;z<the_answer_lists.size();z++){
-//                    the_answer_lists.get(z).setAns_state(0);
-//                    imglist.get(i).get(z).setBackgroundDrawable(getResources().getDrawable(R.drawable.radio_false));
-//                }
-//                if(the_answer_lists.get(j).getAns_state()==0){
-//                    //如果当前未被选中
-//                    imglist.get(i).get(j).setBackgroundDrawable(getResources().getDrawable(R.drawable.radio_true));
-//                    the_answer_lists.get(j).setAns_state(1);
-//                    the_quesition_list.get(i).setQue_state(1);
-//                }else{
-//                    //如果当前已被选中
-//                    the_answer_lists.get(j).setAns_state(1);
-//                    the_quesition_list.get(i).setQue_state(1);
-//                }
-//
-//            }
-//            //判断当前选项是否选中
-//
-//
-//
+                    imglist.get(i).get(j).setBackgroundResource(R.drawable.multiselect_true);
+                    the_answer_lists.get(j).setAns_state(1);
+                    questionList.get(i).setQue_state(1);
+                }else{
+                    txt.setTextColor(Color.parseColor("#595757"));
+//                    imglist.get(i).get(j).setBackgroundDrawable(getResourcesces().getDrawable(R.drawable.multiselect_false));
+                    imglist.get(i).get(j).setBackgroundResource(R.drawable.multiselect_false);
+                    the_answer_lists.get(j).setAns_state(0);
+                    questionList.get(i).setQue_state(1);
+                }
+            }else{
+                //单选
+
+                for(int z=0;z<the_answer_lists.size();z++){
+                    the_answer_lists.get(z).setAns_state(0);
+                    imglist.get(i).get(z).setBackgroundDrawable(getResources().getDrawable(R.drawable.radio_false));
+                }
+                if(the_answer_lists.get(j).getAns_state()==0){
+                    //如果当前未被选中
+                    imglist.get(i).get(j).setBackgroundDrawable(getResources().getDrawable(R.drawable.radio_true));
+                    the_answer_lists.get(j).setAns_state(1);
+                    questionList.get(i).setQue_state(1);
+                }else{
+                    //如果当前已被选中
+                    the_answer_lists.get(j).setAns_state(1);
+                    questionList.get(i).setQue_state(1);
+                }
+
+            }
+            //判断当前选项是否选中
+
+
+
+        }
+
+    }
+    class submitOnClickListener implements View.OnClickListener {
+//        private Page page;
+//        public submitOnClickListener(Page page){
+//            this.page=page;
 //        }
-//
-//    }
+        @Override
+        public void onClick(View arg0) {
+            // TODO Auto-generated method stub
+            //判断是否答完题
+            boolean isState=true;
+            //最终要的json数组
+            JSONArray jsonArray = new JSONArray();
+            //点击提交的时候，先判断状态，如果有未答完的就提示，如果没有再把每条答案提交（包含问卷ID 问题ID 及答案ID）
+            //注：不用管是否是一个问题的答案，就以答案的个数为准来提交上述格式的数据
+            for(int i=0;i<questionList.size();i++){
+                answerList=questionList.get(i).getOptions();
+                //判断是否有题没答完
+                if(questionList.get(i).getQue_state()==0){
+                    Toast.makeText(getActivity(), "您第"+(i+1)+"题没有答完", Toast.LENGTH_LONG).show();
+                    jsonArray=null;
+                    isState=false;
+                    break;
+                }else{
+                    for(int j=0;j<answerList.size();j++){
+                        if(answerList.get(j).getAns_state()==1){
+                            JSONObject json = new JSONObject();
+                            try {
+//                                json.put("psychologicalId", page.getPageId());
+                                json.put("questionId", questionList.get(i).getId());
+                                json.put("optionId", answerList.get(j).getId());
+                                jsonArray.put(json);
+                            } catch (JSONException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
 
+            }
+            if(isState){
+                if(jsonArray.length()>0){
+                    Log.e("af", jsonArray.toString());
+                    for(int item=0;item<jsonArray.length();item++){
+                        JSONObject job;
+                        try {
+                            job = jsonArray.getJSONObject(item);
+                            Log.e("----", "pageId--------"+job.get("pageId"));
+                            Log.e("----", "quesitionId--------"+job.get("quesitionId"));
+                            Log.e("----", "answerId--------"+job.get("answerId"));
+                        } catch (JSONException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }  // 遍历 jsonarray 数组，把每一个对象转成 json 对象
 
+                    }
+
+                }
+
+            }
+
+        }
+    }
 
     BpiHttpHandler.IBpiHttpHandler mCommentIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override

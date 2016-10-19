@@ -81,12 +81,9 @@ boolean isReportSelected=true;
         LogUtil.d(Tag + "onCreateView");
         View view = inflater.inflate(R.layout.frag_auto_superviselist, null);
         ButterKnife.bind(this, view);
-
         Bundle bundle = getArguments();
         owner_id = bundle.getInt("owner_id", -1);
         Log.d(Tag, "owner_id=" + owner_id);
-
-
         initView();
         return view;
     }
@@ -127,7 +124,7 @@ boolean isReportSelected=true;
 
         HTTPHelper.GetAutoSuperviseList(mIbpi, owner_id);
     }
-
+boolean isFirstLoading;
 
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
@@ -150,10 +147,11 @@ boolean isReportSelected=true;
                 mInquiryList = mList.get(1);
                 mInquiryAdapter.AddNewData(mInquiryList);
                 mListview_Inquiry.setAdapter(mInquiryAdapter);
-                listviewContainer.setVisibility(View.VISIBLE);
-                mListview_Inquiry.setVisibility(View.GONE);
-                mListview_Report.setVisibility(View.VISIBLE);
+                initVisibility();
             }
+//            if (!isFirstLoading){
+//                isFirstLoading=true;
+//            }
 
         }
 
@@ -175,6 +173,12 @@ boolean isReportSelected=true;
         }
     };
 
+    private void initVisibility() {
+        listviewContainer.setVisibility(View.VISIBLE);
+        mListview_Inquiry.setVisibility(View.GONE);
+        mListview_Report.setVisibility(View.VISIBLE);
+    }
+
 
     @Override
     public void onPause() {
@@ -186,6 +190,18 @@ boolean isReportSelected=true;
     public void onResume() {
         super.onResume();
         LogUtil.d(Tag + "onResume");
+//initDatas();
+//        if (but_Report.isChecked()){
+//
+//            isReportSelected=true;
+//            mListview_Report.setVisibility(View.VISIBLE);
+//            mListview_Inquiry.setVisibility(View.GONE);
+//        }else{
+//
+//            isReportSelected=false;
+//            mListview_Inquiry.setVisibility(View.VISIBLE);
+//            mListview_Report.setVisibility(View.GONE);
+//        }
 
         registNetworkReceiver();
     }

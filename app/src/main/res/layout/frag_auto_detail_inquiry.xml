@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
-            android:id="@+id/reportdetail_spokerLayout"
+            android:id="@+id/inquirydetail_spokerLayout"
             android:layout_width="match_parent"
             android:layout_height="40dip"
             android:layout_alignParentBottom="true"
@@ -27,12 +27,12 @@
                 android:orientation="horizontal">
 
                 <com.don.view.CircleImageView
-                    android:id="@+id/reportdetail_spokerImage"
+                    android:id="@+id/inquirydetail_spokerImage"
                     style="@style/civ_avatar_type2"
                     android:layout_marginLeft="@dimen/margin_8" />
 
                 <EditText
-                    android:id="@+id/reportdetail_spokerContent"
+                    android:id="@+id/inquirydetail_spokerContent"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -43,7 +43,7 @@
                     android:textColorHint="@color/Defult_Color_Grey" />
 
                 <ImageView
-                    android:id="@+id/reportdetail_spokerButton"
+                    android:id="@+id/inquirydetail_spokerButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/padding_12"
@@ -53,24 +53,24 @@
 
 
         <ListView
-            android:id="@+id/reportdetail_commentListview"
+            android:id="@+id/inquirydetail_commentListview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/reportdetail_spokerLayout"
+            android:layout_above="@id/inquirydetail_spokerLayout"
             android:divider="@null">
 
         </ListView>
     </RelativeLayout>
 
     <include
-        android:id="@+id/auto_reportDetails_Progress"
+        android:id="@+id/auto_inquirydetails_Progress"
         layout="@layout/progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/defult_color_white" />
 
     <TextView
-        android:id="@+id/auto_reportDetails_noData"
+        android:id="@+id/auto_inquirydetails_noData"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/defult_color_white"

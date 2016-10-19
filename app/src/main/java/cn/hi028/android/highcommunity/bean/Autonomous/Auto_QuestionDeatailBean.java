@@ -139,6 +139,16 @@ public class Auto_QuestionDeatailBean {
             private String name;
             private String type;
             private List<QuestionDeatailOptionsEntity> options;
+            //是否解答
+            private int que_state;
+
+            public int getQue_state() {
+                return que_state;
+            }
+
+            public void setQue_state(int que_state) {
+                this.que_state = que_state;
+            }
 
             public void setId(String id) {
                 this.id = id;
@@ -180,7 +190,7 @@ public class Auto_QuestionDeatailBean {
 
                 private String id;
                 private String option;
-
+                private int ans_state;//选中为1  未选中为o;
                 public void setId(String id) {
                     this.id = id;
                 }
@@ -195,6 +205,14 @@ public class Auto_QuestionDeatailBean {
 
                 public String getOption() {
                     return option;
+                }
+
+                public int getAns_state() {
+                    return ans_state;
+                }
+
+                public void setAns_state(int ans_state) {
+                    this.ans_state = ans_state;
                 }
             }
         }

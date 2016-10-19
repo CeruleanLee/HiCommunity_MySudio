@@ -1,8 +1,5 @@
 package cn.hi028.android.highcommunity.view.snap;
 
-import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.view.Mylistview;
-import cn.hi028.android.highcommunity.view.ScrollWebView;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -12,7 +9,10 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Scroller;
-import android.widget.Toast;
+
+import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.view.Mylistview;
+import cn.hi028.android.highcommunity.view.ScrollWebView;
 
 /**
  * @author jiangxinxing---mcoy in English
@@ -24,6 +24,7 @@ import android.widget.Toast;
  * http://blog.csdn.net/androiddevelop/article/details/8373782
  * http://blog.csdn.net/xujainxing/article/details/8985063
  */
+@SuppressWarnings("ResourceType")
 public class McoySnapPageLayout extends ViewGroup {
 	private final String TAG = "McoySnapPageLayout";
 	private final boolean MCOY_DEBUG = true;
@@ -31,7 +32,6 @@ public class McoySnapPageLayout extends ViewGroup {
 	private VelocityTracker mVelocityTracker;
 	private int mMaximumVelocity;
 	private static final int SNAP_VELOCITY = 1000;
-
 	public static final int FLIP_DIRECTION_CUR = 0;
 	public static final int FLIP_DIRECTION_UP = -1;
 	public static final int FLIP_DIRECTION_DOWN = 1;
@@ -167,6 +167,7 @@ public class McoySnapPageLayout extends ViewGroup {
 	private void addPagesAndRefresh() {
 		// 设置页面id
 		mPageTop.getRootView().setId(0);
+
 		mPageBottom.getRootView().setId(1);
 		addView(mPageTop.getRootView());
 		addView(mPageBottom.getRootView());

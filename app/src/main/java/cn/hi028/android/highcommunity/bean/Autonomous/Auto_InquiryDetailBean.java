@@ -8,11 +8,12 @@ import java.util.List;
  */
 public class Auto_InquiryDetailBean {
 
+
     /**
      * success : true
      * code : 2000
      * msg : 数据获取成功
-     * data : {"id":"22","create_time":"1470536235","content":"这一季度的收支报告什么时候出来","name":"黄凯","head_pic":"img/lx.png","reply":[{"id":78,"from_id":11,"pic":"img/lx.png","from_name":"黄凯","content":"就快出来了,请耐心等待","sub_reply":[{"from_id":11,"pic":"img/lx.png","from_name":"黄凯","to_name":"黄凯","content":"恩,好的","reply_time":1470536286},{"from_id":12,"pic":"img/lx.png","from_name":"纪国新","to_name":"黄凯","content":"sdfsd","reply_time":1470622814}],"reply_time":1470536269}]}
+     * data : {"id":"6","create_time":"1470190355","content":"本季度财务状况请尽快提交","name":"陈晨","head_pic":"img/lx.png","reply":[{"id":80,"from_id":12,"pic":"img/lx.png","from_name":"纪国新","content":"gg","sub_reply":[{"from_id":46,"pic":"upload/head_pic/201609/201609240825178876.jpg","from_name":"啊李","to_id":12,"to_name":"纪国新","content":"great","reply_time":1476845503},{"from_id":46,"pic":"upload/head_pic/201609/201609240825178876.jpg","from_name":"啊李","to_id":46,"to_name":"啊李","content":"xyz","reply_time":1476845513}],"reply_time":1470622140},{"id":112,"from_id":46,"pic":"upload/head_pic/201609/201609240825178876.jpg","from_name":"啊李","content":"阔以","sub_reply":[],"reply_time":1476845442}]}
      */
 
     private boolean success;
@@ -54,12 +55,12 @@ public class Auto_InquiryDetailBean {
 
     public static class InquiryDetailDataEntity {
         /**
-         * id : 22
-         * create_time : 1470536235
-         * content : 这一季度的收支报告什么时候出来
-         * name : 黄凯
+         * id : 6
+         * create_time : 1470190355
+         * content : 本季度财务状况请尽快提交
+         * name : 陈晨
          * head_pic : img/lx.png
-         * reply : [{"id":78,"from_id":11,"pic":"img/lx.png","from_name":"黄凯","content":"就快出来了,请耐心等待","sub_reply":[{"from_id":11,"pic":"img/lx.png","from_name":"黄凯","to_name":"黄凯","content":"恩,好的","reply_time":1470536286},{"from_id":12,"pic":"img/lx.png","from_name":"纪国新","to_name":"黄凯","content":"sdfsd","reply_time":1470622814}],"reply_time":1470536269}]
+         * reply : [{"id":80,"from_id":12,"pic":"img/lx.png","from_name":"纪国新","content":"gg","sub_reply":[{"from_id":46,"pic":"upload/head_pic/201609/201609240825178876.jpg","from_name":"啊李","to_id":12,"to_name":"纪国新","content":"great","reply_time":1476845503},{"from_id":46,"pic":"upload/head_pic/201609/201609240825178876.jpg","from_name":"啊李","to_id":46,"to_name":"啊李","content":"xyz","reply_time":1476845513}],"reply_time":1470622140},{"id":112,"from_id":46,"pic":"upload/head_pic/201609/201609240825178876.jpg","from_name":"啊李","content":"阔以","sub_reply":[],"reply_time":1476845442}]
          */
 
         private String id;
@@ -119,13 +120,13 @@ public class Auto_InquiryDetailBean {
 
         public static class InquiryDetailReplyEntity {
             /**
-             * id : 78
-             * from_id : 11
+             * id : 80
+             * from_id : 12
              * pic : img/lx.png
-             * from_name : 黄凯
-             * content : 就快出来了,请耐心等待
-             * sub_reply : [{"from_id":11,"pic":"img/lx.png","from_name":"黄凯","to_name":"黄凯","content":"恩,好的","reply_time":1470536286},{"from_id":12,"pic":"img/lx.png","from_name":"纪国新","to_name":"黄凯","content":"sdfsd","reply_time":1470622814}]
-             * reply_time : 1470536269
+             * from_name : 纪国新
+             * content : gg
+             * sub_reply : [{"from_id":46,"pic":"upload/head_pic/201609/201609240825178876.jpg","from_name":"啊李","to_id":12,"to_name":"纪国新","content":"great","reply_time":1476845503},{"from_id":46,"pic":"upload/head_pic/201609/201609240825178876.jpg","from_name":"啊李","to_id":46,"to_name":"啊李","content":"xyz","reply_time":1476845513}]
+             * reply_time : 1470622140
              */
 
             private int id;
@@ -134,7 +135,7 @@ public class Auto_InquiryDetailBean {
             private String from_name;
             private String content;
             private int reply_time;
-            private List<SubReplyEntity> sub_reply;
+            private List<InquiryDetailSubReplyEntity> sub_reply;
 
             public void setId(int id) {
                 this.id = id;
@@ -160,7 +161,7 @@ public class Auto_InquiryDetailBean {
                 this.reply_time = reply_time;
             }
 
-            public void setSub_reply(List<SubReplyEntity> sub_reply) {
+            public void setSub_reply(List<InquiryDetailSubReplyEntity> sub_reply) {
                 this.sub_reply = sub_reply;
             }
 
@@ -188,23 +189,25 @@ public class Auto_InquiryDetailBean {
                 return reply_time;
             }
 
-            public List<SubReplyEntity> getSub_reply() {
+            public List<InquiryDetailSubReplyEntity> getSub_reply() {
                 return sub_reply;
             }
 
-            public static class SubReplyEntity {
+            public static class InquiryDetailSubReplyEntity {
                 /**
-                 * from_id : 11
-                 * pic : img/lx.png
-                 * from_name : 黄凯
-                 * to_name : 黄凯
-                 * content : 恩,好的
-                 * reply_time : 1470536286
+                 * from_id : 46
+                 * pic : upload/head_pic/201609/201609240825178876.jpg
+                 * from_name : 啊李
+                 * to_id : 12
+                 * to_name : 纪国新
+                 * content : great
+                 * reply_time : 1476845503
                  */
 
                 private int from_id;
                 private String pic;
                 private String from_name;
+                private int to_id;
                 private String to_name;
                 private String content;
                 private int reply_time;
@@ -219,6 +222,10 @@ public class Auto_InquiryDetailBean {
 
                 public void setFrom_name(String from_name) {
                     this.from_name = from_name;
+                }
+
+                public void setTo_id(int to_id) {
+                    this.to_id = to_id;
                 }
 
                 public void setTo_name(String to_name) {
@@ -243,6 +250,10 @@ public class Auto_InquiryDetailBean {
 
                 public String getFrom_name() {
                     return from_name;
+                }
+
+                public int getTo_id() {
+                    return to_id;
                 }
 
                 public String getTo_name() {
