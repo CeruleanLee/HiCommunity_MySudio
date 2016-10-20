@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
 
@@ -71,7 +70,6 @@ public class Service_AutonomousActivity extends BaseFragmentActivity {
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            Toast.makeText(Service_AutonomousActivity.this, "访问shibai", Toast.LENGTH_SHORT).show();
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 

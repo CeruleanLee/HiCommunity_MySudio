@@ -153,15 +153,17 @@ String village_id;
     @OnClick({R.id.autoAct_ed_quName, R.id.autoAct_ed_louNum, R.id.autoAct_ed_danyuanNum, R.id.autoAct_ed_menNum, R.id.autoAct_ed_idZ, R.id.autoAct_ed_idF, R.id.autoAct_eproperty, R.id.auto_getviryCode, R.id.autoAct_telNum, R.id.autoAct_putverifyCode, R.id.autoAct_commit})
     public void onClick(View view) {
         if (view.getId() == R.id.autoAct_ed_louNum) {
+            view.requestFocus();
             ed_LouNum.setChecked(true);
             ed_MenNum.setChecked(false);
             ed_DanyuanNum.setChecked(false);
             mmBuildingNums.clear();
-            Toast.makeText(getActivity(), "楼栋号被点击", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), "楼栋号被点击", Toast.LENGTH_SHORT).show();
             setBuildingNum();
 
             ClickId = R.id.autoAct_ed_louNum;
         } else if (view.getId() == R.id.autoAct_ed_menNum) {
+            view.requestFocus();
             ed_MenNum.setChecked(true);
             ed_LouNum.setChecked(false);
             ed_DanyuanNum.setChecked(false);
@@ -170,6 +172,7 @@ String village_id;
             ClickId = R.id.autoAct_ed_menNum;
 
         } else if (view.getId() == R.id.autoAct_ed_danyuanNum) {
+            view.requestFocus();
             ed_DanyuanNum.setChecked(true);
             ed_LouNum.setChecked(false);
             ed_MenNum.setChecked(false);
@@ -221,7 +224,7 @@ String village_id;
 
                     break;
                 case R.id.autoAct_telNum://填写电话
-                    Toast.makeText(getActivity(), "系统要求使用注册时的手机号进行验证", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "系统要求使用注册手机号进行验证", Toast.LENGTH_SHORT).show();
                     ClickId = R.id.autoAct_telNum;
                     break;
                 case R.id.autoAct_putverifyCode://写验证码
@@ -436,7 +439,7 @@ String village_id;
         } catch (FileNotFoundException e) {
 
         }
-        Toast.makeText(getActivity(),"提交数据："+mParamMap.toString(),Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(),"提交数据："+mParamMap.toString(),Toast.LENGTH_SHORT).show();
         Log.d(Tag,"提交数据："+mParamMap.toString());
 //        Debug.verbose(DongConstants.EDUCATIONHTTPTAG, "URL:" + url
 //                + "   ling params:" + mParamMap.toString());
@@ -513,7 +516,7 @@ String village_id;
         public void onSuccess(Object message) {
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(),
                     0);
-
+getActivity().onBackPressed();
 
 //			mLoadingView.loadSuccess();
 //			mLoadingView.setVisibility(View.GONE);

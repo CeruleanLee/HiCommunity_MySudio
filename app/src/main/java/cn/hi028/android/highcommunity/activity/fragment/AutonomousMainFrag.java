@@ -41,7 +41,7 @@ import cn.hi028.android.highcommunity.view.ECAlertDialog;
  */
 
 public class AutonomousMainFrag extends BaseFragment implements OnClickListener {
-    public static final String Tag = "~~~AutonomousMainFrag~~~";
+    public static final String Tag = "~~~AutonomousMain";
     public static final String FRAGMENTTAG = "AutonomousMainFrag";
 
     public static final int TAG_NOTIC = 0;
@@ -123,7 +123,7 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
             }
             mData = (Auto_InitBean.Auto_Init_DataEntity) message;
             mStatus = mData.getStatus();
-            Toast.makeText(getActivity(), "mStatus " + mStatus, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), "mStatus " + mStatus, Toast.LENGTH_SHORT).show();
             if (mStatus == 1) {
 
                 isVerified = true;
@@ -342,7 +342,7 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
      * 前往资料填写弹窗
      */
     public void showCheckingDialog() {
-        ECAlertDialog dialog2 = ECAlertDialog.buildAlert(getActivity(), "资料审核中，前往查看审核状态？", "确定", "取消", new DialogInterface.OnClickListener() {
+        ECAlertDialog dialog2 = ECAlertDialog.buildAlert(getActivity(), "资料审核中，前往查看审核状态", "确定", "取消", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
@@ -359,7 +359,7 @@ if (mData!=null){
     intent.putExtra("mStatus", mStatus);
     startActivity(intent);
 }else{
-    Toast.makeText(getActivity(),"data null",Toast.LENGTH_SHORT).show();
+//    Toast.makeText(getActivity(),"data null",Toast.LENGTH_SHORT).show();
 }
             }
         }, new DialogInterface.OnClickListener() {
