@@ -31,10 +31,8 @@ import com.lidroid.xutils.util.LogUtils;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.LogUtil;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +95,8 @@ public class AutoDetail_Questions extends BaseFragment {
     List<String> radioAnswers;
     List<String>  mutilOptionsAnswers;
     private void initView() {
-
+        mContext = getActivity();
+        mInflater = LayoutInflater.from(mContext);
         LogUtil.d(Tag + "initView");
         radioAnswers = new ArrayList<String>();
         mutilOptionsAnswers = new ArrayList<String>();
@@ -111,19 +110,10 @@ public class AutoDetail_Questions extends BaseFragment {
 
 
     private void initDatas() {
-        mContext = getActivity();
-        mInflater = LayoutInflater.from(mContext);
+
 
         if (is_voted == 1) {
-            mSubmit.setVisibility(View.GONE);
-            if (type==1){
 
-                mback.setVisibility(View.VISIBLE);
-                mWatchResult.setVisibility(View.GONE);
-            }else{
-                mWatchResult.setVisibility(View.VISIBLE);
-                mback.setVisibility(View.GONE);
-            }
             HTTPHelper.GetQuestionAnswerArray(mAnswersIbpi, question_id);
 
         } else {
@@ -176,7 +166,10 @@ public class AutoDetail_Questions extends BaseFragment {
                 TextView txt_que = (TextView) que_view.findViewById(R.id.txt_question_item);
                 //答案选项要加入的 布局
                 LinearLayout add_layout = (LinearLayout) que_view.findViewById(R.id.lly_answer);
-                if (questionList.get(i).getType().equals("1")) {//单选
+                if (questionList.get(i).getMax_option()==null){
+                    questionList.get(i).setMax_option(-1+"");
+                }
+                if (questionList.get(i).getType().equals("1")||questionList.get(i).getMax_option().equals("1")) {//单选
                     set(txt_que, i + 1 + "." + "\u3000" + questionList.get(i).getName(), 0);
 
                 } else {
@@ -185,9 +178,9 @@ public class AutoDetail_Questions extends BaseFragment {
                 }
                 answerList = questionList.get(i).getOptions();
 //                radioAnswers, mutilOptionsAnswers
-                if (is_voted == 1 && radioAnswers != null && mutilOptionsAnswers != null) {
+                if (is_voted == 1 ) {
                     Log.d(Tag, "准备已参与布局");
-                    if (questionList.get(i).getType().equals("1")) {//单选
+                    if (questionList.get(i).getType().equals("1")&&radioAnswers!=null) {//单选
 //                        set(txt_que, questionList.get(i).getName(), 0);
                         for (int x = 0; x < answerList.size(); x++) {
                             Log.d(Tag, "1 answerList.get(x).getId()--->" + answerList.get(x).getId());
@@ -200,7 +193,7 @@ public class AutoDetail_Questions extends BaseFragment {
                                 ;
                             }
                         }
-                    } else {
+                    } else if(questionList.get(i).getType().equals("2")&&mutilOptionsAnswers!=null) {
                         for (int x = 0; x < answerList.size(); x++) {
                             Log.d(Tag, "2 answerList.get(x).getId()--->" + answerList.get(x).getId());
                             for (int y = 0; y < mutilOptionsAnswers.size(); y++) {
@@ -281,7 +274,18 @@ public class AutoDetail_Questions extends BaseFragment {
 //            mList = (List<Auto_NoticeListBean.NoticeListDataEntity>) message;
 //            mAdapter.AddNewData(mList);
 //            mListview.setAdapter(mAdapter);
+            if (is_voted==1){
 
+                mSubmit.setVisibility(View.GONE);
+                if (type==1){
+
+                    mback.setVisibility(View.VISIBLE);
+                    mWatchResult.setVisibility(View.GONE);
+                }else{
+                    mWatchResult.setVisibility(View.VISIBLE);
+                    mback.setVisibility(View.GONE);
+                }
+            }
 
         }
 
@@ -329,11 +333,11 @@ public class AutoDetail_Questions extends BaseFragment {
         tv_test.setText(word);
     }
 
-    @OnClick({R.id.submit, R.id.back, R.id.watchResult})
+    @OnClick({ R.id.back, R.id.watchResult})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.submit:
-                break;
+//            case R.id.submit:
+//                break;
             case R.id.back:
                 getActivity().onBackPressed();
                 break;
@@ -434,10 +438,12 @@ Intent mIntent=new Intent(getActivity(), AutoAct_Four.class);
             boolean isState = true;
             //最终要的json数组
             JSONArray jsonArray = new JSONArray();
+            JSONArray optionIdArray = new JSONArray();
             List<Title_CommitQuestionAnswer> mAnswerList = new ArrayList<Title_CommitQuestionAnswer>();
             //点击提交的时候，先判断状态，如果有未答完的就提示，如果没有再把每条答案提交（包含问卷ID 问题ID 及答案ID）
             //注：不用管是否是一个问题的答案，就以答案的个数为准来提交上述格式的数据
             for (int i = 0; i < questionList.size(); i++) {
+                Title_CommitQuestionAnswer mCommitAnswer = new Title_CommitQuestionAnswer();
                 answerList = questionList.get(i).getOptions();
                 //判断是否有题没答完
                 if (questionList.get(i).getQue_state() == 0) {
@@ -446,40 +452,91 @@ Intent mIntent=new Intent(getActivity(), AutoAct_Four.class);
                     isState = false;
                     break;
                 } else {
-                    Title_CommitQuestionAnswer mCommitAnswer = new Title_CommitQuestionAnswer();
                     List<String> selectedoptions = new ArrayList<String>();
+                    mCommitAnswer.setId(questionList.get(i).getId());
                     for (int j = 0; j < answerList.size(); j++) {
                         if (answerList.get(j).getAns_state() == 1) {
                             JSONObject json = new JSONObject();
                             try {
-                                if (questionList.get(i).getType() == 1 + "") {
-                                    //单选
-                                    mCommitAnswer.setId(answerList.get(j).getId());
-
-                                } else if (questionList.get(i).getType() == 2 + "") {
-                                    //多选
-                                    selectedoptions.add(answerList.get(j).getId());
-
-                                }
+//                                if (questionList.get(i).getType() == 1 + "") {
+//                                    //单选
+//                                    selectedoptions.add(answerList.get(j).getId());
+//                                } else if (questionList.get(i).getType() == 2 + "") {
+//                                    //多选
+//                                    selectedoptions.add(answerList.get(j).getId());
+//
+//                                }
+                                selectedoptions.add(answerList.get(j).getId());
 //                                json.put("psychologicalId", page.getPage
 // Id());
                                 json.put("questionId", questionList.get(i).getId());
                                 json.put("optionId", answerList.get(j).getId());
-                                jsonArray.put(json);
+                                jsonArray.add(json);
                                 String toJson = new Gson().toJson(jsonArray);
-                            } catch (JSONException e) {
+                            } catch (Exception e) {
                                 // TODO Auto-generated catch block
                                 e.printStackTrace();
                             }
                         }
                     }
+                    mCommitAnswer.setMutilOptionId(selectedoptions);
+
                 }
+                mAnswerList.add(mCommitAnswer);
 
             }
             if (isState) {
-                if (jsonArray.length() > 0) {
+                if (jsonArray.size()> 0) {
                     Log.e("af", jsonArray.toString());
-                    for (int item = 0; item < jsonArray.length(); item++) {
+                    Log.e(Tag,"mAnswerList--->"+mAnswerList.toString());
+                    JSONArray mJsonArray = new JSONArray();
+                    JSONObject jsonObject_inner=null;
+                    for (int z = 0; z <mAnswerList.size() ; z++) {
+
+                        jsonObject_inner = new JSONObject();
+//                        JSONArray jsonArray_Inner = JSONArray.fromObject(mAnswerList.get(z).getMutilOptionId());
+                        JSONArray jsonArray_Inner = new JSONArray();
+                        List<String> MutilOptionId=mAnswerList.get(z).getMutilOptionId();
+                        for (int w = 0; w <MutilOptionId.size() ; w++) {
+                            jsonArray_Inner.add(MutilOptionId.get(w));
+                        }
+
+                        jsonObject_inner.put(mAnswerList.get(z).getId(),jsonArray_Inner);
+//
+                        mJsonArray.add(jsonObject_inner);
+                    }
+                    Log.e(Tag,"mJsonArray--->"+mJsonArray.toString());
+
+                    if (mJsonArray.size()==1&&Integer.parseInt(questionList.get(0).getMax_option())!=0&&mAnswerList.get(0).getMutilOptionId().size()>Integer.parseInt(questionList.get(0).getMax_option())){
+                        Toast.makeText(getActivity(),"最多可选"+questionList.get(0).getMax_option()+"项",Toast.LENGTH_SHORT).show();
+                       return;
+                    }
+                    HTTPHelper.commitAnswers(mCommentIbpi,question_id,mJsonArray.toString());
+//                    HTTPHelper.GetQuestionDetail(mIbpi, question_id);
+//                    JSONObject tmpObj = null;
+//
+//                    int count = mAnswerList.size();
+//
+//                    for(int i = 0; i < count; i++) {
+//
+//                        tmpObj = new JSONObject();
+//
+//                        tmpObj.put("name" , personList.get(i).name);
+//
+//                        tmpObj.put("sex", personList.get(i).sex);
+//
+//                        tmpObj.put("age", personList.get(i).age);
+//
+//                        mJsonArray.put(tmpObj);
+//
+//                        tmpObj = null;
+//
+//                    }
+//
+//                    String personInfos = mJsonArray.toString(); // 将JSONArray转换得到String
+//
+//                    jsonObject.put("personInfos" , personInfos);   // 获得JSONObject的String
+                    for (int item = 0; item < jsonArray.size(); item++) {
 
                         JSONObject job;
                         try {
@@ -487,7 +544,7 @@ Intent mIntent=new Intent(getActivity(), AutoAct_Four.class);
 //                            Log.e("----", "pageId--------"+job.get("pageId"));
                             Log.e("----", "quesitionId--------" + job.get("quesitionId"));
                             Log.e("----", "answerId--------" + job.get("answerId"));
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
                         }  // 遍历 jsonarray 数组，把每一个对象转成 json 对象
@@ -512,11 +569,8 @@ Intent mIntent=new Intent(getActivity(), AutoAct_Four.class);
         @Override
         public void onSuccess(Object message) {
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
-//            if (isReplay) {
-//                mAdapter.setNewData(isReplay, content, null);
-//            } else {
-//                mAdapter.setNewData(isReplay, content, message.toString());
-//            }
+is_voted=1;
+//            getView().re
             initDatas();
         }
 
@@ -548,12 +602,12 @@ Intent mIntent=new Intent(getActivity(), AutoAct_Four.class);
 
         @Override
         public void onSuccess(Object message) {
-            HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
+//            HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
             mAnswersBean = (AutoDetail_QuestionVotedBean.QuestionVotedDataEntity) message;
             radioAnswers = mAnswersBean.getRadio();
             mutilOptionsAnswers = mAnswersBean.getCheckbox();
-            Log.d(Tag, "radioAnswers---" + radioAnswers.toString());
-            Log.d(Tag, "mutilOptionsAnswers---" + mutilOptionsAnswers.toString());
+//            Log.d(Tag, "radioAnswers---" + radioAnswers.toString());
+//            Log.d(Tag, "mutilOptionsAnswers---" + mutilOptionsAnswers.toString());
             HTTPHelper.GetQuestionDetail(mIbpi, question_id);
 //            if (isReplay) {
 //                mAdapter.setNewData(isReplay, content, null);

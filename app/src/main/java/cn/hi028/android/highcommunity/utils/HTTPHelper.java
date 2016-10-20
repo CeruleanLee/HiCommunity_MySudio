@@ -51,6 +51,7 @@ import cn.hi028.android.highcommunity.bean.Autonomous.Auto_ReportDetailBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SuperViseBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_UnitBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_VoteList_Vote;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_VoteResultBean;
 import cn.hi028.android.highcommunity.bean.BillBean;
 import cn.hi028.android.highcommunity.bean.BillSimpleBean;
 import cn.hi028.android.highcommunity.bean.CarftsBean;
@@ -1779,10 +1780,48 @@ public class HTTPHelper {
     }
 
 
+    /**
+     * 自治大厅-提交投票数据
+     **/
+    public static void commitAnswers(BpiHttpHandler.IBpiHttpHandler mIbpi, String vote_id,String title) {
+        String url = HTTPPOSTURL + "yvote/submit.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("vote_id", vote_id);
+        mParamMap.put("title", title);
+        post(mParamMap, mIbpi, url);
+    }
 
 
+    /**
+     * 自治大厅选举投票结果得票率
+     **/
+    public static void getVotedData(BpiHttpHandler.IBpiHttpHandler mIbpi,String vote_id) {
+        String url = HTTPPOSTURL + "yvote/result.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("vote_id",vote_id);
+        post(mParamMap, mIbpi, url);
+    }
 
-
+    /**
+     * 解析自治选举投票结果得票率
+     *
+     * @param result
+     * @return
+     */
+    public static List<Auto_VoteResultBean.VoteResultDataEntity> ResolveVoteResultDataEntity(String result) {
+        List<Auto_VoteResultBean.VoteResultDataEntity> mlist = new ArrayList<Auto_VoteResultBean.VoteResultDataEntity>();
+        try {
+            JSONArray mArray = new JSONArray(result);
+            for (int i = 0; i < mArray.length(); i++) {
+                Auto_VoteResultBean.VoteResultDataEntity mBean = gson.fromJson(mArray.getString(i),
+                        Auto_VoteResultBean.VoteResultDataEntity.class);
+                mlist.add(mBean);
+            }
+            return mlist;
+        } catch (JSONException e) {
+            return null;
+        }
+    }
 
 
 

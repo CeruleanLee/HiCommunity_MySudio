@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
 
@@ -106,7 +105,6 @@ public class AutoCommitAct extends BaseFragmentActivity {
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            Toast.makeText(AutoCommitAct.this, "访问shibai", Toast.LENGTH_SHORT).show();
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 

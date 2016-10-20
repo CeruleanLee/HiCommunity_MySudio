@@ -52,7 +52,7 @@ import cn.hi028.android.highcommunity.lisenter.PayPop2FragFace;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.view.DrawableCenterTextView;
-import cn.hi028.android.highcommunity.view.Mylistview;
+import cn.hi028.android.highcommunity.view.NoScrollListview;
 import cn.hi028.android.highcommunity.view.PaylistPopupWindow;
 import cn.hi028.android.highcommunity.view.ScrollWebView;
 import cn.hi028.android.highcommunity.view.ScrollWebView.OnScrollChangeListener;
@@ -103,7 +103,7 @@ OnClickListener, PayPop2FragFace {
 	private McoyProductDetailInfoPage topPage = null;
 	View top_view,bottom_View;
 	ScrollWebView mWebview;
-	Mylistview mCommentListview;
+	NoScrollListview mCommentListview;
 	CheckBox toSeeMore;
 	ViewGroup moreDetailGroup;
 	DrawableCenterTextView tv_noData,tv_empty;
@@ -295,7 +295,7 @@ OnClickListener, PayPop2FragFace {
 		mPicDetail=(RadioButton) bottom_View.findViewById(R.id.ac_shopdetail_mypicdetail);
 		mCommentDetail=(RadioButton) bottom_View.findViewById(R.id.ac_shopdetail_mycommentdetail);
 		mWebview=(ScrollWebView) bottom_View.findViewById(R.id.ac_good_detail_webview);
-		mCommentListview=(Mylistview) bottom_View.findViewById(R.id.ac_good_evaluation_listview);
+		mCommentListview=(NoScrollListview) bottom_View.findViewById(R.id.ac_good_evaluation_listview);
 		tv_noData=(DrawableCenterTextView) bottom_View.findViewById(R.id.ac_good_nodata);
 		tv_empty=(DrawableCenterTextView) bottom_View.findViewById(R.id.ac_good_comment_empty);
 		viewline1 = top_view.findViewById(R.id.view11);

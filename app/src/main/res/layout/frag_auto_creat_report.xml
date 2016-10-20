@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:layout_marginTop="10dp"
     android:orientation="vertical">
 
@@ -11,32 +13,27 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_creatreport_edittext_shape"
         android:hint="汇报名称："
+        android:paddingBottom="10dp"
         android:paddingLeft="8dp"
-        android:paddingBottom="3dp"
         android:paddingRight="8dp"
-        android:paddingTop="3dp"
+        android:paddingTop="10dp"
         android:textSize="12dp" />
 
 
-    <ScrollView
+    <EditText
+        android:id="@+id/creatReport_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
-        android:paddingLeft="8dp"
+        android:background="@drawable/bg_creatreport_edittext_shape"
+        android:gravity="start"
+        android:hint="汇报内容："
         android:paddingBottom="3dp"
+        android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:paddingTop="3dp"
-        android:scrollbars="none">
-        <!--  android:background="@drawable/bg_creatreport_edittext_shape"-->
-        <EditText
-            android:id="@+id/creatReport_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:hint="汇报内容："
-            android:textSize="12dp" />
-    </ScrollView>
+        android:textSize="12dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,13 +48,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/bg_default_green_selector"
+            android:background="@drawable/bg_coner_button_selector"
             android:gravity="center"
             android:paddingBottom="5dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
             android:paddingTop="5dp"
             android:text="  提交  "
             android:textColor="@color/white"
             android:textSize="14dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </LinearLayout>

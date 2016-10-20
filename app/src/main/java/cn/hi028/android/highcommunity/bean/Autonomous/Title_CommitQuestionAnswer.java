@@ -13,6 +13,14 @@ public class Title_CommitQuestionAnswer implements Parcelable {
 private    String id;
     private List<String> mutilOptionId;
 
+    @Override
+    public String toString() {
+        return "Title_CommitQuestionAnswer{" +
+                "id='" + id + '\'' +
+                ", mutilOptionId=" + mutilOptionId +
+                '}';
+    }
+
     public String getId() {
         return id;
     }

@@ -22,6 +22,15 @@ public class HuiSupportBean extends BaseBean {
     private int sales;// 0
     private List<HuiSuppCommBean> goods_comment;//{ -
     private int count;// 1
+    private float original_price;
+
+    public float getOriginal_price() {
+        return original_price;
+    }
+
+    public void setOriginal_price(float original_price) {
+        this.original_price = original_price;
+    }
 
     public int getCurrentPicPosition() {
         return currentPicPosition;

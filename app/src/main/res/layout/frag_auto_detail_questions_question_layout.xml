@@ -14,7 +14,7 @@
         android:layout_marginLeft="20dp"
         android:textColor="#3e3a39"
 
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <LinearLayout
         android:id="@+id/lly_answer"

@@ -3,6 +3,7 @@
  **************************************************************************/
 
 package cn.hi028.android.highcommunity.activity.fragment;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,9 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StrikethroughSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -284,7 +288,7 @@ public class HuiSupplyFrag extends BaseFragment implements ViewPager.OnPageChang
 		}
 	};
 	private int picCount;
-
+TextView original_price;
 	/**
 	 * 初始化直供评论上部所有组件
 	 */
@@ -299,6 +303,8 @@ public class HuiSupplyFrag extends BaseFragment implements ViewPager.OnPageChang
 		tv_info = (TextView) headView.findViewById(R.id.tv_info);
 		tv_comment = (TextView) headView.findViewById(R.id.tv_comment);
 		cg_pic = (NoScroolGridView) headView.findViewById(R.id.cg_pic);
+		original_price= (TextView) headView.findViewById(R.id.tv_original_price);
+
 		clv_comment.addHeaderView(headView);
 	}
 
@@ -331,6 +337,22 @@ public class HuiSupplyFrag extends BaseFragment implements ViewPager.OnPageChang
 		tv_comment.setText("评论" + viewPagerAdapter.getData().get(currentPositon).getCount());
 		tv_info.setText(viewPagerAdapter.getData().get(currentPositon).getDescribe());
 		tv_name.setText(viewPagerAdapter.getData().get(currentPositon).getGoods_name());
+		if (viewPagerAdapter.getData().get(currentPositon).getOriginal_price()==0){
+original_price.setVisibility(View.GONE);
+		}else if (viewPagerAdapter.getData().get(currentPositon).getOriginal_price()>viewPagerAdapter.getData().get(currentPositon).getPrice()){
+			original_price.setVisibility(View.VISIBLE);
+			Spannable spanStrikethrough = new SpannableString("￥" + viewPagerAdapter.getData().get(currentPositon).getOriginal_price());
+			StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
+//			spanStrikethrough.setSpan(stSpan, 0, 7, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+			spanStrikethrough.setSpan(stSpan, 0, 5, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+			original_price.setText(spanStrikethrough);
+		}else{
+			original_price.setVisibility(View.GONE);
+
+		}
+
+
+
 		tv_price.setText("￥" + viewPagerAdapter.getData().get(currentPositon).getPrice());
 		tv_sale_count.setText("销量" + viewPagerAdapter.getData().get(currentPositon).getSales() + "笔");
 		tv_stock.setText("库存" + viewPagerAdapter.getData().get(currentPositon).getNumber() + "件");

@@ -7,32 +7,20 @@
     android:layout_marginTop="10dp"
     android:orientation="vertical">
 
-    <LinearLayout
+
+    <EditText
+        android:id="@+id/creatInquiry_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
-        android:background="@drawable/bg_creatreport_edittext_shape">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_creatreport_edittext_shape"
-           android:fillViewport="true"
-            android:scrollbars="none">
-
-            <EditText
-                android:id="@+id/creatInquiry_content"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginLeft="8dp"
-                android:background="@color/white"
-                android:hint="询问内容："
-                android:paddingBottom="5dp"
-                android:paddingRight="8dp"
-                android:paddingTop="5dp"
-                android:textSize="12dp" />
-        </ScrollView>
-    </LinearLayout>
+        android:background="@drawable/bg_creatreport_edittext_shape"
+        android:hint="询问内容："
+        android:gravity="start"
+        android:paddingBottom="5dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="5dp"
+        android:textSize="12dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -48,9 +36,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/bg_default_green_selector"
+            android:background="@drawable/bg_coner_button_selector"
             android:gravity="center"
             android:paddingBottom="5dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
             android:paddingTop="5dp"
             android:text="  提交  "
             android:textColor="@color/white"

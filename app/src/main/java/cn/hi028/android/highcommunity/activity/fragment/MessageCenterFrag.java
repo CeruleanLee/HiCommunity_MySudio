@@ -20,7 +20,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.DhUtil;
-import net.duohuo.dhroid.util.ListUtils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -34,10 +33,8 @@ import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.CommunityMsgAdapter;
 import cn.hi028.android.highcommunity.adapter.HuiOrderAdapter;
 import cn.hi028.android.highcommunity.adapter.NoticeAdapter;
-import cn.hi028.android.highcommunity.bean.BillSimpleBean;
 import cn.hi028.android.highcommunity.bean.CommunityMsgBean;
 import cn.hi028.android.highcommunity.bean.NoticeBean;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 
 /**
@@ -54,8 +51,9 @@ public class MessageCenterFrag extends BaseFragment {
     ViewPager mPager;// 页卡内容
     @ViewById(R.id.rg_Message_Center)
     RadioGroup rg;//
+    /**当前页**/
     int currentPo = 0;
-    public List<ListView> viewList; // Tab页面列表
+    public List<ListView> listViewList; // Tab页面列表
     public List<View> proPressList; // Tab页面列表
     public List<TextView> noDataList; // Tab页面列表
     private List<BaseAdapter> adapterList; // Tab页面列表
@@ -76,10 +74,11 @@ public class MessageCenterFrag extends BaseFragment {
         });
         proPressList = new ArrayList<View>();
         noDataList = new ArrayList<TextView>();
-        viewList = new ArrayList<ListView>();
+        listViewList = new ArrayList<ListView>();
         adapterList = new ArrayList<BaseAdapter>();
-        HuiOrderAdapter adapter = new HuiOrderAdapter();
+        HuiOrderAdapter adapter = new HuiOrderAdapter();//与我相关用
         List<View> viewList = new ArrayList<View>();
+        //将与我相关和系统消息添加进viewlist
         viewList.add(getRelatedList());
         viewList.add(getPageView());
         mPager.setAdapter(adapter);
@@ -94,6 +93,7 @@ public class MessageCenterFrag extends BaseFragment {
                 if (!((RadioButton) rg.getChildAt(i)).isChecked()) {
                     ((RadioButton) rg.getChildAt(i)).setChecked(true);
                 }
+                // 如果页面滑动的时候 adapter里面的数据是空的 就访问接口获取数据
                 if (adapterList.get(i).getCount() == 0) {
                     if (i == 0) {
                         HTTPHelper.GetRelatedMsg(mRelateIbpi);
@@ -111,7 +111,7 @@ public class MessageCenterFrag extends BaseFragment {
         adapter.setViewList(viewList);
         HTTPHelper.GetRelatedMsg(mRelateIbpi);
     }
-
+/**应该是系统消息的view**/
     View getPageView() {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.frag_chip_order, null);
         NoticeAdapter adapter = new NoticeAdapter(getActivity());
@@ -127,10 +127,10 @@ public class MessageCenterFrag extends BaseFragment {
         ptfl.setMode(PullToRefreshBase.Mode.DISABLED);
         lv_list.setAdapter(adapter);
         adapterList.add(adapter);
-        viewList.add(lv_list);
+        listViewList.add(lv_list);
         return view;
     }
-
+/**返回与我相关的view**/
     View getRelatedList() {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.frag_chip_order, null);
         CommunityMsgAdapter adapter = new CommunityMsgAdapter(getActivity());
@@ -147,7 +147,7 @@ public class MessageCenterFrag extends BaseFragment {
         ptfl.setMode(PullToRefreshBase.Mode.DISABLED);
         lv_list.setAdapter(adapter);
         adapterList.add(adapter);
-        viewList.add(lv_list);
+        listViewList.add(lv_list);
         return view;
     }
 

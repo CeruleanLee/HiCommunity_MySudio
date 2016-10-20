@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Scroller;
 
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.view.Mylistview;
+import cn.hi028.android.highcommunity.view.NoScrollListview;
 import cn.hi028.android.highcommunity.view.ScrollWebView;
 
 /**
@@ -57,7 +57,7 @@ public class McoySnapPageLayout extends ViewGroup {
 	//这个值表示需要第一页和第二页之间的鸿沟
 	private int gapBetweenTopAndBottom;
 
-	private Mylistview mCommentListview;
+	private NoScrollListview mCommentListview;
 
 	ScrollWebView mPicDetailWebview;
 
@@ -159,7 +159,7 @@ public class McoySnapPageLayout extends ViewGroup {
 	public void setSnapPages(McoySnapPage pageTop, McoySnapPage pageBottom) {
 		mPageTop = pageTop;
 		mPageBottom = pageBottom;
-		mCommentListview=(Mylistview) mPageBottom.getRootView().findViewById(R.id.ac_good_evaluation_listview);
+		mCommentListview=(NoScrollListview) mPageBottom.getRootView().findViewById(R.id.ac_good_evaluation_listview);
 		mPicDetailWebview=(ScrollWebView) mPageBottom.getRootView().findViewById(R.id.ac_good_detail_webview);
 		addPagesAndRefresh();
 	}

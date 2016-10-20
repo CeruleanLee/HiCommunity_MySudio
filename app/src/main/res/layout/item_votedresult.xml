@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="@dimen/margin_12">
+
+    <com.don.view.CircleImageView
+        android:id="@+id/item_votedResult_avatar"
+        style="@style/autoact_namelist_avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    />
+
+    <TextView
+        android:id="@+id/item_votedResult_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_votedResult_avatar"
+        android:layout_alignLeft="@id/item_votedResult_avatar"
+        android:layout_alignRight="@id/item_votedResult_avatar"
+        android:gravity="center"
+
+        android:text=""
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/item_votedResult_percent"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="100%"
+        android:textColor="#9c9c9c"
+        android:textSize="14sp"
+        android:layout_marginRight="20dp"
+        android:layout_height="wrap_content" />
+<View
+    android:layout_width="match_parent"
+    android:layout_height="0.5dp"
+    android:layout_marginTop="12dp"
+    android:layout_below="@id/item_votedResult_name"
+    android:background="@color/Defult_Color_LineGrey"/>
+
+</RelativeLayout>

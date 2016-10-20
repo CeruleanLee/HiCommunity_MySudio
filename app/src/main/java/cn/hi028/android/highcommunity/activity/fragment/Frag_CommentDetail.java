@@ -1,27 +1,26 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.duohuo.dhroid.activity.BaseFragment;
-import net.duohuo.dhroid.util.LogUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
+
+import net.duohuo.dhroid.activity.BaseFragment;
+import net.duohuo.dhroid.util.LogUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.EvaluationAdapter;
 import cn.hi028.android.highcommunity.bean.GoodsData;
 import cn.hi028.android.highcommunity.bean.MerchantEvaluationInfoListBean;
-import cn.hi028.android.highcommunity.view.LoadMoreListView;
-import cn.hi028.android.highcommunity.view.Mylistview;
+import cn.hi028.android.highcommunity.view.NoScrollListview;
 
 public class Frag_CommentDetail extends BaseFragment{
-Mylistview mListview;
+NoScrollListview mListview;
 EvaluationAdapter adapter;
 Bundle bundle2 ;
 private List<MerchantEvaluationInfoListBean> data;
@@ -37,7 +36,7 @@ private List<MerchantEvaluationInfoListBean> data;
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mListview=(Mylistview) getActivity().findViewById(R.id.ac_good_evaluation_listview);
+		mListview=(NoScrollListview) getActivity().findViewById(R.id.ac_good_evaluation_listview);
 		
 		data = new ArrayList<MerchantEvaluationInfoListBean>();
 		GoodsData goodsdata = (GoodsData) bundle2.get("data");

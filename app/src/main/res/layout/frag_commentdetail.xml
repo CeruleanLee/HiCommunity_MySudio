@@ -9,12 +9,12 @@
         android:layout_height="match_parent"
         android:scrollbars="none" >
 
-        <cn.hi028.android.highcommunity.view.Mylistview
+        <cn.hi028.android.highcommunity.view.NoScrollListview
             android:id="@+id/ac_good_evaluation_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none" >
-        </cn.hi028.android.highcommunity.view.Mylistview>
+        </cn.hi028.android.highcommunity.view.NoScrollListview>
     </ScrollView>
 
 </LinearLayout>

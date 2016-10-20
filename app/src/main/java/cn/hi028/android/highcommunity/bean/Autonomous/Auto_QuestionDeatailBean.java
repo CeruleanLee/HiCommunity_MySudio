@@ -149,10 +149,18 @@ public class Auto_QuestionDeatailBean {
             private String id;
             private String name;
             private String type;
+            private String max_option;
             private List<QuestionDeatailOptionsEntity> options;
             //是否解答
             private int que_state;
 
+            public String getMax_option() {
+                return max_option;
+            }
+
+            public void setMax_option(String max_option) {
+                this.max_option = max_option;
+            }
 
             @Override
             public String toString() {
