@@ -19,7 +19,7 @@ public class SystemMessageBean {
     private boolean success;
     private String code;
     private String msg;
-    private List<DataEntity> data;
+    private List<SystemMsgDataEntity> data;
 
     public void setSuccess(boolean success) {
         this.success = success;
@@ -33,7 +33,7 @@ public class SystemMessageBean {
         this.msg = msg;
     }
 
-    public void setData(List<DataEntity> data) {
+    public void setData(List<SystemMsgDataEntity> data) {
         this.data = data;
     }
 
@@ -49,11 +49,11 @@ public class SystemMessageBean {
         return msg;
     }
 
-    public List<DataEntity> getData() {
+    public List<SystemMsgDataEntity> getData() {
         return data;
     }
 
-    public static class DataEntity {
+    public static class SystemMsgDataEntity {
         /**
          * title : 订单已签收
          * pic : upload/goods/goods_201609011648369366.png

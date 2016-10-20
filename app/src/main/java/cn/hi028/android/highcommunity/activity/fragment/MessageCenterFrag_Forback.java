@@ -33,10 +33,8 @@ import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.CommunityMsgAdapter;
 import cn.hi028.android.highcommunity.adapter.HuiOrderAdapter;
 import cn.hi028.android.highcommunity.adapter.NoticeAdapter;
-import cn.hi028.android.highcommunity.adapter.SystemMsgAdapter;
 import cn.hi028.android.highcommunity.bean.CommunityMsgBean;
 import cn.hi028.android.highcommunity.bean.NoticeBean;
-import cn.hi028.android.highcommunity.bean.SystemMessageBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 
 /**
@@ -46,7 +44,7 @@ import cn.hi028.android.highcommunity.utils.HTTPHelper;
  * @时间：2016-01-30<br>
  */
 @EFragment(resName = "frag_message_center")
-public class MessageCenterFrag extends BaseFragment {
+public class MessageCenterFrag_Forback extends BaseFragment {
 
     public static final String FRAGMENTTAG = "MessageCenterFrag";
     @ViewById(R.id.vp_MessageCenter_ViewPager)
@@ -114,16 +112,10 @@ public class MessageCenterFrag extends BaseFragment {
         adapter.setViewList(viewList);
         HTTPHelper.GetRelatedMsg(mRelateIbpi);
     }
-    List<SystemMessageBean.SystemMsgDataEntity> mSystemMsgList;
 /**应该是系统消息的view**/
     View getPageView() {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.frag_system_message, null);
-
-        SystemMsgAdapter adapter=new SystemMsgAdapter(getActivity(),mSystemMsgList);
-//        NoticeAdapter adapter = new NoticeAdapter(getActivity());
-
-      /**改到这里了 **/
-      //TODO 1020pm到这里
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.frag_chip_order, null);
+        NoticeAdapter adapter = new NoticeAdapter(getActivity());
         PullToRefreshListView ptfl = (PullToRefreshListView) view.findViewById(R.id.lv_list);
         View mProgress = view.findViewById(R.id.ll_NoticeDetails_Progress);
         ptfl.getRefreshableView().setDivider(getResources().getDrawable(R.drawable.diliver_related_msg));
