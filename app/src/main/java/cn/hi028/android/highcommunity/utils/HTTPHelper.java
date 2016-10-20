@@ -95,6 +95,7 @@ import cn.hi028.android.highcommunity.bean.ScoreBean;
 import cn.hi028.android.highcommunity.bean.ShakeBean;
 import cn.hi028.android.highcommunity.bean.ShakeUser;
 import cn.hi028.android.highcommunity.bean.SubmitOrderBean;
+import cn.hi028.android.highcommunity.bean.SystemMessageBean;
 import cn.hi028.android.highcommunity.bean.TenementBean;
 import cn.hi028.android.highcommunity.bean.TenementHouseBean;
 import cn.hi028.android.highcommunity.bean.ThirdServiceBean;
@@ -1357,7 +1358,38 @@ public class HTTPHelper {
         HashMap<String, String> mParamMap = getBaseParamMap();
         post(mParamMap, mIbp, url);
     }
+    /**
+     * 获取系统消息
+     *
+     * @param mIbp
+     */
+    public static void GetSystemMsg(BpiHttpHandler.IBpiHttpHandler mIbp) {
+        String url = HTTPPOSTURL + "personal/system.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        post(mParamMap, mIbp, url);
+    }
 
+
+    /**
+     * 解析系统消息
+     *
+     * @param result
+     * @return
+     */
+    public static List<SystemMessageBean.SystemMsgDataEntity> ResolveSystemMsgDataEntity(String result) {
+        List<SystemMessageBean.SystemMsgDataEntity> mList = new ArrayList<SystemMessageBean.SystemMsgDataEntity>();
+        try {
+            JSONArray mArray = new JSONArray(result);
+            for (int i = 0; i < mArray.length(); i++) {
+                SystemMessageBean.SystemMsgDataEntity mBean = gson.fromJson(mArray.getString(i),
+                        SystemMessageBean.SystemMsgDataEntity.class);
+                mList.add(mBean);
+            }
+            return mList;
+        } catch (JSONException e) {
+            return null;
+        }
+    }
     /**
      * 物业/政务 公告详情
      **/

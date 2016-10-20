@@ -28,14 +28,11 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.CommunityMsgAdapter;
 import cn.hi028.android.highcommunity.adapter.HuiOrderAdapter;
-import cn.hi028.android.highcommunity.adapter.NoticeAdapter;
 import cn.hi028.android.highcommunity.adapter.SystemMsgAdapter;
 import cn.hi028.android.highcommunity.bean.CommunityMsgBean;
-import cn.hi028.android.highcommunity.bean.NoticeBean;
 import cn.hi028.android.highcommunity.bean.SystemMessageBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 
@@ -101,7 +98,7 @@ public class MessageCenterFrag extends BaseFragment {
                     if (i == 0) {
                         HTTPHelper.GetRelatedMsg(mRelateIbpi);
                     } else if (i == 1) {
-                        HTTPHelper.GetNotice(mIbpi, "2", HighCommunityApplication.mUserInfo.getV_id() + "", "0");
+                        HTTPHelper.GetSystemMsg(mIbpi);
                     }
                 }
             }
@@ -159,7 +156,7 @@ public class MessageCenterFrag extends BaseFragment {
         listViewList.add(lv_list);
         return view;
     }
-
+/**系统相关的网络**/
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
@@ -174,13 +171,13 @@ public class MessageCenterFrag extends BaseFragment {
             noDataList.get(currentPo).setVisibility(View.GONE);
             if (null == message)
                 return;
-            List<NoticeBean> data = (List<NoticeBean>) message;
-            ((NoticeAdapter) adapterList.get(1)).AddNewData(data);
+            mSystemMsgList = (List<SystemMessageBean.SystemMsgDataEntity>) message;
+            ((SystemMsgAdapter) adapterList.get(1)).AddNewData(mSystemMsgList);
         }
 
         @Override
         public Object onResolve(String result) {
-            return HTTPHelper.ResolveNotice(result);
+            return HTTPHelper.ResolveSystemMsgDataEntity(result);
         }
 
         @Override
