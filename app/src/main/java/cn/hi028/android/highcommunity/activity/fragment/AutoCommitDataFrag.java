@@ -1,5 +1,6 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -105,12 +106,23 @@ public class AutoCommitDataFrag extends BaseFragment {
     public Auto_InitBean.Auto_Init_DataEntity mData;
     String username;
 
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        this.context = context;
+//        contentView = LayoutInflater.from(context).inflate(R.layout.frag_autonomous_commitdata, null);
+//        ButterKnife.bind(this, contentView);
+//    }
+
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
         this.context = context;
         contentView = LayoutInflater.from(context).inflate(R.layout.frag_autonomous_commitdata, null);
         ButterKnife.bind(this, contentView);
+
+
+
     }
 
     @Override

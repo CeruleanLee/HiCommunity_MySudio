@@ -1594,6 +1594,24 @@ public class HTTPHelper {
             return null;
         }
     }
+
+    /**
+     * 获取自治大厅提案列表
+     * @param mIbpi
+     */
+    public static void SupportMotion(BpiHttpHandler.IBpiHttpHandler mIbpi,String id) {
+        String url = HTTPPOSTURL + "ywatch/suggest.html";
+        HashMap<String, String> maps = new HashMap<String, String>();
+        if (HighCommunityApplication.mUserInfo.getId()!=-1)
+            LogUtil.d("------User token------" + HighCommunityApplication.mUserInfo.getToken());
+        maps.put("uid", HighCommunityApplication.mUserInfo.getId()+"");
+        maps.put("id", id);
+
+
+        post(maps, mIbpi, url);
+    }
+
+
     /**
      * 自治大厅 监督列表
      *
@@ -1701,9 +1719,9 @@ public class HTTPHelper {
         if (!TextUtils.isEmpty(to_id))
             mParamMap.put("to_id", to_id);
         if (!TextUtils.isEmpty(parentId))
-            mParamMap.put("parentId", parentId);
+            mParamMap.put("parent_id", parentId);
         mParamMap.put("reply_content", reply_content);
-        Log.d(Tag,"汇报详情-提交评论:参数--->"+url+",from_id"+from_id+",to_id"+to_id+",watch_id"+watch_id+",parentId"+parentId+",reply_content"+reply_content);
+        Log.d(Tag,"汇报详情-提交评论:参数--->"+url+",from_id"+from_id+",to_id"+to_id+",watch_id"+watch_id+",parent_id"+parentId+",reply_content"+reply_content);
         post(mParamMap, mIbpi, url);
     }
 

@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +31,7 @@ import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionDetailBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
+import cn.hi028.android.highcommunity.utils.TimeUtil;
 
 /**
  * @功能：自治大厅 提案详情Frag<br>
@@ -51,7 +51,18 @@ public class AutoDetail_Motion extends BaseFragment {
     @Bind(R.id.auto_motiondetails_noData)
     TextView mNoData;
     Auto_MotionDetailBean.MotionDetailDataEntity mBean;
-String motion_id;
+    String motion_id;
+    @Bind(R.id.motiondetail_title)
+    TextView mTitle;
+    @Bind(R.id.motiondetail_name)
+    TextView mName;
+    @Bind(R.id.motiondetail_content)
+    TextView mContent;
+    @Bind(R.id.motiondetail_time)
+    TextView mTime;
+    @Bind(R.id.motiondetail_vote_percent)
+    TextView mVotePercent;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.d(Tag + "onCreateView");
@@ -75,13 +86,11 @@ String motion_id;
         initDatas();
     }
 
-    TextView mTitle, mReportorName, mReportTime, mContent;
-    LinearLayout mInforLayout;
 
 
     private void initDatas() {
 
-        HTTPHelper.GetMotionDetail(mIbpi, motion_id, HighCommunityApplication.mUserInfo.getId()+"");
+        HTTPHelper.GetMotionDetail(mIbpi, motion_id, HighCommunityApplication.mUserInfo.getId() + "");
     }
 
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
@@ -97,6 +106,7 @@ String motion_id;
                 return;
             }
             mBean = (Auto_MotionDetailBean.MotionDetailDataEntity) message;
+            setViewData(mBean);
 //            mList = mBean.getReply();
 //            mAdapter.AddNewData(mList);
 //            mCommentListview.setAdapter(mAdapter);
@@ -106,6 +116,8 @@ String motion_id;
 
 
         }
+
+
 
         @Override
         public Object onResolve(String result) {
@@ -123,42 +135,25 @@ String motion_id;
         }
     };
 
-    BpiHttpHandler.IBpiHttpHandler mCommentIbpi = new BpiHttpHandler.IBpiHttpHandler() {
-        @Override
-        public void onError(int id, String message) {
+    private void setViewData(Auto_MotionDetailBean.MotionDetailDataEntity mBean) {
+        mTitle.setText(mBean.getTitle());
+        mName.setText("提案人："+mBean.getPublish_man());
+        mContent.setText("\u3000\u3000"+mBean.getContent());
+        mTime.setText(TimeUtil.getYearMonthDay(Long.parseLong(mBean.getCreate_time())));
+        mVotePercent.setText("支持率："+mBean.getVote_percent()+"%");
+        if (mBean.getIsSuggest()=="1") {
+            but_Support.setChecked(true);
+            but_Support.setText(" 已支持 ");
 
-            HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
-//            mAdapter.notifyDataSetChanged();
-        }
-
-        @Override
-        public void onSuccess(Object message) {
-            HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
-//            if (isReplay) {
-//                mAdapter.setNewData(isReplay, content, null);
-//            } else {
-//                mAdapter.setNewData(isReplay, content, message.toString());
-//            }
-            initDatas();
+        }else if (mBean.getIsSuggest()=="0"){
+            but_Support.setChecked(false);
+            but_Support.setText(" 支持 ");
         }
 
 
-        @Override
-        public Object onResolve(String result) {
 
-            return result;
-        }
+    }
 
-        @Override
-        public void setAsyncTask(AsyncTask asyncTask) {
-
-        }
-
-        @Override
-        public void cancleAsyncTask() {
-
-        }
-    };
 
 
     /**********
@@ -179,6 +174,62 @@ String motion_id;
         //		mLoadingView.startLoading();
 //        registNetworkReceiver();
     }
+
+
+    @OnClick(R.id.item_aotumotion_but_support)
+    public void onClick() {
+
+
+        HTTPHelper.SupportMotion(mSuuportIbpi,mBean.getId());
+
+    }
+
+    BpiHttpHandler.IBpiHttpHandler mSuuportIbpi = new BpiHttpHandler.IBpiHttpHandler() {
+        @Override
+        public void onError(int id, String message) {
+            LogUtil.d(Tag + "---~~~onError");
+            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+
+        }
+
+        @Override
+        public void onSuccess(Object message) {
+            LogUtil.d(Tag + "onSuccess");
+
+           but_Support.setChecked(true);
+            but_Support.setText("已支持");
+            Toast.makeText(getActivity(),"已支持",Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public Object onResolve(String result) {
+            return result;
+        }
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
+
+        }
+
+        @Override
+        public void cancleAsyncTask() {
+
+        }
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /****
@@ -205,11 +256,10 @@ String motion_id;
         ButterKnife.unbind(this);
     }
 
-    @OnClick(R.id.item_aotumotion_but_support)
-    public void onClick() {
-    }
 
 
+
+//__________________________________________________________________
     public class NetworkReceiver extends BroadcastReceiver {
 
         @Override

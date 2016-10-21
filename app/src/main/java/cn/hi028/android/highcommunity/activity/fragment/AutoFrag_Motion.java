@@ -43,7 +43,7 @@ public class AutoFrag_Motion extends BaseFragment {
     public static final String FRAGMENTTAG = "AutoFrag_Motion";
 
     AutoMoitionAdapter mAdapter;
-List<Auto_MotionBean.MotionDataEntity> mList;
+    List<Auto_MotionBean.MotionDataEntity> mList;
     @Bind(R.id.tv_Automotion_Nodata)
     TextView tv_Nodata;
     @Bind(R.id.frag_Automotion_listview)
@@ -60,8 +60,8 @@ List<Auto_MotionBean.MotionDataEntity> mList;
 
     void initView() {
         LogUtil.d(Tag + "initView");
-        mList=new ArrayList<Auto_MotionBean.MotionDataEntity>();
-        mAdapter=new AutoMoitionAdapter(mList,getActivity());
+        mList = new ArrayList<Auto_MotionBean.MotionDataEntity>();
+        mAdapter = new AutoMoitionAdapter(mList, getActivity());
         mListview.setEmptyView(tv_Nodata);
         mListview.setAdapter(mAdapter);
         initDatas();
@@ -82,7 +82,7 @@ List<Auto_MotionBean.MotionDataEntity> mList;
 
         @Override
         public void onSuccess(Object message) {
-mList= (List<Auto_MotionBean.MotionDataEntity>) message;
+            mList = (List<Auto_MotionBean.MotionDataEntity>) message;
             mAdapter.AddNewData(mList);
             mListview.setAdapter(mAdapter);
 //			mLoadingView.loadSuccess();

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include
-        android:id="@+id/ll_NoticeDetails_Progress"
+        android:id="@+id/ll_sysMsg_Progress"
         layout="@layout/progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,6 +25,7 @@
         android:cacheColorHint="@android:color/transparent"
         android:divider="@color/Defult_Color_LineGrey"
         android:dividerHeight="0dp"
+
         android:listSelector="@android:color/transparent"
         ptr:ptrMode="both" >
     </com.handmark.pulltorefresh.library.PullToRefreshListView>

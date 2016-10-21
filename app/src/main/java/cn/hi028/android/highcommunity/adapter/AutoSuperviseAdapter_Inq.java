@@ -115,5 +115,37 @@ public class AutoSuperviseAdapter_Inq extends BaseFragmentAdapter {
         notifyDataSetChanged();
     }
 
+//    /**
+//     * 动态刷新数据
+//     *
+//     * @param isReplay
+//     * @param content
+//     */
+//    public void setNewData(boolean isReplay, String content, String id) {
+//        if (isReplay) {
+//            mTempReply.setReply_content(content);
+//            mTempReplies.getReply().add(mTempReply);
+//        } else {
+//            RepliesBean mTempBean = new RepliesBean();
+//            mTempBean.setParentId(id);
+//            mTempBean.setHead_pic(HighCommunityApplication.mUserInfo.getHead_pic());
+//            mTempBean.setId(HighCommunityApplication.mUserInfo.getId() + "");
+//            mTempBean.setNick(HighCommunityApplication.mUserInfo.getNick());
+//            mTempBean.setReply_time(System.currentTimeMillis() / 1000 + "");
+//            mTempBean.setReply_content(content);
+//            mTempBean.setReply(new ArrayList<ReplyBean>());
+//            mList.add(mTempBean);
+//        }
+//        notifyDataSetChanged();
+//    }
 
+    @Override
+    public void RefreshData(Object mObject) {
+        super.RefreshData(mObject);
+    }
+
+    private void avoidHintColor(View view) {
+        if (view instanceof TextView)
+            ((TextView) view).setHighlightColor(mFrag.getActivity().getResources().getColor(R.color.defult_color_transparent));
+    }
 }

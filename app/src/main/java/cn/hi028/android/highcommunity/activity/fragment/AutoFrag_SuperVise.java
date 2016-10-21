@@ -50,8 +50,8 @@ public class AutoFrag_SuperVise extends BaseFragment {
     public static final String Tag = "~~~AutoFrag_SuperVise:";
     public static final String FRAGMENTTAG = "AutoFrag_SuperVise";
     public static final int TAG_REPORT_DETAIL = 0;
-    public static final int TAG_CREAT_REPORT=5;
-    public static final int TAG_CREAT_INQUIRY=6;
+    public static final int TAG_CREAT_REPORT = 5;
+    public static final int TAG_CREAT_INQUIRY = 6;
     int owner_id;
     @Bind(R.id.frag_Supervise_Report)
     RadioButton but_Report;
@@ -75,19 +75,92 @@ public class AutoFrag_SuperVise extends BaseFragment {
     @Bind(R.id.img_Supervise_creat)
     ImageButton but_Creat;
 
-boolean isReportSelected=true;
+    boolean isReportSelected = true;
+
+    @Override
+    public void onAttach(Context context) {
+        Log.e("HJJ", "ArrayListFragment **** onAttach...");
+
+        super.onAttach(context);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        Log.e("HJJ", "ArrayListFragment **** onCreate...");
+        super.onCreate(savedInstanceState);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogUtil.d(Tag + "onCreateView");
+        Log.e("HJJ", "ArrayListFragment **** onCreateView...");
         View view = inflater.inflate(R.layout.frag_auto_superviselist, null);
         ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
         owner_id = bundle.getInt("owner_id", -1);
-        Log.d(Tag,"owner_id="+owner_id);
+        Log.d(Tag, "owner_id=" + owner_id);
         initView();
         return view;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.e("HJJ", "ArrayListFragment **** onActivityCreated...");
+    }
+
+    @Override
+    public void onStart() {
+        // TODO Auto-generated method stub
+        Log.e("HJJ", "ArrayListFragment **** onStart...");
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("HJJ", "ArrayListFragment **** onResume...");
+
+initDatas();
+        registNetworkReceiver();
+    }
+
+    @Override
+    public void onPause() {
+        Log.e("HJJ", "ArrayListFragment **** onPause...");
+        // TODO Auto-generated method stub
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        Log.e("HJJ", "ArrayListFragment **** onStop...");
+        // TODO Auto-generated method stub
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        Log.e("HJJ", "ArrayListFragment **** onDestroyView...");
+        // TODO Auto-generated method stub
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+
+    }
+
+    @Override
+    public void onDestroy() {
+        // TODO Auto-generated method stub
+        Log.e("HJJ", "ArrayListFragment **** onDestroy...");
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDetach() {
+        Log.e("HJJ", "ArrayListFragment **** onDetach...");
+        // TODO Auto-generated method stub
+        super.onDetach();
+    }
 
     void initView() {
         LogUtil.d(Tag + "initView");
@@ -99,18 +172,19 @@ boolean isReportSelected=true;
         mInquiryList = new ArrayList<Auto_SuperViseBean.SuperViseDataEntity>();
 //        mListview_Report.setAdapter(mReportAdapter);
 //        mListview_Inquiry.setAdapter(mInquiryAdapter);
+        but_Report.setChecked(true);
         initDatas();
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.frag_Supervise_Report:
-                        isReportSelected=true;
+                        isReportSelected = true;
                         mListview_Report.setVisibility(View.VISIBLE);
                         mListview_Inquiry.setVisibility(View.GONE);
                         break;
                     case R.id.frag_Supervise_Inquiry:
-                        isReportSelected=false;
+                        isReportSelected = false;
                         mListview_Inquiry.setVisibility(View.VISIBLE);
                         mListview_Report.setVisibility(View.GONE);
                         break;
@@ -121,10 +195,11 @@ boolean isReportSelected=true;
     }
 
     private void initDatas() {
-
+        Log.e("HJJ", "ArrayListFragment **** initDatas...");
         HTTPHelper.GetAutoSuperviseList(mIbpi, owner_id);
     }
-boolean isFirstLoading;
+
+    boolean isFirstLoading;
 
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
@@ -174,36 +249,18 @@ boolean isFirstLoading;
     };
 
     private void initVisibility() {
-        listviewContainer.setVisibility(View.VISIBLE);
-        mListview_Inquiry.setVisibility(View.GONE);
-        mListview_Report.setVisibility(View.VISIBLE);
-    }
+        if (but_Report.isChecked()){
+            listviewContainer.setVisibility(View.VISIBLE);
+            mListview_Inquiry.setVisibility(View.GONE);
+            mListview_Report.setVisibility(View.VISIBLE);
 
+        }else if (but_Inquiry.isChecked()){
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        LogUtil.d(Tag + "onPause");
-    }
+            listviewContainer.setVisibility(View.VISIBLE);
+            mListview_Inquiry.setVisibility(View.VISIBLE);
+            mListview_Report.setVisibility(View.GONE);
+        }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        LogUtil.d(Tag + "onResume");
-//initDatas();
-//        if (but_Report.isChecked()){
-//
-//            isReportSelected=true;
-//            mListview_Report.setVisibility(View.VISIBLE);
-//            mListview_Inquiry.setVisibility(View.GONE);
-//        }else{
-//
-//            isReportSelected=false;
-//            mListview_Inquiry.setVisibility(View.VISIBLE);
-//            mListview_Report.setVisibility(View.GONE);
-//        }
-
-        registNetworkReceiver();
     }
 
 
@@ -225,38 +282,31 @@ boolean isFirstLoading;
         getActivity().unregisterReceiver(receiver);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
-
     @OnClick(R.id.img_Supervise_creat)
     public void onClick() {
-        if (isReportSelected){
+        if (isReportSelected) {
             ceratReport();
-        }else{
+        } else {
 
             creatInquiry();
 
         }
 
 
-
     }
 
     private void creatInquiry() {
-        Intent mIntent_report=new Intent(getActivity(), AutonomousAct_Third.class);
-        mIntent_report.putExtra("title",TAG_CREAT_INQUIRY);
-        mIntent_report.putExtra("owner_id",owner_id);
+        Intent mIntent_report = new Intent(getActivity(), AutonomousAct_Third.class);
+        mIntent_report.putExtra("title", TAG_CREAT_INQUIRY);
+        mIntent_report.putExtra("owner_id", owner_id);
         startActivity(mIntent_report);
     }
 
     private void ceratReport() {
 
-        Intent mIntent_report=new Intent(getActivity(), AutonomousAct_Third.class);
-        mIntent_report.putExtra("title",TAG_CREAT_REPORT);
-        mIntent_report.putExtra("owner_id",owner_id);
+        Intent mIntent_report = new Intent(getActivity(), AutonomousAct_Third.class);
+        mIntent_report.putExtra("title", TAG_CREAT_REPORT);
+        mIntent_report.putExtra("owner_id", owner_id);
         startActivity(mIntent_report);
 
     }

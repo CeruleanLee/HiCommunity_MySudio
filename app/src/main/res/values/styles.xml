@@ -548,13 +548,13 @@
     </style>
     <!--认证情况下 自治大厅-6个tag-->
     <style name="autoact_tag_img">
-        <item name="android:scaleType">center</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">76dp</item>
+        <item name="android:layout_height">76dp</item>
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">-16dp</item>
+        <item name="android:scaleType">centerCrop</item>
         <item name="android:layout_centerInParent">true</item>
         <item name="android:layout_gravity">center</item>
 
@@ -580,8 +580,8 @@
     </style>
     <!--认证情况下 自治大厅-6个占位适配relativelayout-->
     <style name="autoact_tag_relativelayout">
-        <item name="android:layout_marginLeft">6dp</item>
-        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
 
     </style>
     <!--认证情况下 自治大厅-6个占位适配view-->
@@ -595,16 +595,16 @@
     <!--认证情况下 自治大厅-装tag的容器-->
     <style name="autoact_containerlayout_imgs">
         <item name="android:orientation">horizontal</item>
-        <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginBottom">8dp</item>
-        <item name="android:layout_marginLeft">8dp</item>
-        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">6dp</item>
     </style>
 
 <!--自治大厅 业主头像-->
     <style name="autoact_namelist_avatar">
-        <item name="android:layout_height">80dip</item>
-        <item name="android:layout_width">80dip</item>
+        <item name="android:layout_height">50dip</item>
+        <item name="android:layout_width">50dip</item>
         <item name="border_color">@color/color_gray_e8e8e8</item>
         <item name="android:src">@mipmap/defult_avatar</item>
         <item name="android:layout_margin">12dp</item>

@@ -4,8 +4,9 @@
     android:layout_height="wrap_content"
     android:background="@color/Defult_Color_AppGreen"
     android:orientation="vertical">
-
-    <include layout="@layout/title_status_height" />
+<!--
+   <include layout="@layout/title_status_height"
+        />-->
 
     <RelativeLayout
         android:layout_width="match_parent"

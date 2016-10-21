@@ -6,6 +6,7 @@ package cn.hi028.android.highcommunity.activity.fragment;
 
 import android.os.AsyncTask;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.BaseAdapter;
@@ -45,6 +46,7 @@ import cn.hi028.android.highcommunity.utils.HTTPHelper;
 @EFragment(resName = "frag_message_center")
 public class MessageCenterFrag extends BaseFragment {
 
+    public static final String TAG = "~~~ MessageCenterFrag--->";
     public static final String FRAGMENTTAG = "MessageCenterFrag";
     @ViewById(R.id.vp_MessageCenter_ViewPager)
     ViewPager mPager;// 页卡内容
@@ -111,22 +113,21 @@ public class MessageCenterFrag extends BaseFragment {
         adapter.setViewList(viewList);
         HTTPHelper.GetRelatedMsg(mRelateIbpi);
     }
-    List<SystemMessageBean.SystemMsgDataEntity> mSystemMsgList;
+    List<SystemMessageBean.SystemMsgDataEntity> mSystemMsgList=new ArrayList<SystemMessageBean.SystemMsgDataEntity>();
 /**应该是系统消息的view**/
     View getPageView() {
+        Log.e(TAG,"getPageView");
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.frag_system_message, null);
-
         SystemMsgAdapter adapter=new SystemMsgAdapter(getActivity(),mSystemMsgList);
 //        NoticeAdapter adapter = new NoticeAdapter(getActivity());
-
       /**改到这里了 **/
-      //TODO 1020pm到这里
-        PullToRefreshListView ptfl = (PullToRefreshListView) view.findViewById(R.id.lv_list);
-        View mProgress = view.findViewById(R.id.ll_NoticeDetails_Progress);
-        ptfl.getRefreshableView().setDivider(getResources().getDrawable(R.drawable.diliver_related_msg));
-        ptfl.getRefreshableView().setDividerHeight(DhUtil.dip2px(getActivity(), 0.5f));
+        PullToRefreshListView ptfl = (PullToRefreshListView) view.findViewById(R.id.sysMsg_listView);
+        View mProgress = view.findViewById(R.id.ll_sysMsg_Progress);
+        ptfl.getRefreshableView().setDivider(null);
+        ptfl.getRefreshableView().setDividerHeight(DhUtil.dip2px(getActivity(), 20));
+        ptfl.getRefreshableView().setPadding(20,-20,20,40);
         mProgress.setVisibility(View.VISIBLE);
-        TextView mNodata = (TextView) view.findViewById(R.id.tv_NoticeDetails_noData);
+        TextView mNodata = (TextView) view.findViewById(R.id.tv_sysMsg_noData);
         proPressList.add(mProgress);
         noDataList.add(mNodata);
         ListView lv_list = ptfl.getRefreshableView();
@@ -142,8 +143,10 @@ public class MessageCenterFrag extends BaseFragment {
         CommunityMsgAdapter adapter = new CommunityMsgAdapter(getActivity());
         PullToRefreshListView ptfl = (PullToRefreshListView) view.findViewById(R.id.lv_list);
         View mProgress = view.findViewById(R.id.ll_NoticeDetails_Progress);
-        ptfl.getRefreshableView().setDivider(getResources().getDrawable(R.drawable.diliver_related_msg));
-        ptfl.getRefreshableView().setDividerHeight(DhUtil.dip2px(getActivity(), 0.5f));
+        ptfl.getRefreshableView().setDivider(null);
+        ptfl.getRefreshableView().setDividerHeight(DhUtil.dip2px(getActivity(), 20));
+        ptfl.getRefreshableView().setPadding(20,-20,20,40);
+
         mProgress.setVisibility(View.GONE);
         TextView mNodata = (TextView) view.findViewById(R.id.tv_NoticeDetails_noData);
         proPressList.add(mProgress);

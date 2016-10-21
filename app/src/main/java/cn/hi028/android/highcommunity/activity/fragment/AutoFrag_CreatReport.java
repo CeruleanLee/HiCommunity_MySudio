@@ -77,7 +77,7 @@ TextView mCommit;
         @Override
         public void onSuccess(Object message) {
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
-
+            getActivity().onBackPressed();
 
         }
 

@@ -104,6 +104,7 @@ public class AutoDetail_Questions extends BaseFragment {
 //        mCommentListview.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 //        mList = new ArrayList<Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity>();
 //        mAdapter = new Auto_ReportDetailAdapter(mList, getActivity(), this);
+        mSubmit.setOnClickListener(new submitOnClickListener());
 
         initDatas();
     }
@@ -126,7 +127,6 @@ public class AutoDetail_Questions extends BaseFragment {
         }
 
 
-        mSubmit.setOnClickListener(new submitOnClickListener());
     }
 
     //问题列表
@@ -571,6 +571,7 @@ Intent mIntent=new Intent(getActivity(), AutoAct_Four.class);
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
 is_voted=1;
 //            getView().re
+            questionList.clear();answerList.clear();
             initDatas();
         }
 

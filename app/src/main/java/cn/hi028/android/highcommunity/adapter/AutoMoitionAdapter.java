@@ -2,6 +2,7 @@ package cn.hi028.android.highcommunity.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +10,18 @@ import android.widget.CheckedTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.don.tools.BpiHttpHandler;
+
+import net.duohuo.dhroid.util.LogUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.AutonomousAct_Third;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionBean;
+import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.TimeUtil;
 
 /**
@@ -23,6 +30,8 @@ import cn.hi028.android.highcommunity.utils.TimeUtil;
  * @时间：2016/10/12<br>
  */
 public class AutoMoitionAdapter extends BaseFragmentAdapter {
+
+    public static final String TAG ="~~~AutoMoitionAdapter";
     public static final int TAG_MOTION_DETAIL = 2;
     List<Auto_MotionBean.MotionDataEntity> mList = new ArrayList<Auto_MotionBean.MotionDataEntity>();
     private Context context;
@@ -86,9 +95,15 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
             @Override
             public void onClick(View v) {
 //                mViewHolder.mBut_Support.setChecked(TURE);
+//                mViewHolder.mBut_Support.setChecked(true);
+//                mViewHolder.mBut_Support.setText("已支持");
+                HTTPHelper.SupportMotion(mIbpi,mBean.getId());
                 mViewHolder.mBut_Support.setChecked(true);
                 mViewHolder.mBut_Support.setText("已支持");
-                Toast.makeText(context,"已支持",Toast.LENGTH_SHORT).show();
+
+
+
+
             }
         });
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +137,7 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
     }
 
 
-    static class ViewHolder {
+     class ViewHolder {
         TextView mTitle;
         TextView mTime;
         TextView mTv_Support;
@@ -130,4 +145,55 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
 
 
     }
+
+
+    BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
+        @Override
+        public void onError(int id, String message) {
+            LogUtil.d(TAG + "---~~~onError");
+            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+
+        }
+
+        @Override
+        public void onSuccess(Object message) {
+            Toast.makeText(context,"已支持",Toast.LENGTH_SHORT).show();
+
+//            mList = (List<Auto_MotionBean.MotionDataEntity>) message;
+//            mAdapter.AddNewData(mList);
+//            mListview.setAdapter(mAdapter);
+//			mLoadingView.loadSuccess();
+//			mLoadingView.setVisibility(View.GONE);
+//			LogUtil.d(Tag+"---~~~initViewonSuccess");
+////						if (null == message) return;
+//			LogUtil.d(Tag+"---~~~ initView   message:"+message);
+//			ThirdServiceBean mBean = (ThirdServiceBean) message;
+//			mAdapter.AddNewData(mBean.getServices());
+//			mGridView.setAdapter(mAdapter);
+//			pagerAdapter.setImageIdList(mBean.getBanners());
+//			HighCommunityUtils.GetInstantiation()
+//			.setThirdServiceGridViewHeight(mGridView, mAdapter, 4);
+//			tatalLayout.setVisibility(View.VISIBLE);
+
+        }
+
+        @Override
+        public Object onResolve(String result) {
+//			Log.e("renk", result);
+//			LogUtil.d(Tag+"---~~~iresult"+result);
+//            return HTTPHelper.ResolveMotionDataEntity(result);
+            return result;
+        }
+
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
+
+        }
+
+        @Override
+        public void cancleAsyncTask() {
+
+        }
+    };
+
 }

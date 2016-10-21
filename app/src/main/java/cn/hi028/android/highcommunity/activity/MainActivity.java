@@ -287,8 +287,8 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
     void initView() {
         mTitle = (TextView) this.findViewById(R.id.tv_mainlevel_title);
-        mStatusHight = (LinearLayout) this
-                .findViewById(R.id.title_status_height);
+//        mStatusHight = (LinearLayout) this
+//                .findViewById(R.id.title_status_height);
         mLeftMenu = (ImageView) this.findViewById(R.id.tv_mainlevel_LeftButton);
         mRightMenu = (ImageView) this
                 .findViewById(R.id.iv_mainlevel_RightButton);
@@ -310,7 +310,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         mRightButton.setOnClickListener(mTitleListener);
         mRightMenu.setOnClickListener(mTitleListener);
         mLeftMenu.setOnClickListener(mTitleListener);
-        mStatusHight.setVisibility(View.GONE);
+//        mStatusHight.setVisibility(View.GONE);
     }
 
     /**

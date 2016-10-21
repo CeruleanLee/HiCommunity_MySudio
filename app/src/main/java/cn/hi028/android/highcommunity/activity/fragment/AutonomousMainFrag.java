@@ -1,5 +1,6 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -73,9 +74,9 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
     public Auto_InitBean.Auto_Init_DataEntity mData;
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.context = activity;
         contentView = LayoutInflater.from(context).inflate(R.layout.frag_autonomous_identified2, null);
         ButterKnife.bind(this, contentView);
         initView();
