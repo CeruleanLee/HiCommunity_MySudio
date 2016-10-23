@@ -181,7 +181,7 @@ public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
         mViewHolder.mName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "点击了主评论name ", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "点击了主评论name ", Toast.LENGTH_SHORT).show();
                 Log.d(Tag, "主评论id： " + mBean.getId() + "");
                 //对监督主评论的回复   parentid=主评论id
                 mTempReplies = mBean;

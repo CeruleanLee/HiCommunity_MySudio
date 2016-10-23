@@ -36,7 +36,7 @@
             android:singleLine="true"
             android:text="自治大厅"
             android:textColor="#ffffff"
-            android:textSize="18dp" />
+            android:textSize="16dp" />
         <!-- android:textSize="@dimen/font_extra_large" -->
     </RelativeLayout>
 

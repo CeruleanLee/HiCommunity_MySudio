@@ -7,16 +7,9 @@
 
     <include
         android:id="@+id/title"
-        layout="@layout/title_mainlevel" />
+        layout="@layout/title_mainlevel_justformain" />
 
-    <LinearLayout
-        android:id="@+id/main_Content"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@+id/main_tab_bottom"
-        android:layout_below="@id/title"
-        android:orientation="vertical" >
-    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/main_tab_bottom"
@@ -108,5 +101,12 @@
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
-
+    <LinearLayout
+        android:id="@+id/main_Content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/main_tab_bottom"
+        android:layout_below="@id/title"
+        android:orientation="vertical" >
+    </LinearLayout>
 </RelativeLayout>

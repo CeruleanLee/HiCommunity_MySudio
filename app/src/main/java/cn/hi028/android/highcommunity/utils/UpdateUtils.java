@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.Message;
-import android.widget.Toast;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -49,7 +48,7 @@ public class UpdateUtils {
             HashMap<String, String> mMap = (HashMap<String, String>) msg.obj;
             if (null != mMap) {
                 int serviceCode = Integer.valueOf(mMap.get("version"));
-                Toast.makeText(mContext, "~~~~~~现在的版本号：" + versionCode + ",从服务器下来的版本号：" + serviceCode + "---", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "~~~~~~现在的版本号：" + versionCode + ",从服务器下来的版本号：" + serviceCode + "---", Toast.LENGTH_SHORT).show();
                 LogUtil.d("~~~~~~现在的版本号：" + versionCode + ",从服务器下来的版本号：" + serviceCode + "---");
                 if (serviceCode > versionCode) {
                     isUpdate = true;

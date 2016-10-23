@@ -128,7 +128,7 @@ public class UpdateUtil implements View.OnClickListener {
                 dialog.dismiss();
                 if (isLoaded) {
                     //去安装
-                    Toast.makeText(context, "准备去安装", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(context, "准备去安装", Toast.LENGTH_LONG).show();
 //                Log.d("UpdateVersionService", "正在安装");
 //                String fileName = FileDownloader.getFilePath(parseObject.getNew_md5() + ".apk");
 //                Intent intent = new Intent(Intent.ACTION_VIEW);

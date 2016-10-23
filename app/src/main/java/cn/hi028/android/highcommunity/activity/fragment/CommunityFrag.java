@@ -171,7 +171,7 @@ public class CommunityFrag extends Fragment {
 
 		//        }
 		super.onResume();
-		RefreshData(0);
+//		RefreshData(0);
 		registNetworkReceiver();
 		isNeedRefresh = false;
 	}

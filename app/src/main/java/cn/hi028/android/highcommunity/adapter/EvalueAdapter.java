@@ -1,20 +1,19 @@
 package cn.hi028.android.highcommunity.adapter;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
-import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.bean.MerchantEvaluationInfoListBean;
 import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.bean.MerchantEvaluationInfoListBean;
 
 public class EvalueAdapter extends BaseAdapter{
 	
@@ -58,7 +57,7 @@ public class EvalueAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
-	Toast.makeText(activity, "zoudaozhelile", Toast.LENGTH_SHORT).show();
+//	Toast.makeText(activity, "zoudaozhelile", Toast.LENGTH_SHORT).show();
 		
 		MerchantEvaluationInfoListBean evalue = mData.get(position);
 		if(convertView == null){

@@ -56,6 +56,7 @@ public class Service_AutonomousActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_autonomous);
         ButterKnife.bind(this);
+        initDatas();
         initViews();
     }
 
@@ -183,6 +184,8 @@ public class Service_AutonomousActivity extends BaseFragmentActivity {
 //        tv_Check.setText();
     }
 
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }
