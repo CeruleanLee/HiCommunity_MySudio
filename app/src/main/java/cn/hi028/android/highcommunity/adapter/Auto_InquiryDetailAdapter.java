@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.don.view.CircleImageView;
 
@@ -31,7 +30,6 @@ import cn.hi028.android.highcommunity.activity.fragment.AutoDetail_Inquiry;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_InquiryDetailBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
-import cn.hi028.android.highcommunity.utils.TimeUtil;
 
 /**
  * @功能：询问 评论详情adapter<br>
@@ -93,7 +91,7 @@ public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
             convertView = layoutInflater.inflate(R.layout.item_reportdetail_replay, null);
             mViewHolder.mAvatar = (CircleImageView) convertView.findViewById(R.id.item_reportdetail_Image);
             mViewHolder.mName = (TextView) convertView.findViewById(R.id.item_reportdetail_Name);
-            mViewHolder.mTime = (TextView) convertView.findViewById(R.id.item_reportdetail_time);
+//            mViewHolder.mTime = (TextView) convertView.findViewById(R.id.item_reportdetail_time);
             mViewHolder.mContent = (TextView) convertView.findViewById(R.id.item_reportdetail_Content);
             mViewHolder.mReplyLayout = (LinearLayout) convertView.findViewById(R.id.item_reportdetail_reply);
             convertView.setTag(mViewHolder);
@@ -103,7 +101,7 @@ public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
         final Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity mBean = mList.get(position);
         ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + mBean.getPic(), mViewHolder.mAvatar);
         mViewHolder.mName.setText(mBean.getFrom_name() + "：");
-        mViewHolder.mTime.setText(TimeUtil.getDescriptionTimeFromTimestamp(Long.parseLong(mBean.getReply_time() + "")));
+//        mViewHolder.mTime.setText(TimeUtil.getDescriptionTimeFromTimestamp(Long.parseLong(mBean.getReply_time() + "")));
         mViewHolder.mContent.setText(mBean.getContent());
         if (mBean.getSub_reply().size() > 0) {
             mViewHolder.mReplyLayout.setVisibility(View.VISIBLE);

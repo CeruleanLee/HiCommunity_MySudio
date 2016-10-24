@@ -146,7 +146,7 @@ public class AutoDetail_Questions extends BaseFragment {
     private View ans_view;
     private LayoutInflater mInflater;
     int is_voted = 0;
-    //TODO 是否参与  应从act传递过来  这里测试用0  未参与
+
     //下面这两个list是为了实现点击的时候改变图片，因为单选多选时情况不一样，为了方便控制
     //存每个问题下的imageview
     private ArrayList<ArrayList<ImageView>> imglist = new ArrayList<ArrayList<ImageView>>();
@@ -521,46 +521,19 @@ public class AutoDetail_Questions extends BaseFragment {
                         return;
                     }
                     mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), rootView, Gravity.CENTER);
-
                     HTTPHelper.commitAnswers(mCommentIbpi, question_id, mJsonArray.toString());
-//                    HTTPHelper.GetQuestionDetail(mIbpi, question_id);
-//                    JSONObject tmpObj = null;
+//                    for (int item = 0; item < jsonArray.size(); item++) {
 //
-//                    int count = mAnswerList.size();
-//
-//                    for(int i = 0; i < count; i++) {
-//
-//                        tmpObj = new JSONObject();
-//
-//                        tmpObj.put("name" , personList.get(i).name);
-//
-//                        tmpObj.put("sex", personList.get(i).sex);
-//
-//                        tmpObj.put("age", personList.get(i).age);
-//
-//                        mJsonArray.put(tmpObj);
-//
-//                        tmpObj = null;
+//                        JSONObject job;
+//                        try {
+//                            job = jsonArray.getJSONObject(item);
+//                            Log.e("----", "quesitionId--------" + job.get("quesitionId"));
+//                            Log.e("----", "answerId--------" + job.get("answerId"));
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }  // 遍历 jsonarray 数组，把每一个对象转成 json 对象
 //
 //                    }
-//
-//                    String personInfos = mJsonArray.toString(); // 将JSONArray转换得到String
-//
-//                    jsonObject.put("personInfos" , personInfos);   // 获得JSONObject的String
-                    for (int item = 0; item < jsonArray.size(); item++) {
-
-                        JSONObject job;
-                        try {
-                            job = jsonArray.getJSONObject(item);
-//                            Log.e("----", "pageId--------"+job.get("pageId"));
-                            Log.e("----", "quesitionId--------" + job.get("quesitionId"));
-                            Log.e("----", "answerId--------" + job.get("answerId"));
-                        } catch (Exception e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }  // 遍历 jsonarray 数组，把每一个对象转成 json 对象
-
-                    }
 
                 }
 

@@ -27,6 +27,7 @@ import net.duohuo.dhroid.util.LogUtil;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.AutoCommitAct;
 import cn.hi028.android.highcommunity.activity.AutonomousAct_Second;
@@ -124,6 +125,10 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
             }
             mData = (Auto_InitBean.Auto_Init_DataEntity) message;
             mStatus = mData.getStatus();
+            if (mData.getOwner_id()!=-1){
+
+                HighCommunityApplication.mUserInfo.setOwner_id(mData.getOwner_id()+"");
+            }
 //            Toast.makeText(getActivity(), "mStatus " + mStatus, Toast.LENGTH_SHORT).show();
             if (mStatus == 1) {
 

@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="30dp"
+    android:layout_marginBottom="50dp"
+    android:clickable="false"
+
     android:orientation="vertical">
 
 
@@ -13,17 +15,15 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="12dp"
         android:text=""
-        android:textSize="14sp"
-        android:textStyle="bold"
-
-        />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/inforLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="12dp"
         android:orientation="horizontal">
 
         <TextView
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textColor="@color/Defult_Color_MidGrey"
-            android:textSize="10sp" />
+            android:textSize="14sp" />
 
         <View
             android:layout_width="0.5dip"
@@ -49,19 +49,21 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textColor="@color/Defult_Color_MidGrey"
-            android:textSize="10sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/reportdetail_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:paddingLeft="8dp"
+        android:layout_marginTop="15dp"
         android:lineSpacingExtra="3dp"
         android:lineSpacingMultiplier="1.5"
+        android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:textSize="12dp" />
-
+        android:textSize="15dp" />
+<View
+    android:layout_width="match_parent"
+    android:layout_height="20dp"/>
 
 </LinearLayout>

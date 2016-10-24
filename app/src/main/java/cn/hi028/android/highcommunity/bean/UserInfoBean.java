@@ -33,6 +33,15 @@ public class UserInfoBean extends BaseBean {
     String zero_money;
     String history_vid;
     String third_uid;
+String owner_id;//业主id
+
+    public String getOwner_id() {
+        return owner_id;
+    }
+
+    public void setOwner_id(String owner_id) {
+        this.owner_id = owner_id;
+    }
 
     public int getId() {
         if (id == 0) {

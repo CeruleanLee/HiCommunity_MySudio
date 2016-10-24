@@ -48,6 +48,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/padding_12"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="5dp"
                     android:src="@drawable/tag_speakerbutton_selector" />
             </LinearLayout>
         </LinearLayout>
@@ -76,7 +78,7 @@
         android:layout_height="match_parent"
         android:background="@color/defult_color_white"
         android:gravity="center"
-        android:text="暂无数据"
+        android:text=""
         android:textColor="@color/Service_title_text_color"
         android:textSize="15dp"
         android:visibility="gone" />

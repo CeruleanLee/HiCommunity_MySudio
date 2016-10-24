@@ -105,7 +105,7 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
 
                 HTTPHelper.SupportMotion(mIbpi,mBean.getId());
                 mViewHolder.mBut_Support.setChecked(true);
-                mViewHolder.mBut_Support.setText("已支持");
+                mViewHolder.mBut_Support.setText(" 已支持 ");
 
 
 

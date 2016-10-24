@@ -138,7 +138,7 @@ public class AutoDetail_Report extends BaseFragment {
                 }
                 content = mSpeakerContent.getText().toString();
                 if (!TextUtils.isEmpty(content)) {
-                    HTTPHelper.CommentReportDetail(mCommentIbpi, HighCommunityApplication.mUserInfo.getId() + "", toid, watch_id, ParentId, content);
+                    HTTPHelper.CommentReportDetail(mCommentIbpi, HighCommunityApplication.mUserInfo.getOwner_id(), toid, watch_id, ParentId, content);
                 } else {
                     HighCommunityUtils.GetInstantiation().ShowToast("请输入内容", 0);
                 }
@@ -225,7 +225,7 @@ public class AutoDetail_Report extends BaseFragment {
         mReportTime = (TextView) header.findViewById(R.id.reportdetail_time);
         mContent = (TextView) header.findViewById(R.id.reportdetail_content);
         mInforLayout = (LinearLayout) header.findViewById(R.id.inforLayout);
-        mCommentListview.addHeaderView(header);
+        mCommentListview.addHeaderView(header,null,false);
     }
 
     BpiHttpHandler.IBpiHttpHandler mCommentIbpi = new BpiHttpHandler.IBpiHttpHandler() {
@@ -239,6 +239,10 @@ public class AutoDetail_Report extends BaseFragment {
         @Override
         public void onSuccess(Object message) {
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
+            if (getActivity().getCurrentFocus() != null && getActivity().getCurrentFocus().getWindowToken() != null) {
+                InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
 //            if (isReplay) {
 //                mAdapter.setNewData(isReplay, content, null);
 //            } else {

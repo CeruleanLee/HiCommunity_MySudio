@@ -98,7 +98,7 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
     View contentView;
     Context context;
 
-    PopupWindow mPhotoPopupWindow = null, mWaitingWindow;
+    PopupWindow mPhotoPopupWindow = null,mWaitingWindow=null;
     boolean IsClicked = false;
     int requesetPhoto = 0x000001, requestFile = 0x000002;//requestCropImage = 0x000003
     Uri mPhotoUri = null;
@@ -467,9 +467,9 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
      * 提交数据
      */
     private void toCommitData() {
-//        if (IsClicked) {
-//            return;
-//        }
+        if (IsClicked) {
+            return;
+        }
         IsClicked = true;
         String name = ed_Name.getText().toString().trim();
 
@@ -531,7 +531,7 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
 //                .GetInstantiation()
 //                .ShowWaittingPopupWindow(getActivity(), mAvatar, Gravity.CENTER);
 
-
+        mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, contentView, Gravity.CENTER);
         HTTPHelper.Auto_Commit(mCommitIbpi, name, village_id, mBuildingID, mUnitID, mDoorId, tel, captcha, idZUri, idFUri, epropertyUri);
 
 //        RequestParams mParamMap = new RequestParams(getBaseParamMap());
@@ -556,7 +556,7 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
 
     }
 
-
+    private PopupWindow mWatingWindow;
     private static HashMap<String, String> getBaseParamMap() {
         HashMap<String, String> maps = new HashMap<String, String>();
         if (!TextUtils.isEmpty((HighCommunityApplication.mUserInfo.getToken())))
@@ -720,12 +720,15 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
     BpiHttpHandler.IBpiHttpHandler mCommitIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
+            mWatingWindow.dismiss();
             LogUtil.d(Tag + "-------------  initView   onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
         @Override
         public void onSuccess(Object message) {
+            mWatingWindow.dismiss();
+
 
 
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(),
@@ -762,6 +765,7 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
 
         @Override
         public void cancleAsyncTask() {
+            mWatingWindow.dismiss();
 
         }
     };
