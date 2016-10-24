@@ -501,6 +501,17 @@
         <item name="android:textSize">12sp</item>
         <!--<item name="android:layout_height">wrap_content</item>-->
     </style>
+    <!-- 自治大厅editext-->
+    <style name="autoact_edittext_and_textview2">
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:background">@drawable/bg_autoact_edittext3</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">12sp</item>
+        <!--<item name="android:layout_height">wrap_content</item>-->
+    </style>
+
     <!-- 自治大厅textview-->
     <style name="autoact_textview">
         <item name="android:paddingBottom">12dp</item>

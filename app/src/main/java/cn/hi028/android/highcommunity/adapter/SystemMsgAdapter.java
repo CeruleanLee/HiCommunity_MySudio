@@ -131,11 +131,21 @@ public class SystemMsgAdapter extends BaseFragmentAdapter {
                 mViewHolder.mTimeRight.setText(TimeFormat.TimedateFormat(Long.parseLong(mBean.getCreate_time()) * 1000));
                 break;
         }
-        if (i % 2 == 0) {
+        String title=mBean.getTitle();
+        Log.d(Tag,"TITLE "+title.toString());
+        if (title.indexOf("过期")!=-1) {
+            Log.d(Tag,"1 ");
             mViewHolder.mTitle.setTextColor(Color.RED);
-        } else {
+        } else if(title.indexOf("恭喜")!=-1) {
+            Log.d(Tag,"2 ");
             mViewHolder.mTitle.setTextColor(0xff2D8719);
             //#2D8719
+        }else if (title.indexOf("订单")!=-1){
+            Log.d(Tag,"3 ");
+
+            mViewHolder.mTitle.setTextColor(0xff2D8719);
+
+
         }
         mViewHolder.mTitle.setText(mBean.getTitle());
         mViewHolder.mContent.setText(mBean.getContent());

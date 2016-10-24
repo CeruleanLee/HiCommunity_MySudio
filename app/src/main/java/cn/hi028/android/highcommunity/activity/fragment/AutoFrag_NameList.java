@@ -15,7 +15,6 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
@@ -56,8 +55,8 @@ public class AutoFrag_NameList extends BaseFragment {
     RadioGroup mRadioGroup;
     @Bind(R.id.frag_AutoName_fragContainer)
     RelativeLayout mFragContainer;
-    @Bind(R.id.tv_Autonotice_Nodata)
-    TextView mNodata;
+//    @Bind(R.id.tv_Autonotice_Nodata)
+//    TextView mNodata;
     @Bind(R.id.frag_AutoName_list_CO)
     ListView mListCO;
     @Bind(R.id.frag_AutoName_list_Re)
@@ -90,9 +89,9 @@ public class AutoFrag_NameList extends BaseFragment {
         mYZDBadapter=new AutoNamelist_YZDBAdapter(mYWDBList,getActivity());
         mYZadapter=new AutoNamelist_YZAdapter(mYZList,getActivity());
 
-        mListCO.setEmptyView(mNodata);
-        mListRe.setEmptyView(mNodata);
-        mListOwner.setEmptyView(mNodata);
+//        mListCO.setEmptyView(mNodata);
+//        mListRe.setEmptyView(mNodata);
+//        mListOwner.setEmptyView(mNodata);
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

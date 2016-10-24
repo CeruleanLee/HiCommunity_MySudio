@@ -130,7 +130,7 @@ public class AutoFrag_Motion extends BaseFragment {
     public void onResume() {
         super.onResume();
         LogUtil.d(Tag + "onResume");
-
+initDatas();
         //		mLoadingView.startLoading();
         registNetworkReceiver();
     }

@@ -3,10 +3,12 @@ package cn.hi028.android.highcommunity.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,20 +85,24 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
         mViewHolder.mTime.setText(TimeUtil.getYearMonthDay(Long.parseLong(mBean.getCreate_time())));
 //        mViewHolder.mTime.setText(TimeUtil.longToDate(Long.parseLong(mBean.getCreate_time()),"yyyy年MM月dd日 HH时mm分ss秒").toString());
         mViewHolder.mTv_Support.setText("支持率：" + mBean.getVote_percent() + "%");
-        if (mBean.getIsSuggest()=="1") {
+        if (mBean.getIsSuggest().equals("1")) {
             mViewHolder.mBut_Support.setChecked(true);
             mViewHolder.mBut_Support.setText(" 已支持 ");
 
-        }else if (mBean.getIsSuggest()=="0"){
+        }else if (mBean.getIsSuggest().equals("1")){
             mViewHolder.mBut_Support.setChecked(false);
             mViewHolder.mBut_Support.setText(" 支持 ");
         }
+        final View finalConvertView = convertView;
         mViewHolder.mBut_Support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                mViewHolder.mBut_Support.setChecked(TURE);
 //                mViewHolder.mBut_Support.setChecked(true);
 //                mViewHolder.mBut_Support.setText("已支持");
+
+                mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, finalConvertView, Gravity.CENTER);
+
                 HTTPHelper.SupportMotion(mIbpi,mBean.getId());
                 mViewHolder.mBut_Support.setChecked(true);
                 mViewHolder.mBut_Support.setText("已支持");
@@ -120,7 +126,7 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
 
         return convertView;
     }
-
+    private PopupWindow mWatingWindow;
 
     @Override
     public void AddNewData(Object mObject) {
@@ -150,13 +156,16 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
+            mWatingWindow.dismiss();
             LogUtil.d(TAG + "---~~~onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+
 
         }
 
         @Override
         public void onSuccess(Object message) {
+            mWatingWindow.dismiss();
             Toast.makeText(context,"已支持",Toast.LENGTH_SHORT).show();
 
 //            mList = (List<Auto_MotionBean.MotionDataEntity>) message;

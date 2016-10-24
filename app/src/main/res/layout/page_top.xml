@@ -131,11 +131,13 @@
             android:background="@color/Defult_Color_LineGrey" />
 
         <RelativeLayout
+            android:id="@+id/seemoreLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:background="@color/white"
             android:orientation="vertical"
+            android:clickable="true"
             android:padding="10dp" >
 
             <TextView

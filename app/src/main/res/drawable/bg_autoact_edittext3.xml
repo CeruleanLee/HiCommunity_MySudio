@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <layer-list>
+            <item  android:bottom="1dp" android:left="1dp" android:right="1dp" android:top="1dp">
+                <shape>
+                    <corners android:radius="3dp" />
+                    <stroke android:width="0.8dp" android:color="@color/Defult_Color_AppGreen" />
+                </shape>
+            </item>
+            <!--这是外层 阴影-->
+            <item  android:bottom="0.5dp" android:left="0.5dp" android:right="0.5dp" android:top="0.5dp">
+                <shape>
+                    <corners android:radius="3dp" />
+                    <stroke android:width="2dp" android:color="#561fc796" />
+                </shape>
+            </item>
+
+        </layer-list>
+    </item>
+
+    <item android:state_pressed="true">
+        <layer-list>
+            <item  android:bottom="1dp" android:left="1dp" android:right="1dp" android:top="1dp">
+                <shape>
+                    <corners android:radius="3dp" />
+                    <stroke android:width="0.8dp" android:color="@color/Defult_Color_AppGreen" />
+                </shape>
+            </item>
+            <!--这是外层 阴影-->
+            <item  android:bottom="0.5dp" android:left="0.5dp" android:right="0.5dp" android:top="0.5dp">
+                <shape>
+                    <corners android:radius="3dp" />
+                    <stroke android:width="2dp" android:color="#561fc796" />
+                </shape>
+            </item>
+
+        </layer-list>
+    </item>
+    <item android:state_focused="false">
+                <shape android:shape="rectangle">
+                    <corners android:radius="3dp" />
+                    <stroke android:width="0.8dp" android:color="@color/auto_act_textviewgb_grey" />
+                </shape>
+    </item>
+</selector>
+
+

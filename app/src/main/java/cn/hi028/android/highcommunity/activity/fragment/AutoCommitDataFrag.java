@@ -1,6 +1,5 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -19,11 +18,14 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,15 +33,12 @@ import android.widget.Toast;
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.SaveBitmap;
 import com.lidroid.xutils.util.LogUtils;
-import com.loopj.android.http.RequestParams;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.ImageLoaderUtil;
-import net.duohuo.dhroid.util.ImageUtil;
 import net.duohuo.dhroid.util.LogUtil;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,7 +62,7 @@ import cn.hi028.android.highcommunity.view.ECListDialog;
  * @时间：2016/10/11<br>
  */
 
-public class AutoCommitDataFrag extends BaseFragment {
+public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchListener{
     public static final String Tag = "~~~AutoCommit~~~";
     public static final String FRAGMENTTAG = "AutoCommitDataFrag";
 
@@ -92,6 +91,8 @@ public class AutoCommitDataFrag extends BaseFragment {
     EditText ed_PutverifyCode;
     @Bind(R.id.autoAct_commit)
     TextView but_Commit;
+    @Bind(R.id.commitLayout)
+    LinearLayout activityMain;
     private onCounter mCounter;
 
     View contentView;
@@ -106,23 +107,12 @@ public class AutoCommitDataFrag extends BaseFragment {
     public Auto_InitBean.Auto_Init_DataEntity mData;
     String username;
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        this.context = context;
-//        contentView = LayoutInflater.from(context).inflate(R.layout.frag_autonomous_commitdata, null);
-//        ButterKnife.bind(this, contentView);
-//    }
-
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         this.context = context;
         contentView = LayoutInflater.from(context).inflate(R.layout.frag_autonomous_commitdata, null);
         ButterKnife.bind(this, contentView);
-
-
-
     }
 
     @Override
@@ -139,10 +129,12 @@ public class AutoCommitDataFrag extends BaseFragment {
         initView();
         return contentView;
     }
-String village_id;
+
+    String village_id;
+
     private void initView() {
         ed_QuName.setText(mData.getVillage().getVillage_name());
-        village_id=mData.getVillage().getVillage_id();
+        village_id = mData.getVillage().getVillage_id();
         ed_TelNum.setText(username);
 
         ed_LouNum.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -151,139 +143,241 @@ String village_id;
                 Log.d(Tag, "是否有焦点" + hasFocus);
 //                Toast.makeText(getActivity(), "是否有焦点" + hasFocus, Toast.LENGTH_SHORT).show();
 
-                if (!hasFocus) {
-                    ed_LouNum.setChecked(false);
+                if (hasFocus) {
+                    mmBuildingNums.clear();
+//            Toast.makeText(getActivity(), "楼栋号被点击", Toast.LENGTH_SHORT).show();
+                    setBuildingNum();
                 }
             }
         });
+
+        ed_DanyuanNum.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                Log.d(Tag, "是否有焦点" + hasFocus);
+//                Toast.makeText(getActivity(), "是否有焦点" + hasFocus, Toast.LENGTH_SHORT).show();
+
+                if (hasFocus) {
+
+                    mUnitNumList.clear();
+                    setUnitNum();
+                }
+            }
+        });
+        ed_MenNum.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                Log.d(Tag, "是否有焦点" + hasFocus);
+//                Toast.makeText(getActivity(), "是否有焦点" + hasFocus, Toast.LENGTH_SHORT).show();
+
+                if (hasFocus) {
+                    mDoorNumList.clear();
+                    setDoorNum();
+                }
+            }
+        });
+//        ed_Name.setOnClickListener(this);
+//        ed_QuName.setOnClickListener(this);
+//        ed_LouNum.setOnClickListener(this);
+//        ed_DanyuanNum.setOnClickListener(this);
+//        ed_MenNum.setOnClickListener(this);
+//        img_IdZ.setOnClickListener(this);
+//        img_IdF.setOnClickListener(this);
+//        img_Eproperty.setOnClickListener(this);
+//        but_GetviryCode.setOnClickListener(this);
+//        ed_TelNum.setOnClickListener(this);
+//        ed_PutverifyCode.setOnClickListener(this);
+//        but_Commit.setOnClickListener(this);
+        activityMain.requestFocus();
+        activityMain.setFocusable(true);
+        activityMain.setOnTouchListener(this);
+        ed_LouNum.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+
+
+                ed_LouNum.setFocusable(true);
+                ed_LouNum.setFocusableInTouchMode(true);
+                ed_LouNum.requestFocus();
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (getActivity().getCurrentFocus() != null && getActivity().getCurrentFocus().getWindowToken() != null) {
+                        InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
+                }
+
+                return false;
+            }
+        });
+        ed_DanyuanNum.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+
+
+                ed_DanyuanNum.setFocusable(true);
+                ed_DanyuanNum.setFocusableInTouchMode(true);
+                ed_DanyuanNum.requestFocus();
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (getActivity().getCurrentFocus() != null && getActivity().getCurrentFocus().getWindowToken() != null) {
+                        InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
+                }
+
+                return false;
+            }
+        });
+        ed_MenNum.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                ed_MenNum.setFocusable(true);
+                ed_MenNum.setFocusableInTouchMode(true);
+                ed_MenNum.requestFocus();
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (getActivity().getCurrentFocus() != null && getActivity().getCurrentFocus().getWindowToken() != null) {
+                        InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
+                }
+
+                return false;
+            }
+        });
+//        activityMain.setOnClickListener(this);
 
     }
 
     private PopupWindow mWindow;
 
 
-    @OnClick({R.id.autoAct_ed_quName, R.id.autoAct_ed_louNum, R.id.autoAct_ed_danyuanNum, R.id.autoAct_ed_menNum, R.id.autoAct_ed_idZ, R.id.autoAct_ed_idF, R.id.autoAct_eproperty, R.id.auto_getviryCode, R.id.autoAct_telNum, R.id.autoAct_putverifyCode, R.id.autoAct_commit})
-    public void onClick(View view) {
-        if (view.getId() == R.id.autoAct_ed_louNum) {
-            view.requestFocus();
-            ed_LouNum.setChecked(true);
-            ed_MenNum.setChecked(false);
-            ed_DanyuanNum.setChecked(false);
-            mmBuildingNums.clear();
-//            Toast.makeText(getActivity(), "楼栋号被点击", Toast.LENGTH_SHORT).show();
-            setBuildingNum();
-
-            ClickId = R.id.autoAct_ed_louNum;
-        } else if (view.getId() == R.id.autoAct_ed_menNum) {
-            view.requestFocus();
-            ed_MenNum.setChecked(true);
-            ed_LouNum.setChecked(false);
-            ed_DanyuanNum.setChecked(false);
-            mDoorNumList.clear();
-            setDoorNum();
-            ClickId = R.id.autoAct_ed_menNum;
-
-        } else if (view.getId() == R.id.autoAct_ed_danyuanNum) {
-            view.requestFocus();
-            ed_DanyuanNum.setChecked(true);
-            ed_LouNum.setChecked(false);
-            ed_MenNum.setChecked(false);
-//                ed_LouNum.toggle();
-            mUnitNumList.clear();
-            setUnitNum();
-            ClickId = R.id.autoAct_ed_danyuanNum;
-        } else {
-            ed_LouNum.setChecked(false);
-            ed_MenNum.setChecked(false);
-            ed_DanyuanNum.setChecked(false);
-            switch (view.getId()) {
-                case R.id.tv_secondtitle_name:
-                    ClickId = R.id.tv_secondtitle_name;
-                    break;
-                case R.id.auto_nodata:
-                    ClickId = R.id.auto_nodata;
-                    break;
-                case R.id.autoAct_ed_name://用户名
-                    ClickId = R.id.autoAct_ed_name;
-
-                    break;
-//            case R.id.autoAct_ed_louNum://楼栋号
-//                ed_LouNum.setChecked(true);
-//                mmBuildingNums.clear();
-//                Toast.makeText(getActivity(), "楼栋号被点击", Toast.LENGTH_SHORT).show();
-//                setBuildingNum();
+////    @OnClick({R.id.autoAct_ed_quName, R.id.autoAct_ed_louNum, R.id.autoAct_ed_danyuanNum, R.id.autoAct_ed_menNum,  R.id.autoAct_ed_name,R.id.autoAct_ed_idZ, R.id.autoAct_ed_idF, R.id.autoAct_eproperty, R.id.auto_getviryCode, R.id.autoAct_telNum, R.id.autoAct_putverifyCode, R.id.autoAct_commit})
+//    public void onClick(View view) {
+//        if (view.getId() == R.id.autoAct_ed_louNum) {
+//            Log.d(Tag, "楼");
+//            ed_LouNum.requestFocus();
 //
-//                ClickId = R.id.autoAct_ed_louNum;
+////            ed_LouNum.setChecked(true);
+////            ed_MenNum.setChecked(false);
+////            ed_DanyuanNum.setChecked(false);
+////            ed_PutverifyCode.setFocusable(false);
+////            ed_Name.setFocusable(false);
+////            ed_PutverifyCode.setFocusable(false);
+//            mmBuildingNums.clear();
+//            setBuildingNum();
+//            ClickId = R.id.autoAct_ed_louNum;
+//        } else if (view.getId() == R.id.autoAct_ed_menNum) {
+//            Log.d(Tag, "们");
+//            ed_MenNum.requestFocus();
+////            ed_Name.setFocusable(false);
+////            ed_PutverifyCode.setFocusable(false);
+////            ed_MenNum.setChecked(true);
+////            ed_LouNum.setChecked(false);
+////            ed_DanyuanNum.setChecked(false);
+////            ed_PutverifyCode.setFocusable(false);
+//            mDoorNumList.clear();
+//            setDoorNum();
+//            ClickId = R.id.autoAct_ed_menNum;
 //
-//                break;
-//            case R.id.autoAct_ed_danyuanNum://单元号
-////                ed_DanyuanNum.setChecked(true);
+//        } else if (view.getId() == R.id.autoAct_ed_danyuanNum) {
+//            Log.d(Tag, "单元");
+//            ed_DanyuanNum.requestFocus();
+////            ed_Name.setFocusable(false);
+////            ed_PutverifyCode.setFocusable(false);
+////            ed_DanyuanNum.setChecked(true);
+////            ed_LouNum.setChecked(false);
+////            ed_MenNum.setChecked(false);
+////            ed_Name.setFocusable(false);
+////            ed_PutverifyCode.setFocusable(false);
 ////                ed_LouNum.toggle();
-//                mUnitNumList.clear();
-//                setUnitNum();
-//                ClickId = R.id.autoAct_ed_danyuanNum;
-//                break;
-//            case R.id.autoAct_ed_menNum://门牌号
-////                ed_MenNum.setChecked(true);
-//                mDoorNumList.clear();
-//                setDoorNum();
-//                ClickId = R.id.autoAct_ed_menNum;
+//            mUnitNumList.clear();
+//            setUnitNum();
+//            ClickId = R.id.autoAct_ed_danyuanNum;
+//        } else if (view.getId() == R.id.autoAct_ed_name) {
+//            Log.d(Tag, "名");
+////            ed_PutverifyCode.setFocusable(false);
+////            ed_Name.setFocusable(true);
+////            ed_PutverifyCode.se
+//            ClickId = R.id.autoAct_ed_name;
+//        } else if (view.getId() == R.id.auto_getviryCode) {
+//            Log.d(Tag, "获取");
+//            ClickId = R.id.auto_getviryCode;
+//            ed_LouNum.setChecked(false);
+//            ed_MenNum.setChecked(false);
+//            ed_DanyuanNum.setChecked(false);
+//            getVerifyCode();
+//        } else if (view.getId() == R.id.autoAct_telNum) {
+//            Log.d(Tag, "手机号");
+//            Toast.makeText(getActivity(), "系统要求使用注册手机号进行验证", Toast.LENGTH_SHORT).show();
+//            ed_LouNum.setChecked(false);
+//            ed_MenNum.setChecked(false);
+//            ed_DanyuanNum.setChecked(false);
+//            ClickId = R.id.autoAct_telNum;
+//        } else if (view.getId() == R.id.autoAct_putverifyCode) {
+//            Log.d(Tag, "put");
+////            ed_LouNum.setChecked(false);
+////            ed_MenNum.setChecked(false);
+////            ed_DanyuanNum.setChecked(false);
+////            ed_Name.setFocusable(false);
+////            ed_PutverifyCode.requestFocus();
+////            ed_PutverifyCode.setFocusable(true);
+//            ClickId = R.id.autoAct_putverifyCode;
+//        } else if (view.getId() == R.id.autoAct_commit) {
+//            Log.d(Tag, "ti");
+////                autoAct_commit:// 提交
+//            ed_LouNum.setChecked(false);
+//            ed_MenNum.setChecked(false);
+//            ed_DanyuanNum.setChecked(false);
+//            ClickId = R.id.autoAct_commit;
+//            toCommitData();
+//        } else if (view.getId() == R.id.autoAct_ed_idZ) {
+//            Log.d(Tag, "id z");
+//            ed_LouNum.setChecked(false);
+//            ed_MenNum.setChecked(false);
+//            ed_DanyuanNum.setChecked(false);
+//            ClickId = R.id.autoAct_ed_idZ;
+//            if (mPhotoPopupWindow == null) {
+//                mPhotoPopupWindow = HighCommunityUtils.GetInstantiation()
+//                        .ShowPhotoPopupWindow(getActivity(), mPhoto, mFile);
+//            }
+//            mPhotoPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0,
+//                    HighCommunityApplication.SoftKeyHight);
 //
-//                break;
-                case R.id.auto_getviryCode://获取验证码
-                    ClickId = R.id.auto_getviryCode;
-                    getVerifyCode();
+//        } else if (view.getId() == R.id.autoAct_ed_idF) {
+//            Log.d(Tag, "id f");
+//            ed_LouNum.setChecked(false);
+//            ed_MenNum.setChecked(false);
+//            ed_DanyuanNum.setChecked(false);
+//            ClickId = R.id.autoAct_ed_idF;
+//            if (mPhotoPopupWindow == null) {
+//                mPhotoPopupWindow = HighCommunityUtils.GetInstantiation()
+//                        .ShowPhotoPopupWindow(getActivity(), mPhoto, mFile);
+//            }
+//            mPhotoPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0,
+//                    HighCommunityApplication.SoftKeyHight);
+//
+//        } else if (view.getId() == R.id.autoAct_eproperty) {
+//            Log.d(Tag, " e");
+//            ed_LouNum.setChecked(false);
+//            ed_MenNum.setChecked(false);
+//            ed_DanyuanNum.setChecked(false);
+//            ClickId = R.id.autoAct_eproperty;
+//            if (mPhotoPopupWindow == null) {
+//                mPhotoPopupWindow = HighCommunityUtils.GetInstantiation()
+//                        .ShowPhotoPopupWindow(getActivity(), mPhoto, mFile);
+//            }
+//            mPhotoPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0,
+//                    HighCommunityApplication.SoftKeyHight);
+//
+//        }
+//    }
 
-                    break;
-                case R.id.autoAct_telNum://填写电话
-                    Toast.makeText(getActivity(), "系统要求使用注册手机号进行验证", Toast.LENGTH_SHORT).show();
-                    ClickId = R.id.autoAct_telNum;
-                    break;
-                case R.id.autoAct_putverifyCode://写验证码
-                    ClickId = R.id.autoAct_putverifyCode;
-                    break;
-                case R.id.autoAct_commit:// 提交
-                    ClickId = R.id.autoAct_commit;
-                    toCommitData();
-                    break;
-                case R.id.autoAct_ed_idZ:
-                    ClickId = R.id.autoAct_ed_idZ;
-                    if (mPhotoPopupWindow == null) {
-                        mPhotoPopupWindow = HighCommunityUtils.GetInstantiation()
-                                .ShowPhotoPopupWindow(getActivity(), mPhoto, mFile);
-                    }
-                    mPhotoPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0,
-                            HighCommunityApplication.SoftKeyHight);
-
-                    break;
-                case R.id.autoAct_ed_idF:
-                    ClickId = R.id.autoAct_ed_idF;
-                    if (mPhotoPopupWindow == null) {
-                        mPhotoPopupWindow = HighCommunityUtils.GetInstantiation()
-                                .ShowPhotoPopupWindow(getActivity(), mPhoto, mFile);
-                    }
-                    mPhotoPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0,
-                            HighCommunityApplication.SoftKeyHight);
-
-                    break;
-                case R.id.autoAct_eproperty:
-                    ClickId = R.id.autoAct_eproperty;
-                    if (mPhotoPopupWindow == null) {
-                        mPhotoPopupWindow = HighCommunityUtils.GetInstantiation()
-                                .ShowPhotoPopupWindow(getActivity(), mPhoto, mFile);
-                    }
-                    mPhotoPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0,
-                            HighCommunityApplication.SoftKeyHight);
-
-                    break;
-
-            }
-        }
-    }
 
     List<String> mDoorNumList = new ArrayList<String>();
     ECListDialog mDoorChoice;
     String mDoorId;
+
     /**
      * 设置门牌号
      */
@@ -301,7 +395,7 @@ String village_id;
                 @Override
                 public void onDialogItemClick(Dialog d, int position) {
                     ed_MenNum.setText(mDoorNumList.get(position));
-                    mDoorId=mDoorList.get(position).getDoor_id();
+                    mDoorId = mDoorList.get(position).getDoor_id();
                     Log.d(Tag, "ed_MenNum--" + ed_MenNum.getText().toString());
                 }
             });
@@ -363,7 +457,12 @@ String village_id;
         });
         mBuildingChoice.show();
     }
-    int quID = 0;   int louID = 0; int UnitID = 0; int doorID = 0;
+
+    int quID = 0;
+    int louID = 0;
+    int UnitID = 0;
+    int doorID = 0;
+
     /**
      * 提交数据
      */
@@ -433,37 +532,35 @@ String village_id;
 //                .ShowWaittingPopupWindow(getActivity(), mAvatar, Gravity.CENTER);
 
 
-
         HTTPHelper.Auto_Commit(mCommitIbpi, name, village_id, mBuildingID, mUnitID, mDoorId, tel, captcha, idZUri, idFUri, epropertyUri);
 
-        RequestParams mParamMap = new RequestParams(getBaseParamMap());
-        mParamMap.put("name", name);
-        mParamMap.put("village_id", quStr);
-        mParamMap.put("building_id", louStr);
-        mParamMap.put("unit_id", UnitStr);
-        mParamMap.put("door_id", doorStr);
-        mParamMap.put("tel", tel);
-        mParamMap.put("captcha", captcha);
-        try {
-            mParamMap.put("IDCard", ImageUtil.getImage(idZUri));
-            mParamMap.put("IDCard_F", ImageUtil.getImage(idFUri));
-            mParamMap.put("house_certificate", ImageUtil.getImage(epropertyUri));
-        } catch (FileNotFoundException e) {
-
-        }
-//        Toast.makeText(getActivity(),"提交数据："+mParamMap.toString(),Toast.LENGTH_SHORT).show();
-        Log.d(Tag,"提交数据："+mParamMap.toString());
-//        Debug.verbose(DongConstants.EDUCATIONHTTPTAG, "URL:" + url
-//                + "   ling params:" + mParamMap.toString());
+//        RequestParams mParamMap = new RequestParams(getBaseParamMap());
+//        mParamMap.put("name", name);
+//        mParamMap.put("village_id", quStr);
+//        mParamMap.put("building_id", louStr);
+//        mParamMap.put("unit_id", UnitStr);
+//        mParamMap.put("door_id", doorStr);
+//        mParamMap.put("tel", tel);
+//        mParamMap.put("captcha", captcha);
+//        try {
+//            mParamMap.put("IDCard", ImageUtil.getImage(idZUri));
+//            mParamMap.put("IDCard_F", ImageUtil.getImage(idFUri));
+//            mParamMap.put("house_certificate", ImageUtil.getImage(epropertyUri));
+//        } catch (FileNotFoundException e) {
+//
+//        }
+////        Toast.makeText(getActivity(),"提交数据："+mParamMap.toString(),Toast.LENGTH_SHORT).show();
+//        Log.d(Tag, "提交数据：" + mParamMap.toString());
+////        Debug.verbose(DongConstants.EDUCATIONHTTPTAG, "URL:" + url
+////                + "   ling params:" + mParamMap.toString());
 
     }
-
 
 
     private static HashMap<String, String> getBaseParamMap() {
         HashMap<String, String> maps = new HashMap<String, String>();
         if (!TextUtils.isEmpty((HighCommunityApplication.mUserInfo.getToken())))
-            LogUtil.d("------User token------"+HighCommunityApplication.mUserInfo.getToken());
+            LogUtil.d("------User token------" + HighCommunityApplication.mUserInfo.getToken());
         maps.put("token", HighCommunityApplication.mUserInfo.getToken());
         return maps;
     }
@@ -489,6 +586,109 @@ String village_id;
 //            HighCommunityUtils.GetInstantiation().ShowToast(
 //                    "请输入正确的电话号码", 0);
 //        }
+    }
+
+    @OnClick({R.id.autoAct_ed_name, R.id.autoAct_ed_quName, R.id.autoAct_ed_louNum, R.id.autoAct_ed_danyuanNum, R.id.autoAct_ed_menNum, R.id.autoAct_ed_idZ, R.id.autoAct_ed_idF, R.id.autoAct_eproperty, R.id.auto_getviryCode, R.id.autoAct_telNum, R.id.autoAct_putverifyCode, R.id.autoAct_commit})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.autoAct_ed_name:
+                ed_Name.setFocusable(true);
+                setFouce(ed_Name);
+                setFouce(ed_Name);
+//                ed_Name.setFocusableInTouchMode(true);
+//                ed_Name.requestFocus();
+                ClickId = R.id.autoAct_ed_name;
+                break;
+            case R.id.autoAct_ed_quName:
+                setFouce(ed_QuName);
+                break;
+            case R.id.autoAct_ed_louNum:
+                setFouce(ed_LouNum);
+
+//                mmBuildingNums.clear();
+////            Toast.makeText(getActivity(), "楼栋号被点击", Toast.LENGTH_SHORT).show();
+//                setBuildingNum();
+                ClickId = R.id.autoAct_ed_louNum;
+                break;
+            case R.id.autoAct_ed_danyuanNum:
+                setFouce(ed_DanyuanNum);
+
+//                mUnitNumList.clear();
+//                setUnitNum();
+                ClickId = R.id.autoAct_ed_danyuanNum;
+                break;
+            case R.id.autoAct_ed_menNum:
+                setFouce(ed_MenNum);
+
+//                mDoorNumList.clear();
+//                setDoorNum();
+                ClickId = R.id.autoAct_ed_menNum;
+                break;
+            case R.id.autoAct_ed_idZ:
+                setFouce(img_IdZ);
+                ClickId = R.id.autoAct_ed_idZ;
+                if (mPhotoPopupWindow == null) {
+                    mPhotoPopupWindow = HighCommunityUtils.GetInstantiation()
+                            .ShowPhotoPopupWindow(getActivity(), mPhoto, mFile);
+                }
+                mPhotoPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0,
+                        HighCommunityApplication.SoftKeyHight);
+
+                break;
+            case R.id.autoAct_ed_idF:
+                setFouce(img_IdF);
+                ClickId = R.id.autoAct_ed_idF;
+                if (mPhotoPopupWindow == null) {
+                    mPhotoPopupWindow = HighCommunityUtils.GetInstantiation()
+                            .ShowPhotoPopupWindow(getActivity(), mPhoto, mFile);
+                }
+                mPhotoPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0,
+                        HighCommunityApplication.SoftKeyHight);
+
+                break;
+            case R.id.autoAct_eproperty:
+                setFouce(img_Eproperty);
+                ClickId = R.id.autoAct_eproperty;
+                if (mPhotoPopupWindow == null) {
+                    mPhotoPopupWindow = HighCommunityUtils.GetInstantiation()
+                            .ShowPhotoPopupWindow(getActivity(), mPhoto, mFile);
+                }
+                mPhotoPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0,
+                        HighCommunityApplication.SoftKeyHight);
+
+                break;
+            case R.id.auto_getviryCode:
+//                setFouce(img_Eproperty);
+                ClickId = R.id.auto_getviryCode;
+                getVerifyCode();
+                break;
+            case R.id.autoAct_telNum:
+                Toast.makeText(getActivity(), "系统要求使用注册手机号进行验证", Toast.LENGTH_SHORT).show();
+                ClickId = R.id.autoAct_telNum;
+                break;
+            case R.id.autoAct_putverifyCode:
+                setFouce(ed_PutverifyCode);
+                ClickId = R.id.autoAct_putverifyCode;
+                break;
+            case R.id.autoAct_commit:
+                ClickId = R.id.autoAct_commit;
+                toCommitData();
+                break;
+        }
+    }
+
+    private void setFouce(View view) {
+        view.setFocusable(true);
+        view.requestFocus();
+        view.setFocusableInTouchMode(true);
+        if (getActivity().getCurrentFocus() != null && getActivity().getCurrentFocus().getWindowToken() != null) {
+           Log.d(Tag,"!=null");
+            InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            Log.d(Tag,"=null ");
+        }
+
+//        getActivity().getCurrentFocus() = null;
     }
 
     /**
@@ -526,9 +726,11 @@ String village_id;
 
         @Override
         public void onSuccess(Object message) {
+
+
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(),
                     0);
-getActivity().onBackPressed();
+            getActivity().onBackPressed();
 
 //			mLoadingView.loadSuccess();
 //			mLoadingView.setVisibility(View.GONE);
@@ -884,5 +1086,22 @@ getActivity().onBackPressed();
 
     private boolean isNoNetwork;
 
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+
+        activityMain.setFocusable(true);
+        activityMain.setFocusableInTouchMode(true);
+        activityMain.requestFocus();
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (getActivity().getCurrentFocus() != null && getActivity().getCurrentFocus().getWindowToken() != null) {
+                InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }
+
+
+        return false;
+    }
 
 }

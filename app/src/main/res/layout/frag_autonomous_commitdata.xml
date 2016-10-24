@@ -2,6 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:id="@+id/commitLayout"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -80,7 +84,6 @@
                         android:layout_weight="1"
                         android:background="@drawable/bg_autoact_edittext"
                         android:clickable="false"
-                        android:focusable="false"
                         android:paddingBottom="10dp"
                         android:paddingLeft="12dp"
                         android:paddingTop="10dp"
@@ -115,7 +118,7 @@
 
                     <CheckedTextView
                         android:id="@+id/autoAct_ed_louNum"
-                        style="@style/autoact_edittext_and_textview"
+                        style="@style/autoact_edittext_and_textview2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -151,7 +154,7 @@
 
                     <CheckedTextView
                         android:id="@+id/autoAct_ed_danyuanNum"
-                        style="@style/autoact_edittext_and_textview"
+                        style="@style/autoact_edittext_and_textview2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -188,7 +191,7 @@
 
                     <CheckedTextView
                         android:id="@+id/autoAct_ed_menNum"
-                        style="@style/autoact_edittext_and_textview"
+                        style="@style/autoact_edittext_and_textview2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -431,7 +434,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
-                android:text="注:带*号为必填选项，请完整"
+                android:text="注:带*号为必填选项，请完善"
                 android:textColor="#ff0000" />
 
             <View

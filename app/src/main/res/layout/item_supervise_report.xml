@@ -14,7 +14,7 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:text="content"
-        android:textSize="14sp"
+        android:textSize="16sp"
 
         />
 
@@ -27,7 +27,7 @@
         android:layout_marginBottom="@dimen/margin_12"
         android:text="2016/10/11"
         android:layout_marginTop="12dp"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textColor="@color/Defult_Color_Grey" />
 
 

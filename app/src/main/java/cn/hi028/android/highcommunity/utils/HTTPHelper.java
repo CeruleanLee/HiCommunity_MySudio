@@ -1596,11 +1596,11 @@ public class HTTPHelper {
     }
 
     /**
-     * 获取自治大厅提案列表
+     * 获取自治大厅支持提案
      * @param mIbpi
      */
     public static void SupportMotion(BpiHttpHandler.IBpiHttpHandler mIbpi,String id) {
-        String url = HTTPPOSTURL + "ywatch/suggest.html";
+        String url = HTTPPOSTURL + "ysuggest/suggest.html";
         HashMap<String, String> maps = new HashMap<String, String>();
         if (HighCommunityApplication.mUserInfo.getId()!=-1)
             LogUtil.d("------User token------" + HighCommunityApplication.mUserInfo.getToken());

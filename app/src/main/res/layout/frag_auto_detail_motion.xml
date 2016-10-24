@@ -25,8 +25,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="12dp"
-                android:text="aaa"
-                android:textSize="16sp"
+                android:text=""
+                android:textSize="18sp"
                 android:textStyle="bold"
 
                 />
@@ -37,9 +37,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
-                android:text="vcd"
+                android:text=""
                 android:textColor="@color/Defult_Color_MidGrey"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
 
             <TextView
@@ -49,8 +49,8 @@
                 android:layout_marginTop="14dp"
                 android:lineSpacingExtra="3dp"
                 android:lineSpacingMultiplier="1.5"
-                android:text="afsdf"
-                android:textSize="14dp" />
+                android:text=""
+                android:textSize="16dp" />
 
 
         </LinearLayout>
@@ -61,8 +61,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/motiondetail_layout0"
-            android:text="2016.03.3"
-            android:textSize="12sp"
+            android:text=""
+            android:textSize="15sp"
 
             />
 
@@ -84,8 +84,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:text="支持率：1.2%"
-                android:textSize="12sp" />
+                android:text=""
+                android:textSize="15sp" />
 
             <CheckedTextView
                 android:id="@+id/item_aotumotion_but_support"
@@ -94,11 +94,11 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="@dimen/margin_12"
                 android:background="@drawable/bg_coner_button_selector"
-                android:paddingBottom="2dp"
-                android:paddingTop="2dp"
+                android:paddingBottom="3dp"
+                android:paddingTop="3dp"
                 android:text="  支持  "
                 android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textSize="15sp"
 
                 />
         </LinearLayout>

@@ -4,7 +4,7 @@
     android:id="@+id/ll_labellayout_mainlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_new_bg"
+    android:background="@mipmap/img_label_bg"
     android:orientation="vertical">
 
     <RelativeLayout

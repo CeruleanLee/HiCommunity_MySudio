@@ -9,10 +9,12 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,18 +64,19 @@ public class AutoDetail_Motion extends BaseFragment {
     TextView mTime;
     @Bind(R.id.motiondetail_vote_percent)
     TextView mVotePercent;
-
+    View rootView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.d(Tag + "onCreateView");
-        View view = inflater.inflate(R.layout.frag_auto_detail_motion, null);
-        ButterKnife.bind(this, view);
+
+        rootView = inflater.inflate(R.layout.frag_auto_detail_motion, null);
+        ButterKnife.bind(this, rootView);
         Bundle bundle = getArguments();
         motion_id = bundle.getString("motion_id");
         Log.d(Tag, "motion_id:" + motion_id);
 
         initView();
-        return view;
+        return rootView;
     }
 
 
@@ -141,11 +144,11 @@ public class AutoDetail_Motion extends BaseFragment {
         mContent.setText("\u3000\u3000"+mBean.getContent());
         mTime.setText(TimeUtil.getYearMonthDay(Long.parseLong(mBean.getCreate_time())));
         mVotePercent.setText("支持率："+mBean.getVote_percent()+"%");
-        if (mBean.getIsSuggest()=="1") {
+        if (mBean.getIsSuggest().equals("1")) {
             but_Support.setChecked(true);
             but_Support.setText(" 已支持 ");
 
-        }else if (mBean.getIsSuggest()=="0"){
+        }else if (mBean.getIsSuggest().equals("0")){
             but_Support.setChecked(false);
             but_Support.setText(" 支持 ");
         }
@@ -165,11 +168,12 @@ public class AutoDetail_Motion extends BaseFragment {
         super.onPause();
         LogUtil.d(Tag + "onPause");
     }
-
+    private PopupWindow mWatingWindow;
     @Override
     public void onResume() {
         super.onResume();
         LogUtil.d(Tag + "onResume");
+        initDatas();
 
         //		mLoadingView.startLoading();
 //        registNetworkReceiver();
@@ -179,6 +183,7 @@ public class AutoDetail_Motion extends BaseFragment {
     @OnClick(R.id.item_aotumotion_but_support)
     public void onClick() {
 
+        mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), rootView, Gravity.CENTER);
 
         HTTPHelper.SupportMotion(mSuuportIbpi,mBean.getId());
 
@@ -187,6 +192,7 @@ public class AutoDetail_Motion extends BaseFragment {
     BpiHttpHandler.IBpiHttpHandler mSuuportIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
+            mWatingWindow.dismiss();
             LogUtil.d(Tag + "---~~~onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
 
@@ -195,10 +201,11 @@ public class AutoDetail_Motion extends BaseFragment {
         @Override
         public void onSuccess(Object message) {
             LogUtil.d(Tag + "onSuccess");
-
+            mWatingWindow.dismiss();
+            HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
            but_Support.setChecked(true);
             but_Support.setText("已支持");
-            Toast.makeText(getActivity(),"已支持",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(),"已支持",Toast.LENGTH_SHORT).show();
 
         }
 
@@ -213,7 +220,7 @@ public class AutoDetail_Motion extends BaseFragment {
 
         @Override
         public void cancleAsyncTask() {
-
+            mWatingWindow.dismiss();
         }
     };
 

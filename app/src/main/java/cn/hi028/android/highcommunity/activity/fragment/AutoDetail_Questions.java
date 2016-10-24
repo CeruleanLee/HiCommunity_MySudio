@@ -16,12 +16,14 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,12 +77,14 @@ public class AutoDetail_Questions extends BaseFragment {
     int type;
     @Bind(R.id.watchResult)
     Button mWatchResult;
+    View rootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.d(Tag + "onCreateView");
-        View view = inflater.inflate(R.layout.frag_auto_detail_questions, null);
-        ButterKnife.bind(this, view);
+
+        rootView = inflater.inflate(R.layout.frag_auto_detail_questions, null);
+        ButterKnife.bind(this, rootView);
         Bundle bundle = getArguments();
         question_id = bundle.getString("question_id");
         is_voted = bundle.getInt("is_voted");
@@ -88,12 +92,13 @@ public class AutoDetail_Questions extends BaseFragment {
         Log.d(Tag, "question_id:" + question_id);
 
         initView();
-        return view;
+        return rootView;
     }
 
     AutoDetail_QuestionVotedBean.QuestionVotedDataEntity mAnswersBean;
     List<String> radioAnswers;
-    List<String>  mutilOptionsAnswers;
+    List<String> mutilOptionsAnswers;
+
     private void initView() {
         mContext = getActivity();
         mInflater = LayoutInflater.from(mContext);
@@ -105,14 +110,16 @@ public class AutoDetail_Questions extends BaseFragment {
 //        mList = new ArrayList<Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity>();
 //        mAdapter = new Auto_ReportDetailAdapter(mList, getActivity(), this);
         mSubmit.setOnClickListener(new submitOnClickListener());
-
+        questionList=new ArrayList<Auto_QuestionDeatailBean.QuestionDeatailDataEntity.QuestionDeatailTitlesEntity>();
+        answerList=new ArrayList<Auto_QuestionDeatailBean.QuestionDeatailDataEntity.QuestionDeatailTitlesEntity.QuestionDeatailOptionsEntity>();
         initDatas();
     }
 
 
     private void initDatas() {
 
-
+        questionList.clear();
+        answerList.clear();
         if (is_voted == 1) {
 
             HTTPHelper.GetQuestionAnswerArray(mAnswersIbpi, question_id);
@@ -166,10 +173,10 @@ public class AutoDetail_Questions extends BaseFragment {
                 TextView txt_que = (TextView) que_view.findViewById(R.id.txt_question_item);
                 //答案选项要加入的 布局
                 LinearLayout add_layout = (LinearLayout) que_view.findViewById(R.id.lly_answer);
-                if (questionList.get(i).getMax_option()==null){
-                    questionList.get(i).setMax_option(-1+"");
+                if (questionList.get(i).getMax_option() == null) {
+                    questionList.get(i).setMax_option(-1 + "");
                 }
-                if (questionList.get(i).getType().equals("1")||questionList.get(i).getMax_option().equals("1")) {//单选
+                if (questionList.get(i).getType().equals("1") || questionList.get(i).getMax_option().equals("1")) {//单选
                     set(txt_que, i + 1 + "." + "\u3000" + questionList.get(i).getName(), 0);
 
                 } else {
@@ -178,9 +185,9 @@ public class AutoDetail_Questions extends BaseFragment {
                 }
                 answerList = questionList.get(i).getOptions();
 //                radioAnswers, mutilOptionsAnswers
-                if (is_voted == 1 ) {
+                if (is_voted == 1) {
                     Log.d(Tag, "准备已参与布局");
-                    if (questionList.get(i).getType().equals("1")&&radioAnswers!=null) {//单选
+                    if (questionList.get(i).getType().equals("1") && radioAnswers != null) {//单选
 //                        set(txt_que, questionList.get(i).getName(), 0);
                         for (int x = 0; x < answerList.size(); x++) {
                             Log.d(Tag, "1 answerList.get(x).getId()--->" + answerList.get(x).getId());
@@ -193,7 +200,7 @@ public class AutoDetail_Questions extends BaseFragment {
                                 ;
                             }
                         }
-                    } else if(questionList.get(i).getType().equals("2")&&mutilOptionsAnswers!=null) {
+                    } else if (questionList.get(i).getType().equals("2") && mutilOptionsAnswers != null) {
                         for (int x = 0; x < answerList.size(); x++) {
                             Log.d(Tag, "2 answerList.get(x).getId()--->" + answerList.get(x).getId());
                             for (int y = 0; y < mutilOptionsAnswers.size(); y++) {
@@ -274,14 +281,14 @@ public class AutoDetail_Questions extends BaseFragment {
 //            mList = (List<Auto_NoticeListBean.NoticeListDataEntity>) message;
 //            mAdapter.AddNewData(mList);
 //            mListview.setAdapter(mAdapter);
-            if (is_voted==1){
+            if (is_voted == 1) {
 
                 mSubmit.setVisibility(View.GONE);
-                if (type==1){
+                if (type == 1) {
 
                     mback.setVisibility(View.VISIBLE);
                     mWatchResult.setVisibility(View.GONE);
-                }else{
+                } else {
                     mWatchResult.setVisibility(View.VISIBLE);
                     mback.setVisibility(View.GONE);
                 }
@@ -310,7 +317,10 @@ public class AutoDetail_Questions extends BaseFragment {
 
         }
     };
-/**设置文字后缀**/
+
+    /**
+     * 设置文字后缀
+     **/
     private void set(TextView tv_test, String content, int type) {
         //为了加载问题后面的* 和*多选
         // TODO Auto-generated method stub
@@ -333,7 +343,7 @@ public class AutoDetail_Questions extends BaseFragment {
         tv_test.setText(word);
     }
 
-    @OnClick({ R.id.back, R.id.watchResult})
+    @OnClick({R.id.back, R.id.watchResult})
     public void onClick(View view) {
         switch (view.getId()) {
 //            case R.id.submit:
@@ -342,13 +352,12 @@ public class AutoDetail_Questions extends BaseFragment {
                 getActivity().onBackPressed();
                 break;
             case R.id.watchResult:
-Intent mIntent=new Intent(getActivity(), AutoAct_Four.class);
-                mIntent.putExtra("vote_id",question_id);
+                Intent mIntent = new Intent(getActivity(), AutoAct_Four.class);
+                mIntent.putExtra("vote_id", question_id);
                 getActivity().startActivity(mIntent);
                 break;
         }
     }
-
 
 
     class answerItemOnClickListener implements View.OnClickListener {
@@ -486,32 +495,34 @@ Intent mIntent=new Intent(getActivity(), AutoAct_Four.class);
 
             }
             if (isState) {
-                if (jsonArray.size()> 0) {
+                if (jsonArray.size() > 0) {
                     Log.e("af", jsonArray.toString());
-                    Log.e(Tag,"mAnswerList--->"+mAnswerList.toString());
+                    Log.e(Tag, "mAnswerList--->" + mAnswerList.toString());
                     JSONArray mJsonArray = new JSONArray();
-                    JSONObject jsonObject_inner=null;
-                    for (int z = 0; z <mAnswerList.size() ; z++) {
+                    JSONObject jsonObject_inner = null;
+                    for (int z = 0; z < mAnswerList.size(); z++) {
 
                         jsonObject_inner = new JSONObject();
 //                        JSONArray jsonArray_Inner = JSONArray.fromObject(mAnswerList.get(z).getMutilOptionId());
                         JSONArray jsonArray_Inner = new JSONArray();
-                        List<String> MutilOptionId=mAnswerList.get(z).getMutilOptionId();
-                        for (int w = 0; w <MutilOptionId.size() ; w++) {
+                        List<String> MutilOptionId = mAnswerList.get(z).getMutilOptionId();
+                        for (int w = 0; w < MutilOptionId.size(); w++) {
                             jsonArray_Inner.add(MutilOptionId.get(w));
                         }
 
-                        jsonObject_inner.put(mAnswerList.get(z).getId(),jsonArray_Inner);
+                        jsonObject_inner.put(mAnswerList.get(z).getId(), jsonArray_Inner);
 //
                         mJsonArray.add(jsonObject_inner);
                     }
-                    Log.e(Tag,"mJsonArray--->"+mJsonArray.toString());
+                    Log.e(Tag, "mJsonArray--->" + mJsonArray.toString());
 
-                    if (mJsonArray.size()==1&&Integer.parseInt(questionList.get(0).getMax_option())!=0&&mAnswerList.get(0).getMutilOptionId().size()>Integer.parseInt(questionList.get(0).getMax_option())){
-                        Toast.makeText(getActivity(),"最多可选"+questionList.get(0).getMax_option()+"项",Toast.LENGTH_SHORT).show();
-                       return;
+                    if (mJsonArray.size() == 1 && Integer.parseInt(questionList.get(0).getMax_option()) != 0 && mAnswerList.get(0).getMutilOptionId().size() > Integer.parseInt(questionList.get(0).getMax_option())) {
+                        Toast.makeText(getActivity(), "最多可选" + questionList.get(0).getMax_option() + "项", Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                    HTTPHelper.commitAnswers(mCommentIbpi,question_id,mJsonArray.toString());
+                    mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), rootView, Gravity.CENTER);
+
+                    HTTPHelper.commitAnswers(mCommentIbpi, question_id, mJsonArray.toString());
 //                    HTTPHelper.GetQuestionDetail(mIbpi, question_id);
 //                    JSONObject tmpObj = null;
 //
@@ -558,20 +569,22 @@ Intent mIntent=new Intent(getActivity(), AutoAct_Four.class);
         }
     }
 
+    private PopupWindow mWatingWindow;
     BpiHttpHandler.IBpiHttpHandler mCommentIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-
+            mWatingWindow.dismiss();
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
 //            mAdapter.notifyDataSetChanged();
         }
 
         @Override
         public void onSuccess(Object message) {
+            mWatingWindow.dismiss();
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
-is_voted=1;
-//            getView().re
-            questionList.clear();answerList.clear();
+            is_voted = 1;
+            questionList.clear();
+            answerList.clear();
             initDatas();
         }
 
@@ -589,7 +602,7 @@ is_voted=1;
 
         @Override
         public void cancleAsyncTask() {
-
+            mWatingWindow.dismiss();
         }
     };
 

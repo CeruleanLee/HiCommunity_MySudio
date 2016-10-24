@@ -243,9 +243,30 @@ OnClickListener, PayPop2FragFace {
 				}
 			}
 		});
+		toSeeMoreLayout.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (toSeeMore.isChecked()) {
+					moreDetailGroup.setVisibility(View.VISIBLE);
+					top_view.invalidate();
+					LogUtil.d("~~~ 准备滑动top_view.getHeight() "+top_view.getHeight()+"---height="+height);
+					mHandler.post(new Runnable() {
+						@Override
+						public void run() {
+							((ScrollView) top_view).fullScroll(ScrollView.FOCUS_DOWN);
+						}
+					});
+					//					mcoySnapPageLayout.scrollTo(0,top_view.getBottom());
+					//					LogUtil.d("~~~ 准备滑动完成"+scrollText.getX()+"---scrollText.getY()="+scrollText.getY());
+
+				}else{
+					moreDetailGroup.setVisibility(View.GONE);
+				}
+			}
+		});
 
 	}
-
+	RelativeLayout toSeeMoreLayout;
 	private void initView() {
 		caramount = (TextView) findViewById(R.id.ac_shop_count);
 		back = (ImageView) findViewById(R.id.ac_good_title_go_back);
@@ -272,6 +293,8 @@ OnClickListener, PayPop2FragFace {
 		edible_ = (TextView) top_view.findViewById(R.id.ac_shop_edible);
 		edible = (TextView) top_view.findViewById(R.id.ac_shop_edible_tv);
 		toSeeMore=(CheckBox) top_view.findViewById(R.id.toSeeMore);
+
+		toSeeMoreLayout=(RelativeLayout) top_view.findViewById(R.id.seemoreLayout);
 		moreDetailGroup=(ViewGroup) top_view.findViewById(R.id.moredetail_layout);
 		telephone = (TextView) top_view.findViewById(R.id.shop_detail_service_telephone);
 		time = (TextView) top_view.findViewById(R.id.ac_shop_detail_service_time);
