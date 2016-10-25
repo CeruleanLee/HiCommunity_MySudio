@@ -483,63 +483,63 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
         String doorStr = ed_MenNum.getText().toString().trim();
         String tel = ed_TelNum.getText().toString().trim();
         String captcha = ed_PutverifyCode.getText().toString().trim();
-//
-//        if (TextUtils.isEmpty(name)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("姓名不能为空", 0);
+
+        if (TextUtils.isEmpty(name)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("姓名不能为空", 0);
+            IsClicked = false;
+            return;
+        } else if (TextUtils.isEmpty(quStr)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("小区不能为空", 0);
+            IsClicked = false;
+            return;
+        } else if (TextUtils.isEmpty(louStr)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("楼栋不能为空", 0);
+            IsClicked = false;
+            return;
+        } else if (TextUtils.isEmpty(UnitStr)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("单元不能为空", 0);
+            IsClicked = false;
+            return;
+        } else if (TextUtils.isEmpty(doorStr)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("门牌号不能为空", 0);
+            IsClicked = false;
+            return;
+        } else if (TextUtils.isEmpty(tel)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("手机号不能为空", 0);
+            IsClicked = false;
+            return;
+//        } else if (!RegexValidateUtil.checkMobileNumber(tel)) {
+//            HighCommunityUtils.GetInstantiation().ShowToast("手机号格式不正确", 0);
 //            IsClicked = false;
 //            return;
-//        } else if (TextUtils.isEmpty(quStr)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("小区不能为空", 0);
-//            IsClicked = false;
-//            return;
-//        } else if (TextUtils.isEmpty(louStr)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("楼栋不能为空", 0);
-//            IsClicked = false;
-//            return;
-//        } else if (TextUtils.isEmpty(UnitStr)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("单元不能为空", 0);
-//            IsClicked = false;
-//            return;
-//        } else if (TextUtils.isEmpty(doorStr)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("门牌号不能为空", 0);
-//            IsClicked = false;
-//            return;
-//        } else if (TextUtils.isEmpty(tel)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("手机号不能为空", 0);
-//            IsClicked = false;
-//            return;
-////        } else if (!RegexValidateUtil.checkMobileNumber(tel)) {
-////            HighCommunityUtils.GetInstantiation().ShowToast("手机号格式不正确", 0);
-////            IsClicked = false;
-////            return;
-//
-//
-//        } else if (TextUtils.isEmpty(idZUri)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("身份证正面图片不能为空", 0);
-//            IsClicked = false;
-//            return;
-//        } else if (TextUtils.isEmpty(idFUri)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("身份证背面图片不能为空", 0);
-//            IsClicked = false;
-//            return;
-//        } else if (TextUtils.isEmpty(epropertyUri)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("产权证图片不能为空", 0);
-//            IsClicked = false;
-//            return;
-//        } else if (TextUtils.isEmpty(captcha)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("验证码不能为空", 0);
-//            IsClicked = false;
-//            return;
-//        }
+
+
+        } else if (TextUtils.isEmpty(idZUri)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("身份证正面图片不能为空", 0);
+            IsClicked = false;
+            return;
+        } else if (TextUtils.isEmpty(idFUri)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("身份证背面图片不能为空", 0);
+            IsClicked = false;
+            return;
+        } else if (TextUtils.isEmpty(epropertyUri)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("产权证图片不能为空", 0);
+            IsClicked = false;
+            return;
+        } else if (TextUtils.isEmpty(captcha)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("验证码不能为空", 0);
+            IsClicked = false;
+            return;
+        }
 //       mWaitingWindow = HighCommunityUtils
 //                .GetInstantiation()
 //                .ShowWaittingPopupWindow(getActivity(), mAvatar, Gravity.CENTER);
 
         mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, contentView, Gravity.CENTER);
 
-        mHandler.postDelayed(mRunnable, 20000); // 在Handler中执行子线程并延迟3s。
-
-//        HTTPHelper.Auto_Commit(mCommitIbpi, name, village_id, mBuildingID, mUnitID, mDoorId, tel, captcha, idZUri, idFUri, epropertyUri);
+//        mHandler.postDelayed(mRunnable, 20000); // 在Handler中执行子线程并延迟3s。
+//
+        HTTPHelper.Auto_Commit(mCommitIbpi, name, village_id, mBuildingID, mUnitID, mDoorId, tel, captcha, idZUri, idFUri, epropertyUri);
 
 //        RequestParams mParamMap = new RequestParams(getBaseParamMap());
 //        mParamMap.put("name", name);
@@ -579,9 +579,13 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
     private void getVerifyCode() {
         mCounter = new onCounter(60000, 1000);
         mCounter.start();
-//        HTTPHelper.Auto_Send(mIbpi, ed_TelNum.getText().toString());
-//        mWindow = HighCommunityUtils.GetInstantiation()
-//                .ShowWaittingPopupWindow(getActivity(), ed_TelNum, Gravity.CENTER);
+        HTTPHelper.Auto_Send(mIbpi, ed_TelNum.getText().toString());
+        mWindow = HighCommunityUtils.GetInstantiation()
+                .ShowWaittingPopupWindow(getActivity(), ed_TelNum, Gravity.CENTER);
+
+
+
+
 //        if (RegexValidateUtil.checkMobileNumber(ed_TelNum.getText()
 //                .toString())) {
 //            mCounter = new onCounter(60000, 1000);
@@ -716,8 +720,6 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
         }else{
 //            InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 //            manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-//manager.show
-
         }
 
     }
