@@ -1,11 +1,8 @@
 package cn.hi028.android.highcommunity.utils;
 
-import org.w3c.dom.Text;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -94,7 +91,7 @@ public class ShakeToastUtils extends Dialog {
             tv_ticket_use.setText(userType[shakeBean.getType() - 1]);
             tv_ticket.setText(shakeBean.getValue() + "");
             tv_use_num.setText(shakeBean.getValue() + "");
-            tv_use_type.setText(userType1[shakeBean.getType() - 1] + (shakeBean.getType() == 1 ? "折" : "元"));
+            tv_use_type.setText((shakeBean.getType() == 1 ? "折" : "元")+userType1[shakeBean.getType() - 1] );
         }
         tv.setText("确定");
         tv.setOnClickListener(new View.OnClickListener() {

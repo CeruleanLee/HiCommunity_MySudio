@@ -57,7 +57,7 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @时间：2016/10/11<br>
  */
 
-public class AutoDetail_Questions extends BaseFragment {
+public class AutoDetail_Votes extends BaseFragment {
     public static final String Tag = "~~~Detail_Questions:";
     public static final String FRAGMENTTAG = "AutoDetail_Questions";
 
@@ -184,6 +184,11 @@ public class AutoDetail_Questions extends BaseFragment {
                 if (questionList.get(i).getMax_option() == null) {
                     questionList.get(i).setMax_option(-1 + "");
                 }
+
+                if (questionList.get(i).getMax_option().equals("1")) {
+                    questionList.get(i).setType("1");
+
+                }
                 if (questionList.get(i).getType().equals("1") || questionList.get(i).getMax_option().equals("1")) {//单选
                     set(txt_que, i + 1 + "." + "\u3000" + questionList.get(i).getName(), 0);
 
@@ -238,7 +243,7 @@ public class AutoDetail_Questions extends BaseFragment {
                         line_view.setVisibility(View.GONE);
                     }
                     //判断单选多选加载不同选项图片
-                    if (questionList.get(i).getType().equals("2")&&!questionList.get(i).getMax_option().equals("1")) {
+                    if (questionList.get(i).getType().equals("2") && !questionList.get(i).getMax_option().equals("1")) {
 
                         //多选
                         if (answerList.get(j).getAns_state() == 0) {
@@ -333,10 +338,14 @@ public class AutoDetail_Questions extends BaseFragment {
         //为了加载问题后面的* 和*多选
         // TODO Auto-generated method stub
         String w;
-        if (questionList.size()==1){
-            if (questionList.get(0).getMax_option().equals("1")){return;}
-        }
+//        if (questionList.size() == 1) {
+            if (questionList.get(0).getMax_option().equals("1")) {
+                return;
+            }
+//        }
+
         if (type == 1) {
+
             w = content + " (可多选)";
         } else {
             w = content + "";
@@ -400,7 +409,7 @@ public class AutoDetail_Questions extends BaseFragment {
             }
             Log.e("----", "点击了---"+imglist.get(i).get(j));*/
 
-            if (questionList.get(i).getType().equals("2")) {
+            if (questionList.get(i).getType().equals("2") ) {
                 //多选
                 if (the_answer_lists.get(j).getAns_state() == 0) {
                     //如果未被选中

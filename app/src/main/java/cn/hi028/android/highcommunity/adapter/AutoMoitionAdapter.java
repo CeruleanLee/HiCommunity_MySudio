@@ -1,5 +1,6 @@
 package cn.hi028.android.highcommunity.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -38,8 +39,8 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
     List<Auto_MotionBean.MotionDataEntity> mList = new ArrayList<Auto_MotionBean.MotionDataEntity>();
     private Context context;
     private LayoutInflater layoutInflater;
-
-    public AutoMoitionAdapter(List<Auto_MotionBean.MotionDataEntity> list, Context context) {
+    View view;
+    public AutoMoitionAdapter(List<Auto_MotionBean.MotionDataEntity> list, Context context,View view) {
         super();
         this.mList = list;
         if (this.mList == null) {
@@ -47,6 +48,7 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
         }
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
+        this.view=view;
     }
 
     @Override
@@ -63,10 +65,10 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
     public long getItemId(int position) {
         return super.getItemId(position);
     }
+    ViewHolder mViewHolder=null;
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final ViewHolder mViewHolder;
         if (convertView == null) {
             mViewHolder = new ViewHolder();
             convertView = layoutInflater.inflate(R.layout.item_automotion, null);
@@ -100,15 +102,12 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
 //                mViewHolder.mBut_Support.setChecked(TURE);
 //                mViewHolder.mBut_Support.setChecked(true);
 //                mViewHolder.mBut_Support.setText("已支持");
-
-                mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, finalConvertView, Gravity.CENTER);
+                Activity act = (Activity) context;
+                mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, view, Gravity.CENTER);
 
                 HTTPHelper.SupportMotion(mIbpi,mBean.getId());
-                mViewHolder.mBut_Support.setChecked(true);
-                mViewHolder.mBut_Support.setText(" 已支持 ");
-
-
-
+//                mViewHolder.mBut_Support.setChecked(true);
+//                mViewHolder.mBut_Support.setText(" 已支持 ");
 
             }
         });
@@ -153,7 +152,7 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
     }
 
 
-    BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
+    public BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
             mWatingWindow.dismiss();
@@ -166,7 +165,11 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
         @Override
         public void onSuccess(Object message) {
             mWatingWindow.dismiss();
+            HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
+
             Toast.makeText(context,"已支持",Toast.LENGTH_SHORT).show();
+            mViewHolder.mBut_Support.setChecked(true);
+            mViewHolder.mBut_Support.setText(" 已支持 ");
 
 //            mList = (List<Auto_MotionBean.MotionDataEntity>) message;
 //            mAdapter.AddNewData(mList);

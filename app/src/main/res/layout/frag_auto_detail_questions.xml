@@ -1,41 +1,44 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+        <include
+            android:id="@+id/txt_progress"
+            layout="@layout/progress" />
         <TextView
             android:id="@+id/txt_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
             android:gravity="center_horizontal"
             android:textSize="18sp"
 
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/txt_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            android:lineSpacingExtra="3dp"
-            android:lineSpacingMultiplier="1.2"
-            android:textColor="#666666"
-            android:textSize="16sp"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            />
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="3dp"
+            android:lineSpacingMultiplier="1.2"
+            android:text=""
+            android:textColor="#666666"
+            android:textSize="16sp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/Defult_Color_LineGrey"/>
+            android:background="@color/Defult_Color_LineGrey" />
+
         <LinearLayout
             android:id="@+id/lly_test"
             android:layout_width="match_parent"
@@ -54,46 +57,48 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"
                 android:layout_marginBottom="30dp"
+                android:layout_marginTop="50dp"
                 android:background="@drawable/bg_coner_button_selector"
                 android:gravity="center"
-                android:text="  提交  "
-                android:visibility="gone"
-                android:textColor="@android:color/white"
-                android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:textSize="18sp" />
+                android:paddingTop="5dp"
+                android:text="  提交  "
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
             <Button
                 android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"
                 android:layout_marginBottom="30dp"
+                android:layout_marginTop="50dp"
                 android:background="@drawable/bg_coner_button_selector"
                 android:gravity="center"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
                 android:text="  返回  "
                 android:textColor="@android:color/white"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:visibility="gone"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:visibility="gone" />
+
             <Button
                 android:id="@+id/watchResult"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"
                 android:layout_marginBottom="30dp"
+                android:layout_marginTop="50dp"
                 android:background="@drawable/bg_coner_button_selector"
                 android:gravity="center"
-                android:visibility="gone"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
                 android:text="  查看结果  "
                 android:textColor="@android:color/white"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 

@@ -180,7 +180,7 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
     public void onResume() {
         super.onResume();
         LogUtil.d(Tag + "onResume");
-
+initDatas();
         //		mLoadingView.startLoading();
         registNetworkReceiver();
     }

@@ -418,13 +418,15 @@
 
             <TextView
                 android:id="@+id/autoAct_commit"
-                style="@style/autoact_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
+                android:background="@drawable/bg_coner_button_selector"
                 android:text="提交"
                 android:textColor="#ffffff"
                 android:textSize="12dp" />

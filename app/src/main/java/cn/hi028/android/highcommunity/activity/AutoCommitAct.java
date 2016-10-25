@@ -171,4 +171,5 @@ public class AutoCommitAct extends BaseFragmentActivity {
         layout_Checking.setVisibility(View.GONE);
         layout_CheckFail.setVisibility(View.GONE);
     }
+
 }

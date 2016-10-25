@@ -10,8 +10,8 @@ android {
         applicationId "cn.hi028.android.highcommunity"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 0
-        versionName "0.1.1"
+        versionCode 140
+        versionName "2.4.1"
     }
 
     signingConfigs {

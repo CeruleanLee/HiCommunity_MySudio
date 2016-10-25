@@ -144,17 +144,24 @@ public class AutoFrag_Vote extends BaseFragment {
                 }
             }
         });
+        listview_Vote.setVisibility(View.VISIBLE);
 
     }
 
     private void initDatas() {
 
-        HTTPHelper.GetAutoVoteList(mIbpi1, 1+"");
-        HTTPHelper.GetAutoVoteList(mIbpi2, 2+"");
+//        but_Question.setChecked(true);
+        HTTPHelper.GetAutoVoteList(mIbpi1, 1 + "");
+        HTTPHelper.GetAutoVoteList(mIbpi2, 2 + "");
 //        listview_Questions.setVisibility(View.VISIBLE);
-
+        if (but_Question.isChecked()) {
+            listview_Questions.setVisibility(View.GONE);
+            listview_Vote.setVisibility(View.VISIBLE);
+        } else if (but_Vote.isChecked()) {
+            listview_Questions.setVisibility(View.VISIBLE);
+            listview_Vote.setVisibility(View.GONE);
+        }
     }
-
 
     BpiHttpHandler.IBpiHttpHandler mIbpi2 = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
@@ -170,7 +177,7 @@ public class AutoFrag_Vote extends BaseFragment {
             mQuestionAdapter.ClearData();
             mQuestionAdapter.AddNewData(mQuestionList);
             listview_Questions.setAdapter(mQuestionAdapter);
-            listview_Vote.setVisibility(View.VISIBLE);
+//            listview_Vote.setVisibility(View.VISIBLE);
 
         }
 
@@ -202,7 +209,7 @@ public class AutoFrag_Vote extends BaseFragment {
             mVoteAdapter.ClearData();
             mVoteAdapter.AddNewData(mVoteList);
             listview_Vote.setAdapter(mVoteAdapter);
-            listview_Questions.setVisibility(View.GONE);
+//            listview_Questions.setVisibility(View.GONE);
         }
 
         @Override
@@ -223,9 +230,9 @@ public class AutoFrag_Vote extends BaseFragment {
     public void onResume() {
         super.onResume();
         LogUtil.d(Tag + "onResume");
-
+        initDatas();
         //		mLoadingView.startLoading();
-        registNetworkReceiver();
+//        registNetworkReceiver();
     }
 
     /****

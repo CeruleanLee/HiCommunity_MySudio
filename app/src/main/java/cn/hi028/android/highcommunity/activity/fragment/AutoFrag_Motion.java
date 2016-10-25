@@ -61,7 +61,7 @@ public class AutoFrag_Motion extends BaseFragment {
     void initView() {
         LogUtil.d(Tag + "initView");
         mList = new ArrayList<Auto_MotionBean.MotionDataEntity>();
-        mAdapter = new AutoMoitionAdapter(mList, getActivity());
+        mAdapter = new AutoMoitionAdapter(mList, getActivity(),getActivity().getWindow().getDecorView());
         mListview.setEmptyView(tv_Nodata);
         mListview.setAdapter(mAdapter);
         initDatas();

@@ -84,10 +84,9 @@ public class AutoFrag_NameList extends BaseFragment {
 
         mYWHList=new ArrayList<Auto_NameListBean.NameListDataEntity.YwhEntity>();
         mYWDBList=new ArrayList<Auto_NameListBean.NameListDataEntity.YzdbEntity>();
-        mYZList=new ArrayList<Auto_NameListBean.NameListDataEntity.YzEntity>();
         mYWHadapter=new AutoNamelist_YWHAdapter(mYWHList,getActivity());
         mYZDBadapter=new AutoNamelist_YZDBAdapter(mYWDBList,getActivity());
-        mYZadapter=new AutoNamelist_YZAdapter(mYZList,getActivity());
+
 
 //        mListCO.setEmptyView(mNodata);
 //        mListRe.setEmptyView(mNodata);
@@ -138,13 +137,23 @@ public class AutoFrag_NameList extends BaseFragment {
         public void onSuccess(Object message) {
 			LogUtil.d(Tag+"---~~~ initView   message:"+message);
             Auto_NameListBean.NameListDataEntity mBean = (Auto_NameListBean.NameListDataEntity) message;
+            if (mBean.getYz()!=null){
+
+                mOwner.setVisibility(View.VISIBLE);
+                mYZList=new ArrayList<Auto_NameListBean.NameListDataEntity.YzEntity>();
+                mYZadapter=new AutoNamelist_YZAdapter(mYZList,getActivity());
+                mYZadapter.AddNewData(mBean.getYz());
+                mListOwner.setAdapter(mYZadapter);
+            }else {
+                mOwner.setVisibility(View.GONE);
+
+            }
+            mRadioGroup.setVisibility(View.VISIBLE);
             mYWHadapter.AddNewData(mBean.getYwh());
             mYZDBadapter.AddNewData(mBean.getYzdb());
-            mYZadapter.AddNewData(mBean.getYz());
 
             mListCO.setAdapter(mYWHadapter);
             mListRe.setAdapter(mYZDBadapter);
-            mListOwner.setAdapter(mYZadapter);
             mFragContainer.setVisibility(View.VISIBLE);
             mListRe.setVisibility(View.GONE);
             mListOwner.setVisibility(View.GONE);
@@ -226,7 +235,7 @@ public class AutoFrag_NameList extends BaseFragment {
                     }
                     //有网络
                     LogUtils.d("有网络");
-                    initDatas();
+//                    initDatas();
                     isNoNetwork = false;
                 } else {
                     //没有网络

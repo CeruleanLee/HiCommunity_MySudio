@@ -5,10 +5,10 @@ package cn.hi028.android.highcommunity.bean;
  * 摇一摇对象
  */
 public class ShakeBean extends  BaseBean{
- public int   leftCount;
-    public int            win;
-    public int     type;
-    public String           value;
+ public int   leftCount; //剩余次数
+    public int            win;//0=未中奖,1=>中奖
+    public int     type;//类型:1=>物业折扣券,2=>直供现金券,3=>众筹现金券,4=>积分
+    public String           value;//面值或者折扣率
 
     public int getLeftCount() {
         return leftCount;

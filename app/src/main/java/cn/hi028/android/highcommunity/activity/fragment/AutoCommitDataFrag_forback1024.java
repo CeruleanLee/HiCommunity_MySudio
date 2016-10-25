@@ -12,8 +12,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -64,7 +62,7 @@ import cn.hi028.android.highcommunity.view.ECListDialog;
  * @时间：2016/10/11<br>
  */
 
-public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchListener{
+public class AutoCommitDataFrag_forback1024 extends BaseFragment implements   View.OnTouchListener{
     public static final String Tag = "~~~AutoCommit~~~";
     public static final String FRAGMENTTAG = "AutoCommitDataFrag";
 
@@ -192,7 +190,6 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
 //        but_Commit.setOnClickListener(this);
         activityMain.requestFocus();
         activityMain.setFocusable(true);
-
         activityMain.setOnTouchListener(this);
         ed_LouNum.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -473,7 +470,6 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
         if (IsClicked) {
             return;
         }
-        mCounter.cancel();
         IsClicked = true;
         String name = ed_Name.getText().toString().trim();
 
@@ -483,63 +479,60 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
         String doorStr = ed_MenNum.getText().toString().trim();
         String tel = ed_TelNum.getText().toString().trim();
         String captcha = ed_PutverifyCode.getText().toString().trim();
-//
-//        if (TextUtils.isEmpty(name)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("姓名不能为空", 0);
+
+        if (TextUtils.isEmpty(name)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("姓名不能为空", 0);
+            IsClicked = false;
+            return;
+        } else if (TextUtils.isEmpty(quStr)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("小区不能为空", 0);
+            IsClicked = false;
+            return;
+        } else if (TextUtils.isEmpty(louStr)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("楼栋不能为空", 0);
+            IsClicked = false;
+            return;
+        } else if (TextUtils.isEmpty(UnitStr)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("单元不能为空", 0);
+            IsClicked = false;
+            return;
+        } else if (TextUtils.isEmpty(doorStr)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("门牌号不能为空", 0);
+            IsClicked = false;
+            return;
+        } else if (TextUtils.isEmpty(tel)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("手机号不能为空", 0);
+            IsClicked = false;
+            return;
+//        } else if (!RegexValidateUtil.checkMobileNumber(tel)) {
+//            HighCommunityUtils.GetInstantiation().ShowToast("手机号格式不正确", 0);
 //            IsClicked = false;
 //            return;
-//        } else if (TextUtils.isEmpty(quStr)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("小区不能为空", 0);
-//            IsClicked = false;
-//            return;
-//        } else if (TextUtils.isEmpty(louStr)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("楼栋不能为空", 0);
-//            IsClicked = false;
-//            return;
-//        } else if (TextUtils.isEmpty(UnitStr)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("单元不能为空", 0);
-//            IsClicked = false;
-//            return;
-//        } else if (TextUtils.isEmpty(doorStr)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("门牌号不能为空", 0);
-//            IsClicked = false;
-//            return;
-//        } else if (TextUtils.isEmpty(tel)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("手机号不能为空", 0);
-//            IsClicked = false;
-//            return;
-////        } else if (!RegexValidateUtil.checkMobileNumber(tel)) {
-////            HighCommunityUtils.GetInstantiation().ShowToast("手机号格式不正确", 0);
-////            IsClicked = false;
-////            return;
-//
-//
-//        } else if (TextUtils.isEmpty(idZUri)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("身份证正面图片不能为空", 0);
-//            IsClicked = false;
-//            return;
-//        } else if (TextUtils.isEmpty(idFUri)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("身份证背面图片不能为空", 0);
-//            IsClicked = false;
-//            return;
-//        } else if (TextUtils.isEmpty(epropertyUri)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("产权证图片不能为空", 0);
-//            IsClicked = false;
-//            return;
-//        } else if (TextUtils.isEmpty(captcha)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("验证码不能为空", 0);
-//            IsClicked = false;
-//            return;
-//        }
+
+
+        } else if (TextUtils.isEmpty(idZUri)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("身份证正面图片不能为空", 0);
+            IsClicked = false;
+            return;
+        } else if (TextUtils.isEmpty(idFUri)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("身份证背面图片不能为空", 0);
+            IsClicked = false;
+            return;
+        } else if (TextUtils.isEmpty(epropertyUri)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("产权证图片不能为空", 0);
+            IsClicked = false;
+            return;
+        } else if (TextUtils.isEmpty(captcha)) {
+            HighCommunityUtils.GetInstantiation().ShowToast("验证码不能为空", 0);
+            IsClicked = false;
+            return;
+        }
 //       mWaitingWindow = HighCommunityUtils
 //                .GetInstantiation()
 //                .ShowWaittingPopupWindow(getActivity(), mAvatar, Gravity.CENTER);
 
         mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, contentView, Gravity.CENTER);
-
-        mHandler.postDelayed(mRunnable, 20000); // 在Handler中执行子线程并延迟3s。
-
-//        HTTPHelper.Auto_Commit(mCommitIbpi, name, village_id, mBuildingID, mUnitID, mDoorId, tel, captcha, idZUri, idFUri, epropertyUri);
+        HTTPHelper.Auto_Commit(mCommitIbpi, name, village_id, mBuildingID, mUnitID, mDoorId, tel, captcha, idZUri, idFUri, epropertyUri);
 
 //        RequestParams mParamMap = new RequestParams(getBaseParamMap());
 //        mParamMap.put("name", name);
@@ -579,9 +572,9 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
     private void getVerifyCode() {
         mCounter = new onCounter(60000, 1000);
         mCounter.start();
-//        HTTPHelper.Auto_Send(mIbpi, ed_TelNum.getText().toString());
-//        mWindow = HighCommunityUtils.GetInstantiation()
-//                .ShowWaittingPopupWindow(getActivity(), ed_TelNum, Gravity.CENTER);
+        HTTPHelper.Auto_Send(mIbpi, ed_TelNum.getText().toString());
+        mWindow = HighCommunityUtils.GetInstantiation()
+                .ShowWaittingPopupWindow(getActivity(), ed_TelNum, Gravity.CENTER);
 //        if (RegexValidateUtil.checkMobileNumber(ed_TelNum.getText()
 //                .toString())) {
 //            mCounter = new onCounter(60000, 1000);
@@ -599,19 +592,11 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.autoAct_ed_name:
-//                setFouce(ed_Name);
                 ed_Name.setFocusable(true);
-                ed_Name.requestFocus();
-                ed_Name.setFocusableInTouchMode(true);
-//                if (getActivity().getCurrentFocus() != null && getActivity().getCurrentFocus().getWindowToken() != null) {
-//                    Log.d(Tag,"!=null");
-//                    InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//                    //切换软键盘的显示与隐藏
-//                    manager.toggleSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0, InputMethodManager.HIDE_NOT_ALWAYS);
-////                    manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-//                    Log.d(Tag,"=null ");
-//                }
-
+                setFouce(ed_Name);
+                setFouce(ed_Name);
+//                ed_Name.setFocusableInTouchMode(true);
+//                ed_Name.requestFocus();
                 ClickId = R.id.autoAct_ed_name;
                 break;
             case R.id.autoAct_ed_quName:
@@ -619,6 +604,10 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
                 break;
             case R.id.autoAct_ed_louNum:
                 setFouce(ed_LouNum);
+
+//                mmBuildingNums.clear();
+////            Toast.makeText(getActivity(), "楼栋号被点击", Toast.LENGTH_SHORT).show();
+//                setBuildingNum();
                 ClickId = R.id.autoAct_ed_louNum;
                 break;
             case R.id.autoAct_ed_danyuanNum:
@@ -678,27 +667,11 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
                 ClickId = R.id.autoAct_telNum;
                 break;
             case R.id.autoAct_putverifyCode:
-//                setFouce(ed_PutverifyCode);
-
-
-                ed_PutverifyCode.setFocusable(true);
-                ed_PutverifyCode.requestFocus();
-                ed_PutverifyCode.setFocusableInTouchMode(true);
-//                if (getActivity().getCurrentFocus() != null && getActivity().getCurrentFocus().getWindowToken() != null) {
-//                    Log.d(Tag,"!=null");
-//                    InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//                    //切换软键盘的显示与隐藏
-//                    manager.toggleSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0, InputMethodManager.HIDE_NOT_ALWAYS);
-////                    manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-//                    Log.d(Tag,"=null ");
-//                }
-
+                setFouce(ed_PutverifyCode);
                 ClickId = R.id.autoAct_putverifyCode;
                 break;
             case R.id.autoAct_commit:
-//                mCounter.onFinish();
                 ClickId = R.id.autoAct_commit;
-
                 toCommitData();
                 break;
         }
@@ -713,37 +686,11 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
             InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             Log.d(Tag,"=null ");
-        }else{
-//            InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//            manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-//manager.show
-
         }
 
+//        getActivity().getCurrentFocus() = null;
     }
-//Thread thread1=new Thread(new Runnable() {
-//    @Override
-//    public void run() {
-//        Thread.sleep(1000L);
-//
-//    }
-//});
 
-    private Runnable mRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mHandler.sendEmptyMessage(1);
-        }
-    };
-    Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            mWatingWindow.dismiss();
-            //3s后执行代码
-            getActivity().finish();
-        }
-    };
     /**
      * 验证码倒计时类
      */
@@ -774,7 +721,6 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
         @Override
         public void onError(int id, String message) {
             mWatingWindow.dismiss();
-
             LogUtil.d(Tag + "-------------  initView   onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
@@ -782,9 +728,12 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
         @Override
         public void onSuccess(Object message) {
             mWatingWindow.dismiss();
+
+
+
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(),
                     0);
-            getActivity().finish();
+            getActivity().onBackPressed();
 
 //			mLoadingView.loadSuccess();
 //			mLoadingView.setVisibility(View.GONE);
@@ -1075,7 +1024,7 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
         LogUtil.d(Tag + "onResume");
 
         //		mLoadingView.startLoading();
-//        registNetworkReceiver();
+        registNetworkReceiver();
     }
 
 

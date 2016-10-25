@@ -68,7 +68,7 @@ public class AutoFrag_Notice extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String url="http://028hi.cn/ywh/notice/detail.html?id="+mList.get(position).getId();
-                BrowseActivity.toBrowseActivity(getActivity(), mList.get(position).getTitle(), url);
+                BrowseActivity.toBrowseActivity(getActivity(), "公告详情", url);
             }
         });
 
