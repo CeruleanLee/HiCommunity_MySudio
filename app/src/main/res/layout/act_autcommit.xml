@@ -93,28 +93,97 @@
         android:layout_weight="1"
         android:orientation="vertical"
         android:gravity="center"
-        android:visibility="gone">
+        android:visibility="visible">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="2">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                />
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/commit_tv_checkFail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="认证失败！" />
-        <Button
-            android:id="@+id/commit_but_checkAgain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_autoact_textview"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:textSize="12sp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/white"
-            android:text=" 重新认证 "/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/bg_tag_shape"
+                    android:layout_height="match_parent">
+
+
+                    <TextView
+                        android:id="@+id/commit_tv_checkFail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                       android:layout_centerInParent="true"
+                        android:textSize="16sp"
+                        android:text="原因" />
+                    <TextView
+                        android:id="@+id/commit_tv1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="17sp"
+                        android:layout_above="@id/commit_tv_checkFail"
+                        android:layout_marginBottom="8dp"
+                        android:textColor="@color/red"
+                        android:text="认证失败！" />
+                    <Button
+                        android:id="@+id/commit_but_checkAgain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_coner_button_selector"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:textSize="15sp"
+                        android:layout_below="@id/commit_tv_checkFail"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/white"
+                     android:layout_marginTop="10dp"
+                        android:text="  重新认证  "/>
+
+
+                </RelativeLayout>
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@mipmap/ic_tag_pin"
+                    android:layout_marginRight="-5dp"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                />
+
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            />
+
 
 
 

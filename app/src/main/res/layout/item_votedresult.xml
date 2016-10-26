@@ -19,9 +19,9 @@
         android:id="@+id/item_votedResult_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/item_votedResult_avatar"
         android:layout_alignLeft="@id/item_votedResult_avatar"
         android:layout_alignRight="@id/item_votedResult_avatar"
+        android:layout_below="@id/item_votedResult_avatar"
         android:gravity="center"
 
         android:text=""
@@ -29,19 +29,37 @@
 
     <TextView
         android:id="@+id/item_votedResult_percent"
-        android:layout_width="wrap_content"
+        android:layout_width="50sp"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
         android:text="100%"
         android:textColor="#9c9c9c"
-        android:textSize="14sp"
-        android:layout_marginRight="20dp"
-        android:layout_height="wrap_content" />
-<View
-    android:layout_width="match_parent"
-    android:layout_height="0.5dp"
-    android:layout_marginTop="12dp"
-    android:layout_below="@id/item_votedResult_name"
-    android:background="@color/Defult_Color_LineGrey"/>
+        android:textSize="14sp" />
+
+    <ProgressBar
+        android:id="@+id/item_votedResult_progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_toLeftOf="@id/item_votedResult_percent"
+        android:layout_toRightOf="@id/item_votedResult_avatar"
+        android:maxHeight="6dp"
+        android:minHeight="6dp"
+        android:progress="50"
+        android:progressDrawable="@drawable/progress_drawable" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/item_votedResult_name"
+        android:layout_marginTop="12dp"
+        android:background="@color/Defult_Color_LineGrey" />
 
 </RelativeLayout>

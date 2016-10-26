@@ -34,7 +34,7 @@
             android:layout_marginRight="64dp"
             android:ellipsize="middle"
             android:singleLine="true"
-            android:text="自治大厅"
+            android:text="业主大厅"
             android:textColor="#ffffff"
             android:textSize="16dp" />
         <!-- android:textSize="@dimen/font_extra_large" -->

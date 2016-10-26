@@ -10,6 +10,7 @@
 
     <com.don.view.CircleImageView
         android:id="@+id/item_autonamelistYZ_avatar"
+        android:layout_centerVertical="true"
         style="@style/autoact_namelist_avatar" />
 
     <RelativeLayout

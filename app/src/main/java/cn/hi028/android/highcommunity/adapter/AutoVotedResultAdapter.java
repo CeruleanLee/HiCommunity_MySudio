@@ -5,9 +5,11 @@
 package cn.hi028.android.highcommunity.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.don.tools.BpiUniveralImage;
@@ -27,6 +29,7 @@ import cn.hi028.android.highcommunity.utils.Constacts;
  * @时间：2016/10/12<br>
  */
 public class AutoVotedResultAdapter extends BaseFragmentAdapter {
+    static final String Tag="AutoVotedResultAdapter";
 
     public AddressListFrag mFrag;
     List<Auto_VoteResultBean.VoteResultDataEntity.VoteResultOptionsEntity> mList = new ArrayList<Auto_VoteResultBean.VoteResultDataEntity.VoteResultOptionsEntity>();
@@ -68,7 +71,7 @@ public class AutoVotedResultAdapter extends BaseFragmentAdapter {
             mViewHolder.mAvatar = (CircleImageView) convertView.findViewById(R.id.item_votedResult_avatar);
             mViewHolder.mName = (TextView) convertView.findViewById(R.id.item_votedResult_name);
             mViewHolder.mPercent = (TextView) convertView.findViewById(R.id.item_votedResult_percent);
-
+mViewHolder.mProgress= (ProgressBar) convertView.findViewById(R.id.item_votedResult_progressBar);
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
@@ -89,12 +92,18 @@ public class AutoVotedResultAdapter extends BaseFragmentAdapter {
 //        BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getPic(), mViewHolder.mAvatar);
         mViewHolder.mName.setText(mBean.getOption());
         mViewHolder.mPercent.setText(mBean.getVote_percent());
+        String percentStr=mBean.getVote_percent().replace("%","");
+        float percentFloat=Float.parseFloat(percentStr);
+        int percentInt= (int) percentFloat;
+        Log.d(Tag,"百分比数--->"+percentStr+"，float percentFloat--->"+percentFloat+"，int 数字--->"+percentInt);
+        mViewHolder.mProgress.setProgress(percentInt);
         return convertView;
     }
     class ViewHolder {
         CircleImageView mAvatar;
         TextView mName;
         TextView mPercent;
+        ProgressBar mProgress;
     }
     @Override
     public void AddNewData(Object mObject) {

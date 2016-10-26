@@ -64,7 +64,7 @@ import cn.hi028.android.highcommunity.view.ECListDialog;
  * @时间：2016/10/11<br>
  */
 
-public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchListener{
+public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchListener {
     public static final String Tag = "~~~AutoCommit~~~";
     public static final String FRAGMENTTAG = "AutoCommitDataFrag";
 
@@ -100,13 +100,13 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
     View contentView;
     Context context;
 
-    PopupWindow mPhotoPopupWindow = null,mWaitingWindow=null;
+    PopupWindow mPhotoPopupWindow = null, mWaitingWindow = null;
     boolean IsClicked = false;
     int requesetPhoto = 0x000001, requestFile = 0x000002;//requestCropImage = 0x000003
     Uri mPhotoUri = null;
     int ClickId;
     String idZUri, idFUri, epropertyUri;
-    public Auto_InitBean.Auto_Init_DataEntity mData;
+    public Auto_InitBean.Auto_Init_DataEntity mData, mLastData;
     String username;
 
     @Override
@@ -122,16 +122,33 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
         LogUtil.d(Tag + "onCreateView");
         ButterKnife.bind(this, contentView);
         Bundle bundle = getArguments();
+        bundle.setClassLoader(getClass().getClassLoader());
         mData = bundle.getParcelable("data");
-
+        Log.e(Tag,"STATUS--->"+mData.getStatus());
+        Log.e(Tag,"mData--->"+mData.toString());
+//        if (mLastData!=null){
+//            Log.e(Tag,"mlastData--->"+mLastData.toString());
+//        }else{
+//            Log.e(Tag,"mlastData--->   null");
+//        }
+//        if (mData.getStatus() == -1) {
+//            Log.e(Tag,"保存数据   将之前的数据赋值现在的");
+//            mData = mLastData;
+//        }else if (mData.getStatus() == 2) {
+//            Log.e(Tag,"保存数据   现在的数据保存起来验证失败时使用");
+//            mLastData = mData;
+//        }
+//        Log.e(Tag,"保存操作后的 mData--->"+mData.toString());
+//        if (mLastData!=null){
+//            Log.e(Tag,"保存操作后的  mlastData--->"+mLastData.toString());
+//        }else{
+//            Log.e(Tag,"保存操作后的 mlastData--->   null");
+//        }
         username = HighCommunityApplication.mUserInfo.getUsername();
         Log.d(Tag, "用户名：" + username);
-//        Toast.makeText(getActivity(),"用户名："+username,Toast.LENGTH_SHORT).show();
-
         initView();
         return contentView;
     }
-
     String village_id;
 
     private void initView() {
@@ -199,7 +216,6 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
             public boolean onTouch(View v, MotionEvent event) {
 
 
-
                 ed_LouNum.setFocusable(true);
                 ed_LouNum.setFocusableInTouchMode(true);
                 ed_LouNum.requestFocus();
@@ -216,7 +232,6 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
         ed_DanyuanNum.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
 
 
                 ed_DanyuanNum.setFocusable(true);
@@ -473,7 +488,10 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
         if (IsClicked) {
             return;
         }
-        mCounter.cancel();
+        if (mCounter!=null){
+
+            mCounter.cancel();
+        }
         IsClicked = true;
         String name = ed_Name.getText().toString().trim();
 
@@ -564,6 +582,7 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
     }
 
     private PopupWindow mWatingWindow;
+
     private static HashMap<String, String> getBaseParamMap() {
         HashMap<String, String> maps = new HashMap<String, String>();
         if (!TextUtils.isEmpty((HighCommunityApplication.mUserInfo.getToken())))
@@ -577,13 +596,12 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
      **/
 
     private void getVerifyCode() {
+        if (mCounter!=null){mCounter.onFinish();}
         mCounter = new onCounter(60000, 1000);
         mCounter.start();
         HTTPHelper.Auto_Send(mIbpi, ed_TelNum.getText().toString());
         mWindow = HighCommunityUtils.GetInstantiation()
                 .ShowWaittingPopupWindow(getActivity(), ed_TelNum, Gravity.CENTER);
-
-
 
 
 //        if (RegexValidateUtil.checkMobileNumber(ed_TelNum.getText()
@@ -713,11 +731,11 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
         view.requestFocus();
         view.setFocusableInTouchMode(true);
         if (getActivity().getCurrentFocus() != null && getActivity().getCurrentFocus().getWindowToken() != null) {
-           Log.d(Tag,"!=null");
+            Log.d(Tag, "!=null");
             InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-            Log.d(Tag,"=null ");
-        }else{
+            Log.d(Tag, "=null ");
+        } else {
 //            InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 //            manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
@@ -746,6 +764,7 @@ public class AutoCommitDataFrag extends BaseFragment implements   View.OnTouchLi
             getActivity().finish();
         }
     };
+
     /**
      * 验证码倒计时类
      */

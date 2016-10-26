@@ -10,30 +10,20 @@ import java.util.List;
  * Created by Lee_yting on 2016/10/11 0011.
  * 说明：初始化自治大厅 bean
  */
-public class Auto_InitBean implements Parcelable {
+public class Auto_InitBean_forBack implements Parcelable {
 
 
     /**
      * success : true
      * code : 2000
-     * data : {"status":-1,"village":{"village_id":"5113","village_name":"格兰鼎城"},"building":[{"building_id":"1","building_name":"1栋"},{"building_id":"2","building_name":"2栋"},{"building_id":"3","building_name":"3栋"},{"building_id":"4","building_name":"4栋"}]}
-     * msg : 卡卡卡
+     * data : {"status":2,"village":{"village_id":"5113","village_name":"格兰鼎城"},"building":[{"building_id":"1","building_name":"1栋"},{"building_id":"2","building_name":"2栋"},{"building_id":"3","building_name":"3栋"},{"building_id":"4","building_name":"4栋"}]}
+     * msg : 请进行认证!
      */
 
     private boolean success;
     private String code;
     private Auto_Init_DataEntity data;
     private String msg;
-
-    @Override
-    public String toString() {
-        return "Auto_InitBean{" +
-                "success=" + success +
-                ", code='" + code + '\'' +
-                ", data=" + data +
-                ", msg='" + msg + '\'' +
-                '}';
-    }
 
     public void setSuccess(boolean success) {
         this.success = success;
@@ -69,36 +59,21 @@ public class Auto_InitBean implements Parcelable {
 
     public static class Auto_Init_DataEntity implements Parcelable {
         /**
-         * status : -1
+         * status : 2
          * village : {"village_id":"5113","village_name":"格兰鼎城"}
          * building : [{"building_id":"1","building_name":"1栋"},{"building_id":"2","building_name":"2栋"},{"building_id":"3","building_name":"3栋"},{"building_id":"4","building_name":"4栋"}]
          */
 
         private int status;
         private int owner_id;
+
+
+
         private VillageEntity village;
         private List<BuildingEntity> building;
 
-        @Override
-        public String toString() {
-            return "Auto_Init_DataEntity{" +
-                    "status=" + status +
-                    ", owner_id=" + owner_id +
-                    ", village=" + village +
-                    ", building=" + building +
-                    '}';
-        }
-
         public void setStatus(int status) {
             this.status = status;
-        }
-
-        public int getOwner_id() {
-            return owner_id;
-        }
-
-        public void setOwner_id(int owner_id) {
-            this.owner_id = owner_id;
         }
 
         public void setVillage(VillageEntity village) {
@@ -112,7 +87,13 @@ public class Auto_InitBean implements Parcelable {
         public int getStatus() {
             return status;
         }
+        public int getOwner_id() {
+            return owner_id;
+        }
 
+        public void setOwner_id(int owner_id) {
+            this.owner_id = owner_id;
+        }
         public VillageEntity getVillage() {
             return village;
         }
@@ -130,14 +111,6 @@ public class Auto_InitBean implements Parcelable {
             private String village_id;
             private String village_name;
 
-            @Override
-            public String toString() {
-                return "VillageEntity{" +
-                        "village_id='" + village_id + '\'' +
-                        ", village_name='" + village_name + '\'' +
-                        '}';
-            }
-
             public void setVillage_id(String village_id) {
                 this.village_id = village_id;
             }
@@ -152,6 +125,14 @@ public class Auto_InitBean implements Parcelable {
 
             public String getVillage_name() {
                 return village_name;
+            }
+
+            @Override
+            public String toString() {
+                return "VillageEntity{" +
+                        "village_id='" + village_id + '\'' +
+                        ", village_name='" + village_name + '\'' +
+                        '}';
             }
 
             @Override
@@ -193,14 +174,6 @@ public class Auto_InitBean implements Parcelable {
             private String building_id;
             private String building_name;
 
-            @Override
-            public String toString() {
-                return "BuildingEntity{" +
-                        "building_id='" + building_id + '\'' +
-                        ", building_name='" + building_name + '\'' +
-                        '}';
-            }
-
             public void setBuilding_id(String building_id) {
                 this.building_id = building_id;
             }
@@ -215,6 +188,14 @@ public class Auto_InitBean implements Parcelable {
 
             public String getBuilding_name() {
                 return building_name;
+            }
+
+            @Override
+            public String toString() {
+                return "BuildingEntity{" +
+                        "building_id='" + building_id + '\'' +
+                        ", building_name='" + building_name + '\'' +
+                        '}';
             }
 
             @Override
@@ -255,7 +236,6 @@ public class Auto_InitBean implements Parcelable {
         @Override
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeInt(this.status);
-            dest.writeInt(this.owner_id);
             dest.writeParcelable(this.village, flags);
             dest.writeList(this.building);
         }
@@ -265,7 +245,6 @@ public class Auto_InitBean implements Parcelable {
 
         protected Auto_Init_DataEntity(Parcel in) {
             this.status = in.readInt();
-            this.owner_id = in.readInt();
             this.village = in.readParcelable(VillageEntity.class.getClassLoader());
             this.building = new ArrayList<BuildingEntity>();
             in.readList(this.building, List.class.getClassLoader());
@@ -283,6 +262,16 @@ public class Auto_InitBean implements Parcelable {
     }
 
     @Override
+    public String toString() {
+        return "Auto_InitBean{" +
+                "success=" + success +
+                ", code='" + code + '\'' +
+                ", data=" + data +
+                ", msg='" + msg + '\'' +
+                '}';
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -291,27 +280,27 @@ public class Auto_InitBean implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeByte(success ? (byte) 1 : (byte) 0);
         dest.writeString(this.code);
-        dest.writeParcelable(this.data, flags);
+        dest.writeParcelable(this.data, 0);
         dest.writeString(this.msg);
     }
 
-    public Auto_InitBean() {
+    public Auto_InitBean_forBack() {
     }
 
-    protected Auto_InitBean(Parcel in) {
+    protected Auto_InitBean_forBack(Parcel in) {
         this.success = in.readByte() != 0;
         this.code = in.readString();
         this.data = in.readParcelable(Auto_Init_DataEntity.class.getClassLoader());
         this.msg = in.readString();
     }
 
-    public static final Parcelable.Creator<Auto_InitBean> CREATOR = new Parcelable.Creator<Auto_InitBean>() {
-        public Auto_InitBean createFromParcel(Parcel source) {
-            return new Auto_InitBean(source);
+    public static final Creator<Auto_InitBean_forBack> CREATOR = new Creator<Auto_InitBean_forBack>() {
+        public Auto_InitBean_forBack createFromParcel(Parcel source) {
+            return new Auto_InitBean_forBack(source);
         }
 
-        public Auto_InitBean[] newArray(int size) {
-            return new Auto_InitBean[size];
+        public Auto_InitBean_forBack[] newArray(int size) {
+            return new Auto_InitBean_forBack[size];
         }
     };
 }

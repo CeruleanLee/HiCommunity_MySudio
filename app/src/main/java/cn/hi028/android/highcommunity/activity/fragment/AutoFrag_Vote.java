@@ -136,10 +136,12 @@ public class AutoFrag_Vote extends BaseFragment {
                     case R.id.frag_AutoVote_vote:
                         listview_Questions.setVisibility(View.VISIBLE);
                         listview_Vote.setVisibility(View.GONE);
+                        HTTPHelper.GetAutoVoteList(mIbpi2, 2 + "");
                         break;
                     case R.id.frag_AutoVote_Question:
                         listview_Questions.setVisibility(View.GONE);
                         listview_Vote.setVisibility(View.VISIBLE);
+                        HTTPHelper.GetAutoVoteList(mIbpi1, 1 + "");
                         break;
                 }
             }
@@ -230,7 +232,14 @@ public class AutoFrag_Vote extends BaseFragment {
     public void onResume() {
         super.onResume();
         LogUtil.d(Tag + "onResume");
-        initDatas();
+//        initDatas();
+//        if (but_Question.isChecked()) {
+//            listview_Questions.setVisibility(View.GONE);
+//            listview_Vote.setVisibility(View.VISIBLE);
+//        } else if (but_Vote.isChecked()) {
+//            listview_Questions.setVisibility(View.VISIBLE);
+//            listview_Vote.setVisibility(View.GONE);
+//        }
         //		mLoadingView.startLoading();
 //        registNetworkReceiver();
     }

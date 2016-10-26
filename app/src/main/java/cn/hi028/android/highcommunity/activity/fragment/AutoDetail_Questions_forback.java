@@ -57,7 +57,7 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @时间：2016/10/11<br>
  */
 
-public class AutoDetail_Questions extends BaseFragment {
+public class AutoDetail_Questions_forback extends BaseFragment {
     public static final String Tag = "~~~Detail_Questions:";
     public static final String FRAGMENTTAG = "AutoDetail_Questions";
 
@@ -410,7 +410,6 @@ public class AutoDetail_Questions extends BaseFragment {
                     the_answer_lists.get(j).setAns_state(1);
                     mutilOptionCount++;
                     questionList.get(i).setQue_state(1);
-                    Log.d(Tag,"多选选中数1：--->"+mutilOptionCount);
                 } else {
 //                    txt.setTextColor(Color.parseColor("#595757"));
 //                    imglist.get(i).get(j).setBackgroundDrawable(getResourcesces().getDrawable(R.drawable.multiselect_false));
@@ -418,14 +417,13 @@ public class AutoDetail_Questions extends BaseFragment {
                     the_answer_lists.get(j).setAns_state(0);
                     mutilOptionCount--;
                     //判断问题是否完成
-                    if (mutilOptionCount>0) {
+                    if (mutilOptionCount < the_answer_lists.size()) {
 
-                        questionList.get(i).setQue_state(1);
-                    } else {
                         questionList.get(i).setQue_state(0);
+                    } else {
+                        questionList.get(i).setQue_state(1);
 
                     }
-                    Log.d(Tag,"多选选中数2：--->"+mutilOptionCount);
                 }
             } else {
 //                单选
@@ -546,6 +544,18 @@ public class AutoDetail_Questions extends BaseFragment {
                     }
                     mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), rootView, Gravity.CENTER);
                     HTTPHelper.commitAnswers(mCommentIbpi, question_id, mJsonArray.toString());
+//                    for (int item = 0; item < jsonArray.size(); item++) {
+//
+//                        JSONObject job;
+//                        try {
+//                            job = jsonArray.getJSONObject(item);
+//                            Log.e("----", "quesitionId--------" + job.get("quesitionId"));
+//                            Log.e("----", "answerId--------" + job.get("answerId"));
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }  // 遍历 jsonarray 数组，把每一个对象转成 json 对象
+//
+//                    }
 
                 }
 
@@ -560,6 +570,7 @@ public class AutoDetail_Questions extends BaseFragment {
         public void onError(int id, String message) {
             mWatingWindow.dismiss();
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
+//            mAdapter.notifyDataSetChanged();
         }
 
         @Override
@@ -593,18 +604,26 @@ public class AutoDetail_Questions extends BaseFragment {
     BpiHttpHandler.IBpiHttpHandler mAnswersIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
+
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
+//            mAdapter.notifyDataSetChanged();
         }
 
         @Override
         public void onSuccess(Object message) {
+//            HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
             mAnswersBean = (AutoDetail_QuestionVotedBean.QuestionVotedDataEntity) message;
             radioAnswers = mAnswersBean.getRadio();
             mutilOptionsAnswers = mAnswersBean.getCheckbox();
 //            Log.d(Tag, "radioAnswers---" + radioAnswers.toString());
 //            Log.d(Tag, "mutilOptionsAnswers---" + mutilOptionsAnswers.toString());
             HTTPHelper.GetQuestionDetail(mIbpi, question_id);
-
+//            if (isReplay) {
+//                mAdapter.setNewData(isReplay, content, null);
+//            } else {
+//                mAdapter.setNewData(isReplay, content, message.toString());
+//            }
+//            initDatas();
         }
 
 
