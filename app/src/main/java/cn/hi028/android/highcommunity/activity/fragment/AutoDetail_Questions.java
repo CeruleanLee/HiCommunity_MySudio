@@ -334,7 +334,7 @@ public class AutoDetail_Questions extends BaseFragment {
         // TODO Auto-generated method stub
         String w;
         if (questionList.size()==1){
-            if (questionList.get(0).getMax_option().equals("1")){return;}
+            if (!questionList.get(0).getMax_option().equals("-1")){return;}
         }
         if (type == 1) {
             w = content + " (可多选)";
@@ -370,13 +370,13 @@ public class AutoDetail_Questions extends BaseFragment {
         }
     }
 
-
+    int mutilOptionCount = 0;
     class answerItemOnClickListener implements View.OnClickListener {
         private int i;
         private int j;
         private TextView txt;
         //        List<Auto_QuestionDeatailBean.QuestionDeatailDataEntity.QuestionDeatailTitlesEntity.QuestionDeatailOptionsEntity> answerList;
-        int mutilOptionCount = 0;
+
         private List<Auto_QuestionDeatailBean.QuestionDeatailDataEntity.QuestionDeatailTitlesEntity.QuestionDeatailOptionsEntity> the_answer_lists;
 
         public answerItemOnClickListener(int i, int j, List<Auto_QuestionDeatailBean.QuestionDeatailDataEntity.QuestionDeatailTitlesEntity.QuestionDeatailOptionsEntity> the_answer_list, TextView text) {
@@ -408,7 +408,7 @@ public class AutoDetail_Questions extends BaseFragment {
 //                    imglist.get(i).get(j).setBackgroundDrawable(getResources().getDrawable(R.drawable.multiselect_true));
                     imglist.get(i).get(j).setBackgroundResource(R.drawable.multiselect_true);
                     the_answer_lists.get(j).setAns_state(1);
-                    mutilOptionCount++;
+                    mutilOptionCount=mutilOptionCount+1;
                     questionList.get(i).setQue_state(1);
                     Log.d(Tag,"多选选中数1：--->"+mutilOptionCount);
                 } else {

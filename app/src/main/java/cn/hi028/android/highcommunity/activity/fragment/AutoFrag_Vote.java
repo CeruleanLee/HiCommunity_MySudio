@@ -81,54 +81,6 @@ public class AutoFrag_Vote extends BaseFragment {
         mQuestionAdapter = new AutoVoteList_Q_Adapter(mQuestionList, getActivity());
         listview_Vote.setAdapter(mVoteAdapter);
         listview_Questions.setAdapter(mQuestionAdapter);
-//        but_Vote.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked) {
-//                    Toast.makeText(getActivity(), "选举页显示   调查页隐藏", Toast.LENGTH_SHORT).show();
-////                    Log.d(Tag,"V CHECKED");
-////                    type = 2 + "";
-////                    but_Question.setChecked(false);
-////                    mQuestionAdapter.ClearData();
-////                    HTTPHelper.GetAutoVoteList(mIbpi2, type);
-////                    Log.d(Tag,"V 准备显示隐藏");
-//                    listview_Questions.setVisibility(View.VISIBLE);
-//                    listview_Vote.setVisibility(View.GONE);
-//
-////                    Log.d(Tag,"V 显示隐藏完成");
-//                } else {
-//                    Toast.makeText(getActivity(), "选举页 gone", Toast.LENGTH_SHORT).show();
-//////                    Log.d(Tag,"V UNCHECKED");
-////                    listview_Vote.setVisibility(View.GONE);
-//                }
-//
-//
-//            }
-//        });
-//        but_Question.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked) {
-//                    Toast.makeText(getActivity(), "调查页显示   选举页隐藏", Toast.LENGTH_SHORT).show();
-////
-////                    Log.d(Tag,"Q CHECKED");
-////                    but_Vote.setChecked(false);
-//////                    type = 1 + "";
-//////                    mVoteAdapter.ClearData();
-//////                    HTTPHelper.GetAutoVoteList(mIbpi1, type);
-////                    Log.d(Tag,"Q  准备显示 隐藏");
-//
-//                    listview_Questions.setVisibility(View.GONE);
-//                    listview_Vote.setVisibility(View.VISIBLE);
-////                    Log.d(Tag,"Q  显示隐藏完成");
-//                } else {
-//                    Toast.makeText(getActivity(), "问卷页 gone", Toast.LENGTH_SHORT).show();
-//
-//////                    Log.d(Tag,"Q UNCHECKED");
-////                    listview_Questions.setVisibility(View.GONE);
-//                }
-//            }
-//        });
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -230,18 +182,19 @@ public class AutoFrag_Vote extends BaseFragment {
 
     @Override
     public void onResume() {
-        super.onResume();
         LogUtil.d(Tag + "onResume");
-//        initDatas();
-//        if (but_Question.isChecked()) {
-//            listview_Questions.setVisibility(View.GONE);
-//            listview_Vote.setVisibility(View.VISIBLE);
-//        } else if (but_Vote.isChecked()) {
-//            listview_Questions.setVisibility(View.VISIBLE);
-//            listview_Vote.setVisibility(View.GONE);
-//        }
-        //		mLoadingView.startLoading();
-//        registNetworkReceiver();
+        LogUtil.d(Tag + "选举选中--->"+but_Vote.isChecked());
+        LogUtil.d(Tag + "问卷选中------>"+but_Question.isChecked());
+if (but_Vote.isChecked()){
+    listview_Questions.setVisibility(View.VISIBLE);
+    listview_Vote.setVisibility(View.GONE);
+    HTTPHelper.GetAutoVoteList(mIbpi2, 2 + "");
+}else if (but_Question.isChecked()){
+    listview_Questions.setVisibility(View.GONE);
+    listview_Vote.setVisibility(View.VISIBLE);
+    HTTPHelper.GetAutoVoteList(mIbpi1, 1 + "");
+}
+        super.onResume();
     }
 
     /****
