@@ -1,22 +1,16 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
-import com.lidroid.xutils.util.LogUtils;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.LogUtil;
@@ -26,7 +20,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.AutonomousAct_Third;
 import cn.hi028.android.highcommunity.adapter.AutoMoitionAdapter;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
@@ -41,13 +37,16 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 public class AutoFrag_Motion extends BaseFragment {
     public static final String Tag = "~~~AutoFrag_Motion~~~";
     public static final String FRAGMENTTAG = "AutoFrag_Motion";
-
+    /**创建提案**/
+    public static final int TAG_CREAT_MOTION=7;
     AutoMoitionAdapter mAdapter;
     List<Auto_MotionBean.MotionDataEntity> mList;
     @Bind(R.id.tv_Automotion_Nodata)
     TextView tv_Nodata;
     @Bind(R.id.frag_Automotion_listview)
     ListView mListview;
+    @Bind(R.id.img_Automotion_creat)
+    ImageButton but_CreatMotion;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,7 +60,7 @@ public class AutoFrag_Motion extends BaseFragment {
     void initView() {
         LogUtil.d(Tag + "initView");
         mList = new ArrayList<Auto_MotionBean.MotionDataEntity>();
-        mAdapter = new AutoMoitionAdapter(mList, getActivity(),getActivity().getWindow().getDecorView());
+        mAdapter = new AutoMoitionAdapter(mList, getActivity(), getActivity().getWindow().getDecorView());
         mListview.setEmptyView(tv_Nodata);
         mListview.setAdapter(mAdapter);
         initDatas();
@@ -103,9 +102,7 @@ public class AutoFrag_Motion extends BaseFragment {
         @Override
         public Object onResolve(String result) {
 //			Log.e("renk", result);
-//			LogUtil.d(Tag+"---~~~iresult"+result);
             return HTTPHelper.ResolveMotionDataEntity(result);
-//            return null;
         }
 
         @Override
@@ -118,8 +115,6 @@ public class AutoFrag_Motion extends BaseFragment {
 
         }
     };
-
-
     @Override
     public void onPause() {
         super.onPause();
@@ -130,76 +125,28 @@ public class AutoFrag_Motion extends BaseFragment {
     public void onResume() {
         super.onResume();
         LogUtil.d(Tag + "onResume");
-initDatas();
-        //		mLoadingView.startLoading();
-        registNetworkReceiver();
+        initDatas();
     }
-
-
-    /****
-     * 与网络状态相关
-     */
-    private BroadcastReceiver receiver;
-
-    private void registNetworkReceiver() {
-        if (receiver == null) {
-            receiver = new NetworkReceiver();
-            IntentFilter filter = new IntentFilter();
-            filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-            getActivity().registerReceiver(receiver, filter);
-        }
-    }
-
-    private void unregistNetworkReceiver() {
-        getActivity().unregisterReceiver(receiver);
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
 
-//    Intent mIntent = new Intent(getActivity(), AutonomousAct_Second.class);
+    @OnClick(R.id.img_Automotion_creat)
+    public void onClick() {
 
+        ceratMotion();
 
-    public class NetworkReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-                ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-                if (networkInfo != null && networkInfo.isAvailable()) {
-                    int type = networkInfo.getType();
-                    if (ConnectivityManager.TYPE_WIFI == type) {
-
-                    } else if (ConnectivityManager.TYPE_MOBILE == type) {
-
-                    } else if (ConnectivityManager.TYPE_ETHERNET == type) {
-
-                    }
-                    //有网络
-                    //					Toast.makeText(getActivity(), "有网络", 0).show();
-                    LogUtils.d("有网络");
-                    //					if(nextPage == 1){
-                    initDatas();
-                    //					HTTPHelper.GetThirdService(mIbpi);
-                    //					}
-                    isNoNetwork = false;
-                } else {
-                    //没有网络
-                    LogUtils.d("没有网络");
-                    Toast.makeText(getActivity(), "没有网络", Toast.LENGTH_SHORT).show();
-                    //					if(nextPage == 1){
-                    //					}
-                    isNoNetwork = true;
-                }
-            }
-        }
     }
+    private void ceratMotion() {
 
-    private boolean isNoNetwork;
+        Intent mIntent_report = new Intent(getActivity(), AutonomousAct_Third.class);
+        mIntent_report.putExtra("title", TAG_CREAT_MOTION);
+//        mIntent_report.putExtra("owner_id", owner_id);
+        startActivity(mIntent_report);
+
+    }
 
 
 }

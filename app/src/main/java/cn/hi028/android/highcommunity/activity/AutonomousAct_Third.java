@@ -18,6 +18,7 @@ import cn.hi028.android.highcommunity.activity.fragment.AutoDetail_Motion;
 import cn.hi028.android.highcommunity.activity.fragment.AutoDetail_Questions;
 import cn.hi028.android.highcommunity.activity.fragment.AutoDetail_Report;
 import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_CreatInquiry;
+import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_CreatMotion;
 import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_CreatReport;
 
 /**
@@ -27,7 +28,7 @@ import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_CreatReport;
  * @时间：2016/10/9<br>
  */
 public class AutonomousAct_Third extends BaseFragmentActivity {
-
+static  final  String Tag_debug="AutonomousAct_Third--->";
     public static final int TAG_REPORT_DETAIL = 0;
     public static final int TAG_INQUIRY_DETAIL = 1;
     public static final int TAG_MOTION_DETAIL = 2;
@@ -37,9 +38,9 @@ public class AutonomousAct_Third extends BaseFragmentActivity {
     public static final int TAG_CREAT_REPORT=5;
     /**创建询问**/
     public static final int TAG_CREAT_INQUIRY=6;
-//    public static final int TAG_GROUPCHAT = 5;
 
-
+    /**创建提案**/
+    public static final int TAG_CREAT_MOTION=7;
     @Bind(R.id.auto_third_img_back)
     ImageView img_Back;
     @Bind(R.id.auto_thirdc_tv_title)
@@ -51,6 +52,7 @@ public class AutonomousAct_Third extends BaseFragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e(Tag_debug,"oncreat");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_auto_third_details);
         ButterKnife.bind(this);
@@ -59,11 +61,13 @@ public class AutonomousAct_Third extends BaseFragmentActivity {
     }
 
     private void initView() {
+        Log.e(Tag_debug,"initView");
 //        if (!super.isVersionBiger()) {
 //            mHeight.setVisibility(View.GONE);
 //        }
         int tag = getIntent().getIntExtra("title", -1);
         int owner_id=getIntent().getIntExtra("owner_id",-1);
+        Log.e(Tag_debug,"tag---"+tag+"owner---"+owner_id);
         if (tag == -1) return;
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -143,11 +147,16 @@ String inquiry_id=getIntent().getStringExtra("inquiry_id");
                     ft.replace(R.id.auto_third_fraglayout,mCreatInquiry,AutoFrag_CreatReport.FRAGMENTTAG);
                 }
                 break;
-//            case TAG_GROUPCHAT:
-//                tv_Title.setText("群聊");
-//                AutoFrag_Groupchat mGroupchat = new AutoFrag_Groupchat();
-//                ft.replace(R.id.auto_third_fraglayout, mGroupchat, AutoFrag_Groupchat.FRAGMENTTAG);
-//                break;
+            case TAG_CREAT_MOTION://创建提案
+                tv_Title.setText(" ");
+                AutoFrag_CreatMotion mCreatMotion=new AutoFrag_CreatMotion();
+                Bundle mCreatMotionbundle=new Bundle();
+//                if (owner_id!=-1){
+//                    mCreatMotionbundle.putInt("owner_id",owner_id);
+                    mCreatMotion.setArguments(mCreatMotionbundle);
+                    ft.replace(R.id.auto_third_fraglayout,mCreatMotion,AutoFrag_CreatMotion.FRAGMENTTAG);
+//                }
+                break;
         }
         ft.commit();
     }

@@ -5,9 +5,12 @@
     android:orientation="horizontal"
     android:background="@drawable/bg_third_service_selector"
     android:paddingLeft="@dimen/margin_8"
-    android:paddingRight="@dimen/margin_8">
+    android:paddingRight="@dimen/margin_8"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
     <com.don.view.CircleImageView
+        android:layout_centerVertical="true"
         android:id="@+id/item_autonamelistYZDB_avatar"
       style="@style/autoact_namelist_avatar" />
 

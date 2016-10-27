@@ -51,7 +51,7 @@ public class Service_AutonomousActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_autonomous);
         ButterKnife.bind(this);
-        initDatas();
+//        initDatas();
         initViews();
     }
     private void initDatas() {
@@ -136,6 +136,6 @@ public class Service_AutonomousActivity extends BaseFragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        initDatas();
+//        initDatas();
     }
 }

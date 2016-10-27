@@ -3,6 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+
+    <View
+        android:id="@+id/positionview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
     <TextView
         android:id="@+id/tv_Automotion_Nodata"
         android:layout_width="match_parent"
@@ -18,5 +24,16 @@
        android:layout_height="wrap_content">
 
    </ListView>
+    <ImageButton
+        android:id="@+id/img_Automotion_creat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/positionview"
+
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/img_groupmessage_selector" />
+
 
 </RelativeLayout>

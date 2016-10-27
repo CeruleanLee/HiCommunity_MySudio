@@ -5,7 +5,14 @@
     android:background="@drawable/bg_third_service_selector"
     android:paddingLeft="@dimen/margin_8"
     android:paddingRight="@dimen/margin_8"
-    android:paddingTop="@dimen/margin_12">
+   >
+<RelativeLayout
+    android:layout_marginBottom="10dp"
+    android:layout_width="match_parent"
+    android:layout_marginTop="5dp"
+    android:layout_height="wrap_content">
+
+
 
     <TextView
         android:id="@+id/item_aotumotion_title"
@@ -39,7 +46,7 @@
         android:layout_marginTop="6dp"
         android:text="支持率："
         android:textColor="@color/Defult_Color_Grey"
-        android:textSize="10sp"
+        android:textSize="12sp"
 
         />
 
@@ -52,15 +59,16 @@
         android:layout_marginBottom="@dimen/margin_12"
         android:layout_marginTop="6dp"
         android:background="@drawable/bg_coner_button_selector"
-        android:paddingBottom="2dp"
-        android:paddingLeft="3dp"
-        android:paddingRight="3dp"
-        android:paddingTop="2dp"
+        android:paddingBottom="3dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="3dp"
         android:text=" 支持 "
         android:textColor="@color/white"
-        android:textSize="10sp"
+        android:textSize="12sp"
 
         />
+</RelativeLayout>
 
 
 </RelativeLayout>

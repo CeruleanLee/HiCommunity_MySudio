@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +15,13 @@ import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
 
-import net.duohuo.dhroid.util.LogUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.AutonomousAct_Third;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.TimeUtil;
@@ -33,14 +32,16 @@ import cn.hi028.android.highcommunity.utils.TimeUtil;
  * @时间：2016/10/12<br>
  */
 public class AutoMoitionAdapter extends BaseFragmentAdapter {
-
-    public static final String TAG ="~~~AutoMoitionAdapter";
+    BpiHttpHandler.IBpiHttpHandler mIbpi;
+    public static final String TAG = "~~~AutoMoitionAdapter";
     public static final int TAG_MOTION_DETAIL = 2;
     List<Auto_MotionBean.MotionDataEntity> mList = new ArrayList<Auto_MotionBean.MotionDataEntity>();
     private Context context;
     private LayoutInflater layoutInflater;
     View view;
-    public AutoMoitionAdapter(List<Auto_MotionBean.MotionDataEntity> list, Context context,View view) {
+    Auto_SupportedResultBean.SupportedResultDataEntity mResultData;
+
+    public AutoMoitionAdapter(List<Auto_MotionBean.MotionDataEntity> list, Context context, View view) {
         super();
         this.mList = list;
         if (this.mList == null) {
@@ -48,7 +49,7 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
         }
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
-        this.view=view;
+        this.view = view;
     }
 
     @Override
@@ -65,7 +66,8 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
     public long getItemId(int position) {
         return super.getItemId(position);
     }
-    ViewHolder mViewHolder=null;
+
+    ViewHolder mViewHolder = null;
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -91,7 +93,7 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
             mViewHolder.mBut_Support.setChecked(true);
             mViewHolder.mBut_Support.setText(" 已支持 ");
 
-        }else if (mBean.getIsSuggest().equals("1")){
+        } else if (mBean.getIsSuggest().equals("1")) {
             mViewHolder.mBut_Support.setChecked(false);
             mViewHolder.mBut_Support.setText(" 支持 ");
         }
@@ -99,32 +101,73 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
         mViewHolder.mBut_Support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                mViewHolder.mBut_Support.setChecked(TURE);
-//                mViewHolder.mBut_Support.setChecked(true);
-//                mViewHolder.mBut_Support.setText("已支持");
                 Activity act = (Activity) context;
-                mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, view, Gravity.CENTER);
-
-                HTTPHelper.SupportMotion(mIbpi,mBean.getId());
+                HTTPHelper.SupportMotion(mIbpi, mBean.getId());
 //                mViewHolder.mBut_Support.setChecked(true);
 //                mViewHolder.mBut_Support.setText(" 已支持 ");
+//                if (mResultData!=null){
+//                    mViewHolder.mTv_Support.setText("支持率："+mResultData.getVote_percent()+"%");
+//                }else{
+//                    Log.e(TAG,"mResultData null");
+//
+//                }
 
             }
         });
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mIntent_report=new Intent(context, AutonomousAct_Third.class);
-                mIntent_report.putExtra("title",TAG_MOTION_DETAIL);
-                mIntent_report.putExtra("motion_id",mBean.getId());
+                Intent mIntent_report = new Intent(context, AutonomousAct_Third.class);
+                mIntent_report.putExtra("title", TAG_MOTION_DETAIL);
+                mIntent_report.putExtra("motion_id", mBean.getId());
                 context.startActivity(mIntent_report);
             }
         });
 
+        mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
+            @Override
+            public void onError(int id, String message) {
+                Log.e(TAG, "onError");
+                HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+
+            }
+
+            @Override
+            public void onSuccess(Object message) {
+                Log.e(TAG, "onSuccess");
+                if (message == null) return;
+
+                mResultData = (Auto_SupportedResultBean.SupportedResultDataEntity) message;
+                Toast.makeText(context, "已支持", Toast.LENGTH_SHORT).show();
+                mBean.setVote_percent(mResultData.getVote_percent() + "");
+                mBean.setIsSuggest("1");
+//                AddNewData(mList);
+                notifyDataSetChanged();
+
+            }
+
+            @Override
+            public Object onResolve(String result) {
+
+                return HTTPHelper.ResolveSupportedResultData(result);
+            }
+
+            @Override
+            public void setAsyncTask(AsyncTask asyncTask) {
+
+            }
+
+            @Override
+            public void cancleAsyncTask() {
+
+            }
+        };
 
 
         return convertView;
     }
+
+
     private PopupWindow mWatingWindow;
 
     @Override
@@ -142,7 +185,7 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
     }
 
 
-     class ViewHolder {
+    class ViewHolder {
         TextView mTitle;
         TextView mTime;
         TextView mTv_Support;
@@ -151,61 +194,5 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
 
     }
 
-
-    public BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
-        @Override
-        public void onError(int id, String message) {
-            mWatingWindow.dismiss();
-            LogUtil.d(TAG + "---~~~onError");
-            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
-
-
-        }
-
-        @Override
-        public void onSuccess(Object message) {
-            mWatingWindow.dismiss();
-            HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
-
-            Toast.makeText(context,"已支持",Toast.LENGTH_SHORT).show();
-            mViewHolder.mBut_Support.setChecked(true);
-            mViewHolder.mBut_Support.setText(" 已支持 ");
-
-//            mList = (List<Auto_MotionBean.MotionDataEntity>) message;
-//            mAdapter.AddNewData(mList);
-//            mListview.setAdapter(mAdapter);
-//			mLoadingView.loadSuccess();
-//			mLoadingView.setVisibility(View.GONE);
-//			LogUtil.d(Tag+"---~~~initViewonSuccess");
-////						if (null == message) return;
-//			LogUtil.d(Tag+"---~~~ initView   message:"+message);
-//			ThirdServiceBean mBean = (ThirdServiceBean) message;
-//			mAdapter.AddNewData(mBean.getServices());
-//			mGridView.setAdapter(mAdapter);
-//			pagerAdapter.setImageIdList(mBean.getBanners());
-//			HighCommunityUtils.GetInstantiation()
-//			.setThirdServiceGridViewHeight(mGridView, mAdapter, 4);
-//			tatalLayout.setVisibility(View.VISIBLE);
-
-        }
-
-        @Override
-        public Object onResolve(String result) {
-//			Log.e("renk", result);
-//			LogUtil.d(Tag+"---~~~iresult"+result);
-//            return HTTPHelper.ResolveMotionDataEntity(result);
-            return result;
-        }
-
-        @Override
-        public void setAsyncTask(AsyncTask asyncTask) {
-
-        }
-
-        @Override
-        public void cancleAsyncTask() {
-
-        }
-    };
 
 }

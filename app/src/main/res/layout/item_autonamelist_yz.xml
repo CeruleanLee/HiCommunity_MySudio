@@ -2,23 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:background="@drawable/bg_third_service_selector"
+    android:orientation="horizontal"
+
     android:paddingLeft="@dimen/margin_8"
     android:paddingRight="@dimen/margin_8"
-    android:paddingTop="@dimen/margin_12">
+    >
 
     <com.don.view.CircleImageView
         android:id="@+id/item_autonamelistYZ_avatar"
-        android:layout_centerVertical="true"
-        style="@style/autoact_namelist_avatar" />
+        style="@style/autoact_namelist_avatar"
+        android:layout_centerVertical="true" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_toRightOf="@id/item_autonamelistYZ_avatar">
-
 
         <TextView
             android:id="@+id/item_autonamelistYZ_name"
@@ -46,16 +48,9 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="address:"
-            android:textSize="12sp"
-
-
-            />
+            android:textSize="12sp" />
 
     </RelativeLayout>
 
-    <View
-        style="@style/autoact_line_grey_05Horizontal"
-        android:visibility="gone"
-        android:layout_below="@id/item_autonamelistYZ_avatar" />
 
 </RelativeLayout>

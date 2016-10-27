@@ -211,17 +211,29 @@ String owner_id;//业主id
         this.history_vid = history_vid;
     }
 
-	@Override
-	public String toString() {
-		return "UserInfoBean [id=" + id + ", username=" + username
-				+ ", password=" + password + ", v_id=" + v_id + ", birthday="
-				+ birthday + ", head_pic=" + head_pic + ", sex=" + sex
-				+ ", nick=" + nick + ", sign=" + sign + ", reg_time="
-				+ reg_time + ", state=" + state + ", hobby=" + hobby
-				+ ", counts=" + counts + ", login_time=" + login_time
-				+ ", scores=" + scores + ", token=" + token + ", zero_money="
-				+ zero_money + ", history_vid=" + history_vid + ", third_uid="
-				+ third_uid + "]";
-	}
-    
+    @Override
+    public String toString() {
+        return "UserInfoBean{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", v_id=" + v_id +
+                ", birthday='" + birthday + '\'' +
+                ", head_pic='" + head_pic + '\'' +
+                ", sex=" + sex +
+                ", nick='" + nick + '\'' +
+                ", sign='" + sign + '\'' +
+                ", reg_time='" + reg_time + '\'' +
+                ", state=" + state +
+                ", hobby='" + hobby + '\'' +
+                ", counts=" + counts +
+                ", login_time=" + login_time +
+                ", scores=" + scores +
+                ", token='" + token + '\'' +
+                ", zero_money='" + zero_money + '\'' +
+                ", history_vid='" + history_vid + '\'' +
+                ", third_uid='" + third_uid + '\'' +
+                ", owner_id='" + owner_id + '\'' +
+                '}';
+    }
 }

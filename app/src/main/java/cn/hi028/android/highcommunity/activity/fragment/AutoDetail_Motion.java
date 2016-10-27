@@ -31,6 +31,7 @@ import butterknife.OnClick;
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionDetailBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.TimeUtil;
@@ -65,6 +66,8 @@ public class AutoDetail_Motion extends BaseFragment {
     @Bind(R.id.motiondetail_vote_percent)
     TextView mVotePercent;
     View rootView;
+
+    Auto_SupportedResultBean.SupportedResultDataEntity mResultData;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.d(Tag + "onCreateView");
@@ -202,7 +205,10 @@ public class AutoDetail_Motion extends BaseFragment {
         public void onSuccess(Object message) {
             LogUtil.d(Tag + "onSuccess");
             mWatingWindow.dismiss();
-            HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
+            if (message==null)return;
+            mResultData= (Auto_SupportedResultBean.SupportedResultDataEntity) message;
+//initDatas();
+            mVotePercent.setText("支持率："+mResultData.getVote_percent()+"%");
            but_Support.setChecked(true);
             but_Support.setText("已支持");
 //            Toast.makeText(getActivity(),"已支持",Toast.LENGTH_SHORT).show();
@@ -211,7 +217,10 @@ public class AutoDetail_Motion extends BaseFragment {
 
         @Override
         public Object onResolve(String result) {
-            return result;
+
+
+
+            return HTTPHelper.ResolveSupportedResultData(result);
         }
         @Override
         public void setAsyncTask(AsyncTask asyncTask) {

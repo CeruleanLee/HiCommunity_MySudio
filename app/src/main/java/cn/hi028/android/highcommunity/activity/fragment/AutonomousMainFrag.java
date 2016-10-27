@@ -32,7 +32,6 @@ import cn.hi028.android.highcommunity.activity.AutoCommitAct;
 import cn.hi028.android.highcommunity.activity.AutonomousAct_Second;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_InitBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
-import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.view.ECAlertDialog;
 
 /**
@@ -69,7 +68,7 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
     Context context;
 
     Intent mIntent;
-    Intent intent ;
+    Intent intent;
     boolean isVerified, isCommitData;
     public Auto_InitBean.Auto_Init_DataEntity mData;
 
@@ -109,12 +108,16 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
 
     }
 
+    boolean isLocationNoData;
     int mStatus;
+    String errorStr;
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
 //            Toast.makeText(getActivity(), "访问shibai", Toast.LENGTH_SHORT).show();
-            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+//            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+            errorStr = message;
+            isLocationNoData = true;
         }
 
         @Override
@@ -123,10 +126,11 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
                 return;
             }
             mData = (Auto_InitBean.Auto_Init_DataEntity) message;
+            isLocationNoData = false;
             mStatus = mData.getStatus();
-            if (mData.getOwner_id()!=-1){
+            if (mData.getOwner_id() != -1) {
 
-                HighCommunityApplication.mUserInfo.setOwner_id(mData.getOwner_id()+"");
+                HighCommunityApplication.mUserInfo.setOwner_id(mData.getOwner_id() + "");
             }
 //            Toast.makeText(getActivity(), "mStatus " + mStatus, Toast.LENGTH_SHORT).show();
             if (mStatus == 1) {
@@ -179,7 +183,7 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
     public void onResume() {
         super.onResume();
         LogUtil.d(Tag + "onResume");
-initDatas();
+        initDatas();
         //		mLoadingView.startLoading();
         registNetworkReceiver();
     }
@@ -271,7 +275,10 @@ initDatas();
     }
 
     private void showDialog() {
-        if (isCommitData) {
+        if (isLocationNoData) {
+            //该小区无数据
+            showNoDataDialog();
+        } else if (isCommitData) {
             //已经提交了数据在审核状态
             showCheckingDialog();
         } else {
@@ -318,8 +325,22 @@ initDatas();
 
     private boolean isNoNetwork;
 
+    /****
+     * 该小区无数据弹窗
+     */
+    private void showNoDataDialog() {
+
+        ECAlertDialog dialog2 = ECAlertDialog.buildAlert(getActivity(), errorStr, "确定", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                return;
+            }
+        });
+        dialog2.show();
 
 
+    }
 
     /****
      * 前往资料填写弹窗
@@ -342,7 +363,9 @@ initDatas();
         });
         dialog2.show();
     }
-    Bundle mBundle=new Bundle();
+
+    Bundle mBundle = new Bundle();
+
     /****
      * 前往资料填写弹窗
      */
@@ -358,16 +381,16 @@ initDatas();
 //                    mBundle.putParcelable("data",mData);
 //                    start
 //                }
-if (mData!=null){
-    intent.setExtrasClassLoader(getClass().getClassLoader());
-    intent.putExtra("isCommitData", isCommitData);
+                if (mData != null) {
+                    intent.setExtrasClassLoader(getClass().getClassLoader());
+                    intent.putExtra("isCommitData", isCommitData);
 //    intent.setClassLoader(getClass().getClassLoader());
-    intent.putExtra("mData",mData);
-    intent.putExtra("mStatus", mStatus);
-    startActivity(intent);
-}else{
+                    intent.putExtra("mData", mData);
+                    intent.putExtra("mStatus", mStatus);
+                    startActivity(intent);
+                } else {
 //    Toast.makeText(getActivity(),"data null",Toast.LENGTH_SHORT).show();
-}
+                }
             }
         }, new DialogInterface.OnClickListener() {
             @Override

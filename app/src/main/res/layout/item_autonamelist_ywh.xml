@@ -6,13 +6,16 @@
     android:background="@drawable/bg_third_service_selector"
     android:paddingLeft="@dimen/margin_8"
     android:paddingRight="@dimen/margin_8"
-    android:paddingTop="@dimen/margin_12">
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
     <RelativeLayout
         android:id="@+id/autonamelistYWH_layout1"
         android:layout_width="match_parent"
+        android:paddingRight="8dp"
         android:layout_height="wrap_content">
 
         <com.don.view.CircleImageView
+            android:layout_centerVertical="true"
             android:id="@+id/item_autonamelistYWH_avatar"
             style="@style/autoact_namelist_avatar" />
 
@@ -39,7 +42,7 @@
                     android:id="@+id/item_autonamelistYWH_job"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="职位："
+                    android:text="职位：暂无"
                     android:layout_alignParentRight="true"
                     android:textSize="12sp" />
             </RelativeLayout>
