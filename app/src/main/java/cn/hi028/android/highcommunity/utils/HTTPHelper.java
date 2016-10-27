@@ -1576,6 +1576,21 @@ public class HTTPHelper {
         maps.put("id", HighCommunityApplication.mUserInfo.getId()+"");
         post(maps, mIbpi, url);
     }
+
+
+    /**
+     * 获取自治大厅提案列表---我的提案
+     * @param mIbpi
+     */
+    public static void GetMyMotion(BpiHttpHandler.IBpiHttpHandler mIbpi) {
+        String url = HTTPPOSTURL + "ysuggest/index.html";
+        HashMap<String, String> maps = new HashMap<String, String>();
+        if (HighCommunityApplication.mUserInfo.getId()!=-1)
+            LogUtil.d("------User token------" + HighCommunityApplication.mUserInfo.getToken());
+        maps.put("id", HighCommunityApplication.mUserInfo.getId()+"");
+        maps.put("mine", 1+"");
+        post(maps, mIbpi, url);
+    }
     /**
      * 解析自治大厅提案列表
      *

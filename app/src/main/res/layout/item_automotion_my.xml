@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_third_service_selector"
     android:paddingLeft="@dimen/margin_8"
+    android:orientation="horizontal"
     android:paddingRight="@dimen/margin_8">
 
     <RelativeLayout
@@ -68,6 +69,22 @@
 
             />
     </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_action"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:text="删除" />
 
 
-</RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -12,7 +12,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.LogUtil;
 
@@ -20,8 +20,6 @@ import java.lang.reflect.Field;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.NeighborViewPagerAdapter;
-import cn.hi028.android.highcommunity.view.LoadingView;
-import cn.hi028.android.highcommunity.view.LoadingView.OnLoadingViewListener;
 
 /**
  * @功能：邻里<br>

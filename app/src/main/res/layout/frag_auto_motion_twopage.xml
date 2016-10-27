@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ECECEC"
+    android:background="@color/white"
     android:orientation="vertical">
 <!--android:background="@color/Defult_Color_ShallowGrey"-->
     <LinearLayout
@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <RadioGroup
-            android:id="@+id/rg_Message_Center"
+            android:id="@+id/frag_motion_Radiogroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -20,29 +20,37 @@
             android:paddingTop="8dp">
 
             <RadioButton
-                android:id="@+id/rb_Message_System"
-                style="@style/rb_huilife_style"
-                android:layout_marginRight="45dp"
+                android:id="@+id/frag_motion_motionlist"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:background="@drawable/frag_picdetail_checktextview_selector"
+                android:button="@null"
+                android:clickable="true"
+                android:gravity="center"
                 android:checked="true"
-                android:text="与我相关" />
-
-
+                android:text="提案"
+                android:textColor="@color/color_group_selector" />
             <RadioButton
-                android:id="@+id/rb_Message_Notice"
-                style="@style/rb_huilife_style"
-                android:layout_marginLeft="45dp"
-                android:checked="false"
-                android:text="系统消息" />
+                android:id="@+id/frag_motion_mymotion"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:background="@drawable/frag_picdetail_checktextview_selector"
+                android:button="@null"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="我的提案"
+                android:textColor="@color/color_group_selector" />
         </RadioGroup>
     </LinearLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_MessageCenter_ViewPager"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <cn.hi028.android.highcommunity.view.MyCustomViewPager
+        android:id="@+id/frag_motion_ViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:background="#ECECEC"
+        android:background="@color/white"
         android:flipInterval="30"
         android:persistentDrawingCache="animation" />
 </LinearLayout>

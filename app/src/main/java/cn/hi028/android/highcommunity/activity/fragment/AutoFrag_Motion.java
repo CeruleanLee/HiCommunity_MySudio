@@ -1,32 +1,26 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
-import android.content.Intent;
-import android.os.AsyncTask;
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import com.don.tools.BpiHttpHandler;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.LogUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Field;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.AutonomousAct_Third;
 import cn.hi028.android.highcommunity.adapter.AutoMoitionAdapter;
-import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionBean;
-import cn.hi028.android.highcommunity.utils.HTTPHelper;
-import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
+import cn.hi028.android.highcommunity.adapter.MotionPagerAdapter;
+import cn.hi028.android.highcommunity.view.MyCustomViewPager;
 
 /**
  * @功能：自治大厅 提案<br>
@@ -37,21 +31,49 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 public class AutoFrag_Motion extends BaseFragment {
     public static final String Tag = "~~~AutoFrag_Motion~~~";
     public static final String FRAGMENTTAG = "AutoFrag_Motion";
-    /**创建提案**/
-    public static final int TAG_CREAT_MOTION=7;
+    /**
+     * 创建提案
+     **/
+    public static final int TAG_CREAT_MOTION = 7;
     AutoMoitionAdapter mAdapter;
-    List<Auto_MotionBean.MotionDataEntity> mList;
-    @Bind(R.id.tv_Automotion_Nodata)
-    TextView tv_Nodata;
-    @Bind(R.id.frag_Automotion_listview)
-    ListView mListview;
-    @Bind(R.id.img_Automotion_creat)
-    ImageButton but_CreatMotion;
+    @Bind(R.id.frag_motion_motionlist)
+    RadioButton but_motionList;
+    @Bind(R.id.frag_motion_mymotion)
+    RadioButton but_Mymotion;
+    @Bind(R.id.frag_motion_Radiogroup)
+    RadioGroup mRadiogroup;
+    @Bind(R.id.frag_motion_ViewPager)
+    MyCustomViewPager mViewPager;
+    View view;
+    MotionPagerAdapter mPagerAdapter;
+//    private MyChangeListener myChangelistener;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+//        myChangelistener = (MyChangeListener) activity;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        LogUtil.d(Tag+"onDetach");
+        try {
+            //参数是固定写法
+            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+            childFragmentManager.setAccessible(true);
+            childFragmentManager.set(this, null);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.d(Tag + "onCreateView");
-        View view = inflater.inflate(R.layout.frag_auto_motion, null);
+        view = inflater.inflate(R.layout.frag_auto_motion_twopage, null);
         ButterKnife.bind(this, view);
         initView();
         return view;
@@ -59,94 +81,69 @@ public class AutoFrag_Motion extends BaseFragment {
 
     void initView() {
         LogUtil.d(Tag + "initView");
-        mList = new ArrayList<Auto_MotionBean.MotionDataEntity>();
-        mAdapter = new AutoMoitionAdapter(mList, getActivity(), getActivity().getWindow().getDecorView());
-        mListview.setEmptyView(tv_Nodata);
-        mListview.setAdapter(mAdapter);
-        initDatas();
+        mViewPager.setPagingEnabled(false);
+        mPagerAdapter = new MotionPagerAdapter(getChildFragmentManager());
+        mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                if (i == 0) {
+                    but_motionList.setChecked(true);
+                    but_Mymotion.setChecked(false);
+//                    myChangelistener.onChange(true);
+                } else {
+                    but_Mymotion.setChecked(true);
+                    but_motionList.setChecked(false);
+//                    myChangelistener.onChange(false);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+        mRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.frag_motion_motionlist:
+                        setCurrentPage(0);
+                        break;
+                    case R.id.frag_motion_mymotion:
+                        setCurrentPage(1);
+                        break;
+                }
+            }
+        });
+setCurrentPage(0);
     }
 
-    private void initDatas() {
+   public  void setCurrentPage(int page){
+       if (page==0){
+           mViewPager.setCurrentItem(0);
+       }else{
+           mViewPager.setCurrentItem(1);
+       }
+   }
 
-        HTTPHelper.GetAutoMotionList(mIbpi);
-    }
 
 
-    BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
-        @Override
-        public void onError(int id, String message) {
-            LogUtil.d(Tag + "---~~~onError");
-            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
-        }
 
-        @Override
-        public void onSuccess(Object message) {
-            mList = (List<Auto_MotionBean.MotionDataEntity>) message;
-            mAdapter.AddNewData(mList);
-            mListview.setAdapter(mAdapter);
-//			mLoadingView.loadSuccess();
-//			mLoadingView.setVisibility(View.GONE);
-//			LogUtil.d(Tag+"---~~~initViewonSuccess");
-////						if (null == message) return;
-//			LogUtil.d(Tag+"---~~~ initView   message:"+message);
-//			ThirdServiceBean mBean = (ThirdServiceBean) message;
-//			mAdapter.AddNewData(mBean.getServices());
-//			mGridView.setAdapter(mAdapter);
-//			pagerAdapter.setImageIdList(mBean.getBanners());
-//			HighCommunityUtils.GetInstantiation()
-//			.setThirdServiceGridViewHeight(mGridView, mAdapter, 4);
-//			tatalLayout.setVisibility(View.VISIBLE);
 
-        }
-
-        @Override
-        public Object onResolve(String result) {
-//			Log.e("renk", result);
-            return HTTPHelper.ResolveMotionDataEntity(result);
-        }
-
-        @Override
-        public void setAsyncTask(AsyncTask asyncTask) {
-
-        }
-
-        @Override
-        public void cancleAsyncTask() {
-
-        }
-    };
-    @Override
-    public void onPause() {
-        super.onPause();
-        LogUtil.d(Tag + "onPause");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        LogUtil.d(Tag + "onResume");
-        initDatas();
-    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
 
-    @OnClick(R.id.img_Automotion_creat)
-    public void onClick() {
 
-        ceratMotion();
-
+    public interface MyChangeListener {
+        public void onChange(boolean flag);
     }
-    private void ceratMotion() {
-
-        Intent mIntent_report = new Intent(getActivity(), AutonomousAct_Third.class);
-        mIntent_report.putExtra("title", TAG_CREAT_MOTION);
-//        mIntent_report.putExtra("owner_id", owner_id);
-        startActivity(mIntent_report);
-
-    }
-
-
 }
