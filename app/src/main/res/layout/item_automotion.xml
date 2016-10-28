@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_third_service_selector"
-    android:paddingLeft="@dimen/margin_8"
-    android:paddingRight="@dimen/margin_8">
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+
         android:layout_marginTop="8dp">
 
 

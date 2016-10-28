@@ -21,7 +21,6 @@ import com.don.tools.BpiHttpHandler;
 import com.lidroid.xutils.util.LogUtils;
 
 import net.duohuo.dhroid.activity.BaseFragment;
-import net.duohuo.dhroid.util.LogUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -49,7 +48,7 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
     public static final int TAG_NAMELIST = 2;
     public static final int TAG_MOTION = 3;
     public static final int TAG_SUPERVISE = 4;
-    public static final int TAG_GROUPCHAT = 5;
+    public static final int TAG_CERTIFICATION = 5;
 
 
     @Bind(R.id.autoFrg_notic)
@@ -90,21 +89,21 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
             mIntent = new Intent(context, AutonomousAct_Second.class);
             intent = new Intent(getActivity(), AutoCommitAct.class);
         }
-        initDatas();
+//        initDatas();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogUtil.d(Tag + "onCreateView");
+        Log.d(Tag,"onCreateView");
 //        Bundle bundle = getArguments();
 //        mData = bundle.getParcelable("data");
         return contentView;
     }
 
     private void initDatas() {
-        LogUtil.d(Tag + "initDatas");
+        Log.d(Tag,"initDatas");
         HTTPHelper.InitAutoAct(mIbpi);
-        LogUtil.d(Tag + "initDatas2");
+        Log.d(Tag,"initDatas2");
 
     }
 
@@ -176,15 +175,14 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
     @Override
     public void onPause() {
         super.onPause();
-        LogUtil.d(Tag + "onPause");
+        Log.d(Tag,"onPause");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        LogUtil.d(Tag + "onResume");
+        Log.d(Tag,"onResume");
         initDatas();
-        //		mLoadingView.startLoading();
         registNetworkReceiver();
     }
 
@@ -263,13 +261,19 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
 
                 break;
             case R.id.autoFrg_groupchat:
-                if (isVerified) {
-                    Toast.makeText(getActivity(), "功能完善中，敬请期待~", Toast.LENGTH_SHORT).show();
-//                mIntent.putExtra("title", TAG_GROUPCHAT);
-//                startActivity(mIntent);
-                } else {
-                    showDialog();
-                }
+                //certification
+                mIntent.putExtra("title", TAG_CERTIFICATION);
+//                mIntent.putExtra("owner_id", mData.getOwner_id());
+                startActivity(mIntent);
+
+
+//                if (isVerified) {
+//                    Toast.makeText(getActivity(), "功能完善中，敬请期待~", Toast.LENGTH_SHORT).show();
+////                mIntent.putExtra("title", TAG_GROUPCHAT);
+////                startActivity(mIntent);
+//                } else {
+//                    showDialog();
+//                }
                 break;
         }
     }
@@ -304,19 +308,12 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
                     } else if (ConnectivityManager.TYPE_ETHERNET == type) {
 
                     }
-                    //有网络
-                    //					Toast.makeText(getActivity(), "有网络", 0).show();
                     LogUtils.d("有网络");
-                    //					if(nextPage == 1){
-                    //					HTTPHelper.GetThirdService(mIbpi);
-                    //					}
                     isNoNetwork = false;
                 } else {
                     //没有网络
                     LogUtils.d("没有网络");
                     Toast.makeText(getActivity(), "没有网络", Toast.LENGTH_SHORT).show();
-                    //					if(nextPage == 1){
-                    //					}
                     isNoNetwork = true;
                 }
             }

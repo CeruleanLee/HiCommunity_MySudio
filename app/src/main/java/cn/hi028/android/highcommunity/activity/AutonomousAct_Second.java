@@ -12,7 +12,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_Groupchat;
+import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_Certigication;
 import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_Motion;
 import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_NameList;
 import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_Notice;
@@ -32,7 +32,7 @@ public class AutonomousAct_Second extends BaseFragmentActivity {
     public static final int TAG_NAMELIST = 2;
     public static final int TAG_MOTION = 3;
     public static final int TAG_SUPERVISE = 4;
-    public static final int TAG_GROUPCHAT = 5;
+    public static final int TAG_CERTIFICATION = 5;
 
     @Bind(R.id.auto_sec_img_back)
     ImageView img_Back;
@@ -93,10 +93,10 @@ int owner_id;
                     ft.replace(R.id.auto_sec_fraglayout, mSuperVise, AutoFrag_SuperVise.FRAGMENTTAG);
                 }
                 break;
-            case TAG_GROUPCHAT:
-                tv_Title.setText("群聊");
-                AutoFrag_Groupchat mGroupchat = new AutoFrag_Groupchat();
-                ft.replace(R.id.auto_sec_fraglayout, mGroupchat, AutoFrag_Groupchat.FRAGMENTTAG);
+            case TAG_CERTIFICATION:
+                tv_Title.setText("业主认证");
+                AutoFrag_Certigication mCertigication = new AutoFrag_Certigication();
+                ft.replace(R.id.auto_sec_fraglayout, mCertigication, AutoFrag_Certigication.FRAGMENTTAG);
                 break;
         }
         ft.commit();

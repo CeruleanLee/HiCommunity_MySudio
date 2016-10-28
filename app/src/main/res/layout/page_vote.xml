@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/ll_AutoV_Progress"
+        layout="@layout/progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <TextView
+        android:id="@+id/tv_AutoVoteV_Nodata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂无数据"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/frag_AutoVote_listview_vote"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:divider="@null"
+     ></ListView>
+
+
+
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sysMsg_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@color/Defult_Color_LineGrey"
+        android:dividerHeight="0dp"
+
+        android:visibility="gone"
+        android:listSelector="@android:color/transparent"
+        ptr:ptrMode="both" >
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+</LinearLayout>

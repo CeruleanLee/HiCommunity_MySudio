@@ -56,7 +56,7 @@ public class Service_AutonomousActivity extends BaseFragmentActivity {
     }
     private void initDatas() {
         LogUtil.d(Tag + "initDatas");
-        HTTPHelper.InitAutoAct(mIbpi);
+//        HTTPHelper.InitAutoAct(mIbpi);
     }
     int mStatus;
     public Auto_InitBean.Auto_Init_DataEntity mData;

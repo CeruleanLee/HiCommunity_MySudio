@@ -89,7 +89,7 @@ public class AutoDetail_Motion extends BaseFragment {
 //        mCommentListview.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 //        mList = new ArrayList<Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity>();
 //        mAdapter = new Auto_ReportDetailAdapter(mList, getActivity(), this);
-        initDatas();
+//        initDatas();
     }
 
 
@@ -294,7 +294,7 @@ public class AutoDetail_Motion extends BaseFragment {
                     }
                     //					Toast.makeText(getActivity(), "有网络", 0).show();
                     LogUtils.d("有网络");
-                    initDatas();
+//                    initDatas();
                     isNoNetwork = false;
                 } else {
                     //没有网络

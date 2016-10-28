@@ -72,7 +72,7 @@ public class AutoFrag_Notice extends BaseFragment {
             }
         });
 
-        initDatas();
+
     }
 
     private void initDatas() {
@@ -120,7 +120,7 @@ public class AutoFrag_Notice extends BaseFragment {
     public void onResume() {
         super.onResume();
         LogUtil.d(Tag + "onResume");
-
+        initDatas();
         //		mLoadingView.startLoading();
 //        registNetworkReceiver();
     }

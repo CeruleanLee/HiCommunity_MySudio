@@ -3,6 +3,7 @@ package cn.hi028.android.highcommunity.activity.fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 import com.don.tools.BpiHttpHandler;
 
 import net.duohuo.dhroid.activity.BaseFragment;
-import net.duohuo.dhroid.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,7 @@ public class AutoFrag_Motion_forback1027 extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogUtil.d(Tag + "onCreateView");
+        Log.d(Tag,"onCreateView");
         View view = inflater.inflate(R.layout.frag_auto_public_motion, null);
         ButterKnife.bind(this, view);
         initView();
@@ -58,12 +58,12 @@ public class AutoFrag_Motion_forback1027 extends BaseFragment {
     }
 
     void initView() {
-        LogUtil.d(Tag + "initView");
+        Log.d(Tag,"initView");
         mList = new ArrayList<Auto_MotionBean.MotionDataEntity>();
         mAdapter = new AutoMoitionAdapter(mList, getActivity(), getActivity().getWindow().getDecorView());
         mListview.setEmptyView(tv_Nodata);
         mListview.setAdapter(mAdapter);
-        initDatas();
+//        initDatas();
     }
 
     private void initDatas() {
@@ -75,7 +75,7 @@ public class AutoFrag_Motion_forback1027 extends BaseFragment {
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            LogUtil.d(Tag + "---~~~onError");
+            Log.d(Tag,"---~~~onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
@@ -118,13 +118,13 @@ public class AutoFrag_Motion_forback1027 extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-        LogUtil.d(Tag + "onPause");
+        Log.d(Tag,"onPause");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        LogUtil.d(Tag + "onResume");
+        Log.d(Tag,"onResume");
         initDatas();
     }
     @Override

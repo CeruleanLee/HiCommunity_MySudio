@@ -1,10 +1,12 @@
 package net.duohuo.dhroid;
 
-import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import net.duohuo.dhroid.util.LogUtil;
 
-public class BaseApplication extends Application {
+public class BaseApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
@@ -25,5 +27,13 @@ public class BaseApplication extends Application {
         LogUtil.e("[ECApplication] onCreate");
         // initImageLoader();
     }
-
+    /**
+     * 分割 Dex 支持
+     * @param base
+     */
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 }

@@ -1,6 +1,5 @@
 package cn.hi028.android.highcommunity.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -68,9 +67,9 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
     }
 
     ViewHolder mViewHolder = null;
-
+    int clickPosition=-1;
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             mViewHolder = new ViewHolder();
             convertView = layoutInflater.inflate(R.layout.item_automotion, null);
@@ -93,15 +92,16 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
             mViewHolder.mBut_Support.setChecked(true);
             mViewHolder.mBut_Support.setText(" 已支持 ");
 
-        } else if (mBean.getIsSuggest().equals("1")) {
+        } else {
             mViewHolder.mBut_Support.setChecked(false);
             mViewHolder.mBut_Support.setText(" 支持 ");
         }
+        // if (mBean.getIsSuggest().equals("1"))
         final View finalConvertView = convertView;
         mViewHolder.mBut_Support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Activity act = (Activity) context;
+                clickPosition=position;
                 HTTPHelper.SupportMotion(mIbpi, mBean.getId());
 //                mViewHolder.mBut_Support.setChecked(true);
 //                mViewHolder.mBut_Support.setText(" 已支持 ");
@@ -136,16 +136,12 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
             public void onSuccess(Object message) {
                 Log.e(TAG, "onSuccess");
                 if (message == null) return;
-
                 mResultData = (Auto_SupportedResultBean.SupportedResultDataEntity) message;
                 Toast.makeText(context, "已支持", Toast.LENGTH_SHORT).show();
-                mBean.setVote_percent(mResultData.getVote_percent() + "");
-                mBean.setIsSuggest("1");
-//                AddNewData(mList);
+                mList.get(clickPosition).setVote_percent(mResultData.getVote_percent() + "");
+                mList.get(clickPosition).setIsSuggest("1");
                 notifyDataSetChanged();
-
             }
-
             @Override
             public Object onResolve(String result) {
 

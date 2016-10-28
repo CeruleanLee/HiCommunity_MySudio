@@ -118,7 +118,7 @@ public class AutoFrag_NameList extends BaseFragment {
             }
         });
 //        mRepresent.setChecked(true);
-        initDatas();
+
     }
     private void initDatas() {
         if (!isNoNetwork){
@@ -188,6 +188,7 @@ public class AutoFrag_NameList extends BaseFragment {
     public void onResume() {
         super.onResume();
         LogUtil.d(Tag + "onResume");
+        initDatas();
         registNetworkReceiver();
     }
 

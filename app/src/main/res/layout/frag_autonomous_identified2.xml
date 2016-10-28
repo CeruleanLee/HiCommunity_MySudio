@@ -177,7 +177,7 @@ android:background="@color/white"
 
                 <TextView
                     style="@style/autoact_tag_text"
-                    android:text="群聊" />
+                    android:text="业主认证" />
 
             </LinearLayout>
         </RelativeLayout>

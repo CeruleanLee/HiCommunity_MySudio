@@ -119,6 +119,7 @@ public class AutoFrag_SuperVise extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        initDatas();
         Log.e("HJJ", "ArrayListFragment **** onResume...");
 
 initDatas();
@@ -173,7 +174,7 @@ initDatas();
 //        mListview_Report.setAdapter(mReportAdapter);
 //        mListview_Inquiry.setAdapter(mInquiryAdapter);
         but_Report.setChecked(true);
-        initDatas();
+
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

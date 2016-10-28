@@ -74,7 +74,7 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		LogUtil.d(Tag+"onCreateView");
+		Log.d(Tag,"onCreateView");
 		View view = inflater.inflate(R.layout.frag_service, null);
 		findView(view);
 		registerListener();
@@ -124,9 +124,9 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
 
 
 	void initView() {
-		LogUtil.d(Tag+"initView");
+		Log.d(Tag,"initView");
 		mLoadingView.setOnLoadingViewListener(onLoadingViewListener);
-		//		LogUtil.d(Tag+" initView   startLoading");
+		//		Log.d(Tag," initView   startLoading");
 		mScrollview.setMode(PullToRefreshBase.Mode.DISABLED);
 		initPager();
 		mIntent = new Intent(getActivity(),
@@ -134,15 +134,14 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
 		mAdapter = new ThirdServiceAdapter(getActivity());
 		mGridView.setMode(PullToRefreshBase.Mode.DISABLED);
 		mGridView.setOnItemClickListener(mItemClickListener);
-		initDatas();
+//		initDatas();
 	}
 	private void initDatas() {
-		LogUtil.d(Tag+"initDatas");
+		Log.d(Tag,"initDatas");
 
 		mLoadingView.startLoading();
-		LogUtil.d(Tag+"---startLoading");
+		Log.d(Tag,"---startLoading");
 		HTTPHelper.GetThirdService(mIbpi);
-		LogUtil.d(Tag+"---GetThirdService");
 		viewPager.startAutoScroll();
 	}
 
@@ -182,8 +181,8 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
 	BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
 		@Override
 		public void onError(int id, String message) {
-			LogUtil.d(Tag+"---~~~onError");
-			LogUtil.d(Tag+"-------------  initView   onError");
+			Log.d(Tag,"---~~~onError");
+			Log.d(Tag,"-------------  initView   onError");
 			HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
 			if(!isNoNetwork){
 				mLoadingView.loadFailed();
@@ -194,9 +193,9 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
 		public void onSuccess(Object message) {
 			mLoadingView.loadSuccess();
 			mLoadingView.setVisibility(View.GONE);
-			LogUtil.d(Tag+"---~~~initViewonSuccess");
+			Log.d(Tag,"---~~~initViewonSuccess");
 //						if (null == message) return;
-			LogUtil.d(Tag+"---~~~ initView   message:"+message);
+			Log.d(Tag,"---~~~ initView   message:"+message);
 			ThirdServiceBean mBean = (ThirdServiceBean) message;
 			mAdapter.AddNewData(mBean.getServices());
 			mGridView.setAdapter(mAdapter);
@@ -209,7 +208,7 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
 		@Override
 		public Object onResolve(String result) {
 			Log.e("renk", result);
-			LogUtil.d(Tag+"---~~~iresult"+result);
+			Log.d(Tag,"---~~~iresult"+result);
 			return HTTPHelper.ResolveThirdService(result);
 		}
 
@@ -295,15 +294,15 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
 	@Override
 	public void onPause() {
 		super.onPause();
-		LogUtil.d(Tag+"onPause");
+		Log.d(Tag,"onPause");
 		viewPager.stopAutoScroll();
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		LogUtil.d(Tag+"onResume");
-
+		Log.d(Tag,"onResume");
+		initDatas();
 		//		mLoadingView.startLoading();
 		registNetworkReceiver();
 	}

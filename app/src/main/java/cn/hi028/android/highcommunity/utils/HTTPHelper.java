@@ -1591,6 +1591,21 @@ public class HTTPHelper {
         maps.put("mine", 1+"");
         post(maps, mIbpi, url);
     }
+
+
+    /**
+     * 获取自治大厅提案列表---删除我的提案
+     * @param mIbpi
+     * @param id  提案id   还需要传入token
+     */
+    public static void DeleteMyMotion(BpiHttpHandler.IBpiHttpHandler mIbpi,String id) {
+        String url = HTTPPOSTURL + "ysuggest/delete.html";
+        HashMap<String, String> maps = new HashMap<String, String>();
+        if (HighCommunityApplication.mUserInfo.getId()!=-1)
+            LogUtil.d("------User token------" + HighCommunityApplication.mUserInfo.getToken());
+        maps.put("id", id);
+        post(maps, mIbpi, url);
+    }
     /**
      * 解析自治大厅提案列表
      *
