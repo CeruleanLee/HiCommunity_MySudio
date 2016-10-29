@@ -46,7 +46,7 @@ import cn.hi028.android.highcommunity.utils.HTTPHelper;
 @EFragment(resName = "frag_message_center")
 public class MessageCenterFrag extends BaseFragment {
 
-    public static final String TAG = "~~~ MessageCenterFrag--->";
+    public static final String TAG = "~MsgCenterFrag->";
     public static final String FRAGMENTTAG = "MessageCenterFrag";
     @ViewById(R.id.vp_MessageCenter_ViewPager)
     ViewPager mPager;// 页卡内容

@@ -46,7 +46,7 @@ import cn.hi028.android.highcommunity.utils.TimeUtil;
  */
 public class AutoMyMoitionAdapter extends BaseFragmentAdapter {
     BpiHttpHandler.IBpiHttpHandler mIbpi, mDeleteIbpi;
-    public static final String TAG = "~~~AutoMoitionAdapter---";
+    public static final String TAG = "~~~MoitionAdapter-";
     public static final int TAG_MOTION_DETAIL = 2;
     List<Auto_MotionBean.MotionDataEntity> mList = new ArrayList<Auto_MotionBean.MotionDataEntity>();
     private Context context;

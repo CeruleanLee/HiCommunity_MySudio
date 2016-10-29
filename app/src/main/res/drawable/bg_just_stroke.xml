@@ -6,3 +6,4 @@
         android:width="0.8dp"
         android:color="@color/auto_act_textviewgb_grey" />
 </shape>
+<!--业主认证 item bg-->

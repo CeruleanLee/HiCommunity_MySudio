@@ -9,33 +9,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <include
+        android:id="@+id/ll_cerSuccess_Progress"
+        layout="@layout/progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <TextView
-        android:id="@+id/tv_Automotion_Nodata"
+        android:id="@+id/tv_cerSuccess_noData"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="暂无数据"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
-    <ListView
-        android:id="@+id/frag_Automotion_listview"
+    <com.handmark.pulltorefresh.library.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cerSuccess_listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:divider="@null">
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@color/Defult_Color_LineGrey"
+        android:dividerHeight="0dp"
+        android:listSelector="@android:color/transparent"
+        ptr:ptrMode="both"></com.handmark.pulltorefresh.library.PullToRefreshListView>
 
-    </ListView>
 
     <ImageButton
-        android:id="@+id/img_Automotion_creat"
+        android:id="@+id/img_cerSuccess_creat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/positionview"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/img_groupmessage_selector"
-        android:visibility="gone" />
-
-
+        android:background="@drawable/img_groupmessage_selector" />
 </RelativeLayout>

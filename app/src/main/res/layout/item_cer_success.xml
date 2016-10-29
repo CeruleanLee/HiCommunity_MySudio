@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/bg_just_stroke"
+    android:orientation="vertical"
+    android:paddingLeft="8dp">
+
+    <ImageView
+        android:id="@+id/img_cer_Tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/cer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="业主姓名："
+        android:textColor="@color/Defult_Color_DeepGrey" />
+
+    <TextView
+        android:id="@+id/cer_tel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cer_name"
+        android:layout_marginTop="8dp"
+        android:text="联系方式："
+        android:textColor="@color/Defult_Color_DeepGrey" />
+
+
+    <RelativeLayout
+        android:id="@+id/cer_idLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cer_tel"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/cer_adress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="详细地址："
+            android:textColor="@color/Defult_Color_DeepGrey" />
+
+        <TextView
+            android:id="@+id/tv_cer_IDcard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/cer_adress"
+            android:layout_alignRight="@id/cer_adress"
+            android:layout_below="@id/cer_adress"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="身份证  "
+            android:textColor="@color/Defult_Color_DeepGrey" />
+
+        <ImageView
+            android:id="@+id/img_cer_idZ"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_alignTop="@id/tv_cer_IDcard"
+            android:layout_toRightOf="@id/tv_cer_IDcard"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_nopic_default" />
+
+        <ImageView
+            android:id="@+id/img_cer_idF"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_alignTop="@id/tv_cer_IDcard"
+            android:layout_marginLeft="35dp"
+            android:layout_toRightOf="@id/img_cer_idZ"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_nopic_default" />
+
+        <TextView
+            android:id="@+id/tv_cer_propertye"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/cer_adress"
+            android:layout_alignRight="@id/cer_adress"
+            android:layout_below="@id/img_cer_idZ"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="产权证  "
+            android:textColor="@color/Defult_Color_DeepGrey" />
+
+        <ImageView
+            android:id="@+id/img_cer_propertye"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_alignTop="@id/tv_cer_propertye"
+            android:layout_marginBottom="8dp"
+            android:layout_toRightOf="@id/tv_cer_propertye"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_nopic_default" />
+
+
+    </RelativeLayout>
+</RelativeLayout>
