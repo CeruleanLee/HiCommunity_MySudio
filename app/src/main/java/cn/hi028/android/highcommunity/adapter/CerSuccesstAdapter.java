@@ -11,11 +11,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.don.tools.BpiUniveralImage;
+import com.lidroid.xutils.BitmapUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_CertificationInitBean;
+import cn.hi028.android.highcommunity.utils.Constacts;
+import cn.hi028.android.highcommunity.utils.MBitmapHolder;
 
 /**
  * @功能：已认证<br>
@@ -28,7 +33,7 @@ public class CerSuccesstAdapter extends BaseFragmentAdapter {
     List<Auto_CertificationInitBean.CertificationInitDataEntity> mList = new ArrayList<Auto_CertificationInitBean.CertificationInitDataEntity>();
     private Context context;
     private LayoutInflater layoutInflater;
-
+    BitmapUtils mBitmapUtils;
     public CerSuccesstAdapter(List<Auto_CertificationInitBean.CertificationInitDataEntity> list, Context context) {
         super();
         this.mList = list;
@@ -37,6 +42,8 @@ public class CerSuccesstAdapter extends BaseFragmentAdapter {
         }
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
+        mBitmapUtils= MBitmapHolder.getBitmapUtils(context);
+
     }
 
     @Override
@@ -74,17 +81,26 @@ public class CerSuccesstAdapter extends BaseFragmentAdapter {
         mViewHolder.mName.setText("业主姓名："+mBean.getName());
         mViewHolder.mTel.setText("联系方式："+mBean.getTel());
         mViewHolder.mAdress.setText("详细地址："+mBean.getAddress());
+        mBitmapUtils.display(mViewHolder.mImgCerIdZ, Constacts.IMAGEHTTP + mBean.getIDCard());
+        mBitmapUtils.display(mViewHolder.mImgCerIdF, Constacts.IMAGEHTTP + mBean.getIDCard_F());
+        mBitmapUtils.display(mViewHolder.mImgCerPropertye, Constacts.IMAGEHTTP + mBean.getHouse_certificate());
+        if (mBean.getStatus().equals("0")) {
+            mBitmapUtils.display(mViewHolder.mImgTag, "drawable://" + R.mipmap.defult_avatar);
+//            mBitmapUtils.display(mViewHolder.mImgTag, Constacts.IMAGEHTTP + mBean.getIDCard());
+        } else if (mBean.getStatus().equals("1")){
+            mBitmapUtils.display(mViewHolder.mImgTag, "drawable://" + R.mipmap.defult_avatar);
+        }else if (mBean.getStatus().equals("2")){
+            mBitmapUtils.display(mViewHolder.mImgTag, "drawable://" + R.mipmap.defult_avatar);
+
+        }
 //        TimeUtil.getDayAllTime(Long.parseLong(mBean.getCreate_time()))
 //        mViewHolder.mTime.setText(TimeUtil.longToDate(Long.parseLong(mBean.getCreate_time()),"yyyy年MM月dd日 HH时mm分ss秒").toString());
-
         return convertView;
     }
-
     @Override
     public void AddNewData(Object mObject) {
         if (mObject instanceof List<?>) {
             mList = (List<Auto_CertificationInitBean.CertificationInitDataEntity>) mObject;
-
         }
         notifyDataSetChanged();
         super.AddNewData(mObject);

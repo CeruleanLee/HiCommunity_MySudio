@@ -13,11 +13,13 @@ import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.LogUtil;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.CertificationPagerAdapter;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_CertificationInitBean;
 import cn.hi028.android.highcommunity.view.MyCustomViewPager;
 
 /**
@@ -41,7 +43,7 @@ public class AutoFrag_Certigication extends BaseFragment {
     RadioGroup mRadioGroup;
     @Bind(R.id.frag_Certification_ViewPager)
     MyCustomViewPager mViewPager;
-
+    List<Auto_CertificationInitBean.CertificationInitDataEntity> mList;
     @Override
     public void onDetach() {
         super.onDetach();
@@ -70,7 +72,7 @@ public class AutoFrag_Certigication extends BaseFragment {
     void initView() {
         LogUtil.d(Tag + "initView");
         mViewPager.setPagingEnabled(false);
-        mPagerAdapter = new CertificationPagerAdapter(getChildFragmentManager());
+        mPagerAdapter = new CertificationPagerAdapter(getChildFragmentManager(),mList);
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

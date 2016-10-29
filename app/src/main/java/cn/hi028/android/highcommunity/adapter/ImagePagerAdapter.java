@@ -18,7 +18,6 @@ import com.lidroid.xutils.BitmapUtils;
 
 import net.duohuo.dhroid.activity.BrowseActivity;
 import net.duohuo.dhroid.adapter.RecyclingPagerAdapter;
-import net.duohuo.dhroid.util.ImageLoaderUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,12 +76,12 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
 			holder = (ViewHolder) view.getTag();
 		}
 		final BannerBean mBean = imageIdList.get(position);
-		ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + mBean.getPath(),holder.imageView);
+//		ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + mBean.getPath(),holder.imageView);
 		
-		 mBitmapUtils.display(holder.imageView, Constacts.IMAGEHTTP + Constacts.IMAGEHTTP + mBean.getPath());
-		
-		
-		
+		 mBitmapUtils.display(holder.imageView, Constacts.IMAGEHTTP + mBean.getPath());
+//		 mBitmapUtils.display(holder.imageView, Constacts.IMAGEHTTP + "upload/ywh/owner_pic/20161027114748898872.jpg");
+		//upload/ywh/owner_pic/20161027114748898872.jpg
+
 		// ImageLoaderUtil.disPlay(UrlConfig.pic_URL +getImageIdList().get(position).getOi_pic_url(), holder.imageView);
 		// view.requestFocus();
 		view.setOnClickListener(new View.OnClickListener() {
