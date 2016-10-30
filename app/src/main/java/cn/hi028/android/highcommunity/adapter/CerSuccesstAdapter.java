@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.don.tools.BpiUniveralImage;
 import com.lidroid.xutils.BitmapUtils;
 
 import java.util.ArrayList;
