@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.DownloadListener;
@@ -75,12 +74,13 @@ public class BrowseActivity extends BaseFragmentActivity {
         // // 设置可以访问的文件
         // webSettings.setAllowFileAccess(true);
         // 设置支持缩放
-        webview.loadUrl(url);
         webSettings.setSupportZoom(true);
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDomStorageEnabled(true);
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         // 设置webviewclient
         MyWebViewClient myWebViewClient = new MyWebViewClient();
+        webview.loadUrl(url);
         webview.setWebViewClient(myWebViewClient);
     }
 
@@ -118,4 +118,11 @@ public class BrowseActivity extends BaseFragmentActivity {
         this.finish();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+
+
+    }
 }

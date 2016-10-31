@@ -94,7 +94,7 @@ int owner_id;
                 }
                 break;
             case TAG_CERTIFICATION:
-                tv_Title.setText("业主认证");
+                tv_Title.setText("房屋管理");
                 AutoFrag_Certigication mCertigication = new AutoFrag_Certigication();
                 ft.replace(R.id.auto_sec_fraglayout, mCertigication, AutoFrag_Certigication.FRAGMENTTAG);
                 break;

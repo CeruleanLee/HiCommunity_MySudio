@@ -7,6 +7,8 @@ package cn.hi028.android.highcommunity.activity.fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -159,6 +161,7 @@ public class SettingFrag extends BaseFragment {
                 HighCommunityApplication.share.edit().putString(Constacts.APPTOKEN, "").commit();
                 HighCommunityApplication.mUserInfo.setToken("");
                 HighCommunityApplication.mUserInfo.setId(0);
+                clearWebViewCache();
                 Intent mToMain = new Intent(getActivity(), WelcomeAct.class);
                 startActivity(mToMain);
                 getActivity().finish();
@@ -167,5 +170,30 @@ public class SettingFrag extends BaseFragment {
         dialog.setTitle("提示");
         dialog.show();
     }
+    public void clearWebViewCache() {
+// 清除cookie即可彻底清除缓存
+        CookieSyncManager.createInstance(getContext());
+        CookieManager.getInstance().removeAllCookie();
+    }
 
+    private  void clear(){
+
+////        CacheManage
+//        File file = CacheManager.getCacheFileBaseDir();
+//        if (file != null && file.exists() && file.isDirectory()) {
+//
+//            for (File item : file.listFiles()) {
+//
+//                item.delete();
+//
+//            }
+//
+//            file.delete();
+//
+//        }
+//
+//        getActivity().deleteDatabase("webview.db");
+//
+//        getActivity().deleteDatabase("webviewCache.db");
+    }
 }

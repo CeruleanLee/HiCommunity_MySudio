@@ -2,7 +2,7 @@ package cn.hi028.android.highcommunity.bean.Autonomous;
 
 /**
  * Created by Lee_yting on 2016/10/28 0028.
- * 说明：
+ * 说明： 一帮情况返回的头部  只有头部
  */
 public class CommonHttpResultBean {
 

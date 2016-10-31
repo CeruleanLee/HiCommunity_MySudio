@@ -87,7 +87,7 @@ public class CertificationPagerAdapter extends FragmentPagerAdapter {
                 mList_checking.add(dataEntity);
             } else if (dataEntity.getStatus().equals("1")) {
                 mList_success.add(dataEntity);
-            } else if (dataEntity.getStatus().equals("2")) {
+            } else if (dataEntity.getStatus().equals("-1")) {
                 mList_failed.add(dataEntity);
             }
 
@@ -95,5 +95,4 @@ public class CertificationPagerAdapter extends FragmentPagerAdapter {
 
 
     }
-
 }

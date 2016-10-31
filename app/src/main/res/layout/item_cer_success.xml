@@ -4,19 +4,13 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="20dp"
     android:background="@drawable/bg_just_stroke"
     android:orientation="vertical"
     android:paddingLeft="8dp">
 
-    <ImageView
-        android:id="@+id/img_cer_Tag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/ic_launcher" />
+
+
 
     <TextView
         android:id="@+id/cer_name"
@@ -48,6 +42,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="详细地址："
+            android:textColor="@color/Defult_Color_DeepGrey" />
+
+        <TextView
+            android:id="@+id/tv_cer_adress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/cer_adress"
+            android:text="XXXXXX"
             android:textColor="@color/Defult_Color_DeepGrey" />
 
         <TextView
@@ -105,4 +107,13 @@
 
 
     </RelativeLayout>
+    <ImageView
+        android:id="@+id/img_cer_Tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_launcher" />
+
 </RelativeLayout>

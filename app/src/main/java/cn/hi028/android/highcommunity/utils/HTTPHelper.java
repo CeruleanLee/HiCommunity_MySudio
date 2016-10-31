@@ -39,6 +39,7 @@ import cn.hi028.android.highcommunity.bean.AllTicketBean;
 import cn.hi028.android.highcommunity.bean.AllianceOrderBean;
 import cn.hi028.android.highcommunity.bean.AlliancePayBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.AutoDetail_QuestionVotedBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_CertificationInitBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_CreatMotionReaultBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_DoorBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_InitBean;
@@ -1940,7 +1941,70 @@ public class HTTPHelper {
     }
 
 
+    /**
+     * 自治大厅   房屋管理认证列表
+     * @param mIbpi
+     */
+    public static void GetOwnersList(BpiHttpHandler.IBpiHttpHandler mIbpi) {
+        String url = HTTPPOSTURL + "yinit/owners.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        post(mParamMap, mIbpi, url);
+    }
 
+
+    /**
+     * 解析自治房屋管理认证列表
+     *
+     * @param result
+     * @return
+     */
+    public static List<Auto_CertificationInitBean.CertificationInitDataEntity> ResolveCerDataEntity(String result) {
+        List<Auto_CertificationInitBean.CertificationInitDataEntity> mlist = new ArrayList<Auto_CertificationInitBean.CertificationInitDataEntity>();
+        try {
+            JSONArray mArray = new JSONArray(result);
+            for (int i = 0; i < mArray.length(); i++) {
+                Auto_CertificationInitBean.CertificationInitDataEntity mBean = gson.fromJson(mArray.getString(i),
+                        Auto_CertificationInitBean.CertificationInitDataEntity.class);
+                mlist.add(mBean);
+            }
+            return mlist;
+        } catch (JSONException e) {
+            return null;
+        }
+    }
+
+
+    /**
+     * 自治大厅-删除认证失败的房屋
+     * @param mIbpi
+     * @param id  认证id 用户token
+     */
+    public static void DeleteFailedHouse(BpiHttpHandler.IBpiHttpHandler mIbpi, String id) {
+        String url = HTTPPOSTURL + "yvote/submit.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("id", id);
+        post(mParamMap, mIbpi, url);
+    }
+
+    /**
+     * 自治大厅-认证界面小区,楼栋数据接口
+     * token
+     **/
+    public static void AutoGetVillage(BpiHttpHandler.IBpiHttpHandler mIbpi) {
+        String url = HTTPPOSTURL + "yinit/village.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        post(mParamMap, mIbpi, url);
+    }
+
+    /**
+     * 解析自治大厅-认证界面小区,楼栋数据
+     *
+     * @param result
+     * @return
+     */
+    public static Auto_InitBean.Auto_Init_DataEntity ResolveVillageDataEntity(String result) {
+        return gson.fromJson(result, Auto_InitBean.Auto_Init_DataEntity.class);
+    }
 
 //    public static void CommentReportDetail2(BpiHttpHandler.IBpiHttpHandler mIbpi,
 //                                           String from_id, String to_id,  String watch_id, String parentId,

@@ -58,15 +58,16 @@ public class AutoCommitAct extends BaseFragmentActivity {
     Button but_CheckAgain;
     int mStatus;
     public Auto_InitBean.Auto_Init_DataEntity mData;
+    int tag_creatCer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e(Tag,"oncreat");
+        Log.e(Tag, "oncreat");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_autcommit);
         ButterKnife.bind(this);
 //        isCommitData = getIntent().getBooleanExtra("isCommitData", false);
-//        mStatus = getIntent().getIntExtra("mStatus", -1);
+        tag_creatCer = getIntent().getIntExtra("tag_creatCer", -1);
 //        mData=getIntent().getParcelableExtra("mData");
 //        Toast.makeText(this,"isCommitData:"+isCommitData+"mStatus"+mStatus,Toast.LENGTH_SHORT).show();
 //        if (mData!=null){
@@ -81,15 +82,20 @@ public class AutoCommitAct extends BaseFragmentActivity {
         mHttpUtils.configCurrentHttpCacheExpiry(0);
         mHttpUtils.configSoTimeout(4000);
         mHttpUtils.configTimeout(4000);
-        initHttp();
-//        initDatas();
+
+        if (tag_creatCer == 6) {
+            initDatas();
+        } else {
+            initHttp();
+        }
+
     }
 
     private HttpUtils mHttpUtils;
 
     private void initDatas() {
         Log.e(Tag, "initDatas ");
-        HTTPHelper.InitAutoAct(mIbpi);
+        HTTPHelper.AutoGetVillage(mIbpi);
 //        Log.e(Tag,"mdata.getatus:"+mData.getStatus());
         Log.e(Tag, "initDatas 2");
     }
@@ -116,7 +122,7 @@ public class AutoCommitAct extends BaseFragmentActivity {
 //                List<GoodsItem> list = responseGoodsItem.getResult().list;
                 if (mInitBean != null) {
                     mData = mInitBean.getData();
-                    tv_CheckFail.setText("原因："+mInitBean.getMsg());
+                    tv_CheckFail.setText("原因：" + mInitBean.getMsg());
                     initView();
                 }
             }
@@ -161,11 +167,12 @@ public class AutoCommitAct extends BaseFragmentActivity {
                 return;
             }
             mData = (Auto_InitBean.Auto_Init_DataEntity) message;
-            if (mData == null) {
-                Log.e(Tag, "onSuccess message kong空!!!!!!");
+            if (mData != null) {
+                toCommitData();
+                Log.e(Tag, "onSuccess message toCommitData!!!!!!");
             }
-            tv_CheckFail.setText(message.toString());
-            initView();
+//            tv_CheckFail.setText(message.toString());
+//            initView();
         }
 
         @Override
@@ -173,7 +180,7 @@ public class AutoCommitAct extends BaseFragmentActivity {
 
             Log.e(Tag, "commitAct_Result--->" + result);
 
-            return HTTPHelper.ResolveDataEntity(result);
+            return HTTPHelper.ResolveVillageDataEntity(result);
         }
 
         @Override

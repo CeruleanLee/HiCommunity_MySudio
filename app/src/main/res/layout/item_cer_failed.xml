@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_aotumotion_HScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <RelativeLayout
+            android:id="@+id/item_aotumotion_contentLayout"
+            android:layout_width="match_parent"
+
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="12dp"
+android:visibility="gone"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                 />
+
+
+            <RelativeLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/view1"
+                android:background="@drawable/bg_just_stroke"
+                android:orientation="vertical"
+                android:paddingLeft="8dp">
+
+                <ImageView
+                    android:id="@+id/img_cer_Tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/cer_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="业主姓名："
+                    android:textColor="@color/Defult_Color_DeepGrey" />
+
+                <TextView
+                    android:id="@+id/cer_tel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cer_name"
+                    android:layout_marginTop="8dp"
+                    android:text="联系方式："
+                    android:textColor="@color/Defult_Color_DeepGrey" />
+
+
+                <RelativeLayout
+                    android:id="@+id/cer_idLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cer_tel"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:id="@+id/cer_adress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="详细地址："
+                        android:textColor="@color/Defult_Color_DeepGrey" />
+
+                    <TextView
+                        android:id="@+id/tv_cer_adress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/cer_adress"
+                        android:text="XXXXXX"
+                        android:textColor="@color/Defult_Color_DeepGrey" />
+
+                    <TextView
+                        android:id="@+id/tv_cer_IDcard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/cer_adress"
+                        android:layout_alignRight="@id/cer_adress"
+                        android:layout_below="@id/cer_adress"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="身份证  "
+                        android:textColor="@color/Defult_Color_DeepGrey" />
+
+                    <ImageView
+                        android:id="@+id/img_cer_idZ"
+                        android:layout_width="80dp"
+                        android:layout_height="60dp"
+                        android:layout_alignTop="@id/tv_cer_IDcard"
+                        android:layout_toRightOf="@id/tv_cer_IDcard"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_nopic_default" />
+
+                    <ImageView
+                        android:id="@+id/img_cer_idF"
+                        android:layout_width="80dp"
+                        android:layout_height="60dp"
+                        android:layout_alignTop="@id/tv_cer_IDcard"
+                        android:layout_marginLeft="35dp"
+                        android:layout_toRightOf="@id/img_cer_idZ"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_nopic_default" />
+
+                    <TextView
+                        android:id="@+id/tv_cer_propertye"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/cer_adress"
+                        android:layout_alignRight="@id/cer_adress"
+                        android:layout_below="@id/img_cer_idZ"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="产权证  "
+                        android:textColor="@color/Defult_Color_DeepGrey" />
+
+                    <ImageView
+                        android:id="@+id/img_cer_propertye"
+                        android:layout_width="80dp"
+                        android:layout_height="60dp"
+                        android:layout_alignTop="@id/tv_cer_propertye"
+                        android:layout_marginBottom="8dp"
+                        android:layout_toRightOf="@id/tv_cer_propertye"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_nopic_default" />
+
+
+                </RelativeLayout>
+                <TextView
+                    android:id="@+id/cer_reason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="失败原因："
+
+                    android:layout_below="@id/cer_idLayout"
+                    android:textColor="@color/red"
+                    android:layout_marginBottom="8dp"/>
+
+
+            </RelativeLayout>
+
+            <View
+
+                android:id="@+id/view2"
+                android:visibility="gone"
+                android:layout_width="12dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/content"
+            />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_action"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/item_aotumotion_but_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_auto_mymotionitem_delete"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip"
+                android:text="删除"
+                android:textColor="@color/red" />
+        </LinearLayout>
+    </LinearLayout>
+</HorizontalScrollView>

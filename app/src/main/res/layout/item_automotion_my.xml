@@ -89,8 +89,6 @@ android:layout_marginRight="10dp"
                 android:paddingRight="20dip"
                 android:textColor="@color/red"
                 android:text="删除" />
-
-
         </LinearLayout>
     </LinearLayout>
 

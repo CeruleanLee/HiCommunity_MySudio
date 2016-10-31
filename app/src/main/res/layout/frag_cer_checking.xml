@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical">
 
     <View
@@ -11,13 +10,13 @@
         android:layout_height="match_parent" />
 
     <include
-        android:id="@+id/ll_cerSuccess_Progress"
+        android:id="@+id/ll_cerChecking_Progress"
         layout="@layout/progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <TextView
-        android:id="@+id/tv_cerSuccess_noData"
+        android:id="@+id/tv_cerChecking_noData"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -25,7 +24,7 @@
         android:visibility="gone" />
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cerSuccess_listView"
+        android:id="@+id/cerChecking_listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:cacheColorHint="@android:color/transparent"
@@ -39,12 +38,14 @@
 
 
     <ImageButton
-        android:id="@+id/img_cerSuccess_creat"
+        android:id="@+id/img_cerChecking_creat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/positionview"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
+        android:visibility="gone"
+        android:clickable="false"
         android:background="@drawable/img_groupmessage_selector" />
 </RelativeLayout>

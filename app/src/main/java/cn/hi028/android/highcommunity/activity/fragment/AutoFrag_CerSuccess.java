@@ -7,11 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
@@ -46,7 +44,7 @@ public class AutoFrag_CerSuccess extends BaseFragment {
     /**
      * 创建认证
      **/
-    public static final int TAG_CREAT_MOTION = 7;
+    public static final int TAG_CREAT_CER= 6;
     List<Auto_CertificationInitBean.CertificationInitDataEntity> mList = new ArrayList<Auto_CertificationInitBean.CertificationInitDataEntity>();
     CerSuccesstAdapter mAdapter;
 
@@ -65,17 +63,19 @@ public class AutoFrag_CerSuccess extends BaseFragment {
         mAdapter = new CerSuccesstAdapter(mList, getActivity());
         mListView.setEmptyView(mNoData);
         mListView.setAdapter(mAdapter);
-        mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+        mListView.setPullToRefreshEnabled(false);
 
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-
-            }
-        });
+//        mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+//            @Override
+//            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+//
+//            }
+//
+//            @Override
+//            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+//
+//            }
+//        });
     }
 
 
@@ -100,7 +100,7 @@ public class AutoFrag_CerSuccess extends BaseFragment {
     private void ceratCer() {
 
         Intent mCreatCerIntent = new Intent(getActivity(), AutoCommitAct.class);
-//        mIntent_report.putExtra("title", TAG_CREAT_MOTION);
+        mCreatCerIntent.putExtra("tag_creatCer", TAG_CREAT_CER);
 ////        mIntent_report.putExtra("owner_id", owner_id);
         startActivity(mCreatCerIntent);
 
