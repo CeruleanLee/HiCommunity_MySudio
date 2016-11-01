@@ -304,7 +304,7 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
 		Log.d(Tag,"onResume");
 		initDatas();
 		//		mLoadingView.startLoading();
-		registNetworkReceiver();
+//		registNetworkReceiver();
 	}
 
 

@@ -7,11 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
@@ -66,17 +64,18 @@ public class AutoFrag_CerFailed extends BaseFragment {
         mAdapter = new CerFailedAdapter(mList, getActivity(), mdm.widthPixels);
         mListView.setEmptyView(mNoData);
         mListView.setAdapter(mAdapter);
-        mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-
-            }
-        });
+        mListView.setPullToRefreshEnabled(false);
+//        mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+//            @Override
+//            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+//
+//            }
+//
+//            @Override
+//            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+//
+//            }
+//        });
     }
 
     private void initDatas() {

@@ -484,6 +484,15 @@
             </intent-filter>
         </receiver>
 
+
+
+        <!--监听网络状态变化-->
+        <receiver android:name="cn.hi028.android.highcommunity.utils.NetworkReceiver">
+            <intent-filter>
+               <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+
         <!-- Required  . Enable it you can get statistics data with channel -->
         <meta-data
             android:name="JPUSH_CHANNEL"

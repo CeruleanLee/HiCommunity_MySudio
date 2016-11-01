@@ -124,7 +124,7 @@ public class WelcomeAct extends BaseActivity {
 	protected void onResume() {
 		super.onResume();
 		JPushInterface.onResume(this);
-		 registNetworkReceiver();
+//		 registNetworkReceiver();
 	}
 	
 	 /****

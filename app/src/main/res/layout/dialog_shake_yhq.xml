@@ -4,27 +4,28 @@
     android:layout_height="match_parent"
     android:background="@color/color_tran_black"
     android:orientation="vertical">
-
+    <ImageView
+        android:id="@+id/center_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/img_shake_yhq" />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@mipmap/img_shake_yhq"
-            />
-
+     android:layout_alignLeft="@id/center_img"
+     android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_alignRight="@id/center_img"
+        android:layout_centerInParent="true">
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+
             android:layout_marginTop="80dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -141,14 +142,15 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom|right"
                             android:layout_marginBottom="4dp"
-                            android:layout_marginRight="10dp"
                             android:layout_marginLeft="4dp"
+                            android:layout_marginRight="10dp"
                             android:text="购物使用"
                             android:textColor="#DCF1FF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </FrameLayout>
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -171,12 +173,167 @@
 
             </LinearLayout>
 
+            <RelativeLayout
+                android:id="@+id/ll_shake_prize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/prize_tv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:singleLine="true"
+                    android:text="恭喜你抽中了"
+                    android:textColor="#8B4E00"
+                    android:textSize="@dimen/font_small" />
+
+                <LinearLayout
+                    android:id="@+id/prize_view1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/prize_tv1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="嗨社区"
+                        android:textColor="#8B4E00"
+                        android:textSize="@dimen/font_small" />
+
+                    <TextView
+                        android:id="@+id/tv_use_num_prize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="10元"
+                        android:textColor="@color/color_red_FD7A87"
+                        android:textSize="@dimen/font_small" />
+
+                    <TextView
+                        android:id="@+id/tv_use_type_prize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="购物优惠券"
+                        android:textColor="#8B4E00"
+                        android:textSize="@dimen/font_small" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/fl_bg_prize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/prize_view1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_shake_yhq_gw"
+                  >
+
+                    <RelativeLayout
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/prize_img"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/ic_launcher" />
+
+                        <TextView
+                            android:id="@+id/prize_name"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/prize_img"
+                            android:includeFontPadding="false"
+                            android:text="毛巾一条"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="8dp"
+                            android:textColor="@color/defult_color_white"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/prize_tip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@id/prize_name"
+                            android:layout_marginBottom="8dp"
+android:layout_marginTop="8dp"
+                            android:layout_marginRight="10dp"
+                            android:text="请及时领取"
+                            android:textColor="@color/defult_color_white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+                </FrameLayout>
+
+                <TextView
+android:layout_marginTop="10dp"
+                    android:id="@+id/prize_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/fl_bg_prize"
+                    android:layout_below="@id/fl_bg_prize"
+                    android:text="兑换码：123456"
+                    android:layout_marginRight="12dp"
+                    android:textColor="#575757" />
+
+                <TextView
+                    android:id="@+id/prize_tv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/prize_code"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:singleLine="true"
+                    android:text="奖品已经放入您的账户，可在"
+                    android:textColor="#A67E56"
+                    android:textSize="@dimen/font_small" />
+
+                <TextView
+                    android:id="@+id/prize_tv3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/prize_tv2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:singleLine="true"
+                    android:text="指定位置及时兑换"
+                    android:textColor="#A67E56"
+                    android:textSize="@dimen/font_small" />
+
+            </RelativeLayout>
+
             <LinearLayout
                 android:id="@+id/ll_shake_jf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -237,18 +394,19 @@
                     android:textColor="#A67E56"
                     android:textSize="@dimen/font_small" />
             </LinearLayout>
+
             <TextView
                 android:id="@+id/tv_shake"
-                android:clickable="true"
                 android:layout_width="146dp"
                 android:layout_height="46dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/bg_shake_btn"
-                android:textColor="@color/defult_color_white"
-                android:textSize="@dimen/font_extra_large"
+                android:clickable="true"
                 android:gravity="center"
-                android:text="立即使用" />
+                android:text="立即使用"
+                android:textColor="@color/defult_color_white"
+                android:textSize="@dimen/font_extra_large" />
         </LinearLayout>
     </FrameLayout>
 </RelativeLayout>

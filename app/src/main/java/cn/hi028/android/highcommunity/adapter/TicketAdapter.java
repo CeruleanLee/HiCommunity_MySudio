@@ -6,19 +6,15 @@ package cn.hi028.android.highcommunity.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.text.SpannableString;
-import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.don.view.CircleImageView;
+import com.lidroid.xutils.BitmapUtils;
 
-import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.ListUtils;
 
 import java.util.ArrayList;
@@ -29,7 +25,8 @@ import java.util.Map;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.TicketAct;
 import cn.hi028.android.highcommunity.bean.AllTicketBean;
-import cn.hi028.android.highcommunity.utils.CommonUtils;
+import cn.hi028.android.highcommunity.utils.Constacts;
+import cn.hi028.android.highcommunity.utils.MBitmapHolder;
 import cn.hi028.android.highcommunity.utils.TimeUtil;
 
 /**
@@ -44,6 +41,7 @@ public class TicketAdapter extends BaseAdapter {
     Map<String, Integer> big_Map = new HashMap<String, Integer>();
     Map<String, Integer> smail_Map = new HashMap<String, Integer>();
     Activity act;
+    BitmapUtils mBitmapUtils;
 
     public List<AllTicketBean> getData() {
         return data;
@@ -60,6 +58,7 @@ public class TicketAdapter extends BaseAdapter {
     public TicketAdapter(Activity act, int type) {
         this.act = act;
         this.type = type;
+        mBitmapUtils = MBitmapHolder.getBitmapUtils(act);
     }
 
     @Override
@@ -83,25 +82,28 @@ public class TicketAdapter extends BaseAdapter {
         if (convertView == null) {
             mViewHolder = new ViewHolder();
             convertView = LayoutInflater.from(act).inflate(R.layout.adapter_ticket, null);
-            mViewHolder.ticket_unit_flag = (ImageView) convertView
-                    .findViewById(R.id.img_unit_type);
-            mViewHolder.ticket_type = (ImageView) convertView
-                    .findViewById(R.id.img_type);
-            mViewHolder.tv_useType = (TextView) convertView
-                    .findViewById(R.id.tv_ticket_useType);
-            mViewHolder.tv_ticket = (TextView) convertView
-                    .findViewById(R.id.tv_ticket);
-            mViewHolder.tv_ticket_use = (TextView) convertView
-                    .findViewById(R.id.tv_ticket_use);
-            mViewHolder.tv_ticket_time = (TextView) convertView
-                    .findViewById(R.id.tv_ticket_time);
-            mViewHolder.fl_bg = (FrameLayout) convertView
-                    .findViewById(R.id.fl_bg);
+            mViewHolder.ticket_unit_flag = (ImageView) convertView.findViewById(R.id.img_unit_type);
+            mViewHolder.ticket_type = (ImageView) convertView.findViewById(R.id.img_type);
+            mViewHolder.tv_useType = (TextView) convertView.findViewById(R.id.tv_ticket_useType);
+            mViewHolder.tv_ticket_useType_prize = (TextView) convertView.findViewById(R.id.tv_ticket_useType_prize);
+            mViewHolder.tv_ticket = (TextView) convertView.findViewById(R.id.tv_ticket);
+            mViewHolder.tv_ticket_use = (TextView) convertView.findViewById(R.id.tv_ticket_use);
+            mViewHolder.tv_ticket_use_prize = (TextView) convertView.findViewById(R.id.tv_ticket_use_prize);
+            mViewHolder.tv_ticket_time = (TextView) convertView.findViewById(R.id.tv_ticket_time);
+            mViewHolder.tv_ticket_time_prize = (TextView) convertView.findViewById(R.id.tv_ticket_time_prize);
+            mViewHolder.fl_bg = convertView.findViewById(R.id.fl_bg);
+            mViewHolder.fl_bg_prize = convertView.findViewById(R.id.fl_bg_prize);
+            mViewHolder.tv_isused = (TextView) convertView.findViewById(R.id.prize_isused);
+            mViewHolder.prize_img = (ImageView) convertView.findViewById(R.id.ticket_prize_img);
+            mViewHolder.tv_prize_name = (TextView) convertView.findViewById(R.id.img_type_tv);
 
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
+        AllTicketBean mBean = data.get(position);
+        mViewHolder.fl_bg_prize.setVisibility(View.GONE);
+        mViewHolder.fl_bg.setVisibility(View.VISIBLE);
         mViewHolder.tv_ticket.setText(data.get(position).getTicket_value() + "");
         mViewHolder.tv_ticket_use.setText("满" + data.get(position).getLeast() + "消费");
         mViewHolder.tv_ticket_time.setText("有效期至" + TimeUtil.getDayTime(data.get(position).getEnd_time()));
@@ -112,15 +114,58 @@ public class TicketAdapter extends BaseAdapter {
             mViewHolder.ticket_unit_flag.setVisibility(View.GONE);
             mViewHolder.ticket_type.setSelected(true);
         }
-        mViewHolder.tv_useType.setText(data.get(position).getUse_name());
-        if (1 == data.get(position).getUse_to()) {
+//        mViewHolder.tv_ticket_time.setTextColor(0xbfffffff);
+//        mViewHolder.tv_useType.setText(data.get(position).getUse_name());
+//        mViewHolder.tv_ticket_time.setTextSize(12);
+//        mViewHolder.tv_ticket_use.setTextColor(0xffDCF1FF);
+        if (mBean.getUse_to() == 4) {
+            //兑换奖品
+            mViewHolder.fl_bg_prize.setVisibility(View.VISIBLE);
+            mViewHolder.fl_bg.setVisibility(View.GONE);
+
+
+
+
+            if (mBean.getPic() != null) {
+                mBitmapUtils.display(mViewHolder.prize_img, Constacts.IMAGEHTTP + mBean.getPic());
+            }
+            if (mBean.getName() != null) {
+                mViewHolder.tv_prize_name.setText(mBean.getName());
+            }
+            if (mBean.getIs_used().equals("0")) {//未兑换
+                mViewHolder.tv_isused.setText("未兑换");
+
+                mViewHolder.fl_bg_prize.setBackgroundResource(R.mipmap.bg_ticket_red);
+            } else if (mBean.getIs_used().equals("1")) {
+                mViewHolder.tv_isused.setText("已兑换");
+                mViewHolder.fl_bg_prize.setBackgroundResource(R.mipmap.bg_ticket_grey);
+            }
+            mViewHolder.tv_ticket_use_prize.setText("兑换码：" +mBean.getCode());
+            mViewHolder.tv_ticket_useType_prize.setText("活动使用");
+            mViewHolder.tv_ticket_time_prize.setText("当日有效");
+//            mViewHolder.tv_ticket_time.setTextColor(0xffffffff);
+//            mViewHolder.tv_ticket_time.setTextSize(15);
+//            mViewHolder.tv_ticket_use.setTextColor(0xffffffff);
+
+        } else if (1 == data.get(position).getUse_to()) {
+
+
+
             mViewHolder.tv_ticket_use.setTextColor(act.getResources().getColor(R.color.color_ticket_least1));
             mViewHolder.fl_bg.setBackgroundResource(R.mipmap.bg_ticket_orange);
         } else if (2 == data.get(position).getUse_to()) {
+
+
+
             mViewHolder.tv_ticket_use.setTextColor(act.getResources().getColor(R.color.color_ticket_least2));
 
             mViewHolder.fl_bg.setBackgroundResource(R.mipmap.bg_ticket_blue);
         } else {
+//            mViewHolder.tv_isused.setVisibility(View.GONE);
+//            mViewHolder.prize_img.setVisibility(View.GONE);
+//            mViewHolder.tv_prize_name.setVisibility(View.GONE);
+
+
             mViewHolder.tv_ticket_use.setTextColor(act.getResources().getColor(R.color.color_ticket_least3));
             mViewHolder.fl_bg.setBackgroundResource(R.mipmap.bg_ticket_green);
         }
@@ -140,12 +185,12 @@ public class TicketAdapter extends BaseAdapter {
 
 
     public class ViewHolder {
-        ImageView ticket_type, ticket_unit_flag;
-        TextView tv_ticket;
-        TextView tv_ticket_time;
-        TextView tv_ticket_use;
-        TextView tv_useType;
-        FrameLayout fl_bg;
+        ImageView ticket_type, ticket_unit_flag, prize_img;
+        TextView tv_ticket, tv_isused, tv_prize_name;
+        TextView tv_ticket_time,tv_ticket_time_prize;
+        TextView tv_ticket_use,tv_ticket_use_prize;
+        TextView tv_useType,tv_ticket_useType_prize;
+        View fl_bg,fl_bg_prize;
     }
 
 }

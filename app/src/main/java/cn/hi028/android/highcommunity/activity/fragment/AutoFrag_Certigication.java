@@ -73,6 +73,7 @@ public class AutoFrag_Certigication extends BaseFragment {
         view = inflater.inflate(R.layout.frag_auto_certificati_page, null);
         ButterKnife.bind(this, view);
         initView();
+//        initDatas();
         return view;
     }
 
@@ -80,7 +81,8 @@ public class AutoFrag_Certigication extends BaseFragment {
         Log.e(Tag, "initView");
         mViewPager.setPagingEnabled(false);
 //        mPagerAdapter = new CertificationPagerAdapter(getChildFragmentManager(),mList);
-        mViewPager.setAdapter(mPagerAdapter);
+//        mViewPager.setAdapter(mPagerAdapter);
+//        mViewPager.setCurrentItem(2);
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -133,11 +135,13 @@ public class AutoFrag_Certigication extends BaseFragment {
                 }
             }
         });
-//        setCurrentPage(0);
+//        setCurrentPage(2);
     }
 
 
     private void initDatas() {
+        Log.e(Tag, "---~~~initDatas");
+
         HTTPHelper.GetOwnersList(mIbpi);
     }
 
@@ -153,6 +157,19 @@ public class AutoFrag_Certigication extends BaseFragment {
             mList = (List<Auto_CertificationInitBean.CertificationInitDataEntity>) message;
             mPagerAdapter = new CertificationPagerAdapter(getChildFragmentManager(), mList);
             mViewPager.setAdapter(mPagerAdapter);
+//            mViewPager.setCurrentItem(2);
+            Log.e(Tag,"success 选中"+but_Success.isChecked()+",checking 选中"+but_Checking.isChecked()+",failed 选中"+but_Failed.isChecked());
+        if (but_Success.isChecked()) {
+            Log.e(Tag,"1");
+            mViewPager.setCurrentItem(0);
+        } else if (but_Checking.isChecked()) {
+            Log.e(Tag,"2");
+            mViewPager.setCurrentItem(1);
+
+        } else if (but_Failed.isChecked()) {
+            Log.e(Tag,"3");
+            mViewPager.setCurrentItem(2);
+        }
 
         }
 
@@ -192,17 +209,43 @@ public class AutoFrag_Certigication extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        Log.e(Tag, "---~~~onResume");
         initDatas();
-        Log.e(Tag,"success 选中"+but_Success.isChecked()+",checking 选中"+but_Checking.isChecked()+",failed 选中"+but_Failed.isChecked());
-        if (but_Success.isChecked()) {
-            Log.e(Tag,"1");
-        } else if (but_Checking.isChecked()) {
-            Log.e(Tag,"2");
-            mViewPager.setCurrentItem(1);
-
-        } else if (but_Failed.isChecked()) {
-            Log.e(Tag,"3");
-            mViewPager.setCurrentItem(2);
-        }
+//        Log.e(Tag,"success 选中"+but_Success.isChecked()+",checking 选中"+but_Checking.isChecked()+",failed 选中"+but_Failed.isChecked());
+//        if (but_Success.isChecked()) {
+//            Log.e(Tag,"1");
+//            mViewPager.setCurrentItem(0);
+//        } else if (but_Checking.isChecked()) {
+//            Log.e(Tag,"2");
+//            mViewPager.setCurrentItem(1);
+//
+//        } else if (but_Failed.isChecked()) {
+//            Log.e(Tag,"3");
+//            mViewPager.setCurrentItem(2);
+//        }
     }
+
+
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (isVisibleToUser) {
+//            //需要放在onResume的方法放在该处执行
+//            initDatas();
+//            Log.e(Tag,"success 选中"+but_Success.isChecked()+",checking 选中"+but_Checking.isChecked()+",failed 选中"+but_Failed.isChecked());
+//            if (but_Success.isChecked()) {
+//                Log.e(Tag,"1");
+//                mViewPager.setCurrentItem(0);
+//            } else if (but_Checking.isChecked()) {
+//                Log.e(Tag,"2");
+//                mViewPager.setCurrentItem(1);
+//
+//            } else if (but_Failed.isChecked()) {
+//                Log.e(Tag,"3");
+//                mViewPager.setCurrentItem(2);
+//            }
+//        } else {
+//            //界面不可见的时候执行的方法
+//        }
+//    }
 }

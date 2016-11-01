@@ -87,7 +87,7 @@ android:layout_marginRight="10dp"
                 android:background="@drawable/bg_auto_mymotionitem_delete"
                 android:paddingLeft="20dip"
                 android:paddingRight="20dip"
-                android:textColor="@color/red"
+                android:textColor="@color/white"
                 android:text="删除" />
         </LinearLayout>
     </LinearLayout>

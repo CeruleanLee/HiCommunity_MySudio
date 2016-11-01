@@ -182,7 +182,7 @@ android:visibility="gone"
                 android:paddingLeft="20dip"
                 android:paddingRight="20dip"
                 android:text="删除"
-                android:textColor="@color/red" />
+                android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>
 </HorizontalScrollView>

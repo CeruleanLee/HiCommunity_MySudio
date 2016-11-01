@@ -4,9 +4,6 @@
 
 package cn.hi028.android.highcommunity.bean;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @功能：所有类型的优惠券<br>
  * @作者： 李凌云<br>
@@ -16,12 +13,47 @@ import java.util.List;
 public class AllTicketBean extends BaseBean {
     String tid;
     float ticket_value;
-    int use_to;
+    int use_to;//4=>现场奖品
     String least;
     int end_time;
     String ticket_type;
     String use_name;
+String pic;//奖品图片
+    String name;//奖品名称
+    String code;//兑换码
+    String is_used;//是否兑换
 
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getIs_used() {
+        return is_used;
+    }
+
+    public void setIs_used(String is_used) {
+        this.is_used = is_used;
+    }
 
     public String getTid() {
         return tid;

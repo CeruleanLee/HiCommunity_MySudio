@@ -5,7 +5,6 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
@@ -37,16 +36,13 @@ import java.util.List;
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.GridAdapter;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.view.ChangeBirthDialog;
 import photo.activity.AlbumActivity;
 import photo.activity.GalleryActivity;
 import photo.util.Bimp;
-import photo.util.FileUtils;
 import photo.util.ImageItem;
-import photo.util.PublicWay;
 
 /**
  * @功能：创建活动<br>\
@@ -220,14 +216,14 @@ public class ActivityCreateFrag extends BaseFragment {
             HighCommunityUtils.GetInstantiation().ShowToast("请输入联系方式", 0);
             isClicked = false;
             return;
-        } else if (TextUtils.isEmpty(qq)) {
-            HighCommunityUtils.GetInstantiation().ShowToast("请输入QQ号码", 0);
-            isClicked = false;
-            return;
-        } else if (TextUtils.isEmpty(weixin)) {
-            HighCommunityUtils.GetInstantiation().ShowToast("请输入微信号", 0);
-            isClicked = false;
-            return;
+//        } else if (TextUtils.isEmpty(qq)) {
+//            HighCommunityUtils.GetInstantiation().ShowToast("请输入QQ号码", 0);
+//            isClicked = false;
+//            return;
+//        } else if (TextUtils.isEmpty(weixin)) {
+//            HighCommunityUtils.GetInstantiation().ShowToast("请输入微信号", 0);
+//            isClicked = false;
+//            return;
         } else if (mImages.size() < 1) {
             HighCommunityUtils.GetInstantiation().ShowToast("请选择图片", 0);
             isClicked = false;

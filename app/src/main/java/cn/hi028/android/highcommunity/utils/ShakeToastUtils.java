@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lidroid.xutils.BitmapUtils;
+
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.bean.ShakeBean;
 
@@ -17,6 +19,7 @@ import cn.hi028.android.highcommunity.bean.ShakeBean;
  * 版本：1.0<br>
  */
 public class ShakeToastUtils extends Dialog {
+    BitmapUtils mBitmapUtils;
     public interface onCityListener {
         public void onCity(int state, String proviceName, String cityName);
     }
@@ -35,6 +38,7 @@ public class ShakeToastUtils extends Dialog {
         super(context, R.style.dialog_style);
         this.context = context;
         this.shakeBean = shakeBean;
+        mBitmapUtils = MBitmapHolder.getBitmapUtils(context);
     }
 
     void initFialdNoView(int type) {
@@ -65,12 +69,37 @@ public class ShakeToastUtils extends Dialog {
     void initSuccessView() {
         this.setContentView(R.layout.dialog_shake_yhq);
         TextView tv = (TextView) findViewById(R.id.tv_shake);
-        if (shakeBean.getType() == 4) {
+        if (shakeBean.getType()==5){
+            findViewById(R.id.ll_shake_prize).setVisibility(View.VISIBLE);
+            findViewById(R.id.ll_shake_yhq).setVisibility(View.GONE);
+            findViewById(R.id.ll_shake_jf).setVisibility(View.GONE);
+            TextView tv_use_type = (TextView) findViewById(R.id.tv_use_type_prize);
+            TextView tv_use_num = (TextView) findViewById(R.id.tv_use_num_prize);
+            ImageView prize_Img = (ImageView) findViewById(R.id.prize_img);
+            TextView prize_name = (TextView) findViewById(R.id.prize_name);
+            TextView prize_Code = (TextView) findViewById(R.id.prize_code);
+            ImageView ticket_type = (ImageView) findViewById(R.id.img_type);
+            if (shakeBean.getPic()!=null) {
+                mBitmapUtils.display(prize_Img, Constacts.IMAGEHTTP + shakeBean.getPic());
+            }
+            if (shakeBean.getName()!=null){
+                prize_name.setText(shakeBean.getName());
+            }
+            if (shakeBean.getCode()!=null){
+                prize_Code.setText("兑换码："+shakeBean.getCode());
+            }
+            tv_use_num.setText("精美礼品");
+            tv_use_type.setText("一份");
+
+        }else if (shakeBean.getType() == 4) {
+            findViewById(R.id.ll_shake_prize).setVisibility(View.GONE);
+
             findViewById(R.id.ll_shake_yhq).setVisibility(View.GONE);
             findViewById(R.id.ll_shake_jf).setVisibility(View.VISIBLE);
             TextView tv_jf_num = (TextView) findViewById(R.id.tv_jf_num);
             tv_jf_num.setText(shakeBean.getValue()+"积分");
         } else {
+            findViewById(R.id.ll_shake_prize).setVisibility(View.GONE);
             findViewById(R.id.ll_shake_yhq).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_shake_jf).setVisibility(View.GONE);
             ImageView ticket_unit_flag = (ImageView) findViewById(R.id.img_unit_type);

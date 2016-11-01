@@ -21,7 +21,7 @@ import cn.hi028.android.highcommunity.bean.Autonomous.Auto_CertificationInitBean
 
 public class CertificationPagerAdapter extends FragmentPagerAdapter {
 
-    final String Tag = "MotionPagerAdapter";
+    final String Tag = "CertificationPagerAdapter";
     AutoFrag_CerSuccess mCerSuccessFrag;
     AutoFrag_CerChecking mCerChecking;
     AutoFrag_CerFailed mCerFailedFrag;
@@ -34,7 +34,7 @@ public class CertificationPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         this.mList = mList;
         sortList(mList);
-        Log.d(Tag, "MotionPagerAdapter");
+        Log.d(Tag, "CertificationPagerAdapter");
     }
 
     @Override
