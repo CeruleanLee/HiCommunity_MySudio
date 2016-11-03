@@ -16,6 +16,7 @@ import com.baidu.location.LocationClient;
 import com.don.tools.BpiHttpClient;
 import com.don.tools.MyImageDownloader;
 import com.lidroid.xutils.util.LogUtils;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import net.duohuo.dhroid.BaseApplication;
 import net.duohuo.dhroid.util.LogUtil;
@@ -62,6 +63,12 @@ public class HighCommunityApplication extends BaseApplication implements
 
         JPushInterface.setDebugMode(true); // 设置开启日志,发布时请关闭日志
         JPushInterface.init(this); // 初始化 JPush
+        /**第三个参数为SDK调试模式开关，调试模式的行为特性如下：
+         输出详细的Bugly SDK的Log；
+         每一条Crash都会被立即上报；
+         自定义日志将会在Logcat中输出。
+         建议在测试阶段建议设置成true，发布时设置为false。*/
+        CrashReport.initCrashReport(getApplicationContext(), "63e6f78cb5", true);
 
         app = this;
         // EducationCrachHandler.getInstance().init(this);

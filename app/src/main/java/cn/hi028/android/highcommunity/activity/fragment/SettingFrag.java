@@ -77,6 +77,7 @@ public class SettingFrag extends BaseFragment {
 
     @Click(R.id.tv_settings_AboutUs)
     void aboutus() {
+//        CrashReport.testJavaCrash();
         mIntent.putExtra(SettingAct.ACTIVITYTAG, Constacts.MENU_LEFTSECOND_SETTINGABOUTUS);
         startActivity(mIntent);
     }

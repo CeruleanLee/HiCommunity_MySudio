@@ -117,7 +117,7 @@ public class AutoFrag_Vote extends BaseFragment {
         List<View> viewList = new ArrayList<View>();
         viewList.add(getVoteView());
         viewList.add(getQuestionView());
-//        mViewPager.setPagingEnabled(false);
+        mViewPager.setPagingEnabled(false);
         adapter.setViewList(viewList);
         mViewPager.setAdapter(adapter);
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
