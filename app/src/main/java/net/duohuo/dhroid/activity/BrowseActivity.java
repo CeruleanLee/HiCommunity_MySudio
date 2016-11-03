@@ -88,8 +88,17 @@ public class BrowseActivity extends BaseFragmentActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            return super.shouldOverrideUrlLoading(view, url);
+            if (url.startsWith("http:") || url.startsWith("https:")) {
+                return false;
+            }
 
+            // Otherwise allow the OS to handle things like tel, mailto, etc.
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+
+
+//            return super.shouldOverrideUrlLoading(view, url);
+            return true;
         }
 
         @Override
@@ -121,7 +130,6 @@ public class BrowseActivity extends BaseFragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
 
 
     }

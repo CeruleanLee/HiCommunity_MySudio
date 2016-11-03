@@ -6,17 +6,6 @@
     android:paddingLeft="@dimen/margin_8"
     android:paddingRight="@dimen/margin_8"
     android:paddingTop="@dimen/margin_12">
-
-    <TextView
-        android:id="@+id/item_autoVotelist_Vtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="content"
-        android:textSize="16sp"
-
-        />
     <TextView
         android:id="@+id/item_autoVotelist_isJoin"
         android:layout_width="wrap_content"
@@ -32,6 +21,18 @@
         android:visibility="gone"
 
         />
+    <TextView
+        android:id="@+id/item_autoVotelist_Vtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="content"
+        android:layout_below="@id/item_autoVotelist_isJoin"
+        android:textSize="16sp"
+android:layout_marginTop="5dp"
+        />
+
 
     <TextView
         android:id="@+id/item_autoVotelist_Vtime"

@@ -45,7 +45,7 @@ public class CertificationPagerAdapter extends FragmentPagerAdapter {
                 mCerSuccessFrag = new AutoFrag_CerSuccess();
             }
             if (mList_success != null) {
-                mCerSuccessFrag.updateList(mList_success);
+                mCerSuccessFrag.updateList(mList);
             }
             return mCerSuccessFrag;
         } else if (arg0 == 1) {

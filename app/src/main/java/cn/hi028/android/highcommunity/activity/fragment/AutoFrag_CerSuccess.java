@@ -1,7 +1,9 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +12,11 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.don.tools.BpiHttpHandler;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
+import net.duohuo.dhroid.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +26,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.AutoCommitAct;
-import cn.hi028.android.highcommunity.adapter.CerSuccesstAdapter;
+import cn.hi028.android.highcommunity.adapter.CerFailedAdapter;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_CertificationInitBean;
+import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
  * @功能：自治大厅 认证成功（已认证）<br>
@@ -46,8 +52,8 @@ public class AutoFrag_CerSuccess extends BaseFragment {
      **/
     public static final int TAG_CREAT_CER= 6;
     List<Auto_CertificationInitBean.CertificationInitDataEntity> mList = new ArrayList<Auto_CertificationInitBean.CertificationInitDataEntity>();
-    CerSuccesstAdapter mAdapter;
-
+//    CerSuccesstAdapter mAdapter;
+    CerFailedAdapter mAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(Tag, "onCreateView");
@@ -60,7 +66,13 @@ public class AutoFrag_CerSuccess extends BaseFragment {
     void initView() {
         Log.d(Tag, "initView");
         mProgress.setVisibility(View.VISIBLE);
-        mAdapter = new CerSuccesstAdapter(mList, getActivity());
+
+        DisplayMetrics mdm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(mdm);
+
+        mProgress.setVisibility(View.VISIBLE);
+        mAdapter = new CerFailedAdapter(mList, getActivity(), mdm.widthPixels);
+//        mAdapter = new CerSuccesstAdapter(mList, getActivity());
         mListView.setEmptyView(mNoData);
         mListView.setAdapter(mAdapter);
         mListView.setPullToRefreshEnabled(false);
@@ -89,6 +101,7 @@ public class AutoFrag_CerSuccess extends BaseFragment {
     public void onResume() {
         super.onResume();
         Log.d(Tag, "onResume");
+        initDatas();
     }
 
     @Override
@@ -116,4 +129,42 @@ public class AutoFrag_CerSuccess extends BaseFragment {
         this.mList = mList;
 
     }
+
+
+    private void initDatas() {
+        Log.e(Tag, "---~~~initDatas");
+
+        HTTPHelper.GetOwnersList(mIbpi);
+    }
+
+    BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
+        @Override
+        public void onError(int id, String message) {
+            Log.e(Tag, "---~~~onError");
+            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+        }
+
+        @Override
+        public void onSuccess(Object message) {
+            mList = (List<Auto_CertificationInitBean.CertificationInitDataEntity>) message;
+            mAdapter.ClearData();
+            mAdapter.AddNewData(mList);
+            mListView.setAdapter(mAdapter);
+        }
+
+        @Override
+        public Object onResolve(String result) {
+            LogUtil.d(Tag + " ~~~result" + result);
+            return HTTPHelper.ResolveCerDataEntity(result);
+        }
+
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
+        }
+
+        @Override
+        public void cancleAsyncTask() {
+
+        }
+    };
 }

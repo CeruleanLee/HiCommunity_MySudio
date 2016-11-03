@@ -41,7 +41,7 @@ import cn.hi028.android.highcommunity.utils.MBitmapHolder;
  * @作者： Lee_yting<br>
  * @时间：2016/10/28<br>
  */
-public class CerFailedAdapter extends BaseFragmentAdapter {
+public class CerFailedAdapter_forback extends BaseFragmentAdapter {
 
     final String Tag = "-CerSuccesstAdapter->";
     List<Auto_CertificationInitBean.CertificationInitDataEntity> mList = new ArrayList<Auto_CertificationInitBean.CertificationInitDataEntity>();
@@ -58,7 +58,7 @@ public class CerFailedAdapter extends BaseFragmentAdapter {
     private boolean isClose = true;
     int clickPosition = -1;
 
-    public CerFailedAdapter(List<Auto_CertificationInitBean.CertificationInitDataEntity> list, Context context, int screenWidth) {
+    public CerFailedAdapter_forback(List<Auto_CertificationInitBean.CertificationInitDataEntity> list, Context context, int screenWidth) {
         super();
         this.mList = list;
         if (this.mList == null) {
@@ -133,10 +133,10 @@ public class CerFailedAdapter extends BaseFragmentAdapter {
             mViewHolder.mImgTag.setImageResource(R.mipmap.img_cersuccess);
 //            mBitmapUtils.display(mViewHolder.mImgTag, "drawable://" + R.mipmap.img_cersuccess);
 //            mBitmapUtils.display(mViewHolder.mImgTag, Constacts.IMAGEHTTP + mBean.getIDCard());
-        } else if (mBean.getStatus().equals("0")) {
+        } else if (mBean.getStatus().equals("0")){
             //认证中
             mViewHolder.mImgTag.setImageResource(R.mipmap.img_cerchecking);
-        } else if (mBean.getStatus().equals("-1")) {
+        }else if (mBean.getStatus().equals("-1")){
             //认证失败
             mViewHolder.mImgTag.setImageResource(R.mipmap.img_cerfalied);
         }
@@ -176,106 +176,98 @@ public class CerFailedAdapter extends BaseFragmentAdapter {
                 ((Activity) context).overridePendingTransition(R.anim.dyn_pic_scan_miss, R.anim.dyn_pic_scan_miss_no);
             }
         });
+if (mBean.getReason()!=null){
+    mViewHolder.mReason.setText("失败原因："+mBean.getReason());
 
 
-        if (mBean.getStatus().equals("-1")){
+}else{
+    mViewHolder.mReason.setVisibility(View.GONE);
+}
+        //位置放到view里   方便知道点击的是那一条item
+        mViewHolder.but_delete.setTag(position);
 
+        convertView.setOnTouchListener(new View.OnTouchListener() {
+            private int x, y;
 
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        if (view2 != null) {
 
-            if (mBean.getReason() != null) {
-                mViewHolder.mReason.setText("失败原因：" + mBean.getReason());
-
-
-            } else {
-                mViewHolder.mReason.setVisibility(View.GONE);
-            }
-            //位置放到view里   方便知道点击的是那一条item
-            mViewHolder.but_delete.setTag(position);
-
-            convertView.setOnTouchListener(new View.OnTouchListener() {
-                private int x, y;
-
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            if (view2 != null) {
-
-                                ViewHolder privateViewHolder = (ViewHolder) view2.getTag();
-                                privateViewHolder.mHSView.smoothScrollBy(0, 0);
-                            }
-                            x = (int) event.getX();
-                            y = (int) event.getY();
-                            break;
-                        case MotionEvent.ACTION_MOVE:
-                            int x3 = (int) event.getX();
-                            int Y3 = (int) event.getY();
-                            int dY = Math.abs(y - Y3);
-                            int dX = Math.abs(x - x3);
-                            if (dX > dY && dX > 20) {
+                            ViewHolder privateViewHolder = (ViewHolder) view2.getTag();
+                            privateViewHolder.mHSView.smoothScrollBy(0, 0);
+                        }
+                        x = (int) event.getX();
+                        y = (int) event.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        int x3 = (int) event.getX();
+                        int Y3 = (int) event.getY();
+                        int dY = Math.abs(y - Y3);
+                        int dX = Math.abs(x - x3);
+                        if (dX > dY && dX > 20) {
 //          v.requestdis
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        ViewHolder viewHolder2 = (ViewHolder) v.getTag();
+                        view2 = v;
+                        // 获得HorizontalScrollView滑动的水平方向值.
+                        int scrollX = viewHolder2.mHSView.getScrollX();
+                        // 获得操作区域的长度
+                        int actionW = viewHolder2.action.getWidth();
+                        // 注意使用smoothScrollTo,这样效果看起来比较圆滑,不生硬
+                        // 如果水平方向的移动值<操作区域的长度的一半,就复原
+                        if (isClose) {
+                            if (scrollX < (actionW / 5)) {
+                                isClose = true;
+                                viewHolder2.mHSView.smoothScrollTo(0, 0);
+                            } else// 否则的话显示操作区域
+                            {
+                                isClose = false;
+                                viewHolder2.mHSView.smoothScrollTo(actionW, 0);
                             }
-                            break;
-                        case MotionEvent.ACTION_UP:
-                            ViewHolder viewHolder2 = (ViewHolder) v.getTag();
-                            view2 = v;
-                            // 获得HorizontalScrollView滑动的水平方向值.
-                            int scrollX = viewHolder2.mHSView.getScrollX();
-                            // 获得操作区域的长度
-                            int actionW = viewHolder2.action.getWidth();
-                            // 注意使用smoothScrollTo,这样效果看起来比较圆滑,不生硬
-                            // 如果水平方向的移动值<操作区域的长度的一半,就复原
-                            if (isClose) {
-                                if (scrollX < (actionW / 5)) {
-                                    isClose = true;
-                                    viewHolder2.mHSView.smoothScrollTo(0, 0);
-                                } else// 否则的话显示操作区域
-                                {
-                                    isClose = false;
-                                    viewHolder2.mHSView.smoothScrollTo(actionW, 0);
-                                }
 
-                            } else {
+                        } else {
 
-                                if (scrollX < (actionW * 4.0 / 5.0)) {
-                                    isClose = true;
-                                    viewHolder2.mHSView.smoothScrollTo(0, 0);
-                                } else// 否则的话显示操作区域
-                                {
-                                    isClose = false;
-                                    viewHolder2.mHSView.smoothScrollTo(actionW, 0);
-                                }
+                            if (scrollX < (actionW * 4.0 / 5.0)) {
+                                isClose = true;
+                                viewHolder2.mHSView.smoothScrollTo(0, 0);
+                            } else// 否则的话显示操作区域
+                            {
+                                isClose = false;
+                                viewHolder2.mHSView.smoothScrollTo(actionW, 0);
                             }
-                            return true;
-                    }
-                    return false;
+                        }
+                        return true;
                 }
-            });
-            // 这里防止删除一条item后,ListView处于操作状态,直接还原
-            if (mViewHolder.mHSView.getScrollX() != 0) {
-                mViewHolder.mHSView.scrollTo(0, 0);
+                return false;
             }
+        });
+        // 这里防止删除一条item后,ListView处于操作状态,直接还原
+        if (mViewHolder.mHSView.getScrollX() != 0) {
+            mViewHolder.mHSView.scrollTo(0, 0);
+        }
 // 设置监听事件
-            mViewHolder.but_delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        mViewHolder.but_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    deleteHttp(mBean.getId());
-                    mList.remove(position);
+                deleteHttp(mBean.getId());
+                mList.remove(position);
 
 //
-                    // 刷新ListView内容
-                    notifyDataSetChanged();
-                }
-            });
-        }else {
-            mViewHolder.but_delete.setVisibility(View.GONE);
-            mViewHolder.mReason.setVisibility(View.GONE);
-        }
+                // 刷新ListView内容
+                notifyDataSetChanged();
+            }
+        });
 
 
 //        TimeUtil.getDayAllTime(Long.parseLong(mBean.getCreate_time()))
 //        mViewHolder.mTime.setText(TimeUtil.longToDate(Long.parseLong(mBean.getCreate_time()),"yyyy年MM月dd日 HH时mm分ss秒").toString());
+
+
 
 
         return convertView;
@@ -296,7 +288,7 @@ public class CerFailedAdapter extends BaseFragmentAdapter {
     }
 
     class ViewHolder {
-        TextView mName, mReason;
+        TextView mName,mReason;
         TextView mTel;
         TextView mAdress;
         ImageView mImgCerIdZ;

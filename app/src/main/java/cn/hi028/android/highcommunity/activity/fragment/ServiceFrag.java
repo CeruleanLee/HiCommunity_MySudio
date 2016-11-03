@@ -285,7 +285,7 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
 		public void onItemClick(AdapterView<?> adapterView, View view, int i,
 				long l) {
 			ServiceBean mServie = mAdapter.getItem(i);
-			LogUtil.d("--------------mServie.getUrl() :"+mServie.getUrl());
+			Log.d(Tag,"mServie.getUrl() :"+mServie.getUrl());
 			BrowseActivity.toBrowseActivity(getActivity(), mServie.getName(),
 					mServie.getUrl());
 		}

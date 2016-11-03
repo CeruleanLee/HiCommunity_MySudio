@@ -66,21 +66,21 @@
 
         <ImageView
             android:id="@+id/img_cer_idZ"
-            android:layout_width="80dp"
-            android:layout_height="60dp"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
             android:layout_alignTop="@id/tv_cer_IDcard"
             android:layout_toRightOf="@id/tv_cer_IDcard"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_nopic_default" />
 
         <ImageView
             android:id="@+id/img_cer_idF"
-            android:layout_width="80dp"
-            android:layout_height="60dp"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
             android:layout_alignTop="@id/tv_cer_IDcard"
             android:layout_marginLeft="35dp"
             android:layout_toRightOf="@id/img_cer_idZ"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_nopic_default" />
 
         <TextView
@@ -97,12 +97,12 @@
 
         <ImageView
             android:id="@+id/img_cer_propertye"
-            android:layout_width="80dp"
-            android:layout_height="60dp"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
             android:layout_alignTop="@id/tv_cer_propertye"
             android:layout_marginBottom="8dp"
             android:layout_toRightOf="@id/tv_cer_propertye"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_nopic_default" />
 
 

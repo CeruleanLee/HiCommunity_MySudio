@@ -44,7 +44,7 @@ public class AutoFrag_Vote extends BaseFragment {
     AutoVoteList_Q_Adapter mQuestionAdapter;
     AutoVoteList_V_Adapter mVoteAdapter;
 
-    @Bind(R.id.frag_AutoVote_RadioGroup)
+    @Bind(R.id.frag_AutoVote_RadioGroup_page)
     RadioGroup mRadioGroup;
     @Bind(R.id.frag_vote_ViewPager)
     MyCustomViewPager mViewPager;
@@ -56,6 +56,10 @@ public class AutoFrag_Vote extends BaseFragment {
     public List<ListView> listViewList; // Tab页面列表
     public List<View> proPressList; // Tab页面列表
     public List<TextView> noDataList; // Tab页面列表
+    @Bind(R.id.frag_AutoVote_vote_page)
+    RadioButton but_Vote;
+    @Bind(R.id.frag_AutoVote_Question_page)
+    RadioButton but_Question;
     private List<BaseAdapter> adapterList; // Tab页面列表
 
     ListView listview_Questions, listview_Vote;
@@ -66,7 +70,6 @@ public class AutoFrag_Vote extends BaseFragment {
         View view = inflater.inflate(R.layout.frag_auto_votelist_page, null);
         ButterKnife.bind(this, view);
         initView();
-//        initDatas();
         return view;
     }
 
@@ -75,29 +78,32 @@ public class AutoFrag_Vote extends BaseFragment {
 
     public void initView() {
         Log.d(Tag, "initView");
-        mQuestionList=new ArrayList<Auto_VoteList_Vote.VoteVVDataEntity>();
-        mVoteList=new ArrayList<Auto_VoteList_Vote.VoteVVDataEntity>();
+        mQuestionList = new ArrayList<Auto_VoteList_Vote.VoteVVDataEntity>();
+        mVoteList = new ArrayList<Auto_VoteList_Vote.VoteVVDataEntity>();
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.frag_AutoVote_vote:
-//                        listview_Questions.setVisibility(View.VISIBLE);
-//                        listview_Vote.setVisibility(View.GONE);
+
+                    case R.id.frag_AutoVote_vote_page:
+                        Log.d(Tag, "checkedId   vote"+checkedId);
 //                        HTTPHelper.GetAutoVoteList(mIbpi2, 2 + "");
 //                        if (currentPo != 1) {
-                            mViewPager.setCurrentItem(1);
-                            HTTPHelper.GetAutoVoteList(mIbpi2, 2 + "");
-
+//                        but_Vote.setChecked(true);
+//                        but_Question.setChecked(false);
+                        mViewPager.setCurrentItem(0);
+                        HTTPHelper.GetAutoVoteList(mIbpi2, 2 + "");
 //                        }
                         break;
-                    case R.id.frag_AutoVote_Question:
+                    case R.id.frag_AutoVote_Question_page:
+                        Log.d(Tag, "checkedId   Question"+checkedId);
+
 //                        if (currentPo != 0) {
-                            mViewPager.setCurrentItem(0);
-                            HTTPHelper.GetAutoVoteList(mIbpi1, 1 + "");
+//                        but_Question.setChecked(true);
+//                        but_Vote.setChecked(false);
+                        mViewPager.setCurrentItem(1);
+                        HTTPHelper.GetAutoVoteList(mIbpi1, 1 + "");
 //                        }
-//                        listview_Questions.setVisibility(View.GONE);
-//                        listview_Vote.setVisibility(View.VISIBLE);
 //                        HTTPHelper.GetAutoVoteList(mIbpi1, 1 + "");
                         break;
                 }
@@ -107,23 +113,34 @@ public class AutoFrag_Vote extends BaseFragment {
         noDataList = new ArrayList<TextView>();
         listViewList = new ArrayList<ListView>();
         adapterList = new ArrayList<BaseAdapter>();
-//        listview_Vote.setVisibility(View.VISIBLE);
         HuiOrderAdapter adapter = new HuiOrderAdapter();
         List<View> viewList = new ArrayList<View>();
-        viewList.add(getQuestionView());
         viewList.add(getVoteView());
+        viewList.add(getQuestionView());
+//        mViewPager.setPagingEnabled(false);
+        adapter.setViewList(viewList);
         mViewPager.setAdapter(adapter);
-
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
             }
+
             @Override
             public void onPageSelected(int i) {
                 currentPo = i;
-                if (!((RadioButton) mRadioGroup.getChildAt(i)).isChecked()) {
-                    ((RadioButton) mRadioGroup.getChildAt(i)).setChecked(true);
+                Log.e(Tag, " Page i  "+i);
+//                if (!((RadioButton) mRadioGroup.getChildAt(i)).isChecked()) {
+//                    ((RadioButton) mRadioGroup.getChildAt(i)).setChecked(true);
+//                }
+                if (i == 0) {//选举
+                    but_Vote.setChecked(true);
+                    but_Question.setChecked(false);
+                } else if (i==1){
+                    but_Question.setChecked(true);
+                    but_Vote.setChecked(false);
                 }
+
+
 //        // 如果页面滑动的时候 adapter里面的数据是空的 就访问接口获取数据  与我相关是0  系统消息是1
 //        if (adapterList.get(i).getCount() == 0) {
 //            if (i == 0) {
@@ -133,12 +150,13 @@ public class AutoFrag_Vote extends BaseFragment {
 //            }
 //        }
             }
+
             @Override
             public void onPageScrollStateChanged(int i) {
 
             }
         });
-        adapter.setViewList(viewList);
+
 //        listview_Vote.setEmptyView(tv_Nodata);
 //        listview_Questions.setEmptyView(tv_Nodata);
 //        mVoteAdapter = new AutoVoteList_V_Adapter(mVoteList, getActivity());
@@ -148,10 +166,10 @@ public class AutoFrag_Vote extends BaseFragment {
     }
 
     View getQuestionView() {
-        Log.e(Tag, "getPageView");
+        Log.e(Tag, "getPageView  q");
         View view_Q = LayoutInflater.from(getActivity()).inflate(R.layout.page_question, null);
         mQuestionAdapter = new AutoVoteList_Q_Adapter(mQuestionList, getActivity());
-       listview_Questions = (ListView) view_Q.findViewById(R.id.frag_AutoVote_listview_questions);
+        listview_Questions = (ListView) view_Q.findViewById(R.id.frag_AutoVote_listview_questions);
         View mProgress = view_Q.findViewById(R.id.ll_AutoQ_Progress);
         mProgress.setVisibility(View.GONE);
         TextView mNodata = (TextView) view_Q.findViewById(R.id.tv_AutoVoteQ_Nodata);
@@ -166,10 +184,10 @@ public class AutoFrag_Vote extends BaseFragment {
     }
 
     View getVoteView() {
-        Log.e(Tag, "getPageView");
+        Log.e(Tag, "getPageView  v");
         View view_V = LayoutInflater.from(getActivity()).inflate(R.layout.page_vote, null);
         mVoteAdapter = new AutoVoteList_V_Adapter(mVoteList, getActivity());
-       listview_Vote = (ListView) view_V.findViewById(R.id.frag_AutoVote_listview_vote);
+        listview_Vote = (ListView) view_V.findViewById(R.id.frag_AutoVote_listview_vote);
         View mProgress = view_V.findViewById(R.id.ll_AutoV_Progress);
         mProgress.setVisibility(View.GONE);
         TextView mNodata = (TextView) view_V.findViewById(R.id.tv_AutoVoteV_Nodata);
@@ -182,12 +200,13 @@ public class AutoFrag_Vote extends BaseFragment {
         HTTPHelper.GetAutoVoteList(mIbpi2, 2 + "");
         return view_V;
     }
+
     private void initDatas() {
-        HTTPHelper.GetAutoVoteList(mIbpi1, 1 + "");
+        //1  问卷  2 选举
         HTTPHelper.GetAutoVoteList(mIbpi2, 2 + "");
-
-
+        HTTPHelper.GetAutoVoteList(mIbpi1, 1 + "");
     }
+
     BpiHttpHandler.IBpiHttpHandler mIbpi1 = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
@@ -199,14 +218,14 @@ public class AutoFrag_Vote extends BaseFragment {
         public void onSuccess(Object message) {
             if (message == null) return;
             mQuestionList = (List<Auto_VoteList_Vote.VoteVVDataEntity>) message;
-            Log.e(Tag,"mQuestionList---"+mQuestionList.size());
+            Log.e(Tag, "mQuestionList---" + mQuestionList.size());
             if (mQuestionAdapter != null && listview_Questions != null) {
                 mQuestionAdapter.ClearData();
                 mQuestionAdapter.AddNewData(mQuestionList);
 
                 listview_Questions.setAdapter(mQuestionAdapter);
-            }else{
-                Log.e(Tag,"listview_Questions null");
+            } else {
+                Log.e(Tag, "listview_Questions null");
             }
 //            listview_Vote.setVisibility(View.VISIBLE);
 
@@ -238,21 +257,21 @@ public class AutoFrag_Vote extends BaseFragment {
         public void onSuccess(Object message) {
             if (message == null) return;
             mVoteList = (List<Auto_VoteList_Vote.VoteVVDataEntity>) message;
-            Log.e(Tag,"mVoteList---"+mVoteList.size());
-            if (mVoteAdapter==null){
+            Log.e(Tag, "mVoteList---" + mVoteList.size());
+            if (mVoteAdapter == null) {
 
-                Log.e(Tag,"mVoteAdapter null");
+                Log.e(Tag, "mVoteAdapter null");
             }
-            if (listview_Vote==null){
-                Log.e(Tag,"listview_Vote null");
+            if (listview_Vote == null) {
+                Log.e(Tag, "listview_Vote null");
 
             }
             if (mVoteAdapter != null && listview_Vote != null) {
                 mVoteAdapter.ClearData();
                 mVoteAdapter.AddNewData(mVoteList);
                 listview_Vote.setAdapter(mVoteAdapter);
-            }else{
-                Log.e(Tag,"listview null");
+            } else {
+                Log.e(Tag, "listview null");
             }
 //            listview_Questions.setVisibility(View.GONE);
         }
@@ -290,4 +309,9 @@ public class AutoFrag_Vote extends BaseFragment {
     }
 
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 }

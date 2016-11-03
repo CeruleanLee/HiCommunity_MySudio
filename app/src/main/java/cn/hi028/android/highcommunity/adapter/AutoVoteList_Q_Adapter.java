@@ -91,7 +91,7 @@ if (mBean.getIs_voted()==1){
                 mIntent_report.putExtra("title",TAG_VOTE_DETAIL);
                 mIntent_report.putExtra("question_id",mBean.getId());
                 mIntent_report.putExtra("is_voted",mBean.getIs_voted());
-                mIntent_report.putExtra("type",2);
+                mIntent_report.putExtra("type",1);
 
                 context.startActivity(mIntent_report);
             }

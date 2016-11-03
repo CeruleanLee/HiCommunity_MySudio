@@ -31,10 +31,9 @@
         android:cacheColorHint="@android:color/transparent"
         android:divider="@color/white"
         android:dividerHeight="15dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginLeft="12dp"
         android:background="@color/white"
         android:listSelector="@android:color/transparent"
+        android:scrollbars="none"
         ptr:ptrMode="both"></com.handmark.pulltorefresh.library.PullToRefreshListView>
 
 

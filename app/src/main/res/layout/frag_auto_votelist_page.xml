@@ -11,35 +11,37 @@
         android:orientation="horizontal">
 
         <RadioGroup
-            android:id="@+id/frag_AutoVote_RadioGroup"
+            android:id="@+id/frag_AutoVote_RadioGroup_page"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
             <RadioButton
-                android:id="@+id/frag_AutoVote_Question"
+                android:id="@+id/frag_AutoVote_vote_page"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
                 android:background="@drawable/frag_picdetail_checktextview_selector"
                 android:button="@null"
+                android:clickable="true"
+
                 android:checked="true"
+                android:gravity="center"
+                android:text="投票"
+                android:textColor="@color/color_group_selector" />
+            <RadioButton
+                android:id="@+id/frag_AutoVote_Question_page"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:background="@drawable/frag_picdetail_checktextview_selector"
+                android:button="@null"
+
                 android:clickable="true"
                 android:gravity="center"
                 android:text="问卷调查"
                 android:textColor="@color/color_group_selector" />
 
-            <RadioButton
-                android:id="@+id/frag_AutoVote_vote"
-                android:layout_width="0dp"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:background="@drawable/frag_picdetail_checktextview_selector"
-                android:button="@null"
-                android:clickable="true"
-                android:gravity="center"
-                android:text="选举"
-                android:textColor="@color/color_group_selector" />
+
 
         </RadioGroup>
     </LinearLayout>
