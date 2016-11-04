@@ -32,11 +32,12 @@ import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.LoginFrag;
 import cn.hi028.android.highcommunity.activity.fragment.WelcomeFrag;
+import cn.hi028.android.highcommunity.utils.AppSharedPreference;
 import cn.hi028.android.highcommunity.utils.LocUtils;
 import cn.jpush.android.api.JPushInterface;
 
 /**
- * @功能：欢迎/登录activity<br>
+ * @功能：欢迎/登录activity  入口act<br>
  * @作者： 李凌云<br>
  * @版本：1.0<br>
  * @时间：2015/12/9<br>
@@ -51,8 +52,7 @@ public class WelcomeAct extends BaseActivity {
 		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		// 透明状态栏
-		getWindow()
-				.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 		// 透明导航栏
 		// getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		ActivityTack.getInstanse().clear();
@@ -61,22 +61,23 @@ public class WelcomeAct extends BaseActivity {
 //		UmengUpdateAgent.update(this);
 		mWelcomeLayout = (LinearLayout) this.findViewById(R.id.ll_welcomeAct);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		getWindow().setSoftInputMode(
-				WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		setContentView(R.layout.act_welcome);
 		LocUtils.startLocation(this, null);
 		ft = getSupportFragmentManager();
-		// MyPushMessageReceiver.MessageCount = 0;
+//		 MyPushMessageReceiver.MessageCount = 0;
+		//TODO  后续加引导页的话加载这个位置    加引导页蒙层的话在mainAct加
+//		if (isFirstRun()){}
 		if (!HighCommunityApplication.isLogOut) {
 			FragmentTransaction fm = ft.beginTransaction();
-			WelcomeFrag mWelcomeFragment = (WelcomeFrag) new WelcomeFrag();
+			WelcomeFrag mWelcomeFragment = new WelcomeFrag();
 			fm.replace(R.id.ll_welcomeAct, mWelcomeFragment,
 					WelcomeFrag.FRAGMENTTAG);
 			fm.commit();
 		} else {
 			HighCommunityApplication.isLogOut = false;
 			FragmentTransaction fm = ft.beginTransaction();
-			LoginFrag mLoginFragment = (LoginFrag) new LoginFrag();
+			LoginFrag mLoginFragment = new LoginFrag();
 			fm.replace(R.id.ll_welcomeAct, mLoginFragment,
 					mLoginFragment.FRAGMENTTAG);
 			fm.commit();
@@ -124,9 +125,20 @@ public class WelcomeAct extends BaseActivity {
 	protected void onResume() {
 		super.onResume();
 		JPushInterface.onResume(this);
-//		 registNetworkReceiver();
+		 registNetworkReceiver();
 	}
-	
+
+	/**
+	 * 判断程序是否第一次运行
+	 * @return
+     */
+	private boolean isFirstRun(){
+		boolean isFirstRun = AppSharedPreference.getBooleanValue(getApplicationContext(), "app", "is_first_run", true);
+		if(isFirstRun){
+			AppSharedPreference.putValue(getApplicationContext(), "app", "is_first_run", false);
+		}
+		return isFirstRun;
+	}
 	 /****
 	  * 与网络状态相关
 	  */
@@ -139,7 +151,15 @@ public class WelcomeAct extends BaseActivity {
 			 WelcomeAct.this.registerReceiver(receiver, filter );
 		 }
 	 }
-	 private void unregistNetworkReceiver(){
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		unregistNetworkReceiver();
+	}
+
+	private void unregistNetworkReceiver(){
 		 WelcomeAct.this.unregisterReceiver(receiver);
 	 }
 	 public class NetworkReceiver extends BroadcastReceiver{
@@ -147,10 +167,10 @@ public class WelcomeAct extends BaseActivity {
 		 @Override
 		 public void onReceive(Context context, Intent intent) {
 			 if(intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)){
-				 ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE); 
+				 ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 				 NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 				 if(networkInfo != null && networkInfo.isAvailable()){
-					 int type = networkInfo.getType(); 
+					 int type = networkInfo.getType();
 					 if(ConnectivityManager.TYPE_WIFI == type){
 					 }else if(ConnectivityManager.TYPE_MOBILE == type){
 					 }else if(ConnectivityManager.TYPE_ETHERNET == type){
@@ -174,7 +194,7 @@ public class WelcomeAct extends BaseActivity {
 		 }
 	 }
 	 private boolean isNoNetwork;
-	
+
 	
 	
 }

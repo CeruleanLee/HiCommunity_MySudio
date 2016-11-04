@@ -1,11 +1,5 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,10 +8,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
-import com.lidroid.xutils.util.LogUtils;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.activity.BrowseActivity;
@@ -121,28 +113,10 @@ public class AutoFrag_Notice extends BaseFragment {
         super.onResume();
         LogUtil.d(Tag + "onResume");
         initDatas();
-        //		mLoadingView.startLoading();
-//        registNetworkReceiver();
+
     }
 
 
-    /****
-     * 与网络状态相关
-     */
-    private BroadcastReceiver receiver;
-
-    private void registNetworkReceiver() {
-        if (receiver == null) {
-            receiver = new NetworkReceiver();
-            IntentFilter filter = new IntentFilter();
-            filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-            getActivity().registerReceiver(receiver, filter);
-        }
-    }
-
-    private void unregistNetworkReceiver() {
-        getActivity().unregisterReceiver(receiver);
-    }
 
     @Override
     public void onDestroyView() {
@@ -151,37 +125,7 @@ public class AutoFrag_Notice extends BaseFragment {
     }
 
 
-    public class NetworkReceiver extends BroadcastReceiver {
 
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-                ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-                if (networkInfo != null && networkInfo.isAvailable()) {
-                    int type = networkInfo.getType();
-                    if (ConnectivityManager.TYPE_WIFI == type) {
-
-                    } else if (ConnectivityManager.TYPE_MOBILE == type) {
-
-                    } else if (ConnectivityManager.TYPE_ETHERNET == type) {
-
-                    }
-                    //					Toast.makeText(getActivity(), "有网络", 0).show();
-                    LogUtils.d("有网络");
-                    initDatas();
-                    isNoNetwork = false;
-                } else {
-                    //没有网络
-                    LogUtils.d("没有网络");
-                    Toast.makeText(getActivity(), "没有网络", Toast.LENGTH_SHORT).show();
-                    isNoNetwork = true;
-                }
-            }
-        }
-    }
-
-    private boolean isNoNetwork;
 
 
 }

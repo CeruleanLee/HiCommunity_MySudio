@@ -4,18 +4,14 @@
 
 package cn.hi028.android.highcommunity.activity.fragment;
 
-import java.net.URISyntaxException;
-
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
@@ -51,16 +47,16 @@ public class ServicePaymentFrag extends BaseFragment {
 
 	private PopupWindow mWaitingWindow;
 	@ViewById(R.id.img_seri_repair_order)
-	ImageView img_seri_repair_order;
+	View img_seri_repair_order;
 
 	@ViewById(R.id.tv_payment_service_wuguan)
-	TextView wuguan;
+	View wuguan;
 	@ViewById(R.id.tv_payment_service_water)
-	TextView water;
+	View water;
 	@ViewById(R.id.tv_payment_service_dian)
-	TextView dian;
+	View dian;
 	@ViewById(R.id.tv_payment_service_qi)
-	TextView qi;
+	View qi;
 
 	Intent mPayDetail;
 

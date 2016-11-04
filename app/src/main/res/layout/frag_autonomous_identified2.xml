@@ -169,7 +169,7 @@ android:background="@color/white"
 
             <ImageView
                 style="@style/autoact_tag_img"
-                android:src="@mipmap/img_auto_groupchat"/>
+                android:src="@mipmap/img_auto_certion"/>
 
             <LinearLayout style="@style/autoact_tag_layou">
 

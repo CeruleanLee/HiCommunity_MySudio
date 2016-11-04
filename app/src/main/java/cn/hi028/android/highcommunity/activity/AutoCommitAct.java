@@ -32,7 +32,7 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
  * Created by Lee_yting on 2016/10/14 0014.
- * 说明：
+ * 说明：提交资料act 包括 审核失败跳转 创建认证跳转
  */
 public class AutoCommitAct extends BaseFragmentActivity {
     String Tag = "~~~1   AutoCommitAct";
@@ -153,7 +153,7 @@ public class AutoCommitAct extends BaseFragmentActivity {
         }
 
     }
-
+//TODO 审核失败传数据传错了   应该是list   改了之后没注意忘记改了
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {

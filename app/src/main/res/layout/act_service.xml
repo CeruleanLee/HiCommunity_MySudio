@@ -8,6 +8,7 @@
     <include layout="@layout/title_secondlevel" />
 
     <LinearLayout
+        android:background="@color/white"
         android:id="@+id/ll_service_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -28,7 +28,7 @@ static final String Tag="NetworkReceiver--->";
 
                 Log.d(Tag,"接收广播 有网络");
                 String name = networkInfo.getTypeName();
-                Log.d("Tag", "当前网络名称：" + name);
+                Log.d(Tag, "当前网络名称：" + name);
                 isNoNetwork = false;
             }else{
                 //没有网络
@@ -67,4 +67,5 @@ static final String Tag="NetworkReceiver--->";
 //    }
 
     private boolean isNoNetwork;
+
 }

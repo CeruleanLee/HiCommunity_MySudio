@@ -492,12 +492,12 @@
 
 
 
-        <!--监听网络状态变化-->
+      <!--  &lt;!&ndash;监听网络状态变化&ndash;&gt;
         <receiver android:name="cn.hi028.android.highcommunity.utils.NetworkReceiver">
             <intent-filter>
                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
-        </receiver>
+        </receiver>-->
 
         <!-- Required  . Enable it you can get statistics data with channel -->
         <meta-data
