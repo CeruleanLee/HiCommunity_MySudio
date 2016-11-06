@@ -26,6 +26,7 @@ import butterknife.OnClick;
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.AutoCommitDataFrag;
+import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_CerFailedMsg;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_InitBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
@@ -35,7 +36,7 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * 说明：提交资料act 包括 审核失败跳转 创建认证跳转
  */
 public class AutoCommitAct extends BaseFragmentActivity {
-    String Tag = "~~~1   AutoCommitAct";
+    String Tag = "AutoCommitAct--->";
 
     public static final String ACTIVITYTAG = "AutoCommitAct";
     public static final String INTENTTAG = "AutoCommitAct";
@@ -67,6 +68,8 @@ public class AutoCommitAct extends BaseFragmentActivity {
         setContentView(R.layout.act_autcommit);
         ButterKnife.bind(this);
 //        isCommitData = getIntent().getBooleanExtra("isCommitData", false);
+        Log.e(Tag, "oncreat2");
+        getIntent().setExtrasClassLoader(getClass().getClassLoader());
         tag_creatCer = getIntent().getIntExtra("tag_creatCer", -1);
 //        mData=getIntent().getParcelableExtra("mData");
 //        Toast.makeText(this,"isCommitData:"+isCommitData+"mStatus"+mStatus,Toast.LENGTH_SHORT).show();
@@ -78,11 +81,13 @@ public class AutoCommitAct extends BaseFragmentActivity {
 //
 //        }
 //初始化HttpUtils
+        Log.e(Tag, "oncreat3");
         mHttpUtils = new HttpUtils();
         mHttpUtils.configCurrentHttpCacheExpiry(0);
         mHttpUtils.configSoTimeout(4000);
         mHttpUtils.configTimeout(4000);
 
+        Log.e(Tag, "oncreat4");
         if (tag_creatCer == 6) {
             initDatas();
         } else {
@@ -229,6 +234,34 @@ public class AutoCommitAct extends BaseFragmentActivity {
         layout_CommitData.setVisibility(View.VISIBLE);
         layout_Checking.setVisibility(View.GONE);
         layout_CheckFail.setVisibility(View.GONE);
+    }
+
+
+
+    private  void toShowFailedMsg(){
+        FragmentManager fm3 = getSupportFragmentManager();
+        FragmentTransaction ft3 = fm3.beginTransaction();
+        AutoFrag_CerFailedMsg mFailedMsgFrag = new AutoFrag_CerFailedMsg();
+        Bundle mBundle = new Bundle();
+        if (mData != null) {
+            Log.e(Tag, "toCommitData mData no null");
+            Log.e(Tag, "mData " + mData.toString());
+            mBundle.setClassLoader(getClass().getClassLoader());
+            mBundle.putParcelable("data", mData);
+            mFailedMsgFrag.setArguments(mBundle);
+            ft3.replace(R.id.commit_commitData, mFailedMsgFrag, AutoFrag_CerFailedMsg.FRAGMENTTAG);
+            ft3.commit();
+        }
+
+        layout_CommitData.setVisibility(View.VISIBLE);
+        layout_Checking.setVisibility(View.GONE);
+        layout_CheckFail.setVisibility(View.GONE);
+//
+//        layout_CheckFail.setVisibility(View.VISIBLE);
+//        layout_Checking.setVisibility(View.GONE);
+//        layout_CommitData.setVisibility(View.GONE);
+
+
     }
 
 }

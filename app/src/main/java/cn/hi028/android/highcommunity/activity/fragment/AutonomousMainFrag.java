@@ -314,7 +314,7 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
     Bundle mBundle = new Bundle();
 
     /****
-     * 前往资料填写弹窗
+     * 前往资料审核弹窗
      */
     public void showCheckingDialog() {
         ECAlertDialog dialog2 = ECAlertDialog.buildAlert(getActivity(), "资料审核中，前往查看审核状态", "确定", "取消", new DialogInterface.OnClickListener() {

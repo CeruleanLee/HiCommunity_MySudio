@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <FrameLayout
         android:id="@+id/fl_inner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/header_footer_top_bottom_padding"
-        android:paddingLeft="@dimen/header_footer_left_right_padding"
-        android:paddingRight="@dimen/header_footer_left_right_padding"
-        android:paddingTop="@dimen/header_footer_top_bottom_padding" >
+
+
+        android:paddingTop="@dimen/header_footer_top_bottom_padding">
+
+        <ImageView
+            android:id="@+id/pull_to_refresh_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="100dp"
+            android:paddingRight="130dp"
+            android:src="@drawable/img_refresh_sun"
+            android:layout_gravity="end|bottom" />
 
         <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" 
-            android:layout_marginRight="100dp">
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/img_refresh_house">
 
             <ImageView
-                android:id="@+id/pull_to_refresh_image"
+                android:id="@+id/pull_to_refresh_image2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+
+                />
 
             <ProgressBar
                 android:id="@+id/pull_to_refresh_progress"
@@ -37,24 +46,24 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/pull_to_refresh_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:textColor="#787878"
                 android:textAppearance="?android:attr/textAppearance"
-                />
+                android:textColor="#787878" />
 
             <TextView
                 android:id="@+id/pull_to_refresh_sub_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                  android:textColor="#787878"
                 android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#787878"
                 android:visibility="gone" />
         </LinearLayout>
     </FrameLayout>

@@ -113,6 +113,8 @@ public class AutoFrag_CerSuccess extends BaseFragment {
     private void ceratCer() {
 
         Intent mCreatCerIntent = new Intent(getActivity(), AutoCommitAct.class);
+        mCreatCerIntent.setExtrasClassLoader(getClass().getClassLoader());
+
         mCreatCerIntent.putExtra("tag_creatCer", TAG_CREAT_CER);
 ////        mIntent_report.putExtra("owner_id", owner_id);
         startActivity(mCreatCerIntent);

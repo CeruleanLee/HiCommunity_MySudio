@@ -268,7 +268,7 @@ public class Auto_InitBean implements Parcelable {
             this.owner_id = in.readInt();
             this.village = in.readParcelable(VillageEntity.class.getClassLoader());
             this.building = new ArrayList<BuildingEntity>();
-            in.readList(this.building, List.class.getClassLoader());
+            in.readList(this.building, BuildingEntity.class.getClassLoader());
         }
 
         public static final Creator<Auto_Init_DataEntity> CREATOR = new Creator<Auto_Init_DataEntity>() {
