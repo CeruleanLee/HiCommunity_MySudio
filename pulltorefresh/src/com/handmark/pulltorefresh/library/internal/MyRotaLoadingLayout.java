@@ -4,13 +4,12 @@ import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
-import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.R;
@@ -19,17 +18,17 @@ import com.handmark.pulltorefresh.library.R;
  * Created by Lee_yting on 2016/11/6 0006.
  * 说明：
  */
-public class MyRotaLoadingLayout  extends LoadingLayout {
-
+public class MyRotaLoadingLayout extends LoadingLayout {
+    static final String Tag = "MyRotaLoadingLayout--->";
     static final int ROTATION_ANIMATION_DURATION = 1200;
 
-    private final Animation mRotateAnimation,mTranslateAnimation;
-    private final Matrix mHeaderImageMatrix;
+    private final Animation mRotateAnimation;
+//    private final Matrix mHeaderImageMatrix;
 
     private float mRotationPivotX, mRotationPivotY;
 
     private final boolean mRotateDrawableWhilePulling;
-    ObjectAnimator animator,animator2;
+    ObjectAnimator animator, animator2;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public MyRotaLoadingLayout(Context context, PullToRefreshBase.Mode mode,
@@ -39,26 +38,26 @@ public class MyRotaLoadingLayout  extends LoadingLayout {
         mRotateDrawableWhilePulling = attrs.getBoolean(
                 R.styleable.PullToRefresh_ptrRotateDrawableWhilePulling, true);
 
-        mHeaderImage.setScaleType(ImageView.ScaleType.MATRIX);
-        mHeaderImageMatrix = new Matrix();
-        mHeaderImage.setImageMatrix(mHeaderImageMatrix);
+//        mHeaderImage.setScaleType(ImageView.ScaleType.MATRIX);
+//        mHeaderImageMatrix = new Matrix();
+//        mHeaderImage.setImageMatrix(mHeaderImageMatrix);
 
         mRotateAnimation = new RotateAnimation(0, 720,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
                 0.5f);
-        mTranslateAnimation= new TranslateAnimation(0,0,10,50);
-        mTranslateAnimation.setDuration(1000);
+
 
         float curTranslationY = mHeaderImage.getTranslationY();
-        animator = ObjectAnimator.ofFloat(mHeaderImage, "translationY",-100f);
-        animator.setDuration(1000);
-//        animator.start();
-//        animator2 = ObjectAnimator.ofFloat(mHeaderImage, "rotation", 0f, 360f);
-//        animator2.setDuration(1000);
-//        animator2.setRepeatCount(Animation.INFINITE);
-//        animator2.setRepeatMode(Animation.RESTART);
+        animator = ObjectAnimator.ofFloat(mHeaderImage, "translationY", -150f);
+        animator.setDuration(1200);
 
-//        mTranslateAnimation.setInterpolator();
+
+        animator2 = ObjectAnimator.ofFloat(mHeaderImage, "rotation", 0f, 900f);
+        animator2.setDuration(1000);
+        animator2.setRepeatCount(Animation.INFINITE);
+        animator2.setRepeatMode(Animation.RESTART);
+
+
         mRotateAnimation.setInterpolator(ANIMATION_INTERPOLATOR);
         mRotateAnimation.setDuration(ROTATION_ANIMATION_DURATION);
         mRotateAnimation.setRepeatCount(Animation.INFINITE);
@@ -73,9 +72,13 @@ public class MyRotaLoadingLayout  extends LoadingLayout {
                     .round(imageDrawable.getIntrinsicHeight() / 2f);
         }
     }
-/**下拉的过程进行的动画 **/
+
+    /**
+     * 下拉的过程进行的动画
+     **/
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     protected void onPullImpl(float scaleOfLayout) {
+        Log.e(Tag, "onPullImpl");
 //        float angle;
 //        if (mRotateDrawableWhilePulling) {
 //            angle = scaleOfLayout * 90f;
@@ -85,43 +88,72 @@ public class MyRotaLoadingLayout  extends LoadingLayout {
 //
 //        mHeaderImageMatrix.setRotate(angle, mRotationPivotX, mRotationPivotY);
 //        mHeaderImage.setImageMatrix(mHeaderImageMatrix);
-//        mHeaderImage.startAnimation(animator);
+//        mHeaderImage.startAnimation(mRotateAnimation);
+        if (backImg.getVisibility() == View.INVISIBLE) {
 
+            backImg.setVisibility(VISIBLE);
+        }
 
     }
+
     //正在刷新回调
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void refreshingImpl() {
-        mHeaderImage.startAnimation(mRotateAnimation);
-//        animator2.start();
+        Log.e(Tag, "refreshingImpl");
+//        ViewGroup.LayoutParams mHeaderImageLayoutParams = mHeaderImage.getLayoutParams();
+//        mHeaderImageLayoutParams.h
+        if (isFirstChange) {
+            mHeaderImage.setY(mHeaderImage.getY() - 150f);
+            isFirstChange = false;
+        }
+//        mHeaderImage.startAnimation(new RotateAnimation(0, 720,
+//                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+//                0.5f));
+        animator2.start();
     }
 
     @Override
     protected void resetImpl() {
+        Log.e(Tag, "resetImpl");
+
         mHeaderImage.clearAnimation();
         resetImageRotation();
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void resetImageRotation() {
-        if (null != mHeaderImageMatrix) {
-            mHeaderImageMatrix.reset();
-            mHeaderImage.setImageMatrix(mHeaderImageMatrix);
+        Log.e(Tag, "resetImageRotation");
+        if (animator2 != null) {
+
+            animator2.cancel();
         }
+//        if (null != mHeaderImageMatrix) {
+//            mHeaderImageMatrix.reset();
+//            mHeaderImage.setImageMatrix(mHeaderImageMatrix);
+//        }
     }
+
     //下来刷新
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void pullToRefreshImpl() {
+        Log.e(Tag, "pullToRefreshImpl");
+
         // NO-OP
+
+
         animator.start();
     }
+
     //释放刷新
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void releaseToRefreshImpl() {
+        Log.e(Tag, "releaseToRefreshImpl");
+//if ()
         // NO-OP
-
+//        animator2.start();
 
     }
 
@@ -130,7 +162,7 @@ public class MyRotaLoadingLayout  extends LoadingLayout {
         return R.drawable.img_refresh_sun;
     }
 
-
+    boolean isFirstChange = true;
 
 //
 //    //下来刷新

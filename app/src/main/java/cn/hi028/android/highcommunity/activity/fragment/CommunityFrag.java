@@ -47,21 +47,21 @@ import cn.hi028.android.highcommunity.view.LoadingView.OnLoadingViewListener;
 public class CommunityFrag extends Fragment {
 
 	public static final String FRAGMENTTAG = "CommunityFrag";
-	final String  Tag="------------CommunityFrag";
+	final String  Tag="CommunityFrag--->";
 	private int mCount = -1;
-	CommunityListAdapter2 mAdapter;
 	private PullToRefreshListView mListView;
 	private ImageView mChange;
 	RelativeLayout layoutContainer;
 	private LoadingView mLoadingView;
 	private TextView mNodata;
 	private View mProgress;
+	CommunityListAdapter2 mAdapter;
 	CommunityListBean mList = new CommunityListBean();
 	CommunityBean mBean = null;
 	public static boolean isNeedRefresh = true;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		LogUtil.d(Tag+"onCreateView");
+		Log.e(Tag,"onCreateView");
 		//		if (mFragmeView == null) {
 		//			initView();
 		//		}
@@ -89,7 +89,7 @@ public class CommunityFrag extends Fragment {
 		}
 	};
 	private void initView() {
-		LogUtil.d(Tag+"---initView");
+		Log.e(Tag,"---initView");
 		mLoadingView.setOnLoadingViewListener(onLoadingViewListener);
 		mAdapter = new CommunityListAdapter2((MainActivity) getActivity());
 		mListView.setAdapter(mAdapter);
@@ -99,9 +99,9 @@ public class CommunityFrag extends Fragment {
 		mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
 			@Override
 			public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+//				RefreshData(0);
+//				mAdapter.notifyDataSetChanged();
 				new GetDataTask().execute();
-				//				RefreshData(0);
-				//				mAdapter.notifyDataSetChanged();
 			}
 
 			@Override
@@ -153,11 +153,12 @@ public class CommunityFrag extends Fragment {
 		}
 
 		HTTPHelper.GetMessage(mIbpi, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id(), time);
-		LogUtil.d(Tag+"GetMessage2 ");
+		Log.e(Tag,"GetMessage2 ");
 	}
+	int isNeedToClearData=-1;
 	@Override
 	public void onResume() {
-		LogUtil.d(Tag+"---onResume");
+		Log.e(Tag,"---onResume");
 		//		initReceiver();
 		//		mCount = -1;
 		//		//        if (isNeedRefresh) {
@@ -167,17 +168,32 @@ public class CommunityFrag extends Fragment {
 		//		}
 		//
 		//		HTTPHelper.GetMessage(mIbpi, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id(), time);
-		//		LogUtil.d(Tag+"GetMessage2 ");
+		//		Log.e(Tag,"GetMessage2 ");
 
 		//        }
+		Bundle bundle = getArguments();
+//		isNeedToClearData=bundle.getInt("isNeedToClearData",-1);
+//        mData = bundle.getParcelable("data");
+//		isNeedToClearData=getActivity().getIntent().getIntExtra("isNeedToClearData",-1);
+		if (isNeedToClearData==1){
+			mAdapter.ClearData();
+		}
 		super.onResume();
-//		RefreshData(0);
+		RefreshData(0);
 		registNetworkReceiver();
 		isNeedRefresh = false;
 	}
 
+	@Override
+	public void onDestroy() {
+		Log.e(Tag,"---onDestroy");
+
+		super.onDestroy();
+		unregistNetworkReceiver();
+	}
+
 	private void RefreshData(int type) {
-		LogUtil.d(Tag+"RefreshData ");
+		Log.e(Tag,"RefreshData ");
 		String time = "";
 		if (type == 0) {
 			mCount = 0;
@@ -220,7 +236,7 @@ public class CommunityFrag extends Fragment {
 
 		@Override
 		public void onSuccess(Object message) {
-			LogUtil.d(Tag+"onSuccess---"+message.toString());
+			Log.e(Tag,"onSuccess---"+message.toString());
 			mProgress.setVisibility(View.GONE);
 			Log.e("TAG", message.toString());
 			if (null == message)

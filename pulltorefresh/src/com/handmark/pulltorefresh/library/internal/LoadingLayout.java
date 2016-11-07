@@ -50,7 +50,7 @@ public abstract class LoadingLayout extends FrameLayout implements
 
 	private FrameLayout mInnerLayout;
 
-	protected final ImageView mHeaderImage;
+	protected final ImageView mHeaderImage,backImg;
 	protected final ProgressBar mHeaderProgress;
 
 	private boolean mUseIntrinsicAnimation;
@@ -92,6 +92,8 @@ public abstract class LoadingLayout extends FrameLayout implements
 				.findViewById(R.id.pull_to_refresh_sub_text);
 		mHeaderImage = (ImageView) mInnerLayout
 				.findViewById(R.id.pull_to_refresh_image);
+		backImg = (ImageView) mInnerLayout
+				.findViewById(R.id.pull_to_refresh_image2);
 
 		LayoutParams lp = (LayoutParams) mInnerLayout
 				.getLayoutParams();
@@ -108,6 +110,10 @@ public abstract class LoadingLayout extends FrameLayout implements
 					.getString(R.string.pull_to_refresh_from_bottom_refreshing_label);
 			mReleaseLabel = context
 					.getString(R.string.pull_to_refresh_from_bottom_release_label);
+
+//			mHeaderImage.setImageResource(R.drawable.ic_liloading_32px);
+			backImg.setVisibility(GONE);
+
 			break;
 
 		case PULL_FROM_START:
@@ -241,6 +247,9 @@ public abstract class LoadingLayout extends FrameLayout implements
 		}
 		if (View.VISIBLE == mHeaderImage.getVisibility()) {
 			mHeaderImage.setVisibility(View.INVISIBLE);
+		}
+		if (View.VISIBLE == backImg.getVisibility()) {
+			backImg.setVisibility(View.INVISIBLE);
 		}
 		if (View.VISIBLE == mSubHeaderText.getVisibility()) {
 			mSubHeaderText.setVisibility(View.INVISIBLE);

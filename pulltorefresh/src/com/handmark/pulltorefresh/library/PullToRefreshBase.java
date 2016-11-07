@@ -79,7 +79,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 	private State mState = State.RESET;
 	private Mode mMode = Mode.getDefault();
 
-	private Mode mCurrentMode;
+	private static Mode mCurrentMode;
 	T mRefreshableView;
 	private FrameLayout mRefreshableViewWrapper;
 
@@ -1399,11 +1399,21 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 			switch (this) {
 			case ROTATE:
 			default:
-				return new MyRotaLoadingLayout(context, mode, scrollDirection,
-						attrs);
+//				if (mCurrentMode==Mode.PULL_FROM_END){
+//
+////				return new TweenAnimLoadingLayout(context, mode, scrollDirection, attrs);
+//					return new RotateLoadingLayout(context, mode, scrollDirection,
+//						attrs);
+//				}else {
+					return new MyRotaLoadingLayout(context, mode, scrollDirection,
+							attrs);
+
+//				}
+
+
+
 //				return new RotateLoadingLayout(context, mode, scrollDirection,
 //						attrs);
-//				return new TweenAnimLoadingLayout(context, mode, scrollDirection, attrs);
 			case FLIP:
 				return new FlipLoadingLayout(context, mode, scrollDirection,
 						attrs);
