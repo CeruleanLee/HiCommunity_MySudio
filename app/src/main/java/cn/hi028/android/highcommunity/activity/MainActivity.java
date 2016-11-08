@@ -836,4 +836,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         Log.e("renk", "onactivityresult");
         super.onActivityResult(arg0, arg1, arg2);
     }
+
+
 }

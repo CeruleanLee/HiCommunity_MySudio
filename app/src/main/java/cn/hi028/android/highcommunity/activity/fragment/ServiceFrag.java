@@ -10,12 +10,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
@@ -44,6 +46,7 @@ import cn.hi028.android.highcommunity.bean.ThirdServiceBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
+import cn.hi028.android.highcommunity.view.GuideView;
 import cn.hi028.android.highcommunity.view.LoadingView;
 import cn.hi028.android.highcommunity.view.LoadingView.OnLoadingViewListener;
 
@@ -124,7 +127,7 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
 
 
 	void initView() {
-		Log.d(Tag,"initView");
+		Log.d(Tag,"initView---isFirstRun---");
 		mLoadingView.setOnLoadingViewListener(onLoadingViewListener);
 		//		Log.d(Tag," initView   startLoading");
 		mScrollview.setMode(PullToRefreshBase.Mode.DISABLED);
@@ -135,7 +138,14 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
 		mGridView.setMode(PullToRefreshBase.Mode.DISABLED);
 		mGridView.setOnItemClickListener(mItemClickListener);
 //		initDatas();
+
+//		if (isFirstShowGuid){
+//			isFirstShowGuid=false;
+//			showGuid();
+//
+//		}
 	}
+	boolean isFirstShowGuid=true;
 	private void initDatas() {
 		Log.d(Tag,"initDatas");
 
@@ -431,5 +441,70 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
 
 
 	}
+	/**
+	 * 判断程序是否第一次运行
+	 * @return
+	 */
+//	private boolean isFirstRun(){
+//		boolean isFirstRun = AppSharedPreference.getBooleanValue(getActivity().getApplicationContext(), "app", "is_first_run", true);
+//		if(isFirstRun){
+//			AppSharedPreference.putValue(getActivity().getApplicationContext(), "app", "is_first_run", false);
+//		}
+//		return isFirstRun;
+//	}
+	GuideView guideView1;
+	private void showGuid(){
+//		final ImageView img = new ImageView(getActivity());
+////        img.setImageResource(R.mipmap.img_new_task_guide);
+//
+//		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//		img.setLayoutParams(layoutParams);
 
+		TextView tv = new TextView(getContext());
+		tv.setText("新增业主大厅");
+		tv.setTextColor(getResources().getColor(R.color.white));
+		tv.setTextSize(30);
+		tv.setGravity(Gravity.CENTER);
+
+
+//		TextView tv2 = new TextView(this);
+//		tv2.setText("消息中心");
+//		tv2.setTextColor(getResources().getColor(R.color.white));
+//		tv2.setTextSize(30);
+//		tv2.setGravity(Gravity.CENTER);
+//
+//		TextView tv3 = new TextView(this);
+//		tv3.setText("活动");
+//		tv3.setTextColor(getResources().getColor(R.color.white));
+//		tv3.setTextSize(30);
+//		tv3.setGravity(Gravity.CENTER);
+//        GuideView.Builder
+//                .newInstance(this)      // 必须调用
+//                .setTargetView(view)    // 必须调用，设置需要Guide的View
+//                .setCustomTipsView(iv)  // 必须调用，设置GuideView，可以使任意View的实例，比如ImageView 或者TextView
+//                .setDirction(GuideView.Direction.LEFT_BOTTOM)   // 设置GuideView 相对于TargetView的位置，有八种，不设置则默认在屏幕左上角,其余的可以显示在右上，右下等等
+//                .setShape(GuideView.MyShape.RECTANGULAR)   // 设置显示形状，支持圆形，椭圆，矩形三种样式，矩形可以是圆角矩形，
+//                .setBackGround(getResources().getColor(R.color.shadow)) // 设置背景颜色，默认透明
+//                .setOnclickExit(null)   // 设置点击消失，可以传入一个Callback，执行被点击后的操作
+//                .setRadius(32)          // 设置圆形或矩形透明区域半径，默认是targetView的显示矩形的半径，如果是矩形，这里是设置矩形圆角大小
+//                .setCenter(300, 300)    // 设置圆心，默认是targetView的中心
+//                .setOffset(200, 60)     // 设置偏移，一般用于微调GuideView的位置
+//                .showOnce()             // 设置首次显示，设置后，显示一次后，不再显示
+//                .build()                // 必须调用，Buider模式，返回GuideView实例
+//                .show();                // 必须调用，显示GuideView
+
+		guideView1 = GuideView.Builder.newInstance(getContext()).setTargetView(tatalLayout).setCustomGuideView(tv)
+				.setDirction(GuideView.Direction.RIGHT_TOP).setShape(GuideView.MyShape.RECTANGULAR)
+				.setBgColor(getResources().getColor(R.color.shadow)).setOnclickListener(new GuideView.OnClickCallback() {
+					@Override
+					public void onClickedGuideView() {
+						guideView1.hide();
+//                        guidview2.show();
+					}
+				}).build();
+
+		guideView1.show();
+
+
+	}
 }

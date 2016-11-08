@@ -12,7 +12,8 @@
     <color name="bg_Loading">#dd1fc796</color>
     <!-- 主色调透明   联盟订单item用 -->
     <color name="Defult_Color_AppGreen_Alph">#441fc796</color>
-
+    <!--遮罩层颜色-->
+    <color name="shadow">#cc222222</color>
     <color name="reveal_color">#1b000000</color>
     <color name="Defult_Color_AppBotton">#1FC796</color>
     <!-- <color name="tb_selected_color">#0b93d2</color> -->

@@ -48,11 +48,11 @@ public class MyRotaLoadingLayout extends LoadingLayout {
 
 
         float curTranslationY = mHeaderImage.getTranslationY();
-        animator = ObjectAnimator.ofFloat(mHeaderImage, "translationY", -150f);
+        animator = ObjectAnimator.ofFloat(mHeaderImage, "translationY", -120f);
         animator.setDuration(1200);
 
 
-        animator2 = ObjectAnimator.ofFloat(mHeaderImage, "rotation", 0f, 900f);
+        animator2 = ObjectAnimator.ofFloat(mHeaderImage, "rotation", 0f, 720);
         animator2.setDuration(1000);
         animator2.setRepeatCount(Animation.INFINITE);
         animator2.setRepeatMode(Animation.RESTART);
@@ -94,6 +94,10 @@ public class MyRotaLoadingLayout extends LoadingLayout {
             backImg.setVisibility(VISIBLE);
         }
 
+//        if (!animator.isRunning()){
+//            animator.start();
+//
+//        }
     }
 
     //正在刷新回调
@@ -104,7 +108,7 @@ public class MyRotaLoadingLayout extends LoadingLayout {
 //        ViewGroup.LayoutParams mHeaderImageLayoutParams = mHeaderImage.getLayoutParams();
 //        mHeaderImageLayoutParams.h
         if (isFirstChange) {
-            mHeaderImage.setY(mHeaderImage.getY() - 150f);
+            mHeaderImage.setY(mHeaderImage.getY() - 120f);
             isFirstChange = false;
         }
 //        mHeaderImage.startAnimation(new RotateAnimation(0, 720,
@@ -127,23 +131,26 @@ public class MyRotaLoadingLayout extends LoadingLayout {
         if (animator2 != null) {
 
             animator2.cancel();
+            isFirstUp=true;
         }
 //        if (null != mHeaderImageMatrix) {
 //            mHeaderImageMatrix.reset();
 //            mHeaderImage.setImageMatrix(mHeaderImageMatrix);
 //        }
     }
-
+boolean isFirstUp=true;
     //下来刷新
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void pullToRefreshImpl() {
-        Log.e(Tag, "pullToRefreshImpl");
+        Log.e(Tag, "pullToRefreshImpl---animator.isRunning()--->"+animator.isRunning());
 
         // NO-OP
+if (isFirstUp){
+    animator.start();
+    isFirstUp=false;
+}
 
-
-        animator.start();
     }
 
     //释放刷新
@@ -190,5 +197,91 @@ public class MyRotaLoadingLayout extends LoadingLayout {
 //        mHeaderImage.clearAnimation();
 //    /*mHeaderProgress.setVisibility(View.GONE);*/
 //        mHeaderImage.setVisibility(View.VISIBLE);
+//    }
+
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        if (!isPullToRefreshEnabled()) {
+//            return false;
+//        }
+//
+//        final int action = event.getAction();
+//
+//        if (action == MotionEvent.ACTION_CANCEL
+//                || action == MotionEvent.ACTION_UP) {
+//            mIsBeingDragged = false;
+//            return false;
+//        }
+//
+//        if (action != MotionEvent.ACTION_DOWN && mIsBeingDragged) {
+//            return true;
+//        }
+//
+//        switch (action) {
+//            case MotionEvent.ACTION_MOVE: {
+//                // If we're refreshing, and the flag is set. Eat all MOVE events
+//                if (!mScrollingWhileRefreshingEnabled && isRefreshing()) {
+//                    return true;
+//                }
+//
+//                if (isReadyForPull()) {
+//                    final float y = event.getY(), x = event.getX();
+//                    final float diff, oppositeDiff, absDiff;
+//
+//                    // We need to use the correct values, based on scroll
+//                    // direction
+//                    switch (getPullToRefreshScrollDirection()) {
+//                        case HORIZONTAL:
+//                            diff = x - mLastMotionX;
+//                            oppositeDiff = y - mLastMotionY;
+//                            break;
+//                        case VERTICAL:
+//                        default:
+//                            diff = y - mLastMotionY;
+//
+//                            Log.e(Tag,"y--->"+y+",mLastMotionY--->"+mLastMotionY+",diff--->"+diff);
+//
+//                            oppositeDiff = x - mLastMotionX;
+//                            break;
+//                    }
+//                    absDiff = Math.abs(diff);
+//
+//                    if (absDiff > mTouchSlop
+//                            && (!mFilterTouchEvents || absDiff > Math
+//                            .abs(oppositeDiff))) {
+//                        if (mMode.showHeaderLoadingLayout() && diff >= 1f
+//                                && isReadyForPullStart()) {
+//                            mLastMotionY = y;
+//                            mLastMotionX = x;
+//                            mIsBeingDragged = true;
+//                            if (mMode == Mode.BOTH) {
+//                                mCurrentMode = Mode.PULL_FROM_START;
+//                            }
+//
+//                        } else if (mMode.showFooterLoadingLayout() && diff <= -1f
+//                                && isReadyForPullEnd()) {
+//                            mLastMotionY = y;
+//                            mLastMotionX = x;
+//                            mIsBeingDragged = true;
+//                            if (mMode == Mode.BOTH) {
+//                                mCurrentMode = Mode.PULL_FROM_END;
+//                            }
+//                        }
+//                    }
+//                }
+//                break;
+//            }
+//            case MotionEvent.ACTION_DOWN: {
+//                if (isReadyForPull()) {
+//                    mLastMotionY = mInitialMotionY = event.getY();
+//                    mLastMotionX = mInitialMotionX = event.getX();
+//                    mIsBeingDragged = false;
+//                }
+//                break;
+//            }
+//        }
+//
+//        return mIsBeingDragged;
+//
 //    }
 }

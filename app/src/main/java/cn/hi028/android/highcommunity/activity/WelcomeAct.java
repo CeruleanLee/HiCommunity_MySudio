@@ -67,7 +67,7 @@ public class WelcomeAct extends BaseActivity {
 		ft = getSupportFragmentManager();
 //		 MyPushMessageReceiver.MessageCount = 0;
 		//TODO  后续加引导页的话加载这个位置    加引导页蒙层的话在mainAct加
-//		if (isFirstRun()){}
+		if (isFirstRun()){}
 		if (!HighCommunityApplication.isLogOut) {
 			FragmentTransaction fm = ft.beginTransaction();
 			WelcomeFrag mWelcomeFragment = new WelcomeFrag();

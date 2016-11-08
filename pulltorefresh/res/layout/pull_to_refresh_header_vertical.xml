@@ -15,14 +15,15 @@ android:background="#ffffffff"
     <ImageView
         android:id="@+id/pull_to_refresh_image2"
         android:layout_width="120dp"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
+      android:paddingTop="10dp"
        android:src="@drawable/img_refresh_house"
      android:layout_centerHorizontal="true"
         />
     <ImageView
         android:id="@+id/pull_to_refresh_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_marginRight="125dp"
 android:src="@drawable/img_refresh_sun"
     android:layout_alignBottom="@id/pull_to_refresh_image2"

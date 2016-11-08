@@ -92,6 +92,7 @@ public class VallageAct extends BaseFragmentActivity implements
 	@AfterViews
 	void intView() {
 		isToMain = getIntent().getBooleanExtra(ISTOMAINACT, false);
+		CommunityFrag.isGetInitMessage=true;
 		loadFragment();
 	}
 

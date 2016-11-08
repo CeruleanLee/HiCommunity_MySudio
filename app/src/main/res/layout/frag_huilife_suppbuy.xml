@@ -76,7 +76,7 @@
                                 android:background="@color/defult_color_white"
                                 android:gravity="center_vertical|right"
                                 android:singleLine="true"
-                                android:text="--"
+                                android:text=" - "
                                 android:textColor="@color/color_deep_red"
                                 android:textSize="@dimen/font_small" />
 

@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -63,6 +64,7 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  */
 @EFragment(resName = "frag_huilife_suppbuy")
 public class HuiLifeSuppBuyFrag extends BaseFragment {
+    static  final  String Tag="HuiLifeSuppBuyFrag--->";
     @ViewById(R.id.cl_goods)
     CustomListView cl_goods;
     @ViewById(R.id.tv_reserve_name)
@@ -78,7 +80,7 @@ public class HuiLifeSuppBuyFrag extends BaseFragment {
     @ViewById(R.id.tv_wallet)
     TextView tv_wallet;
     @ViewById(R.id.edt_pay_num)
-    EditText edt_pay_num;
+    EditText edt_pay_num;//零钱包输入金额
     @ViewById(R.id.tv_total_actual)
     TextView tv_total_actual;
     @ViewById(R.id.tv_total_pay)
@@ -106,6 +108,14 @@ public class HuiLifeSuppBuyFrag extends BaseFragment {
         adapter = new HuiGdBuyAdapter(this);
         cl_goods.setAdapter(adapter);
         orderParams = new HuiSuppOrderParams();
+        edt_pay_num.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!v.isClickable()){
+                    HighCommunityUtils.GetInstantiation().ShowToast("无可抵扣零钱", 0);
+                }
+            }
+        });
         edt_pay_num.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -368,11 +378,48 @@ public class HuiLifeSuppBuyFrag extends BaseFragment {
             fl_huiLife_addressChooice.setVisibility(View.GONE);
         }
         tv_wallet.setText("零钱包（" + data.getZero_money() + "元）");
+        if (data.getZero_money()<0.1){
+            edt_pay_num.setClickable(false);
+            edt_pay_num.setFocusable(false);
+        }else {
+
+            edt_pay_num.setFocusable(true);
+            edt_pay_num.setClickable(true);
+
+        }
         updateOrder();
     }
 
     public void updateOrder() {
         tv_total_pay.setText("合计金额￥" + CommonUtils.f2Bi(orderParams.getTotal_price()) + "");
         tv_total_actual.setText("￥" + CommonUtils.f2Bi(orderParams.getReal_price()) + "");
+
+        Log.e(Tag,"orderParams.getTotal_price()--"+orderParams.getTotal_price()+",tv_coupon.toString()--"+tv_coupon.getText().toString()
+                +",orderParams.getTicket_value()--"+orderParams.getTicket_value());
+
+        if (orderParams.getTotal_price()<100&&tv_coupon.getText().toString().contains("￥")){
+            tv_coupon.setText( " - ");
+            tv_total_actual.setText("￥" + CommonUtils.f2Bi(orderParams.getReal_price()+orderParams.getTicket_value()) + "");
+            orderParams.setTicket_value(0.0f);
+
+//            tv_coupon.setText("￥" + orderParams.getTicket_value() + "");
+        }
+
+        if (orderParams.getTotal_price()<=0||orderParams.getReal_price()<=0){
+if (orderParams.getTotal_price()<=0){
+    tv_total_pay.setText("合计金额￥" + 0.0 + "");
+
+    tv_total_actual.setText("￥" + 0.0 + "");
+
+}
+            btn_pay.setClickable(false);
+            btn_pay.setBackgroundResource(R.color.Defult_Color_Grey);
+        }else{
+            btn_pay.setClickable(true);
+            btn_pay.setBackgroundResource(R.color.Defult_Color_AppBotton);
+
+        }
+
+
     }
 }

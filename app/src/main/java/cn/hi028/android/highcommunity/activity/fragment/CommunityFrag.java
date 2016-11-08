@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -117,6 +116,8 @@ public class CommunityFrag extends Fragment {
 				} else {
 					VallageAct.toStartAct(getActivity(), 0, false);
 				}
+				isGetInitMessage=true;
+
 				isNeedRefresh = true;
 			}
 		});
@@ -156,6 +157,16 @@ public class CommunityFrag extends Fragment {
 		Log.e(Tag,"GetMessage2 ");
 	}
 	int isNeedToClearData=-1;
+	public static boolean isGetInitMessage;
+
+	public boolean isGetInitMessage() {
+		return isGetInitMessage;
+	}
+
+	public void setGetInitMessage(boolean getInitMessage) {
+		isGetInitMessage = getInitMessage;
+	}
+
 	@Override
 	public void onResume() {
 		Log.e(Tag,"---onResume");
@@ -171,14 +182,13 @@ public class CommunityFrag extends Fragment {
 		//		Log.e(Tag,"GetMessage2 ");
 
 		//        }
-		Bundle bundle = getArguments();
-//		isNeedToClearData=bundle.getInt("isNeedToClearData",-1);
-//        mData = bundle.getParcelable("data");
-//		isNeedToClearData=getActivity().getIntent().getIntExtra("isNeedToClearData",-1);
-		if (isNeedToClearData==1){
-			mAdapter.ClearData();
-		}
+
 		super.onResume();
+		if (isGetInitMessage){
+			mAdapter.ClearData();
+			initDatas();
+			isGetInitMessage=false;
+		}
 		RefreshData(0);
 		registNetworkReceiver();
 		isNeedRefresh = false;
@@ -249,6 +259,7 @@ public class CommunityFrag extends Fragment {
 			} else if (mCount == -1) {
 				mAdapter.SetData(mList.getData());
 			}
+//			mListView.setAdapter(mAdapter);
 			mListView.onRefreshComplete();
 			mLoadingView.loadSuccess();
 			LogUtil.d("-------------  initView   loadSuccess");
@@ -304,7 +315,7 @@ public class CommunityFrag extends Fragment {
 					//有网络
 					//					Toast.makeText(getActivity(), "有网络", 0).show();
 					LogUtils.d("有网络");
-					initDatas();
+//					initDatas();
 					//					if(nextPage == 1){
 					//					  RefreshData(0);
 					//					}
@@ -312,7 +323,7 @@ public class CommunityFrag extends Fragment {
 				}else{
 					//没有网络
 					LogUtils.d("没有网络");
-					Toast.makeText(getActivity(), "没有网络", Toast.LENGTH_SHORT).show();
+//					Toast.makeText(getActivity(), "没有网络", Toast.LENGTH_SHORT).show();
 					//					if(nextPage == 1){
 					mLoadingView.noNetwork();
 					//					}

@@ -35,7 +35,7 @@ import cn.hi028.android.highcommunity.R;
  * 说明：版本更新工具类
  */
 public class UpdateUtil implements View.OnClickListener {
-    final String Tag = "~~~000 UpdateUtil:";
+    final String Tag = "UpdateUtil--->:";
     int nowVersionName;
     static boolean isUpdate;
     HashMap<String, String> mHashMap;

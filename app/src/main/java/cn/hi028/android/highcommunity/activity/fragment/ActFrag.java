@@ -12,20 +12,24 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lidroid.xutils.util.LogUtils;
+
 import net.duohuo.dhroid.activity.BaseFragment;
-import net.duohuo.dhroid.util.LogUtil;
+
 import java.util.List;
+
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.ActiveAct;
@@ -60,7 +64,7 @@ String Tag="~~~ActFrag~~~";
 	private LoadingView mLoadingView;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-	LogUtil.d(Tag+"onCreateView");
+	Log.e(Tag,"onCreateView");
 		if (mFragmeView == null) {
 			iniView();
 		}
@@ -73,7 +77,7 @@ String Tag="~~~ActFrag~~~";
 	 *初始化VIew
 	 */
 	 void iniView() {
-		 LogUtil.d(Tag+"iniView");
+		 Log.e(Tag,"iniView");
 		 mFragmeView = LayoutInflater.from(getActivity()).inflate(
 				 R.layout.frag_activity, null);
 		 layoutContainer=mFragmeView.findViewById(R.id.ll_act);
@@ -131,7 +135,7 @@ String Tag="~~~ActFrag~~~";
 	 
 	 @Override
 	 public void onResume() {
-		 LogUtil.d(Tag+"onResume");
+		 Log.e(Tag,"onResume");
 		 super.onResume();
 		 registNetworkReceiver();
 	 }
@@ -151,17 +155,18 @@ String Tag="~~~ActFrag~~~";
 
 		 @Override
 		 public void onSuccess(Object message) {
-			 mListView.onRefreshComplete();
 			 mProgress.setVisibility(View.GONE);
-			 if (message == null)
+			 if (message == null) {
 				 return;
+			 }
 			 mlist = (List<ActiveBean>) message;
 			 mAdapter.AddNewData(mlist);
 			 mLoadingView.loadSuccess();
-			 LogUtil.d("-------------  initView   loadSuccess");
+			 Log.e(Tag," initView   loadSuccess");
+			 mListView.onRefreshComplete();
 			 layout_Container.setVisibility(View.VISIBLE);
 			 //			layoutContainer.setVisibility(View.VISIBLE);
-			 LogUtil.d("-------------  initView   setVisibility");
+			 Log.e(Tag,"  initView   setVisibility");
 
 
 		 }
