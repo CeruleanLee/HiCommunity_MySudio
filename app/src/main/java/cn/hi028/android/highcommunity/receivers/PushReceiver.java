@@ -54,6 +54,7 @@ public class PushReceiver extends BroadcastReceiver {
             //打开自定义的Activity
             Intent i = new Intent(context, MainActivity.class);
             i.putExtras(bundle);
+          i.putExtra("checkupdata",6);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             context.startActivity(i);
 

@@ -15,6 +15,7 @@ import java.util.List;
 public class CommunityBean extends BaseBean {
     int mid;
     boolean isPra;
+    String gid;//群组id
     String vid;
     String title;
     List<PicBean> pic;
@@ -33,6 +34,14 @@ public class CommunityBean extends BaseBean {
     int type;//2:活动；3：群组
     String label;
     String welcome;
+
+    public String getGid() {
+        return gid;
+    }
+
+    public void setGid(String gid) {
+        this.gid = gid;
+    }
 
     public String getAg_pic() {
         return ag_pic;

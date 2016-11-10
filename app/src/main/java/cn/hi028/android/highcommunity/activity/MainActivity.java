@@ -20,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
@@ -212,6 +213,17 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     protected void onResume() {
         // isForeground = true;
         super.onResume();
+        int checkNum=getIntent().getIntExtra("checkupdata",-1);
+        if (checkNum==6){
+            boolean isUpdate=  new UpdateUtil(MainActivity.this,getApplicationContext()).checkIsToUpdate();
+            if (isUpdate){
+                new UpdateUtil(MainActivity.this, getApplicationContext()).initUpdate();
+            }else{
+                Toast.makeText(MainActivity.this, "已经是最新版本了", Toast.LENGTH_SHORT).show();
+            }
+//            new UpdateUtil(MainActivity.this, getApplicationContext()).initUpdate();?
+
+        }
     }
 
     @Override

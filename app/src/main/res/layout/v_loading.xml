@@ -32,10 +32,11 @@
                 android:src="@drawable/ic_loading_wrapper_white" />
 
         </RelativeLayout>
-        <TextView 
+        <TextView
+			android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="数据加载中"
+            android:text=""
             android:textColor="#ffffff"
             android:layout_marginTop="5dp"
             />

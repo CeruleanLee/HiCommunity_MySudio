@@ -1,7 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
+apply plugin: 'bugly'
+
 def AAVersion = '3.3.2'
 
+bugly {
+    appId = '63e6f78cb5' // 注册时分配的App ID
+    appKey = '978b0ddc-e6eb-425a-b5e2-f4c6e5f39c59' // 注册时分配的App Key
+}
 android {
     compileSdkVersion 21
     buildToolsVersion '23.0.1'
@@ -12,8 +18,8 @@ android {
         applicationId "cn.hi028.android.highcommunity"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 141
-        versionName "2.4.1"
+        versionCode 143
+        versionName "2.4.2"
 
         multiDexEnabled true
 

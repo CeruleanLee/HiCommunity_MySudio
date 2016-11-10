@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/padding_12"
-                    android:text="--------"
+                    android:text=""
                     android:textColor="@color/defult_color_white"
                     android:textSize="@dimen/font_extra_large" />
 
@@ -72,7 +72,7 @@
                 android:background="@color/defult_color_white"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/padding_24"
-                android:text="名称:  ----"
+                android:text="名称:  -"
                 android:textSize="@dimen/font_large" />
 
             <TextView
@@ -83,7 +83,7 @@
                 android:background="@color/defult_color_white"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/padding_24"
-                android:text="创建者:  ----"
+                android:text="创建者:  -"
                 android:textSize="@dimen/font_large" />
 
             <LinearLayout
@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dip"
                     android:paddingLeft="@dimen/padding_12"
-                    android:text="----"
+                    android:text=""
                     android:textSize="@dimen/font_large" />
             </LinearLayout>
 

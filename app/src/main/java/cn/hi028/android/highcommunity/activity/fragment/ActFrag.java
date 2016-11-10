@@ -91,23 +91,31 @@ String Tag="~~~ActFrag~~~";
 		 mNodata = (TextView) mFragmeView.findViewById(R.id.tv_activity_Nodata);
 		 mCreate = (TextView) mFragmeView.findViewById(R.id.tv_activity_create);
 		 mProgress.setVisibility(View.VISIBLE);
-		 mListView.setEmptyView(mNodata);
 		 mAdapter = new ActivityAdapter(getActivity());
+		 mListView.setEmptyView(mNodata);
 		 mListView.setAdapter(mAdapter);
-		 mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+		 mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+		 mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
 			 @Override
-			 public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+			 public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+				 Log.e(Tag,"刷新");
 				 new GetDataTask().execute();
-				 
-				 
-//				 HTTPHelper.GetActivityList(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
-			 }
-
-			 @Override
-			 public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-
 			 }
 		 });
+//		 mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+//			 @Override
+//			 public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+//				 new GetDataTask().execute();
+//				 mListView.onRefreshComplete();
+//
+////				 HTTPHelper.GetActivityList(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
+//			 }
+//
+//			 @Override
+//			 public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+//
+//			 }
+//		 });
 		 mCreate.setOnClickListener(new View.OnClickListener() {
 			 @Override
 			 public void onClick(View view) {
@@ -155,6 +163,9 @@ String Tag="~~~ActFrag~~~";
 
 		 @Override
 		 public void onSuccess(Object message) {
+			 Log.e(Tag," 获取数据 success");
+
+			 mListView.onRefreshComplete();
 			 mProgress.setVisibility(View.GONE);
 			 if (message == null) {
 				 return;
@@ -163,7 +174,6 @@ String Tag="~~~ActFrag~~~";
 			 mAdapter.AddNewData(mlist);
 			 mLoadingView.loadSuccess();
 			 Log.e(Tag," initView   loadSuccess");
-			 mListView.onRefreshComplete();
 			 layout_Container.setVisibility(View.VISIBLE);
 			 //			layoutContainer.setVisibility(View.VISIBLE);
 			 Log.e(Tag,"  initView   setVisibility");
@@ -264,11 +274,12 @@ String Tag="~~~ActFrag~~~";
 
 			@Override
 			protected void onPostExecute(String result) {
+				Log.e(Tag,"onPostExecute");
 				 HTTPHelper.GetActivityList(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
 				 
 
 				// Call onRefreshComplete when the list has been refreshed.
-				//				mListView.onRefreshComplete();
+//								mListView.onRefreshComplete();
 				super.onPostExecute(result);
 			}
 		}

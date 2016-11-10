@@ -21,19 +21,16 @@ import com.don.tools.GeneratedClassUtils;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-import net.duohuo.dhroid.util.ImageLoaderUtil;
 import net.duohuo.dhroid.util.LogUtil;
+
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.CommunityDetailAct;
 import cn.hi028.android.highcommunity.activity.GroupMessageAct;
 import cn.hi028.android.highcommunity.activity.LabelAct;
-import cn.hi028.android.highcommunity.activity.VallageAct;
-import cn.hi028.android.highcommunity.adapter.CommunityListAdapter;
 import cn.hi028.android.highcommunity.adapter.GroupMessageListAdapter;
 import cn.hi028.android.highcommunity.bean.CommunityBean;
 import cn.hi028.android.highcommunity.bean.CommunityListBean;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
@@ -187,7 +184,7 @@ public class GroupMessageFrag extends Fragment {
 	public void onResume() {
 		
 		mAdapter.ClearData();
-		
+        initData();
 		
 		super.onResume();
 	}

@@ -84,6 +84,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="14dp"
                     android:text="--------"
+
+                    android:background="@drawable/bg_tv_item"
+
                     android:textColor="@color/Defult_Color_AppGreen"
                     android:textSize="@dimen/font_extra_small_half" />
             </LinearLayout>
