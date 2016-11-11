@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.DownloadListener;
@@ -29,6 +30,7 @@ import cn.hi028.android.highcommunity.activity.BaseFragmentActivity;
 
 @EActivity(resName = "activity_browse")
 public class BrowseActivity extends BaseFragmentActivity {
+    static  final String Tag="BrowseActivity--->";
     @ViewById(R.id.pw_browse)
     ProgressWebView webview;
     @ViewById(R.id.tv_secondtitle_name)
@@ -52,6 +54,7 @@ public class BrowseActivity extends BaseFragmentActivity {
         title = getIntent().getStringExtra(ParamsContacts.BROWSE_TITLE);
         tv_title_name.setText(title);
         img_back.setVisibility(View.VISIBLE);
+        Log.e(Tag,"url--->"+url);
         loadWeb(url);
         Debug.info("Browse url---->", url);
     }
@@ -88,10 +91,17 @@ public class BrowseActivity extends BaseFragmentActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            Log.e(Tag,"shouldOverrideUrlLoading--- url---"+url);
             if (url.startsWith("http:") || url.startsWith("https:")) {
+                Log.e(Tag,"shouldOverrideUrlLoading---进入if");
                 return false;
             }
 
+            Log.e(Tag,"shouldOverrideUrlLoading---不进入if");
+            if (title.equals("连锁")){
+                Log.e(Tag,"shouldOverrideUrlLoading---不进入if-------------");
+
+                return false;}
             // Otherwise allow the OS to handle things like tel, mailto, etc.
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
@@ -116,6 +126,7 @@ public class BrowseActivity extends BaseFragmentActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (KeyEvent.KEYCODE_BACK == keyCode && webview.canGoBack()) {
+            Log.e(Tag,"准备goback");
             webview.goBack();
             return true;
         }

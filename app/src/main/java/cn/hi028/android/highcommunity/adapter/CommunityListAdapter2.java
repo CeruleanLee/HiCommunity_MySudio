@@ -293,10 +293,7 @@ public class CommunityListAdapter2 extends BaseFragmentAdapter {
                 }
             }
         });
-//        if (mBean.getType() == 2||mBean.getType() == 3) {
-//            mViewHolder.mFrom.setClickable(false);
-//            mViewHolder.mFrom.setFocusable(false);
-//        }
+
         //来自xxx群组监听
         mViewHolder.mFrom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -324,36 +321,7 @@ public class CommunityListAdapter2 extends BaseFragmentAdapter {
                     mContext.startActivity(mInt);
 
                 }
-//				else if (mViewHolder.mFrom.getText().toString().contains("活动")){
-//					//跳转到活动详情
-//					Intent ActCreate = new Intent(mContext, GeneratedClassUtils.get(ActiveAct.class));
-//					ActCreate.putExtra(ActiveAct.ACTIVITYTAG, Constacts.ACTIVITY_DETAILS);
-//					ActCreate.putExtra(ActiveAct.INTENTTAG, mBean.getId() + "");
-//					mContext.startActivity(ActCreate);
-//				}
-//				if (mBean.getType() == 2) {
-//					//跳转到活动详情
-//					Intent ActCreate = new Intent(mContext, GeneratedClassUtils.get(ActiveAct.class));
-//					ActCreate.putExtra(ActiveAct.ACTIVITYTAG, Constacts.ACTIVITY_DETAILS);
-//					ActCreate.putExtra(ActiveAct.INTENTTAG, mBean.getId() + "");
-//					mContext.startActivity(ActCreate);
 //
-//				} else if (mBean.getType() == 3) {
-//					//跳转到群资料
-//					Intent mInt = new Intent(mContext, GeneratedClassUtils.get(GroupDataAct.class));
-//					mInt.putExtra(GroupDataAct.ACTIVITYTAG, "Detils");
-//					mInt.putExtra(GroupDataAct.INTENTTAG, mBean.getId() + "");
-//					mContext.startActivity(mInt);
-//
-//				} else {
-//					return;
-////					//跳转到帖子
-////					Intent mCommunity = new Intent(mContext, GeneratedClassUtils.get(CommunityDetailAct.class));
-////					mCommunity.putExtra(CommunityDetailAct.ACTIVITYTAG, "Details");
-////					mCommunity.putExtra(CommunityDetailAct.INTENTTAG, mBean.getMid());
-////					mCommunity.putExtra("isPra", mBean.isPra());
-////					mContext.startActivity(mCommunity);
-//				}
             }
         });
         //头像点击监听

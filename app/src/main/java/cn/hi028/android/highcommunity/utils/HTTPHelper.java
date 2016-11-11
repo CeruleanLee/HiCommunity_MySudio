@@ -2592,8 +2592,8 @@ public class HTTPHelper {
         Debug.verbose(DongConstants.EDUCATIONHTTPTAG, "URL:" + url
                 + "   ling params:" + mParamMap.toString());
         Log.d(Tag,"上传的手艺人数据："+mParamMap.toString());
-//        BpiHttpClient.getInstance().post(url, mParamMap,
-//                BpiHttpHandler.getInstance(mIbpi));
+        BpiHttpClient.getInstance().post(url, mParamMap,
+                BpiHttpHandler.getInstance(mIbpi));
     }
 
     /**

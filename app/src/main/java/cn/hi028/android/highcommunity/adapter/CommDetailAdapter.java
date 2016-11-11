@@ -4,6 +4,7 @@
 
 package cn.hi028.android.highcommunity.adapter;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -20,6 +21,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
+import com.don.tools.GeneratedClassUtils;
 import com.don.view.CircleImageView;
 
 import net.duohuo.dhroid.util.ImageLoaderUtil;
@@ -29,6 +31,7 @@ import java.util.List;
 
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.fragment.CommunityDetilsFrag;
 import cn.hi028.android.highcommunity.bean.RepliesBean;
 import cn.hi028.android.highcommunity.bean.ReplyBean;
@@ -51,6 +54,7 @@ public class CommDetailAdapter extends BaseFragmentAdapter {
     PopupWindow mWatingWindow;
 
     public CommDetailAdapter(CommunityDetilsFrag mContext) {
+
         this.mFrag = mContext;
     }
 
@@ -226,6 +230,15 @@ public class CommDetailAdapter extends BaseFragmentAdapter {
                         }
                     }
                 }, HighCommunityApplication.mUserInfo.getId() + "", mBean.getParentId());
+            }
+        });
+        mViewHolder.mAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mDetails = new Intent(mFrag.getActivity(), GeneratedClassUtils.get(MenuLeftAct.class));
+                mDetails.putExtra(MenuLeftAct.ACTIVITYTAG, Constacts.MENU_LEFT_USERINFO);
+                mDetails.putExtra(MenuLeftAct.INTENTTAG, mBean.getId() + "");
+                mFrag.getActivity().startActivity(mDetails);
             }
         });
         return convertView;

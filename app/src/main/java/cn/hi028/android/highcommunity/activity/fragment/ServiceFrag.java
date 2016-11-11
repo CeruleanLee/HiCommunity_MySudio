@@ -312,13 +312,15 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
                                 long l) {
             ServiceBean mServie = mAdapter.getItem(i);
             Log.d(Tag, "mServie.getUrl() :" + mServie.getUrl());
-            BrowseActivity.toBrowseActivity(getActivity(), mServie.getName(),
-                    mServie.getUrl());
-//            if (mServie.getName().equals("生鲜") && mServie.getEdata() != null) {
-//                showShengXianMsg(mServie);
+
+            BrowseActivity.toBrowseActivity(getActivity(), mServie.getName(), mServie.getUrl());
+//            if (mServie.getName().equals("连锁") ) {
+//                Log.d(Tag, "---连锁");
+//                String url="https://www.jd.com/";
+//                BrowseActivity.toBrowseActivity(getActivity(), mServie.getName(),url);
 //            } else {
-//                BrowseActivity.toBrowseActivity(getActivity(), mServie.getName(),
-//                        mServie.getUrl());
+////                BrowseActivity.toBrowseActivity(getActivity(), mServie.getName(),
+////                        mServie.getUrl());
 //            }
         }
     };

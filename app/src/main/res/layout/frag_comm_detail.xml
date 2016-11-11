@@ -33,7 +33,7 @@
                 <com.don.view.CircleImageView
                     android:id="@+id/civ_communitydetails_spokerImage"
                     style="@style/civ_avatar_type2"
-                    android:layout_marginLeft="@dimen/margin_8" />
+                    android:layout_marginLeft="12dp" />
 
                 <EditText
                     android:id="@+id/ev_communitydetails_spokerContent"

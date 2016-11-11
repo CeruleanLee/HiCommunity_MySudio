@@ -36,6 +36,7 @@
 
                 <TextView
                     android:id="@+id/tv_commDetails_sex"
+                    android:focusable="false"
                     style="@style/cb_community_sex" />
 
                 <View
@@ -69,6 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/padding_24"
                     android:text="    "
+                    android:background="@drawable/bg_tv_item"
                     android:textColor="@color/Defult_Color_AppGreen"
                     android:textSize="@dimen/font_extra_small_half" />
             </LinearLayout>
@@ -145,6 +147,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_piclist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/civl_commDetails_avatar"

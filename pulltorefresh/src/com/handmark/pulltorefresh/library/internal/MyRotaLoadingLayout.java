@@ -7,7 +7,6 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.Log;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 
@@ -89,10 +88,14 @@ public class MyRotaLoadingLayout extends LoadingLayout {
 //        mHeaderImageMatrix.setRotate(angle, mRotationPivotX, mRotationPivotY);
 //        mHeaderImage.setImageMatrix(mHeaderImageMatrix);
 //        mHeaderImage.startAnimation(mRotateAnimation);
-        if (backImg.getVisibility() == View.INVISIBLE) {
-
-            backImg.setVisibility(VISIBLE);
-        }
+//        if (backImg.getVisibility() == View.INVISIBLE) {
+//
+//            backImg.setVisibility(VISIBLE);
+//        }else{
+//
+//            backImg.setVisibility(GONE);
+//
+//        }
 
 //        if (!animator.isRunning()){
 //            animator.start();

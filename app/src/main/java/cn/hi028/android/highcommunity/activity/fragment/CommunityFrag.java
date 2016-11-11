@@ -203,7 +203,7 @@ public class CommunityFrag extends Fragment {
 	}
 
 	private void RefreshData(int type) {
-		Log.e(Tag,"RefreshData ");
+		Log.e(Tag,"RefreshData  mCount--- "+mCount);
 		String time = "";
 		if (type == 0) {
 			mCount = 0;
@@ -216,6 +216,7 @@ public class CommunityFrag extends Fragment {
 				time = mAdapter.getItem(mAdapter.getCount() - 1).getCreate_time();//mList.getData().get(mList.getData().size() - 1).getCreate_time();
 			}
 		}
+		//刷新方式（0-下拉刷新，1-加载更多）
 		HTTPHelper.RefreshMessage(mIbpi, type, time, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id());//
 	}
 
@@ -252,6 +253,7 @@ public class CommunityFrag extends Fragment {
 			if (null == message)
 				return;
 			mList = (CommunityListBean) message;
+			Log.e(Tag,"mCount:"+mCount+",数据长度："+mList.getData().size());
 			if (mCount == 0) {
 				mAdapter.AddNewData(mList.getData());
 			} else if (mCount == 1) {

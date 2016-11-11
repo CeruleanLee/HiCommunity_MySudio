@@ -15,6 +15,7 @@ import java.util.List;
 public class MessageDetailsBean extends BaseBean {
     int id;
     int like;
+    String gid;
     List<PicBean> pic;
     String head_pic;
     String count;
@@ -29,6 +30,14 @@ public class MessageDetailsBean extends BaseBean {
     String create_time;
     String village_name;
     String vid;
+
+    public String getGid() {
+        return gid;
+    }
+
+    public void setGid(String gid) {
+        this.gid = gid;
+    }
 
     public int getId() {
         return id;

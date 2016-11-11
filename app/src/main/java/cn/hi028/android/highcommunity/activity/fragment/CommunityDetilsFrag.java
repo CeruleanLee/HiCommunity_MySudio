@@ -44,6 +44,7 @@ import org.androidannotations.annotations.ViewById;
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.CommunityDetailAct;
+import cn.hi028.android.highcommunity.activity.GroupDataAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.adapter.AssistHeadPicAdapter;
 import cn.hi028.android.highcommunity.adapter.CommDetailAdapter;
@@ -78,6 +79,7 @@ public class CommunityDetilsFrag extends BaseFragment {
 	ImageView mAssist;
 	PullToRefreshGridView mAssisGrid;
 	ImageView mainComment;
+	View mPicLayout;
 	@ViewById(R.id.ptrlv_communitydetails_listview)
 	ListView mList;
 	@ViewById(R.id.ll_communitydetails_spokerLayout)
@@ -183,9 +185,11 @@ public class CommunityDetilsFrag extends BaseFragment {
 		mAssist = (ImageView) header.findViewById(R.id.tv_commDetails_Assist);
 		mAssisGrid = (PullToRefreshGridView) header.findViewById(R.id.ptrgv_commDetails_member_grideview);
 		mainComment=(ImageView) header.findViewById(R.id.tv_commDetails_Maincomment);
+		mPicLayout= header.findViewById(R.id.layout_piclist);
 		//        mList.getRefreshableView().addHeaderView(header);
 		//        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		mList.addHeaderView(header);
+
 	}
 
 	BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
@@ -221,13 +225,13 @@ public class CommunityDetilsFrag extends BaseFragment {
 		}
 	};
 
-	@Click(R.id.civl_commDetails_avatar)
-	void toUser() {
-		Intent mDetails = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftAct.class));
-		mDetails.putExtra(MenuLeftAct.ACTIVITYTAG, Constacts.MENU_LEFT_USERINFO);
-		mDetails.putExtra(MenuLeftAct.INTENTTAG, mBean.getId() + "");
-		startActivity(mDetails);
-	}
+//	@Click(R.id.civl_commDetails_avatar)
+//	void toUser() {
+//		Intent mDetails = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftAct.class));
+//		mDetails.putExtra(MenuLeftAct.ACTIVITYTAG, Constacts.MENU_LEFT_USERINFO);
+//		mDetails.putExtra(MenuLeftAct.INTENTTAG, mBean.getId() + "");
+//		startActivity(mDetails);
+//	}
 
 	@Click(R.id.ev_communitydetails_spokerButton)
 	void Comment() {
@@ -302,6 +306,16 @@ public class CommunityDetilsFrag extends BaseFragment {
 		} else {
 			mSex.setSelected(true);
 		}
+		//头像点击监听
+		mAvatar.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent mDetails = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftAct.class));
+				mDetails.putExtra(MenuLeftAct.ACTIVITYTAG, Constacts.MENU_LEFT_USERINFO);
+				mDetails.putExtra(MenuLeftAct.INTENTTAG, mBean.getId() + "");
+				startActivity(mDetails);
+			}
+		});
 		mSex.setText(mBean.getAge() + "");
 		mTime.setText(TimeUtil.getDescriptionTimeFromTimestamp(Long.parseLong(mBean.getCreate_time())));
 		if (TextUtils.isEmpty(mBean.getName())) {
@@ -310,6 +324,20 @@ public class CommunityDetilsFrag extends BaseFragment {
 			mForm.setVisibility(View.VISIBLE);
 			mForm.setText("来自" + mBean.getName());
 		}
+		mForm.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+//				Log.e(Tag, "点击来自xxx---type--->" + mViewHolder.mFrom.getText().toString() + ",---id--->" + mBean.getId());
+				if (mBean.getGid()!=null||mBean.getGid()!="") {
+					//跳转到群资料
+					Intent mInt = new Intent(getActivity(), GeneratedClassUtils.get(GroupDataAct.class));
+					mInt.putExtra(GroupDataAct.ACTIVITYTAG, "Detils");
+					mInt.putExtra(GroupDataAct.INTENTTAG, mBean.getGid() + "");
+					getActivity().startActivity(mInt);
+
+				}
+			}
+		});
 		SpannableString spanString = new SpannableString("     " + mBean.getTitle());
 		spanString.setSpan(new ForegroundColorSpan(Color.RED), 5, 5 + mBean.getTitle().length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 		mContent.setText(spanString);
@@ -320,7 +348,10 @@ public class CommunityDetilsFrag extends BaseFragment {
 			mAssist.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_zan2));
 			//        	mAssist.setImageResource(R.mipmap.tag_community_item_assist_h);
 		}else {
+			mPicLayout.setVisibility(View.GONE);
 			mAssist.setVisibility(View.GONE);
+
+
 			//			mAssist.setChecked(false);
 			//			mAssist.setImageDrawable(getResources().getDrawable(R.drawable.tag_community_item_assist));
 			//			mAssist.setImageResource(R.mipmap.tag_community_item_assist);;

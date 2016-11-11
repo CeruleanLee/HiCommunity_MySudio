@@ -112,6 +112,7 @@ public abstract class LoadingLayout extends FrameLayout implements
 					.getString(R.string.pull_to_refresh_from_bottom_release_label);
 
 			mHeaderImage.setImageResource(R.drawable.ic_liloading_32px);
+			mHeaderImage.setVisibility(GONE);
 			backImg.setVisibility(GONE);
 
 			break;
@@ -202,7 +203,7 @@ public abstract class LoadingLayout extends FrameLayout implements
 						.getDrawable(R.styleable.PullToRefresh_ptrDrawableBottom);
 			}
 			mHeaderImage.setImageResource(R.drawable.ic_liloading_32px);
-
+			mHeaderImage.setVisibility(GONE);
 //			mHeaderImage.setVisibility(GONE);
 			backImg.setVisibility(GONE);
 			break;

@@ -16,6 +16,7 @@ import android.support.v4.view.ViewPager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StrikethroughSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,7 +99,7 @@ public class HuiSupplyFrag extends BaseFragment implements ViewPager.OnPageChang
 		super.onActivityCreated(savedInstanceState);
 	}
 
-	public static final String Tag = "~~~zhigong~~~";
+	public static final String Tag = "HuiSupplyFrag--->";
 	private int  childCount;
 	void initView() {
 		findView();
@@ -344,7 +345,13 @@ original_price.setVisibility(View.GONE);
 			Spannable spanStrikethrough = new SpannableString("￥" + viewPagerAdapter.getData().get(currentPositon).getOriginal_price());
 			StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
 //			spanStrikethrough.setSpan(stSpan, 0, 7, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-			spanStrikethrough.setSpan(stSpan, 0, 5, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+			Log.e(Tag,"长度--->"+spanStrikethrough.length());
+			try {
+				spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+			}catch (Exception ex){
+
+			}
 			original_price.setText(spanStrikethrough);
 		}else{
 			original_price.setVisibility(View.GONE);
