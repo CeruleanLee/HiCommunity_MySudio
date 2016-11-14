@@ -3,41 +3,44 @@
 
     <FrameLayout
         android:id="@+id/fl_inner"
-        android:layout_width="match_parent"
-        android:layout_height="76dp"
-        android:background="#ffffffff"
-   >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+android:background="#ffffffff"
 
-            <ImageView
-                android:id="@+id/pull_to_refresh_image2"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:paddingTop="10dp"
-                android:src="@drawable/img_refresh_house" />
+        android:paddingTop="@dimen/header_footer_top_bottom_padding">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/pull_to_refresh_image"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_alignBottom="@id/pull_to_refresh_image2"
-                android:layout_alignRight="@id/pull_to_refresh_image2"
-                android:layout_marginRight="125dp"
-                android:src="@drawable/img_refresh_sun"
+    <ImageView
+        android:id="@+id/pull_to_refresh_image2"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+      android:paddingTop="10dp"
+       android:src="@drawable/img_refresh_house"
+     android:layout_centerHorizontal="true"
+        />
+    <ImageView
+        android:id="@+id/pull_to_refresh_image"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginRight="125dp"
+android:src="@drawable/img_refresh_sun"
+    android:layout_alignBottom="@id/pull_to_refresh_image2"
+     android:layout_alignRight="@id/pull_to_refresh_image2"
 
-                />
-        </RelativeLayout>
+ />
+</RelativeLayout>
+
 
 
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:visibility="gone"
             android:layout_gravity="center_horizontal"
-            android:visibility="gone">
+          >
+
 
 
             <ProgressBar

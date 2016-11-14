@@ -94,28 +94,31 @@ String Tag="~~~ActFrag~~~";
 		 mAdapter = new ActivityAdapter(getActivity());
 		 mListView.setEmptyView(mNodata);
 		 mListView.setAdapter(mAdapter);
-		 mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-		 mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
-			 @Override
-			 public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-				 Log.e(Tag,"刷新");
-				 new GetDataTask().execute();
-			 }
-		 });
-//		 mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+		 mListView.setMode(PullToRefreshBase.Mode.BOTH);
+//		 mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
 //			 @Override
-//			 public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+//			 public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+//				 Log.e(Tag,"刷新");
 //				 new GetDataTask().execute();
-//				 mListView.onRefreshComplete();
-//
-////				 HTTPHelper.GetActivityList(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
-//			 }
-//
-//			 @Override
-//			 public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//
 //			 }
 //		 });
+		 mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+			 @Override
+			 public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+				 Log.e(Tag,"刷新1");
+				  new GetDataTask().execute();
+//				 mListView.onRefreshComplete();
+
+//				 HTTPHelper.GetActivityList(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
+			 }
+
+			 @Override
+			 public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+				 Log.e(Tag,"刷新2");
+				 new GetDataTask().execute();
+
+			 }
+		 });
 		 mCreate.setOnClickListener(new View.OnClickListener() {
 			 @Override
 			 public void onClick(View view) {
@@ -276,8 +279,6 @@ String Tag="~~~ActFrag~~~";
 			protected void onPostExecute(String result) {
 				Log.e(Tag,"onPostExecute");
 				 HTTPHelper.GetActivityList(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
-				 
-
 				// Call onRefreshComplete when the list has been refreshed.
 //								mListView.onRefreshComplete();
 				super.onPostExecute(result);

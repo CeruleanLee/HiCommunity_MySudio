@@ -79,7 +79,7 @@ public class CommunityDetilsFrag extends BaseFragment {
 	ImageView mAssist;
 	PullToRefreshGridView mAssisGrid;
 	ImageView mainComment;
-	View mPicLayout;
+	View mPicLayout,layout_Assist;
 	@ViewById(R.id.ptrlv_communitydetails_listview)
 	ListView mList;
 	@ViewById(R.id.ll_communitydetails_spokerLayout)
@@ -186,6 +186,7 @@ public class CommunityDetilsFrag extends BaseFragment {
 		mAssisGrid = (PullToRefreshGridView) header.findViewById(R.id.ptrgv_commDetails_member_grideview);
 		mainComment=(ImageView) header.findViewById(R.id.tv_commDetails_Maincomment);
 		mPicLayout= header.findViewById(R.id.layout_piclist);
+		layout_Assist= header.findViewById(R.id.layout_Assist);
 		//        mList.getRefreshableView().addHeaderView(header);
 		//        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		mList.addHeaderView(header);
@@ -348,7 +349,9 @@ public class CommunityDetilsFrag extends BaseFragment {
 			mAssist.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_zan2));
 			//        	mAssist.setImageResource(R.mipmap.tag_community_item_assist_h);
 		}else {
-			mPicLayout.setVisibility(View.GONE);
+//			mPicLayout.setVisibility(View.GONE);
+//			layout_Assist.setVisibility(View.GONE);
+
 			mAssist.setVisibility(View.GONE);
 
 

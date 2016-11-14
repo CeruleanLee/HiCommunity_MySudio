@@ -111,7 +111,6 @@ public abstract class LoadingLayout extends FrameLayout implements
 			mReleaseLabel = context
 					.getString(R.string.pull_to_refresh_from_bottom_release_label);
 
-			mHeaderImage.setImageResource(R.drawable.ic_liloading_32px);
 			mHeaderImage.setVisibility(GONE);
 			backImg.setVisibility(GONE);
 
@@ -202,10 +201,6 @@ public abstract class LoadingLayout extends FrameLayout implements
 				imageDrawable = attrs
 						.getDrawable(R.styleable.PullToRefresh_ptrDrawableBottom);
 			}
-			mHeaderImage.setImageResource(R.drawable.ic_liloading_32px);
-			mHeaderImage.setVisibility(GONE);
-//			mHeaderImage.setVisibility(GONE);
-			backImg.setVisibility(GONE);
 			break;
 		}
 
@@ -262,15 +257,12 @@ public abstract class LoadingLayout extends FrameLayout implements
 	}
 
 	public final void onPull(float scaleOfLayout) {
-		mHeaderImage.setVisibility(View.VISIBLE);
 		if (!mUseIntrinsicAnimation) {
-			mHeaderImage.setVisibility(View.VISIBLE);
 			onPullImpl(scaleOfLayout);
 		}
 	}
 
 	public final void pullToRefresh() {
-		mHeaderImage.setVisibility(View.VISIBLE);
 		if (null != mHeaderText) {
 			mHeaderText.setText(mPullLabel);
 		}

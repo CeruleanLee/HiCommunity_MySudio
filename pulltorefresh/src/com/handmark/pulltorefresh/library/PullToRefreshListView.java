@@ -88,8 +88,6 @@ public class PullToRefreshListView extends PullToRefreshAdapterViewBase<ListView
 				selection = mRefreshableView.getCount() - 1;
 				scrollToY = getScrollY() - getFooterSize();
 				origLoadingView.hideAllViews();
-
-
 				break;
 			case PULL_FROM_START:
 			default:

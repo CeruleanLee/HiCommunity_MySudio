@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/defult_color_white"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="0.5dp" >
+        android:paddingTop="0.5dp">
 
         <com.don.view.CircleImageView
             android:id="@+id/civl_commDetails_avatar"
@@ -22,13 +22,13 @@
             android:layout_marginLeft="@dimen/padding_4"
             android:layout_marginRight="@dimen/margin_12"
             android:layout_toRightOf="@+id/civl_commDetails_avatar"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_2"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_commDetails_name"
@@ -36,8 +36,8 @@
 
                 <TextView
                     android:id="@+id/tv_commDetails_sex"
-                    android:focusable="false"
-                    style="@style/cb_community_sex" />
+                    style="@style/cb_community_sex"
+                    android:focusable="false" />
 
                 <View
                     android:layout_width="wrap_content"
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_2"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_commDetails_time"
@@ -69,21 +69,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/padding_24"
-                    android:text="    "
                     android:background="@drawable/bg_tv_item"
+                    android:text="    "
                     android:textColor="@color/Defult_Color_AppGreen"
                     android:textSize="@dimen/font_extra_small_half" />
             </LinearLayout>
 
             <View
                 style="@style/view_line_ver"
-                android:layout_marginTop="@dimen/margin_6" >
-            </View>
+                android:layout_marginTop="@dimen/margin_6"></View>
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_4" >
+                android:layout_marginTop="@dimen/padding_4">
 
                 <ImageView
                     android:layout_width="12dip"
@@ -108,14 +107,13 @@
                 android:listSelector="@android:color/transparent"
                 android:numColumns="3"
                 android:stretchMode="columnWidth"
-                android:verticalSpacing="8dp" >
-            </com.handmark.pulltorefresh.library.PullToRefreshGridView>
+                android:verticalSpacing="8dp"></com.handmark.pulltorefresh.library.PullToRefreshGridView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginTop="12dp" >
+                android:layout_marginTop="12dp">
 
                 <TextView
                     android:id="@+id/tv_commDetails_location"
@@ -142,8 +140,7 @@
 
             <View
                 style="@style/view_line_ver"
-                android:layout_marginTop="@dimen/margin_8" >
-            </View>
+                android:layout_marginTop="@dimen/margin_8"></View>
         </LinearLayout>
 
         <LinearLayout
@@ -153,14 +150,15 @@
             android:layout_alignLeft="@+id/civl_commDetails_avatar"
             android:layout_alignRight="@+id/layout"
             android:layout_below="@id/layout"
-          
-            android:orientation="horizontal" >
+            android:background="@color/white"
+            android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/layout_Assist"
+
                 android:layout_width="48dp"
                 android:layout_height="30dp"
-                android:gravity="center"
-                 >
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/tv_commDetails_Assist"
@@ -168,8 +166,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="5dp"
-                  
-                     />
+
+                    />
             </LinearLayout>
 
             <com.handmark.pulltorefresh.library.PullToRefreshGridView
@@ -182,6 +180,7 @@
                 android:listSelector="@android:color/transparent"
                 android:numColumns="8"
                 android:paddingLeft="-2dp"
+                android:background="@color/white"
                 android:smoothScrollbar="true"
                 android:stretchMode="columnWidth" />
         </LinearLayout>

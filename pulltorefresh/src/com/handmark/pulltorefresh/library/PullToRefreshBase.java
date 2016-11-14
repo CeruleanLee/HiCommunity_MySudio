@@ -1243,8 +1243,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 					- lastMotionValue, 0)
 					/ FRICTION);
 			itemDimension = getFooterSize();
-
-
 			break;
 		case PULL_FROM_START:
 		default:

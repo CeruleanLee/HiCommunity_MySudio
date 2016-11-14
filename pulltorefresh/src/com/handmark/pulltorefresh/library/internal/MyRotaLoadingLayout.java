@@ -7,6 +7,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 
@@ -47,7 +48,7 @@ public class MyRotaLoadingLayout extends LoadingLayout {
 
 
         float curTranslationY = mHeaderImage.getTranslationY();
-        animator = ObjectAnimator.ofFloat(mHeaderImage, "translationY", -90f);
+        animator = ObjectAnimator.ofFloat(mHeaderImage, "translationY", -120f);
         animator.setDuration(1200);
 
 
@@ -78,7 +79,6 @@ public class MyRotaLoadingLayout extends LoadingLayout {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     protected void onPullImpl(float scaleOfLayout) {
         Log.e(Tag, "onPullImpl");
-        mHeaderImage.setVisibility(VISIBLE);
 //        float angle;
 //        if (mRotateDrawableWhilePulling) {
 //            angle = scaleOfLayout * 90f;
@@ -89,14 +89,10 @@ public class MyRotaLoadingLayout extends LoadingLayout {
 //        mHeaderImageMatrix.setRotate(angle, mRotationPivotX, mRotationPivotY);
 //        mHeaderImage.setImageMatrix(mHeaderImageMatrix);
 //        mHeaderImage.startAnimation(mRotateAnimation);
-//        if (backImg.getVisibility() == View.INVISIBLE) {
-//
-//            backImg.setVisibility(VISIBLE);
-//        }else{
-//
-//            backImg.setVisibility(GONE);
-//
-//        }
+        if (backImg.getVisibility() == View.INVISIBLE) {
+
+            backImg.setVisibility(VISIBLE);
+        }
 
 //        if (!animator.isRunning()){
 //            animator.start();
@@ -108,18 +104,16 @@ public class MyRotaLoadingLayout extends LoadingLayout {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void refreshingImpl() {
-        mHeaderImage.setVisibility(VISIBLE);
         Log.e(Tag, "refreshingImpl");
 //        ViewGroup.LayoutParams mHeaderImageLayoutParams = mHeaderImage.getLayoutParams();
 //        mHeaderImageLayoutParams.h
         if (isFirstChange) {
-            mHeaderImage.setY(mHeaderImage.getY() - 90f);
+            mHeaderImage.setY(mHeaderImage.getY() - 120f);
             isFirstChange = false;
         }
 //        mHeaderImage.startAnimation(new RotateAnimation(0, 720,
 //                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
 //                0.5f));
-//        mHeaderImage.setVisibility(VISIBLE);
         animator2.start();
     }
 
@@ -128,14 +122,12 @@ public class MyRotaLoadingLayout extends LoadingLayout {
         Log.e(Tag, "resetImpl");
 
         mHeaderImage.clearAnimation();
-        mHeaderImage.setVisibility(VISIBLE);
         resetImageRotation();
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void resetImageRotation() {
         Log.e(Tag, "resetImageRotation");
-        mHeaderImage.setVisibility(VISIBLE);
         if (animator2 != null) {
 
             animator2.cancel();
@@ -174,9 +166,6 @@ if (isFirstUp){
 
     @Override
     protected int getDefaultDrawableResId() {
-
-
-        mHeaderImage.setVisibility(VISIBLE);
         return R.drawable.img_refresh_sun;
     }
 
