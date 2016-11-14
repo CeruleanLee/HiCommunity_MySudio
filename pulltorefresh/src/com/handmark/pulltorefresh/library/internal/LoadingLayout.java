@@ -262,12 +262,15 @@ public abstract class LoadingLayout extends FrameLayout implements
 	}
 
 	public final void onPull(float scaleOfLayout) {
+		mHeaderImage.setVisibility(View.VISIBLE);
 		if (!mUseIntrinsicAnimation) {
+			mHeaderImage.setVisibility(View.VISIBLE);
 			onPullImpl(scaleOfLayout);
 		}
 	}
 
 	public final void pullToRefresh() {
+		mHeaderImage.setVisibility(View.VISIBLE);
 		if (null != mHeaderText) {
 			mHeaderText.setText(mPullLabel);
 		}

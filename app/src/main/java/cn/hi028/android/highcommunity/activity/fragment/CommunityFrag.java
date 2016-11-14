@@ -188,8 +188,11 @@ public class CommunityFrag extends Fragment {
 			mAdapter.ClearData();
 			initDatas();
 			isGetInitMessage=false;
+
+		}else{
+
+			RefreshData(0);
 		}
-		RefreshData(0);
 		registNetworkReceiver();
 		isNeedRefresh = false;
 	}
@@ -234,6 +237,8 @@ public class CommunityFrag extends Fragment {
 	BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
 		@Override
 		public void onError(int id, String message) {
+			Log.e(Tag,"onError---"+message.toString());
+
 			mProgress.setVisibility(View.GONE);
 			mListView.onRefreshComplete();
 			if (mCount == -1) {
@@ -348,11 +353,11 @@ public class CommunityFrag extends Fragment {
 
 		@Override
 		protected void onPostExecute(String result) {
+			super.onPostExecute(result);
 			RefreshData(0);
 
 			// Call onRefreshComplete when the list has been refreshed.
 			//				mListView.onRefreshComplete();
-			super.onPostExecute(result);
 		}
 	}
 }
