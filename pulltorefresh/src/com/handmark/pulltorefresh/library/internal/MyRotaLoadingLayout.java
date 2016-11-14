@@ -117,10 +117,14 @@ public class MyRotaLoadingLayout extends LoadingLayout {
         animator2.start();
     }
 
-    @Override
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     protected void resetImpl() {
         Log.e(Tag, "resetImpl");
+        if (animator2 != null) {
 
+            animator2.cancel();
+//            isFirstUp=true;
+        }
         mHeaderImage.clearAnimation();
         resetImageRotation();
     }
@@ -131,25 +135,30 @@ public class MyRotaLoadingLayout extends LoadingLayout {
         if (animator2 != null) {
 
             animator2.cancel();
-            isFirstUp=true;
+            isFirstUp = true;
         }
 //        if (null != mHeaderImageMatrix) {
 //            mHeaderImageMatrix.reset();
 //            mHeaderImage.setImageMatrix(mHeaderImageMatrix);
 //        }
     }
-boolean isFirstUp=true;
+
+    boolean isFirstUp = true;
+
     //下来刷新
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void pullToRefreshImpl() {
-        Log.e(Tag, "pullToRefreshImpl---animator.isRunning()--->"+animator.isRunning());
+        Log.e(Tag, "pullToRefreshImpl---animator.isRunning()--->" + animator.isRunning());
 
         // NO-OP
-if (isFirstUp){
-    animator.start();
-    isFirstUp=false;
-}
+        if (animator2.isRunning()) {
+            animator2.cancel();
+        }
+        if (isFirstUp) {
+            animator.start();
+            isFirstUp = false;
+        }
 
     }
 

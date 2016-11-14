@@ -27,7 +27,7 @@ import cn.jpush.android.api.JPushInterface;
  * 2) 接收不到自定义消息
  */
 public class PushReceiver extends BroadcastReceiver {
-    private static final String TAG = "JPush";
+    private static final String TAG = "JPush--->";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -51,12 +51,12 @@ public class PushReceiver extends BroadcastReceiver {
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
             clickNotidifation(context, bundle);
-            //打开自定义的Activity
-            Intent i = new Intent(context, MainActivity.class);
-            i.putExtras(bundle);
-          i.putExtra("checkupdata",6);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            context.startActivity(i);
+//            打开自定义的Activity
+//            Intent i = new Intent(context, MainActivity.class);
+//            i.putExtras(bundle);
+//          i.putExtra("checkupdata",6);
+//            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            context.startActivity(i);
 
         } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
             Log.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
@@ -140,7 +140,8 @@ public class PushReceiver extends BroadcastReceiver {
             try {
                 JSONObject extraJson = new JSONObject(extras);
                 int type = extraJson.optInt("type", -1);
-                if (type == 0) {
+                Log.e(TAG, "type--->" + type);
+                if (type == 0) {//接收到评论
                     msgIntent.putExtra(MainActivity.KEY_EXTRAS, 0);
                     context.sendBroadcast(msgIntent);
                     Intent i = new Intent(context, GeneratedClassUtils.get(MenuLeftAct.class));
@@ -152,6 +153,12 @@ public class PushReceiver extends BroadcastReceiver {
                     i.putExtras(bundle);
                     i.putExtra(MenuLeftAct.ACTIVITYTAG, Constacts.MENU_LEFT_ORDER);
                     i.putExtra(MenuLeftAct.INTENTTAG, 2);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    context.startActivity(i);
+                } else if (type == 2) {// 处理更新通知
+                    Intent i = new Intent(context, MainActivity.class);
+                    i.putExtras(bundle);
+                    i.putExtra("checkupdata", 6);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.startActivity(i);
                 }

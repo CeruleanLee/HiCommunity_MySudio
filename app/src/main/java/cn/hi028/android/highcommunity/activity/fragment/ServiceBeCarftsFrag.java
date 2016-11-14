@@ -24,6 +24,8 @@ import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.SaveBitmap;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.activity.BrowseActivity;
@@ -82,7 +84,8 @@ public class ServiceBeCarftsFrag extends BaseFragment {
 	@ViewById(R.id.tv_register_agree)
 	TextView agreeTxt;
 	boolean IsClicked = false;
-
+	@ViewById(R.id.iv_becarfts_listview)
+	PullToRefreshScrollView mScrollView;
 	int requesetPhoto = 0x000001, requestFile = 0x000002,
 			requestCropImage = 0x000003;
 	PopupWindow mPhotoPopupWindow = null, mWaitingWindow;
@@ -92,6 +95,7 @@ public class ServiceBeCarftsFrag extends BaseFragment {
 
 	@AfterViews
 	void initView() {
+		mScrollView.setMode(PullToRefreshBase.Mode.DISABLED);
 		mAvatar.setOnClickListener(mClickListener);
 		mObverse.setOnClickListener(mClickListener);
 		mBack.setOnClickListener(mClickListener);

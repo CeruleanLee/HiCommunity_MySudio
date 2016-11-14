@@ -13,6 +13,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -66,7 +67,7 @@ import cn.hi028.android.highcommunity.utils.TimeUtil;
 public class CommunityDetilsFrag extends BaseFragment {
 
 	public static final String FRAGMENTTAG = "CommunityDetilsFrag";
-	final String  Tag="------------CommunityDetilsFrag";
+	final String  Tag="CommunityDetilsFrag--->";
 	CircleImageView mAvatar;
 	TextView mName;
 	TextView mSex;
@@ -344,15 +345,18 @@ public class CommunityDetilsFrag extends BaseFragment {
 		mContent.setText(spanString);
 		mContent.append("  " + mBean.getContent());
 		mAdapter.AddNewData(mBean.getReplies());
+		Log.e(Tag,"mBean.getLike()--->"+mBean.getLike());
 		if (mBean.getLike()>0) {
+			mPicLayout.setVisibility(View.VISIBLE);
+
+//		if (mBean.getPraises().size()>0) {
 			//        	mAssist.setChecked(true);
-			mAssist.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_zan2));
+//			mAssist.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_zan2));
 			//        	mAssist.setImageResource(R.mipmap.tag_community_item_assist_h);
 		}else {
-//			mPicLayout.setVisibility(View.GONE);
+			mPicLayout.setVisibility(View.GONE);
 //			layout_Assist.setVisibility(View.GONE);
-
-			mAssist.setVisibility(View.GONE);
+//			mAssist.setVisibility(View.GONE);
 
 
 			//			mAssist.setChecked(false);

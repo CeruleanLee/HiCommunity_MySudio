@@ -57,6 +57,7 @@
                         android:layout_alignBottom="@id/img_LeftFrag_Avatar"
                         android:layout_marginBottom="@dimen/padding_8"
                         android:layout_marginTop="@dimen/padding_8"
+
                         android:layout_toRightOf="@id/tx_LeftFrag_userName"
                         android:text="未知" />
                 </RelativeLayout>

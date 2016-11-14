@@ -75,7 +75,9 @@
                     android:background="@null"
                     android:paddingBottom="20dip"
                     android:paddingTop="20dip"
+                    android:maxLength="12"
                     android:singleLine="true"
+                    android:ellipsize="end"
                     android:text="cherish"
                     android:textColor="@color/color_UserInfoTextColor"
                     android:textSize="@dimen/font_middle" />

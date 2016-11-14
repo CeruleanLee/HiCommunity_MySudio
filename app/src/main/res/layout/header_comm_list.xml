@@ -151,6 +151,8 @@
             android:layout_alignRight="@+id/layout"
             android:layout_below="@id/layout"
             android:background="@color/white"
+            android:visibility="gone"
+           android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -165,6 +167,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:src="@drawable/ic_zan2"
                     android:padding="5dp"
 
                     />

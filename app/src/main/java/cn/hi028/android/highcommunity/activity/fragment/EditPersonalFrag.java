@@ -5,13 +5,11 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -21,14 +19,12 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
-import com.don.tools.BpiUniveralImage;
 import com.don.tools.GeneratedClassUtils;
 import com.don.tools.SaveBitmap;
 import com.don.view.CircleImageView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.ImageLoaderUtil;
-import net.duohuo.dhroid.util.PreferenceUtils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -42,7 +38,6 @@ import java.util.List;
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.MenuLeftSecondAct;
-import cn.hi028.android.highcommunity.activity.MenuLeftThirdAct;
 import cn.hi028.android.highcommunity.activity.ServiceSecondAct;
 import cn.hi028.android.highcommunity.bean.CertifiBean;
 import cn.hi028.android.highcommunity.bean.PersonalInfoBean;
@@ -50,7 +45,6 @@ import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.PhotoUtils;
-import cn.hi028.android.highcommunity.view.ECAlertDialog;
 import cn.hi028.android.highcommunity.view.ECListDialog;
 
 /**
@@ -131,7 +125,7 @@ public class EditPersonalFrag extends BaseFragment {
 
     @AfterViews
     void initView() {
-
+        mName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(12)});
         mBean = (PersonalInfoBean) getActivity().getIntent().getSerializableExtra(MenuLeftSecondAct.INTENTTAG);
         if (mBean != null) {
             ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + mBean.getHead_pic(), mAvatar);

@@ -105,7 +105,12 @@ public class CommunityFrag extends Fragment {
 
 			@Override
 			public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-				RefreshData(1);
+
+				new GetDataTask2().execute();
+
+
+
+//				RefreshData(1);
 			}
 		});
 		mChange.setOnClickListener(new View.OnClickListener() {
@@ -180,9 +185,7 @@ public class CommunityFrag extends Fragment {
 		//
 		//		HTTPHelper.GetMessage(mIbpi, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id(), time);
 		//		Log.e(Tag,"GetMessage2 ");
-
 		//        }
-
 		super.onResume();
 		if (isGetInitMessage){
 			mAdapter.ClearData();
@@ -190,8 +193,9 @@ public class CommunityFrag extends Fragment {
 			isGetInitMessage=false;
 
 		}else{
-
-			RefreshData(0);
+//			mAdapter.ClearData();
+//			initDatas();
+			RefreshDataForResume(0);
 		}
 		registNetworkReceiver();
 		isNeedRefresh = false;
@@ -222,7 +226,23 @@ public class CommunityFrag extends Fragment {
 		//刷新方式（0-下拉刷新，1-加载更多）
 		HTTPHelper.RefreshMessage(mIbpi, type, time, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id());//
 	}
-
+	private void RefreshDataForResume(int type) {
+		Log.e(Tag,"RefreshData  mCount--- "+mCount);
+		String time = "";
+		if (type == 0) {
+			mCount = 0;
+			if (mAdapter != null && mAdapter.getCount() > 0) {
+				time = mAdapter.getItem(0).getCreate_time();//mList.getData().get(0).getCreate_time();
+			}
+		} else {
+			mCount = 1;
+			if (mAdapter != null && mAdapter.getCount() > 0) {
+				time = mAdapter.getItem(mAdapter.getCount() - 1).getCreate_time();//mList.getData().get(mList.getData().size() - 1).getCreate_time();
+			}
+		}
+		//刷新方式（0-下拉刷新，1-加载更多）
+		HTTPHelper.RefreshMessage(mIbpi2, type, time, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id());//
+	}
 	/**
 	 * 只做back监听
 	 *
@@ -245,6 +265,61 @@ public class CommunityFrag extends Fragment {
 				mAdapter.ClearData();
 			}
 			HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+			//            if(!isNoNetwork){
+			//			mLoadingView.loadFailed();
+			//			}
+		}
+
+		@Override
+		public void onSuccess(Object message) {
+			Log.e(Tag,"onSuccess---"+message.toString());
+			mProgress.setVisibility(View.GONE);
+			Log.e("TAG", message.toString());
+			if (null == message)
+				return;
+			mList = (CommunityListBean) message;
+			Log.e(Tag,"mCount:"+mCount+",数据长度："+mList.getData().size());
+			if (mCount == 0) {
+				mAdapter.AddNewData(mList.getData());
+			} else if (mCount == 1) {
+				mAdapter.RefreshData(mList.getData());
+			} else if (mCount == -1) {
+				mAdapter.SetData(mList.getData());
+			}
+//			mListView.setAdapter(mAdapter);
+			mListView.onRefreshComplete();
+			mLoadingView.loadSuccess();
+			LogUtil.d("-------------  initView   loadSuccess");
+			layoutContainer.setVisibility(View.VISIBLE);
+			LogUtil.d("-------------  initView   setVisibility");
+
+		}
+		@Override
+		public Object onResolve(String result) {
+			return HTTPHelper.ResolveMessage(result);
+		}
+		@Override
+		public void setAsyncTask(AsyncTask asyncTask) {
+
+		}
+		@Override
+		public void cancleAsyncTask() {
+			mProgress.setVisibility(View.GONE);
+			mListView.onRefreshComplete();
+		}
+	};
+//专为resume刷新
+	BpiHttpHandler.IBpiHttpHandler mIbpi2 = new BpiHttpHandler.IBpiHttpHandler() {
+		@Override
+		public void onError(int id, String message) {
+			Log.e(Tag,"onError---"+message.toString());
+
+			mProgress.setVisibility(View.GONE);
+			mListView.onRefreshComplete();
+			if (mCount == -1) {
+				mAdapter.ClearData();
+			}
+//			HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
 			//            if(!isNoNetwork){
 			//			mLoadingView.loadFailed();
 			//			}
@@ -355,6 +430,27 @@ public class CommunityFrag extends Fragment {
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
 			RefreshData(0);
+
+			// Call onRefreshComplete when the list has been refreshed.
+			//				mListView.onRefreshComplete();
+		}
+	}
+
+	private class GetDataTask2 extends AsyncTask<Void, Void,String > {
+
+		@Override
+		protected String doInBackground(Void... params) {
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			super.onPostExecute(result);
+			RefreshData(1);
 
 			// Call onRefreshComplete when the list has been refreshed.
 			//				mListView.onRefreshComplete();

@@ -29,7 +29,6 @@ import cn.hi028.android.highcommunity.activity.VallageAct;
 import cn.hi028.android.highcommunity.adapter.CommunityListAdapter;
 import cn.hi028.android.highcommunity.bean.CommunityBean;
 import cn.hi028.android.highcommunity.bean.CommunityListBean;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
@@ -78,12 +77,18 @@ public class MyMessageFrag extends Fragment {
         mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                RefreshData(0);
+//                RefreshData(0);
+                new GetDataTask().execute();
+
+
             }
+
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                RefreshData(1);
+//                RefreshData(1);
+                new GetDataTask2().execute();
+
             }
         });
         mChange.setOnClickListener(new View.OnClickListener() {
@@ -171,5 +176,47 @@ public class MyMessageFrag extends Fragment {
     public boolean onKeyDown() {
         return mAdapter.onKeyDown();
     }
+
+    private class GetDataTask extends AsyncTask<Void, Void,String > {
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            RefreshData(0);
+
+            // Call onRefreshComplete when the list has been refreshed.
+            //				mListView.onRefreshComplete();
+        }
+    }
+    private class GetDataTask2 extends AsyncTask<Void, Void,String > {
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            RefreshData(1);
+
+            // Call onRefreshComplete when the list has been refreshed.
+            //				mListView.onRefreshComplete();
+        }
+    }
+
 
 }

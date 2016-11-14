@@ -64,8 +64,8 @@
             android:layout_alignParentTop="true"
             android:background="@android:color/white"
             android:divider="@color/Defult_Color_ShallowGrey"
-            android:dividerHeight="0.5dp"
-            android:headerDividersEnabled="false"
+            android:dividerHeight="0.5dip"
+
             android:fadingEdge="none"
             android:scrollbars="none"
             android:transcriptMode="normal" />
