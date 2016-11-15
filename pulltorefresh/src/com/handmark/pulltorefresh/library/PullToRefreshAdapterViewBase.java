@@ -29,7 +29,6 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 
 import com.handmark.pulltorefresh.library.internal.EmptyViewMethodAccessor;
@@ -327,6 +326,10 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView>
 	}
 
 	protected boolean isReadyForPullEnd() {
+
+
+
+
 		return isLastItemVisible();
 	}
 

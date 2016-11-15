@@ -63,7 +63,10 @@ public class PushReceiver extends BroadcastReceiver {
             //在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..
 
         } else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
+            //这里在监听网络变化    我已经在四个main frag里处理了 虽然不够好但先将就用
             boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
+
+
             Log.w(TAG, "[MyReceiver]" + intent.getAction() + " connected state change to " + connected);
         } else {
             Log.d(TAG, "[MyReceiver] Unhandled intent - " + intent.getAction());
@@ -130,6 +133,13 @@ public class PushReceiver extends BroadcastReceiver {
 
     }
 
+    /**
+     * 点击通知的跳转
+     * @param context
+     * @param bundle
+     * type=0  接收评论 点赞
+     * type=2 更新提示
+     */
     private void clickNotidifation(Context context, Bundle bundle) {
 //        if (MainActivity.isForeground) {
         String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
@@ -155,7 +165,7 @@ public class PushReceiver extends BroadcastReceiver {
                     i.putExtra(MenuLeftAct.INTENTTAG, 2);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.startActivity(i);
-                } else if (type == 2) {// 处理更新通知
+                } else if (type == 2) {// 处理更新通知   极光推送更新的时候记得type=2
                     Intent i = new Intent(context, MainActivity.class);
                     i.putExtras(bundle);
                     i.putExtra("checkupdata", 6);

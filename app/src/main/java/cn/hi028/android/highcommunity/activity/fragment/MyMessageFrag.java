@@ -26,7 +26,7 @@ import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.CommunityDetailAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.VallageAct;
-import cn.hi028.android.highcommunity.adapter.CommunityListAdapter;
+import cn.hi028.android.highcommunity.adapter.MyTopicListViewAdapter;
 import cn.hi028.android.highcommunity.bean.CommunityBean;
 import cn.hi028.android.highcommunity.bean.CommunityListBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
@@ -43,7 +43,7 @@ public class MyMessageFrag extends Fragment {
     public static final String FRAGMENTTAG = "MyMessageFrag";
     private View mFragmeView;
     private int mCount = -1;
-    CommunityListAdapter mAdapter;
+    MyTopicListViewAdapter mAdapter;
     private PullToRefreshListView mListView;
     private ImageView mChange;
     private TextView mNodata;
@@ -69,7 +69,7 @@ public class MyMessageFrag extends Fragment {
         mListView = (PullToRefreshListView) mFragmeView.findViewById(R.id.ptrlv_community_listview);
         mChange = (ImageView) mFragmeView.findViewById(R.id.iv_community_change);
         mNodata = (TextView) mFragmeView.findViewById(R.id.tv_community_Nodata);
-        mAdapter = new CommunityListAdapter((MenuLeftAct) getActivity());
+        mAdapter = new MyTopicListViewAdapter((MenuLeftAct) getActivity());
         mListView.setAdapter(mAdapter);
         mListView.setEmptyView(mNodata);
         mListView.setMode(PullToRefreshBase.Mode.BOTH);
@@ -202,7 +202,7 @@ public class MyMessageFrag extends Fragment {
         @Override
         protected String doInBackground(Void... params) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
             }
             return null;

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.view.animation.TranslateAnimation;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.R;
@@ -22,14 +23,14 @@ public class MyRotaLoadingLayout extends LoadingLayout {
     static final String Tag = "MyRotaLoadingLayout--->";
     static final int ROTATION_ANIMATION_DURATION = 1200;
 
-    private final Animation mRotateAnimation;
+    private final Animation mRotateAnimation,animation345;
 //    private final Matrix mHeaderImageMatrix;
 
     private float mRotationPivotX, mRotationPivotY;
 
     private final boolean mRotateDrawableWhilePulling;
     ObjectAnimator animator, animator2;
-
+    boolean isFirstChange = true;
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public MyRotaLoadingLayout(Context context, PullToRefreshBase.Mode mode,
                                PullToRefreshBase.Orientation scrollDirection, TypedArray attrs) {
@@ -45,6 +46,24 @@ public class MyRotaLoadingLayout extends LoadingLayout {
         mRotateAnimation = new RotateAnimation(0, 720,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
                 0.5f);
+//        animation345=new TranslateAnimation(mHeaderImage.getX(),)
+        animation345=new TranslateAnimation(mHeaderImage.getX(),mHeaderImage.getX(),mHeaderImage.getY(),mHeaderImage.getY()-100);
+        animation345.setDuration(1200);
+        animation345.setAnimationListener(new Animation.AnimationListener(){
+
+            public void onAnimationEnd(Animation animation) {
+//                view.layout(b.getLeft(), 300, b.getRight(), 300+view.getHeight());
+                mHeaderImage.clearAnimation();
+                mHeaderImage.setY(mHeaderImage.getY() - 120f);
+            }
+
+            public void onAnimationRepeat(Animation animation) { }
+            public void onAnimationStart(Animation animation) { }
+
+        });
+
+        //如果setFillAfter为ture是不会出现闪动的，但是下一次拖拽就不正常
+        animation345.setFillAfter(true);
 
 
         float curTranslationY = mHeaderImage.getTranslationY();
@@ -73,31 +92,57 @@ public class MyRotaLoadingLayout extends LoadingLayout {
         }
     }
 
+    boolean isFromBottom = false;
+
     /**
      * 下拉的过程进行的动画
      **/
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     protected void onPullImpl(float scaleOfLayout) {
-        Log.e(Tag, "onPullImpl");
-//        float angle;
-//        if (mRotateDrawableWhilePulling) {
-//            angle = scaleOfLayout * 90f;
-//        } else {
-//            angle = Math.max(0f, Math.min(180f, scaleOfLayout * 360f - 180f));
-//        }
-//
-//        mHeaderImageMatrix.setRotate(angle, mRotationPivotX, mRotationPivotY);
-//        mHeaderImage.setImageMatrix(mHeaderImageMatrix);
-//        mHeaderImage.startAnimation(mRotateAnimation);
+        Log.e(Tag, "onPullImpl--->scaleOfLayout--->" + scaleOfLayout);
         if (backImg.getVisibility() == View.INVISIBLE) {
 
             backImg.setVisibility(VISIBLE);
         }
+        if (scaleOfLayout < 0) {
+            isFromBottom = true;
+        } else {
+            isFromBottom = false;
+        }
+        Log.e(Tag, "onPullImpl--->isFromBottom--->" + isFromBottom);
 
-//        if (!animator.isRunning()){
-//            animator.start();
-//
-//        }
+    }
+    boolean isFirstUp = true;
+
+    //下来刷新
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @Override
+    protected void pullToRefreshImpl() {
+        Log.e(Tag, "pullToRefreshImpl---animator.isRunning()--->" + animator.isRunning());
+        Log.e(Tag, "pullToRefreshImpl--->isFromBottom--->" + isFromBottom + ",isFirstUp--->" + isFirstUp);
+
+        // NO-OP
+        if (animator2.isRunning()) {
+            animator2.cancel();
+        }
+        if (isFromBottom){
+            if (mHeaderImage.getVisibility()==VISIBLE){
+                mHeaderImage.setVisibility(GONE);
+            }
+            if (backImg.getVisibility() == View.VISIBLE) {
+
+                backImg.setVisibility(GONE);
+            }
+        }
+        if (isFirstUp && !isFromBottom) {
+            Log.e(Tag, "进入刷新动画" );
+//         resetImpl();
+//            Log.e(Tag, "进入刷新动画---animator.isRunning()--->" + animator.isRunning());
+            animator.start();
+//            mHeaderImage.startAnimation(animation345);
+            isFirstUp = false;
+        }
+
     }
 
     //正在刷新回调
@@ -105,8 +150,6 @@ public class MyRotaLoadingLayout extends LoadingLayout {
     @Override
     protected void refreshingImpl() {
         Log.e(Tag, "refreshingImpl");
-//        ViewGroup.LayoutParams mHeaderImageLayoutParams = mHeaderImage.getLayoutParams();
-//        mHeaderImageLayoutParams.h
         if (isFirstChange) {
             mHeaderImage.setY(mHeaderImage.getY() - 120f);
             isFirstChange = false;
@@ -143,24 +186,6 @@ public class MyRotaLoadingLayout extends LoadingLayout {
 //        }
     }
 
-    boolean isFirstUp = true;
-
-    //下来刷新
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    @Override
-    protected void pullToRefreshImpl() {
-        Log.e(Tag, "pullToRefreshImpl---animator.isRunning()--->" + animator.isRunning());
-
-        // NO-OP
-        if (animator2.isRunning()) {
-            animator2.cancel();
-        }
-        if (isFirstUp) {
-            animator.start();
-            isFirstUp = false;
-        }
-
-    }
 
     //释放刷新
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -178,8 +203,13 @@ public class MyRotaLoadingLayout extends LoadingLayout {
         return R.drawable.img_refresh_sun;
     }
 
-    boolean isFirstChange = true;
 
+
+
+
+
+
+}
 //
 //    //下来刷新
 //    @Override
@@ -293,4 +323,4 @@ public class MyRotaLoadingLayout extends LoadingLayout {
 //        return mIsBeingDragged;
 //
 //    }
-}
+

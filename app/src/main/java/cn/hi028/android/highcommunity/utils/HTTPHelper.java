@@ -1228,6 +1228,7 @@ public class HTTPHelper {
         if (!TextUtils.isEmpty(parentId))
             mParamMap.put("parentId", parentId);
         mParamMap.put("reply_content", reply_content);
+        Log.e(Tag,"mParamMap--->"+mParamMap.toString());
         post(mParamMap, mIbpi, url);
     }
 

@@ -23,6 +23,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -44,6 +45,7 @@ import com.handmark.pulltorefresh.library.R;
 public abstract class LoadingLayout extends FrameLayout implements
 		ILoadingLayout {
 
+	static final String Tag = "LoadingLayout--->";
 	static final String LOG_TAG = "PullToRefresh-LoadingLayout";
 
 	static final Interpolator ANIMATION_INTERPOLATOR = new LinearInterpolator();
@@ -65,8 +67,12 @@ public abstract class LoadingLayout extends FrameLayout implements
 	private CharSequence mRefreshingLabel;
 	private CharSequence mReleaseLabel;
 
+	public ImageView getmHeaderImage() {
+		return mHeaderImage;
+	}
+
 	public LoadingLayout(Context context, final Mode mode,
-			final Orientation scrollDirection, TypedArray attrs) {
+						 final Orientation scrollDirection, TypedArray attrs) {
 		super(context);
 		mMode = mode;
 		mScrollDirection = scrollDirection;
@@ -258,6 +264,9 @@ public abstract class LoadingLayout extends FrameLayout implements
 
 	public final void onPull(float scaleOfLayout) {
 		if (!mUseIntrinsicAnimation) {
+
+			Log.e(Tag,"scaleOfLayout--->"+scaleOfLayout);
+
 			onPullImpl(scaleOfLayout);
 		}
 	}

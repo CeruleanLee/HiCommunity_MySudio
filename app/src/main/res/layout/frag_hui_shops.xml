@@ -2,7 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
+    <TextView
+        android:id="@+id/tv_huishop_Nodata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂无数据"
+        android:visibility="visible" />
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/refreshlistview"
         android:layout_width="match_parent"

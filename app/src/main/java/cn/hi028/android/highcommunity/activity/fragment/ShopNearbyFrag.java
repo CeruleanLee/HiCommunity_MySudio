@@ -1,10 +1,5 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.duohuo.dhroid.activity.BaseFragment;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,18 +10,24 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-
-import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.alliance.MerchantActivity;
-import cn.hi028.android.highcommunity.adapter.ShopNearByAdapter;
-import cn.hi028.android.highcommunity.bean.NearByShopData;
-import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler.IBpiHttpHandler;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
+import net.duohuo.dhroid.activity.BaseFragment;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.alliance.MerchantActivity;
+import cn.hi028.android.highcommunity.adapter.ShopNearByAdapter;
+import cn.hi028.android.highcommunity.bean.NearByShopData;
+import cn.hi028.android.highcommunity.utils.HTTPHelper;
 
 /**
  * 联盟商家
@@ -43,7 +44,7 @@ public class ShopNearbyFrag extends BaseFragment implements
 	String district;
 
 	int page = 1;
-
+TextView tv_nodata;
 	public String getDistrict() {
 		return district;
 	}
@@ -65,6 +66,8 @@ public class ShopNearbyFrag extends BaseFragment implements
 		datainfo = new ArrayList<NearByShopData>();
 		listView = (PullToRefreshListView) view
 				.findViewById(R.id.refreshlistview);
+		tv_nodata = (TextView) view.findViewById(R.id.tv_huishop_Nodata);
+		listView.setEmptyView(tv_nodata);
 		listView.setMode(Mode.BOTH);
 		listView.setOnRefreshListener(this);
 		listView.setOnItemClickListener(this);

@@ -60,10 +60,19 @@ public class MyCollectionActFrag extends BaseFragment {
         mListView.setEmptyView(mNodata);
         mAdapter = new MyActivityAdapter(getActivity());
         mListView.setAdapter(mAdapter);
+        mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+//        mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+//            @Override
+//            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+//                new GetDataTask().execute();
+//            }
+//        });
         mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                HTTPHelper.GetMyCollectActivityList(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
+//                HTTPHelper.GetMyCollectActivityList(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
+                new GetDataTask().execute();
+
             }
 
             @Override
@@ -120,5 +129,26 @@ public class MyCollectionActFrag extends BaseFragment {
         Intent ActCreate = new Intent(getActivity(), GeneratedClassUtils.get(ActiveAct.class));
         ActCreate.putExtra(ActiveAct.ACTIVITYTAG, Constacts.ACTIVITY_CREATE);
         startActivity(ActCreate);
+    }
+
+
+    private class GetDataTask extends AsyncTask<Void, Void,String > {
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            HTTPHelper.GetMyCollectActivityList(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
+            // Call onRefreshComplete when the list has been refreshed.
+            //				mListView.onRefreshComplete();
+        }
     }
 }

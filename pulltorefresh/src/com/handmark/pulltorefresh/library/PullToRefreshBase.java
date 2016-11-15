@@ -1258,8 +1258,9 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 		if (newScrollValue != 0 && !isRefreshing()) {
 			float scale = Math.abs(newScrollValue) / (float) itemDimension;
 			switch (mCurrentMode) {
-			case PULL_FROM_END:
-				mFooterLayout.onPull(scale);
+				case PULL_FROM_END:
+//				mFooterLayout.onPull(scale);//原来的
+					mFooterLayout.onPull(-scale);//我改的
 				break;
 			case PULL_FROM_START:
 			default:
