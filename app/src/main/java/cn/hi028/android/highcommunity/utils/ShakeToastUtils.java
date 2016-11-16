@@ -83,6 +83,14 @@ public class ShakeToastUtils extends Dialog {
                 mBitmapUtils.display(prize_Img, Constacts.IMAGEHTTP + shakeBean.getPic());
             }
             if (shakeBean.getName()!=null){
+                int length = shakeBean.getName().toString().length();
+if (length>6){
+    prize_name.setTextSize(18);
+}else{
+
+    prize_name.setTextSize(22);
+
+}
                 prize_name.setText(shakeBean.getName());
             }
             if (shakeBean.getCode()!=null){

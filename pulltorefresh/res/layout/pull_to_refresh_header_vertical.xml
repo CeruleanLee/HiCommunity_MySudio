@@ -6,25 +6,29 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#ffffffff"
+android:paddingTop="5dp"
 
-        android:paddingTop="@dimen/header_footer_top_bottom_padding">
+      >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="65dp">
 
             <ImageView
                 android:id="@+id/pull_to_refresh_image2"
                 android:layout_width="120dp"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_centerHorizontal="true"
-                android:paddingTop="20dp"
+
+                android:layout_alignParentBottom="true"
                 android:src="@drawable/img_refresh_house" />
 
             <ImageView
                 android:id="@+id/pull_to_refresh_image"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginTop="3dp"
+
                 android:layout_alignBottom="@id/pull_to_refresh_image2"
                 android:layout_alignRight="@id/pull_to_refresh_image2"
                 android:layout_marginRight="125dp"
