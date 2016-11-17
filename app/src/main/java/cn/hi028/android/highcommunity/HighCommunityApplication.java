@@ -28,6 +28,7 @@ import java.util.List;
 
 import cn.hi028.android.highcommunity.bean.UserInfoBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
+import cn.hi028.android.highcommunity.utils.CrashHandler;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.view.ECAlertDialog;
 import cn.jpush.android.api.JPushInterface;
@@ -69,7 +70,8 @@ public class HighCommunityApplication extends BaseApplication implements
          自定义日志将会在Logcat中输出。
          建议在测试阶段建议设置成true，发布时设置为false。*/
         CrashReport.initCrashReport(getApplicationContext(), "63e6f78cb5", false);
-
+        CrashHandler crashHandler= CrashHandler.getInstance();
+        crashHandler.init(getApplicationContext());
         app = this;
         // EducationCrachHandler.getInstance().init(this);
         // NativeParametersFunc.c(this, getPackageName(), DOMAINNAME,
@@ -134,6 +136,7 @@ public class HighCommunityApplication extends BaseApplication implements
     public static boolean isAliPayInStalled() {
         boolean isAliPayInStalled = false;
         PackageManager pm = app.getPackageManager();
+
         List<PackageInfo> list2 = pm.getInstalledPackages(0);
         for (PackageInfo packageInfo : list2) {
             String appName = packageInfo.applicationInfo.loadLabel(app.getPackageManager()).toString();

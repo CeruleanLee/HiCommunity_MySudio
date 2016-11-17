@@ -1,15 +1,16 @@
 package net.duohuo.dhroid.activity;
 
-import java.security.KeyPairGenerator;
+import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.util.Log;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import android.app.Activity;
-import android.content.Context;
-import android.widget.Toast;
 
 /**
  * activity 栈管理
@@ -18,6 +19,7 @@ import android.widget.Toast;
  * 
  */
 public class ActivityTack {
+	static  final String Tag="ActivityTack--->";
 	public List<Activity> activityList = new ArrayList<Activity>();
 	public static ActivityTack tack = new ActivityTack();
 	public static ActivityTack getInstanse() {
@@ -59,16 +61,28 @@ public class ActivityTack {
 	public void removeActivity(Activity activity) {
 		activityList.remove(activity);
 	}
+	private static Activity scanForActivity(Context cont) {
+		if (cont == null)
+			return null;
+		else if (cont instanceof Activity)
+			return (Activity) cont;
+		else if (cont instanceof ContextWrapper)
+			return scanForActivity(((ContextWrapper) cont).getBaseContext());
 
+		return null;
+	}
 	/**
 	 * 完全退出
 	 * 
 	 * @param context
 	 */
 	public void exit(Context context) {
+		Log.e(Tag, "栈 exit0");
 		while (activityList.size() > 0) {
+			Log.e(Tag, "栈 exit1");
 			activityList.get(activityList.size() - 1).finish();
 		}
+		Log.e(Tag, "栈 exit2");
 		System.exit(0);
 	}
 

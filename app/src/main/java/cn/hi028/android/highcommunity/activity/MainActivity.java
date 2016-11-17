@@ -123,12 +123,12 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 return;
 //			mFrag.setCurrentPage(0);
         } else if (intent.getIntExtra("communityFlag", 0) == 0x222) {
-            tabSelector(0);
-            NeighborFrag mFrag = (NeighborFrag) getSupportFragmentManager()
-                    .findFragmentByTag(NeighborFrag.FRAGMENTTAG);
-            if (null == mFrag)
-                return;
-            mFrag.setCurrentPage(0);
+//            tabSelector(0);
+//            NeighborFrag mFrag = (NeighborFrag) getSupportFragmentManager()
+//                    .findFragmentByTag(NeighborFrag.FRAGMENTTAG);
+//            if (null == mFrag)
+//                return;
+//            mFrag.setCurrentPage(0);
         }
     }
 
