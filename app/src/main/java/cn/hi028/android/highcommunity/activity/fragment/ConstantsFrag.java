@@ -30,7 +30,7 @@ public class ConstantsFrag extends BaseFragment {
 
     @AfterViews
     void initView() {
-        tv_version.setText("嗨社区 " + getVersion());
+        tv_version.setText("嗨社区 " + getVersion()+" ");
     }
 
     /**

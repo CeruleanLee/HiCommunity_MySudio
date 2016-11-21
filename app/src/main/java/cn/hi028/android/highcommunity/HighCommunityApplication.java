@@ -6,8 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.view.Gravity;
-import android.view.View;
+import android.util.Log;
 import android.widget.PopupWindow;
 
 import com.baidu.location.BDLocation;
@@ -15,7 +14,6 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.don.tools.BpiHttpClient;
 import com.don.tools.MyImageDownloader;
-import com.lidroid.xutils.util.LogUtils;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import net.duohuo.dhroid.BaseApplication;
@@ -55,11 +53,11 @@ public class HighCommunityApplication extends BaseApplication implements
 
     static HighCommunityApplication app;
     static boolean isAliPayInStalled;
-
+static  final String Tag="HighCommunityApplication--->";
 
     @Override
     public void onCreate() {
-        LogUtils.d("~~~初始化App");
+        Log.d(Tag,"~~~初始化App");
         super.onCreate();
 
         JPushInterface.setDebugMode(true); // 设置开启日志,发布时请关闭日志
@@ -70,6 +68,8 @@ public class HighCommunityApplication extends BaseApplication implements
          自定义日志将会在Logcat中输出。
          建议在测试阶段建议设置成true，发布时设置为false。*/
         CrashReport.initCrashReport(getApplicationContext(), "63e6f78cb5", false);
+        /**自定义的crash 处理**/
+        Log.d(Tag,"~~~初始化CrashHandler");
         CrashHandler crashHandler= CrashHandler.getInstance();
         crashHandler.init(getApplicationContext());
         app = this;
@@ -151,13 +151,13 @@ public class HighCommunityApplication extends BaseApplication implements
 
     static PopupWindow waitPop;
 
-    public static void showDialog(final View v) {
+    public static void showDialog() {
 
         ECAlertDialog dialog = ECAlertDialog.buildAlert(app, "请先安装支付宝", "确定", "取消", new Dialog.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(app, v, Gravity.CENTER);
-                waitPop.dismiss();
+//                waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(app, v, Gravity.CENTER);
+//                waitPop.dismiss();
             }
         }, new DialogInterface.OnClickListener() {
             @Override

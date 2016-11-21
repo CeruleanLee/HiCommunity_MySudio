@@ -4,7 +4,6 @@
 
 package cn.hi028.android.highcommunity.activity.fragment;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -15,20 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.activity.BrowseActivity;
+
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.MainActivity;
 import cn.hi028.android.highcommunity.activity.VallageAct;
 import cn.hi028.android.highcommunity.bean.UserInfoBean;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.RegexValidateUtil;
@@ -108,6 +106,9 @@ public class RegisterFrag extends BaseFragment {
 				if (mAgreebox.isChecked()) {
 					Register(mPhone.getText().toString(), mPassword.getText()
 							.toString(), mIdnetfyCode.getText().toString());
+				}else{
+					Toast.makeText(getActivity(),"请同意《嗨社区服务协议》",Toast.LENGTH_SHORT).show();
+
 				}
 				break;
 			case R.id.tv_register_agree:

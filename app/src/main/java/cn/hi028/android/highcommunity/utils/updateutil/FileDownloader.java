@@ -54,7 +54,7 @@ public class FileDownloader {
     public static String dirPath;
     static{
         dirPath = Environment.getExternalStorageDirectory().getAbsolutePath()
-                + File.separator+"Download"+ File.separator+"LG";
+                + File.separator+"Download"+ File.separator+"Hi";
     }
     public static String getFilePath(String fileName){
         return dirPath+ File.separator+fileName;

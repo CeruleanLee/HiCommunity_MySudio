@@ -167,6 +167,10 @@
             <CheckBox
                 android:id="@+id/cn_mb"
                 style="@style/CustomCheckboxTheme"
+               android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -174,7 +178,7 @@
                 android:id="@+id/tv_register_agree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="0.32"
                 android:clickable="true"
                 android:text="@string/tv_register_agree"

@@ -9,6 +9,8 @@ import android.view.Gravity;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.don.tools.GeneratedClassUtils;
+
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.activity.BrowseActivity;
 
@@ -53,8 +55,8 @@ public class AboutUsFrag extends BaseFragment {
      */
     @Click(R.id.tv_AboutUs_ContactUs)
     void constactUs() {
-//        Intent mIntent = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftThirdAct.class));
-        Intent mIntent=null;
+        Intent mIntent = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftThirdAct.class));
+//        Intent mIntent=null;
         mIntent.putExtra(MenuLeftThirdAct.ACTIVITYTAG, Constacts.MENU_LEFTSECOND_SETTINGCONSTACT);
         startActivity(mIntent);
     }

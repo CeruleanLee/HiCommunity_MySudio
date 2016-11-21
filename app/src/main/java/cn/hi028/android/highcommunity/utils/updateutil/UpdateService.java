@@ -25,7 +25,7 @@ import cn.hi028.android.highcommunity.R;
 
 /**
  * Created by Lee_yting on 2016/10/8 0009.
- * 说明：升级服务
+ * 说明：升级服务 在用的
  */
 public class UpdateService extends Service {
     final String Tag="~~~00 UpdateService:";
