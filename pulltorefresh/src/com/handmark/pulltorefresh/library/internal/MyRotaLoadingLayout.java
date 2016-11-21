@@ -166,7 +166,7 @@ if (scanForActivity(context)!=null){
      **/
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     protected void onPullImpl(float scaleOfLayout) {
-        Log.e(Tag, "onPullImpl--->scaleOfLayout--->" + scaleOfLayout);
+//        Log.e(Tag, "onPullImpl--->scaleOfLayout--->" + scaleOfLayout);
         if (backImg.getVisibility() == View.INVISIBLE) {
 
             backImg.setVisibility(VISIBLE);
@@ -186,8 +186,8 @@ if (scanForActivity(context)!=null){
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void pullToRefreshImpl() {
-        Log.e(Tag, "pullToRefreshImpl---animator.isRunning()--->" + animator.isRunning());
-        Log.e(Tag, "pullToRefreshImpl--->isFromBottom--->" + isFromBottom + ",isFirstUp--->" + isFirstUp);
+//        Log.e(Tag, "pullToRefreshImpl---animator.isRunning()--->" + animator.isRunning());
+//        Log.e(Tag, "pullToRefreshImpl--->isFromBottom--->" + isFromBottom + ",isFirstUp--->" + isFirstUp);
 
         // NO-OP
         if (animator2.isRunning()) {
@@ -211,7 +211,7 @@ if (scanForActivity(context)!=null){
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void refreshingImpl() {
-        Log.e(Tag, "refreshingImpl");
+//        Log.e(Tag, "refreshingImpl");
         if (isFirstChange) {
             mHeaderImage.setY(mHeaderImage.getY() - offHeight);
             isFirstChange = false;
@@ -224,7 +224,7 @@ if (scanForActivity(context)!=null){
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     protected void resetImpl() {
-        Log.e(Tag, "resetImpl");
+//        Log.e(Tag, "resetImpl");
         if (animator2 != null) {
 
             animator2.cancel();
@@ -236,7 +236,7 @@ if (scanForActivity(context)!=null){
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void resetImageRotation() {
-        Log.e(Tag, "resetImageRotation");
+//        Log.e(Tag, "resetImageRotation");
         if (animator2 != null) {
 
             animator2.cancel();

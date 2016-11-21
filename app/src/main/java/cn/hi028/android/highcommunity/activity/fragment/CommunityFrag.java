@@ -37,6 +37,7 @@ import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.view.LoadingView;
 import cn.hi028.android.highcommunity.view.LoadingView.OnLoadingViewListener;
+
 /**
  * @功能：邻里界面<br>
  * @作者： 赵海<br>
@@ -45,419 +46,481 @@ import cn.hi028.android.highcommunity.view.LoadingView.OnLoadingViewListener;
  */
 public class CommunityFrag extends Fragment {
 
-	public static final String FRAGMENTTAG = "CommunityFrag";
-	final String  Tag="CommunityFrag--->";
-	private int mCount = -1;
-	private PullToRefreshListView mListView;
-	private ImageView mChange;
-	RelativeLayout layoutContainer;
-	private LoadingView mLoadingView;
-	private TextView mNodata;
-	private View mProgress;
-	CommunityListAdapter2 mAdapter;
-	CommunityListBean mList = new CommunityListBean();
-	CommunityBean mBean = null;
-	public static boolean isNeedRefresh = true;
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		Log.e(Tag,"onCreateView");
-		//		if (mFragmeView == null) {
-		//			initView();
-		//		}
-		View view = inflater.inflate(R.layout.frag_community_list, null);
-		findView(view);
+    public static final String FRAGMENTTAG = "CommunityFrag";
+    final String Tag = "CommunityFrag--->";
+    private int mCount = -1;
+    private PullToRefreshListView mListView;
+    private ImageView mChange;
+    RelativeLayout layoutContainer;
+    private LoadingView mLoadingView;
+    private TextView mNodata;
+    private View mProgress;
+    CommunityListAdapter2 mAdapter;
+    CommunityListBean mList = new CommunityListBean();
+    CommunityListBean mListData = new CommunityListBean();
+    //	CommunityListBean mList = new CommunityListBean();
+    CommunityBean mBean = null;
+    public static boolean isNeedRefresh = true;
 
-		ViewGroup parent = (ViewGroup) view.getParent();
-		if (parent != null)
-			parent.removeView(view);
-		initReceiver();
-		initView();
-		return view;
-	}
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.e(Tag, "onCreateView");
+        //		if (mFragmeView == null) {
+        //			initView();
+        //		}
+        View view = inflater.inflate(R.layout.frag_community_list, null);
+        findView(view);
 
-	private void initReceiver() {
-		IntentFilter mFilter = new IntentFilter();
-		mFilter.addAction(Constacts.BROADCAST);
-		getActivity().registerReceiver(mReceiver, mFilter);
-	}
-	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			isNeedRefresh = true;
-			onResume();
-		}
-	};
-	private void initView() {
-		Log.e(Tag,"---initView");
-		mLoadingView.setOnLoadingViewListener(onLoadingViewListener);
-		mAdapter = new CommunityListAdapter2((MainActivity) getActivity());
-		mListView.setAdapter(mAdapter);
-		mListView.setEmptyView(mNodata);
-		mListView.setMode(PullToRefreshBase.Mode.BOTH);
-		mProgress.setVisibility(View.VISIBLE);
-		mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-			@Override
-			public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+        ViewGroup parent = (ViewGroup) view.getParent();
+        if (parent != null)
+            parent.removeView(view);
+        initReceiver();
+        initView();
+        return view;
+    }
+
+    private void initReceiver() {
+        IntentFilter mFilter = new IntentFilter();
+        mFilter.addAction(Constacts.BROADCAST);
+        getActivity().registerReceiver(mReceiver, mFilter);
+    }
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            isNeedRefresh = true;
+            onResume();
+        }
+    };
+
+    private void initView() {
+        Log.e(Tag, "---initView");
+        mLoadingView.setOnLoadingViewListener(onLoadingViewListener);
+        mAdapter = new CommunityListAdapter2((MainActivity) getActivity());
+        mListView.setAdapter(mAdapter);
+        mListView.setEmptyView(mNodata);
+        mListView.setMode(PullToRefreshBase.Mode.BOTH);
+        mProgress.setVisibility(View.VISIBLE);
+        mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
 //				RefreshData(0);
 //				mAdapter.notifyDataSetChanged();
-				new GetDataTask().execute();
-			}
+                new GetDataTask().execute();
+            }
 
-			@Override
-			public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 
-				new GetDataTask2().execute();
-
+                new GetDataTask2().execute();
 
 
 //				RefreshData(1);
-			}
-		});
-		mChange.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				if (HighCommunityUtils.isLogin()) {
-					VallageAct.toStartAct(getActivity(), 1, false);
-				} else {
-					VallageAct.toStartAct(getActivity(), 0, false);
-				}
-				isGetInitMessage=true;
+            }
+        });
+        mChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (HighCommunityUtils.isLogin()) {
+                    VallageAct.toStartAct(getActivity(), 1, false);
+                } else {
+                    VallageAct.toStartAct(getActivity(), 0, false);
+                }
+                isGetInitMessage = true;
 
-				isNeedRefresh = true;
-			}
-		});
-		//		mListView.setLoadingDrawable(getResources().getDrawable(R.drawable.ic_refreshanim));
-		//		mListView.setd
-		//		mListView.setLayoutAnimation(new LayoutAnimationController(animation));
-		initDatas();
-	}
+                isNeedRefresh = true;
+            }
+        });
+        //		mListView.setLoadingDrawable(getResources().getDrawable(R.drawable.ic_refreshanim));
+        //		mListView.setd
+        //		mListView.setLayoutAnimation(new LayoutAnimationController(animation));
+        initDatas();
+    }
 
-	private void findView(View view) {
-		mListView = (PullToRefreshListView) view.findViewById(R.id.ptrlv_community_listview);
-		mChange = (ImageView) view.findViewById(R.id.iv_community_change);
-		mNodata = (TextView) view.findViewById(R.id.tv_community_Nodata);
-		mProgress = view.findViewById(R.id.progress_Community);
-		layoutContainer=(RelativeLayout) view.findViewById(R.id.layoutContainer);
-		mLoadingView=(LoadingView)view.findViewById(R.id.loadingView);
-	}
+    private void findView(View view) {
+        mListView = (PullToRefreshListView) view.findViewById(R.id.ptrlv_community_listview);
+        mChange = (ImageView) view.findViewById(R.id.iv_community_change);
+        mNodata = (TextView) view.findViewById(R.id.tv_community_Nodata);
+        mProgress = view.findViewById(R.id.progress_Community);
+        layoutContainer = (RelativeLayout) view.findViewById(R.id.layoutContainer);
+        mLoadingView = (LoadingView) view.findViewById(R.id.loadingView);
+    }
 
-	OnLoadingViewListener onLoadingViewListener = new OnLoadingViewListener() {
+    OnLoadingViewListener onLoadingViewListener = new OnLoadingViewListener() {
 
-		@Override
-		public void onTryAgainClick() {
-						if(!isNoNetwork)
-							initDatas();
-		}
-	};
-	private void initDatas() {
-		mLoadingView.startLoading();
-		mCount = -1;
-		//        if (isNeedRefresh) {
-		String time = "";
-		if (mAdapter != null && mAdapter.getCount() > 0) {
-			time = mAdapter.getItem(0).getCreate_time();//mList.getData().get(0).getCreate_time();
-		}
+        @Override
+        public void onTryAgainClick() {
+            if (!isNoNetwork)
+                initDatas();
+        }
+    };
 
-		HTTPHelper.GetMessage(mIbpi, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id(), time);
-		Log.e(Tag,"GetMessage2 ");
-	}
-	int isNeedToClearData=-1;
-	public static boolean isGetInitMessage;
+    private void initDatas() {
+        mLoadingView.startLoading();
+        mCount = -1;
+        //        if (isNeedRefresh) {
+        String time = "";
+        if (mAdapter != null && mAdapter.getCount() > 0) {
+            time = mAdapter.getItem(0).getCreate_time();//mList.getData().get(0).getCreate_time();
+        }
 
-	public boolean isGetInitMessage() {
-		return isGetInitMessage;
-	}
+        HTTPHelper.GetMessage(mIbpi, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id(), time);
+        Log.e(Tag, "GetMessage2 ");
+    }
 
-	public void setGetInitMessage(boolean getInitMessage) {
-		isGetInitMessage = getInitMessage;
-	}
+    int isNeedToClearData = -1;
+    public static boolean isGetInitMessage;
 
-	@Override
-	public void onResume() {
-		Log.e(Tag,"---onResume");
-		//		initReceiver();
-		//		mCount = -1;
-		//		//        if (isNeedRefresh) {
-		//		String time = "";
-		//		if (mAdapter != null && mAdapter.getCount() > 0) {
-		//			time = mAdapter.getItem(0).getCreate_time();//mList.getData().get(0).getCreate_time();
-		//		}
-		//
-		//		HTTPHelper.GetMessage(mIbpi, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id(), time);
-		//		Log.e(Tag,"GetMessage2 ");
-		//        }
-		super.onResume();
-		if (isGetInitMessage){
-			mAdapter.ClearData();
-			initDatas();
-			isGetInitMessage=false;
+    public boolean isGetInitMessage() {
+        return isGetInitMessage;
+    }
 
-		}else{
+    public void setGetInitMessage(boolean getInitMessage) {
+        isGetInitMessage = getInitMessage;
+    }
+
+    @Override
+    public void onResume() {
+        Log.e(Tag, "---onResume---");
+        //		initReceiver();
+        //		mCount = -1;
+        //		//        if (isNeedRefresh) {
+        //		String time = "";
+        //		if (mAdapter != null && mAdapter.getCount() > 0) {
+        //			time = mAdapter.getItem(0).getCreate_time();//mList.getData().get(0).getCreate_time();
+        //		}
+        //
+        //		HTTPHelper.GetMessage(mIbpi, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id(), time);
+        //		Log.e(Tag,"GetMessage2 ");
+        //        }
+        Log.e(Tag, "是否点击item---" + mAdapter.isClickItem());
+        if (isGetInitMessage) {
+            mAdapter.ClearData();
+            initDatas();
+            isGetInitMessage = false;
+
+        }
+//        else if (mAdapter.isClickItem()) {
+//            refreshCreatTime = mAdapter.getCreatTime();
+//            Log.e(Tag, "refreshCreatTime---" + refreshCreatTime);
+//            mAdapter.setClickItem(false);
+//            mAdapter.ClearData();
+//            initDatas();
+//
+//            for (int i = 0; i < mListData.getData().size(); i++) {
+//                Log.e(Tag, "遍历mListData---");
+//
+//                if (mListData.getData().get(i).getCreate_time().equals(refreshCreatTime)) {
+//                    Log.e(Tag, "等了---");
+//
+//
+//                    isRefreshHere = true;
+//                   break;
+//                }
+////                isRefreshHere = false;
+//            }
+//            mListData = new CommunityListBean();
+//            Log.e(Tag, "isRefreshHere---" + isRefreshHere);
+//            if (!isRefreshHere) {
+//
+//                RefreshDataForUpdata(refreshCreatTime);
+//            }
+//            isRefreshHere = false;
+//        }
+        else {
 //			mAdapter.ClearData();
 //			initDatas();
-			RefreshDataForResume(0);
-		}
-		registNetworkReceiver();
-		isNeedRefresh = false;
-	}
+            RefreshDataForResume(0);
+        }
 
-	@Override
-	public void onDestroy() {
-		Log.e(Tag,"---onDestroy");
 
-		super.onDestroy();
-		unregistNetworkReceiver();
-	}
+        registNetworkReceiver();
+        isNeedRefresh = false;
+        super.onResume();
+    }
 
-	private void RefreshData(int type) {
-		Log.e(Tag,"RefreshData  mCount--- "+mCount);
-		String time = "";
-		if (type == 0) {
-			mCount = 0;
-			if (mAdapter != null && mAdapter.getCount() > 0) {
-				time = mAdapter.getItem(0).getCreate_time();//mList.getData().get(0).getCreate_time();
-			}
-		} else {
-			mCount = 1;
-			if (mAdapter != null && mAdapter.getCount() > 0) {
-				time = mAdapter.getItem(mAdapter.getCount() - 1).getCreate_time();//mList.getData().get(mList.getData().size() - 1).getCreate_time();
-			}
-		}
-		//刷新方式（0-下拉刷新，1-加载更多）
-		HTTPHelper.RefreshMessage(mIbpi, type, time, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id());//
-	}
-	private void RefreshDataForResume(int type) {
-		Log.e(Tag,"RefreshData  mCount--- "+mCount);
-		String time = "";
-		if (type == 0) {
-			mCount = 0;
-			if (mAdapter != null && mAdapter.getCount() > 0) {
-				time = mAdapter.getItem(0).getCreate_time();//mList.getData().get(0).getCreate_time();
-			}
-		} else {
-			mCount = 1;
-			if (mAdapter != null && mAdapter.getCount() > 0) {
-				time = mAdapter.getItem(mAdapter.getCount() - 1).getCreate_time();//mList.getData().get(mList.getData().size() - 1).getCreate_time();
-			}
-		}
-		//刷新方式（0-下拉刷新，1-加载更多）
-		HTTPHelper.RefreshMessage(mIbpi2, type, time, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id());//
-	}
-	/**
-	 * 只做back监听
-	 *
-	 * @return
-	 */
-	public boolean onKeyDown() {
-		if (mAdapter != null)
-			return mAdapter.onKeyDown();
-		return false;
-	}
+    String refreshCreatTime = "";
+    boolean isRefreshHere = false;
 
-	BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
-		@Override
-		public void onError(int id, String message) {
-			Log.e(Tag,"onError---"+message.toString());
+    @Override
+    public void onDestroy() {
+        Log.e(Tag, "---onDestroy");
 
-			mProgress.setVisibility(View.GONE);
-			mListView.onRefreshComplete();
-			if (mCount == -1) {
-				mAdapter.ClearData();
-			}
-			HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
-			//            if(!isNoNetwork){
-			//			mLoadingView.loadFailed();
-			//			}
-		}
+        super.onDestroy();
+        unregistNetworkReceiver();
+    }
 
-		@Override
-		public void onSuccess(Object message) {
-			Log.e(Tag,"onSuccess---"+message.toString());
-			mProgress.setVisibility(View.GONE);
-			Log.e("TAG", message.toString());
-			if (null == message)
-				return;
-			mList = (CommunityListBean) message;
-			Log.e(Tag,"mCount:"+mCount+",数据长度："+mList.getData().size());
-			if (mCount == 0) {
-				mAdapter.AddNewData(mList.getData());
-			} else if (mCount == 1) {
-				mAdapter.RefreshData(mList.getData());
-			} else if (mCount == -1) {
-				mAdapter.SetData(mList.getData());
-			}
+    private void RefreshData(int type) {
+        Log.e(Tag, "RefreshData  mCount--- " + mCount);
+        String time = "";
+        if (type == 0) {
+            mCount = 0;
+            if (mAdapter != null && mAdapter.getCount() > 0) {
+                time = mAdapter.getItem(0).getCreate_time();//mList.getData().get(0).getCreate_time();
+            }
+        } else {
+            mCount = 1;
+            if (mAdapter != null && mAdapter.getCount() > 0) {
+                time = mAdapter.getItem(mAdapter.getCount() - 1).getCreate_time();//mList.getData().get(mList.getData().size() - 1).getCreate_time();
+            }
+        }
+        //刷新方式（0-下拉刷新，1-加载更多）
+        HTTPHelper.RefreshMessage(mIbpi, type, time, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id());//
+    }
+
+    private void RefreshDataForResume(int type) {
+        Log.e(Tag, "RefreshData  mCount--- " + mCount);
+        String time = "";
+        if (type == 0) {
+            mCount = 0;
+            if (mAdapter != null && mAdapter.getCount() > 0) {
+                time = mAdapter.getItem(0).getCreate_time();//mList.getData().get(0).getCreate_time();
+            }
+        } else {
+            mCount = 1;
+            if (mAdapter != null && mAdapter.getCount() > 0) {
+                time = mAdapter.getItem(mAdapter.getCount() - 1).getCreate_time();//mList.getData().get(mList.getData().size() - 1).getCreate_time();
+            }
+        }
+        //刷新方式（0-下拉刷新，1-加载更多）
+        HTTPHelper.RefreshMessage(mIbpi2, type, time, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id());//
+    }
+
+    private void RefreshDataForUpdata(String time) {
+        Log.e(Tag, "RefreshDataForUpdata--------- " );
+        //刷新方式（0-下拉刷新，1-加载更多）
+        HTTPHelper.RefreshMessage(mIbpi2, 1, time, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id());//
+    }
+
+    /**
+     * 只做back监听
+     *
+     * @return
+     */
+    public boolean onKeyDown() {
+        if (mAdapter != null)
+            return mAdapter.onKeyDown();
+        return false;
+    }
+
+    BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
+        @Override
+        public void onError(int id, String message) {
+            Log.e(Tag, "onError---" + message.toString());
+
+            mProgress.setVisibility(View.GONE);
+            mListView.onRefreshComplete();
+            if (mCount == -1) {
+                mAdapter.ClearData();
+            }
+            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+            //            if(!isNoNetwork){
+            //			mLoadingView.loadFailed();
+            //			}
+        }
+
+        @Override
+        public void onSuccess(Object message) {
+            Log.e(Tag, "onSuccess---" + message.toString());
+            mProgress.setVisibility(View.GONE);
+            Log.e("TAG", message.toString());
+            if (null == message)
+                return;
+            mList = (CommunityListBean) message;
+            mListData = mList;
+            Log.e(Tag, "mCount:" + mCount + ",数据长度：" + mList.getData().size());
+
+            if (mCount == 0) {
+                mAdapter.AddNewData(mList.getData());
+            } else if (mCount == 1) {
+                mAdapter.RefreshData(mList.getData());
+            } else if (mCount == -1) {
+                mAdapter.SetData(mList.getData());
+            }
 //			mListView.setAdapter(mAdapter);
-			mListView.onRefreshComplete();
-			mLoadingView.loadSuccess();
-			LogUtil.d("-------------  initView   loadSuccess");
-			layoutContainer.setVisibility(View.VISIBLE);
-			LogUtil.d("-------------  initView   setVisibility");
+            mListView.onRefreshComplete();
+            mLoadingView.loadSuccess();
+            LogUtil.d("-------------  initView   loadSuccess");
+            layoutContainer.setVisibility(View.VISIBLE);
+            LogUtil.d("-------------  initView   setVisibility");
 
-		}
-		@Override
-		public Object onResolve(String result) {
-			return HTTPHelper.ResolveMessage(result);
-		}
-		@Override
-		public void setAsyncTask(AsyncTask asyncTask) {
+        }
 
-		}
-		@Override
-		public void cancleAsyncTask() {
-			mProgress.setVisibility(View.GONE);
-			mListView.onRefreshComplete();
-		}
-	};
-//专为resume刷新
-	BpiHttpHandler.IBpiHttpHandler mIbpi2 = new BpiHttpHandler.IBpiHttpHandler() {
-		@Override
-		public void onError(int id, String message) {
-			Log.e(Tag,"onError---"+message.toString());
+        @Override
+        public Object onResolve(String result) {
+            return HTTPHelper.ResolveMessage(result);
+        }
 
-			mProgress.setVisibility(View.GONE);
-			mListView.onRefreshComplete();
-			if (mCount == -1) {
-				mAdapter.ClearData();
-			}
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
+
+        }
+
+        @Override
+        public void cancleAsyncTask() {
+            mProgress.setVisibility(View.GONE);
+            mListView.onRefreshComplete();
+        }
+    };
+    //专为resume刷新
+    BpiHttpHandler.IBpiHttpHandler mIbpi2 = new BpiHttpHandler.IBpiHttpHandler() {
+        @Override
+        public void onError(int id, String message) {
+            Log.e(Tag, "onError---" + message.toString());
+
+            mProgress.setVisibility(View.GONE);
+            mListView.onRefreshComplete();
+            if (mCount == -1) {
+                mAdapter.ClearData();
+            }
 //			HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
-			//            if(!isNoNetwork){
-			//			mLoadingView.loadFailed();
-			//			}
-		}
+            //            if(!isNoNetwork){
+            //			mLoadingView.loadFailed();
+            //			}
+        }
 
-		@Override
-		public void onSuccess(Object message) {
-			Log.e(Tag,"onSuccess---"+message.toString());
-			mProgress.setVisibility(View.GONE);
-			Log.e("TAG", message.toString());
-			if (null == message)
-				return;
-			mList = (CommunityListBean) message;
-			Log.e(Tag,"mCount:"+mCount+",数据长度："+mList.getData().size());
-			if (mCount == 0) {
-				mAdapter.AddNewData(mList.getData());
-			} else if (mCount == 1) {
-				mAdapter.RefreshData(mList.getData());
-			} else if (mCount == -1) {
-				mAdapter.SetData(mList.getData());
-			}
+        @Override
+        public void onSuccess(Object message) {
+            Log.e(Tag, "onSuccess---" + message.toString());
+            mProgress.setVisibility(View.GONE);
+            Log.e("TAG", message.toString());
+            if (null == message)
+                return;
+            mList = (CommunityListBean) message;
+            mListData = mList;
+            Log.e(Tag, "mCount:" + mCount + ",数据长度：" + mList.getData().size());
+
+            if (mCount == 0) {
+                mAdapter.AddNewData(mList.getData());
+            } else if (mCount == 1) {
+                mAdapter.RefreshData(mList.getData());
+            } else if (mCount == -1) {
+                mAdapter.SetData(mList.getData());
+            }
 //			mListView.setAdapter(mAdapter);
-			mListView.onRefreshComplete();
-			mLoadingView.loadSuccess();
-			LogUtil.d("-------------  initView   loadSuccess");
-			layoutContainer.setVisibility(View.VISIBLE);
-			LogUtil.d("-------------  initView   setVisibility");
+            mListView.onRefreshComplete();
+            mLoadingView.loadSuccess();
+            LogUtil.d("-------------  initView   loadSuccess");
+            layoutContainer.setVisibility(View.VISIBLE);
+            LogUtil.d("-------------  initView   setVisibility");
 
-		}
-		@Override
-		public Object onResolve(String result) {
-			return HTTPHelper.ResolveMessage(result);
-		}
-		@Override
-		public void setAsyncTask(AsyncTask asyncTask) {
+        }
 
-		}
-		@Override
-		public void cancleAsyncTask() {
-			mProgress.setVisibility(View.GONE);
-			mListView.onRefreshComplete();
-		}
-	};
-	/****
-	 * 与网络状态相关
-	 */
-	private BroadcastReceiver receiver;
-	private void registNetworkReceiver(){
-		if(receiver == null){
-			receiver = new NetworkReceiver();
-			IntentFilter filter = new IntentFilter();
-			filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-			getActivity().registerReceiver(receiver, filter );
-		}
-	}
-	private void unregistNetworkReceiver(){
-		getActivity().unregisterReceiver(receiver);
-	}
-	public class NetworkReceiver extends BroadcastReceiver{
+        @Override
+        public Object onResolve(String result) {
+            return HTTPHelper.ResolveMessage(result);
+        }
 
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			if(intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)){
-				ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE); 
-				NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-				if(networkInfo != null && networkInfo.isAvailable()){
-					int type = networkInfo.getType(); 
-					if(ConnectivityManager.TYPE_WIFI == type){
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
 
-					}else if(ConnectivityManager.TYPE_MOBILE == type){
+        }
 
-					}else if(ConnectivityManager.TYPE_ETHERNET == type){
+        @Override
+        public void cancleAsyncTask() {
+            mProgress.setVisibility(View.GONE);
+            mListView.onRefreshComplete();
+        }
+    };
+    /****
+     * 与网络状态相关
+     */
+    private BroadcastReceiver receiver;
 
-					}
-					//有网络
-					//					Toast.makeText(getActivity(), "有网络", 0).show();
-					LogUtils.d("有网络");
+    private void registNetworkReceiver() {
+        if (receiver == null) {
+            receiver = new NetworkReceiver();
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+            getActivity().registerReceiver(receiver, filter);
+        }
+    }
+
+    private void unregistNetworkReceiver() {
+        getActivity().unregisterReceiver(receiver);
+    }
+
+    public class NetworkReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+                ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+                if (networkInfo != null && networkInfo.isAvailable()) {
+                    int type = networkInfo.getType();
+                    if (ConnectivityManager.TYPE_WIFI == type) {
+
+                    } else if (ConnectivityManager.TYPE_MOBILE == type) {
+
+                    } else if (ConnectivityManager.TYPE_ETHERNET == type) {
+
+                    }
+                    //有网络
+                    //					Toast.makeText(getActivity(), "有网络", 0).show();
+                    LogUtils.d("有网络");
 //					initDatas();
-					//					if(nextPage == 1){
-					//					  RefreshData(0);
-					//					}
-					isNoNetwork = false;
-				}else{
-					//没有网络
-					LogUtils.d("没有网络");
+                    //					if(nextPage == 1){
+                    //					  RefreshData(0);
+                    //					}
+                    isNoNetwork = false;
+                } else {
+                    //没有网络
+                    LogUtils.d("没有网络");
 //					Toast.makeText(getActivity(), "没有网络", Toast.LENGTH_SHORT).show();
-					//					if(nextPage == 1){
-					mLoadingView.noNetwork();
-					//					}
-					isNoNetwork = true;
-				}
-			}
-		}
-	}
-	private boolean isNoNetwork;
-	private class GetDataTask extends AsyncTask<Void, Void,String > {
+                    //					if(nextPage == 1){
+                    mLoadingView.noNetwork();
+                    //					}
+                    isNoNetwork = true;
+                }
+            }
+        }
+    }
 
-		@Override
-		protected String doInBackground(Void... params) {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-			}
-			return null;
-		}
+    private boolean isNoNetwork;
 
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			RefreshData(0);
+    private class GetDataTask extends AsyncTask<Void, Void, String> {
 
-			// Call onRefreshComplete when the list has been refreshed.
-			//				mListView.onRefreshComplete();
-		}
-	}
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+            return null;
+        }
 
-	private class GetDataTask2 extends AsyncTask<Void, Void,String > {
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            RefreshData(0);
 
-		@Override
-		protected String doInBackground(Void... params) {
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-			}
-			return null;
-		}
+            // Call onRefreshComplete when the list has been refreshed.
+            //				mListView.onRefreshComplete();
+        }
+    }
 
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			RefreshData(1);
+    private class GetDataTask2 extends AsyncTask<Void, Void, String> {
 
-			// Call onRefreshComplete when the list has been refreshed.
-			//				mListView.onRefreshComplete();
-		}
-	}
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            RefreshData(1);
+
+            // Call onRefreshComplete when the list has been refreshed.
+            //				mListView.onRefreshComplete();
+        }
+    }
 }
-
 
 
 //@Override

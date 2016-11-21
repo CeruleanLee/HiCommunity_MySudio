@@ -285,6 +285,8 @@ public class CommunityListAdapter2 extends BaseFragmentAdapter {
 
                 } else {
                     //跳转到帖子
+                    setClickItem(true);
+                    creatTime=mBean.getCreate_time();
                     Intent mCommunity = new Intent(mContext, GeneratedClassUtils.get(CommunityDetailAct.class));
                     mCommunity.putExtra(CommunityDetailAct.ACTIVITYTAG, "Details");
                     mCommunity.putExtra(CommunityDetailAct.INTENTTAG, mBean.getMid());
@@ -315,6 +317,7 @@ public class CommunityListAdapter2 extends BaseFragmentAdapter {
 
                 } else if (mBean.getType() == 3) {
                     //跳转到群资料
+
                     Intent mInt = new Intent(mContext, GeneratedClassUtils.get(GroupDataAct.class));
                     mInt.putExtra(GroupDataAct.ACTIVITYTAG, "Detils");
                     mInt.putExtra(GroupDataAct.INTENTTAG, mBean.getId() + "");
@@ -335,6 +338,19 @@ public class CommunityListAdapter2 extends BaseFragmentAdapter {
             }
         });
         return convertView;
+    }
+    String creatTime = "";
+    boolean isClickItem=false;
+    public String getCreatTime(){
+        return creatTime;
+    }
+
+    public boolean isClickItem() {
+        return isClickItem;
+    }
+
+    public void setClickItem(boolean clickItem) {
+        isClickItem = clickItem;
     }
 
     /**
