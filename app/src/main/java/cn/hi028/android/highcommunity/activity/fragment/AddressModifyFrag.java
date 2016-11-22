@@ -7,17 +7,16 @@ package cn.hi028.android.highcommunity.activity.fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.OptionsPickerView;
 import com.don.tools.BpiHttpHandler;
 
 import net.duohuo.dhroid.activity.BaseFragment;
@@ -26,10 +25,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
-import org.apache.http.protocol.HTTP;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
@@ -42,6 +39,7 @@ import cn.hi028.android.highcommunity.bean.VallageBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
+import cn.hi028.android.highcommunity.utils.RegexValidateUtil;
 import cn.hi028.android.highcommunity.view.ShowListUtils;
 
 /**
@@ -52,7 +50,7 @@ import cn.hi028.android.highcommunity.view.ShowListUtils;
  */
 @EFragment(resName = "frag_addressmodify")
 public class AddressModifyFrag extends BaseFragment {
-
+    static final String Tag = "AddressModifyFrag";
     public static final String FRAGMENTTAG = "AddressModifyFrag";
     @ViewById(R.id.tv_AddressModify_SetDefult)
     TextView isDefult;
@@ -81,16 +79,30 @@ public class AddressModifyFrag extends BaseFragment {
     View mProgress;
     @ViewById(R.id.tv_addressModify_Nodata)
     TextView mNodata;
+    @ViewById(R.id.et_addressModify_area)
+    TextView mArea;
+    @ViewById(R.id.et_addressModify_detailAdress)
+    EditText mDetailAdress;
+    @ViewById(R.id.vMasker)
+    View vMasker;
+
 
     boolean defult = false;
     String defulttag = "0";
     String aid = "";
     PopupWindow mWaitingWindow, mListWindow;
     AddressModifyBean mModifyBean;
-    List<CitysBean> mCityBean;
-    List<DistrictBean> mDistrictBean;
-    List<VallageBean> mVillageBean = new ArrayList<VallageBean>();
+    ArrayList<CitysBean> mCityBean;
+    ArrayList<DistrictBean> mDistrictBean;
+    ArrayList<VallageBean> mVillageBean = new ArrayList<VallageBean>();
     String CityId, QuxianId, XiaoquId;
+    /**
+     * 城市区县小区选择器
+     **/
+    OptionsPickerView pvOptions;
+    private ArrayList<CitysBean> options1Items = new ArrayList<>();
+    private ArrayList<ArrayList<DistrictBean>> options2Items = new ArrayList<>();
+    ArrayList<DistrictBean> options2Items_01 = new ArrayList<DistrictBean>();
 
     @AfterViews
     void initView() {
@@ -106,6 +118,36 @@ public class AddressModifyFrag extends BaseFragment {
         mCity.setOnClickListener(mClick);
         mQuxian.setOnClickListener(mClick);
         mXiaoqu.setOnClickListener(mClick);
+
+        mArea.setOnClickListener(mClick);
+        mDetailAdress.setOnClickListener(mClick);
+        //选项选择器
+        pvOptions = new OptionsPickerView(getActivity());
+        //选项1
+        options1Items.add(new CitysBean("成都市", "5101"));
+//        //选项2
+//        options2Items.add(options2Items_01);
+//        //三级联动效果
+//        pvOptions.setPicker(options1Items, options2Items, true);
+////        //设置选择的三级单位
+////        pvOptions.setLabels("城市", "区县", "小区");
+//
+//        pvOptions.setTitle("选择所在地区");
+//        pvOptions.setCyclic(false,false,false);
+//        //设置默认选中的三级项目
+//        pvOptions.setSelectOptions(0, 0, 0);
+        //监听确定选择按钮
+        pvOptions.setOnoptionsSelectListener(new OptionsPickerView.OnOptionsSelectListener() {
+
+            @Override
+            public void onOptionsSelect(int options1, int option2, int options3) {
+                //返回的分别是三个级别的选中位置
+                String tx = options1Items.get(options1).getCity() +" "+ options2Items.get(options1).get(option2).getDistrict();
+                mArea.setText(tx);
+                vMasker.setVisibility(View.GONE);
+            }
+        });
+
     }
 
     View.OnClickListener mClick = new View.OnClickListener() {
@@ -140,6 +182,15 @@ public class AddressModifyFrag extends BaseFragment {
                     }
                     SearchActivity.toSearch(AddressModifyFrag.this, mXiaoqu, mXiaoqu.getHeight(), QuxianId);
                     break;
+                case R.id.et_addressModify_area:
+                    pvOptions.show();
+
+
+                    break;
+                case R.id.et_addressModify_detailAdress:
+
+
+                    break;
             }
         }
     };
@@ -159,7 +210,7 @@ public class AddressModifyFrag extends BaseFragment {
         }
     };
 
-
+/**选择城市区县  城市已经固定只能选成都 **/
     BpiHttpHandler.IBpiHttpHandler mDistristIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
@@ -170,7 +221,15 @@ public class AddressModifyFrag extends BaseFragment {
         public void onSuccess(Object message) {
             if (null == message)
                 return;
-            mDistrictBean = (List<DistrictBean>) message;
+            mDistrictBean = (ArrayList<DistrictBean>) message;
+            options2Items_01 = mDistrictBean;
+            //选项2
+            options2Items.add(mDistrictBean);
+            pvOptions.setPicker(options1Items, options2Items, true);
+            pvOptions.setTitle("请选择所在区县");
+            pvOptions.setCyclic(false, false, false);
+            //设置默认选中的三级项目
+            pvOptions.setSelectOptions(0, 0, 0);
         }
 
         @Override
@@ -188,7 +247,9 @@ public class AddressModifyFrag extends BaseFragment {
 
         }
     };
-
+    /**
+     * 修改地址
+     **/
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
@@ -202,6 +263,7 @@ public class AddressModifyFrag extends BaseFragment {
                 return;
             mModifyBean = (AddressModifyBean) message;
             mCityBean = mModifyBean.getCities();
+
             mDistrictBean = mModifyBean.getDistricts();
             mName.setText(mModifyBean.getAddress().getReal_name());
             mPhone.setText(mModifyBean.getAddress().getTel());
@@ -223,14 +285,22 @@ public class AddressModifyFrag extends BaseFragment {
             QuxianId = mModifyBean.getAddress().getDistrict_code();
             XiaoquId = mModifyBean.getAddress().getVid();
             for (int i = 0; i < mModifyBean.getCities().size(); i++) {
-                if (mModifyBean.getCities().get(i).getCity_code().equals(mModifyBean.getAddress().getCity_code()))
+                if (mModifyBean.getCities().get(i).getCity_code().equals(mModifyBean.getAddress().getCity_code())) {
+                    tv_city = mModifyBean.getCities().get(i).getCity();
                     mCity.setText(mModifyBean.getCities().get(i).getCity());
+                }
             }
             for (int i = 0; i < mModifyBean.getDistricts().size(); i++) {
-                if (mModifyBean.getDistricts().get(i).getDistrict_code().equals(mModifyBean.getAddress().getDistrict_code()))
+                if (mModifyBean.getDistricts().get(i).getDistrict_code().equals(mModifyBean.getAddress().getDistrict_code())) {
+                    tv_quxian = mModifyBean.getDistricts().get(i).getDistrict();
                     mQuxian.setText(mModifyBean.getDistricts().get(i).getDistrict());
+                }
             }
+
+            mArea.setText(tv_city + " " + tv_quxian);
         }
+
+        String tv_city, tv_quxian;
 
         @Override
         public Object onResolve(String result) {
@@ -258,7 +328,7 @@ public class AddressModifyFrag extends BaseFragment {
         public void onSuccess(Object message) {
             if (null == message)
                 return;
-            mCityBean = (List<CitysBean>) message;
+            mCityBean = (ArrayList<CitysBean>) message;
 
         }
 
@@ -290,6 +360,7 @@ public class AddressModifyFrag extends BaseFragment {
             return;
         } else if (TextUtils.isEmpty(phone)) {
             HighCommunityUtils.GetInstantiation().ShowToast("联系方式不能为空", 0);
+
             return;
         } else if (TextUtils.isEmpty(CityId)) {
             HighCommunityUtils.GetInstantiation().ShowToast("城市不能为空", 0);
@@ -305,6 +376,9 @@ public class AddressModifyFrag extends BaseFragment {
             return;
         } else if (TextUtils.isEmpty(doornumber)) {
             HighCommunityUtils.GetInstantiation().ShowToast("门牌号不能为空", 0);
+            return;
+        } else if (!RegexValidateUtil.checkMobileNumber(mPhone.getText().toString())) {
+            HighCommunityUtils.GetInstantiation().ShowToast("请输入正确的电话号码", 0);
             return;
         }
         if (!TextUtils.isEmpty(unit)) {
@@ -403,6 +477,17 @@ public class AddressModifyFrag extends BaseFragment {
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            if (pvOptions.isShowing()) {
+//                pvOptions.dismiss();
+//                return true;
+//            }
+//        }
+        Log.e(Tag,"pvOptions.isShowing()--->"+pvOptions.isShowing());
+        if (pvOptions!=null&&pvOptions.isShowing()) {
+            pvOptions.dismiss();
+            return true;
+        }
         if (mListWindow != null && mListWindow.isShowing()) {
             mListWindow.dismiss();
             System.out.println("mlist window has dismissed");
@@ -414,4 +499,10 @@ public class AddressModifyFrag extends BaseFragment {
         return false;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+//        CityId = ((CitysBean) mBack).getCity_code();
+        HTTPHelper.getAddressDistrist(mDistristIbpi, "5101");
+    }
 }

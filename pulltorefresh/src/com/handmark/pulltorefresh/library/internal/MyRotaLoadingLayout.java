@@ -10,7 +10,6 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -64,7 +63,7 @@ public class MyRotaLoadingLayout extends LoadingLayout {
 
 //    offHeight = Math.abs(mHeaderImage.getTranslationY()-backImg.getTranslationY());
 
-    Log.e(Tag,"position[1]--->"+ mHeaderImage.getTranslationY()+"position2[1]--->"+backImg.getTranslationY());
+//    Log.e(Tag,"position[1]--->"+ mHeaderImage.getTranslationY()+"position2[1]--->"+backImg.getTranslationY());
 //    Log.e(Tag,"offHeight--->"+ offHeight);
 
     isFirstRun=false;
@@ -79,8 +78,8 @@ if (scanForActivity(context)!=null){
        float screenWidth = widthPixels * density;
     float screenHeight = heightPixels * density ;
 
-        Log.e(Tag,"widthPixels-->"+ widthPixels+",heightPixels---"+heightPixels+",screenWidth---"+screenWidth+",screenHeight"+screenHeight);
-        Log.e(Tag,"heightPixels/16--->"+ heightPixels/16);
+//        Log.e(Tag,"widthPixels-->"+ widthPixels+",heightPixels---"+heightPixels+",screenWidth---"+screenWidth+",screenHeight"+screenHeight);
+//        Log.e(Tag,"heightPixels/16--->"+ heightPixels/16);
         offHeight=heightPixels/16;
 
     mRotateAnimation = new RotateAnimation(0, 720, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
@@ -106,7 +105,7 @@ if (scanForActivity(context)!=null){
 
         //如果setFillAfter为ture是不会出现闪动的，但是下一次拖拽就不正常
         animation345.setFillAfter(true);
-        Log.e(Tag,"dip2px--->"+ dip2px(getContext(),48f));
+//        Log.e(Tag,"dip2px--->"+ dip2px(getContext(),48f));
 
         float curTranslationY = mHeaderImage.getTranslationY();
         dip2px(getContext(),48f);
@@ -115,25 +114,25 @@ if (scanForActivity(context)!=null){
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                Log.e(Tag, "Listener--->onAnimationStart");
+//                Log.e(Tag, "Listener--->onAnimationStart");
 
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                Log.e(Tag, "Listener--->onAnimationEnd");
+//                Log.e(Tag, "Listener--->onAnimationEnd");
 
             }
 
             @Override
             public void onAnimationCancel(Animator animation) {
-                Log.e(Tag, "Listener--->onAnimationCancel");
+//                Log.e(Tag, "Listener--->onAnimationCancel");
 
             }
 
             @Override
             public void onAnimationRepeat(Animator animation) {
-                Log.e(Tag, "Listener--->onAnimationRepeat");
+//                Log.e(Tag, "Listener--->onAnimationRepeat");
 
             }
         });
@@ -176,7 +175,7 @@ if (scanForActivity(context)!=null){
         } else {
             isFromBottom = false;
         }
-        Log.e(Tag, "onPullImpl--->isFromBottom--->" + isFromBottom);
+//        Log.e(Tag, "onPullImpl--->isFromBottom--->" + isFromBottom);
 
     }
 
@@ -199,8 +198,8 @@ if (scanForActivity(context)!=null){
             return;
         }
         if (isFirstUp && !isFromBottom) {
-            Log.e(Tag, "进入刷新动画");
-            Log.e(Tag,"dip2px--->"+ dip2px(getContext(),48f));
+//            Log.e(Tag, "进入刷新动画");
+//            Log.e(Tag,"dip2px--->"+ dip2px(getContext(),48f));
             animator.start();
             isFirstUp = false;
         }
@@ -248,7 +247,7 @@ if (scanForActivity(context)!=null){
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void releaseToRefreshImpl() {
-        Log.e(Tag, "releaseToRefreshImpl");
+//        Log.e(Tag, "releaseToRefreshImpl");
     }
 
     @Override

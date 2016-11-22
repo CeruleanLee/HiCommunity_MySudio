@@ -4,7 +4,7 @@
 
 package cn.hi028.android.highcommunity.bean;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @功能：修改收货地址时获取的数据<br>
@@ -14,8 +14,8 @@ import java.util.List;
  */
 public class AddressModifyBean extends BaseBean {
     AddressDetailBean address;
-    List<DistrictBean> districts;
-    List<CitysBean> cities;
+    ArrayList<DistrictBean> districts;
+    ArrayList<CitysBean> cities;
 
     public AddressDetailBean getAddress() {
         return address;
@@ -25,19 +25,19 @@ public class AddressModifyBean extends BaseBean {
         this.address = address;
     }
 
-    public List<DistrictBean> getDistricts() {
+    public ArrayList<DistrictBean> getDistricts() {
         return districts;
     }
 
-    public void setDistricts(List<DistrictBean> districts) {
+    public void setDistricts(ArrayList<DistrictBean> districts) {
         this.districts = districts;
     }
 
-    public List<CitysBean> getCities() {
+    public ArrayList<CitysBean> getCities() {
         return cities;
     }
 
-    public void setCities(List<CitysBean> cities) {
+    public void setCities(ArrayList<CitysBean> cities) {
         this.cities = cities;
     }
 }

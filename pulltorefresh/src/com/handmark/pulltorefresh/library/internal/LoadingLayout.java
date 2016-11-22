@@ -23,7 +23,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -265,7 +264,7 @@ public abstract class LoadingLayout extends FrameLayout implements
 	public final void onPull(float scaleOfLayout) {
 		if (!mUseIntrinsicAnimation) {
 
-			Log.e(Tag,"scaleOfLayout--->"+scaleOfLayout);
+//			Log.e(Tag,"scaleOfLayout--->"+scaleOfLayout);
 
 			onPullImpl(scaleOfLayout);
 		}

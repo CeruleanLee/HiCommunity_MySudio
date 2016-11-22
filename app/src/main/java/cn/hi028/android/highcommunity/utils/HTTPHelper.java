@@ -15,7 +15,6 @@ import com.google.gson.Gson;
 import com.loopj.android.http.RequestParams;
 
 import net.duohuo.dhroid.util.ImageUtil;
-import net.duohuo.dhroid.util.LogUtil;
 import net.duohuo.dhroid.util.MD5;
 
 import org.json.JSONArray;
@@ -170,6 +169,7 @@ public class HTTPHelper {
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("token", token);
         post(mParamMap, mIbpi, url);
+        
     }
 
     /**
@@ -240,7 +240,7 @@ public class HTTPHelper {
      **/
     public static void GetMessage(BpiHttpHandler.IBpiHttpHandler mIbpi,
                                   int userId, int Vid, String time) {
-        LogUtil.d("------------CommunityFrag   GetMessage");
+        Log.d(Tag,"------------CommunityFrag   GetMessage");
         String url = HTTPPOSTURL + "message/index.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         if (userId != 0)
@@ -442,7 +442,7 @@ public class HTTPHelper {
         mParamMap.put("merchant_id", merchant_id);
         mParamMap.put("total_price", total_price);
         mParamMap.put("goods_info", goods_info);
-        LogUtil.d("------GetOrderNo---" + mParamMap.toString());
+        Log.d(Tag,"------GetOrderNo---" + mParamMap.toString());
 
 
         post(mParamMap, mIbpi, url);
@@ -659,11 +659,11 @@ public class HTTPHelper {
      */
     public static void submitHuiSuppOrder(BpiHttpHandler.IBpiHttpHandler mIbpi,
                                           String order) {
-        LogUtil.d("------创建订单");
+        Log.d(Tag,"------创建订单");
         String url = HTTPPOSTURL + "goods/order.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("order", order);
-        LogUtil.d("------post2");
+        Log.d(Tag,"------post2");
         post(mParamMap, mIbpi, url);
     }
 
@@ -697,7 +697,7 @@ public class HTTPHelper {
 
     public static void getChipOrderDetail(BpiHttpHandler.IBpiHttpHandler mIbpi,
                                           String order_id) {
-        LogUtil.d("获取众筹订单信息详情");
+        Log.d(Tag,"获取众筹订单信息详情");
         String url = HTTPPOSTURL + "raise/order-detail.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("order_id", order_id);
@@ -714,7 +714,7 @@ public class HTTPHelper {
      */
     public static void getAlliOrderDetail(BpiHttpHandler.IBpiHttpHandler mIbpi,
                                           String out_trade_no) {
-        LogUtil.d("获取联盟订单信息详情");
+        Log.d(Tag,"获取联盟订单信息详情");
         String url = HTTPPOSTURL + "nearby/order-detail.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("out_trade_no", out_trade_no);
@@ -1070,7 +1070,7 @@ public class HTTPHelper {
         mParamMap.put("doorNum", doorNum);
         mParamMap.put("isDefault", isDefault);
         mParamMap.put("uid", uid);
-        LogUtil.d("~~~~新增收货地址传递的参数：" + mParamMap.toString());
+        Log.d(Tag,"~~~~新增收货地址传递的参数：" + mParamMap.toString());
 
 
         post(mParamMap, mIbpi, url);
@@ -1574,7 +1574,7 @@ public class HTTPHelper {
         String url = HTTPPOSTURL + "ysuggest/index.html";
         HashMap<String, String> maps = new HashMap<String, String>();
         if (HighCommunityApplication.mUserInfo.getId()!=-1)
-            LogUtil.d("------User token------" + HighCommunityApplication.mUserInfo.getToken());
+            Log.d(Tag,"------User token------" + HighCommunityApplication.mUserInfo.getToken());
         maps.put("id", HighCommunityApplication.mUserInfo.getId()+"");
         post(maps, mIbpi, url);
     }
@@ -1588,7 +1588,7 @@ public class HTTPHelper {
         String url = HTTPPOSTURL + "ysuggest/index.html";
         HashMap<String, String> maps = new HashMap<String, String>();
         if (HighCommunityApplication.mUserInfo.getId()!=-1)
-            LogUtil.d("------User token------" + HighCommunityApplication.mUserInfo.getToken());
+            Log.d(Tag,"------User token------" + HighCommunityApplication.mUserInfo.getToken());
         maps.put("id", HighCommunityApplication.mUserInfo.getId()+"");
         maps.put("mine", 1+"");
         post(maps, mIbpi, url);
@@ -1604,7 +1604,7 @@ public class HTTPHelper {
         String url = HTTPPOSTURL + "ysuggest/delete.html";
         HashMap<String, String> maps = new HashMap<String, String>();
         if (HighCommunityApplication.mUserInfo.getId()!=-1)
-            LogUtil.d("------User token------" + HighCommunityApplication.mUserInfo.getToken());
+            Log.d(Tag,"------User token------" + HighCommunityApplication.mUserInfo.getToken());
         maps.put("id", id);
         post(maps, mIbpi, url);
     }
@@ -1637,7 +1637,7 @@ public class HTTPHelper {
         String url = HTTPPOSTURL + "ysuggest/suggest.html";
         HashMap<String, String> maps = new HashMap<String, String>();
         if (HighCommunityApplication.mUserInfo.getId()!=-1)
-            LogUtil.d("------User token------" + HighCommunityApplication.mUserInfo.getToken());
+            Log.d(Tag,"------User token------" + HighCommunityApplication.mUserInfo.getToken());
         maps.put("uid", HighCommunityApplication.mUserInfo.getId()+"");
         maps.put("id", id);
 
@@ -2188,7 +2188,7 @@ public class HTTPHelper {
     public static void doPay(BpiHttpHandler.IBpiHttpHandler mIbpi,
                              String order_num, int pay_type, String consign, String tel,
                              String address) {
-        LogUtil.d("商家联盟支付请求的接口");
+        Log.d(Tag,"商家联盟支付请求的接口");
         String url = HTTPPOSTURL + "nearby/pay.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("order_num", order_num);
@@ -2204,20 +2204,20 @@ public class HTTPHelper {
      */
     public static void getOderDetail(BpiHttpHandler.IBpiHttpHandler mIbpi,
                                      String out_trade_no) {
-        LogUtil.d("------商家联盟订单详情");
+        Log.d(Tag,"------商家联盟订单详情");
         String url = HTTPPOSTURL + "nearby/order-detail.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
-        LogUtil.d("------HashMap<String, String> mParamMap：" + mParamMap.toString());
+        Log.d(Tag,"------HashMap<String, String> mParamMap：" + mParamMap.toString());
 
 
         mParamMap.put("out_trade_no", out_trade_no);
-        LogUtil.d("------HashMap<String, String> mParamMap---2：" + mParamMap.toString());
+        Log.d(Tag,"------HashMap<String, String> mParamMap---2：" + mParamMap.toString());
         post(mParamMap, mIbpi, url);
     }
 
 //	public static void getChipOrderDetail(BpiHttpHandler.IBpiHttpHandler mIbpi,
 //			String order_id) {
-//		LogUtil.d("获取众筹订单信息详情");
+//		Log.d(Tag,"获取众筹订单信息详情");
 //		String url = HTTPPOSTURL + "raise/order-detail.html";
 //		HashMap<String, String> mParamMap = getBaseParamMap();
 //		mParamMap.put("order_id", order_id);
@@ -2510,7 +2510,7 @@ public class HTTPHelper {
     public static void GetThirdService(BpiHttpHandler.IBpiHttpHandler mIbpi) {
         String url = HTTPPOSTURL + "service/index.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
-        LogUtil.d("-------------GetThirdService==" + mParamMap.get("token"));
+        Log.d(Tag,"-------------GetThirdService==" + mParamMap.get("token"));
 
         post(mParamMap, mIbpi, url);
     }
@@ -2518,7 +2518,7 @@ public class HTTPHelper {
     public static void GetThirdService2(BpiHttpHandler.IBpiHttpHandler mIbpi) {
         String url = HTTPPOSTURL + "service/index.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
-        LogUtil.d("-------------GetThirdService==" + mParamMap.get("token"));
+        Log.d(Tag,"-------------GetThirdService==" + mParamMap.get("token"));
 
         post(mParamMap, mIbpi, url);
     }
@@ -2660,7 +2660,7 @@ public class HTTPHelper {
      */
     public static void GoPay(BpiHttpHandler.IBpiHttpHandler mIbpi,
                              String order_num) {
-        LogUtil.d("联盟订单内付款");
+        Log.d(Tag,"联盟订单内付款");
         String url = HTTPPOSTURL + "nearby/to-pay.html";
         RequestParams mParamMap = new RequestParams(getBaseParamMap());
         mParamMap.put("order_num", order_num);
@@ -2672,7 +2672,7 @@ public class HTTPHelper {
      * 解析联盟订单内付款
      */
     public static AlliancePayBean ResolveAllianceGoPay(String result) {
-        LogUtil.d("解析联盟订单内付款");
+        Log.d(Tag,"解析联盟订单内付款");
         return gson.fromJson(result, AlliancePayBean.class);
     }
 
@@ -2904,12 +2904,12 @@ public class HTTPHelper {
      */
     public static void GetAllianceList(BpiHttpHandler.IBpiHttpHandler mIbpi,
                                        int status) {
-        LogUtil.d("------联盟订单列表");
+        Log.d(Tag,"------联盟订单列表");
         String url = HTTPPOSTURL + "nearby/order-list.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         if (status != AllianceOrder.TAB_ALL_ORDER) {
             mParamMap.put("status", String.valueOf(status));
-            LogUtil.d("------联盟订单状态------" + String.valueOf(status));
+            Log.d(Tag,"------联盟订单状态------" + String.valueOf(status));
         }
         post(mParamMap, mIbpi, url);
     }
@@ -2943,7 +2943,7 @@ public class HTTPHelper {
      * 解析联盟订单列表
      */
     public static List<AllianceOrderBean> ResolveAllianceOrderBean(String result) {
-        LogUtil.d("解析联盟订单列表");
+        Log.d(Tag,"解析联盟订单列表");
         List<AllianceOrderBean> list = new ArrayList<AllianceOrderBean>(0);
         try {
             JSONArray mArray = new JSONArray(result);
@@ -3520,7 +3520,7 @@ public class HTTPHelper {
     private static HashMap<String, String> getBaseParamMap() {
         HashMap<String, String> maps = new HashMap<String, String>();
         if (!TextUtils.isEmpty((HighCommunityApplication.mUserInfo.getToken())))
-            LogUtil.d("------User token------" + HighCommunityApplication.mUserInfo.getToken());
+            Log.d(Tag,"------User token------" + HighCommunityApplication.mUserInfo.getToken());
         maps.put("token", HighCommunityApplication.mUserInfo.getToken());
         return maps;
     }

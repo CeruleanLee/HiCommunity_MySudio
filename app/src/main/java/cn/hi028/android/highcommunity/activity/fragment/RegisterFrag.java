@@ -89,8 +89,7 @@ public class RegisterFrag extends BaseFragment {
 		public void onClick(View view) {
 			switch (view.getId()) {
 			case R.id.tv_register_getIdentyCode:
-				if (RegexValidateUtil.checkMobileNumber(mPhone.getText()
-						.toString())) {
+				if (RegexValidateUtil.checkMobileNumber(mPhone.getText().toString())) {
 					mCounter = new onCounter(60000, 1000);
 					mCounter.start();
 					HTTPHelper.Send(mIbpi, mPhone.getText().toString(), "1");
