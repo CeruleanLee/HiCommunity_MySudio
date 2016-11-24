@@ -1,6 +1,5 @@
 package cn.hi028.android.highcommunity.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
@@ -35,8 +34,8 @@ import cn.hi028.android.highcommunity.R;
  * Initial the camera
  * @author Ryan.Tang
  */
-public class MipcaActivityCapture extends Activity implements Callback {
-static final String Tag="MipcaActivityCapture--->";
+public class MipcaActivityCapture extends BaseFragmentActivity implements Callback {
+static final String Tag="MipcaActCapture:";
 	private CaptureActivityHandler handler;
 	private ViewfinderView viewfinderView;
 	private boolean hasSurface;

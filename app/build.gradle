@@ -13,7 +13,7 @@ android {
     buildToolsVersion '23.0.1'
 
     dexOptions {
-        javaMaxHeapSize "4g"
+        javaMaxHeapSize "1024m"
     }
     defaultConfig {
         applicationId "cn.hi028.android.highcommunity"

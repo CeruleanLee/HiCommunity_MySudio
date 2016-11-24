@@ -897,10 +897,14 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                     menu.showMenu();
                     break;
                 case R.id.iv_mainlevel_RightButton:
+                 if (HighCommunityUtils.isLogin(MainActivity.this)) {
+
                     Intent intent = new Intent();
                     intent.setClass(MainActivity.this, MipcaActivityCapture.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+                }
+
 //                    startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
 
 
