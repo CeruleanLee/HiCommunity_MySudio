@@ -16,12 +16,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.location.Poi;
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
 import com.don.view.CircleImageView;
@@ -38,6 +44,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import cn.hi028.android.highcommunity.HighCommunityApplication;
@@ -52,6 +59,7 @@ import cn.hi028.android.highcommunity.bean.UserCenterBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
+import cn.hi028.android.highcommunity.utils.MyLocationListener;
 import cn.hi028.android.highcommunity.utils.updateutil.UpdateUtil;
 import cn.jpush.android.api.CustomPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
@@ -105,6 +113,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     // public static boolean isForeground = false;
     public static String TAG = "MainActivity";
 
+    private PopupWindow mWindow;
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -168,7 +177,87 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             registerMessageReceiver();
             Log.d("userinfor", "用户信息：" + HighCommunityApplication.mUserInfo.toString());
         }
+//定位init
+        Log.e(TAG,"准备定位");
 
+        mLocationClient = new LocationClient(this); //声明LocationClie
+        Log.e(TAG,"准备定位2");
+        LocationClientOption option = new LocationClientOption();
+        option.setOpenGps(true);        //是否打开GPS
+        option.setCoorType("bd09ll");       //设置返回值的坐标类型。
+        option.setPriority(LocationClientOption.NetWorkFirst);  //设置定位优先级
+        option.setProdName("LocationDemo"); //设置产品线名称。强烈建议您使用自定义的产品线名称，方便我们以后为您提供更高效准确的定位服务。
+//        option.setScanSpan(5000);    //设置定时定位的时间间隔。单位毫秒
+        mLocationClient.setLocOption(option);
+        mLocationClient.registerLocationListener(new BDLocationListener() {
+            @Override
+            public void onReceiveLocation(BDLocation location) {
+                //Receive Location
+                mWindow.dismiss();
+                if (mWindow.isShowing()){
+}
+                StringBuffer sb = new StringBuffer(256);
+                sb.append("time : ");
+                sb.append(location.getTime());
+                sb.append("\nerror code : ");
+                sb.append(location.getLocType());
+                sb.append("\nlatitude : ");
+                sb.append(location.getLatitude());
+                sb.append("\nlontitude : ");
+                sb.append(location.getLongitude());
+                sb.append("\nradius : ");
+                sb.append(location.getRadius());
+                if (location.getLocType() == BDLocation.TypeGpsLocation) {// GPS定位结果
+                    sb.append("\nspeed : ");
+                    sb.append(location.getSpeed());// 单位：公里每小时
+                    sb.append("\nsatellite : ");
+                    sb.append(location.getSatelliteNumber());
+                    sb.append("\nheight : ");
+                    sb.append(location.getAltitude());// 单位：米
+                    sb.append("\ndirection : ");
+                    sb.append(location.getDirection());// 单位度
+                    sb.append("\naddr : ");
+                    sb.append(location.getAddrStr());
+                    sb.append("\ndescribe : ");
+                    sb.append("gps定位成功");
+
+                } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {// 网络定位结果
+                    sb.append("\naddr : ");
+                    sb.append(location.getAddrStr());
+                    //运营商信息
+                    sb.append("\noperationers : ");
+                    sb.append(location.getOperators());
+                    sb.append("\ndescribe : ");
+                    sb.append("网络定位成功");
+                } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {// 离线定位结果
+                    sb.append("\ndescribe : ");
+                    sb.append("离线定位成功，离线定位结果也是有效的");
+                } else if (location.getLocType() == BDLocation.TypeServerError) {
+                    sb.append("\ndescribe : ");
+                    sb.append("服务端网络定位失败，可以反馈IMEI号和大体定位时间到loc-bugs@baidu.com，会有人追查原因");
+                } else if (location.getLocType() == BDLocation.TypeNetWorkException) {
+                    sb.append("\ndescribe : ");
+                    sb.append("网络不同导致定位失败，请检查网络是否通畅");
+                } else if (location.getLocType() == BDLocation.TypeCriteriaException) {
+                    sb.append("\ndescribe : ");
+                    sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
+                }
+                sb.append("\nlocationdescribe : ");
+                sb.append(location.getLocationDescribe());// 位置语义化信息
+                List<Poi> list = location.getPoiList();// POI数据
+                if (list != null) {
+                    sb.append("\npoilist size = : ");
+                    sb.append(list.size());
+                    for (Poi p : list) {
+                        sb.append("\npoi= : ");
+                        sb.append(p.getId() + " " + p.getName() + " " + p.getRank());
+                    }
+                }
+                Log.i("BaiduLocationApiDem", sb.toString());
+                Toast.makeText(MainActivity.this,"定位信息："+location.getCity()+" "+location.getDistrict()+" "+location.getStreet()+" "+location.getAddress(),Toast.LENGTH_SHORT).show();
+            }
+        });//注册监听函数
+        Log.e(TAG,"定位3");
 
     }
 
@@ -422,6 +511,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                             HighCommunityApplication.mUserInfo.getId() + "");
             }
         });
+//        menu.setVisibility(View.GONE);
     }
 
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
@@ -786,23 +876,50 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                     mFrag.setCurrentPage(1);
                     break;
                 case R.id.tv_mainlevel_LeftButton:
+//                    mWindow = HighCommunityUtils.GetInstantiation()
+//                            .ShowWaittingPopupWindow(MainActivity.this, mLeftMenu, Gravity.CENTER);
+//                    int requestLocation=-1;
+//                    Toast.makeText(getApplicationContext(),"点击左上角",Toast.LENGTH_SHORT).show();
+//                    mLocationClient.start();
+//                    if (mLocationClient.isStarted()){
+//                        Log.e(TAG,"isStarted--->");
+//
+//                       mLocationClient.stop();
+//                       requestLocation = mLocationClient.requestLocation();
+//
+//                    }else{
+//
+//                        requestLocation = mLocationClient.requestLocation();
+//                    }
+//                   Log.e(TAG,"requestLocation--->"+requestLocation);
+
                     mLeftTop.setVisibility(View.GONE);
                     menu.showMenu();
                     break;
                 case R.id.iv_mainlevel_RightButton:
-                    if (HighCommunityUtils.isLogin(MainActivity.this)) {
-                        mRightTop.setVisibility(View.GONE);
-                        Intent mLeftjump = new Intent(MainActivity.this,
-                                GeneratedClassUtils.get(MenuLeftAct.class));
-                        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
-                                Constacts.MENU_LEFT_MESSAGECENTER);
-                        startActivity(mLeftjump);
-                    }
+                    Intent intent = new Intent();
+                    intent.setClass(MainActivity.this, MipcaActivityCapture.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+//                    startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
+
+
+
+//                    if (HighCommunityUtils.isLogin(MainActivity.this)) {
+//                        mRightTop.setVisibility(View.GONE);
+//                        Intent mLeftjump = new Intent(MainActivity.this,
+//                                GeneratedClassUtils.get(MenuLeftAct.class));
+//                        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
+//                                Constacts.MENU_LEFT_MESSAGECENTER);
+//                        startActivity(mLeftjump);
+//                    }
                     break;
             }
         }
     };
-
+    private final static int SCANNIN_GREQUEST_CODE = 1;
+    public static LocationClient mLocationClient=null;
+    public BDLocationListener myListener = new MyLocationListener();
     @Override
     public void onChange(boolean flag) {
         if (flag) {
@@ -843,10 +960,23 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     }
 
     @Override
-    protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.e("renk", "onactivityresult");
         Log.e("renk", "onactivityresult");
-        super.onActivityResult(arg0, arg1, arg2);
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case SCANNIN_GREQUEST_CODE:
+                if(resultCode == RESULT_OK){
+                    Bundle bundle = data.getExtras();
+//                    //显示扫描到的内容
+                    Log.e(TAG,"扫描到的内容:"+bundle.getString("result"));
+//                    mTextView.setText(bundle.getString("result"));
+//                    //显示
+//                    mImageView.setImageBitmap((Bitmap) data.getParcelableExtra("bitmap"));
+                }
+                break;
+        }
+
     }
 
 

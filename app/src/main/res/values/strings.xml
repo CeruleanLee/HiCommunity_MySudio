@@ -86,6 +86,6 @@
     <string name="down_fail">下载失败</string>
     <string name="is_downing">正在下载</string>
     <string name="down_sucess">下载成功</string>
-
+    <string name="scan_text">将二维码放入框内, 即可自动扫描</string>
 
 </resources>

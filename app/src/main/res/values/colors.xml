@@ -104,5 +104,9 @@
     <color name="item_merch_right_title">#6F6F6F</color>
     <color name="item_shopdeatil_commentdetail_title">#5A5A59</color>
     <color name="auto_act_textviewgb_grey">#C9C9C9</color>
+<!--二维码-->
 
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
 </resources>

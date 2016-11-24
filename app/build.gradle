@@ -11,6 +11,7 @@ bugly {
 android {
     compileSdkVersion 21
     buildToolsVersion '23.0.1'
+
     dexOptions {
         javaMaxHeapSize "4g"
     }
@@ -87,9 +88,10 @@ dependencies {
     //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
     compile 'com.tencent.bugly:nativecrashreport:3.0'
     //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
-
-    ////pickview 三级联动选择器
     //    compile 'com.bigkoo:pickerview:2.1.1'
+    compile files('libs/core_3.2.0.jar')
+//    compile 'com.android.support:appcompat-v7:23.4.0'
+//    compile 'com.tamic:browse:1.0.0'
 }
 
 apt {

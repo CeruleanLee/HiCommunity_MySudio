@@ -17,7 +17,6 @@ import com.don.tools.MyImageDownloader;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import net.duohuo.dhroid.BaseApplication;
-import net.duohuo.dhroid.util.LogUtil;
 
 import org.xutils.x;
 
@@ -28,6 +27,7 @@ import cn.hi028.android.highcommunity.bean.UserInfoBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.CrashHandler;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
+import cn.hi028.android.highcommunity.utils.MyLocationListener;
 import cn.hi028.android.highcommunity.view.ECAlertDialog;
 import cn.jpush.android.api.JPushInterface;
 
@@ -39,7 +39,8 @@ import cn.jpush.android.api.JPushInterface;
  */
 public class HighCommunityApplication extends BaseApplication implements
         BDLocationListener {
-    public LocationClient mLocationClient;
+    public static LocationClient mLocationClient;
+    public BDLocationListener myListener = new MyLocationListener();
     public static boolean isLogOut = false;
     public static SharedPreferences share;
     public static int SoftKeyHight = 0;
@@ -87,8 +88,6 @@ static  final String Tag="HighCommunityApplication--->";
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-//		Fresco.in
-
         mDongUtils = HighCommunityUtils.GetInstantiation();
         BpiHttpClient.initCookies(this);
         HighCommunityUtils.GetInstantiation().SetApplicationContext(this);
@@ -102,13 +101,14 @@ static  final String Tag="HighCommunityApplication--->";
         mDongUtils.initFileDir("hishequ");
         // mDongUtils.getNetworkState(this);
         share = getSharedPreferences("APPInformation", 0);
-        mLocationClient = new LocationClient(this.getApplicationContext());
-        mLocationClient.registerLocationListener(this);
+        //定位init
+        mLocationClient = new LocationClient(this.getApplicationContext()); //声明LocationClie
+        mLocationClient.registerLocationListener(this);//注册监听函数
         x.Ext.init(this);
         isAliPayInStalled = isAliPayInStalled();
 //        Toast.makeText(getApplicationContext(), "是否安装支付宝：" + isAliPayInStalled, Toast.LENGTH_SHORT).show();
 
-        LogUtil.d("---是否安装支付宝：" + isAliPayInStalled);
+        Log.d(Tag,"---是否安装支付宝：" + isAliPayInStalled);
 //       new UpdateUtil(getApplicationContext()).checkUpdate();
 
     }
