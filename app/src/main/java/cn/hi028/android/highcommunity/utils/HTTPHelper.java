@@ -29,6 +29,7 @@ import java.util.List;
 
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.activity.alliance.AllianceOrder;
+import cn.hi028.android.highcommunity.bean.ActGoodsBean;
 import cn.hi028.android.highcommunity.bean.ActiveBean;
 import cn.hi028.android.highcommunity.bean.ActivityDetailBean;
 import cn.hi028.android.highcommunity.bean.AddressBean;
@@ -2142,7 +2143,75 @@ public class HTTPHelper {
         }
     }
 
+    /**
+     * 扫一扫 购买活动商品
+     * @param mIbpi
+     * @param gid 商品id
+     * @param number 商品数量
+     * @param total_price 总价
+     * @param type 支付类型   0-支付宝 1-微信
+     */
+    public static void submitBuyHotGoods(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                          String gid,String number,String total_price,String type) {
+        Log.d(Tag,"------创建订单");
+        String url = HTTPPOSTURL + "qrcode/act-order.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("gid", gid);
+        mParamMap.put("number", number);
+        mParamMap.put("total_price", total_price);
+        mParamMap.put("type", type);
+        Log.d(Tag,"-mParamMap"+mParamMap.toString());
+        post(mParamMap, mIbpi, url);
+    }
+    /**
+     * 扫一扫 购买活动商品 微信支付
+     * @param mIbpi
+     * @param gid 商品id
+     * @param number 商品数量
+     * @param total_price 总价
+     * @param type 支付类型   0-支付宝 1-微信
+     */
+    public static void submitBuyHotGoodsWX(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                         String gid,String number,String total_price,String type) {
+        Log.d(Tag,"------创建订单  微信支付");
+        String url = HTTPPOSTURL + "qrcode/act-order.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("gid", gid);
+        mParamMap.put("number", number);
+        mParamMap.put("total_price", total_price);
+        mParamMap.put("type", type);
+        Log.d(Tag,"-mParamMap"+mParamMap.toString());
+        post(mParamMap, mIbpi, url);
+    }
 
+    /**
+     * 解析扫一扫 购买活动商品
+     */
+    public static ActGoodsBean.ActGoodsDataEntity ResolveHotGoodsOrder(String result) {
+        return gson.fromJson(result, ActGoodsBean.ActGoodsDataEntity.class);
+    }
+    /**
+     * 解析扫一扫 购买活动商品微信支付
+     */
+    public static WpayBean ResolveHotGoodsWXOrder(String result) {
+        Log.e(Tag,"扫一扫 解析微信支付");
+        JSONObject json = null;
+        WpayBean bean = new WpayBean();
+        try {
+            json = new JSONObject(result);
+            bean.setAppid(json.optString("appid"));
+            bean.setPartnerid(json.optString("partnerid"));
+            bean.setPrepayid(json.optString("prepayid"));
+            bean.setNoncestr(json.optString("noncestr"));
+            bean.setTimestamp(json.optString("timestamp"));
+            bean.setPackages(json.optString("package"));
+            bean.setSign(json.optString("sign"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return bean;
+
+    }
     /**
      * 支付请求的接口
      */

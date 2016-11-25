@@ -13,14 +13,14 @@ android {
     buildToolsVersion '23.0.1'
 
     dexOptions {
-        javaMaxHeapSize "1024m"
+        javaMaxHeapSize "4g"
     }
     defaultConfig {
         applicationId "cn.hi028.android.highcommunity"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 146
-        versionName "2.4.3"
+        versionCode 147
+        versionName "2.4.4"
 
         multiDexEnabled true
 

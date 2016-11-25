@@ -408,9 +408,7 @@ public class HuiLifeSuppBuyFrag extends BaseFragment {
         if (orderParams.getTotal_price()<=0||orderParams.getReal_price()<=0){
 if (orderParams.getTotal_price()<=0){
     tv_total_pay.setText("合计金额￥" + 0.0 + "");
-
     tv_total_actual.setText("￥" + 0.0 + "");
-
 }
             btn_pay.setClickable(false);
             btn_pay.setBackgroundResource(R.color.Defult_Color_Grey);

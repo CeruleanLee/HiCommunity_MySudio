@@ -15,6 +15,7 @@ import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.ShowCaptureActivity;
 import cn.hi028.android.highcommunity.activity.fragment.BillPayFrag;
 import cn.hi028.android.highcommunity.activity.fragment.HuiChipsPayFrag;
 import cn.hi028.android.highcommunity.activity.fragment.HuiSuppPayFrag;
@@ -26,7 +27,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     private IWXAPI api;
     TextView tv_payresult, tv_close;
-    public static int toFrag = -1;//0：物业直供，1：众筹；2：账单
+    public static int toFrag = -1;//0：物业直供，1：众筹；2：账单 3:活动页支付
     BaseResp resp = null;
 
     @Override
@@ -48,10 +49,13 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                         HuiChipsPayFrag.toDetail();
                     } else if (toFrag == 2) {
                         BillPayFrag.toDetail();
+                    }else if (toFrag==3){
+                        ShowCaptureActivity.finishThisAct();
                     }
                 }
                 toFrag = -1;
                 finish();
+
             }
         });
     }

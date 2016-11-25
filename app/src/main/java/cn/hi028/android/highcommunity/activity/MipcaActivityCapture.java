@@ -18,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.don.tools.GeneratedClassUtils;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.zxing.camera.CameraManager;
@@ -25,10 +26,14 @@ import com.zxing.decoding.CaptureActivityHandler;
 import com.zxing.decoding.InactivityTimer;
 import com.zxing.view.ViewfinderView;
 
+import net.duohuo.dhroid.activity.BrowseActivity;
+
 import java.io.IOException;
 import java.util.Vector;
 
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.fragment.ServicePaymentDetailFrag;
+import cn.hi028.android.highcommunity.utils.Constacts;
 
 /**
  * Initial the camera
@@ -122,11 +127,15 @@ static final String Tag="MipcaActCapture:";
 		if (resultString.equals("")) {
 			Toast.makeText(MipcaActivityCapture.this, "扫描失败", Toast.LENGTH_SHORT).show();
 		}else {
+if (resultString.startsWith("http")){
 
-//			BrowseActivity2.toBrowseActivity(MipcaActivityCapture.this, "",resultString);
-			Intent resultIntent = new Intent(MipcaActivityCapture.this,ShowCaptureActivity.class);
-			resultIntent.putExtra("result", resultString);
-			startActivity(resultIntent);
+			BrowseActivity.toBrowseActivity(MipcaActivityCapture.this, "",resultString);
+}else{
+
+	Intent resultIntent = new Intent(MipcaActivityCapture.this,ShowCaptureActivity.class);
+	resultIntent.putExtra("result", resultString);
+	startActivity(resultIntent);
+}
 //				Bundle bundle = new Bundle();
 //			bundle.putString("result", resultString);
 //			bundle.putParcelable("bitmap", barcode);

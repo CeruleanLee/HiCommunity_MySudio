@@ -312,12 +312,12 @@
     <!--高度不一样-->
     <style name="rb_pay_style2">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_height">50dp</item>
         <item name="android:gravity">center_vertical|left</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/Defult_Color_DeepGrey</item>
         <item name="android:drawablePadding">8dp</item>
-        <item name="android:background">@null</item>
+
         <item name="android:button">@null</item>
         <item name="android:textSize">@dimen/font_small</item>
     </style>

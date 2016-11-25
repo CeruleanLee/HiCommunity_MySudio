@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/defult_color_white"
+            android:orientation="horizontal"
             android:paddingLeft="@dimen/padding_12">
 
             <ImageView
@@ -34,17 +35,21 @@
                 android:gravity="center_vertical"
                 android:src="@mipmap/img_phone_tag" />
 
-            <EditText
+            <cn.hi028.android.highcommunity.view.ClearEditText
                 android:id="@+id/ET_Login_UserName"
                 style="@style/et_login_defulttype"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:background="@null"
                 android:hint="请输入手机号"
                 android:imeOptions="actionNext"
                 android:inputType="phone"
                 android:paddingLeft="@dimen/padding_8"
+android:drawableRight="@mipmap/img_delete"
+                android:paddingRight="12dp"
                 android:textColorHint="@color/Defult_Color_Grey"
                 android:textSize="@dimen/font_small" />
+
         </LinearLayout>
 
         <View
@@ -64,7 +69,7 @@
                 android:gravity="center_vertical"
                 android:src="@mipmap/img_password_tag" />
 
-            <EditText
+            <cn.hi028.android.highcommunity.view.ClearEditText
                 android:id="@+id/ET_Login_Passowrd"
                 style="@style/et_login_defulttype"
                 android:layout_width="fill_parent"
@@ -73,6 +78,8 @@
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:paddingLeft="@dimen/padding_8"
+                android:drawableRight="@mipmap/img_delete"
+                android:paddingRight="12dp"
                 android:textColorHint="@color/Defult_Color_Grey"
                 android:textSize="@dimen/font_small" />
         </LinearLayout>

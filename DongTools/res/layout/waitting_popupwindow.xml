@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/popupwindow"
     android:gravity="center"
+    android:padding="15dp"
     android:orientation="vertical">
-
+<ImageView
+    android:layout_width="25dp"
+    android:layout_height="25dp"
+    android:layout_centerInParent="true"
+    android:src="@drawable/ic_loading_logo"
+    />
     <ProgressBar
         android:id="@+id/Window_progress"
         style="@style/myProgressStyle"
-        android:layout_width="40px"
-        android:layout_height="40px"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_centerInParent="true"
         android:visibility="visible" />
 
     <TextView
@@ -18,5 +25,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="正在加载..."
-        android:textColor="#8e8888" />
-</LinearLayout>
+        android:visibility="gone"
+        android:textColor="#ffffff" />
+</RelativeLayout>

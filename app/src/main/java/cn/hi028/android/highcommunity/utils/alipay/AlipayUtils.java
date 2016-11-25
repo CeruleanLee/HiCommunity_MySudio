@@ -7,11 +7,11 @@ package cn.hi028.android.highcommunity.utils.alipay;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.util.Log;
 
 import com.alipay.sdk.app.PayTask;
 
 import net.duohuo.dhroid.activity.BrowseActivity;
-import net.duohuo.dhroid.util.LogUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -104,7 +104,7 @@ public class AlipayUtils {
 				out_trade_no);
 		this.act=act;
 				if (!HighCommunityApplication.isAliPayInStalled()) {
-					LogUtil.d("------未安装支付宝");
+					Log.e(Tag,"------未安装支付宝");
 					showUnInstallPayDialog();
 				}
 		/**
@@ -143,14 +143,14 @@ public class AlipayUtils {
 
 
 				if (!HighCommunityApplication.isAliPayInStalled()) {
-					LogUtil.d("------未安装支付宝");
+					Log.e(Tag,"------未安装支付宝");
 					//					HighCommunityApplication.showDialog(new View(HighCommunityApplication.getApp()));
 				}else{
 					// 构造PayTask 对象
 					PayTask alipay = new PayTask(act);
 					// 调用支付接口，获取支付结果
 					final String result = alipay.pay(payInfo, true);
-					LogUtil.d("~~~~~~~~~~~~~~获取支付结果   resultL---"+result);
+					Log.e(Tag,"~~~~~~~~~~~~~~获取支付结果   resultL---"+result);
 					
 					
 					act.runOnUiThread(new Runnable() {
@@ -188,14 +188,16 @@ public class AlipayUtils {
 	 *            支付回调接口
 	 */
 	Activity act;
+	static  final String Tag="AlipayUtils:";
 	public void payGoods(final Activity act, String gName, String gInfo,
 			String aMount, String out_trade_no, String ticket_id,
 			String zero_money, String notify_url, final onPayListener lin) {
 		String orderInfo = getOrderInfo(gName, gInfo, aMount, out_trade_no,
 				zero_money, ticket_id, notify_url);
+		Log.e(Tag,"orderInfo:"+orderInfo);
 		this.act=act;
 		if (!HighCommunityApplication.isAliPayInStalled()) {
-			LogUtil.d("------未安装支付宝");
+			Log.e(Tag,"------未安装支付宝");
 			showUnInstallPayDialog();
 		}
 
@@ -224,7 +226,7 @@ public class AlipayUtils {
 			public void run() {
 
 				if (!HighCommunityApplication.isAliPayInStalled()) {
-					LogUtil.d("------未安装支付宝");
+					Log.e(Tag,"------未安装支付宝");
 					//TODO
 					//加一个弹窗
 				}else{
@@ -232,7 +234,7 @@ public class AlipayUtils {
 					PayTask alipay = new PayTask(act);
 					// 调用支付接口，获取支付结果
 					final String result = alipay.pay(payInfo, true);
-					LogUtil.d("~~~~~~~~~~~~~~获取支付结果   resultL---"+result);
+					Log.e(Tag,"~~~~~~~~~~~~~~获取支付结果   resultL---"+result);
 					act.runOnUiThread(new Runnable() {
 						@Override
 						public void run() {

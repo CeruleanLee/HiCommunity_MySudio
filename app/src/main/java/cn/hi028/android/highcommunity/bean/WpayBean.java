@@ -13,6 +13,7 @@ public class WpayBean extends  BaseBean {
     private String    sign		;//string	签名
     private String packages;
 
+
     public String getPackages() {
         return packages;
     }
@@ -67,5 +68,18 @@ public class WpayBean extends  BaseBean {
 
     public void setSign(String sign) {
         this.sign = sign;
+    }
+
+    @Override
+    public String toString() {
+        return "WpayBean{" +
+                "appid='" + appid + '\'' +
+                ", noncestr='" + noncestr + '\'' +
+                ", partnerid='" + partnerid + '\'' +
+                ", prepayid='" + prepayid + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                ", sign='" + sign + '\'' +
+                ", packages='" + packages + '\'' +
+                '}';
     }
 }
