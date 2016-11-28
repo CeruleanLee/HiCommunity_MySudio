@@ -84,6 +84,7 @@ import cn.hi028.android.highcommunity.bean.MerchantShopGoodBean;
 import cn.hi028.android.highcommunity.bean.MessageDetailsBean;
 import cn.hi028.android.highcommunity.bean.NearByShopData;
 import cn.hi028.android.highcommunity.bean.NearbyOrderDetailBean;
+import cn.hi028.android.highcommunity.bean.NewSupplyBean;
 import cn.hi028.android.highcommunity.bean.NoticeBean;
 import cn.hi028.android.highcommunity.bean.NoticeDetailsBean;
 import cn.hi028.android.highcommunity.bean.OperateBean;
@@ -2211,6 +2212,23 @@ public class HTTPHelper {
         }
         return bean;
 
+    }
+
+
+    /**
+     * 获取新版本直供商品
+     **/
+    public static void GetNewSupplyGoods(BpiHttpHandler.IBpiHttpHandler mIbpi) {
+        String url = HTTPPOSTURL + "sgoods/home.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        post(mParamMap, mIbpi, url);
+    }
+
+    /**
+     * 解析新版本直供商品
+     */
+    public static NewSupplyBean.NewSupplyDataEntity ResolveNewSupplyDataEntity(String result) {
+        return gson.fromJson(result,NewSupplyBean.NewSupplyDataEntity.class);
     }
     /**
      * 支付请求的接口

@@ -1,0 +1,129 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/supply_scrollview"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:scrollbars="none"
+
+    tools:context="cn.hi028.android.highcommunity.activity.fragment.newhui.NewSupplyFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include
+            android:id="@+id/ll_NoticeDetails_Progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/progress"
+            android:background="@color/defult_color_white" />
+
+        <TextView
+            android:id="@+id/tv_NoticeDetails_noData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/defult_color_white"
+            android:gravity="center"
+            android:text="暂无数据"
+            android:textColor="@color/Service_title_text_color"
+            android:textSize="15dp"
+            android:visibility="gone" />
+
+        <cn.hi028.android.highcommunity.view.MyNoScrollListview
+            android:id="@+id/supply_category_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:divider="@color/Defult_Color_ShallowGrey"
+            android:dividerHeight="5dip">
+
+        </cn.hi028.android.highcommunity.view.MyNoScrollListview>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/item_category_tv_flashsaleTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:text="限时抢购"
+                android:textColor="@color/Defult_Color_AppGreen"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/item_category_tv_flashsaleTitle"
+                android:background="@color/Defult_Color_LineGrey" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/item_category_tv_flashsaleTitle"
+                android:background="@color/Defult_Color_LineGrey" />
+        </RelativeLayout>
+
+        <cn.hi028.android.highcommunity.view.MyNoScrollListview
+            android:id="@+id/supply_purchase_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:divider="@color/Defult_Color_ShallowGrey"
+            android:dividerHeight="5dip"></cn.hi028.android.highcommunity.view.MyNoScrollListview>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/item_category_tv_merchantTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:text="商家推荐"
+                android:textColor="@color/Defult_Color_AppGreen"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/item_category_tv_merchantTitle"
+                android:background="@color/Defult_Color_LineGrey" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/item_category_tv_merchantTitle"
+                android:background="@color/Defult_Color_LineGrey" />
+        </RelativeLayout>
+
+        <com.handmark.pulltorefresh.library.PullToRefreshGridView
+            android:id="@+id/supply_merchant_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:cacheColorHint="@android:color/transparent"
+            android:gravity="center"
+            android:horizontalSpacing="8dp"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="8dp"></com.handmark.pulltorefresh.library.PullToRefreshGridView>
+
+    </LinearLayout>
+</ScrollView>

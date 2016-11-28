@@ -38,7 +38,6 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import net.duohuo.dhroid.activity.ActivityTack;
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.ImageLoaderUtil;
-import net.duohuo.dhroid.util.LogUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +51,6 @@ import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.alliance.AllianceOrder;
 import cn.hi028.android.highcommunity.activity.fragment.ActFrag;
 import cn.hi028.android.highcommunity.activity.fragment.HuiLifeFrag;
-import cn.hi028.android.highcommunity.activity.fragment.HuiLifeFrag_;
 import cn.hi028.android.highcommunity.activity.fragment.NeighborFrag;
 import cn.hi028.android.highcommunity.activity.fragment.ServiceFrag;
 import cn.hi028.android.highcommunity.bean.UserCenterBean;
@@ -69,7 +67,8 @@ import photo.util.Res;
 /**
  * 主界面
  */
-public class MainActivity extends BaseFragmentActivity implements View.OnClickListener, NeighborFrag.MyChangeListener {
+public class MainActivity extends BaseFragmentActivity implements View.OnClickListener, NeighborFrag.MyChangeListener,HuiLifeFrag.MyChangeListener4HuiLife {
+   static  final String Tag="MainActivity--->";
     /**
      * 底部tabs
      **/
@@ -80,8 +79,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     /**
      * 底部tabs 名称
      **/
-    private final int[] tab_menu_title = new int[]{R.string.tb_first,
-            R.string.tb_second, R.string.tb_fourth, R.id.main_tab_five};
+    private final int[] tab_menu_title = new int[]{R.string.tb_first, R.string.tb_second, R.string.tb_fourth, R.id.main_tab_five};
     ArrayList<BaseFragment> fragments = new ArrayList<BaseFragment>();// frags集合
     BaseFragment actFrag, serviceFrag, huiLifeFrag, neighborFrag;
     private ImageView MiddleButton;
@@ -95,18 +93,12 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             mLeftCartNum, mLeftOrderNum, mLeftAllianceOrder, mLeftZhongCouNum,
             mLeftCarftNum;
     private CircleImageView mAvatar;
-    /**
-     * 社区或是群组
-     **/
-    private RadioGroup mGroup;
+    /**社区或是群组  惠生活：0直供 1众筹**/
+    private RadioGroup mGroup,mNewHuiLifeGroup;
     private LinearLayout mStatusHight;
-    /**
-     * 社区  群组
-     **/
-    private RadioButton mLeftButton, mRightButton;
-    /**
-     * 左上角侧滑图片   右上角消息中心   有消息时提示的小红点      左上角订单更新之类的提醒的小红点
-     **/
+    /**社区  群组 直供  众筹**/
+    private RadioButton mLeftButton, mRightButton,mSupplyBut,mChipsBut;
+    /**左上角侧滑图片   右上角消息中心   有消息时提示的小红点      左上角订单更新之类的提醒的小红点**/
     private ImageView mLeftMenu, mRightMenu, mRightTop, mLeftTop;
     LinearLayout mLeftLocation_layout;
     private int mTouchMode = -1;
@@ -117,7 +109,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        LogUtil.d("------------进入onNewIntent");
+        Log.d(Tag,"------------进入onNewIntent");
         setIntent(intent);
 //		来自labelact
         if (intent.getIntExtra("communityFlag", 0) == 0x22) {
@@ -156,20 +148,16 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         // //透明导航栏
         // getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         super.onCreate(savedInstanceState);
-        LogUtil.d("----------onCreate1");
+        Log.d(Tag,"----------onCreate1");
         setContentView(R.layout.activity_main);
-
-        LogUtil.d("~~~~~~主界面视图完成");
-//检查更新
-//        new UpdateUtil(MainActivity.this, getApplicationContext()).checkUpdate();
+        Log.d(Tag,"~~~~~~主界面视图完成");
+        //检查更新
         new UpdateUtil(MainActivity.this, getApplicationContext()).initUpdate();
-
         Res.init(this);
-        initLeftMenu();
         initView();
+        initLeftMenu();
         initMenu(savedInstanceState);
 
-//		Toast.makeText(MainActivity.this,"HighCommunityApplication.isAliPayInStalled()"+HighCommunityApplication.isAliPayInStalled(), 0).show();
         if (HighCommunityUtils.isLogin()) {
             JPushInterface.init(getApplicationContext());
             setTag();
@@ -179,7 +167,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         }
 //定位init
         Log.e(TAG,"准备定位");
-
         mLocationClient = new LocationClient(this); //声明LocationClie
         Log.e(TAG,"准备定位2");
         LocationClientOption option = new LocationClientOption();
@@ -262,7 +249,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     }
 
     public void setTag() {
-        LogUtil.d("============================唯一标识：" + HighCommunityApplication.mUserInfo.getId());
+        Log.d(Tag,"============================唯一标识：" + HighCommunityApplication.mUserInfo.getId());
         JPushInterface.setAliasAndTags(getApplicationContext(),
                 HighCommunityApplication.mUserInfo.getId() + "", null,
                 new TagAliasCallback() {
@@ -315,14 +302,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         }
     }
 
-    @Override
-    protected void onPause() {
-        // isForeground = false;
-        // if (HighCommunityUtils.isLogin()) {
-        // unregisterReceiver(mMessageReceiver);
-        // }
-        super.onPause();
-    }
+
 
     @Override
     protected void onDestroy() {
@@ -345,6 +325,23 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
         filter.addAction(MESSAGE_RECEIVED_ACTION);
         registerReceiver(mMessageReceiver, filter);
+    }
+
+    @Override
+    public void onHuiLifeChange(int i) {
+
+        if (i==0) {//直供选中
+            mSupplyBut.setChecked(true);
+            mChipsBut.setChecked(false);
+            mTouchMode = SlidingMenu.TOUCHMODE_FULLSCREEN;
+            menu.setTouchModeAbove(mTouchMode);
+        } else if (i==1){//众筹选中
+            mSupplyBut.setChecked(false);
+            mChipsBut.setChecked(true);
+            mTouchMode = SlidingMenu.TOUCHMODE_NONE;
+            menu.setTouchModeAbove(mTouchMode);
+        }
+
     }
 
     public class MessageReceiver extends BroadcastReceiver {
@@ -391,19 +388,18 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 //        mStatusHight = (LinearLayout) this
 //                .findViewById(R.id.title_status_height);
         mLeftMenu = (ImageView) this.findViewById(R.id.tv_mainlevel_LeftButton);
-        mRightMenu = (ImageView) this
-                .findViewById(R.id.iv_mainlevel_RightButton);
-        mRightTop = (ImageView) this
-                .findViewById(R.id.iv_mainlevel_RightNewMessage);
-        mLeftTop = (ImageView) this
-                .findViewById(R.id.iv_mainlevel_LeftNewMessage);
+        mRightMenu = (ImageView) this.findViewById(R.id.iv_mainlevel_RightButton);
+        mRightTop = (ImageView) this.findViewById(R.id.iv_mainlevel_RightNewMessage);
+        mLeftTop = (ImageView) this.findViewById(R.id.iv_mainlevel_LeftNewMessage);
         mGroup = (RadioGroup) this.findViewById(R.id.rg_maintitle_group);
-        mLeftButton = (RadioButton) this
-                .findViewById(R.id.rb_maintitle_leftbutton);
-        mRightButton = (RadioButton) this
-                .findViewById(R.id.rb_maintitle_rightbutton);
+        mNewHuiLifeGroup = (RadioGroup) this.findViewById(R.id.rg_title_newHuilifegroup);
+        mLeftButton = (RadioButton) this.findViewById(R.id.rb_maintitle_leftbutton);
+        mRightButton = (RadioButton) this.findViewById(R.id.rb_maintitle_rightbutton);
+        mSupplyBut = (RadioButton) this.findViewById(R.id.rb_title_supply);
+        mChipsBut = (RadioButton) this.findViewById(R.id.rb_title_chips);
         MiddleButton = (ImageView) this.findViewById(R.id.main_tab_third);
         mGroup.setVisibility(View.VISIBLE);
+        mNewHuiLifeGroup.setVisibility(View.VISIBLE);
         mLeftMenu.setVisibility(View.VISIBLE);
         mRightMenu.setVisibility(View.VISIBLE);
         mLeftMenu.setOnClickListener(mTitleListener);
@@ -702,14 +698,14 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
      * 初始化菜单
      */
     private void initMenu(Bundle savedInstanceState) {
-        LogUtil.d("------------进入initMenu");
+        Log.d(Tag,"------------进入initMenu");
         if (savedInstanceState != null) {
             FragmentManager manager = getSupportFragmentManager();
             manager.popBackStackImmediate(null, 1);
         }
         neighborFrag = new NeighborFrag();
         serviceFrag = new ServiceFrag();
-        huiLifeFrag = new HuiLifeFrag_();
+        huiLifeFrag = new HuiLifeFrag();
         actFrag = new ActFrag();
         fragments.add(neighborFrag);
         fragments.add(serviceFrag);
@@ -730,7 +726,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             menu_tvs[i].setOnClickListener(this);
         }
         MiddleButton.setOnClickListener(this);
-        LogUtil.d("------------进入initMenu   end");
+        Log.d(Tag,"------------进入initMenu   end");
         tabSelector(1);
         mTitle.setText("服务");
 
@@ -786,19 +782,27 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     /**
      * 菜单模块选择
      *
-     * @param position
+     * @param position 0-邻里 1-服务 2-惠生活 3-活动
      */
     private void tabSelector(int position) {
         getMsgNum();
-        LogUtil.d("------------tabSelector" + position);
+        Log.d(Tag,"tabSelector:" + position);
         if (0 == position) {
             mTitle.setVisibility(View.GONE);
             mGroup.setVisibility(View.VISIBLE);
+            mNewHuiLifeGroup.setVisibility(View.GONE);
             if (mTouchMode != -1 && menu.getTouchModeAbove() != mTouchMode)
                 menu.setTouchModeAbove(mTouchMode);
-        } else {
+        } else if (position==2){
+            mTitle.setVisibility(View.GONE);
+            mGroup.setVisibility(View.GONE);
+            mNewHuiLifeGroup.setVisibility(View.VISIBLE);
+
+
+        }else {
             mGroup.setVisibility(View.GONE);
             mTitle.setVisibility(View.VISIBLE);
+            mNewHuiLifeGroup.setVisibility(View.GONE);
             if (position != 2) {
                 if (menu.getTouchModeAbove() != SlidingMenu.TOUCHMODE_FULLSCREEN)
                     menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
@@ -836,10 +840,8 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 mTitle.setText("服务");
                 break;
             case R.id.main_tab_third://
-                if (HighCommunityUtils.GetInstantiation()
-                        .isLogin(MainActivity.this)) {
-                    Intent mLabel = new Intent(this,
-                            GeneratedClassUtils.get(LabelAct.class));
+                if (HighCommunityUtils.GetInstantiation().isLogin(MainActivity.this)) {
+                    Intent mLabel = new Intent(this, GeneratedClassUtils.get(LabelAct.class));
                     startActivity(mLabel);
                 }
                 break;
@@ -864,8 +866,8 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     View.OnClickListener mTitleListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            NeighborFrag mFrag = (NeighborFrag) getSupportFragmentManager()
-                    .findFragmentByTag(NeighborFrag.FRAGMENTTAG);
+            NeighborFrag mFrag = (NeighborFrag) getSupportFragmentManager().findFragmentByTag(NeighborFrag.FRAGMENTTAG);
+            HuiLifeFrag mHuiLifeFrag = (HuiLifeFrag) getSupportFragmentManager().findFragmentByTag(HuiLifeFrag.FRAGMENTTAG);
             if (null == mFrag)
                 return;
             switch (view.getId()) {
@@ -874,6 +876,12 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                     break;
                 case R.id.rb_maintitle_rightbutton:
                     mFrag.setCurrentPage(1);
+                    break;
+                case R.id.rb_title_supply://直供
+                    mHuiLifeFrag.setCurrentPage(0);
+                    break;
+                case R.id.rb_title_chips://众筹
+                    mHuiLifeFrag.setCurrentPage(1);
                     break;
                 case R.id.tv_mainlevel_LeftButton:
 //                    mWindow = HighCommunityUtils.GetInstantiation()

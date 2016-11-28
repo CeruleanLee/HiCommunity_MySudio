@@ -28,7 +28,7 @@ import cn.hi028.android.highcommunity.adapter.NeighborViewPagerAdapter;
  * @时间：2015-12-08<br>
  */
 public class NeighborFrag extends BaseFragment {
-final String Tag="------------NeighborFrag";
+final String Tag="NeighborFrag--->";
     public static final String FRAGMENTTAG = "NeighborFrag";
     private View mFragmeView;
     private NeighborViewPagerAdapter mAdapter;

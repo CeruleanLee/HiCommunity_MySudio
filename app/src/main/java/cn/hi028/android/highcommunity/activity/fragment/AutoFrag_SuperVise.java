@@ -1,6 +1,5 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -71,12 +70,7 @@ public class AutoFrag_SuperVise extends BaseFragment {
 
     boolean isReportSelected = true;
 
-    @Override
-    public void onAttach(Context context) {
-        Log.e("HJJ", "ArrayListFragment **** onAttach...");
 
-        super.onAttach(context);
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,6 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -105,9 +106,9 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
     String username;
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.context = activity;
         contentView = LayoutInflater.from(context).inflate(R.layout.frag_autonomous_commitdata, null);
         ButterKnife.bind(this, contentView);
     }
