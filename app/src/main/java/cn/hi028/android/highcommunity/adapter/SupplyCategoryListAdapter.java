@@ -31,6 +31,7 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
     public static final int TAG_MOTION_DETAIL = 2;
     List<NewSupplyBean.NewSupplyDataEntity.CategoryEntity> mList = new ArrayList<NewSupplyBean.NewSupplyDataEntity.CategoryEntity>();
 
+
     private Context context;
     private LayoutInflater layoutInflater;
 
@@ -64,11 +65,12 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
 
     ViewHolder mViewHolder = null;
 
-    ImageView mBigGoodsimg,msmallGoodsimg1,msmallGoodsimg2;
-    TextView mbigTvTag,msmallTvTag1,msmallTvTag2;
-    TextView mbigTitle,msmallTitle1,msmallTitle2;
-    TextView mbigNowPrice,msmallNowPrice1,msmallNowPrice2;
-    ImageView mBigShopcart,msmallShopcart1,msmallShopcart2;
+    ImageView mBigGoodsimg, msmallGoodsimg1, msmallGoodsimg2;
+    TextView mbigTvTag, msmallTvTag1, msmallTvTag2;
+    TextView mbigTitle, msmallTitle1, msmallTitle2;
+    TextView mbigNowPrice, msmallNowPrice1, msmallNowPrice2;
+    ImageView mBigShopcart, msmallShopcart1, msmallShopcart2;
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -97,28 +99,27 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
             BpiUniveralImage.displayImage("drawable://" + R.mipmap.defult_avatar, mBigGoodsimg);
         } else {
 
-                BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(0).getCover_pic(),mBigGoodsimg);
+            BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(0).getCover_pic(), mBigGoodsimg);
         }
         mbigTvTag.setText(mBean.getGoods().get(0).getLabel());
         mbigTitle.setText(mBean.getGoods().get(0).getName());
-        mbigNowPrice.setText("￥:"+mBean.getGoods().get(0).getPrice());
+        mbigNowPrice.setText("￥:" + mBean.getGoods().get(0).getPrice());
         mViewHolder.mBigView.addView(bigView);
         //第一个小图
         View smallView1 = LayoutInflater.from(context).inflate(R.layout.item_newsupply_type_small, null);
-        msmallGoodsimg1 = (ImageView) bigView.findViewById(R.id.category_big_goodsimg);
-        msmallTvTag1 = (TextView) bigView.findViewById(R.id.category_big_tv_tag);
-        msmallTitle1 = (TextView) bigView.findViewById(R.id.category_big_goodsTitle);
-        msmallNowPrice1 = (TextView) bigView.findViewById(R.id.category_big_nowPrice);
-        msmallShopcart1 = (ImageView) bigView.findViewById(R.id.category_big_shopcart);
+        msmallGoodsimg1 = (ImageView) bigView.findViewById(R.id.category_small_goodsimg_goodsimg);
+        msmallTvTag1 = (TextView) bigView.findViewById(R.id.category_small_goodsimg_tv_tag);
+        msmallTitle1 = (TextView) bigView.findViewById(R.id.category_small_goodsimg_goodsTitle);
+        msmallNowPrice1 = (TextView) bigView.findViewById(R.id.category_small_goodsimg_nowPrice);
+        msmallShopcart1 = (ImageView) bigView.findViewById(R.id.category_small_goodsimg_shopcart);
         if (mBean.getGoods().get(0).getCover_pic() == null || mBean.getGoods().get(0).getCover_pic().equals("")) {
             BpiUniveralImage.displayImage("drawable://" + R.mipmap.defult_avatar, msmallGoodsimg1);
         } else {
-
-            BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(0).getCover_pic(),msmallGoodsimg1);
+            BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(0).getCover_pic(), msmallGoodsimg1);
         }
         mbigTvTag.setText(mBean.getGoods().get(0).getLabel());
         mbigTitle.setText(mBean.getGoods().get(0).getName());
-        mbigNowPrice.setText("￥:"+mBean.getGoods().get(0).getPrice());
+        mbigNowPrice.setText("￥:" + mBean.getGoods().get(0).getPrice());
         mViewHolder.mSmallview1.addView(smallView1);
         mViewHolder.mTvMore.setOnClickListener(new View.OnClickListener() {
             @Override
