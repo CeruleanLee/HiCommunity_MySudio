@@ -1,8 +1,5 @@
 package cn.hi028.android.highcommunity.view.nine;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -13,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.hi028.android.highcommunity.R;
 
 /**
@@ -111,7 +112,25 @@ public abstract class NineGridView extends ViewGroup {
             notifyDataSetChanged();
         }
     }
+    public void setUrlList(List<String> urlList) {
+        if (getListSize(urlList) == 0) {
+            setVisibility(GONE);
+            return;
+        }
 
+        setVisibility(VISIBLE);
+
+        mUrlList.clear();
+        mUrlList.addAll(urlList);
+
+        mBigUrlList.clear();
+
+
+
+        if (!mIsFirst) {
+            notifyDataSetChanged();
+        }
+    }
     public void notifyDataSetChanged() {
         removeAllViews();
         int size = getListSize(mUrlList);

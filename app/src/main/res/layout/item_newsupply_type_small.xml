@@ -1,65 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginTop="8dp"
+    android:orientation="horizontal"
+    android:background="@color/white">
+<RelativeLayout
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_marginTop="8dp"
+    android:layout_marginLeft="5dp"
     android:layout_height="wrap_content">
 
-<ImageView
-    android:layout_width="120dp"
-    android:layout_height="120dp"
-    android:src="@mipmap/default_no_pic"
-    android:id="@+id/category_small_goodsimg_goodsimg"
-    />
+    <ImageView
+        android:id="@+id/category_small_goodsimg_goodsimg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/default_no_pic" />
+
     <TextView
+        android:id="@+id/category_small_goodsimg_tv_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_tv_red_shape"
+        android:paddingBottom="1dp"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:paddingTop="1dp"
         android:text="热卖"
         android:textColor="@color/white"
-        android:paddingLeft="6dp"
-        android:paddingRight="6dp"
-        android:paddingTop="1dp"
-        android:paddingBottom="1dp"
-        android:textSize="12sp"
-        android:background="@drawable/bg_tv_red_shape"
-        android:id="@+id/category_small_goodsimg_tv_tag"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="美国红提"
-        android:layout_marginLeft="12dp"
-        android:layout_toRightOf="@id/category_small_goodsimg_goodsimg"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:layout_marginTop="8dp"
-        android:textColor="#666666"
+        android:textSize="11sp" />
 
-        android:id="@+id/category_small_goodsimg_goodsTitle"
-
-        />
-    <RelativeLayout
-        android:layout_alignBottom="@id/category_small_goodsimg_goodsimg"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="12dp"
-        android:layout_toRightOf="@id/category_small_goodsimg_goodsimg"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_below="@id/category_small_goodsimg_goodsTitle"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/category_small_goodsimg_nowPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="￥：29.5"
-            android:textColor="@color/red" />
-<ImageView
-    android:layout_width="40dp"
-    android:layout_height="40dp"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentBottom="true"
-    android:src="@mipmap/img_supply_cart_small"
-    android:layout_below="@id/category_small_goodsimg_nowPrice"
-    android:id="@+id/category_small_goodsimg_shopcart"/>
-    </RelativeLayout>
 
 </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_marginRight="5dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/category_small_goodsimg_goodsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="美国红提"
+            android:textColor="#666666"
+
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/category_small_goodsimg_goodsTitle"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="5dp"
+           >
+
+            <TextView
+                android:id="@+id/category_small_goodsimg_nowPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥：29.5"
+                android:textColor="@color/red" />
+
+            <ImageView
+                android:id="@+id/category_small_goodsimg_shopcart"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/category_small_goodsimg_nowPrice"
+                android:src="@mipmap/img_supply_cart_small" />
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

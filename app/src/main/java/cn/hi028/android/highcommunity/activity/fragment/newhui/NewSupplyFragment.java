@@ -3,6 +3,7 @@ package cn.hi028.android.highcommunity.activity.fragment.newhui;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,17 +13,24 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
-import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.handmark.pulltorefresh.library.PullToRefreshGridViewNoScroll;
 
 import net.duohuo.dhroid.activity.BaseFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.adapter.MerchantImgGridAdapter;
 import cn.hi028.android.highcommunity.adapter.SupplyCategoryListAdapter;
+import cn.hi028.android.highcommunity.adapter.SupplyPurchaseListAdapter;
 import cn.hi028.android.highcommunity.bean.NewSupplyBean;
+import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.view.MyNoScrollListview;
+import cn.hi028.android.highcommunity.view.nine.MyNineGridView;
 
 /**
  * @功能：新版直供商品<br>
@@ -38,13 +46,15 @@ public class NewSupplyFragment extends BaseFragment {
     @Bind(R.id.supply_purchase_listview)
     MyNoScrollListview mPurchaseListview;
     @Bind(R.id.supply_merchant_listview)
-    PullToRefreshGridView mMerchantListview;
+    PullToRefreshGridViewNoScroll mMerchantListview;
     @Bind(R.id.pg_progress)
     ProgressBar mProgress;
     @Bind(R.id.tv_NoticeDetails_noData)
     TextView mNodata;
     @Bind(R.id.supply_scrollview)
     ScrollView mScrollview;
+    @Bind(R.id.piclistView)
+    MyNineGridView piclistView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,6 +73,7 @@ public class NewSupplyFragment extends BaseFragment {
     private void initData() {
         HTTPHelper.GetNewSupplyGoods(mIbpi);
     }
+
     NewSupplyBean.NewSupplyDataEntity mBean;
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
@@ -98,25 +109,61 @@ public class NewSupplyFragment extends BaseFragment {
         public void cancleAsyncTask() {
         }
     };
-    /**填充商家推荐数据**/
+
+    /**
+     * 填充商家推荐数据
+     **/
     private void initmerchantList(NewSupplyBean.NewSupplyDataEntity mBean) {
-        SupplyCategoryListAdapter mCategoryAdapter=new SupplyCategoryListAdapter(mBean.getCategory(),getActivity());
+        Log.e(Tag, "0填充商家");
+        MerchantImgGridAdapter mGridAdapter = new MerchantImgGridAdapter(mBean.getMerchant(), getActivity());
+        Log.e(Tag, "1填充商家");
+
+        mMerchantListview.setAdapter(mGridAdapter);
+        Log.e(Tag, "商家---" + mGridAdapter.getCount());
+        Log.e(Tag, "2填充商家");
+
+        List<String> imgUrlList = new ArrayList<String>();
+
+        for (int i = 0; i < mBean.getMerchant().size(); i++) {
+            imgUrlList.add(i, Constacts.IMAGEHTTP + mBean.getMerchant().get(i).getLogo());
+        }
+        Log.e(Tag,"imgUrlList-----" + imgUrlList.size());
+        piclistView.setUrlList(imgUrlList);
+    }
+
+    /**
+     * 填充限时抢购数据
+     **/
+    private void initPurchaseList(NewSupplyBean.NewSupplyDataEntity mBean) {
+        final SupplyPurchaseListAdapter mPurchaseAdapter = new SupplyPurchaseListAdapter(mBean.getPurchase(), getActivity(), mMerchantListview);
+        mPurchaseListview.setAdapter(mPurchaseAdapter);
+//        countDownTimer = new CountDownTimer(100000, 1000) {
+//            @Override
+//            public void onTick(long millisUntilFinished) {
+//                mPurchaseAdapter.notifyDataSetChanged();
+//
+//            }
+//
+//            @Override
+//            public void onFinish() {
+////                this.start();
+//            }
+//        };
+    }
+
+    public CountDownTimer countDownTimer;
+
+    /**
+     * 填充分类列表数据
+     *
+     * @param mBean
+     */
+    private void initCategoryList(NewSupplyBean.NewSupplyDataEntity mBean) {
+        SupplyCategoryListAdapter mCategoryAdapter = new SupplyCategoryListAdapter(mBean.getCategory(), getActivity());
 
         mCategoryListview.setAdapter(mCategoryAdapter);
 
 
-    }
-
-    /**填充限时抢购数据**/
-    private void initPurchaseList(NewSupplyBean.NewSupplyDataEntity mBean) {
-
-    }
-
-    /**
-     * 填充分类列表数据
-     * @param mBean
-     */
-    private void initCategoryList(NewSupplyBean.NewSupplyDataEntity mBean) {
     }
 
     @Override

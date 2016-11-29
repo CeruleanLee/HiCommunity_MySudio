@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_third_service_selector"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -12,6 +13,7 @@
             android:id="@+id/flasfscale_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="fitXY"
             android:src="@drawable/ic_nopic_default" />
 
         <RelativeLayout
@@ -37,9 +39,9 @@
                 android:layout_marginLeft="15dp"
                 android:layout_toRightOf="@id/flasfscale_nowPrice"
                 android:text="￥：29.5"
-                android:textColor="#333333" />
+                android:textColor="#66333333" />
 
-            <TextView
+            <cn.hi028.android.highcommunity.view.CutdownTextView
                 android:id="@+id/flasfscale_counterTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -48,7 +50,15 @@
                 android:text="2天12时25分12秒"
                 android:textColor="@color/red" />
         </RelativeLayout>
-
+        <cn.hi028.android.highcommunity.view.CutdownTextView
+            android:id="@+id/flasfscale_counterTime2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:text="2天12时25分12秒"
+            android:visibility="gone"
+            android:textColor="@color/red" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -108,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="80%"
-                android:textColor="@color/white"
+                android:textColor="@color/Defult_Color_AppGreen"
                 android:textSize="8dp" />
 
         </RelativeLayout>

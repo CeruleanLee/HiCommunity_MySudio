@@ -63,6 +63,7 @@ public class TimeUtil {
         int currentHour = (int) timestamp % DAY / HOUR;
         int currentMin = (int) timestamp % DAY % HOUR / MINUTE;
         int CurrentSce = (int) timestamp % DAY % HOUR % MINUTE;
+
         timeStr.append(currentDay);
         timeStr.append("天");
         timeStr.append(currentHour);
@@ -73,7 +74,29 @@ public class TimeUtil {
         timeStr.append("秒");
         return timeStr.toString();
     }
-
+    /**
+     * 根据时间差，转化成剩余XX天XX小时XX分XX秒
+     *
+     * @param timestamp 时间戳 单位为秒
+     * @return 时间字符串
+     */
+    public static String getCountTime(long timestamp,boolean isSupplyTimer) {
+        StringBuffer timeStr = new StringBuffer();
+        int currentDay = (int) timestamp / DAY;
+        int currentHour = (int) timestamp % DAY / HOUR;
+        int currentMin = (int) timestamp % DAY % HOUR / MINUTE;
+        int CurrentSce = (int) timestamp % DAY % HOUR % MINUTE;
+if (currentDay!=0)
+        timeStr.append(currentDay);
+        timeStr.append("天");
+        timeStr.append(currentHour);
+        timeStr.append("时");
+        timeStr.append(currentMin);
+        timeStr.append("分");
+        timeStr.append(CurrentSce);
+        timeStr.append("秒");
+        return timeStr.toString();
+    }
     /**
      * 获取当前日期的指定格式的字符串
      *
