@@ -123,6 +123,7 @@ android:drawableRight="@mipmap/img_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="游客模式"
+                android:visibility="gone"
                 android:textColor="@color/Defult_Color_AppGreen"
                 android:textSize="@dimen/font_extra_small_half" />
 

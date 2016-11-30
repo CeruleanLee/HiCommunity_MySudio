@@ -679,8 +679,7 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
                 setFouce(img_Eproperty);
                 ClickId = R.id.autoAct_eproperty;
                 if (mPhotoPopupWindow == null) {
-                    mPhotoPopupWindow = HighCommunityUtils.GetInstantiation()
-                            .ShowPhotoPopupWindow(getActivity(), mPhoto, mFile);
+                    mPhotoPopupWindow = HighCommunityUtils.GetInstantiation().ShowPhotoPopupWindow(getActivity(), mPhoto, mFile);
                 }
                 mPhotoPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0,
                         HighCommunityApplication.SoftKeyHight);

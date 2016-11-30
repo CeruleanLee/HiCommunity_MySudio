@@ -527,7 +527,8 @@
             android:value="e191b9261fcddd2fa93cbd5b" />
         <!-- </>值来自开发者平台取得的AppKey -->
         <activity android:name=".activity.AutoAct_Four" />
-        <activity android:name=".activity.ShowCaptureActivity"></activity>
+        <activity android:name=".activity.ShowCaptureActivity" />
+        <activity android:name=".activity.NewSupplyMoreAct"></activity>
     </application>
 
 </manifest>

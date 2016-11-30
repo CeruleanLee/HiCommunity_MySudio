@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/Defult_Color_ShallowGrey"
+    tools:context="cn.hi028.android.highcommunity.activity.NewSupplyMoreAct">
+    <RelativeLayout
+        android:id="@+id/ac_merchant_title_rl"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/Defult_Color_AppGreen" >
+
+        <LinearLayout
+            android:id="@+id/ll_ac_merchant_title_go_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/supplyMore_back"
+                android:layout_width="@dimen/title_height"
+                android:layout_height="@dimen/title_height"
+                android:layout_gravity="start"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:scaleType="center"
+                android:src="@drawable/img_back_selector" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/supplyMore_title_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:text="直供商品"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_title_size" />
+    </RelativeLayout>
+    <RadioGroup
+        android:id="@+id/more_rg_category"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rb_supplyMore_cg1"
+            style="@style/rb_huilife_style2"
+            android:checked="true"
+            android:text="新鲜水果" />
+
+        <RadioButton
+            android:id="@+id/rb_supplyMore_cg2"
+            style="@style/rb_huilife_style2"
+
+            android:text="新鲜水果" />
+
+        <RadioButton
+            android:id="@+id/rb_supplyMore_cg3"
+            style="@style/rb_huilife_style2"
+
+            android:text="新鲜水果" />
+
+        <RadioButton
+            android:id="@+id/rb_supplyMore_cg4"
+            style="@style/rb_huilife_style2"
+
+            android:text="新鲜水果" />
+        <RadioButton
+            android:id="@+id/rb_supplyMore_cg5"
+            style="@style/rb_huilife_style2"
+
+            android:text="新鲜水果" />
+
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp"
+        android:background="@color/Defult_Color_LineGrey" />
+    <RadioGroup
+        android:id="@+id/more_rg_sort"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rb_supplyMore_nreset"
+            style="@style/rb_huilife_style2"
+            android:checked="true"
+            android:text="最新" />
+
+        <RadioButton
+            android:id="@+id/rb_supplyMore_nums"
+            style="@style/rb_huilife_style2"
+
+            android:text="销量" />
+
+        <RadioButton
+            android:id="@+id/rb_supplyMore_price"
+            style="@style/rb_huilife_style2"
+android:drawableRight=""
+            android:text="价格" />
+
+
+
+    </RadioGroup>
+
+
+</LinearLayout>

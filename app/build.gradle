@@ -19,8 +19,8 @@ android {
         applicationId "cn.hi028.android.highcommunity"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 147
-        versionName "2.4.4"
+        versionCode 150
+        versionName "2.5"
 
         multiDexEnabled true
 
