@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/Defult_Color_ShallowGrey"
+    android:orientation="vertical"
     tools:context="cn.hi028.android.highcommunity.activity.NewSupplyMoreAct">
+    <include
+        android:id="@+id/title_secondTitle_Hight"
+        layout="@layout/title_status_height" />
+
     <RelativeLayout
-        android:id="@+id/ac_merchant_title_rl"
+        android:id="@+id/supplyMore_title_layout"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/Defult_Color_AppGreen" >
+        android:background="@color/Defult_Color_AppGreen">
 
         <LinearLayout
-            android:id="@+id/ll_ac_merchant_title_go_back"
+            android:id="@+id/supplyMore_layout_title_go_back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/supplyMore_back"
@@ -39,42 +44,45 @@
             android:textColor="@color/white"
             android:textSize="@dimen/common_title_size" />
     </RelativeLayout>
+
     <RadioGroup
-        android:id="@+id/more_rg_category"
+        android:id="@+id/supplyMore_rg_category"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
         android:background="@color/white"
-        android:paddingRight="12dp"
+        android:orientation="horizontal"
         android:paddingLeft="12dp"
-        android:layout_height="wrap_content">
+        android:paddingRight="12dp">
 
         <RadioButton
-            android:id="@+id/rb_supplyMore_cg1"
+            android:id="@+id/supplyMore_rb_cg0"
             style="@style/rb_huilife_style2"
             android:checked="true"
+            android:textSize="12dp"
             android:text="新鲜水果" />
 
         <RadioButton
-            android:id="@+id/rb_supplyMore_cg2"
+            android:id="@+id/supplyMore_rb_cg1"
             style="@style/rb_huilife_style2"
-
+            android:textSize="12dp"
             android:text="新鲜水果" />
 
         <RadioButton
-            android:id="@+id/rb_supplyMore_cg3"
+            android:id="@+id/supplyMore_rb_cg2"
             style="@style/rb_huilife_style2"
-
+            android:textSize="12dp"
             android:text="新鲜水果" />
 
         <RadioButton
-            android:id="@+id/rb_supplyMore_cg4"
+            android:id="@+id/supplyMore_rb_cg3"
             style="@style/rb_huilife_style2"
-
+            android:textSize="12dp"
             android:text="新鲜水果" />
-        <RadioButton
-            android:id="@+id/rb_supplyMore_cg5"
-            style="@style/rb_huilife_style2"
 
+        <RadioButton
+            android:id="@+id/supplyMore_rb_cg4"
+            style="@style/rb_huilife_style2"
+            android:textSize="12dp"
             android:text="新鲜水果" />
 
     </RadioGroup>
@@ -82,39 +90,52 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dip"
-        android:paddingRight="12dp"
-        android:paddingLeft="12dp"
-        android:background="@color/Defult_Color_LineGrey" />
+        android:background="@color/Defult_Color_LineGrey"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp" />
+
     <RadioGroup
-        android:id="@+id/more_rg_sort"
+        android:id="@+id/supplyMore_rg_sort"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
         android:background="@color/white"
-        android:paddingRight="12dp"
+        android:orientation="horizontal"
         android:paddingLeft="12dp"
-        android:layout_height="wrap_content">
+        android:paddingBottom="8dp"
+        android:paddingRight="12dp">
 
         <RadioButton
-            android:id="@+id/rb_supplyMore_nreset"
+            android:id="@+id/supplyMore_rb_newest"
             style="@style/rb_huilife_style2"
-            android:checked="true"
+android:checked="true"
             android:text="最新" />
 
         <RadioButton
-            android:id="@+id/rb_supplyMore_nums"
+            android:id="@+id/supplyMore_rb_nums"
             style="@style/rb_huilife_style2"
 
             android:text="销量" />
 
-        <RadioButton
-            android:id="@+id/rb_supplyMore_price"
+        <cn.hi028.android.highcommunity.view.MyRadioButton
+            xmlns:myra="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/supplyMore_rb_price"
             style="@style/rb_huilife_style2"
-android:drawableRight=""
+            myra:drawableRight="@mipmap/img_sort_none"
+
+            myra:drawableWith="20dp"
+            android:clickable="true"
+
+            android:gravity="center"
+            myra:drawableHeight="30dp"
             android:text="价格" />
-
-
-
     </RadioGroup>
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/supplymore_viewpager"
+        android:layout_width="match_parent"
+     android:layout_marginTop="8dp"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>

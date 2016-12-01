@@ -2,7 +2,6 @@ package cn.hi028.android.highcommunity.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.don.tools.BpiUniveralImage;
 import com.lidroid.xutils.BitmapUtils;
@@ -22,9 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.NewSupplyMoreAct;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyBean;
+import cn.hi028.android.highcommunity.bean.SupplyGoodsMoreBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.MBitmapHolder;
 
@@ -33,19 +31,19 @@ import cn.hi028.android.highcommunity.utils.MBitmapHolder;
  * @作者： Lee_yting<br>
  * @时间：2016/11/28<br>
  */
-public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
-    public static final String TAG = "SupplyCategoryListAdapter：";
-    List<NewSupplyBean.NewSupplyDataEntity.CategoryEntity> mList = new ArrayList<NewSupplyBean.NewSupplyDataEntity.CategoryEntity>();
+public class SupplyMoreGoodsGridAdapter extends BaseFragmentAdapter {
+    public static final String TAG = "SupplyMoreGoodsGridAdapter：";
+    List<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity> mList = new ArrayList<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity>();
     private Context context;
     private LayoutInflater layoutInflater;
 
     Auto_SupportedResultBean.SupportedResultDataEntity mResultData;
 
-    public SupplyCategoryListAdapter(List<NewSupplyBean.NewSupplyDataEntity.CategoryEntity> list, Context context) {
+    public SupplyMoreGoodsGridAdapter(List<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity> list, Context context) {
         super();
         this.mList = list;
         if (this.mList == null) {
-            this.mList = new ArrayList<NewSupplyBean.NewSupplyDataEntity.CategoryEntity>();
+            this.mList = new ArrayList<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity>();
         }
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
@@ -59,7 +57,7 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
     }
 
     @Override
-    public NewSupplyBean.NewSupplyDataEntity.CategoryEntity getItem(int position) {
+    public SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity getItem(int position) {
         return mList.get(position);
     }
 
@@ -90,27 +88,27 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
-        final NewSupplyBean.NewSupplyDataEntity.CategoryEntity mBean = mList.get(position);
-        mViewHolder.mTitle.setText(mBean.getName());
-        //动态加载大图
-        View bigView = getBigView(mBean);
-        mViewHolder.mBigView.addView(bigView);
-        //第一个小图
-        View smallView1 = getSmallView1(mBean);
-        mViewHolder.mSmallview1.addView(smallView1);
-        //第一个小图
-        View smallView2 = getSmallView2(mBean);
-        mViewHolder.mSmallview2.addView(smallView2);
-
-        mViewHolder.mTvMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "到更多", Toast.LENGTH_SHORT).show();
-                Intent mIntent_report = new Intent(context, NewSupplyMoreAct.class);
-                mIntent_report.putExtra("category_id", mBean.getId());
-                context.startActivity(mIntent_report);
-            }
-        });
+        final SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity mBean = mList.get(position);
+//        mViewHolder.mTitle.setText(mBean.getName());
+//        //动态加载大图
+//        View bigView = getBigView(mBean);
+//        mViewHolder.mBigView.addView(bigView);
+//        //第一个小图
+//        View smallView1 = getSmallView1(mBean);
+//        mViewHolder.mSmallview1.addView(smallView1);
+//        //第一个小图
+//        View smallView2 = getSmallView2(mBean);
+//        mViewHolder.mSmallview2.addView(smallView2);
+//
+//        mViewHolder.mTvMore.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(context, "到更多", Toast.LENGTH_SHORT).show();
+//                Intent mIntent_report = new Intent(context, NewSupplyMoreAct.class);
+//                mIntent_report.putExtra("category_id", mBean.getId());
+//                context.startActivity(mIntent_report);
+//            }
+//        });
 
 
         return convertView;
@@ -257,7 +255,7 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
     @Override
     public void AddNewData(Object mObject) {
         if (mObject instanceof List<?>) {
-            mList = (List<NewSupplyBean.NewSupplyDataEntity.CategoryEntity>) mObject;
+            mList = (List<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity>) mObject;
         }
         notifyDataSetChanged();
         super.AddNewData(mObject);

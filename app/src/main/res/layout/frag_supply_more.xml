@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_Automotion_Nodata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂无数据"
+        />
+
+   <com.handmark.pulltorefresh.library.PullToRefreshGridView
+       android:id="@+id/frag_supplymore_gridview"
+       android:layout_width="match_parent"
+       android:background="@android:color/white"
+       android:divider="@null"
+       android:layout_height="match_parent"
+       android:gravity="fill"
+       android:horizontalSpacing="11dp"
+       android:listSelector="@drawable/bg_third_service_selector"
+       android:numColumns="2"
+       android:scrollbars="none"
+       android:stretchMode="columnWidth"
+       android:verticalSpacing="11dp"
+
+       >
+
+   </com.handmark.pulltorefresh.library.PullToRefreshGridView>
+
+
+</RelativeLayout>
