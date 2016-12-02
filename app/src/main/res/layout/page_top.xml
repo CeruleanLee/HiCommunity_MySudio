@@ -122,7 +122,7 @@
                 android:layout_below="@+id/ac_shop_detail_goods_name"
                 android:layout_marginTop="6dp"
                 android:text="¥9.9"
-              />
+                />
         </RelativeLayout>
 
         <View
@@ -155,7 +155,7 @@
                 android:layout_marginTop="5dp"
                 android:lineSpacingExtra="2dp"
                 android:text=""
-               />
+                />
 
             <CheckBox
                 android:id="@+id/toSeeMore"
@@ -200,7 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="商品名称："
-                    
+
                     android:textSize="13sp" />
 
                 <TextView

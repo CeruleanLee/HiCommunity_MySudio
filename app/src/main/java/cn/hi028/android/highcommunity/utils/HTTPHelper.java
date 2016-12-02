@@ -85,6 +85,7 @@ import cn.hi028.android.highcommunity.bean.MessageDetailsBean;
 import cn.hi028.android.highcommunity.bean.NearByShopData;
 import cn.hi028.android.highcommunity.bean.NearbyOrderDetailBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyBean;
+import cn.hi028.android.highcommunity.bean.NewSupplyGoodsDetailBean;
 import cn.hi028.android.highcommunity.bean.NoticeBean;
 import cn.hi028.android.highcommunity.bean.NoticeDetailsBean;
 import cn.hi028.android.highcommunity.bean.OperateBean;
@@ -99,6 +100,7 @@ import cn.hi028.android.highcommunity.bean.ScoreBean;
 import cn.hi028.android.highcommunity.bean.ShakeBean;
 import cn.hi028.android.highcommunity.bean.ShakeUser;
 import cn.hi028.android.highcommunity.bean.SubmitOrderBean;
+import cn.hi028.android.highcommunity.bean.SupplyGoodsMoreBean;
 import cn.hi028.android.highcommunity.bean.SystemMessageBean;
 import cn.hi028.android.highcommunity.bean.TenementBean;
 import cn.hi028.android.highcommunity.bean.TenementHouseBean;
@@ -2043,11 +2045,6 @@ public class HTTPHelper {
     /**
      * 自治大厅-提交数据
      **/
-//	public static void Auto_Commit(BpiHttpHandler.IBpiHttpHandler mIbpi,
-//									 String name, String address, String tel, String title,
-//									 String content, String price, String head_pic, String IDCard_A,
-//									 String IDCard_B, String IDCard_hand, String certificate_cover,
-//									 String certificate_inside) {
     public static void Auto_Commit(BpiHttpHandler.IBpiHttpHandler mIbpi,
                                    String name, String village_id, String building_id, String unit_id,
                                    String door_id, String tel, String captcha, String IDCard_A,
@@ -2224,12 +2221,55 @@ public class HTTPHelper {
         post(mParamMap, mIbpi, url);
     }
 
+
     /**
      * 解析新版本直供商品
      */
     public static NewSupplyBean.NewSupplyDataEntity ResolveNewSupplyDataEntity(String result) {
         return gson.fromJson(result,NewSupplyBean.NewSupplyDataEntity.class);
     }
+
+
+    /**
+     * 获取新版本直供商品gridview-more
+     * @param mIbpi
+     * @param category_id 分类id,全部时传0
+     * @param sort 排序(1=>最新,2=>销量,3=>价格升序,4=>价格降序  每次进入默认最新)
+     */
+    public static void GetSupplyGoodsListMore(BpiHttpHandler.IBpiHttpHandler mIbpi,String category_id,
+    String sort) {
+        String url = HTTPPOSTURL + "sgoods/index.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("category_id", category_id);
+        mParamMap.put("sort", sort);
+        post(mParamMap, mIbpi, url);
+    }
+
+    /**
+     * 解析新版本直供商品
+     */
+    public static SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity ResolveSupplyMoreGoodsListDataEntity(String result) {
+        return gson.fromJson(result,SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.class);
+    }
+
+    /**
+     * 新版直供商品详情
+     **/
+    public static void GetNewSupplyGoodsDetail(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                     String id) {
+        String url = HTTPPOSTURL + "sgoods/detail.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("id", id);
+        post(mParamMap, mIbpi, url);
+    }
+
+    /**
+     * 解析新版本直供商品详情
+     */
+    public static NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity ResolveSupplyGoodsDetailEntity(String result) {
+        return gson.fromJson(result,NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.class);
+    }
+
     /**
      * 支付请求的接口
      */

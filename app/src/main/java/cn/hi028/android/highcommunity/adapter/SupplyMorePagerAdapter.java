@@ -3,72 +3,56 @@ package cn.hi028.android.highcommunity.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
-import net.duohuo.dhroid.util.LogUtil;
+import java.util.ArrayList;
+import java.util.List;
 
-import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_Motion_forback1027;
-import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_myMotion;
+import cn.hi028.android.highcommunity.activity.fragment.SupplyShopMoreFrag;
 
 /**
  * 直供商品更多pager适配器
  */
 public class SupplyMorePagerAdapter extends FragmentPagerAdapter {
-
-    AutoFrag_Motion_forback1027 mPublicMotionFrag;
-    AutoFrag_myMotion myMotionFrag;
-
-    final String Tag = "MotionPagerAdapter";
+    static    final String Tag = "MotionPagerAdapter";
+    SupplyShopMoreFrag mPublicMotionFrag;
+    List<SupplyShopMoreFrag> mFragList;
 
     public SupplyMorePagerAdapter(FragmentManager fm) {
         super(fm);
-        LogUtil.d(Tag + "MotionPagerAdapter");
+        Log.d(Tag, "MotionPagerAdapter");
+        mFragList = new ArrayList<SupplyShopMoreFrag>();
+        Log.d(Tag,"SIZE="+mFragList.size());
     }
-
     @Override
     public Fragment getItem(int arg0) {
-        if (arg0 == 0) {
-            if (mPublicMotionFrag == null) {
-                LogUtil.d(Tag + "new mPublicMotionFrag()");
-                mPublicMotionFrag = new AutoFrag_Motion_forback1027();
-            }
-            return mPublicMotionFrag;
-        } else if (arg0 == 1) {
-            if (myMotionFrag == null) {
-                LogUtil.d(Tag + "new myMotionFrag()");
-                myMotionFrag = new AutoFrag_myMotion();
-            }
-            return myMotionFrag;
-        } else if (arg0 == 2) {
-            if (mPublicMotionFrag == null) {
-                LogUtil.d(Tag + "new mPublicMotionFrag()");
-                mPublicMotionFrag = new AutoFrag_Motion_forback1027();
-            }
-            return mPublicMotionFrag;
-
-        } else if (arg0 == 3) {
-            if (myMotionFrag == null) {
-                LogUtil.d(Tag + "new myMotionFrag()");
-                myMotionFrag = new AutoFrag_myMotion();
-            }
-            return myMotionFrag;
-        } else if (arg0 == 4) {
-            if (mPublicMotionFrag == null) {
-                LogUtil.d(Tag + "new mPublicMotionFrag()");
-                mPublicMotionFrag = new AutoFrag_Motion_forback1027();
-            }
-            return mPublicMotionFrag;
-        } else  {
-            if (myMotionFrag == null) {
-                LogUtil.d(Tag + "new myMotionFrag()");
-                myMotionFrag = new AutoFrag_myMotion();
-            }
-            return myMotionFrag;
+        int page=arg0-1;
+        Log.d(Tag,"getItem--->"+arg0);
+        if (arg0==0||arg0==1||mFragList.size()-1 < arg0) {
+            Log.d(Tag, "new mPublicMotionFrag()");
+            SupplyShopMoreFrag mPublicMotionFrag = new SupplyShopMoreFrag();
+            mFragList.add(arg0, mPublicMotionFrag);
         }
+        Log.d(Tag,"getItem-SIZE="+mFragList.size());
+
+        return mFragList.get(arg0);
+//        } else if (arg0 == 4) {
+//            if (mPublicMotionFrag == null) {
+//                Log.d(Tag, "new mPublicMotionFrag()");
+//                mPublicMotionFrag = new AutoFrag_Motion_forback1027();
+//            }
+//            return mPublicMotionFrag;
+//        } else  {
+//            if (myMotionFrag == null) {
+//                Log.d(Tag, "new myMotionFrag()");
+//                myMotionFrag = new AutoFrag_myMotion();
+//            }
+//            return myMotionFrag;
     }
 
     @Override
     public int getCount() {
-        return 5;
+        return 500;
     }
 
 

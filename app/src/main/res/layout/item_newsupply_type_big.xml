@@ -10,8 +10,9 @@
 
     <ImageView
         android:id="@+id/category_big_goodsimg"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
         android:src="@mipmap/default_no_pic" />
 
     <TextView

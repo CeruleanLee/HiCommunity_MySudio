@@ -1,8 +1,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/supply_scrollview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/supply_scrollview"
     android:background="@color/Defult_Color_ShallowGrey"
     android:scrollbars="none"
     tools:context="cn.hi028.android.highcommunity.activity.fragment.newhui.NewSupplyFragment">
@@ -11,16 +11,18 @@
         android:id="@+id/container_newsupply"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
         android:layout_marginBottom="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
         android:orientation="vertical">
+
         <include
             android:id="@+id/ll_NoticeDetails_Progress"
+            layout="@layout/progress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            layout="@layout/progress"
             android:background="@color/defult_color_white" />
 
         <TextView
@@ -39,9 +41,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
-            android:listSelector="@drawable/bg_third_service_selector"
             android:divider="@color/Defult_Color_ShallowGrey"
-            android:dividerHeight="8dip">
+            android:dividerHeight="8dip"
+            android:listSelector="@drawable/bg_third_service_selector">
 
         </cn.hi028.android.highcommunity.view.MyNoScrollListview>
 
@@ -81,10 +83,10 @@
             android:id="@+id/supply_purchase_listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-           android:listSelector="@drawable/bg_third_service_selector"
             android:background="@android:color/white"
             android:divider="@color/Defult_Color_ShallowGrey"
-            android:dividerHeight="8dip"></cn.hi028.android.highcommunity.view.MyNoScrollListview>
+            android:dividerHeight="8dip"
+            android:listSelector="@drawable/bg_third_service_selector"></cn.hi028.android.highcommunity.view.MyNoScrollListview>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -127,19 +129,19 @@
             android:cacheColorHint="@android:color/transparent"
             android:gravity="center"
             android:horizontalSpacing="8dp"
-            android:numColumns="3"
-            android:visibility="gone"
             android:listSelector="@drawable/bg_third_service_selector"
+            android:numColumns="3"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="8dp">
+            android:verticalSpacing="8dp"
+            android:visibility="gone">
 
         </com.handmark.pulltorefresh.library.PullToRefreshGridViewNoScroll>
-        <cn.hi028.android.highcommunity.view.nine.MyNineGridView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        <cn.hi028.android.highcommunity.view.nine.MyNineGridView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/piclistView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-android:layout_marginBottom="30dp"
+            android:layout_marginBottom="30dp"
             android:cacheColorHint="@android:color/transparent"
             android:gravity="center"
             android:horizontalSpacing="12dp"

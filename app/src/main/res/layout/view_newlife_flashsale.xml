@@ -39,7 +39,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_toRightOf="@id/flasfscale_nowPrice"
                 android:text="￥：29.5"
-                android:textColor="#66333333" />
+                android:textColor="@color/old_price_color" />
 
             <cn.hi028.android.highcommunity.view.CutdownTextView
                 android:id="@+id/flasfscale_counterTime"

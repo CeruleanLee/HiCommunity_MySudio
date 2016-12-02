@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,19 +122,19 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
     private View getSmallView2(NewSupplyBean.NewSupplyDataEntity.CategoryEntity mBean) {
         View smallView1 = LayoutInflater.from(context).inflate(R.layout.item_newsupply_type_small, null);
         msmallGoodsimg2 = (ImageView) smallView1.findViewById(R.id.category_small_goodsimg_goodsimg);
-        ViewTreeObserver vto = msmallGoodsimg2.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @SuppressWarnings("deprecation")
-            @Override
-            public void onGlobalLayout() {
-                removeOnGlobalLayoutListener(msmallGoodsimg2,this);
-                int newwidth= msmallGoodsimg2.getWidth();
-                int newheight = msmallGoodsimg2.getHeight();
-                Log.d(TAG,"here sec"+"--->"+ newwidth +"*"+ newheight);
-                RelativeLayout.LayoutParams prams=new RelativeLayout.LayoutParams(newwidth,newwidth);
-                msmallGoodsimg2.setLayoutParams(prams);
-            }
-        });
+//        ViewTreeObserver vto = msmallGoodsimg2.getViewTreeObserver();
+//        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @SuppressWarnings("deprecation")
+//            @Override
+//            public void onGlobalLayout() {
+//                removeOnGlobalLayoutListener(msmallGoodsimg2,this);
+//                int newwidth= msmallGoodsimg2.getWidth();
+//                int newheight = msmallGoodsimg2.getHeight();
+//                Log.d(TAG,"here sec"+"--->"+ newwidth +"*"+ newheight);
+//                RelativeLayout.LayoutParams prams=new RelativeLayout.LayoutParams(newwidth,newwidth);
+//                msmallGoodsimg2.setLayoutParams(prams);
+//            }
+//        });
         msmallTvTag2 = (TextView) smallView1.findViewById(R.id.category_small_goodsimg_tv_tag);
         msmallTitle2 = (TextView) smallView1.findViewById(R.id.category_small_goodsimg_goodsTitle);
         msmallNowPrice2 = (TextView) smallView1.findViewById(R.id.category_small_goodsimg_nowPrice);
@@ -159,19 +158,19 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
     private View getSmallView1(NewSupplyBean.NewSupplyDataEntity.CategoryEntity mBean) {
         View smallView1 = LayoutInflater.from(context).inflate(R.layout.item_newsupply_type_small, null);
         msmallGoodsimg1 = (ImageView) smallView1.findViewById(R.id.category_small_goodsimg_goodsimg);
-        ViewTreeObserver vto = msmallGoodsimg1.getViewTreeObserver();
-                vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @SuppressWarnings("deprecation")
-            @Override
-            public void onGlobalLayout() {
-                removeOnGlobalLayoutListener(msmallGoodsimg1,this);
-                int newwidth= msmallGoodsimg1.getWidth();
-                int newheight = msmallGoodsimg1.getHeight();
-                Log.d(TAG,"here"+"--->"+ newwidth +"*"+ newheight);
-                RelativeLayout.LayoutParams prams=new RelativeLayout.LayoutParams(newwidth,newwidth);
-                msmallGoodsimg1.setLayoutParams(prams);
-            }
-        });
+//        ViewTreeObserver vto = msmallGoodsimg1.getViewTreeObserver();
+//                vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @SuppressWarnings("deprecation")
+//            @Override
+//            public void onGlobalLayout() {
+//                removeOnGlobalLayoutListener(msmallGoodsimg1,this);
+//                int newwidth= msmallGoodsimg1.getWidth();
+//                int newheight = msmallGoodsimg1.getHeight();
+//                Log.d(TAG,"here"+"--->"+ newwidth +"*"+ newheight);
+//                RelativeLayout.LayoutParams prams=new RelativeLayout.LayoutParams(newwidth,newwidth);
+//                msmallGoodsimg1.setLayoutParams(prams);
+//            }
+//        });
         msmallTvTag1 = (TextView) smallView1.findViewById(R.id.category_small_goodsimg_tv_tag);
         msmallTitle1 = (TextView) smallView1.findViewById(R.id.category_small_goodsimg_goodsTitle);
         msmallNowPrice1 = (TextView) smallView1.findViewById(R.id.category_small_goodsimg_nowPrice);

@@ -5,9 +5,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -29,6 +32,7 @@ import cn.hi028.android.highcommunity.adapter.SupplyPurchaseListAdapter;
 import cn.hi028.android.highcommunity.bean.NewSupplyBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.view.MyNoScrollListview;
 import cn.hi028.android.highcommunity.view.nine.MyNineGridView;
 
@@ -55,7 +59,9 @@ public class NewSupplyFragment extends BaseFragment {
     ScrollView mScrollview;
     @Bind(R.id.piclistView)
     MyNineGridView piclistView;
-
+    @Bind(R.id.container_newsupply)
+    LinearLayout containerNewsupply;
+    private PopupWindow mWatingWindow;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(Tag, "onCreateView");
@@ -71,6 +77,8 @@ public class NewSupplyFragment extends BaseFragment {
     }
 
     private void initData() {
+
+        mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), view, Gravity.CENTER);
         HTTPHelper.GetNewSupplyGoods(mIbpi);
     }
 
@@ -78,13 +86,18 @@ public class NewSupplyFragment extends BaseFragment {
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
+            mWatingWindow.dismiss();
+            containerNewsupply.setVisibility(View.VISIBLE);
             mProgress.setVisibility(View.GONE);
             mNodata.setVisibility(View.VISIBLE);
+
             mNodata.setText(message);
         }
 
         @Override
         public void onSuccess(Object message) {
+            mWatingWindow.dismiss();
+            containerNewsupply.setVisibility(View.VISIBLE);
             mProgress.setVisibility(View.GONE);
             mNodata.setVisibility(View.GONE);
             if (null == message)
@@ -127,7 +140,7 @@ public class NewSupplyFragment extends BaseFragment {
         for (int i = 0; i < mBean.getMerchant().size(); i++) {
             imgUrlList.add(i, Constacts.IMAGEHTTP + mBean.getMerchant().get(i).getLogo());
         }
-        Log.e(Tag,"imgUrlList-----" + imgUrlList.size());
+        Log.e(Tag, "imgUrlList-----" + imgUrlList.size());
         piclistView.setUrlList(imgUrlList);
     }
 

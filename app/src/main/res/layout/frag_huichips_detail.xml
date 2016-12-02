@@ -54,6 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="12dp"
+                    android:text="--"
                     android:textColor="@color/Defult_Color_Grey"
                     android:textSize="@dimen/font_extra_small_half" />
 

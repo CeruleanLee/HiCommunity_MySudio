@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="12dp"
+    android:background="@color/Defult_Color_ShallowGrey"
     android:orientation="vertical">
 
 
@@ -10,14 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:background="@color/Defult_Color_LineGrey"
         android:text="暂无数据"
         />
 
    <com.handmark.pulltorefresh.library.PullToRefreshGridView
        android:id="@+id/frag_supplymore_gridview"
        android:layout_width="match_parent"
-       android:background="@android:color/white"
-       android:divider="@null"
+       android:background="@color/Defult_Color_ShallowGrey"
+       android:divider="@color/Defult_Color_LineGrey"
+
        android:layout_height="match_parent"
        android:gravity="fill"
        android:horizontalSpacing="11dp"

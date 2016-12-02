@@ -1,48 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginBottom="8dp"
-    android:layout_marginLeft="12dp"
+
     android:layout_marginRight="12dp"
-    android:layout_marginTop="8dp"
-    android:orientation="horizontal"
-    android:background="@color/white">
-<RelativeLayout
-    android:layout_width="0dp"
-    android:layout_weight="1"
-    android:layout_marginTop="8dp"
-    android:layout_marginLeft="5dp"
-    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/category_small_goodsimg_goodsimg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/default_no_pic" />
-
-    <TextView
-        android:id="@+id/category_small_goodsimg_tv_tag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_tv_red_shape"
-        android:paddingBottom="1dp"
-        android:paddingLeft="7dp"
-        android:paddingRight="7dp"
-        android:paddingTop="1dp"
-        android:text="热卖"
-        android:textColor="@color/white"
-        android:textSize="11sp" />
-
-
-</RelativeLayout>
+    android:background="@color/white"
+    android:orientation="horizontal">
 
     <RelativeLayout
         android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/category_small_goodsimg_goodsimg"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/default_no_pic" />
+
+        <TextView
+            android:id="@+id/category_small_goodsimg_tv_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_tv_red_shape"
+            android:paddingBottom="1dp"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:paddingTop="1dp"
+            android:text="热卖"
+            android:textColor="@color/white"
+            android:textSize="11sp" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
-        android:layout_height="wrap_content">
+        android:layout_weight="1">
+
         <TextView
             android:id="@+id/category_small_goodsimg_goodsTitle"
             android:layout_width="match_parent"
@@ -58,12 +60,11 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@id/category_small_goodsimg_goodsTitle"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="5dp"
-           >
+            android:layout_marginTop="5dp">
 
             <TextView
                 android:id="@+id/category_small_goodsimg_nowPrice"
@@ -78,10 +79,9 @@
                 android:layout_height="25dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@id/category_small_goodsimg_nowPrice"
+
                 android:src="@mipmap/img_supply_cart_small" />
         </RelativeLayout>
-
 
 
     </RelativeLayout>

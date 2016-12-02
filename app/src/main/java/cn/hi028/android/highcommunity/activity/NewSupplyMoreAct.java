@@ -2,6 +2,7 @@ package cn.hi028.android.highcommunity.activity;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -193,11 +194,14 @@ public class NewSupplyMoreAct extends BaseFragmentActivity {
     boolean isSortAsc = true;
 
     public  void setCurrentPage(int page){
-        if (page==0){
-            mViewpager.setCurrentItem(0);
-        }else{
-            mViewpager.setCurrentItem(0);
-        }
+        Log.d(Tag,"page"+page);
+                    mViewpager.setCurrentItem(page);
+
+//        if (page==0){
+//            mViewpager.setCurrentItem(0);
+//        }else{
+//            mViewpager.setCurrentItem(0);
+//        }
     }
 
     @OnClick(R.id.supplyMore_back)
