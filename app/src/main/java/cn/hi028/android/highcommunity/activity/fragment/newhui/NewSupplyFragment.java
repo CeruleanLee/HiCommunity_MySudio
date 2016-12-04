@@ -26,7 +26,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.adapter.MerchantImgGridAdapter;
 import cn.hi028.android.highcommunity.adapter.SupplyCategoryListAdapter;
 import cn.hi028.android.highcommunity.adapter.SupplyPurchaseListAdapter;
 import cn.hi028.android.highcommunity.bean.NewSupplyBean;
@@ -73,7 +72,7 @@ public class NewSupplyFragment extends BaseFragment {
 
     private void initView() {
         //TODO 新版
-        initData();
+//        initData();
     }
 
     private void initData() {
@@ -128,12 +127,12 @@ public class NewSupplyFragment extends BaseFragment {
      **/
     private void initmerchantList(NewSupplyBean.NewSupplyDataEntity mBean) {
         Log.e(Tag, "0填充商家");
-        MerchantImgGridAdapter mGridAdapter = new MerchantImgGridAdapter(mBean.getMerchant(), getActivity());
-        Log.e(Tag, "1填充商家");
-
-        mMerchantListview.setAdapter(mGridAdapter);
-        Log.e(Tag, "商家---" + mGridAdapter.getCount());
-        Log.e(Tag, "2填充商家");
+//        MerchantImgGridAdapter mGridAdapter = new MerchantImgGridAdapter(mBean.getMerchant(), getActivity());
+//        Log.e(Tag, "1填充商家");
+//
+//        mMerchantListview.setAdapter(mGridAdapter);
+//        Log.e(Tag, "商家---" + mGridAdapter.getCount());
+//        Log.e(Tag, "2填充商家");
 
         List<String> imgUrlList = new ArrayList<String>();
 

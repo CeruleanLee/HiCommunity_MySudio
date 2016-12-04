@@ -2,9 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="8dp"
 
-    android:layout_marginRight="12dp"
 
     android:background="@color/white"
     android:orientation="horizontal">
@@ -12,14 +10,13 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="8dp"
+
         android:layout_weight="1">
 
         <ImageView
             android:id="@+id/category_small_goodsimg_goodsimg"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@mipmap/default_no_pic" />
 
@@ -60,7 +57,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/category_small_goodsimg_goodsTitle"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="12dp"
@@ -73,15 +70,18 @@
                 android:text="￥：29.5"
                 android:textColor="@color/red" />
 
-            <ImageView
-                android:id="@+id/category_small_goodsimg_shopcart"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
 
-                android:src="@mipmap/img_supply_cart_small" />
+
         </RelativeLayout>
+        <ImageView
+            android:id="@+id/category_small_goodsimg_shopcart"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@mipmap/img_supply_cart_small" />
 
 
     </RelativeLayout>

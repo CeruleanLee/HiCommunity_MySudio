@@ -84,15 +84,34 @@ public class NewSupplyGoodsDetailBean {
         private String type;
         private String limitNum;
         private String sid;
+        private String remainTime;//倒计时(仅在type=1时显示出来)
         private String tel;
         private String delivery;
         private String supply;
+        private String percent;
         private Object cartNum;
         private List<String> pic;
         private List<AttrEntity> attr;
         private List<StandardEntity> standard;
         private List<CommentEntity> comment;
         private List<RecommendEntity> recommend;
+
+
+        public String getRemainTime() {
+            return remainTime;
+        }
+
+        public void setRemainTime(String remainTime) {
+            this.remainTime = remainTime;
+        }
+
+        public String getPercent() {
+            return percent;
+        }
+
+        public void setPercent(String percent) {
+            this.percent = percent;
+        }
 
         public void setId(String id) {
             this.id = id;
@@ -392,6 +411,15 @@ public class NewSupplyGoodsDetailBean {
             private String name;
             private String sale;
             private String price;
+            private String old_price;
+
+            public String getOld_price() {
+                return old_price;
+            }
+
+            public void setOld_price(String old_price) {
+                this.old_price = old_price;
+            }
 
             public void setId(String id) {
                 this.id = id;

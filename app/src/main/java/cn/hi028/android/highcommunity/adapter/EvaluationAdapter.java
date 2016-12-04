@@ -1,15 +1,22 @@
 package cn.hi028.android.highcommunity.adapter;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
 import com.lidroid.xutils.bitmap.callback.BitmapLoadCallBack;
 import com.lidroid.xutils.bitmap.callback.BitmapLoadFrom;
-import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.bean.MerchantEvaluationInfoListBean;
@@ -17,17 +24,8 @@ import cn.hi028.android.highcommunity.utils.BitmapHandler;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.MBitmapHolder;
 import cn.hi028.android.highcommunity.view.CustomGridView;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-public class EvaluationAdapter extends
-MyBaseAdapter<MerchantEvaluationInfoListBean> {
+public class EvaluationAdapter extends MyBaseAdapter<MerchantEvaluationInfoListBean> {
 	/** 复用类型1为商家评价，2为商品评价 */
 	int type = 1;
 	private BitmapUtils bitmapUtils;
@@ -54,8 +52,7 @@ MyBaseAdapter<MerchantEvaluationInfoListBean> {
 
 		ImageView head = holder.getView(R.id.item_evaluation_iv);
 		TextView username = holder.getView(R.id.item_username_tv);
-		TextView merchantname = holder
-				.getView(R.id.item_evalutaion_merchantname_tv);
+		TextView merchantname = holder.getView(R.id.item_evalutaion_merchantname_tv);
 		TextView time = holder.getView(R.id.item_evaluation_time);
 		TextView content = holder.getView(R.id.item_evalution_content_tv);
 		CustomGridView gridview = holder.getView(R.id.item_evaluation_gridview);

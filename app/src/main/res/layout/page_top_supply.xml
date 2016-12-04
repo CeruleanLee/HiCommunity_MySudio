@@ -186,18 +186,7 @@
             android:paddingRight="10dp"
             android:visibility="visible"
             android:paddingTop="5dp">
-            <TextView
-                android:id="@+id/tv_chips_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text="--"
-                android:visibility="gone"
-                android:textColor="@color/Defult_Color_MidGrey"
-                android:textSize="@dimen/font_small" />
+
             <TextView
                 android:id="@+id/ac_shop_detail_goods_saledTime"
                 android:layout_width="wrap_content"
@@ -368,7 +357,7 @@ android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/shop_name"
-                    android:text=""
+                    android:text="1111"
                     android:textSize="13sp" />
             </RelativeLayout>
 
