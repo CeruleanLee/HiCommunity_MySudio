@@ -887,7 +887,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 case R.id.tv_mainlevel_LeftButton:
                     mWindow = HighCommunityUtils.GetInstantiation()
                             .ShowWaittingPopupWindow(MainActivity.this, mLeftMenu, Gravity.CENTER);
-//                    int requestLocation=-1;
+                    int requestLocation=-1;
                     Toast.makeText(getApplicationContext(),"点击左上角",Toast.LENGTH_SHORT).show();
                     if (mLocationClient.isStarted()){
                         Log.e(TAG,"isStarted--->");
