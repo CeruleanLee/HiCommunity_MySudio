@@ -70,6 +70,7 @@ import cn.hi028.android.highcommunity.bean.CommunityListBean;
 import cn.hi028.android.highcommunity.bean.CommunityMsgBean;
 import cn.hi028.android.highcommunity.bean.CountyBean;
 import cn.hi028.android.highcommunity.bean.CouponBean;
+import cn.hi028.android.highcommunity.bean.CreatAddress2Bean;
 import cn.hi028.android.highcommunity.bean.DistrictBean;
 import cn.hi028.android.highcommunity.bean.GdCarBean;
 import cn.hi028.android.highcommunity.bean.GoodsOrderBean;
@@ -965,6 +966,15 @@ public class HTTPHelper {
         mParamMap.put("uid", uid);
         post(mParamMap, mIbpi, url);
     }
+    /**
+     * 获取用户收货地址列表-新版2.0
+     **/
+    public static void getAddressList2(BpiHttpHandler.IBpiHttpHandler mIbpi) {
+        String url = HTTPPOSTURL + "saddress/list.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+//        mParamMap.put("uid", uid);
+        post(mParamMap, mIbpi, url);
+    }
 
     /**
      * 加载修改收货地址界面时需要传递的数据接口
@@ -1055,28 +1065,72 @@ public class HTTPHelper {
         post(mParamMap, mIbpi, url);
     }
 
+//    /**
+//     * 新增收货地址接口
+//     **/
+//    public static void CreateAddress(BpiHttpHandler.IBpiHttpHandler mIbpi,
+//                                     String real_name, String tel, String city_code,
+//                                     String district_code, String vid, String building, String unit,
+//                                     String doorNum, String isDefault, String uid) {
+//        String url = HTTPPOSTURL + "api/create-address.html";
+//        HashMap<String, String> mParamMap = getBaseParamMap();
+//        mParamMap.put("real_name", real_name);
+//        mParamMap.put("tel", tel);
+//        mParamMap.put("city_code", city_code);
+//        mParamMap.put("district_code", district_code);
+//        mParamMap.put("vid", vid);
+//        mParamMap.put("building", building);
+//        mParamMap.put("unit", unit);
+//        mParamMap.put("doorNum", doorNum);
+//        mParamMap.put("isDefault", isDefault);
+//        mParamMap.put("uid", uid);
+//        Log.d(Tag,"~~~~新增收货地址传递的参数：" + mParamMap.toString());
+//
+//
+//        post(mParamMap, mIbpi, url);
+//    }
     /**
-     * 新增收货地址接口
+     * 新增收货地址接口-新版本2.0
      **/
-    public static void CreateAddress(BpiHttpHandler.IBpiHttpHandler mIbpi,
-                                     String real_name, String tel, String city_code,
-                                     String district_code, String vid, String building, String unit,
-                                     String doorNum, String isDefault, String uid) {
-        String url = HTTPPOSTURL + "api/create-address.html";
+    public static void CreateAddress2(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                     String city, String district, String detail,
+                                     String name, String tel, String isDefault) {
+        String url = HTTPPOSTURL + "saddress/edit.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
-        mParamMap.put("real_name", real_name);
+        mParamMap.put("city", city);
+        mParamMap.put("district", district);
+        mParamMap.put("detail", detail);
+        mParamMap.put("name", name);
         mParamMap.put("tel", tel);
-        mParamMap.put("city_code", city_code);
-        mParamMap.put("district_code", district_code);
-        mParamMap.put("vid", vid);
-        mParamMap.put("building", building);
-        mParamMap.put("unit", unit);
-        mParamMap.put("doorNum", doorNum);
         mParamMap.put("isDefault", isDefault);
-        mParamMap.put("uid", uid);
-        Log.d(Tag,"~~~~新增收货地址传递的参数：" + mParamMap.toString());
-
-
+        Log.d(Tag,"新增收货地址传递的参数22：" + mParamMap.toString());
+        post(mParamMap, mIbpi, url);
+    }
+    /**
+     * 解析新版创建小区
+     *
+     * @param result
+     * @return
+     */
+    public static CreatAddress2Bean.CreatAddress2DataEntity ResolveCreatAddress2Entity(String result) {
+        return gson.fromJson(result, CreatAddress2Bean.CreatAddress2DataEntity.class);
+    }
+    /**
+     * 修改收货地址接口-新版本2.0
+     **/
+    public static void ModifyAddress2(BpiHttpHandler.IBpiHttpHandler mIbpi,String aid,
+                                      String city, String district, String detail,
+                                      String name, String tel, String isDefault) {
+        String url = HTTPPOSTURL + "saddress/edit.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("aid", aid);
+        mParamMap.put("city", city);
+        mParamMap.put("district", district);
+        mParamMap.put("detail", detail);
+        mParamMap.put("name", name);
+        mParamMap.put("tel", tel);
+        mParamMap.put("isDefault", isDefault);
+        Log.d(Tag,"新增收货地址传递的参数：" + mParamMap.toString());
         post(mParamMap, mIbpi, url);
     }
 
@@ -1114,7 +1168,16 @@ public class HTTPHelper {
         mParamMap.put("aid", aid);
         post(mParamMap, mIbpi, url);
     }
-
+    /**
+     * 删除地址
+     **/
+    public static void DeleteAddress2(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                     String aid) {
+        String url = HTTPPOSTURL + "saddress/delete.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("aid", aid);
+        post(mParamMap, mIbpi, url);
+    }
     /**
      * 获取小区列表
      **/

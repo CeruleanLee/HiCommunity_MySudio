@@ -4,8 +4,8 @@
 
 package cn.hi028.android.highcommunity.adapter;
 
-import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.don.tools.GeneratedClassUtils;
-import com.don.view.CircleImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +86,11 @@ public class AddressListAdapter extends BaseFragmentAdapter {
             @Override
             public void onClick(View view) {
                 Intent mModify = new Intent(mFrag.getActivity(), GeneratedClassUtils.get(AddressModifyAct.class));
+
+//                mModify.putExtra("modifyData", (Parcelable) mBean);
+                Bundle mBundle = new Bundle();
+                mBundle.putParcelable("modifyData", mBean);
+                mModify.putExtras(mBundle);
                 mModify.putExtra(AddressModifyAct.INTENTTAG, mBean.getId());
                 if (TextUtils.isEmpty(mFrag.from)) {
                     mModify.putExtra(AddressModifyAct.INTENTTAGDELETE_TAG, 1);

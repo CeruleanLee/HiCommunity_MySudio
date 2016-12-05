@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -188,10 +189,21 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             }
         });
     }
+    private Handler popupHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity.this, back, Gravity.CENTER);
 
+                    break;
+            }
+        }
+
+    };
     private void initData() {
-
-        mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(this, getCurrentFocus(), Gravity.CENTER);
+        popupHandler.sendEmptyMessageDelayed(0, 100);
+//        mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity.this, getParent(), Gravity.CENTER);
         HTTPHelper.GetNewSupplyGoodsDetail(mIbpi, id);
     }
 
@@ -421,13 +433,19 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
         @Override
         public void setAsyncTask(AsyncTask asyncTask) {
-            mWatingWindow.dismiss();
+            if (mWatingWindow!=null){
+                mWatingWindow.dismiss();
+
+            }
 
         }
 
         @Override
         public void onSuccess(Object message) {
-            mWatingWindow.dismiss();
+            if (mWatingWindow!=null){
+                mWatingWindow.dismiss();
+
+            }
             if (message == null) return;
             goodsdata = (NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity) message;
             Log.e(Tag, "商品详情数据message-" + message);
@@ -482,10 +500,10 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
                 if (null != msg.getSale())
                     mSaleCount.setText("已售" + msg.getSale());
-                if (null != msg.getStandard().get(1).getPrice())
-                    price.setText("￥:" + msg.getStandard().get(1).getPrice());
-                if (null != msg.getStandard().get(1).getOld_price()) {
-                    Spannable spanStrikethrough = new SpannableString("￥:" + msg.getStandard().get(1).getOld_price());
+                if (null != msg.getStandard().get(0).getPrice())
+                    price.setText("￥:" + msg.getStandard().get(0).getPrice());
+                if (null != msg.getStandard().get(0).getOld_price()) {
+                    Spannable spanStrikethrough = new SpannableString("￥:" + msg.getStandard().get(0).getOld_price());
                     StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
                     try {
                         spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -495,18 +513,18 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                     }
                     mOldprice.setText(spanStrikethrough);
                 }
-                if (null != msg.getStandard().get(1).getStorage())
-                    mKucunCount.setText("库存" + msg.getStandard().get(1).getStorage());
+                if (null != msg.getStandard().get(0).getStorage())
+                    mKucunCount.setText("库存" + msg.getStandard().get(0).getStorage());
 
             } else if (msg.getType().equals("1")) {
                 mFlashTitleLayout.setVisibility(View.VISIBLE);
                 mCommonTitleLayout.setVisibility(View.GONE);
                 if (null != msg.getName()) mFlashName.setText(msg.getName());
                 if (null != msg.getRemainTime()) mSaledTime.setText(msg.getName());
-                if (null != msg.getStandard().get(1).getPrice())
-                    mFlashNowPrice.setText("￥:" + msg.getStandard().get(1).getPrice());
-                if (null != msg.getStandard().get(1).getOld_price()) {
-                    Spannable spanStrikethrough = new SpannableString("￥:" + msg.getStandard().get(1).getOld_price());
+                if (null != msg.getStandard().get(0).getPrice())
+                    mFlashNowPrice.setText("￥:" + msg.getStandard().get(0).getPrice());
+                if (null != msg.getStandard().get(0).getOld_price()) {
+                    Spannable spanStrikethrough = new SpannableString("￥:" + msg.getStandard().get(0).getOld_price());
                     StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
                     try {
                         spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -517,8 +535,8 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
                     mFlashOldPrice.setText(spanStrikethrough);
                 }
-                if (null != msg.getStandard().get(1).getStorage())
-                    mFlashKucun.setText(msg.getStandard().get(1).getStorage());
+                if (null != msg.getStandard().get(0).getStorage())
+                    mFlashKucun.setText(msg.getStandard().get(0).getStorage());
                 if (null != msg.getPercent()) {
                     if (msg.getPercent().contains("%")) {
                         String[] strings = msg.getPercent().split("%");
@@ -615,7 +633,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             SupplyGoodsDetailCommentAdapter mEvaluationAdapter = new SupplyGoodsDetailCommentAdapter(mCommentList, SupplyGoodsDetailActivity.this);
 //			mCommentListview.setEmptyView(tv_empty);
             mCommentListview.setAdapter(mEvaluationAdapter);
-            setCarAmount();
+//            setCarAmount();
 
         }
 

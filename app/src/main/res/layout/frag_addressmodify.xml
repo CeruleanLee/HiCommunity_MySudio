@@ -105,7 +105,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:background="@color/defult_color_white"
                     android:orientation="horizontal">
 
@@ -136,7 +136,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dip"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:background="@color/defult_color_white"
                     android:orientation="horizontal">
 
@@ -166,6 +166,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:background="@color/defult_color_white"
                     android:orientation="horizontal">
 
@@ -174,6 +175,7 @@
                         android:layout_height="wrap_content"
                         android:padding="@dimen/padding_15"
                         android:text="城市:"
+                        android:visibility="gone"
                         android:textColor="@color/color_hulf_black"
                         android:textSize="@dimen/font_middle" />
 
@@ -193,6 +195,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dip"
@@ -223,6 +226,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dip"
@@ -253,6 +257,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dip"
@@ -297,6 +302,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dip"
@@ -341,6 +347,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dip"

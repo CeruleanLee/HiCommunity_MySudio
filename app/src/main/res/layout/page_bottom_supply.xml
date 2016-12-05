@@ -61,7 +61,7 @@
             <cn.hi028.android.highcommunity.view.NoScrollListview
                 android:id="@+id/ac_good_evaluation_listview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:scrollbars="none"
                 android:visibility="gone" >
             </cn.hi028.android.highcommunity.view.NoScrollListview>
@@ -97,9 +97,17 @@
             android:textColor="#aaaaaa" />
         <cn.hi028.android.highcommunity.view.NoScroolGridView
            android:id="@+id/ac_shopdetail_recommendGoods"
-
+            android:columnWidth="80dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:horizontalSpacing="12dp"
+            android:verticalSpacing="@dimen/margin_12"
+            android:listSelector="#00000000"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            android:scrollbars="none"
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="wrap_content">
 
         </cn.hi028.android.highcommunity.view.NoScroolGridView>
 

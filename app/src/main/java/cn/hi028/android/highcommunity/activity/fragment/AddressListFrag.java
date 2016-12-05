@@ -6,13 +6,13 @@ package cn.hi028.android.highcommunity.activity.fragment;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
@@ -30,7 +30,6 @@ import cn.hi028.android.highcommunity.activity.AddressAct;
 import cn.hi028.android.highcommunity.activity.AddressModifyAct;
 import cn.hi028.android.highcommunity.adapter.AddressListAdapter;
 import cn.hi028.android.highcommunity.bean.AddressBean;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
@@ -60,17 +59,18 @@ public class AddressListFrag extends BaseFragment {
         mProgress.setVisibility(View.VISIBLE);
         mAdapter = new AddressListAdapter(this);
         from = getActivity().getIntent().getStringExtra(AddressAct.ACTIVITYTAG);
+        mListView.setMode(PullToRefreshBase.Mode.DISABLED);
         mListView.setAdapter(mAdapter);
         mListView.setEmptyView(mNodata);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (TextUtils.isEmpty(from)) {
-                    Intent intent = getActivity().getIntent();
-                    intent.putExtra("address", mAdapter.getItem(position - 1));
-                    getActivity().setResult(0x22, intent);
-                    getActivity().finish();
-                }
+//                if (TextUtils.isEmpty(from)) {
+//                    Intent intent = getActivity().getIntent();
+//                    intent.putExtra("address", mAdapter.getItem(position - 1));
+//                    getActivity().setResult(0x22, intent);
+//                    getActivity().finish();
+//                }
             }
         });
 
@@ -79,7 +79,8 @@ public class AddressListFrag extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        HTTPHelper.getAddressList(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
+//        HTTPHelper.getAddressList(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
+        HTTPHelper.getAddressList2(mIbpi);
     }
 
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
@@ -97,7 +98,13 @@ public class AddressListFrag extends BaseFragment {
             if (null == message)
                 return;
             mList = (List<AddressBean>) message;
-            mAdapter.AddNewData(mList);
+            if (mList.size()==0&&isFirstRequested){
+                isFirstRequested=false;
+                HTTPHelper.getAddressList(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
+            }else{
+                isFirstRequested=false;
+                mAdapter.AddNewData(mList);
+            }
         }
 
         @Override
@@ -122,4 +129,5 @@ public class AddressListFrag extends BaseFragment {
         mCreate.putExtra(AddressModifyAct.ACTIVITYTAG, 0);
         startActivity(mCreate);
     }
+    boolean isFirstRequested=true;
 }

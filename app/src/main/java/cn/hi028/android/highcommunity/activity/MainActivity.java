@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -884,25 +885,25 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                     mHuiLifeFrag.setCurrentPage(1);
                     break;
                 case R.id.tv_mainlevel_LeftButton:
-//                    mWindow = HighCommunityUtils.GetInstantiation()
-//                            .ShowWaittingPopupWindow(MainActivity.this, mLeftMenu, Gravity.CENTER);
+                    mWindow = HighCommunityUtils.GetInstantiation()
+                            .ShowWaittingPopupWindow(MainActivity.this, mLeftMenu, Gravity.CENTER);
 //                    int requestLocation=-1;
-//                    Toast.makeText(getApplicationContext(),"点击左上角",Toast.LENGTH_SHORT).show();
-//                    mLocationClient.start();
-//                    if (mLocationClient.isStarted()){
-//                        Log.e(TAG,"isStarted--->");
-//
-//                       mLocationClient.stop();
-//                       requestLocation = mLocationClient.requestLocation();
-//
-//                    }else{
-//
-//                        requestLocation = mLocationClient.requestLocation();
-//                    }
-//                   Log.e(TAG,"requestLocation--->"+requestLocation);
+                    Toast.makeText(getApplicationContext(),"点击左上角",Toast.LENGTH_SHORT).show();
+                    if (mLocationClient.isStarted()){
+                        Log.e(TAG,"isStarted--->");
 
-                    mLeftTop.setVisibility(View.GONE);
-                    menu.showMenu();
+                        mLocationClient.stop();
+//                        requestLocation = mLocationClient.requestLocation();
+
+                    }else{
+                        mLocationClient.start();
+                        mLocationClient.requestLocation();
+//                        requestLocation = mLocationClient.requestLocation();
+                    }
+                   Log.e(TAG,"requestLocation--->");
+
+//                    mLeftTop.setVisibility(View.GONE);
+//                    menu.showMenu();
                     break;
                 case R.id.iv_mainlevel_RightButton:
                  if (HighCommunityUtils.isLogin(MainActivity.this)) {
