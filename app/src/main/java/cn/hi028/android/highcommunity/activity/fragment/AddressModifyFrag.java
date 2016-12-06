@@ -19,6 +19,13 @@ import android.widget.TextView;
 
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.don.tools.BpiHttpHandler;
+import com.google.gson.Gson;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 
@@ -29,9 +36,9 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.AddressModifyAct;
-import cn.hi028.android.highcommunity.activity.SearchActivity;
 import cn.hi028.android.highcommunity.bean.AddressBean;
 import cn.hi028.android.highcommunity.bean.AddressModifyBean;
 import cn.hi028.android.highcommunity.bean.CitysBean;
@@ -41,6 +48,7 @@ import cn.hi028.android.highcommunity.bean.VallageBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
+import cn.hi028.android.highcommunity.utils.MHttpHolder;
 import cn.hi028.android.highcommunity.utils.RegexValidateUtil;
 import cn.hi028.android.highcommunity.view.ShowListUtils;
 
@@ -126,19 +134,19 @@ public class AddressModifyFrag extends BaseFragment {
             setData(modifyData);
 
         }
+        mHttpUtils = MHttpHolder.getHttpUtils();
         aid = getActivity().getIntent().getStringExtra(AddressModifyAct.INTENTTAG);
-        if (!TextUtils.isEmpty(aid)) {
-            mProgress.setVisibility(View.VISIBLE);
-//            HTTPHelper.getAddressDetail(mIbpi, aid);
-        } else {
-            mProgress.setVisibility(View.GONE);
-            HTTPHelper.getAddressCity(mCityIbpi);
-        }
+        Log.e(Tag, "传过来的aid："+aid);
+
+//        if (!TextUtils.isEmpty(aid)) {
+//            mProgress.setVisibility(View.VISIBLE);
+////            HTTPHelper.getAddressDetail(mIbpi, aid);
+//        } else {
+//            mProgress.setVisibility(View.GONE);
+////            HTTPHelper.getAddressCity(mCityIbpi);
+//        }
         mDefultLayout.setOnClickListener(mClick);
         mCity.setOnClickListener(mClick);
-        mQuxian.setOnClickListener(mClick);
-        mXiaoqu.setOnClickListener(mClick);
-
         mArea.setOnClickListener(mClick);
         mDetailAdress.setOnClickListener(mClick);
         //选项选择器
@@ -225,28 +233,12 @@ public class AddressModifyFrag extends BaseFragment {
                 case R.id.et_addressModify_city:
                     mListWindow = ShowListUtils.GetInstantiation().ShowCityList(getActivity(), mCity, mBack, mCityBean);
                     break;
-                case R.id.et_addressModify_quxian:
-                    mListWindow = ShowListUtils.GetInstantiation().ShowDistrictList(getActivity(), mQuxian, mBack, mDistrictBean);
-                    break;
-                case R.id.et_addressModify_xiaoqu:
-                    if (TextUtils.isEmpty(CityId)) {
-                        HighCommunityUtils.GetInstantiation().ShowToast("先选择城市", 0);
-                        return;
-                    }
-                    if (TextUtils.isEmpty(QuxianId)) {
-                        HighCommunityUtils.GetInstantiation().ShowToast("先选择区县=", 0);
-                        return;
-                    }
-                    SearchActivity.toSearch(AddressModifyFrag.this, mXiaoqu, mXiaoqu.getHeight(), QuxianId);
-                    break;
                 case R.id.et_addressModify_area:
                     pvOptions.show();
 
 
                     break;
                 case R.id.et_addressModify_detailAdress:
-
-
                     break;
             }
         }
@@ -365,15 +357,60 @@ public class AddressModifyFrag extends BaseFragment {
         }
 
         mWaitingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), mDoorNumber, Gravity.CENTER);
-        if (TextUtils.isEmpty(modifyData.getId())) {
-            HTTPHelper.CreateAddress2(mOpereteIbpi, city, district, detail, name, phone, defulttag);
-//            HTTPHelper.CreateAddress(mOpereteIbpi, name, phone, CityId, QuxianId, XiaoquId, build + "栋", unit, doornumber + "号", defulttag, HighCommunityApplication.mUserInfo.getId() + "");
-        } else {
-//            HTTPHelper.ModifyAddress(mOpereteIbpi, aid, name, phone, CityId, QuxianId, XiaoquId, build + "栋", unit, doornumber + "号", defulttag, HighCommunityApplication.mUserInfo.getId() + "");
-            HTTPHelper.ModifyAddress2(mOpereteIbpi, modifyData.getId(), city, district, detail, name, phone, defulttag);
-        }
-    }
+//        HTTPHelper.CreateAddress2(mDeteleIbpi, city, district, detail, name, phone, defulttag);
+//        if (TextUtils.isEmpty(modifyData.getId())) {
+////            HTTPHelper.CreateAddress(mOpereteIbpi, name, phone, CityId, QuxianId, XiaoquId, build + "栋", unit, doornumber + "号", defulttag, HighCommunityApplication.mUserInfo.getId() + "");
+//        } else {
+////            HTTPHelper.ModifyAddress(mOpereteIbpi, aid, name, phone, CityId, QuxianId, XiaoquId, build + "栋", unit, doornumber + "号", defulttag, HighCommunityApplication.mUserInfo.getId() + "");
+//            HTTPHelper.ModifyAddress2(mOpereteIbpi, modifyData.getId(), city, district, detail, name, phone, defulttag);
+//        }
+//        HTTPHelper.CreateGroup(new );
+postSubmit(city, district, detail, name, phone, defulttag);
 
+
+
+    }
+    private HttpUtils mHttpUtils;
+
+    private void postSubmit(String city, String district, String detail, String name, String phone, String defulttag) {
+
+        Log.e(Tag, "进入编辑收货地址");
+        String url = "http://028hi.cn/api/saddress/edit.html";
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("token", HighCommunityApplication.mUserInfo.getToken());
+        params.addBodyParameter("city", city);
+        params.addBodyParameter("district", district);
+        params.addBodyParameter("detail",detail);
+        params.addBodyParameter("name",name);
+        params.addBodyParameter("tel", phone);
+        params.addBodyParameter("isDefault", defulttag);
+        mHttpUtils.send(HttpRequest.HttpMethod.POST, url, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onFailure(HttpException arg0, String arg1) {
+                Log.e(Tag, "http 访问失败的 arg1--->" + arg1.toString());
+                mWaitingWindow.dismiss();
+
+                HighCommunityUtils.GetInstantiation().ShowToast(arg1.toString(), 0);
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo<String> arg0) {
+                String content = arg0.result;
+                Log.e(Tag, "http 访问success的 content--->" + content);
+                mWaitingWindow.dismiss();
+
+                CreatAddress2Bean mInitBean = new Gson().fromJson(content, CreatAddress2Bean.class);
+                //                ResponseGoodsItem responseGoodsItem = new Gson().fromJson(content, ResponseGoodsItem.class);
+//                List<GoodsItem> list = responseGoodsItem.getResult().list;
+                if (mInitBean != null) {
+                    HighCommunityUtils.GetInstantiation().ShowToast(mInitBean.getMsg(), 0);
+//                    mData = mInitBean.getData();
+
+                }
+            }
+        });
+    }
     BpiHttpHandler.IBpiHttpHandler mOpereteIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
@@ -412,6 +449,10 @@ public class AddressModifyFrag extends BaseFragment {
 
         @Override
         public void cancleAsyncTask() {
+
+            Log.e(Tag,"cancleAsyncTask");
+
+
             mWaitingWindow.dismiss();
         }
     };
@@ -452,6 +493,9 @@ public class AddressModifyFrag extends BaseFragment {
 
         @Override
         public void cancleAsyncTask() {
+
+            Log.e(Tag,"cancleAsyncTask  delete");
+
             mWaitingWindow.dismiss();
         }
     };

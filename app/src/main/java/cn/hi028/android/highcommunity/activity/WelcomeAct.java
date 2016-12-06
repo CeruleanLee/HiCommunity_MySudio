@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.lidroid.xutils.util.LogUtils;
 
 import net.duohuo.dhroid.activity.ActivityTack;
@@ -62,7 +63,8 @@ public class WelcomeAct extends BaseActivity {
 		mWelcomeLayout = (LinearLayout) this.findViewById(R.id.ll_welcomeAct);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-		setContentView(R.layout.act_welcome);
+		SDKInitializer.initialize(getApplicationContext());
+			setContentView(R.layout.act_welcome);
 		LocUtils.startLocation(this, null);
 		ft = getSupportFragmentManager();
 //		 MyPushMessageReceiver.MessageCount = 0;

@@ -30,6 +30,8 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
+import com.baidu.mapapi.search.poi.PoiSearch;
+import com.baidu.mapapi.search.sug.SuggestionSearch;
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.SaveBitmap;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -68,7 +70,7 @@ import photo.util.ImageItem;
  */
 @EActivity(resName = "act_label")
 public class LabelAct extends BaseFragmentActivity {
-    static  final String TAG="LabelAct--->";
+    static final String TAG = "LabelAct--->";
     public static final String ACTIVITYTAG = "LabelAct";
     public static final String INTENTTAG = "LabelActIntent";
     @ViewById(R.id.iv_label_gridview)
@@ -105,6 +107,7 @@ public class LabelAct extends BaseFragmentActivity {
     LabelBean temp = null;
     int type = 0;
     private PopupWindow mWindow;
+
     @AfterViews
     void initView() {
         type = getIntent().getIntExtra(INTENTTAG, 0);
@@ -140,23 +143,27 @@ public class LabelAct extends BaseFragmentActivity {
         HTTPHelper.getUserCenter(mLocationIbpi, HighCommunityApplication.mUserInfo.getId() + "");
 
         //定位init
-        Log.e(TAG,"准备定位");
+        Log.e(TAG, "准备定位");
         mLocationClient = new LocationClient(this); //声明LocationClie
-        Log.e(TAG,"准备定位2");
+        Log.e(TAG, "准备定位2");
         LocationClientOption option = new LocationClientOption();
         option.setOpenGps(true);        //是否打开GPS
         option.setCoorType("bd09ll");       //设置返回值的坐标类型。
+        option.setAddrType("all");//返回的定位结果包含地址信息
         option.setPriority(LocationClientOption.NetWorkFirst);  //设置定位优先级
         option.setProdName("LocationDemo"); //设置产品线名称。强烈建议您使用自定义的产品线名称，方便我们以后为您提供更高效准确的定位服务。
 //        option.setScanSpan(5000);    //设置定时定位的时间间隔。单位毫秒
+        option.disableCache(false);//禁止启用缓存定位
+        option.setIsNeedLocationPoiList(true);
+        option.setIsNeedAddress(true);// 返回的定位结果包含地址信息
         mLocationClient.setLocOption(option);
         mLocationClient.registerLocationListener(new BDLocationListener() {
             @Override
             public void onReceiveLocation(BDLocation location) {
                 //Receive Location
-                mWindow.dismiss();
-                if (mWindow.isShowing()){
-                }
+//                mWindow.dismiss();
+//                if (mWindow.isShowing()){
+//                }
                 StringBuffer sb = new StringBuffer(256);
                 sb.append("time : ");
                 sb.append(location.getTime());
@@ -215,46 +222,60 @@ public class LabelAct extends BaseFragmentActivity {
                     }
                 }
                 Log.i("BaiduLocationApiDem", sb.toString());
-                Toast.makeText(LabelAct.this,"定位信息："+location.getCity()+" "+location.getDistrict()+" "+location.getStreet()+" "+location.getAddress(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LabelAct.this,"定位信息："+location.getCity()+" "+location.getDistrict()+" "+location.getStreet()+" "+location.getAddress(),Toast.LENGTH_SHORT).show();
+                Log.i("BaiduLocationApiDem", "定位信息：" + location.getCity() + " " + location.getDistrict() + " " + location.getStreet() + " " + location.getAddress());
+                Log.i("BaiduLocationApiDem", "定位完成 setui");
+
+                mLocation.setText(location.getCity() + "" + location.getDistrict() + "" + location.getStreet() + "" + location.getAddress());
+                if (isLocationClicked) {
+                    Log.i("BaiduLocationApiDem", "定位完成 setui2");
+
+                    isLocationClicked = !isLocationClicked;
+                    Intent mModify = new Intent(LabelAct.this, ShowLocationListAct.class);
+//                mModify.putExtra("modifyData", (Parcelable) mBean);
+                    Bundle mBundle = new Bundle();
+                    mBundle.putParcelable("BDLocation", location);
+                    mModify.putExtras(mBundle);
+                    startActivity(mModify);
+
+
+                }
             }
         });//注册监听函数
-        Log.e(TAG,"定位3");
-
+        Log.e(TAG, "定位3");
+        mLocationClient.start();
 
         //点击
         mLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                mWindow = HighCommunityUtils.GetInstantiation()
-                        .ShowWaittingPopupWindow(LabelAct.this, mLocation, Gravity.CENTER);
-                int requestLocation=-1;
-                Toast.makeText(getApplicationContext(),"点击左上角",Toast.LENGTH_SHORT).show();
-                mLocationClient.start();
+                isLocationClicked = true;
+//                mWindow = HighCommunityUtils.GetInstantiation()
+//                        .ShowWaittingPopupWindow(LabelAct.this, mLocation, Gravity.CENTER);
+                int requestLocation = -1;
+                Toast.makeText(getApplicationContext(), "点击左上角", Toast.LENGTH_SHORT).show();
                 if (mLocationClient.isStarted()){
                     Log.e(TAG,"isStarted--->");
 
                     mLocationClient.stop();
+                    mLocationClient.start();
                     requestLocation = mLocationClient.requestLocation();
 
                 }else{
+                    mLocationClient.start();
 
                     requestLocation = mLocationClient.requestLocation();
                 }
                 Log.e(TAG,"requestLocation--->"+requestLocation);
 
-
-
-
-
             }
         });
-
-
-
-
     }
-    public static LocationClient mLocationClient=null;
+    // 搜索周边相关
+    private PoiSearch mPoiSearch = null;
+    private SuggestionSearch mSuggestionSearch = null;
+    boolean isLocationClicked = false;
+    public static LocationClient mLocationClient = null;
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -281,7 +302,7 @@ public class LabelAct extends BaseFragmentActivity {
         mAdapter.notifyDataSetChanged();
         setHeight();
         super.onResume();
-        
+
     }
 
 
@@ -306,7 +327,7 @@ public class LabelAct extends BaseFragmentActivity {
                                     HTTPHelper.Dellabel(new BpiHttpHandler.IBpiHttpHandler() {
                                         @Override
                                         public void onError(int id, String message) {
-                                        	
+
                                         }
 
                                         @Override
@@ -421,7 +442,7 @@ public class LabelAct extends BaseFragmentActivity {
             if (null == message)
                 return;
             Constacts.mUserCenter = (UserCenterBean) message;
-            mLocation.setText(Constacts.mUserCenter.getUserInfo().getVillage());
+//            mLocation.setText(Constacts.mUserCenter.getUserInfo().getVillage());
         }
 
         @Override

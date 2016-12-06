@@ -380,7 +380,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name="cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity"
+            android:name=".activity.alliance.SupplyGoodsDetailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
 
@@ -532,7 +532,8 @@
         <!-- </>值来自开发者平台取得的AppKey -->
         <activity android:name=".activity.AutoAct_Four" />
         <activity android:name=".activity.ShowCaptureActivity" />
-        <activity android:name=".activity.NewSupplyMoreAct"></activity>
+        <activity android:name=".activity.NewSupplyMoreAct" />
+        <activity android:name=".activity.ShowLocationListAct"></activity>
     </application>
 
 </manifest>

@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -172,18 +171,30 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         Log.e(TAG,"准备定位2");
         LocationClientOption option = new LocationClientOption();
         option.setOpenGps(true);        //是否打开GPS
-        option.setCoorType("bd09ll");       //设置返回值的坐标类型。
+        option.setAddrType("all");//返回的定位结果包含地址信息
+        option.setCoorType("bd09ll");//返回的定位结果是百度经纬度,默认值gcj02
         option.setPriority(LocationClientOption.NetWorkFirst);  //设置定位优先级
+//        option.setPriority(LocationClientOption.GpsFirst); // 设置GPS优先
         option.setProdName("LocationDemo"); //设置产品线名称。强烈建议您使用自定义的产品线名称，方便我们以后为您提供更高效准确的定位服务。
 //        option.setScanSpan(5000);    //设置定时定位的时间间隔。单位毫秒
+        option.disableCache(false);//禁止启用缓存定位
+
+//      option.setPoiNumber(5);    //最多返回POI个数
+//      option.setPoiDistance(1000); //poi查询距离
+//      option.setPoiExtraInfo(true);  //是否需要POI的电话和地址等详细信息
         mLocationClient.setLocOption(option);
         mLocationClient.registerLocationListener(new BDLocationListener() {
             @Override
             public void onReceiveLocation(BDLocation location) {
                 //Receive Location
-                mWindow.dismiss();
-                if (mWindow.isShowing()){
-}
+//                mWindow.dismiss();
+//                if (mWindow.isShowing()){
+//}
+                Log.i("BaiduLocationApiDem","1,"+ location.getAddress().address+"2,"+location.getAddress().city+"3,"+
+                location.getAddrStr()+"4,"+location.getCity()+"5,"+location.getCountry()+"6,"+location.getStreet()+"7,"+
+                        location.hasAddr()
+                );
+
                 StringBuffer sb = new StringBuffer(256);
                 sb.append("time : ");
                 sb.append(location.getTime());
@@ -215,6 +226,8 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                     //运营商信息
                     sb.append("\noperationers : ");
                     sb.append(location.getOperators());
+                    sb.append("\ntostring : ");
+                    sb.append(location.toString());
                     sb.append("\ndescribe : ");
                     sb.append("网络定位成功");
                 } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {// 离线定位结果
@@ -885,8 +898,8 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                     mHuiLifeFrag.setCurrentPage(1);
                     break;
                 case R.id.tv_mainlevel_LeftButton:
-                    mWindow = HighCommunityUtils.GetInstantiation()
-                            .ShowWaittingPopupWindow(MainActivity.this, mLeftMenu, Gravity.CENTER);
+//                    mWindow = HighCommunityUtils.GetInstantiation()
+//                            .ShowWaittingPopupWindow(MainActivity.this, mLeftMenu, Gravity.CENTER);
                     int requestLocation=-1;
                     Toast.makeText(getApplicationContext(),"点击左上角",Toast.LENGTH_SHORT).show();
                     if (mLocationClient.isStarted()){

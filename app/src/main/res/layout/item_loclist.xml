@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_third_service_selector"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/margin_8"
+    android:paddingRight="@dimen/margin_8">
+
+    <TextView
+        android:id="@+id/item_loclist_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="name"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/item_loclist_addressDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="address:"
+        android:textSize="12sp" />
+
+
+</LinearLayout>
