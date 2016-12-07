@@ -88,9 +88,11 @@
 
         <!-- meta-data需要写在application中 -->
         <!-- 百度地图//key:开发者申请的Key -->
+        <!--我申请的： 	M3QEKDRLq6dsa2N8WakLdHfFKhKykWi2  可以直接搜索定位的 之前那个暂时弃用了 目前测试版可用-->
+        <!--项目原有的：ome6RKGb08ZugrZwxgTQVm0iFETfycEc-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="ome6RKGb08ZugrZwxgTQVm0iFETfycEc" />
+            android:value="M3QEKDRLq6dsa2N8WakLdHfFKhKykWi2" />
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5668f43c67e58ebf1b00015b" />

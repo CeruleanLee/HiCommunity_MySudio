@@ -43,18 +43,43 @@
     </RelativeLayout>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="New Button"
         android:id="@+id/button" />
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:orientation="horizontal" >
+        <AutoCompleteTextView
+            android:id="@+id/searchkey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.88"
+            android:hint="请输入搜索内容(餐厅)"
+            />
+    </LinearLayout>
 
+   <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="搜索"
+       android:visibility="gone"
+        android:id="@+id/search" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:id="@+id/button2" />
     <TextView
         android:id="@+id/tv_address_Nodata"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="暂无数据"
-        android:visibility="visible" />
+
+        android:visibility="gone" />
     <ListView
         android:id="@+id/loc_list"
         android:layout_width="match_parent"

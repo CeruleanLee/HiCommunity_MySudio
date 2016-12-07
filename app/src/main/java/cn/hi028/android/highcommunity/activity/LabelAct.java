@@ -69,7 +69,7 @@ import photo.util.ImageItem;
  * @时间：2015/12/16<br>
  */
 @EActivity(resName = "act_label")
-public class LabelAct extends BaseFragmentActivity {
+public class LabelAct extends BaseFragmentActivity implements ShowLocationListAct.MyAddressChangerListener {
     static final String TAG = "LabelAct--->";
     public static final String ACTIVITYTAG = "LabelAct";
     public static final String INTENTTAG = "LabelActIntent";
@@ -107,6 +107,7 @@ public class LabelAct extends BaseFragmentActivity {
     LabelBean temp = null;
     int type = 0;
     private PopupWindow mWindow;
+    String allDetailAdress;
 
     @AfterViews
     void initView() {
@@ -192,6 +193,8 @@ public class LabelAct extends BaseFragmentActivity {
                 } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {// 网络定位结果
                     sb.append("\naddr : ");
                     sb.append(location.getAddrStr());
+
+                    allDetailAdress = location.getAddrStr();
                     //运营商信息
                     sb.append("\noperationers : ");
                     sb.append(location.getOperators());
@@ -225,26 +228,28 @@ public class LabelAct extends BaseFragmentActivity {
 //                Toast.makeText(LabelAct.this,"定位信息："+location.getCity()+" "+location.getDistrict()+" "+location.getStreet()+" "+location.getAddress(),Toast.LENGTH_SHORT).show();
                 Log.i("BaiduLocationApiDem", "定位信息：" + location.getCity() + " " + location.getDistrict() + " " + location.getStreet() + " " + location.getAddress());
                 Log.i("BaiduLocationApiDem", "定位完成 setui");
-
-                mLocation.setText(location.getCity() + "" + location.getDistrict() + "" + location.getStreet() + "" + location.getAddress());
+               //set 地址信息
+                if (allDetailAdress != null) {
+                    if (allDetailAdress.contains("省")) {
+                        String[] split = allDetailAdress.split("省");
+                        mLocation.setText(split[1]);
+                    } else {
+                        mLocation.setText(location.getCity() + "" + location.getDistrict() + "" + location.getStreet());
+                    }
+                }
                 if (isLocationClicked) {
                     Log.i("BaiduLocationApiDem", "定位完成 setui2");
-
                     isLocationClicked = !isLocationClicked;
                     Intent mModify = new Intent(LabelAct.this, ShowLocationListAct.class);
-//                mModify.putExtra("modifyData", (Parcelable) mBean);
                     Bundle mBundle = new Bundle();
                     mBundle.putParcelable("BDLocation", location);
                     mModify.putExtras(mBundle);
                     startActivity(mModify);
-
-
                 }
             }
         });//注册监听函数
         Log.e(TAG, "定位3");
         mLocationClient.start();
-
         //点击
         mLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,23 +259,24 @@ public class LabelAct extends BaseFragmentActivity {
 //                        .ShowWaittingPopupWindow(LabelAct.this, mLocation, Gravity.CENTER);
                 int requestLocation = -1;
                 Toast.makeText(getApplicationContext(), "点击左上角", Toast.LENGTH_SHORT).show();
-                if (mLocationClient.isStarted()){
-                    Log.e(TAG,"isStarted--->");
+                if (mLocationClient.isStarted()) {
+                    Log.e(TAG, "isStarted--->");
 
                     mLocationClient.stop();
                     mLocationClient.start();
                     requestLocation = mLocationClient.requestLocation();
 
-                }else{
+                } else {
                     mLocationClient.start();
 
                     requestLocation = mLocationClient.requestLocation();
                 }
-                Log.e(TAG,"requestLocation--->"+requestLocation);
+                Log.e(TAG, "requestLocation--->" + requestLocation);
 
             }
         });
     }
+
     // 搜索周边相关
     private PoiSearch mPoiSearch = null;
     private SuggestionSearch mSuggestionSearch = null;
@@ -641,5 +647,14 @@ public class LabelAct extends BaseFragmentActivity {
 
         }
     };
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLocationClient.stop();
+    }
 
+    @Override
+    public void onAddressChange(String address) {
+        mLocation.setText(address);
+    }
 }

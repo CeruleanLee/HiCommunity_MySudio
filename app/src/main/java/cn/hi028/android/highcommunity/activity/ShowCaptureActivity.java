@@ -36,6 +36,12 @@ import cn.hi028.android.highcommunity.utils.wchatpay.WchatPayUtils;
 import cn.hi028.android.highcommunity.view.ECAlertDialog;
 import cn.hi028.android.highcommunity.wxapi.WXPayEntryActivity;
 
+/**
+ * @功能：展示扫一扫界面Activity<br>
+ * @作者： Lee_yting<br>
+ * @版本：2.0<br>
+ * @时间：2016/11/28<br>
+ */
 public class ShowCaptureActivity extends BaseFragmentActivity {
 static final String Tag="ShowCaptureActivity:";
     @Bind(R.id.tv)
