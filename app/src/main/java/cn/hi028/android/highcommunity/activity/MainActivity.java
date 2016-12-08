@@ -855,7 +855,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 break;
             case R.id.main_tab_third://
                 if (HighCommunityUtils.GetInstantiation().isLogin(MainActivity.this)) {
-                    Intent mLabel = new Intent(this, GeneratedClassUtils.get(LabelAct.class));
+                    Intent mLabel = new Intent(this, LabelAct.class);
                     startActivity(mLabel);
                 }
                 break;

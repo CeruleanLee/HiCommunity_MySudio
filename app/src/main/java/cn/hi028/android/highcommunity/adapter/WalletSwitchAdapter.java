@@ -4,13 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import cn.hi028.android.highcommunity.activity.fragment.CommunityFrag;
-import cn.hi028.android.highcommunity.activity.fragment.GroupFrag;
-import cn.hi028.android.highcommunity.activity.fragment.GroupFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.WalletScoreFrag;
-import cn.hi028.android.highcommunity.activity.fragment.WalletScoreFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.WalletTickitFrag;
-import cn.hi028.android.highcommunity.activity.fragment.WalletTickitFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.*;
 
 /**
  * 我的钱包适配器

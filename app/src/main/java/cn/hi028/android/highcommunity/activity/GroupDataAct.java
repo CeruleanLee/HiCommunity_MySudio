@@ -5,7 +5,6 @@
 package cn.hi028.android.highcommunity.activity;
 
 import android.content.Intent;
-import android.provider.Settings;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
@@ -13,13 +12,9 @@ import android.view.KeyEvent;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.OnActivityResult;
 
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.fragment.CreateGroupFrag;
-import cn.hi028.android.highcommunity.activity.fragment.CreateGroupFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.GroupDetilsFrag;
-import cn.hi028.android.highcommunity.activity.fragment.GroupDetilsFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.*;
 
 /**
  * @功能：群资料页面<br>

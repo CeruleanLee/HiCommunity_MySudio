@@ -21,7 +21,6 @@ import org.androidannotations.annotations.ViewById;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.AddressModifyFrag;
-import cn.hi028.android.highcommunity.activity.fragment.AddressModifyFrag_;
 import cn.hi028.android.highcommunity.bean.AddressBean;
 
 /**
@@ -62,7 +61,7 @@ static  final  String Tag="AddressModifyAct:";
         if (flag == 0) {
             mTitle.setText("新增收货地址");
             mDelete.setVisibility(View.GONE);
-            mCreate = (AddressModifyFrag) new AddressModifyFrag_();
+            mCreate = (AddressModifyFrag) new AddressModifyFrag();
         } else {
             mTitle.setText("修改收货地址");
             mDelete.setVisibility(View.VISIBLE);
@@ -71,7 +70,7 @@ static  final  String Tag="AddressModifyAct:";
                 bundle.putParcelable("modifyData", modifyData);
             }
             bundle.putInt("isModify",1);
-            mCreate = (AddressModifyFrag) new AddressModifyFrag_();
+            mCreate = (AddressModifyFrag) new AddressModifyFrag();
             mCreate.setArguments(bundle);
         }
         int flagDelete = getIntent().getIntExtra(INTENTTAGDELETE_TAG, 0);

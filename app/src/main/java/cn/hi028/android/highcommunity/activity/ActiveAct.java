@@ -17,10 +17,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.fragment.ActivityCreateFrag;
-import cn.hi028.android.highcommunity.activity.fragment.ActivityCreateFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.ActivityDetailsFrag;
-import cn.hi028.android.highcommunity.activity.fragment.ActivityDetailsFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.*;
 import cn.hi028.android.highcommunity.utils.Constacts;
 
 /**
@@ -56,13 +53,13 @@ public class ActiveAct extends BaseFragmentActivity {
             case Constacts.ACTIVITY_DETAILS:
                 mTitle.setText("活动详情");
                 mShare.setVisibility(View.VISIBLE);
-                ActivityDetailsFrag mDetails = (ActivityDetailsFrag) new ActivityDetailsFrag_();
+                ActivityDetailsFrag mDetails = (ActivityDetailsFrag) new ActivityDetailsFrag();
                 ft.replace(R.id.ll_activity_mainLayout, mDetails, ActivityDetailsFrag.FRAGMENTTAG);
                 break;
             case Constacts.ACTIVITY_CREATE:
                 mTitle.setText("创建活动");
                 mShare.setVisibility(View.GONE);
-                ActivityCreateFrag mCreate = (ActivityCreateFrag) new ActivityCreateFrag_();
+                ActivityCreateFrag mCreate = (ActivityCreateFrag) new ActivityCreateFrag();
                 ft.replace(R.id.ll_activity_mainLayout, mCreate, ActivityCreateFrag.FRAGMENTTAG);
                 break;
         }

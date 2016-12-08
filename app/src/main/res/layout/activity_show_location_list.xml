@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="cn.hi028.android.highcommunity.activity.ShowLocationListAct">
 
@@ -36,42 +37,77 @@
             android:layout_marginRight="64dp"
             android:ellipsize="middle"
             android:singleLine="true"
-            android:text=" "
+            android:text="我的位置"
             android:textColor="#ffffff"
             android:textSize="18sp" />
         <!-- android:textSize="@dimen/font_extra_large" -->
     </RelativeLayout>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button" />
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="50dip"
-        android:orientation="horizontal" >
+        android:background="@color/Defult_Color_ShallowGrey"
+        android:padding="3dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
         <AutoCompleteTextView
             android:id="@+id/searchkey"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+      android:layout_weight="1"
+            android:background="@drawable/bg_autoact_edittext2"
+            android:drawableLeft="@drawable/ic_search_group"
+            android:hint="请输入搜索内容"
+            android:paddingBottom="10dp"
+            android:paddingLeft="12dp"
+            android:drawablePadding="5dp"
+            android:paddingTop="@dimen/ui_10_dip"
+            android:singleLine="true"
+            android:textSize="12dp" />
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.88"
-            android:hint="请输入搜索内容(餐厅)"
+            android:layout_height="match_parent"
+            android:textSize="12dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="10dp"
+android:gravity="center"
+            android:visibility="visible"
+       android:textColor="@color/Defult_Color_AppGreen"
+            android:text="搜索"
             />
+        <!--     android:background="@drawable/bg_coner_greybutton"-->
+        <Button
+            android:paddingBottom="10dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="10dp"
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_coner_greybutton"
+android:visibility="gone"
+            android:text="Search" />
     </LinearLayout>
-
-   <EditText
+    <Button
+        android:id="@+id/button"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="New Button" />
+    <EditText
+        android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="搜索"
-       android:visibility="gone"
-        android:id="@+id/search" />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:id="@+id/button2" />
+        android:visibility="gone" />
+
+
+
     <TextView
         android:id="@+id/tv_address_Nodata"
         android:layout_width="match_parent"
@@ -80,19 +116,32 @@
         android:text="暂无数据"
 
         android:visibility="gone" />
+    <TextView
+        android:id="@+id/tv_address_noaddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="不显示位置"
+        android:background="@drawable/ll_leftmenu_bg_selector"
+ />
     <ListView
+        android:layout_marginTop="12dp"
         android:id="@+id/loc_list"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:divider="@color/Defult_Color_ShallowGrey"
         android:dividerHeight="2dip"
-        android:listSelector="@drawable/ll_leftmenu_bg_selector"
-        android:layout_height="match_parent"></ListView>
-    <ListView
+        android:listSelector="@drawable/ll_leftmenu_bg_selector">
+
+    </ListView>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:layout_marginTop="12dp"
         android:id="@+id/loc_list2"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:divider="@color/Defult_Color_ShallowGrey"
         android:dividerHeight="2dip"
-        android:visibility="gone"
         android:listSelector="@drawable/ll_leftmenu_bg_selector"
-        android:layout_height="match_parent"></ListView>
+        android:visibility="gone"></com.handmark.pulltorefresh.library.PullToRefreshListView>
 </LinearLayout>

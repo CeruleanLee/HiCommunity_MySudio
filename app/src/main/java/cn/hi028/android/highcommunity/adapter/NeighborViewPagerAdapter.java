@@ -1,12 +1,12 @@
 package cn.hi028.android.highcommunity.adapter;
 
-import net.duohuo.dhroid.util.LogUtil;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import cn.hi028.android.highcommunity.activity.fragment.CommunityFrag;
-import cn.hi028.android.highcommunity.activity.fragment.GroupFrag;
-import cn.hi028.android.highcommunity.activity.fragment.GroupFrag_;
+
+import net.duohuo.dhroid.util.LogUtil;
+
+import cn.hi028.android.highcommunity.activity.fragment.*;
 
 /**
  * 邻里适配器

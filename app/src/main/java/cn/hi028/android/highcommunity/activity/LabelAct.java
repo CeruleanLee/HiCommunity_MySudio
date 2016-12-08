@@ -1,7 +1,3 @@
-/***************************************************************************
- * Copyright (c) by raythinks.com, Inc. All Rights Reserved
- **************************************************************************/
-
 package cn.hi028.android.highcommunity.activity;
 
 import android.content.DialogInterface;
@@ -19,9 +15,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,15 +32,13 @@ import com.don.tools.SaveBitmap;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.CommunityFrag;
@@ -68,27 +61,28 @@ import photo.util.ImageItem;
  * @版本：1.0<br>
  * @时间：2015/12/16<br>
  */
-@EActivity(resName = "act_label")
+
 public class LabelAct extends BaseFragmentActivity implements ShowLocationListAct.MyAddressChangerListener {
     static final String TAG = "LabelAct--->";
     public static final String ACTIVITYTAG = "LabelAct";
     public static final String INTENTTAG = "LabelActIntent";
-    @ViewById(R.id.iv_label_gridview)
-    PullToRefreshGridView mGridView;
-    @ViewById(R.id.tv_label_title)
-    TextView mTitle;
-    @ViewById(R.id.tv_label_RightnMenu)
-    TextView mPublish;
-    @ViewById(R.id.tv_label_PostContent)
-    EditText mContent;
-    @ViewById(R.id.ptrgv_label_PostImage)
-    PullToRefreshGridView mPostImage;
-    @ViewById(R.id.tv_label_Postlocation)
-    TextView mLocation;
-    @ViewById(R.id.ll_labellayout_mainlayout)
-    LinearLayout mMainLayout;
-    @ViewById(R.id.rl_labellaout_contentlayout)
-    RelativeLayout mContentLayout;
+//    @Bind(R.id.iv_label_gridview)
+//    PullToRefreshGridView mGridView;
+//    @Bind(R.id.tv_label_RightnMenu)
+//    TextView mPublish;
+//    @Bind(R.id.tv_label_PostContent)
+//    EditText mContent;
+//    @Bind(R.id.ptrgv_label_PostImage)
+//    PullToRefreshGridView mPostImage;
+//    @Bind(R.id.tv_label_Postlocation)
+//    TextView mLocation;
+//    @Bind(R.id.ll_labellayout_mainlayout)
+//    LinearLayout mMainLayout;
+//    @Bind(R.id.rl_labellaout_contentlayout)
+//    RelativeLayout mContentLayout;
+//    @Bind(R.id.tv_label_title)
+//    TextView mTitle;
+
 
     LabelGrideAdapter mAdapter;
     GridAdapter mPostAdapter;
@@ -106,10 +100,33 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
     boolean isDelStatus = false;
     LabelBean temp = null;
     int type = 0;
+    @Bind(R.id.iv_label_back)
+    ImageView mImgBack;
+    @Bind(R.id.tv_label_title)
+    TextView mTitle;
+    @Bind(R.id.ptrgv_label_PostImage)
+    PullToRefreshGridView mPostImage;
+    @Bind(R.id.tv_label_Postlocation)
+    TextView mLocation;
+    @Bind(R.id.iv_label_gridview)
+    PullToRefreshGridView mGridView;
+    @Bind(R.id.tv_label_RightnMenu)
+    TextView mPublish;
+    @Bind(R.id.tv_label_PostContent)
+    EditText mContent;
+
     private PopupWindow mWindow;
     String allDetailAdress;
 
-    @AfterViews
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.act_label);
+        ButterKnife.bind(this);
+
+        initView();
+    }
+
     void initView() {
         type = getIntent().getIntExtra(INTENTTAG, 0);
         mGid = getIntent().getStringExtra(ACTIVITYTAG);
@@ -228,8 +245,8 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
 //                Toast.makeText(LabelAct.this,"定位信息："+location.getCity()+" "+location.getDistrict()+" "+location.getStreet()+" "+location.getAddress(),Toast.LENGTH_SHORT).show();
                 Log.i("BaiduLocationApiDem", "定位信息：" + location.getCity() + " " + location.getDistrict() + " " + location.getStreet() + " " + location.getAddress());
                 Log.i("BaiduLocationApiDem", "定位完成 setui");
-               //set 地址信息
-                if (allDetailAdress != null) {
+                //set 地址信息
+                if (allDetailAdress != null && !isLocationClicked) {
                     if (allDetailAdress.contains("省")) {
                         String[] split = allDetailAdress.split("省");
                         mLocation.setText(split[1]);
@@ -244,7 +261,8 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
                     Bundle mBundle = new Bundle();
                     mBundle.putParcelable("BDLocation", location);
                     mModify.putExtras(mBundle);
-                    startActivity(mModify);
+//                    startActivity(mModify);
+                    startActivityForResult(mModify, 8);
                 }
             }
         });//注册监听函数
@@ -275,6 +293,7 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
 
             }
         });
+
     }
 
     // 搜索周边相关
@@ -467,12 +486,12 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
         }
     };
 
-    @Click(R.id.iv_label_back)
+    //    @Click(R.id.iv_label_back)
     void back() {
         this.finish();
     }
 
-    @Click(R.id.tv_label_RightnMenu)
+    //    @Click(R.id.tv_label_RightnMenu)
     void publish() {
         if (clicked) {
             return;
@@ -569,6 +588,18 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
                 }
                 RequestCropImage(mImageCaptureUri);
             }
+        } else if (resultCode == 8) {
+            Log.e(TAG, "requestCode==8:" + resultCode);
+            if (requestCode != 8) {
+                Log.e(TAG, "requestCode:" + requestCode);
+
+                return;
+            }
+            Log.e(TAG, "requestCode2:" + requestCode);
+
+            String address2 = data.getStringExtra("address");
+
+            this.mLocation.setText(address2);
         }
     }
 
@@ -647,6 +678,7 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
 
         }
     };
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -655,6 +687,23 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
 
     @Override
     public void onAddressChange(String address) {
-        mLocation.setText(address);
+        if (this.mLocation == null) {
+            Log.e(TAG, "mLocation null  address:" + address);
+        } else {
+            Log.e(TAG, "mLocation  不空  address:" + address);
+            this.mLocation.setText(address);
+        }
+    }
+
+    @OnClick({R.id.iv_label_back, R.id.tv_label_RightnMenu})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_label_back:
+                onBack(view);
+                break;
+            case R.id.tv_label_RightnMenu:
+                publish();
+                break;
+        }
     }
 }
