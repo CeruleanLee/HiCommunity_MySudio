@@ -26,7 +26,6 @@ import com.don.tools.GeneratedClassUtils;
 import com.don.view.CircleImageView;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 
-import net.duohuo.dhroid.util.DhUtil;
 import net.duohuo.dhroid.util.ImageLoaderUtil;
 
 import java.util.ArrayList;
@@ -41,11 +40,9 @@ import cn.hi028.android.highcommunity.activity.GroupDataAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.fragment.CommunityDetilsFrag;
 import cn.hi028.android.highcommunity.activity.fragment.CommunityFrag;
-import cn.hi028.android.highcommunity.activity.fragment.VillageMessageFrag;
 import cn.hi028.android.highcommunity.bean.CommunityBean;
 import cn.hi028.android.highcommunity.bean.CommunityListBean;
 import cn.hi028.android.highcommunity.bean.OperateBean;
-import cn.hi028.android.highcommunity.utils.CommonUtils;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
@@ -155,7 +152,7 @@ public class CommunityAdapter extends BaseFragmentAdapter {
             mViewHolder.mGridView.setAdapter(mViewHolder.mImageAdapter);
             HighCommunityUtils.GetInstantiation().setGridViewHeightBasedOnChildren(mViewHolder.mGridView, mViewHolder.mImageAdapter, 3);
             mViewHolder.mGridView.setClickable(false);
-            mViewHolder.mLocation.setText(mBean.getVillage_name());
+            mViewHolder.mLocation.setText(mBean.getSite());
             mViewHolder.mComment.setText(mBean.getD_count() + " 评论");
             mViewHolder.mAssist.setText(mBean.getP_count() + " 点赞");
             mViewHolder.ll_comm_loc.setVisibility(View.VISIBLE);
@@ -249,16 +246,16 @@ public class CommunityAdapter extends BaseFragmentAdapter {
                 mContext.startActivity(mCommunity);
             }
         });
-        mViewHolder.mLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent mMessage = new Intent(mContext, GeneratedClassUtils.get(CommunityDetailAct.class));
-                mMessage.putExtra(CommunityDetailAct.ACTIVITYTAG, "message");
-                mMessage.putExtra(CommunityDetailAct.INTENTTAG, mBean.getVillage_name());
-                mMessage.putExtra(VillageMessageFrag.FRAGMENTTAG, mBean.getVid());
-                mContext.startActivity(mMessage);
-            }
-        });
+//        mViewHolder.mLocation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent mMessage = new Intent(mContext, GeneratedClassUtils.get(CommunityDetailAct.class));
+//                mMessage.putExtra(CommunityDetailAct.ACTIVITYTAG, "message");
+//                mMessage.putExtra(CommunityDetailAct.INTENTTAG, mBean.getVillage_name());
+//                mMessage.putExtra(VillageMessageFrag.FRAGMENTTAG, mBean.getVid());
+//                mContext.startActivity(mMessage);
+//            }
+//        });
         mViewHolder.mAssist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

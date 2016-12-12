@@ -1,5 +1,6 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -38,7 +39,6 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @作者： Lee_yting<br>
  * @时间：2016/10/11<br>
  */
-
 public class AutoFrag_SuperVise extends BaseFragment {
     public static final String Tag = "~~~AutoFrag_SuperVise:";
     public static final String FRAGMENTTAG = "AutoFrag_SuperVise";
@@ -70,7 +70,12 @@ public class AutoFrag_SuperVise extends BaseFragment {
 
     boolean isReportSelected = true;
 
+    @Override
+    public void onAttach(Context context) {
+        Log.e("HJJ", "ArrayListFragment **** onAttach...");
 
+        super.onAttach(context);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -205,6 +210,14 @@ initDatas();
 
             if (mList != null) {
                 mReportList = mList.get(0);
+                Log.d(Tag, "list type" + mReportList.get(0).getType());
+
+                if (mReportList.get(0).getType()!=null&&mReportList.get(0).getType().equals("1")){
+
+                    but_Creat.setVisibility(View.GONE);
+                }else{
+                    but_Creat.setVisibility(View.VISIBLE);
+                }
                 mReportAdapter.AddNewData(mReportList);
                 mListview_Report.setAdapter(mReportAdapter);
 

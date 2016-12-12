@@ -256,7 +256,36 @@ public class HTTPHelper {
         mParamMap.put("vid", Vid + "");
         post(mParamMap, mIbpi, url);
     }
-
+    /**
+     * 新版v2.0  获取信息流
+     **/
+    public static void GetMessage2(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                  int userId, String time) {
+        Log.d(Tag,"------------CommunityFrag   GetMessage");
+        String url = HTTPPOSTURL + "smessage/index.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        if (userId != 0)
+            mParamMap.put("uid", userId + "");
+        if (!TextUtils.isEmpty(time)) {
+            mParamMap.put("time", time);
+        }
+//        mParamMap.put("vid", Vid + "");
+        post(mParamMap, mIbpi, url);
+    }
+    /**
+     * 新版v2.0  获取信息流
+     **/
+    public static void GetMessage2(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                    String time) {
+        Log.d(Tag,"------------CommunityFrag   GetMessage");
+        String url = HTTPPOSTURL + "smessage/index.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        if (!TextUtils.isEmpty(time)) {
+            mParamMap.put("time", time);
+        }
+//        mParamMap.put("vid", Vid + "");
+        post(mParamMap, mIbpi, url);
+    }
     /**
      * 点击位置跳转该小区发帖
      **/
@@ -319,7 +348,19 @@ public class HTTPHelper {
         mParamMap.put("time", time);
         post(mParamMap, mIbpi, url);
     }
-
+    /**
+     * 新版v2.0 刷新我的话题信息流
+     **/
+    public static void RefreshMessage2(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                      int type, String time, int userId) {
+        String url = HTTPPOSTURL + "smessage/refresh.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        if (userId != 0)
+            mParamMap.put("uid", userId + "");
+        mParamMap.put("type", type + "");
+        mParamMap.put("time", time);
+        post(mParamMap, mIbpi, url);
+    }
     /**
      * 刷新小区信息流
      **/
@@ -1275,6 +1316,17 @@ public class HTTPHelper {
     public static void GetMessageDetails(BpiHttpHandler.IBpiHttpHandler mIbpi,
                                          int id) {
         String url = HTTPPOSTURL + "message/details.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("id", id + "");
+        post(mParamMap, mIbpi, url);
+    }
+
+    /**
+     * 新版v2.0 获取帖子详情
+     **/
+    public static void GetMessageDetails2(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                         int id) {
+        String url = HTTPPOSTURL + "smessage/details.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("id", id + "");
         post(mParamMap, mIbpi, url);
@@ -2821,6 +2873,49 @@ public class HTTPHelper {
                 BpiHttpHandler.getInstance(mIbpi));
     }
 
+    /**
+     * * 新版 用户发帖接口
+     * v2.0
+     * @param mIbpi
+     * @param label_id   发帖标签id
+     * @param content
+     * @param user_id
+//     * @param type  0-普通帖，1-群组帖
+     * @param image
+     * @param gid  群组id
+     * @param token
+     * @param site 发帖地点
+     */
+    public static void PostingMsg2(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                  String label_id, String content, String user_id,
+                                  List<String> image, String gid, String token,String site) {
+        String url = HTTPPOSTURL + "smessage/create.html";
+        RequestParams mParamMap = new RequestParams(getBaseParamMap());
+        mParamMap.put("label_id", label_id);
+        mParamMap.put("user_id", user_id);
+        mParamMap.put("site", site);
+        mParamMap.put("token", token);
+        if (!TextUtils.isEmpty(gid)) {
+            mParamMap.put("type", "1");
+            mParamMap.put("gid", gid);
+        } else {
+            mParamMap.put("type", "0");
+        }
+        mParamMap.put("content", content);
+        if (image != null && image.size() > 0)
+            try {
+                for (int i = 0; i < image.size(); i++) {
+                    mParamMap.put("image" + "[" + i + "]",
+                            ImageUtil.getImage(image.get(i)));
+                }
+            } catch (Exception e) {
+
+            }
+        Debug.verbose(DongConstants.EDUCATIONHTTPTAG, "URL:" + url
+                + "   ling params:" + mParamMap.toString());
+        BpiHttpClient.getInstance().post(url, mParamMap,
+                BpiHttpHandler.getInstance(mIbpi));
+    }
     /**
      * 取消订单接口
      */

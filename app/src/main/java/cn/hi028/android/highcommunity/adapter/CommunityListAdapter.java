@@ -15,7 +15,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -41,10 +40,8 @@ import cn.hi028.android.highcommunity.activity.GroupDataAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.fragment.CommunityDetilsFrag;
 import cn.hi028.android.highcommunity.activity.fragment.CommunityFrag;
-import cn.hi028.android.highcommunity.activity.fragment.VillageMessageFrag;
 import cn.hi028.android.highcommunity.bean.CommunityBean;
 import cn.hi028.android.highcommunity.bean.CommunityListBean;
-import cn.hi028.android.highcommunity.bean.GroupBean;
 import cn.hi028.android.highcommunity.bean.OperateBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
@@ -169,7 +166,7 @@ public class CommunityListAdapter extends BaseFragmentAdapter {
            
             
             
-            mViewHolder.mLocation.setText(mBean.getVillage_name());
+            mViewHolder.mLocation.setText(mBean.getSite());
             mViewHolder.mComment.setText(mBean.getD_count() + " 评论");
             mViewHolder.mAssist.setText(mBean.getP_count() + " 点赞");
             mViewHolder.ll_comm_loc.setVisibility(View.VISIBLE);
@@ -270,17 +267,17 @@ public class CommunityListAdapter extends BaseFragmentAdapter {
                 mContext.startActivity(mCommunity);
             }
         });
-        //地址监听
-        mViewHolder.mLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent mMessage = new Intent(mContext, GeneratedClassUtils.get(CommunityDetailAct.class));
-                mMessage.putExtra(CommunityDetailAct.ACTIVITYTAG, "message");
-                mMessage.putExtra(CommunityDetailAct.INTENTTAG, mBean.getVillage_name());
-                mMessage.putExtra(VillageMessageFrag.FRAGMENTTAG, mBean.getVid());
-                mContext.startActivity(mMessage);
-            }
-        });
+//        //地址监听
+//        mViewHolder.mLocation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent mMessage = new Intent(mContext, GeneratedClassUtils.get(CommunityDetailAct.class));
+//                mMessage.putExtra(CommunityDetailAct.ACTIVITYTAG, "message");
+//                mMessage.putExtra(CommunityDetailAct.INTENTTAG, mBean.getVillage_name());
+//                mMessage.putExtra(VillageMessageFrag.FRAGMENTTAG, mBean.getVid());
+//                mContext.startActivity(mMessage);
+//            }
+//        });
         //点赞监听
         mViewHolder.mAssist.setOnClickListener(new View.OnClickListener() {
             @Override

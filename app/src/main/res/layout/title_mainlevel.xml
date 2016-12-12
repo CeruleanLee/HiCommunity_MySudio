@@ -60,30 +60,7 @@
                 style="@style/My_RadioButton_Style"
                 android:text="群组" />
         </RadioGroup>
-        <RadioGroup
-            android:id="@+id/rg_title_newHuilifegroup"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/bg_maintitle_rg_huilife"
-            android:orientation="horizontal"
-            android:visibility="gone">
 
-            <RadioButton
-                android:id="@+id/rb_title_supply"
-                style="@style/My_RadioButton_Style2"
-                android:background="@drawable/maintitle_rbut_selector_newlife_supply"
-                android:checked="true"
-                android:text="直供" />
-
-            <RadioButton
-                android:id="@+id/rb_title_chips"
-                style="@style/My_RadioButton_Style2"
-                android:checked="false"
-                android:background="@drawable/maintitle_rbut_selector_newlife_chips"
-
-                android:text="众筹" />
-        </RadioGroup>
         <ImageView
             android:id="@+id/iv_mainlevel_RightButton"
             android:layout_width="wrap_content"
@@ -102,6 +79,7 @@
             android:layout_marginRight="11dip"
             android:layout_marginTop="@dimen/padding_12"
             android:clickable="true"
+
             android:src="@mipmap/img_title_new_message"
             android:visibility="gone" />
 

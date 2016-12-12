@@ -160,7 +160,10 @@ public class SystemMsgAdapter extends BaseFragmentAdapter {
         TextView mOrderId;
 
     }
-
+    public void ClearData() {
+        mList.clear();
+        notifyDataSetChanged();
+    }
     @Override
     public void AddNewData(Object mObject) {
         if (mObject instanceof List<?>) {

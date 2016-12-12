@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -66,30 +65,11 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
     static final String TAG = "LabelAct--->";
     public static final String ACTIVITYTAG = "LabelAct";
     public static final String INTENTTAG = "LabelActIntent";
-//    @Bind(R.id.iv_label_gridview)
-//    PullToRefreshGridView mGridView;
-//    @Bind(R.id.tv_label_RightnMenu)
-//    TextView mPublish;
-//    @Bind(R.id.tv_label_PostContent)
-//    EditText mContent;
-//    @Bind(R.id.ptrgv_label_PostImage)
-//    PullToRefreshGridView mPostImage;
-//    @Bind(R.id.tv_label_Postlocation)
-//    TextView mLocation;
-//    @Bind(R.id.ll_labellayout_mainlayout)
-//    LinearLayout mMainLayout;
-//    @Bind(R.id.rl_labellaout_contentlayout)
-//    RelativeLayout mContentLayout;
-//    @Bind(R.id.tv_label_title)
-//    TextView mTitle;
-
-
     LabelGrideAdapter mAdapter;
     GridAdapter mPostAdapter;
     LabelBean LastBean, CurrentBean;
     ECAlertDialog mDialog;
     boolean clicked = false;
-
     int requesetPhoto = 0x000001, requestFile = 0x000002,
             requestCropImage = 0x000003;
     PopupWindow mPhotoPopupWindow = null, mWaitingWindow;
@@ -114,7 +94,6 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
     TextView mPublish;
     @Bind(R.id.tv_label_PostContent)
     EditText mContent;
-
     private PopupWindow mWindow;
     String allDetailAdress;
 
@@ -268,29 +247,23 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
         });//注册监听函数
         Log.e(TAG, "定位3");
         mLocationClient.start();
-        //点击
+        //定位点击
         mLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isLocationClicked = true;
-//                mWindow = HighCommunityUtils.GetInstantiation()
-//                        .ShowWaittingPopupWindow(LabelAct.this, mLocation, Gravity.CENTER);
+//                mWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(LabelAct.this, mLocation, Gravity.CENTER);
                 int requestLocation = -1;
-                Toast.makeText(getApplicationContext(), "点击左上角", Toast.LENGTH_SHORT).show();
                 if (mLocationClient.isStarted()) {
                     Log.e(TAG, "isStarted--->");
-
                     mLocationClient.stop();
                     mLocationClient.start();
                     requestLocation = mLocationClient.requestLocation();
-
                 } else {
                     mLocationClient.start();
-
                     requestLocation = mLocationClient.requestLocation();
                 }
                 Log.e(TAG, "requestLocation--->" + requestLocation);
-
             }
         });
 
@@ -518,8 +491,10 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
             return;
         }
         mWaitingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(this, mGridView, Gravity.CENTER);
-        HTTPHelper.PostingMsg(mIbpi, mLabelId, content, HighCommunityApplication.mUserInfo.getId() + "",
-                HighCommunityApplication.mUserInfo.getV_id() + "", mImages, mGid, HighCommunityApplication.mUserInfo.getToken());
+//        HTTPHelper.PostingMsg(mIbpi, mLabelId, content, HighCommunityApplication.mUserInfo.getId() + "",
+//                HighCommunityApplication.mUserInfo.getV_id() + "", mImages, mGid, HighCommunityApplication.mUserInfo.getToken());
+        HTTPHelper.PostingMsg2(mIbpi, mLabelId, content, HighCommunityApplication.mUserInfo.getId() + "",
+                mImages, mGid, HighCommunityApplication.mUserInfo.getToken(),mLocation.getText().toString());
     }
 
     /**

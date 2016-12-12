@@ -27,7 +27,6 @@ import cn.hi028.android.highcommunity.activity.AutonomousAct_Third;
 import cn.hi028.android.highcommunity.adapter.AutoMyMoitionAdapter;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
-import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
  * @功能：自治大厅 我的提案<br>
@@ -83,7 +82,8 @@ DisplayMetrics mdm=new DisplayMetrics();
         @Override
         public void onError(int id, String message) {
             Log.d(Tag, "---~~~onError");
-            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+            tv_Nodata.setText(message);
+//            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
         @Override

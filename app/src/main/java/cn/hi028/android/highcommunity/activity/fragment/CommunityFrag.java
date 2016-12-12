@@ -164,7 +164,10 @@ public class CommunityFrag extends Fragment {
             time = mAdapter.getItem(0).getCreate_time();//mList.getData().get(0).getCreate_time();
         }
 
-        HTTPHelper.GetMessage(mIbpi, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id(), time);
+//        HTTPHelper.GetMessage(mIbpi, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id(), time);
+       //v2.0 新接口
+//        HTTPHelper.GetMessage2(mIbpi, HighCommunityApplication.mUserInfo.getId(), time);
+        HTTPHelper.GetMessage2(mIbpi, time);
         Log.e(Tag, "GetMessage2 ");
     }
 
@@ -264,8 +267,10 @@ public class CommunityFrag extends Fragment {
                 time = mAdapter.getItem(mAdapter.getCount() - 1).getCreate_time();//mList.getData().get(mList.getData().size() - 1).getCreate_time();
             }
         }
-        //刷新方式（0-下拉刷新，1-加载更多）
-        HTTPHelper.RefreshMessage(mIbpi, type, time, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id());//
+//        //刷新方式（0-下拉刷新，1-加载更多）
+//        HTTPHelper.RefreshMessage(mIbpi, type, time, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id());//
+       //v2.0
+        HTTPHelper.RefreshMessage2(mIbpi, type, time, HighCommunityApplication.mUserInfo.getId());//
     }
 
     private void RefreshDataForResume(int type) {
@@ -283,13 +288,13 @@ public class CommunityFrag extends Fragment {
             }
         }
         //刷新方式（0-下拉刷新，1-加载更多）
-        HTTPHelper.RefreshMessage(mIbpi2, type, time, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id());//
+        HTTPHelper.RefreshMessage2(mIbpi2, type, time, HighCommunityApplication.mUserInfo.getId());//
     }
 
     private void RefreshDataForUpdata(String time) {
         Log.e(Tag, "RefreshDataForUpdata--------- " );
         //刷新方式（0-下拉刷新，1-加载更多）
-        HTTPHelper.RefreshMessage(mIbpi2, 1, time, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id());//
+        HTTPHelper.RefreshMessage2(mIbpi2, 1, time, HighCommunityApplication.mUserInfo.getId());//
     }
 
     /**
@@ -348,6 +353,7 @@ public class CommunityFrag extends Fragment {
 
         @Override
         public Object onResolve(String result) {
+
             return HTTPHelper.ResolveMessage(result);
         }
 
@@ -408,6 +414,7 @@ public class CommunityFrag extends Fragment {
 
         @Override
         public Object onResolve(String result) {
+
             return HTTPHelper.ResolveMessage(result);
         }
 

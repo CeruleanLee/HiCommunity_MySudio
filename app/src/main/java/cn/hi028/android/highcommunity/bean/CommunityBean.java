@@ -11,24 +11,36 @@ import java.util.List;
  * @作者： 李凌云<br>
  * @版本：1.0<br>
  * @时间：2015/12/20<br>
+ *     ps：v2.0接口修改后新增site
  */
 public class CommunityBean extends BaseBean {
     int mid;
     boolean isPra;
     String gid;//群组id
-    String vid;
+    String vid;//v2.0 版本失效
     String title;
     List<PicBean> pic;
     String create_time;
-    String village_name;
-    String g_name;
-    int uid;
+    String village_name;//v2.0 版本失效
+    String g_name;//type=1时群组名称  来自XX群组
+    /**v2.0新增接口  发帖地址**/
+    String site;
+
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
+
+    int uid;//发帖用户id
     String head_pic;
     String nick;
     int sex;
     int age;
-    int d_count;
-    int p_count;
+    int d_count;//帖子评论数
+    int p_count;//赞帖总数
     int id;
     String content;
     int type;//2:活动；3：群组
@@ -133,10 +145,10 @@ public class CommunityBean extends BaseBean {
     public String getVillage_name() {
         return village_name;
     }
-
-    public void setVillage_name(String village_name) {
-        this.village_name = village_name;
-    }
+//
+//    public void setVillage_name(String village_name) {
+//        this.village_name = village_name;
+//    }
 
     public int getUid() {
         return uid;
@@ -202,13 +214,11 @@ public class CommunityBean extends BaseBean {
         this.p_count = p_count;
     }
 
-    public String getVid() {
-        return vid;
-    }
-
-    public void setVid(String vid) {
-        this.vid = vid;
-    }
+//    public String getVid() {return vid;}
+//
+//    public void setVid(String vid) {
+//        this.vid = vid;
+//    }
 
     public boolean isPra() {
         return isPra;
@@ -218,30 +228,32 @@ public class CommunityBean extends BaseBean {
         isPra = pra;
     }
 
-	@Override
-	public String toString() {
-		return "CommunityBean [mid=" + mid + ", isPra=" + isPra + ", vid="
-				+ vid + ", title=" + title + ", pic=" + pic + ", create_time="
-				+ create_time + ", village_name=" + village_name + ", g_name="
-				+ g_name + ", uid=" + uid + ", head_pic=" + head_pic
-				+ ", nick=" + nick + ", sex=" + sex + ", age=" + age
-				+ ", d_count=" + d_count + ", p_count=" + p_count + ", id="
-				+ id + ", content=" + content + ", type=" + type + ", label="
-				+ label + ", welcome=" + welcome + ", ag_pic=" + ag_pic
-				+ ", getAg_pic()=" + getAg_pic() + ", getId()=" + getId()
-				+ ", getLabel()=" + getLabel() + ", getWelcome()="
-				+ getWelcome() + ", getMid()=" + getMid() + ", getType()="
-				+ getType() + ", getContent()=" + getContent()
-				+ ", getTitle()=" + getTitle() + ", getPic()=" + getPic()
-				+ ", getCreate_time()=" + getCreate_time()
-				+ ", getVillage_name()=" + getVillage_name() + ", getUid()="
-				+ getUid() + ", getHead_pic()=" + getHead_pic()
-				+ ", getG_name()=" + getG_name() + ", getSex()=" + getSex()
-				+ ", getNick()=" + getNick() + ", getAge()=" + getAge()
-				+ ", getD_count()=" + getD_count() + ", getP_count()="
-				+ getP_count() + ", getVid()=" + getVid() + ", isPra()="
-				+ isPra() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "CommunityBean{" +
+                "mid=" + mid +
+                ", isPra=" + isPra +
+                ", gid='" + gid + '\'' +
+                ", vid='" + vid + '\'' +
+                ", title='" + title + '\'' +
+                ", pic=" + pic +
+                ", create_time='" + create_time + '\'' +
+                ", village_name='" + village_name + '\'' +
+                ", g_name='" + g_name + '\'' +
+                ", site='" + site + '\'' +
+                ", uid=" + uid +
+                ", head_pic='" + head_pic + '\'' +
+                ", nick='" + nick + '\'' +
+                ", sex=" + sex +
+                ", age=" + age +
+                ", d_count=" + d_count +
+                ", p_count=" + p_count +
+                ", id=" + id +
+                ", content='" + content + '\'' +
+                ", type=" + type +
+                ", label='" + label + '\'' +
+                ", welcome='" + welcome + '\'' +
+                ", ag_pic='" + ag_pic + '\'' +
+                '}';
+    }
 }

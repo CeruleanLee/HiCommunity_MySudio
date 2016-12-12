@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal"
-            android:visibility="gone"
+
             android:paddingTop="8dp">
 
             <RadioButton
@@ -36,14 +36,15 @@
                 android:text="系统消息" />
         </RadioGroup>
     </LinearLayout>
-
+<!--#ECECEC-->
     <cn.hi028.android.highcommunity.view.MyCustomViewPager
         android:id="@+id/vp_MessageCenter_ViewPager"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:background="#ECECEC"
+
+        android:background="#33fff0"
         android:flipInterval="30"
         android:persistentDrawingCache="animation" />
 </LinearLayout>

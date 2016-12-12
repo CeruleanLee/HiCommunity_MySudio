@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv"
         android:layout_marginTop="12dp"
-        android:background="#33aaaaaa"
+        android:background="@color/white"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -48,7 +48,7 @@
 
             <ImageView
                 android:id="@+id/img_goods_pic"
-                android:layout_width="180dp"
+                android:layout_width="250dp"
                 android:layout_height="180dp"
                 android:layout_centerHorizontal="true"
                 android:scaleType="centerCrop" />
@@ -58,94 +58,102 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp">
 
+<RelativeLayout
+    android:layout_width="250dp"
+    android:layout_centerHorizontal="true"
+    android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
 
-                android:orientation="vertical">
+        android:orientation="vertical">
 
 
-                <TextView
-                    android:id="@+id/tv_goods_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="8dp"
-                    android:singleLine="true"
-                    android:text="￥12.50"
-                    android:textColor="@color/color_deep_red"
-                    android:textSize="16sp" />
+        <TextView
+            android:id="@+id/tv_goods_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
+            android:text="￥12.50"
+            android:textColor="@color/color_deep_red"
+            android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/tv_goods_total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="8dp"
-                    android:singleLine="true"
-                    android:text="合计￥12.50"
-                    android:textColor="@color/color_deep_red"
-                    android:textSize="16sp" />
-            </LinearLayout>
+        <TextView
+            android:id="@+id/tv_goods_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
+            android:text="合计￥12.50"
+            android:textColor="@color/color_deep_red"
+            android:textSize="16sp" />
+    </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_goods_num"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_alignParentRight="true"
+    <LinearLayout
+        android:id="@+id/ll_goods_num"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
 
-                android:layout_marginRight="12dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/img_select_num">
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/img_select_num">
 
-                <TextView
-                    android:id="@+id/tv_goods_reduce"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:text="-"
-                    android:textColor="@color/Defult_Color_MidGrey"
-                    android:textSize="14sp" />
+        <TextView
+            android:id="@+id/tv_goods_reduce"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="-"
+            android:textColor="@color/Defult_Color_MidGrey"
+            android:textSize="14sp" />
 
-                <View
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
-                    android:background="#C9C9C9" />
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="#C9C9C9" />
 
-                <TextView
-                    android:id="@+id/tv_goods_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:singleLine="true"
-                    android:text="1"
-                    android:textColor="@color/Defult_Color_MidGrey"
-                    android:textSize="12sp" />
+        <TextView
+            android:id="@+id/tv_goods_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:singleLine="true"
+            android:text="1"
+            android:textColor="@color/Defult_Color_MidGrey"
+            android:textSize="12sp" />
 
-                <View
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
-                    android:background="#C9C9C9"  />
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="#C9C9C9"  />
 
-                <TextView
-                    android:id="@+id/tv_goods_add"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:text="+"
-                    android:textColor="@color/Defult_Color_MidGrey"
-                    android:textSize="14sp" />
-            </LinearLayout>
+        <TextView
+            android:id="@+id/tv_goods_add"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="+"
+            android:textColor="@color/Defult_Color_MidGrey"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</RelativeLayout>
+
         </RelativeLayout>
 
 
@@ -178,7 +186,7 @@
             android:layout_marginRight="20dp"
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
-            android:background="@color/defult_color_white"
+
             android:orientation="vertical">
 
             <RadioButton

@@ -403,7 +403,72 @@
                     android:textSize="@dimen/font_extra_small_half"
                     android:visibility="gone" />
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_leftMenu_MyMsg"
+                style="@style/ll_leftmenu_style"
+                android:clickable="true" >
 
+                <com.don.view.DrawableCenterTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/img_mymsg"
+                    android:drawablePadding="@dimen/padding_12"
+                    android:text="与我相关"
+                    android:textColor="@color/defult_color_white"
+                    android:textSize="@dimen/font_middle" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dip"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_leftMenu_MyMsg_Num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dip"
+                    android:layout_marginRight="30dip"
+                    android:background="@drawable/bg_leftmenu_num"
+                    android:paddingBottom="@dimen/margin_2"
+                    android:paddingLeft="@dimen/padding_8"
+                    android:paddingRight="@dimen/padding_8"
+                    android:paddingTop="@dimen/margin_2"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_extra_small_half"
+                    android:visibility="gone" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_leftMenu_SysMsg"
+                style="@style/ll_leftmenu_style"
+                android:clickable="true" >
+
+                <com.don.view.DrawableCenterTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/img_sysmsg"
+                    android:drawablePadding="@dimen/padding_12"
+                    android:text="系统消息"
+                    android:textColor="@color/defult_color_white"
+                    android:textSize="@dimen/font_middle" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dip"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_leftMenu_SysMsg_Num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dip"
+                    android:layout_marginRight="30dip"
+                    android:background="@drawable/bg_leftmenu_num"
+                    android:paddingBottom="@dimen/margin_2"
+                    android:paddingLeft="@dimen/padding_8"
+                    android:paddingRight="@dimen/padding_8"
+                    android:paddingTop="@dimen/margin_2"
+                    android:textColor="@color/defult_text_color"
+                    android:textSize="@dimen/font_extra_small_half"
+                    android:visibility="gone" />
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="55dip" />

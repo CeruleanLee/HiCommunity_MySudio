@@ -112,5 +112,7 @@
 
     <!--划线的过去价格-->
     <color name="old_price_color">#66333333</color>
-
+    <!--搜索-->
+    <color name="btn_press_color">#5677fc</color>
+    <color name="btn_pressed_color">#3ca0ec</color>
 </resources>

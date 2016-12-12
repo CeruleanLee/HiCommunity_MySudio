@@ -35,13 +35,8 @@ import cn.hi028.android.highcommunity.utils.alipay.PayResult;
 import cn.hi028.android.highcommunity.utils.wchatpay.WchatPayUtils;
 import cn.hi028.android.highcommunity.view.ECAlertDialog;
 import cn.hi028.android.highcommunity.wxapi.WXPayEntryActivity;
+import sun.misc.BASE64Decoder;
 
-/**
- * @功能：展示扫一扫界面Activity<br>
- * @作者： Lee_yting<br>
- * @版本：2.0<br>
- * @时间：2016/11/28<br>
- */
 public class ShowCaptureActivity extends BaseFragmentActivity {
 static final String Tag="ShowCaptureActivity:";
     @Bind(R.id.tv)
@@ -85,14 +80,48 @@ static final String Tag="ShowCaptureActivity:";
         ButterKnife.bind(this);
         act=this;
         captureStr = getIntent().getStringExtra("result");
-        tv.setText(captureStr);
+        tv.setVisibility(View.GONE);
+        Log.e(Tag,"captureStr---"+captureStr.toString());
+//        byte[] decode = Base64.decode(captureStr.getBytes());
+        String s=decode(captureStr);
+        Log.e(Tag,"decode---"+s.toString());
         mTitle.setText("订单支付");
+        tv.setText(s);
         WchatPayUtils.getInstance().init(ShowCaptureActivity.this);
-        handlerCaptureStr(captureStr);
+        handlerCaptureStr(s);
         initView();
 
     }
-Map mMap;
+
+    // 将 BASE64 编码的字符串 s 进行解码
+    public static String getFromBASE64(String s) {
+        if (s == null) return null;
+        sun.misc.BASE64Decoder decoder = new BASE64Decoder();
+        try {
+            byte[] b = decoder.decodeBuffer(s);
+            return new String(b);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    // 解密
+    public String decode(String s) {
+        byte[] b = null;
+        String result = null;
+        if (s != null) {
+            BASE64Decoder decoder = new BASE64Decoder();
+            try {
+
+                b = decoder.decodeBuffer(s);
+                result = new String(b, "utf-8");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+    Map mMap;
     private void handlerCaptureStr(String captureStr) {
         if (!captureStr.contains("&")){
           return;
@@ -122,6 +151,10 @@ setView(mMap);
         } else {
             BpiUniveralImage.displayImage(mMap.get("pic").toString(), imgGoodsPic);
         }
+        if (mMap.get("limit").toString()!=null&&mMap.get("limit").toString()!=""){
+
+            limit=Integer.parseInt(mMap.get("limit").toString());
+        }
     }
 
     private void initView() {
@@ -130,7 +163,7 @@ setView(mMap);
 
 
     }
-
+int limit=-1;
 
 float finaltotalPrice=0;int finalnum=1;
     @OnClick({R.id.img_back, R.id.tv_goods_reduce, R.id.tv_goods_add, R.id.rb_pay_wx, R.id.rb_pay_ipay})
@@ -155,7 +188,11 @@ float finaltotalPrice=0;int finalnum=1;
                 break;
             case R.id.tv_goods_add:
                 Log.e(Tag,"Text().toString():"+tvGoodsNum.getText().toString()+",parseInt:"+Integer.parseInt(tvGoodsNum.getText().toString()));
-                if (Integer.parseInt(tvGoodsNum.getText().toString()) < 3) {
+               if (limit==-1){
+                   Log.e(Tag,"limit"+limit);
+                   limit=3;
+               }
+                if (Integer.parseInt(tvGoodsNum.getText().toString()) < limit||limit==0) {
                     int nowNUm=Integer.parseInt(tvGoodsNum.getText().toString())+1;
                     finalnum=nowNUm;
                     tvGoodsNum.setText(nowNUm+"");
@@ -163,7 +200,7 @@ float finaltotalPrice=0;int finalnum=1;
                     finaltotalPrice=nowTotalPrice;
                     tvGoodsTotal.setText("合计金额￥"+nowTotalPrice);
                 } else {
-                    HighCommunityUtils.GetInstantiation().ShowToast("活动商品限购3件", 0);
+                    HighCommunityUtils.GetInstantiation().ShowToast("活动商品限购"+limit+"件", 0);
                 }
                 break;
             case R.id.rb_pay_wx:

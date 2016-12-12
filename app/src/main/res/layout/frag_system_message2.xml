@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/ll_sysMsg_Progress"
+        layout="@layout/progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <TextView
+        android:id="@+id/tv_sysMsg_noData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂无数据"
+        android:visibility="gone" />
+    <ListView
+
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sysMsg_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@color/Defult_Color_ShallowGrey"
+        android:dividerHeight="5dp"
+        android:scrollbars="none"
+android:layout_margin="@dimen/margin_12"
+        android:listSelector="@android:color/transparent"
+        >
+    </ListView>
+</LinearLayout>

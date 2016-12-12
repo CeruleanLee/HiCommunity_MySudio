@@ -37,75 +37,75 @@
             android:layout_marginRight="64dp"
             android:ellipsize="middle"
             android:singleLine="true"
-            android:text="我的位置"
+            android:text="附近位置"
             android:textColor="#ffffff"
             android:textSize="18sp" />
         <!-- android:textSize="@dimen/font_extra_large" -->
     </RelativeLayout>
 
 
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="50dip"
-        android:background="@color/Defult_Color_ShallowGrey"
-        android:padding="3dp"
         android:layout_marginTop="5dp"
-        android:orientation="horizontal">
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="3dp">
 
         <AutoCompleteTextView
             android:id="@+id/searchkey"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-      android:layout_weight="1"
+            android:layout_weight="1"
             android:background="@drawable/bg_autoact_edittext2"
-            android:drawableLeft="@drawable/ic_search_group"
+            android:drawableLeft="@drawable/search_icon"
+            android:drawablePadding="5dp"
             android:hint="请输入搜索内容"
             android:paddingBottom="10dp"
             android:paddingLeft="12dp"
-            android:drawablePadding="5dp"
             android:paddingTop="@dimen/ui_10_dip"
             android:singleLine="true"
             android:textSize="12dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="12dp"
+            android:gravity="center"
             android:paddingBottom="10dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:paddingTop="10dp"
-android:gravity="center"
-            android:visibility="visible"
-       android:textColor="@color/Defult_Color_AppGreen"
             android:text="搜索"
-            />
+            android:textColor="@color/Defult_Color_AppGreen"
+            android:textSize="12dp"
+            android:visibility="gone" />
         <!--     android:background="@drawable/bg_coner_greybutton"-->
         <Button
-            android:paddingBottom="10dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="10dp"
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@drawable/bg_coner_greybutton"
-android:visibility="gone"
-            android:text="Search" />
+            android:paddingBottom="10dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="10dp"
+            android:text="Search"
+            android:visibility="gone" />
     </LinearLayout>
+
     <Button
         android:id="@+id/button"
-        android:layout_marginTop="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:text="New Button" />
+
     <EditText
         android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="搜索"
         android:visibility="gone" />
-
 
 
     <TextView
@@ -116,19 +116,20 @@ android:visibility="gone"
         android:text="暂无数据"
 
         android:visibility="gone" />
+
     <TextView
         android:id="@+id/tv_address_noaddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:text="不显示位置"
         android:background="@drawable/ll_leftmenu_bg_selector"
- />
+        android:gravity="left"
+        android:text="不显示位置" />
+
     <ListView
-        android:layout_marginTop="12dp"
         android:id="@+id/loc_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
         android:divider="@color/Defult_Color_ShallowGrey"
         android:dividerHeight="2dip"
         android:listSelector="@drawable/ll_leftmenu_bg_selector">
@@ -136,10 +137,10 @@ android:visibility="gone"
     </ListView>
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:layout_marginTop="12dp"
         android:id="@+id/loc_list2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
         android:divider="@color/Defult_Color_ShallowGrey"
         android:dividerHeight="2dip"
         android:listSelector="@drawable/ll_leftmenu_bg_selector"

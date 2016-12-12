@@ -50,7 +50,7 @@ public class CommunityDetailAct extends BaseFragmentActivity {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         flag = getIntent().getStringExtra(ACTIVITYTAG);
-        String name = getIntent().getStringExtra(INTENTTAG);
+        String name =getIntent().getStringExtra(INTENTTAG)+"";
         isMePra=getIntent().getBooleanExtra("isPra", false);
         if (!TextUtils.isEmpty(flag) && flag.equals("Details")) {
             mTitle.setText("帖子详情");

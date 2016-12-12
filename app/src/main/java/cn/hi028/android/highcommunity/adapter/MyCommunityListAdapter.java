@@ -35,7 +35,6 @@ import cn.hi028.android.highcommunity.activity.BaseFragmentActivity;
 import cn.hi028.android.highcommunity.activity.CommunityDetailAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.fragment.CommunityDetilsFrag;
-import cn.hi028.android.highcommunity.activity.fragment.VillageMessageFrag;
 import cn.hi028.android.highcommunity.bean.CommunityBean;
 import cn.hi028.android.highcommunity.bean.OperateBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
@@ -116,7 +115,7 @@ public class MyCommunityListAdapter extends BaseFragmentAdapter {
         mViewHolder.mName.setText(mBean.getNick());
         mViewHolder.mComment.setText(mBean.getD_count() + " 评论");
         mViewHolder.mAssist.setText(mBean.getP_count() + " 点赞");
-        mViewHolder.mLocation.setText(mBean.getVillage_name());
+        mViewHolder.mLocation.setText(mBean.getSite());
         mViewHolder.mTime.setText(TimeUtil.getDescriptionTimeFromTimestamp(Long.parseLong(mBean.getCreate_time())));
         if (!TextUtils.isEmpty(mBean.getG_name())) {
             mViewHolder.mFrom.setVisibility(View.VISIBLE);
@@ -203,16 +202,16 @@ public class MyCommunityListAdapter extends BaseFragmentAdapter {
                 mContext.startActivity(mCommunity);
             }
         });
-        mViewHolder.mLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent mMessage = new Intent(mContext, GeneratedClassUtils.get(CommunityDetailAct.class));
-                mMessage.putExtra(CommunityDetailAct.ACTIVITYTAG, "message");
-                mMessage.putExtra(CommunityDetailAct.INTENTTAG, mBean.getVillage_name());
-                mMessage.putExtra(VillageMessageFrag.FRAGMENTTAG, mBean.getVid());
-                mContext.startActivity(mMessage);
-            }
-        });
+//        mViewHolder.mLocation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent mMessage = new Intent(mContext, GeneratedClassUtils.get(CommunityDetailAct.class));
+//                mMessage.putExtra(CommunityDetailAct.ACTIVITYTAG, "message");
+//                mMessage.putExtra(CommunityDetailAct.INTENTTAG, mBean.getVillage_name());
+//                mMessage.putExtra(VillageMessageFrag.FRAGMENTTAG, mBean.getVid());
+//                mContext.startActivity(mMessage);
+//            }
+//        });
         mViewHolder.mAssist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

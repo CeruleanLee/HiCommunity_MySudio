@@ -12,7 +12,6 @@ import java.util.List;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.bean.LabelBean;
 import cn.hi028.android.highcommunity.bean.UserCenterBean;
-import cn.hi028.android.highcommunity.bean.UserInfoBean;
 
 /**
  * @功能：通用参数配置、全局变量配置<br>
@@ -138,6 +137,9 @@ public class Constacts {
     //订单-详情
     public static final int MENU_LEFTSECOND_CHIP_ORDER_DETAIL = 0x000041;
     public static final int MENU_THIRD_AUTOINFO = 0x000042;
+    //与我相关和系统消息
+    public static final int MENU_MYMESSAGE = 0x000043;
+    public static final int MENU_SYSMESSAGE = 0x000044;
     /**
      * 全局数据保存
      **/

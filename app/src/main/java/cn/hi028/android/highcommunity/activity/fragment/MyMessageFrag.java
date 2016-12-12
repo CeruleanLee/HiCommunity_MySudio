@@ -4,162 +4,188 @@
 
 package cn.hi028.android.highcommunity.activity.fragment;
 
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
-import com.don.tools.GeneratedClassUtils;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-import cn.hi028.android.highcommunity.HighCommunityApplication;
+import net.duohuo.dhroid.activity.BaseFragment;
+import net.duohuo.dhroid.util.DhUtil;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.CommunityDetailAct;
-import cn.hi028.android.highcommunity.activity.MenuLeftAct;
-import cn.hi028.android.highcommunity.activity.VallageAct;
-import cn.hi028.android.highcommunity.adapter.MyTopicListViewAdapter;
-import cn.hi028.android.highcommunity.bean.CommunityBean;
-import cn.hi028.android.highcommunity.bean.CommunityListBean;
+import cn.hi028.android.highcommunity.adapter.CommunityMsgAdapter;
+import cn.hi028.android.highcommunity.adapter.HuiOrderAdapter;
+import cn.hi028.android.highcommunity.adapter.SystemMsgAdapter;
+import cn.hi028.android.highcommunity.bean.CommunityMsgBean;
+import cn.hi028.android.highcommunity.bean.SystemMessageBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
-import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
+import cn.hi028.android.highcommunity.view.MyCustomViewPager;
 
 /**
- * @功能：我的话题<br>
+ * @功能：消息中心页面<br>
  * @作者： 李凌云<br>
  * @版本：1.0<br>
- * @时间：2016-2-16<br>
+ * @时间：2016-01-30<br>
  */
-public class MyMessageFrag extends Fragment {
+@EFragment(resName = "frag_message_center_my")
+public class MyMessageFrag extends BaseFragment {
 
+    public static final String TAG = "~MsgCenterFrag->";
     public static final String FRAGMENTTAG = "MyMessageFrag";
-    private View mFragmeView;
-    private int mCount = -1;
-    MyTopicListViewAdapter mAdapter;
-    private PullToRefreshListView mListView;
-    private ImageView mChange;
-    private TextView mNodata;
-    CommunityListBean mList = new CommunityListBean();
-    CommunityBean mBean = null;
-    String vid;
+    @ViewById(R.id.vp_MessageCenter_ViewPager)
+    MyCustomViewPager mPager;// 页卡内容
+    @ViewById(R.id.rg_Message_Center)
+    RadioGroup rg;//
+    /**当前页**/
+    int currentPo = 0;
+    public List<ListView> listViewList; // Tab页面列表
+    public List<View> proPressList; // Tab页面列表
+    public List<TextView> noDataList; // Tab页面列表
+    private List<BaseAdapter> adapterList; // Tab页面列表
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (mFragmeView == null) {
-            initView();
-        }
-        ViewGroup parent = (ViewGroup) mFragmeView.getParent();
-        if (parent != null)
-            parent.removeView(mFragmeView);
-        return mFragmeView;
-    }
+    @AfterViews
+    void initView() {
+        mPager.setPagingEnabled(false);
+        mPager.setCurrentItem(0);
 
-    private void initView() {
-        mFragmeView = LayoutInflater.from(getActivity()).inflate(
-                R.layout.frag_mytopic_list, null);
-        vid = getActivity().getIntent().getStringExtra(FRAGMENTTAG);
-        mListView = (PullToRefreshListView) mFragmeView.findViewById(R.id.ptrlv_community_listview);
-        mChange = (ImageView) mFragmeView.findViewById(R.id.iv_community_change);
-        mNodata = (TextView) mFragmeView.findViewById(R.id.tv_community_Nodata);
-        mAdapter = new MyTopicListViewAdapter((MenuLeftAct) getActivity());
-        mListView.setAdapter(mAdapter);
-        mListView.setEmptyView(mNodata);
-        mListView.setMode(PullToRefreshBase.Mode.BOTH);
-        mChange.setVisibility(View.GONE);
-        mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//                RefreshData(0);
-                new GetDataTask().execute();
-
-
-            }
-
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//                RefreshData(1);
-                new GetDataTask2().execute();
-
-            }
-        });
-        mChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (HighCommunityUtils.isLogin()) {
-                    VallageAct.toStartAct(getActivity(), 1, false);
-                } else {
-                    VallageAct.toStartAct(getActivity(), 0, false);
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rb_Message_System) {
+                    if (currentPo != 0)
+                        mPager.setCurrentItem(0);
+                } else if (checkedId == R.id.rb_Message_Notice) {
+                    if (currentPo != 1)
+                        mPager.setCurrentItem(1);
                 }
             }
         });
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        proPressList = new ArrayList<View>();
+        noDataList = new ArrayList<TextView>();
+        listViewList = new ArrayList<ListView>();
+        adapterList = new ArrayList<BaseAdapter>();
+        HuiOrderAdapter adapter = new HuiOrderAdapter();//与我相关用
+        List<View> viewList = new ArrayList<View>();
+        //将与我相关和系统消息添加进viewlist
+        viewList.add(getRelatedList());
+        viewList.add(getPageView());
+        mPager.setAdapter(adapter);
+        mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                mBean = mAdapter.getItem(i - 1);
-                Intent mCommunity = new Intent(getActivity(), GeneratedClassUtils.get(CommunityDetailAct.class));
-                mCommunity.putExtra(CommunityDetailAct.ACTIVITYTAG, "Details");
-                mCommunity.putExtra(CommunityDetailAct.INTENTTAG, mBean.getMid());
-                startActivityForResult(mCommunity, 1);
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                currentPo = i;
+                if (!((RadioButton) rg.getChildAt(i)).isChecked()) {
+                    ((RadioButton) rg.getChildAt(i)).setChecked(true);
+                }
+                // 如果页面滑动的时候 adapter里面的数据是空的 就访问接口获取数据  与我相关是0  系统消息是1
+                if (adapterList.get(i).getCount() == 0) {
+                    if (i == 0) {
+                        HTTPHelper.GetRelatedMsg(mRelateIbpi);
+                    } else if (i == 1) {
+                        HTTPHelper.GetSystemMsg(mIbpi);
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
             }
         });
+        adapter.setViewList(viewList);
+        HTTPHelper.GetRelatedMsg(mRelateIbpi);
+        mPager.setCurrentItem(0);
     }
-
-    @Override
-    public void onResume() {
-        mCount = -1;
-        HTTPHelper.GetMyMessage(mIbpi, HighCommunityApplication.mUserInfo.getId());
-        super.onResume();
+    List<SystemMessageBean.SystemMsgDataEntity> mSystemMsgList=new ArrayList<SystemMessageBean.SystemMsgDataEntity>();
+/**应该是系统消息的view**/
+    View getPageView() {
+        Log.e(TAG,"getPageView");
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.frag_system_message, null);
+        SystemMsgAdapter adapter=new SystemMsgAdapter(getActivity(),mSystemMsgList);
+//        NoticeAdapter adapter = new NoticeAdapter(getActivity());
+      /**改到这里了 **/
+        PullToRefreshListView ptfl = (PullToRefreshListView) view.findViewById(R.id.sysMsg_listView);
+        View mProgress = view.findViewById(R.id.ll_sysMsg_Progress);
+        ptfl.getRefreshableView().setDivider(null);
+        ptfl.getRefreshableView().setDividerHeight(DhUtil.dip2px(getActivity(), 20));
+        ptfl.getRefreshableView().setPadding(20,-20,20,40);
+        mProgress.setVisibility(View.VISIBLE);
+        TextView mNodata = (TextView) view.findViewById(R.id.tv_sysMsg_noData);
+        proPressList.add(mProgress);
+        noDataList.add(mNodata);
+        ListView lv_list = ptfl.getRefreshableView();
+        ptfl.setMode(PullToRefreshBase.Mode.DISABLED);
+        lv_list.setAdapter(adapter);
+        adapterList.add(adapter);
+        listViewList.add(lv_list);
+        return view;
     }
+/**返回与我相关的view**/
+    View getRelatedList() {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.frag_chip_order, null);
+        CommunityMsgAdapter adapter = new CommunityMsgAdapter(getActivity());
+        PullToRefreshListView ptfl = (PullToRefreshListView) view.findViewById(R.id.lv_list);
+        View mProgress = view.findViewById(R.id.ll_NoticeDetails_Progress);
+        ptfl.getRefreshableView().setDivider(null);
+        ptfl.getRefreshableView().setDividerHeight(DhUtil.dip2px(getActivity(), 20));
+        ptfl.getRefreshableView().setPadding(20,-20,20,40);
 
-    private void RefreshData(int type) {
-        String time = "";
-        if (type == 0) {
-            mCount = 0;
-            if (mAdapter != null && mAdapter.getCount() > 0) {
-                time = mAdapter.getItem(0).getCreate_time();//mList.getData().get(0).getCreate_time();
-            }
-        } else {
-            mCount = 1;
-            if (mAdapter != null && mAdapter.getCount() > 0) {
-                time = mAdapter.getItem(mAdapter.getCount() - 1).getCreate_time();//mList.getData().get(mList.getData().size() - 1).getCreate_time();
-            }
-        }
-        HTTPHelper.RefreshMyMessage(mIbpi, type, time, HighCommunityApplication.mUserInfo.getId());//
+        mProgress.setVisibility(View.GONE);
+        TextView mNodata = (TextView) view.findViewById(R.id.tv_NoticeDetails_noData);
+        proPressList.add(mProgress);
+        noDataList.add(mNodata);
+        ListView lv_list = ptfl.getRefreshableView();
+        lv_list.setEmptyView(mNodata);
+        ptfl.setMode(PullToRefreshBase.Mode.DISABLED);
+        lv_list.setAdapter(adapter);
+        adapterList.add(adapter);
+        listViewList.add(lv_list);
+        return view;
     }
-
+/**系统相关的网络**/
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            mListView.onRefreshComplete();
+            proPressList.get(currentPo).setVisibility(View.GONE);
+            noDataList.get(currentPo).setVisibility(View.VISIBLE);
+            noDataList.get(currentPo).setText(message);
         }
 
         @Override
         public void onSuccess(Object message) {
+            proPressList.get(currentPo).setVisibility(View.GONE);
+            noDataList.get(currentPo).setVisibility(View.GONE);
             if (null == message)
                 return;
-            mList = (CommunityListBean) message;
-            if (mCount == 0) {
-                mAdapter.AddNewData(mList.getData());
-            } else if (mCount == 1) {
-                mAdapter.RefreshData(mList.getData());
-            } else if (mCount == -1) {
-                mAdapter.SetData(mList.getData());
-            }
-            mListView.onRefreshComplete();
+            mSystemMsgList = (List<SystemMessageBean.SystemMsgDataEntity>) message;
+            ((SystemMsgAdapter) adapterList.get(1)).AddNewData(mSystemMsgList);
         }
 
         @Override
         public Object onResolve(String result) {
-            return HTTPHelper.ResolveMessage(result);
+            return HTTPHelper.ResolveSystemMsgDataEntity(result);
         }
 
         @Override
@@ -169,54 +195,41 @@ public class MyMessageFrag extends Fragment {
 
         @Override
         public void cancleAsyncTask() {
-            mListView.onRefreshComplete();
+
         }
     };
-
-    public boolean onKeyDown() {
-        return mAdapter.onKeyDown();
-    }
-
-    private class GetDataTask extends AsyncTask<Void, Void,String > {
-
+    BpiHttpHandler.IBpiHttpHandler mRelateIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
-        protected String doInBackground(Void... params) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-            }
-            return null;
+        public void onError(int id, String message) {
+            proPressList.get(currentPo).setVisibility(View.GONE);
+            noDataList.get(currentPo).setVisibility(View.VISIBLE);
+            noDataList.get(currentPo).setText(message);
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            RefreshData(0);
-
-            // Call onRefreshComplete when the list has been refreshed.
-            //				mListView.onRefreshComplete();
-        }
-    }
-    private class GetDataTask2 extends AsyncTask<Void, Void,String > {
-
-        @Override
-        protected String doInBackground(Void... params) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-            }
-            return null;
+        public void onSuccess(Object message) {
+            proPressList.get(currentPo).setVisibility(View.GONE);
+            noDataList.get(currentPo).setVisibility(View.GONE);
+            if (null == message)
+                return;
+            List<CommunityMsgBean> data = (List<CommunityMsgBean>) message;
+            ((CommunityMsgAdapter) adapterList.get(0)).setMlist(data);
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            RefreshData(1);
-
-            // Call onRefreshComplete when the list has been refreshed.
-            //				mListView.onRefreshComplete();
+        public Object onResolve(String result) {
+            return HTTPHelper.ResolveRelated(result);
         }
-    }
 
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
+
+        }
+
+        @Override
+        public void cancleAsyncTask() {
+
+        }
+    };
 
 }

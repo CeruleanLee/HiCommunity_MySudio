@@ -28,7 +28,6 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.model.LatLngBounds;
 import com.baidu.mapapi.overlayutil.PoiOverlay;
 import com.baidu.mapapi.search.core.CityInfo;
 import com.baidu.mapapi.search.core.PoiInfo;
@@ -106,8 +105,6 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
     int radius = 100;
     LatLng southwest = new LatLng(39.92235, 116.380338);
     LatLng northeast = new LatLng(39.947246, 116.414977);
-    LatLngBounds searchbound = new LatLngBounds.Builder().include(southwest).include(northeast).build();
-
     int searchType = 0;  // 搜索的类型，在显示时区分
     private int locType;
     private double longitude = 104.164;// 精度
@@ -133,7 +130,6 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
         mSuggestionSearch.setOnGetSuggestionResultListener(this);
         mAddressListener = (MyAddressChangerListener) new LabelAct();
         initView();
-
 
     }
 

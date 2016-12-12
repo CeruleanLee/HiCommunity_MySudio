@@ -73,6 +73,15 @@ public class Auto_SuperViseBean {
         private String id;
         private String title;
         private String time;
+        private String type;//新增是否业主type =1 业主
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
 
         public void setId(String id) {
             this.id = id;

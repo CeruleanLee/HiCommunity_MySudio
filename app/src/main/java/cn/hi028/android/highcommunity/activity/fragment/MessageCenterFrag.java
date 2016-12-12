@@ -36,6 +36,7 @@ import cn.hi028.android.highcommunity.adapter.SystemMsgAdapter;
 import cn.hi028.android.highcommunity.bean.CommunityMsgBean;
 import cn.hi028.android.highcommunity.bean.SystemMessageBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.view.MyCustomViewPager;
 
 /**
  * @功能：消息中心页面<br>
@@ -49,7 +50,7 @@ public class MessageCenterFrag extends BaseFragment {
     public static final String TAG = "~MsgCenterFrag->";
     public static final String FRAGMENTTAG = "MessageCenterFrag";
     @ViewById(R.id.vp_MessageCenter_ViewPager)
-    ViewPager mPager;// 页卡内容
+    MyCustomViewPager mPager;// 页卡内容
     @ViewById(R.id.rg_Message_Center)
     RadioGroup rg;//
     /**当前页**/
@@ -61,6 +62,7 @@ public class MessageCenterFrag extends BaseFragment {
 
     @AfterViews
     void initView() {
+        mPager.setPagingEnabled(false);
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

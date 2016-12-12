@@ -30,6 +30,15 @@ public class MessageDetailsBean extends BaseBean {
     String create_time;
     String village_name;
     String vid;
+String site;//v2.0新增
+
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
 
     public String getGid() {
         return gid;

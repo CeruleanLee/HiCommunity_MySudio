@@ -138,7 +138,7 @@ public class CommunityDetilsFrag extends BaseFragment {
 		boolean flag = getActivity().getIntent().getBooleanExtra(FRAGMENTTAG, false);
 		if (mid != 0)
 			//			waitWindow2=HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), view, Gravity.CENTER);
-			HTTPHelper.GetMessageDetails(mIbpi, mid);
+			HTTPHelper.GetMessageDetails2(mIbpi, mid);
 		if (flag) {
 			InputMethodManager mManager = (InputMethodManager) mSpeakerContent.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 			mManager.showSoftInput(mSpeakerContent, InputMethodManager.SHOW_FORCED);
@@ -371,7 +371,22 @@ public class CommunityDetilsFrag extends BaseFragment {
 			mAssistAdapter.AddNewData(mBean.getPraises());
 			HighCommunityUtils.GetInstantiation().setGridViewHeightBasedOnChildren(mAssisGrid, mAssistAdapter, 6);
 		}
-		mLocation.setText(mBean.getVillage_name());
+		Log.e(Tag,"getSite"+mBean.getSite());
+		if (mBean.getSite()!=null&&!mBean.getSite().equals("null")&&!mBean.getSite().equals("")){
+			Log.e(Tag,"getSite"+1);
+
+			mLocation.setText(mBean.getSite());
+		}else if (mBean.getVillage_name()!=null&&!mBean.getVillage_name().equals("null")&&!mBean.getVillage_name().equals("")){
+			Log.e(Tag,"getSite"+2);
+
+			mLocation.setText(mBean.getVillage_name());
+
+		}else{
+			Log.e(Tag,"getSite"+3);
+
+			mLocation.setVisibility(View.GONE);
+		}
+
 		mImageAdapter.AddNewData(mBean.getPic());
 		HighCommunityUtils.GetInstantiation().setGridViewHeightBasedOnChildren(mContentGrid, mImageAdapter, 3);
 		mList.setSelectionAfterHeaderView();

@@ -25,11 +25,12 @@ import com.don.tools.BpiUniveralImage;
 import com.don.tools.GeneratedClassUtils;
 import com.don.view.CircleImageView;
 
+import net.duohuo.dhroid.util.ImageLoaderUtil;
+import net.duohuo.dhroid.util.LogUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import net.duohuo.dhroid.util.ImageLoaderUtil;
-import net.duohuo.dhroid.util.LogUtil;
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.ActiveAct;
@@ -39,7 +40,6 @@ import cn.hi028.android.highcommunity.activity.GroupDataAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.fragment.CommunityDetilsFrag;
 import cn.hi028.android.highcommunity.activity.fragment.CommunityFrag;
-import cn.hi028.android.highcommunity.activity.fragment.VillageMessageFrag;
 import cn.hi028.android.highcommunity.bean.CommunityBean;
 import cn.hi028.android.highcommunity.bean.CommunityListBean;
 import cn.hi028.android.highcommunity.bean.OperateBean;
@@ -225,17 +225,17 @@ public class GroupMessageListAdapter extends BaseFragmentAdapter {
 				mContext.startActivity(mCommunity);
 			}
 		});
-		//地址监听
-		mViewHolder.mLocation.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent mMessage = new Intent(mContext, GeneratedClassUtils.get(CommunityDetailAct.class));
-				mMessage.putExtra(CommunityDetailAct.ACTIVITYTAG, "message");
-				mMessage.putExtra(CommunityDetailAct.INTENTTAG, mBean.getVillage_name());
-				mMessage.putExtra(VillageMessageFrag.FRAGMENTTAG, mBean.getVid());
-				mContext.startActivity(mMessage);
-			}
-		});
+//		//地址监听
+//		mViewHolder.mLocation.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View view) {
+//				Intent mMessage = new Intent(mContext, GeneratedClassUtils.get(CommunityDetailAct.class));
+//				mMessage.putExtra(CommunityDetailAct.ACTIVITYTAG, "message");
+//				mMessage.putExtra(CommunityDetailAct.INTENTTAG, mBean.getVillage_name());
+//				mMessage.putExtra(VillageMessageFrag.FRAGMENTTAG, mBean.getVid());
+//				mContext.startActivity(mMessage);
+//			}
+//		});
 		//点赞监听
 		mViewHolder.mAssist.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -329,7 +329,7 @@ public class GroupMessageListAdapter extends BaseFragmentAdapter {
 		}
 		LogUtil.d(Tag+"imgUrlList-----"+imgUrlList.size());
 		mViewHolder.mGridView.setUrlList(imgUrlList,bigImgUrlList);
-		mViewHolder.mLocation.setText(mBean.getVillage_name());
+		mViewHolder.mLocation.setText(mBean.getSite());
 		mViewHolder.mComment.setText(mBean.getD_count() + " 评论");
 		mViewHolder.mAssist.setText(mBean.getP_count() + " 点赞");
 		mViewHolder.ll_comm_loc.setVisibility(View.VISIBLE);

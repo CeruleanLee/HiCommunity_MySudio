@@ -68,7 +68,7 @@ import photo.util.Res;
  * 主界面
  */
 public class MainActivity extends BaseFragmentActivity implements View.OnClickListener, NeighborFrag.MyChangeListener,HuiLifeFrag.MyChangeListener4HuiLife {
-   static  final String Tag="MainActivity--->";
+    static  final String Tag="MainActivity--->";
     /**
      * 底部tabs
      **/
@@ -87,7 +87,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     private PullToRefreshScrollView mLeftLayout;
     public SlidingMenu menu;
     private LinearLayout mTopic, mCollection, mBill, mWallet, mSetting, mCart,
-            mOrder, mAllianceOrder, mZhongCou, mCarft;
+            mOrder, mAllianceOrder, mZhongCou, mCarft,mMyMsg,mSysMsg;;
     private TextView mTopicNum, mCollectionNum, mLeftBillNum, mLeftWalletNum,
             mSettingNum, mTitle, mLeftName, mLeftSex, mLeftLocation,
             mLeftCartNum, mLeftOrderNum, mLeftAllianceOrder, mLeftZhongCouNum,
@@ -135,8 +135,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//		UmengUpdateAgent.setUpdateOnlyWifi(false);
-//		UmengUpdateAgent.update(this);
         ActivityTack.getInstanse().clear();
         // 隐藏标题栏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -148,9 +146,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         // //透明导航栏
         // getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         super.onCreate(savedInstanceState);
-        Log.d(Tag,"----------onCreate1");
         setContentView(R.layout.activity_main);
-        Log.d(Tag,"~~~~~~主界面视图完成");
         //检查更新
         new UpdateUtil(MainActivity.this, getApplicationContext()).initUpdate();
         Res.init(this);
@@ -191,7 +187,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 //                if (mWindow.isShowing()){
 //}
                 Log.i("BaiduLocationApiDem","1,"+ location.getAddress().address+"2,"+location.getAddress().city+"3,"+
-                location.getAddrStr()+"4,"+location.getCity()+"5,"+location.getCountry()+"6,"+location.getStreet()+"7,"+
+                        location.getAddrStr()+"4,"+location.getCity()+"5,"+location.getCountry()+"6,"+location.getStreet()+"7,"+
                         location.hasAddr()
                 );
 
@@ -263,7 +259,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     }
 
     public void setTag() {
-        Log.d(Tag,"============================唯一标识：" + HighCommunityApplication.mUserInfo.getId());
+        Log.d(Tag,"唯一标识：" + HighCommunityApplication.mUserInfo.getId());
         JPushInterface.setAliasAndTags(getApplicationContext(),
                 HighCommunityApplication.mUserInfo.getId() + "", null,
                 new TagAliasCallback() {
@@ -399,8 +395,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
     void initView() {
         mTitle = (TextView) this.findViewById(R.id.tv_mainlevel_title);
-//        mStatusHight = (LinearLayout) this
-//                .findViewById(R.id.title_status_height);
         mLeftMenu = (ImageView) this.findViewById(R.id.tv_mainlevel_LeftButton);
         mRightMenu = (ImageView) this.findViewById(R.id.iv_mainlevel_RightButton);
         mRightTop = (ImageView) this.findViewById(R.id.iv_mainlevel_RightNewMessage);
@@ -456,6 +450,10 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 R.id.ll_leftMenu_alliance_Order);
         mZhongCou = (LinearLayout) menu.getMenu().findViewById(
                 R.id.ll_leftMenu_ZhongCou);
+        mMyMsg = (LinearLayout) menu.getMenu().findViewById(
+                R.id.ll_leftMenu_MyMsg);
+        mSysMsg = (LinearLayout) menu.getMenu().findViewById(
+                R.id.ll_leftMenu_SysMsg);
         mCarft = (LinearLayout) menu.getMenu().findViewById(
                 R.id.ll_leftMenu_Carft);
         mBill = (LinearLayout) menu.getMenu().findViewById(
@@ -510,6 +508,9 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         mZhongCou.setOnClickListener(mLeftMenuListener);
         mOrder.setOnClickListener(mLeftMenuListener);
         mAllianceOrder.setOnClickListener(mLeftMenuListener);
+        //
+        mMyMsg.setOnClickListener(mLeftMenuListener);
+        mSysMsg.setOnClickListener(mLeftMenuListener);
         if (HighCommunityApplication.mUserInfo.getId() != 0)
             HTTPHelper.getUserCenter(mIbpi,
                     HighCommunityApplication.mUserInfo.getId() + "");
@@ -696,6 +697,29 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                     case R.id.ll_leftMenu_ZhongCou:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_ZHONGCOU);
+                        Constacts.mUserCenter.setCho(0);
+                        break;
+                    case R.id.ll_leftMenu_MyMsg://我的消息
+                        Log.d(TAG,"点击我的消息");
+//                        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
+//                                Constacts.MENU_MYMESSAGE);
+//                        Constacts.mUserCenter.setCho(0);
+                        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
+                                Constacts.MENU_LEFT_MESSAGECENTER);
+//                        if (HighCommunityUtils.isLogin(MainActivity.this)) {
+//                            mRightTop.setVisibility(View.GONE);
+////                            Intent mLeftjump = new Intent(MainActivity.this,
+////                                    GeneratedClassUtils.get(MenuLeftAct.class));
+//                            mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
+//                                    Constacts.MENU_LEFT_MESSAGECENTER);
+////                            startActivity(mLeftjump);
+//                        }
+                        break;
+                    case R.id.ll_leftMenu_SysMsg://系统消息
+                        Log.d(TAG,"点击系统消息");
+
+                        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
+                                Constacts.MENU_SYSMESSAGE);
                         Constacts.mUserCenter.setCho(0);
                         break;
                 }
@@ -913,19 +937,19 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                         mLocationClient.requestLocation();
 //                        requestLocation = mLocationClient.requestLocation();
                     }
-                   Log.e(TAG,"requestLocation--->");
+                    Log.e(TAG,"requestLocation--->");
 
 //                    mLeftTop.setVisibility(View.GONE);
 //                    menu.showMenu();
                     break;
                 case R.id.iv_mainlevel_RightButton:
-                 if (HighCommunityUtils.isLogin(MainActivity.this)) {
+                    if (HighCommunityUtils.isLogin(MainActivity.this)) {
 
-                    Intent intent = new Intent();
-                    intent.setClass(MainActivity.this, MipcaActivityCapture.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                }
+                        Intent intent = new Intent();
+                        intent.setClass(MainActivity.this, MipcaActivityCapture.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
 
 //                    startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
 

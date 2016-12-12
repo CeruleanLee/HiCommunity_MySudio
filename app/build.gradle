@@ -101,6 +101,7 @@ dependencies {
     compile files('libs/baidumapapi_util_v4_1_1.jar')
     compile files('libs/baidumapapi_v3_2_0.jar')
     compile files('libs/baidumapapi_base_v4_1_1.jar')
+    compile files('libs/BASE64.jar')
 }
 
 apt {
