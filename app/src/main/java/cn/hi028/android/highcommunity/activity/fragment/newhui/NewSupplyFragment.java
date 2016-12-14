@@ -36,7 +36,7 @@ import cn.hi028.android.highcommunity.view.MyNoScrollListview;
 import cn.hi028.android.highcommunity.view.nine.MyNineGridView;
 
 /**
- * @功能：新版直供商品<br>
+ * @功能：新版直供商品<br>  直供主页
  * @作者： Lee_yting<br>
  * @时间：2016/11/28<br>
  */
@@ -135,12 +135,16 @@ public class NewSupplyFragment extends BaseFragment {
 //        Log.e(Tag, "2填充商家");
 
         List<String> imgUrlList = new ArrayList<String>();
+        List<String> idList = new ArrayList<String>();
 
         for (int i = 0; i < mBean.getMerchant().size(); i++) {
             imgUrlList.add(i, Constacts.IMAGEHTTP + mBean.getMerchant().get(i).getLogo());
+            idList.add(i,  mBean.getMerchant().get(i).getId());
+
         }
         Log.e(Tag, "imgUrlList-----" + imgUrlList.size());
-        piclistView.setUrlList(imgUrlList);
+        piclistView.setUrlList(imgUrlList,idList);
+
     }
 
     /**

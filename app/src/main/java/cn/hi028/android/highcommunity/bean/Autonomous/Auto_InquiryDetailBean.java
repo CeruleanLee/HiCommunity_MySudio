@@ -64,11 +64,20 @@ public class Auto_InquiryDetailBean {
          */
 
         private String id;
-        private String create_time;
-        private String content;
         private String name;
+        private String content;
+        private String create_time;
         private String head_pic;
+        private List<InquiryDetailReplyEntity> rep_reply;//留言详情中用到   业主代表的回复
         private List<InquiryDetailReplyEntity> reply;
+
+        public List<InquiryDetailReplyEntity> getRep_reply() {
+            return rep_reply;
+        }
+
+        public void setRep_reply(List<InquiryDetailReplyEntity> rep_reply) {
+            this.rep_reply = rep_reply;
+        }
 
         public void setId(String id) {
             this.id = id;

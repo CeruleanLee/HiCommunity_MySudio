@@ -1,7 +1,5 @@
 package cn.hi028.android.highcommunity.view.nine;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -11,18 +9,20 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.Toast;
-import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.PhotoScanActivity;
-import cn.hi028.android.highcommunity.activity.fragment.CommunityFrag;
-import cn.hi028.android.highcommunity.bean.UrlsBean;
-import cn.hi028.android.highcommunity.utils.BitmapHandler;
-import cn.hi028.android.highcommunity.utils.Constacts;
-import cn.hi028.android.highcommunity.utils.MBitmapHolder;
 
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
 import com.lidroid.xutils.bitmap.callback.BitmapLoadCallBack;
 import com.lidroid.xutils.bitmap.callback.BitmapLoadFrom;
+
+import java.util.List;
+
+import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.PhotoScanActivity;
+import cn.hi028.android.highcommunity.activity.alliance.MerchantActivity;
+import cn.hi028.android.highcommunity.activity.fragment.CommunityFrag;
+import cn.hi028.android.highcommunity.bean.UrlsBean;
+import cn.hi028.android.highcommunity.utils.MBitmapHolder;
 
 /**
  * Created by lee_yting on 2016/9/15.
@@ -31,6 +31,7 @@ import com.lidroid.xutils.bitmap.callback.BitmapLoadFrom;
 public class MyNineGridView extends NineGridView {
     BitmapUtils  bitmapUtils;
     Context mContext;
+
     public MyNineGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext=context;
@@ -72,17 +73,23 @@ public class MyNineGridView extends NineGridView {
         });
     }
     @Override
-    protected void onClickImage(int position, String url, List<String> bigUrlList) {
-//        Toast.makeText(mContext, "点击了图片" + position, Toast.LENGTH_SHORT).show();
-        UrlsBean mUrls = new UrlsBean();
-        mUrls.getmUrlList().addAll(bigUrlList);
-        CommunityFrag.isNeedRefresh = false;
-        Intent mBigPhoto = new Intent(mContext, PhotoScanActivity.class);
-        mBigPhoto.putExtra("data", mUrls);
-        mBigPhoto.putExtra("ID", position);
-        mContext.startActivity(mBigPhoto);
-        scanForActivity(mContext).overridePendingTransition(R.anim.dyn_pic_scan_miss, R.anim.dyn_pic_scan_miss_no);
-		
+    protected void onClickImage(int position, String url, List<String> bigUrlList,boolean isIntent) {
+        if (isIntent){
+        Toast.makeText(mContext, "点击了 " + position+" 跳转商家id: "+bigUrlList.get(position), Toast.LENGTH_SHORT).show();
+            Intent mMerchant = new Intent(mContext, MerchantActivity.class);
+            mMerchant.putExtra("id",bigUrlList.get(position));
+            mContext.startActivity(mMerchant);
+        }else{
+            UrlsBean mUrls = new UrlsBean();
+            mUrls.getmUrlList().addAll(bigUrlList);
+            CommunityFrag.isNeedRefresh = false;
+            Intent mBigPhoto = new Intent(mContext, PhotoScanActivity.class);
+            mBigPhoto.putExtra("data", mUrls);
+            mBigPhoto.putExtra("ID", position);
+            mContext.startActivity(mBigPhoto);
+            scanForActivity(mContext).overridePendingTransition(R.anim.dyn_pic_scan_miss, R.anim.dyn_pic_scan_miss_no);
+
+        }
 //        if (mContext==null) {
 //			return;
 //		}else if (mContext instanceof Activity) {

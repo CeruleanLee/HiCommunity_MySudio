@@ -16,23 +16,27 @@ import cn.hi028.android.highcommunity.activity.fragment.SupplyShopMoreFrag;
 public class SupplyMorePagerAdapter extends FragmentPagerAdapter {
     static    final String Tag = "MotionPagerAdapter";
     SupplyShopMoreFrag mPublicMotionFrag;
-    List<SupplyShopMoreFrag> mFragList;
+    List<SupplyShopMoreFrag> mFragList= new ArrayList<SupplyShopMoreFrag>();
 
-    public SupplyMorePagerAdapter(FragmentManager fm) {
+    public SupplyMorePagerAdapter(FragmentManager fm,int mFragListSize ) {
         super(fm);
         Log.d(Tag, "MotionPagerAdapter");
-        mFragList = new ArrayList<SupplyShopMoreFrag>();
+
         Log.d(Tag,"SIZE="+mFragList.size());
+        while (mFragList.size()<mFragListSize){
+            SupplyShopMoreFrag mPublicMotionFrag = new SupplyShopMoreFrag();
+            mFragList.add( mPublicMotionFrag);
+        }
     }
     @Override
     public Fragment getItem(int arg0) {
         int page=arg0-1;
         Log.d(Tag,"getItem--->"+arg0);
-        if (arg0==0||arg0==1||mFragList.size()-1 < arg0) {
-            Log.d(Tag, "new mPublicMotionFrag()");
-            SupplyShopMoreFrag mPublicMotionFrag = new SupplyShopMoreFrag();
-            mFragList.add(arg0, mPublicMotionFrag);
-        }
+//        if (arg0==0||arg0==1||mFragList.size()-1 < arg0) {
+//            Log.d(Tag, "new mPublicMotionFrag()");
+//            SupplyShopMoreFrag mPublicMotionFrag = new SupplyShopMoreFrag();
+//            mFragList.add(arg0, mPublicMotionFrag);
+//        }
         Log.d(Tag,"getItem-SIZE="+mFragList.size());
 
         return mFragList.get(arg0);
@@ -52,7 +56,7 @@ public class SupplyMorePagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 500;
+        return mFragList.size();
     }
 
 

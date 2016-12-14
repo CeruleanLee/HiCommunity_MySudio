@@ -26,19 +26,19 @@ import java.util.List;
 
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.fragment.AutoDetail_Inquiry;
+import cn.hi028.android.highcommunity.activity.fragment.AutoDetail_Message;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_InquiryDetailBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
- * @功能：询问 评论详情adapter<br>
+ * @功能：留言 评论详情adapter<br>
  * @作者： Lee_yting<br>
  * @时间：2016/10/17<br>
  */
-public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
-    static final String Tag = "询问详情Adapter:";
-    AutoDetail_Inquiry mFrag;
+public class Auto_MessageDetailAdapter extends BaseFragmentAdapter {
+    static final String Tag = "留言详情Adapter：";
+    AutoDetail_Message mFrag;
     List<Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity> mList = new ArrayList<Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity>();
     /**
      * 主评论 bean
@@ -50,14 +50,14 @@ public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
     Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity.InquiryDetailSubReplyEntity mTempReply = new Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity.InquiryDetailSubReplyEntity();
     Context mContext;
     private LayoutInflater layoutInflater;
-
-    public Auto_InquiryDetailAdapter(List<Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity> mList, Context mContext, AutoDetail_Inquiry mFrag) {
+boolean isRepresent;
+    public Auto_MessageDetailAdapter(List<Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity> mList, Context mContext, AutoDetail_Message mFrag, boolean isRepresent) {
         super();
         this.mContext = mContext;
         this.mList = mList;
         this.layoutInflater = LayoutInflater.from(mContext);
         this.mFrag = mFrag;
-
+this.isRepresent=isRepresent;
     }
 
     @Override
@@ -88,7 +88,7 @@ public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
         final ViewHolder mViewHolder;
         if (convertView == null) {
             mViewHolder = new ViewHolder();
-            convertView = layoutInflater.inflate(R.layout.item_reportdetail_replay, null);
+            convertView = layoutInflater.inflate(R.layout.item_messagedetail_replay, null);
             mViewHolder.mAvatar = (CircleImageView) convertView.findViewById(R.id.item_reportdetail_Image);
             mViewHolder.mName = (TextView) convertView.findViewById(R.id.item_reportdetail_Name);
 //            mViewHolder.mTime = (TextView) convertView.findViewById(R.id.item_reportdetail_time);
@@ -100,7 +100,15 @@ public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
         }
         final Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity mBean = mList.get(position);
         ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + mBean.getPic(), mViewHolder.mAvatar);
-        mViewHolder.mName.setText(mBean.getFrom_name() + "：");
+        Log.e(Tag, "isRepresent:" + isRepresent);
+
+        if (isRepresent){
+            mViewHolder.mName.setText( "代表回复：");
+
+        }else{
+
+            mViewHolder.mName.setText(mBean.getFrom_name() + "：");
+        }
 //        mViewHolder.mTime.setText(TimeUtil.getDescriptionTimeFromTimestamp(Long.parseLong(mBean.getReply_time() + "")));
         mViewHolder.mContent.setText(mBean.getContent());
         if (mBean.getSub_reply().size() > 0) {
@@ -108,21 +116,35 @@ public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
             LinearLayout.LayoutParams mparams = new LinearLayout
                     .LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             int padding = HighCommunityUtils.GetInstantiation().dip2px(8);
+
+
             mViewHolder.mReplyLayout.removeAllViews();
             for (int i = 0; i < mBean.getSub_reply().size(); i++) {
                 TextView mText = new TextView(mContext);
                 int toNameLength = mBean.getSub_reply().get(i).getTo_name().length();
-                int fromNameLength = mBean.getSub_reply().get(i).getFrom_name().length();
+                int fromNameLength;
+                if (isRepresent){
+                    fromNameLength="代表".length();
+                }else{
+
+                    fromNameLength = mBean.getSub_reply().get(i).getFrom_name().length();
+                }
                 SpannableString mSpan = new SpannableString(mBean.getSub_reply().get(i).getFrom_name() + " 回复 " + mBean.getSub_reply().get(i).getTo_name()
                         + ":" + mBean.getSub_reply().get(i).getContent());
                 mText.setClickable(true);
                 mText.setFocusable(true);
                 mText.setMovementMethod(LinkMovementMethod.getInstance());//超链接
-                final String From_name = mBean.getSub_reply().get(i).getFrom_name();
+                final String From_name ;
+                if (isRepresent){
+                    From_name = "代表";
+                }else{
+                   From_name = mBean.getSub_reply().get(i).getFrom_name();
+                }
                 final String To_name = mBean.getSub_reply().get(i).getTo_name();
                 final String To_id = mBean.getSub_reply().get(i).getTo_id() + "";//主评论人id
                 final String From_id = mBean.getSub_reply().get(i).getFrom_id() + "";//小评论里的评论人id
                 Log.d(Tag, "~~~From_name:" + From_name + ",To_name" + To_name + ",From_id" + From_id + ",To_id" + To_id);
+
                 mSpan.setSpan(new ClickableSpan() {
                     @Override
                     public void updateDrawState(TextPaint ds) {
@@ -133,16 +155,19 @@ public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
 
                     @Override
                     public void onClick(View view) {
-                        Log.d(Tag, "点击了：" + From_name + ",hostId" + From_id + ",mBean.getId()评论id " + mBean.getId());
-                        mFrag.setText("回复:" + From_name, From_id, mBean.getId() + "", true);
-                        mTempReplies = mBean;
-                        avoidHintColor(view);
-                        mTempReply = new Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity.InquiryDetailSubReplyEntity();
+                        if (!isRepresent){
+
+                            Log.d(Tag, "点击了：" + From_name + ",hostId" + From_id + ",mBean.getId()评论id " + mBean.getId());
+                            mFrag.setText("回复:" + From_name, From_id, mBean.getId() + "", true);
+                            mTempReplies = mBean;
+                            avoidHintColor(view);
+                            mTempReply = new Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity.InquiryDetailSubReplyEntity();
 //                        mTempReply.setGid(hostId);
-                        mTempReply.setFrom_id(HighCommunityApplication.mUserInfo.getId());
-                        mTempReply.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
-                        mTempReply.setTo_name(From_name);
-                        Log.d(Tag, "点击结束的小回复bean+" + mTempReply.toString());
+                            mTempReply.setFrom_id(HighCommunityApplication.mUserInfo.getId());
+                            mTempReply.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
+                            mTempReply.setTo_name(From_name);
+                            Log.d(Tag, "点击结束的小回复bean+" + mTempReply.toString());
+                        }
                     }
                 }, 0, fromNameLength, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 mSpan.setSpan(new ClickableSpan() {
@@ -155,22 +180,25 @@ public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
 
                     @Override
                     public void onClick(View view) {
-                        avoidHintColor(view);
-                        Log.d(Tag, "点击了：" + To_name + ",To_id" + To_id + ",mBean.getId()评论id " + mBean.getId());
+                        if (!isRepresent){
 
-                        mFrag.setText("回复:" + To_name, To_id, mBean.getId() + "", true);
-                        mTempReplies = mBean;
-                        mTempReply = new Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity.InquiryDetailSubReplyEntity();
+                            avoidHintColor(view);
+                            Log.d(Tag, "点击了：" + To_name + ",To_id" + To_id + ",mBean.getId()评论id " + mBean.getId());
+
+                            mFrag.setText("回复:" + To_name, To_id, mBean.getId() + "", true);
+                            mTempReplies = mBean;
+                            mTempReply = new Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity.InquiryDetailSubReplyEntity();
 //                     mTempReply.setGid(hostId);
-                        mTempReply.setFrom_id(HighCommunityApplication.mUserInfo.getId());
-                        mTempReply.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
-                        mTempReply.setTo_name(To_name);
+                            mTempReply.setFrom_id(HighCommunityApplication.mUserInfo.getId());
+                            mTempReply.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
+                            mTempReply.setTo_name(To_name);
+                        }
                     }
                 }, fromNameLength + 4, fromNameLength + 4 + toNameLength, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 mText.setText(mSpan);
                 mText.setLayoutParams(mparams);
                 mText.setTextColor(mFrag.getActivity().getResources().getColor(R.color.defult_text_color));
-                mText.setPadding(padding, padding / 2, padding, padding / 2);
+                mText.setPadding(padding, 0, padding, padding / 2);
                 mViewHolder.mReplyLayout.addView(mText);
             }
         } else {
@@ -180,16 +208,19 @@ public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(mContext, "点击了主评论name ", Toast.LENGTH_SHORT).show();
-                Log.d(Tag, "主评论id： " + mBean.getId() + "");
-                //对监督主评论的回复   parentid=主评论id
-                mTempReplies = mBean;
-                mFrag.setText("回复:" + mBean.getFrom_name(), mBean.getFrom_id() + "", mBean.getId() + "", true);
-                mTempReply = new Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity.InquiryDetailSubReplyEntity();
+                if (!isRepresent){
+
+                    Log.d(Tag, "主评论id： " + mBean.getId() + "");
+                    //对监督主评论的回复   parentid=主评论id
+                    mTempReplies = mBean;
+                    mFrag.setText("回复:" + mBean.getFrom_name(), mBean.getFrom_id() + "", mBean.getId() + "", true);
+                    mTempReply = new Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity.InquiryDetailSubReplyEntity();
 //                mTempReply.set(mBean.getId());
 
-                mTempReply.setFrom_id(HighCommunityApplication.mUserInfo.getId());
-                mTempReply.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
-                mTempReply.setTo_name(mBean.getFrom_name());
+                    mTempReply.setFrom_id(HighCommunityApplication.mUserInfo.getId());
+                    mTempReply.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
+                    mTempReply.setTo_name(mBean.getFrom_name());
+                }
             }
         });
 

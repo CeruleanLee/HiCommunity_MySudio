@@ -121,11 +121,19 @@ ImageView goBack;
 				Toast.makeText(this, "请输入内容", Toast.LENGTH_SHORT).show();
 			} else {
 				try {
+					//v1.0
+//					JSONObject obj = new JSONObject();
+//					obj.put("goods_id", bean.getGoods_id());
+//					obj.put("content", content.getText().toString().trim());
+//					type = 1;
+//					HTTPHelper.SendEvaluate(mIbpi, id, obj);
+					//v2.0json化的数组字符串, 如[{"gid":1,"content":"味道真错"},{"gid":1,"content":"物美价廉"}]
+//					gid表示商品id, content为某个商品对应的评论内容
 					JSONObject obj = new JSONObject();
-					obj.put("goods_id", bean.getGoods_id());
+					obj.put("gid", bean.getGoods_id());
 					obj.put("content", content.getText().toString().trim());
 					type = 1;
-					HTTPHelper.SendEvaluate(mIbpi, id, obj);
+					HTTPHelper.SendEvaluate2(mIbpi, obj);
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}

@@ -34,6 +34,10 @@ public class AutoFrag_CreatInquiry extends BaseFragment {
     EditText mContent;
     @Bind(R.id.creatInquiry_commit)
     TextView mCommit;
+boolean isMeassage=false;
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +45,7 @@ public class AutoFrag_CreatInquiry extends BaseFragment {
         View view = inflater.inflate(R.layout.frag_auto_creat_inquiry, null);
         Bundle bundle = getArguments();
         owner_id = bundle.getInt("owner_id", -1);
+        isMeassage=bundle.getBoolean("isMessage",false);
         findView(view);
         ButterKnife.bind(this, view);
         initView();
@@ -55,11 +60,22 @@ public class AutoFrag_CreatInquiry extends BaseFragment {
 
     private void initView() {
         LogUtil.d(Tag + "initView");
-//        Toast.makeText(getActivity(), "需要业主代表才能操作", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), "isMeassage"+isMeassage, Toast.LENGTH_SHORT).show();
+        if (isMeassage){
+            mContent.setHint("留言内容");
+        }else{
+            mContent.setHint("询问内容");
+        }
         mCommit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HTTPHelper.AutoCreatInquiry(mIbpi, owner_id + "", mContent.getText().toString());
+                if (isMeassage){
+
+                    HTTPHelper.AutoCreatMessage(mIbpi, owner_id + "", mContent.getText().toString());
+                }else{
+
+                    HTTPHelper.AutoCreatInquiry(mIbpi, owner_id + "", mContent.getText().toString());
+                }
             }
         });
 

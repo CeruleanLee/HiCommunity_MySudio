@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/auto_inquirydetails_noData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/defult_color_white"
+        android:gravity="center"
+        android:text="暂无数据"
+        android:textColor="@color/Service_title_text_color"
+        android:textSize="15dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/inquirydetail_spokerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/defult_color_white"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:background="@color/Defult_Color_Grey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.don.view.CircleImageView
+                android:id="@+id/inquirydetail_spokerImage"
+                style="@style/civ_avatar_type2"
+                android:layout_marginLeft="@dimen/margin_8" />
+
+            <EditText
+                android:id="@+id/inquirydetail_spokerContent"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:paddingLeft="8dp"
+                android:singleLine="true"
+                android:textColor="@color/Defult_Color_MidGrey"
+                android:textColorHint="@color/Defult_Color_Grey" />
+
+            <ImageView
+                android:id="@+id/inquirydetail_spokerButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/padding_12"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/tag_speakerbutton_selector" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_above="@id/inquirydetail_spokerLayout"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <cn.hi028.android.highcommunity.view.MyNoScrollListview
+                android:id="@+id/inquirydetail_representListview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null">
+
+            </cn.hi028.android.highcommunity.view.MyNoScrollListview>
+
+            <cn.hi028.android.highcommunity.view.MyNoScrollListview
+                android:id="@+id/inquirydetail_commentListview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null">
+
+            </cn.hi028.android.highcommunity.view.MyNoScrollListview>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

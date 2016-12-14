@@ -28,19 +28,23 @@ import cn.hi028.android.highcommunity.utils.TimeUtil;
  */
 public class AutoSuperviseAdapter_Inq extends BaseFragmentAdapter {
     public static final int TAG_INQUIRY_DETAIL = 1;
+    /**留言详情**/
+    public static final int TAG_MESSAGE_DETAIL = 8;
     public AddressListFrag mFrag;
     List<Auto_SuperViseBean.SuperViseDataEntity> mList = new ArrayList<Auto_SuperViseBean.SuperViseDataEntity>();
     private Context context;
     private LayoutInflater layoutInflater;
+    private boolean isMessage = false;
 
-    public AutoSuperviseAdapter_Inq(List<Auto_SuperViseBean.SuperViseDataEntity> list, Context context) {
+    public AutoSuperviseAdapter_Inq(List<Auto_SuperViseBean.SuperViseDataEntity> list, Context context, boolean isMessage) {
         super();
         this.mList = list;
-        if(this.mList == null){
+        if (this.mList == null) {
             this.mList = new ArrayList<Auto_SuperViseBean.SuperViseDataEntity>();
         }
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
+        this.isMessage = isMessage;
     }
 
     @Override
@@ -78,18 +82,34 @@ public class AutoSuperviseAdapter_Inq extends BaseFragmentAdapter {
 //        TimeUtil.getDayAllTime(Long.parseLong(mBean.getCreate_time()))
         mViewHolder.mTime.setText(TimeUtil.getYearMonthDay(Long.parseLong(mBean.getTime())));
 //        mViewHolder.mTime.setText(TimeUtil.longToDate(Long.parseLong(mBean.getCreate_time()),"yyyy年MM月dd日 HH时mm分ss秒").toString());
-
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if (isMessage) {
+            // 跳转得到留言详情
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 //                Toast.makeText(context,"mBean.getId() "+mBean.getId(),Toast.LENGTH_SHORT).show();
-                Log.d("~~~","询问adapter");
-                Intent mIntent_report=new Intent(context, AutonomousAct_Third.class);
-                mIntent_report.putExtra("title",TAG_INQUIRY_DETAIL);
-                mIntent_report.putExtra("inquiry_id",mBean.getId());
-                context.startActivity(mIntent_report);
-            }
-        });
+                    Log.d("~~~", "留言adapter");
+                    Intent mIntent_report = new Intent(context, AutonomousAct_Third.class);
+                    mIntent_report.putExtra("title", TAG_MESSAGE_DETAIL);
+                    mIntent_report.putExtra("message_id", mBean.getId());
+                    context.startActivity(mIntent_report);
+                }
+            });
+
+        } else {
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                Toast.makeText(context,"mBean.getId() "+mBean.getId(),Toast.LENGTH_SHORT).show();
+                    Log.d("~~~", "询问adapter");
+                    Intent mIntent_report = new Intent(context, AutonomousAct_Third.class);
+                    mIntent_report.putExtra("title", TAG_INQUIRY_DETAIL);
+                    mIntent_report.putExtra("inquiry_id", mBean.getId());
+                    context.startActivity(mIntent_report);
+                }
+            });
+        }
+
 
         return convertView;
     }

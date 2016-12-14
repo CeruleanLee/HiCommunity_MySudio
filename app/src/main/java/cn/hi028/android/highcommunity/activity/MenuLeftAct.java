@@ -18,30 +18,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.fragment.HuiChipsOrderFrag;
-import cn.hi028.android.highcommunity.activity.fragment.HuiChipsOrderFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.HuiOrderFrag;
-import cn.hi028.android.highcommunity.activity.fragment.HuiOrderFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.HuiSuppGdCarFrag;
-import cn.hi028.android.highcommunity.activity.fragment.HuiSuppGdCarFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.MessageCenterFrag;
-import cn.hi028.android.highcommunity.activity.fragment.MessageCenterFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.MyCarftsFrag;
-import cn.hi028.android.highcommunity.activity.fragment.MyCarftsFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.MyCollectionSwitchFrag;
-import cn.hi028.android.highcommunity.activity.fragment.MyCollectionSwitchFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.MyMessageFrag;
-import cn.hi028.android.highcommunity.activity.fragment.PersonalAuthFrag;
-import cn.hi028.android.highcommunity.activity.fragment.ServicePaymentFrag;
-import cn.hi028.android.highcommunity.activity.fragment.SettingFrag;
-import cn.hi028.android.highcommunity.activity.fragment.SettingFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.SysMessageFrag;
-import cn.hi028.android.highcommunity.activity.fragment.TenementBillFrag;
-import cn.hi028.android.highcommunity.activity.fragment.TenementBillFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.UserInfoFrag;
-import cn.hi028.android.highcommunity.activity.fragment.UserInfoFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.WalletSwitchFrag;
-import cn.hi028.android.highcommunity.activity.fragment.WalletSwitchFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.*;
 import cn.hi028.android.highcommunity.utils.Constacts;
 
 /**

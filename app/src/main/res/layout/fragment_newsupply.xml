@@ -95,6 +95,7 @@
             android:layout_marginTop="15dp">
 
             <TextView
+
                 android:id="@+id/item_category_tv_merchantTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -137,7 +138,9 @@
 
         </com.handmark.pulltorefresh.library.PullToRefreshGridViewNoScroll>
 
-        <cn.hi028.android.highcommunity.view.nine.MyNineGridView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <cn.hi028.android.highcommunity.view.nine.MyNineGridView
+            xmlns:lyt="http://schemas.android.com/apk/res-auto"
+
             android:id="@+id/piclistView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -149,7 +152,9 @@
             android:numColumns="3"
             android:stretchMode="columnWidth"
             android:verticalSpacing="12dp"
-            app:sapcing="12dp" />
+            lyt:sapcing="12dp"
+            lyt:isIntent="true"
+            />
 
     </LinearLayout>
 </ScrollView>

@@ -48,42 +48,13 @@
     <RadioGroup
         android:id="@+id/supplyMore_rg_category"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:background="@color/white"
         android:orientation="horizontal"
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
 
-        <RadioButton
-            android:id="@+id/supplyMore_rb_cg0"
-            style="@style/rb_huilife_style2"
-            android:checked="true"
-            android:textSize="12dp"
-            android:text="新鲜水果0" />
 
-        <RadioButton
-            android:id="@+id/supplyMore_rb_cg1"
-            style="@style/rb_huilife_style2"
-            android:textSize="12dp"
-            android:text="新鲜水果1" />
-
-        <RadioButton
-            android:id="@+id/supplyMore_rb_cg2"
-            style="@style/rb_huilife_style2"
-            android:textSize="12dp"
-            android:text="新鲜水果2" />
-
-        <RadioButton
-            android:id="@+id/supplyMore_rb_cg3"
-            style="@style/rb_huilife_style2"
-            android:textSize="12dp"
-            android:text="新鲜水果3" />
-
-        <RadioButton
-            android:id="@+id/supplyMore_rb_cg4"
-            style="@style/rb_huilife_style2"
-            android:textSize="12dp"
-            android:text="新鲜水果4" />
 
     </RadioGroup>
 
@@ -138,3 +109,33 @@ android:checked="true"
     </android.support.v4.view.ViewPager>
 
 </LinearLayout>
+<!-- <RadioButton
+            android:id="@+id/supplyMore_rb_cg0"
+            style="@style/rb_huilife_style2"
+            android:checked="true"
+            android:textSize="12dp"
+            android:text="新鲜水果0" />
+
+        <RadioButton
+            android:id="@+id/supplyMore_rb_cg1"
+            style="@style/rb_huilife_style2"
+            android:textSize="12dp"
+            android:text="新鲜水果1" />
+
+        <RadioButton
+            android:id="@+id/supplyMore_rb_cg2"
+            style="@style/rb_huilife_style2"
+            android:textSize="12dp"
+            android:text="新鲜水果2" />
+
+        <RadioButton
+            android:id="@+id/supplyMore_rb_cg3"
+            style="@style/rb_huilife_style2"
+            android:textSize="12dp"
+            android:text="新鲜水果3" />
+
+        <RadioButton
+            android:id="@+id/supplyMore_rb_cg4"
+            style="@style/rb_huilife_style2"
+            android:textSize="12dp"
+            android:text="新鲜水果4" />-->

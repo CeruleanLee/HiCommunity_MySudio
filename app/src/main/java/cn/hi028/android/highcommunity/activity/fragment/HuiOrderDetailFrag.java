@@ -8,9 +8,12 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.text.TextUtils;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -47,6 +50,8 @@ import cn.hi028.android.highcommunity.view.ECAlertDialog;
 @EFragment(resName = "frag_hlife_order_detail")
 public class HuiOrderDetailFrag extends BaseFragment {
     public static final String FRAGMENTTAG = "HuiOrderDetailFrag";
+    public static final String Tag = "HuiOrderDetailFrag：";
+
     @ViewById(R.id.tv_reserve_name)
     TextView tv_reserve_name;
     @ViewById(R.id.tv_order_id)
@@ -78,7 +83,15 @@ public class HuiOrderDetailFrag extends BaseFragment {
     HuiGdPayAdapter adapter;
     HuiOrderBean data;
     PopupWindow waitPop;
+    View view;
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.e(Tag, "onCreateView...");
+        view = inflater.inflate(R.layout.frag_auto_superviselist, null);
+
+        return view;
+    }
     @AfterViews
     void initView() {
     	LogUtil.d("------HuiOrderDetailFrag-initView");
@@ -153,6 +166,7 @@ public class HuiOrderDetailFrag extends BaseFragment {
             tv_order_operate2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Intent mIntent = new Intent(getActivity(), GeneratedClassUtils.get(PaymentActivity.class));
                     mIntent.putExtra(PaymentActivity.ACTIVITYTAG, Constacts.HUILIFE_SUPPORT_PAY);
                     mIntent.putExtra(PaymentActivity.INTENTTAG, data.getId() + "");
@@ -176,7 +190,7 @@ public class HuiOrderDetailFrag extends BaseFragment {
             tv_order_operate2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
-                    Intent mIntent = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftThirdAct.class));
+                   Intent mIntent = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftThirdAct.class));
                     mIntent.putExtra(MenuLeftThirdAct.ACTIVITYTAG, Constacts.MENU_LEFTTHIRD_ORDER_COMMENT);
                     mIntent.putExtra(MenuLeftThirdAct.INTENTTAG, data);
                     startActivity(mIntent);
@@ -204,6 +218,7 @@ public class HuiOrderDetailFrag extends BaseFragment {
             });
         }
     }
+    private PopupWindow mWatingWindow;
 
     /**
      * 取消订单

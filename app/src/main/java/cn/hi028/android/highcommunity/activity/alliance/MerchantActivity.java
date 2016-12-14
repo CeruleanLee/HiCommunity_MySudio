@@ -1,15 +1,5 @@
 package cn.hi028.android.highcommunity.activity.alliance;
 
-import java.util.ArrayList;
-
-import net.duohuo.dhroid.activity.BaseFragment;
-import net.duohuo.dhroid.util.LogUtil;
-import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.BaseFragmentActivity;
-import cn.hi028.android.highcommunity.activity.fragment.alliance.MerchantDetailFrag;
-import cn.hi028.android.highcommunity.activity.fragment.alliance.MerchantEvaluationFrag;
-import cn.hi028.android.highcommunity.activity.fragment.alliance.MerchantShopFrag;
-import cn.hi028.android.highcommunity.bean.Goods_info;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -21,6 +11,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
+import net.duohuo.dhroid.activity.BaseFragment;
+import net.duohuo.dhroid.util.LogUtil;
+
+import java.util.ArrayList;
+
+import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.BaseFragmentActivity;
+import cn.hi028.android.highcommunity.activity.fragment.alliance.MerchantDetailFrag;
+import cn.hi028.android.highcommunity.activity.fragment.alliance.MerchantEvaluationFrag;
+import cn.hi028.android.highcommunity.activity.fragment.alliance.MerchantShopFrag;
+import cn.hi028.android.highcommunity.bean.Goods_info;
 
 /**
  * 联盟商家item点击 进来的 包含了三个frag的act
@@ -42,7 +44,7 @@ public class MerchantActivity extends BaseFragmentActivity implements
 	RadioButton shoprb, evaluationrb, detailrb;
 	ArrayList<BaseFragment> fragments;
 	BaseFragment currentFragment;
-	private String shopName;
+	private String shopName="";
 	private TextView titlename;
 
 	@Override

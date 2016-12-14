@@ -27,6 +27,7 @@ public abstract class NineGridView extends ViewGroup {
 
     protected Context mContext;
     private float mSpacing = DEFUALT_SPACING;
+    boolean isIntent=false;
     private int mColumns;
     private int mRows;
     private int mTotalWidth;
@@ -36,6 +37,7 @@ public abstract class NineGridView extends ViewGroup {
     private boolean mIsFirst = true;
     private List<String> mUrlList = new ArrayList<String>();
     List<String> mBigUrlList= new ArrayList<String>();
+    List<String> mIntentList= new ArrayList<String>();
     public NineGridView(Context context) {
         super(context);
         init(context);
@@ -46,6 +48,7 @@ public abstract class NineGridView extends ViewGroup {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.NineGridView);
 
         mSpacing = typedArray.getDimension(R.styleable.NineGridView_sapcing, DEFUALT_SPACING);
+       isIntent = typedArray.getBoolean(R.styleable.NineGridView_isIntent, false);
         typedArray.recycle();
         init(context);
     }
@@ -107,6 +110,28 @@ public abstract class NineGridView extends ViewGroup {
         mBigUrlList.clear();
         mBigUrlList.addAll(bigUrlList);
         
+
+        if (!mIsFirst) {
+            notifyDataSetChanged();
+        }
+    }
+    public void setUrlAndIntentList(List<String> urlList,List<String> intentUrlList) {
+        if (getListSize(urlList) == 0) {
+            setVisibility(GONE);
+            return;
+        }
+        if (getListSize(intentUrlList) == 0) {
+            setVisibility(GONE);
+            return;
+        }
+        setVisibility(VISIBLE);
+
+        mUrlList.clear();
+        mUrlList.addAll(urlList);
+
+        mIntentList.clear();
+        mIntentList.addAll(intentUrlList);
+
 
         if (!mIsFirst) {
             notifyDataSetChanged();
@@ -201,7 +226,7 @@ public abstract class NineGridView extends ViewGroup {
         imageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickImage(i, url, mBigUrlList);
+                onClickImage(i, url, mBigUrlList,isIntent);
             }
         });
         return imageView;
@@ -323,5 +348,5 @@ public abstract class NineGridView extends ViewGroup {
 
     protected abstract void displayImage(RatioImageView imageView, String url);
 
-    protected abstract void onClickImage(int position, String url, List<String> bigUrlList);
+    protected abstract void onClickImage(int position, String url, List<String> bigUrlList,boolean isIntent);
 }

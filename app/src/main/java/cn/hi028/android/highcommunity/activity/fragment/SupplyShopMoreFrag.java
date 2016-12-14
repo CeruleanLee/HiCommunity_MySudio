@@ -22,6 +22,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.NewSupplyMoreAct;
 import cn.hi028.android.highcommunity.adapter.SupplyMoreGoodsGridAdapter;
 import cn.hi028.android.highcommunity.bean.SupplyGoodsMoreBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
@@ -33,7 +34,7 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @时间：2016/11/30<br>
  */
 
-public class SupplyShopMoreFrag extends BaseFragment {
+public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct.MySortChangeListener {
     public static final String Tag = "SupplyShopMoreFrag--->";
     public static final String FRAGMENTTAG = "SupplyShopMoreFrag";
     List<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity> mList
@@ -80,6 +81,8 @@ public class SupplyShopMoreFrag extends BaseFragment {
     int sort = 1;
     private void initDatas() {
         mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), view, Gravity.CENTER);
+        Log.e(Tag,"调用 initDatas+category_id："+category_id+" sort "+sort);
+
         HTTPHelper.GetSupplyGoodsListMore(mIbpi,category_id,sort+"");
     }
 
@@ -150,7 +153,11 @@ public class SupplyShopMoreFrag extends BaseFragment {
     }
 
 
-
-
-
+    @Override
+    public void onSortChange(String category_id, int sort) {
+        Log.e(Tag,"调用 onSortChange");
+        this.category_id=category_id;
+        this.sort=sort;
+        initDatas();
+    }
 }

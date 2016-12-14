@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingBottom="1dp"
+    android:paddingTop="1dp">
+
+
+    <com.don.view.CircleImageView
+        android:id="@+id/item_reportdetail_Image"
+        style="@style/civ_avatar_size30"
+        android:layout_marginLeft="@dimen/margin_12"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:id="@+id/maincommentlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/margin_12"
+        android:layout_marginRight="@dimen/margin_12"
+        android:layout_marginTop="4dp"
+        android:background="@color/Defult_Color_ShallowGrey"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:layout_toRightOf="@id/item_reportdetail_Image">
+
+
+        <TextView
+            android:id="@+id/item_reportdetail_Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/Defult_Color_AppGreen"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/item_reportdetail_Content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@id/item_reportdetail_Name"
+            android:text=""
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/item_reportdetail_reply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/maincommentlayout"
+        android:layout_below="@id/maincommentlayout"
+       android:layout_marginRight="@dimen/margin_12"
+        android:orientation="vertical"
+        android:background="@color/Defult_Color_ShallowGrey"
+        android:paddingBottom="@dimen/padding_4"
+        android:paddingTop="@dimen/padding_4" />
+
+</RelativeLayout>

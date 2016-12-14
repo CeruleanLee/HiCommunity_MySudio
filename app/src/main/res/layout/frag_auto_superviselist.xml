@@ -41,6 +41,18 @@
                 android:text="询问"
                 android:textColor="@color/color_group_selector" />
 
+            <RadioButton
+                android:id="@+id/frag_Supervise_Message"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:background="@drawable/frag_picdetail_checktextview_selector"
+                android:button="@null"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="业主留言"
+                android:textColor="@color/color_group_selector" />
+
         </RadioGroup>
     </LinearLayout>
 
@@ -50,10 +62,11 @@
         android:layout_height="match_parent"
         android:background="#ffffff"
         android:visibility="visible">
-<View
-    android:id="@+id/positionview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+
+        <View
+            android:id="@+id/positionview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/tv_Supervise_Nodata"
@@ -80,6 +93,13 @@
             android:background="@android:color/white"
             android:divider="@null"
             android:visibility="gone"></ListView>
+        <ListView
+            android:id="@+id/frag_Supervise_listview_Message"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:divider="@null"
+            android:visibility="gone"></ListView>
 
 
         <ImageButton
@@ -88,10 +108,10 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/positionview"
             android:layout_alignParentRight="true"
-android:visibility="invisible"
             android:layout_marginBottom="20dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/img_groupmessage_selector" />
+            android:background="@drawable/img_groupmessage_selector"
+            android:visibility="invisible" />
         <!--android:src="@drawable/img_groupmessage_selector"-
            android:layout_marginBottom="20dp"
                  android:layout_alignParentBottom="true"-->

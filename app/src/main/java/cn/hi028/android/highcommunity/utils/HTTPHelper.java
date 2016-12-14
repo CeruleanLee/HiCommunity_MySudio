@@ -122,7 +122,7 @@ import it.sauronsoftware.base64.Base64;
  * @时间：2015/12/7<br>
  */
 public class HTTPHelper {
-   static  final String Tag="~~~000 HTTPHelper:";
+    static  final String Tag="~~~000 HTTPHelper:";
     public static String HTTPPOSTURL = "http://028hi.cn/api/";
     // public static String HTTPPOSTURL =
     // "http://028hi.cn/api/default/";//http://028hi.cn/api/message/index.html
@@ -174,7 +174,7 @@ public class HTTPHelper {
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("token", token);
         post(mParamMap, mIbpi, url);
-        
+
     }
 
     /**
@@ -260,7 +260,7 @@ public class HTTPHelper {
      * 新版v2.0  获取信息流
      **/
     public static void GetMessage2(BpiHttpHandler.IBpiHttpHandler mIbpi,
-                                  int userId, String time) {
+                                   int userId, String time) {
         Log.d(Tag,"------------CommunityFrag   GetMessage");
         String url = HTTPPOSTURL + "smessage/index.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
@@ -276,7 +276,7 @@ public class HTTPHelper {
      * 新版v2.0  获取信息流
      **/
     public static void GetMessage2(BpiHttpHandler.IBpiHttpHandler mIbpi,
-                                    String time) {
+                                   String time) {
         Log.d(Tag,"------------CommunityFrag   GetMessage");
         String url = HTTPPOSTURL + "smessage/index.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
@@ -352,7 +352,7 @@ public class HTTPHelper {
      * 新版v2.0 刷新我的话题信息流
      **/
     public static void RefreshMessage2(BpiHttpHandler.IBpiHttpHandler mIbpi,
-                                      int type, String time, int userId) {
+                                       int type, String time, int userId) {
         String url = HTTPPOSTURL + "smessage/refresh.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         if (userId != 0)
@@ -1134,8 +1134,8 @@ public class HTTPHelper {
      * 新增收货地址接口-新版本2.0
      **/
     public static void CreateAddress2(BpiHttpHandler.IBpiHttpHandler mIbpi,
-                                     String city, String district, String detail,
-                                     String name, String tel, String isDefault) {
+                                      String city, String district, String detail,
+                                      String name, String tel, String isDefault) {
         String url = HTTPPOSTURL + "saddress/edit.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("city", city);
@@ -1213,7 +1213,7 @@ public class HTTPHelper {
      * 删除地址
      **/
     public static void DeleteAddress2(BpiHttpHandler.IBpiHttpHandler mIbpi,
-                                     String aid) {
+                                      String aid) {
         String url = HTTPPOSTURL + "saddress/delete.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("aid", aid);
@@ -1325,7 +1325,7 @@ public class HTTPHelper {
      * 新版v2.0 获取帖子详情
      **/
     public static void GetMessageDetails2(BpiHttpHandler.IBpiHttpHandler mIbpi,
-                                         int id) {
+                                          int id) {
         String url = HTTPPOSTURL + "smessage/details.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("id", id + "");
@@ -1844,6 +1844,17 @@ public class HTTPHelper {
         post(mParamMap, mIbpi, url);
     }
     /**
+     * 自治大厅   留言详情
+     * @param mIbpi
+     * @param id  监督id
+     */
+    public static void GetMessageDetail(BpiHttpHandler.IBpiHttpHandler mIbpi, String id) {
+        String url = HTTPPOSTURL + "ywatch/wordsdetail.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("id", id);
+        post(mParamMap, mIbpi, url);
+    }
+    /**
      * 解析自治大厅 问询详情
      * @param result
      * @return
@@ -1863,8 +1874,8 @@ public class HTTPHelper {
      * @param reply_content  内容
      */
     public static void CommentReportDetail(BpiHttpHandler.IBpiHttpHandler mIbpi,
-                                     String from_id, String to_id,  String watch_id, String parentId,
-                                      String reply_content) {
+                                           String from_id, String to_id,  String watch_id, String parentId,
+                                           String reply_content) {
         String url = HTTPPOSTURL + "ywatch/comment.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("from_id", from_id);
@@ -1940,7 +1951,18 @@ public class HTTPHelper {
         mParamMap.put("content", content);
         post(mParamMap, mIbpi, url);
     }
-
+    /** 自治大厅-监督页面-创建留言
+     * @param mIbpi
+     * @param uid
+     * @param content
+     */
+    public static void AutoCreatMessage(BpiHttpHandler.IBpiHttpHandler mIbpi, String uid,String content) {
+        String url = HTTPPOSTURL + "ywatch/words.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("uid", uid);
+        mParamMap.put("content", content);
+        post(mParamMap, mIbpi, url);
+    }
 
     /**
      * 自治大厅   提案详情
@@ -2265,7 +2287,7 @@ public class HTTPHelper {
      * @param type 支付类型   0-支付宝 1-微信
      */
     public static void submitBuyHotGoods(BpiHttpHandler.IBpiHttpHandler mIbpi,
-                                          String gid,String number,String total_price,String type) {
+                                         String gid,String number,String total_price,String type) {
         Log.d(Tag,"------创建订单");
         String url = HTTPPOSTURL + "qrcode/act-order.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
@@ -2285,7 +2307,7 @@ public class HTTPHelper {
      * @param type 支付类型   0-支付宝 1-微信
      */
     public static void submitBuyHotGoodsWX(BpiHttpHandler.IBpiHttpHandler mIbpi,
-                                         String gid,String number,String total_price,String type) {
+                                           String gid,String number,String total_price,String type) {
         Log.d(Tag,"------创建订单  微信支付");
         String url = HTTPPOSTURL + "qrcode/act-order.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
@@ -2352,7 +2374,7 @@ public class HTTPHelper {
      * @param sort 排序(1=>最新,2=>销量,3=>价格升序,4=>价格降序  每次进入默认最新)
      */
     public static void GetSupplyGoodsListMore(BpiHttpHandler.IBpiHttpHandler mIbpi,String category_id,
-    String sort) {
+                                              String sort) {
         String url = HTTPPOSTURL + "sgoods/index.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("category_id", category_id);
@@ -2371,7 +2393,7 @@ public class HTTPHelper {
      * 新版直供商品详情
      **/
     public static void GetNewSupplyGoodsDetail(BpiHttpHandler.IBpiHttpHandler mIbpi,
-                                     String id) {
+                                               String id) {
         String url = HTTPPOSTURL + "sgoods/detail.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("id", id);
@@ -2880,15 +2902,15 @@ public class HTTPHelper {
      * @param label_id   发帖标签id
      * @param content
      * @param user_id
-//     * @param type  0-普通帖，1-群组帖
+    //     * @param type  0-普通帖，1-群组帖
      * @param image
      * @param gid  群组id
      * @param token
      * @param site 发帖地点
      */
     public static void PostingMsg2(BpiHttpHandler.IBpiHttpHandler mIbpi,
-                                  String label_id, String content, String user_id,
-                                  List<String> image, String gid, String token,String site) {
+                                   String label_id, String content, String user_id,
+                                   List<String> image, String gid, String token,String site) {
         String url = HTTPPOSTURL + "smessage/create.html";
         RequestParams mParamMap = new RequestParams(getBaseParamMap());
         mParamMap.put("label_id", label_id);
@@ -3224,6 +3246,21 @@ public class HTTPHelper {
         post(mParamMap, mIbpi, url);
     }
 
+    /**
+     * 评价-v2.0
+     * @param mIbpi
+     * @param obj json化的数组字符串, 如[{"gid":1,"content":"味道真错"},{"gid":1,"content":"物美价廉"}]
+    gid表示商品id, content为某个商品对应的评论内容
+     */
+    public static void SendEvaluate2(BpiHttpHandler.IBpiHttpHandler mIbpi, JSONObject obj) {
+        String url = HTTPPOSTURL + "sorder/comment.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+
+        mParamMap.put("info", "[" + obj.toString() + "]");
+        Log.e("renk", mParamMap.toString());
+        Log.e("renk", url);
+        post(mParamMap, mIbpi, url);
+    }
     /**
      * 解析联盟订单列表
      */
