@@ -63,6 +63,7 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
         Log.d(Tag, "initView");
         mAdapter = new SupplyMoreGoodsGridAdapter(mList, getActivity());
         mGridview.setMode(PullToRefreshBase.Mode.DISABLED);
+        mGridview.setAdapter(mAdapter);
 //        mAdapter = new SupplyMoreGoodsGridAdapter(mList, getActivity());
 //        mList = new ArrayList<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity>();
 ////        List<Auto_MotionBean.MotionDataEntity> list, Context context, View view, int screenWidth, ListView listView
@@ -72,7 +73,7 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
 //
 //        mGridview.setEmptyView(mNodata);
 //        mGridview.setAdapter(mAdapter);
-        initDatas();
+//        initDatas();
     }
     String category_id=0+"";
     /**
@@ -97,26 +98,25 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
 
         @Override
         public void onSuccess(Object message) {
+            Log.d(Tag, "---~~~onSuccess");
             mWatingWindow.dismiss();
             if (message==null)return;
             SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity mData= (SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity) message;
+           if (mList.size()>0){
+               Log.d(Tag, "---~~~clear1");
+
+               mList.clear();
+           }
+            if (mAdapter.getCount()>0){
+                Log.d(Tag, "---~~~clear2");
+
+                mAdapter.ClearData();
+            }
             mList = mData.getGoods();
             mAdapter.AddNewData(mList);
-//            HighCommunityUtils.GetInstantiation()
-//                    .setThirdServiceGridViewHeight(mGridview, mAdapter, 4);
-            mGridview.setAdapter(mAdapter);
-//			mLoadingView.loadSuccess();
-//			mLoadingView.setVisibility(View.GONE);
-//			LogUtil.d(Tag+"---~~~initViewonSuccess");
-////						if (null == message) return;
-//			LogUtil.d(Tag+"---~~~ initView   message:"+message);
-//			ThirdServiceBean mBean = (ThirdServiceBean) message;
-//			mAdapter.AddNewData(mBean.getServices());
-//			mGridView.setAdapter(mAdapter);
-//			pagerAdapter.setImageIdList(mBean.getBanners());
-//			HighCommunityUtils.GetInstantiation()
-//			.setThirdServiceGridViewHeight(mGridView, mAdapter, 4);
-//			tatalLayout.setVisibility(View.VISIBLE);
+//            HighCommunityUtils.GetInstantiation().setThirdServiceGridViewHeight(mGridview, mAdapter, 4);
+//            mGridview.setAdapter(mAdapter);
+
         }
 
         @Override
@@ -131,6 +131,7 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
 
         @Override
         public void cancleAsyncTask() {
+            mWatingWindow.dismiss();
 
         }
     };
@@ -143,6 +144,9 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
     public void onResume() {
         super.onResume();
         Log.d(Tag, "onResume");
+        if (mWatingWindow!=null){
+            mWatingWindow.dismiss();
+        }
 //        initDatas();
     }
 
@@ -156,6 +160,13 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
     @Override
     public void onSortChange(String category_id, int sort) {
         Log.e(Tag,"调用 onSortChange");
+        this.category_id=category_id;
+        this.sort=sort;
+        initDatas();
+    }
+
+    public  void  updateSort(String category_id, int sort){
+        Log.e(Tag,"调用 updateSort");
         this.category_id=category_id;
         this.sort=sort;
         initDatas();

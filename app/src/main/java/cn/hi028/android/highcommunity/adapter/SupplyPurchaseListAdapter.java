@@ -1,6 +1,7 @@
 package cn.hi028.android.highcommunity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
@@ -127,17 +129,25 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
         mViewHolder.mTojoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"去抢购",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"去抢购"+mBean.getId(),Toast.LENGTH_SHORT).show();
+                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity.class);
+                mIntent.putExtra("id",mBean.getId());
+                context.startActivity(mIntent);
 
             }
         });
+
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"点击"+position,Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(context, "详情:"+mBean.getId(), Toast.LENGTH_SHORT).show();
+                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity.class);
+                mIntent.putExtra("id",mBean.getId());
+                context.startActivity(mIntent);
             }
         });
+
+
 
         return convertView;
     }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StrikethroughSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,7 @@ import cn.hi028.android.highcommunity.utils.Constacts;
  * @时间：2016/11/28<br>
  */
 public class SupplyMoreGoodsGridAdapter extends BaseFragmentAdapter {
-    public static final String TAG = "SupplyMoreGoodsGridAdapter：";
+    public static final String Tag = "SupplyMoreGoodsGridAdapter：";
     List<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity> mList
             = new ArrayList<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity>();
     private Context context;
@@ -131,6 +132,8 @@ public class SupplyMoreGoodsGridAdapter extends BaseFragmentAdapter {
 
     @Override
     public void AddNewData(Object mObject) {
+        Log.d(Tag, "---~~~AddNewData");
+
         if (mObject instanceof List<?>) {
             mList = (List<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity>) mObject;
         }

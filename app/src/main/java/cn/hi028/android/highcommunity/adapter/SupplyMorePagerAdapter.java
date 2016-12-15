@@ -28,9 +28,11 @@ public class SupplyMorePagerAdapter extends FragmentPagerAdapter {
             mFragList.add( mPublicMotionFrag);
         }
     }
+    int page=0;
+
     @Override
     public Fragment getItem(int arg0) {
-        int page=arg0-1;
+        page = arg0;
         Log.d(Tag,"getItem--->"+arg0);
 //        if (arg0==0||arg0==1||mFragList.size()-1 < arg0) {
 //            Log.d(Tag, "new mPublicMotionFrag()");
@@ -59,5 +61,8 @@ public class SupplyMorePagerAdapter extends FragmentPagerAdapter {
         return mFragList.size();
     }
 
-
+    public void updateFragmentData(int page,String category_id, int sort){
+        Log.e(Tag,"page: "+page);
+       mFragList.get(page).updateSort(category_id,sort);
+}
 }

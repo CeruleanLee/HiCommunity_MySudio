@@ -22,6 +22,7 @@ import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.NewSupplyMoreAct;
+import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
@@ -84,6 +85,7 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
             mViewHolder.mBigView = (RelativeLayout) convertView.findViewById(R.id.item_category_bigpic);
             mViewHolder.mSmallview1 = (RelativeLayout) convertView.findViewById(R.id.item_category_smallpic1);
             mViewHolder.mSmallview2 = (RelativeLayout) convertView.findViewById(R.id.item_category_smallpic2);
+            mViewHolder.itemCateLayout1 = (RelativeLayout) convertView.findViewById(R.id.item_cate_layout_1);
 
             convertView.setTag(mViewHolder);
         } else {
@@ -101,16 +103,42 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
         View smallView2 = getSmallView2(mBean);
         mViewHolder.mSmallview2.addView(smallView2);
 
-        mViewHolder.mTvMore.setOnClickListener(new View.OnClickListener() {
+        mViewHolder.itemCateLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "到更多", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "到更多:"+mBean.getId(), Toast.LENGTH_SHORT).show();
                 Intent mIntent_report = new Intent(context, NewSupplyMoreAct.class);
                 mIntent_report.putExtra("category_id", mBean.getId());
                 context.startActivity(mIntent_report);
             }
         });
-
+        mViewHolder.mBigView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "详情:"+mBean.getGoods().get(0).getId(), Toast.LENGTH_SHORT).show();
+                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity.class);
+                mIntent.putExtra("id",mBean.getGoods().get(0).getId());
+                context.startActivity(mIntent);
+            }
+        });
+        mViewHolder.mSmallview1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "详情:"+mBean.getGoods().get(1).getId(), Toast.LENGTH_SHORT).show();
+                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity.class);
+                mIntent.putExtra("id",mBean.getGoods().get(1).getId());
+                context.startActivity(mIntent);
+            }
+        });
+        mViewHolder.mSmallview2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "详情:"+mBean.getGoods().get(2).getId(), Toast.LENGTH_SHORT).show();
+                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity.class);
+                mIntent.putExtra("id",mBean.getGoods().get(2).getId());
+                context.startActivity(mIntent);
+            }
+        });
 
         return convertView;
     }
@@ -274,6 +302,7 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
         RelativeLayout mBigView;
         RelativeLayout mSmallview1;
         RelativeLayout mSmallview2;
+
     }
 
 

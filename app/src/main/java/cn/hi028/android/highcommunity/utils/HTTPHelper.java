@@ -245,7 +245,7 @@ public class HTTPHelper {
      **/
     public static void GetMessage(BpiHttpHandler.IBpiHttpHandler mIbpi,
                                   int userId, int Vid, String time) {
-        Log.d(Tag,"------------CommunityFrag   GetMessage");
+        Log.d(Tag,"CommunityFrag   GetMessage");
         String url = HTTPPOSTURL + "message/index.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         if (userId != 0)
@@ -2368,7 +2368,7 @@ public class HTTPHelper {
 
 
     /**
-     * 获取新版本直供商品gridview-more
+     * 获取新版本v2.0直供商品gridview-more
      * @param mIbpi
      * @param category_id 分类id,全部时传0
      * @param sort 排序(1=>最新,2=>销量,3=>价格升序,4=>价格降序  每次进入默认最新)

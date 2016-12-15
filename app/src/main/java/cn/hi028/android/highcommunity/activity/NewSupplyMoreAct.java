@@ -69,7 +69,7 @@ public class NewSupplyMoreAct extends BaseFragmentActivity {
             Toast.makeText(this, "参数错误", Toast.LENGTH_SHORT).show();
             finish();
         }
-        mySortChangeListener= (MySortChangeListener) this;
+//        mySortChangeListener= (MySortChangeListener) this;
 //        initView();
         initDatas();
     }
@@ -81,6 +81,7 @@ public class NewSupplyMoreAct extends BaseFragmentActivity {
     }
 
     private void initDatas() {
+
         HTTPHelper.GetSupplyGoodsListMore(mIbpi, 0 + "", 1 + "");
     }
 
@@ -108,7 +109,7 @@ public class NewSupplyMoreAct extends BaseFragmentActivity {
                 mRgCategory.addView(newRadioBut);
             }
             Log.e(Tag, "mRgCategory.size(): " + mRgCategory.getChildCount());
-            ((RadioButton) (mRgCategory.getChildAt(0))).setChecked(true);
+//            ((RadioButton) (mRgCategory.getChildAt(0))).setChecked(true);
             initView();
         }
 
@@ -141,13 +142,18 @@ public class NewSupplyMoreAct extends BaseFragmentActivity {
 
             @Override
             public void onPageSelected(int i) {
+                Log.e(Tag," onPageSelected");
+
                 for (int k = 0; k < mRgCategory.getChildCount(); k++) {
                     if (i == k) {
+                        Log.e(Tag," onPageSelected  i == k");
                         ((RadioButton) (mRgCategory.getChildAt(i))).setChecked(true);
-                    } else {
-                        ((RadioButton) (mRgCategory.getChildAt(k))).setChecked(false);
-
                     }
+//                    else {
+//                        Log.e(Tag," onPageSelected  i != k");
+//                        ((RadioButton) (mRgCategory.getChildAt(k))).setChecked(false);
+//
+//                    }
                 }
             }
 
@@ -160,37 +166,18 @@ public class NewSupplyMoreAct extends BaseFragmentActivity {
         mRgCategory.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                for (int i = 0; i < mDataCategory.size(); i++) {
-//                    if (checkedId==i){
-//                        mRgCategory.getChildAt(i);
-//                    }
-//                }
+                Log.e(Tag,"mRgCategory setOnCheckedChangeListener");
                 setCurrentPage(checkedId);
                 category_id=checkedId+"";
-                mySortChangeListener.onSortChange(category_id,1);
-//                switch (checkedId) {
-//                    case R.id.supplyMore_rb_cg0:
-//                        setCurrentPage(0);
-//                        break;
-//                    case R.id.supplyMore_rb_cg1:
-//                        setCurrentPage(1);
-//                        break;
-//                    case R.id.supplyMore_rb_cg2:
-//                        setCurrentPage(2);
-//                        break;
-//                    case R.id.supplyMore_rb_cg3:
-//                        setCurrentPage(3);
-//                        break;
-//                    case R.id.supplyMore_rb_cg4:
-//                        setCurrentPage(4);
-//                        break;
-//
-//                }
+//                mPagerAdapter.updateFragmentData(category_id,1);
+                mPagerAdapter.updateFragmentData(page,category_id,sort);
             }
         });
         mRgSort.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                Log.e(Tag,"mRgSort ChangeListener");
+
                 if (checkedId != R.id.supplyMore_rb_price) {
                     mRbPrice.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.mipmap.img_sort_none), null);
 
@@ -198,13 +185,13 @@ public class NewSupplyMoreAct extends BaseFragmentActivity {
                 switch (checkedId) {
                     case R.id.supplyMore_rb_newest:
                         sort = 1;
-                        mySortChangeListener.onSortChange(category_id,sort);
+                        mPagerAdapter.updateFragmentData(page,category_id,sort);
 
 //                        setCurrentPage(4);
                         break;
                     case R.id.supplyMore_rb_nums:
                         sort = 2;
-                        mySortChangeListener.onSortChange(category_id,sort);
+                        mPagerAdapter.updateFragmentData(page,category_id,sort);
 
 //                        setCurrentPage(4);
                         break;
@@ -222,7 +209,7 @@ public class NewSupplyMoreAct extends BaseFragmentActivity {
                             isSortAsc = !isSortAsc;
 
                         }
-                        mySortChangeListener.onSortChange(category_id,sort);
+//                        mPagerAdapter.updateFragmentData(category_id,sort);
 
 //                        setCurrentPage(4);
                         break;
@@ -247,11 +234,11 @@ public class NewSupplyMoreAct extends BaseFragmentActivity {
                     isSortAsc = !isSortAsc;
 
                 }
+                mPagerAdapter.updateFragmentData(page,category_id,sort);
             }
         });
 
-Log.e(Tag,"Integer.parseInt(category_id):  "+Integer.parseInt(category_id));
-
+Log.e(Tag,"Integer.parseInt(category_id): 设置跳进来的page  "+Integer.parseInt(category_id));
         ((RadioButton) (mRgCategory.getChildAt(Integer.parseInt(category_id)-1))).setChecked(true);
 
     }
@@ -260,16 +247,12 @@ Log.e(Tag,"Integer.parseInt(category_id):  "+Integer.parseInt(category_id));
      * 价格是否升序  默认为是
      **/
     boolean isSortAsc = true;
-
+int page=0;
     public void setCurrentPage(int page) {
         Log.d(Tag, "page" + page);
+        this.page=page;
         mViewpager.setCurrentItem(page);
 
-//        if (page==0){
-//            mViewpager.setCurrentItem(0);
-//        }else{
-//            mViewpager.setCurrentItem(0);
-//        }
     }
     @OnClick(R.id.supplyMore_back)
     public void onClick() {

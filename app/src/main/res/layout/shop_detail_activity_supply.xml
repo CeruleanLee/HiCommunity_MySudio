@@ -122,6 +122,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/line"
+        android:scrollbars="none"
         android:layout_below="@id/ac_shop_good_title_rl"
       >
     </cn.hi028.android.highcommunity.view.snap.McoySnapPageLayout>
