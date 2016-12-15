@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioButton xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/rb_standard"
+    android:text="\@"
+    android:layout_marginLeft="12dp"
+    android:textSize="12dp">
+
+</RadioButton>

@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -131,6 +132,14 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
      * 更多商品参数  动态添加
      **/
     LinearLayout moreDetailGroup;
+    /**
+     * 规格的容器
+     **/
+    RelativeLayout mStandardLayout;
+    /**
+     * 规格的RadioGroup
+     **/
+    RadioGroup mStandardRadiogroup;
     DrawableCenterTextView tv_noData, tv_empty;
     /**
      * 获取商品详情数据的商品id
@@ -189,7 +198,8 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             }
         });
     }
-    private Handler popupHandler = new Handler(){
+
+    private Handler popupHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -201,6 +211,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         }
 
     };
+
     private void initData() {
         popupHandler.sendEmptyMessageDelayed(0, 100);
 //        mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity.this, getParent(), Gravity.CENTER);
@@ -279,7 +290,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    moreDetailGroup.setVisibility(View.VISIBLE);
+//                    moreDetailGroup.setVisibility(View.VISIBLE);
                     top_view.invalidate();
                     Log.e(Tag, "~~~ 准备滑动top_view.getHeight() " + top_view.getHeight() + "---height=" + height);
                     mHandler.post(new Runnable() {
@@ -292,7 +303,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                     //					Log.e(Tag,"~~~ 准备滑动完成"+scrollText.getX()+"---scrollText.getY()="+scrollText.getY());
 
                 } else {
-                    moreDetailGroup.setVisibility(View.GONE);
+//                    moreDetailGroup.setVisibility(View.GONE);
                 }
             }
         });
@@ -300,7 +311,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             @Override
             public void onClick(View v) {
                 if (toSeeMore.isChecked()) {
-                    moreDetailGroup.setVisibility(View.VISIBLE);
+//                    moreDetailGroup.setVisibility(View.VISIBLE);
                     top_view.invalidate();
                     Log.e(Tag, "~~~ 准备滑动top_view.getHeight() " + top_view.getHeight() + "---height=" + height);
                     mHandler.post(new Runnable() {
@@ -313,7 +324,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                     //					Log.e(Tag,"~~~ 准备滑动完成"+scrollText.getX()+"---scrollText.getY()="+scrollText.getY());
 
                 } else {
-                    moreDetailGroup.setVisibility(View.GONE);
+//                    moreDetailGroup.setVisibility(View.GONE);
                 }
             }
         });
@@ -325,7 +336,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     CirclePageIndicator mIndicator;
     RelativeLayout mCommonTitleLayout;
     TextView mSaleCount;
-    TextView mKucunCount;
+    TextView mKucunCount,mKucunCount_Standard;
     TextView mOldprice;
     RelativeLayout mFlashTitleLayout;
     TextView mSaledTime;
@@ -352,6 +363,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         mCommonTitleLayout = (RelativeLayout) top_view.findViewById(R.id.goodsDetail_commonLayout);
         mSaleCount = (TextView) top_view.findViewById(R.id.ac_shop_detail_goods_saledCount);
         mKucunCount = (TextView) top_view.findViewById(R.id.ac_shop_detail_goods_count);
+        mKucunCount_Standard = (TextView) top_view.findViewById(R.id.ac_shop_detail_goods_count2);
         mOldprice = (TextView) top_view.findViewById(R.id.ac_shop_detail_goods_oldprice);
         name = (TextView) top_view.findViewById(R.id.ac_shop_detail_goods_name);
         price = (TextView) top_view.findViewById(R.id.ac_shop_detail_goods_price);
@@ -370,6 +382,8 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         mFlashprogressTV = (TextView) top_view.findViewById(R.id.goodsDetail_tv_progress);
         mFlashProgressBar = (ProgressBar) top_view.findViewById(R.id.goodsDetail_progressBar);
         moreDetailGroup = (LinearLayout) top_view.findViewById(R.id.moredetail_layout);
+        mStandardLayout = (RelativeLayout) top_view.findViewById(R.id.layout_standard_container);
+        mStandardRadiogroup = (RadioGroup) top_view.findViewById(R.id.standard_radiogroup);
         detail = (TextView) top_view.findViewById(R.id.ac_shop_detail_tv);
         telephone = (TextView) top_view.findViewById(R.id.shop_detail_service_telephone);
         time = (TextView) top_view.findViewById(R.id.ac_shop_detail_service_time);
@@ -392,15 +406,15 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
         toSeeMoreLayout = (RelativeLayout) top_view.findViewById(R.id.seemoreLayout);
 
-        moreDetailGroup.post(new Runnable() {
-            @Override
-            public void run() {
-                width = moreDetailGroup.getWidth();
-                height = moreDetailGroup.getHeight();
-                Log.e(Tag, "~~~width=" + width + ",height=" + height);
-                moreDetailGroup.setVisibility(View.GONE);
-            }
-        });
+//        moreDetailGroup.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                width = moreDetailGroup.getWidth();
+//                height = moreDetailGroup.getHeight();
+//                Log.e(Tag, "~~~width=" + width + ",height=" + height);
+////                moreDetailGroup.setVisibility(View.GONE);
+//            }
+//        });
 //---暂时无用的
 /*************************   bottom_View  ********************************/
         //		moreDetailGroup.setVisibility(View.GONE);
@@ -411,14 +425,10 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         mCommentListview = (NoScrollListview) bottom_View.findViewById(R.id.ac_good_evaluation_listview);
         tv_noData = (DrawableCenterTextView) bottom_View.findViewById(R.id.ac_good_nodata);
         tv_empty = (DrawableCenterTextView) bottom_View.findViewById(R.id.ac_good_comment_empty);
-
         mHishequTV = (TextView) bottom_View.findViewById(R.id.ac_shopdetail_tv_Hishequ);
         mRecommendGridView = (NoScroolGridView) bottom_View.findViewById(R.id.ac_shopdetail_recommendGoods);
-
-
         //		mScrollView2=(ScrollView) findViewById(R.id.scrollView2);
         //		mScrollView2.smoothScrollTo(0, 20);
-
         Log.e(Tag, "~~~ top_view.getHeight()==" + top_view.getHeight());
 
     }
@@ -433,7 +443,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
         @Override
         public void setAsyncTask(AsyncTask asyncTask) {
-            if (mWatingWindow!=null){
+            if (mWatingWindow != null) {
                 mWatingWindow.dismiss();
 
             }
@@ -442,7 +452,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
         @Override
         public void onSuccess(Object message) {
-            if (mWatingWindow!=null){
+            if (mWatingWindow != null) {
                 mWatingWindow.dismiss();
 
             }
@@ -478,10 +488,9 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
      **/
     private List<MerchantEvaluationInfoListBean> comment;
     public PicPageAdapter pagerAdapter;
+
     /**
      * 展示数据
-     * <p>
-     *
      * @param msg
      **/
     public void setUi(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
@@ -493,85 +502,84 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             mHishequTV.setVisibility(View.VISIBLE);
         } else {
             mHishequTV.setVisibility(View.GONE);
-            if (msg.getType().equals("0")) {//商品类型(0=>普通商品,1=>抢购商品,2=>非卖品,比如服务什么的)
-                mCommonTitleLayout.setVisibility(View.VISIBLE);
-                mFlashTitleLayout.setVisibility(View.GONE);
-                if (null != msg.getName()) name.setText(msg.getName());
+        }
+        if (msg.getType().equals("0")) {//商品类型(0=>普通商品,1=>抢购商品,2=>非卖品,比如服务什么的)
+            mCommonTitleLayout.setVisibility(View.VISIBLE);
+            mFlashTitleLayout.setVisibility(View.GONE);
+            if (null != msg.getName()) name.setText(msg.getName());
+            if (null != msg.getSale())
+                mSaleCount.setText("已售" + msg.getSale());
+            if (null != msg.getStandard().get(0).getPrice())
+                price.setText("￥:" + msg.getStandard().get(0).getPrice());
+            if (null != msg.getStandard().get(0).getOld_price() && !msg.getStandard().get(0).getOld_price().equals("")
+                    && !msg.getStandard().get(0).getOld_price().equals("null")) {
+                Spannable spanStrikethrough = new SpannableString("￥:" + msg.getStandard().get(0).getOld_price());
+                StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
+                try {
+                    spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
-                if (null != msg.getSale())
-                    mSaleCount.setText("已售" + msg.getSale());
-                if (null != msg.getStandard().get(0).getPrice())
-                    price.setText("￥:" + msg.getStandard().get(0).getPrice());
-                if (null != msg.getStandard().get(0).getOld_price()) {
-                    Spannable spanStrikethrough = new SpannableString("￥:" + msg.getStandard().get(0).getOld_price());
-                    StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
-                    try {
-                        spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                } catch (Exception ex) {
 
-                    } catch (Exception ex) {
-
-                    }
-                    mOldprice.setText(spanStrikethrough);
                 }
-                if (null != msg.getStandard().get(0).getStorage())
-                    mKucunCount.setText("库存" + msg.getStandard().get(0).getStorage());
+                mOldprice.setText(spanStrikethrough);
+            } else {
+                mOldprice.setVisibility(View.GONE);
+            }
+            if (null != msg.getStandard().get(0).getStorage())
+                mKucunCount_Standard.setText("库存" + msg.getStandard().get(0).getStorage());
 
-            } else if (msg.getType().equals("1")) {
-                mFlashTitleLayout.setVisibility(View.VISIBLE);
-                mCommonTitleLayout.setVisibility(View.GONE);
-                if (null != msg.getName()) mFlashName.setText(msg.getName());
-                if (null != msg.getRemainTime()) mSaledTime.setText(msg.getName());
-                if (null != msg.getStandard().get(0).getPrice())
-                    mFlashNowPrice.setText("￥:" + msg.getStandard().get(0).getPrice());
-                if (null != msg.getStandard().get(0).getOld_price()) {
-                    Spannable spanStrikethrough = new SpannableString("￥:" + msg.getStandard().get(0).getOld_price());
-                    StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
-                    try {
-                        spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        } else if (msg.getType().equals("1")) {
+            mFlashTitleLayout.setVisibility(View.VISIBLE);
+            mCommonTitleLayout.setVisibility(View.GONE);
+            if (null != msg.getName()) mFlashName.setText(msg.getName());
+            if (null != msg.getRemainTime()) mSaledTime.setText(msg.getName());
+            if (null != msg.getStandard().get(0).getPrice())
+                mFlashNowPrice.setText("￥:" + msg.getStandard().get(0).getPrice());
+            if (null != msg.getStandard().get(0).getOld_price() && !msg.getStandard().get(0).getOld_price().equals("")
+                    && !msg.getStandard().get(0).getOld_price().equals("null")) {
+                Spannable spanStrikethrough = new SpannableString("￥:" + msg.getStandard().get(0).getOld_price());
+                StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
+                try {
+                    spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
-                    } catch (Exception ex) {
+                } catch (Exception ex) {
 
-                    }
-
-                    mFlashOldPrice.setText(spanStrikethrough);
-                }
-                if (null != msg.getStandard().get(0).getStorage())
-                    mFlashKucun.setText(msg.getStandard().get(0).getStorage());
-                if (null != msg.getPercent()) {
-                    if (msg.getPercent().contains("%")) {
-                        String[] strings = msg.getPercent().split("%");
-                        mFlashProgressBar.setProgress(Integer.parseInt(strings[0]));
-                    }
-                    mFlashprogressTV.setText(msg.getPercent());
                 }
 
-                //set倒计时
-                if (null != msg.getRemainTime()) {
-                    mCounter = new onCounter(Long.parseLong(msg.getRemainTime()) * 1000, 1000);
-                    mCounter.start();
+                mFlashOldPrice.setText(spanStrikethrough);
+            } else {
+                mFlashOldPrice.setVisibility(View.GONE);
+            }
+            if (null != msg.getStandard().get(0).getStorage())
+                mFlashKucun.setText(msg.getStandard().get(0).getStorage());
+            if (null != msg.getPercent()) {
+                if (msg.getPercent().contains("%")) {
+                    String[] strings = msg.getPercent().split("%");
+                    mFlashProgressBar.setProgress(Integer.parseInt(strings[0]));
                 }
+                mFlashprogressTV.setText(msg.getPercent());
+            }
 
+            //set倒计时
+            if (null != msg.getRemainTime()) {
+                mCounter = new onCounter(Long.parseLong(msg.getRemainTime()) * 1000, 1000);
+                mCounter.start();
             }
 
         }
-
         //公共部分
-        //TODO 商品轮播图
-
+        //商品轮播图
         pagerAdapter = new PicPageAdapter(this).setInfiniteLoop(true);
         mViewPager.setAdapter(pagerAdapter);
         mIndicator.setViewPager(mViewPager);
         mIndicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
-
             }
 
             @Override
             public void onPageSelected(int i) {
-
             }
-
             @Override
             public void onPageScrollStateChanged(int i) {
 
@@ -580,14 +588,10 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         mViewPager.setInterval(2000);
         mViewPager.startAutoScroll();
         mViewPager.setCurrentItem(0);
-
-        if (null != msg.getPic()){
+        if (null != msg.getPic()) {
             pagerAdapter.setImageIdList(msg.getPic());
-
         }
-
-
-
+        //商品简介
         if (null != msg.getIntro())
             detail.setText(msg.getIntro());
         //动态添加属性
@@ -595,7 +599,9 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             LayoutInflater layoutInflater;
             layoutInflater = LayoutInflater.from(this);
             List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.AttrEntity> attrEntityList = msg.getAttr();
+            Log.e(Tag, "属性长度：" + attrEntityList.size());
             for (int i = 0; i < attrEntityList.size(); i++) {
+                Log.e(Tag, "new一个属性");
                 View inflateView = layoutInflater.inflate(R.layout.goodsdetail_attrs_layout, null);
                 TextView mAttr_name = (TextView) inflateView.findViewById(R.id.ac_shop_origin);
                 TextView mAttr_val = (TextView) inflateView.findViewById(R.id.ac_shop_origin_tv);
@@ -604,21 +610,110 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                 moreDetailGroup.addView(inflateView);
             }
         }
+        //动态添加规格
+        if (msg.getStandard() != null) {
+            LayoutInflater layoutInflater;
+            layoutInflater = LayoutInflater.from(this);
 
+            mStandardList = msg.getStandard();
+            Log.e(Tag, "规格长度：" + mStandardList.size());
+            for (int i = 0; i < mStandardList.size(); i++) {
+                Log.e(Tag, "new一个规格");
+                RadioButton newRadioBut = (RadioButton) layoutInflater.inflate(R.layout.radiobut_standard, null);
+                newRadioBut.setId(Integer.parseInt(mStandardList.get(i).getId()));
+//                newRadioBut.setWidth(0);
+                RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT,
+                        RadioGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(20,0,0,0);
+//                newRadioBut.setBackground(getDrawable(R.drawable.bg_selector_but_coner_green_stroke));
+                newRadioBut.setBackgroundResource(R.drawable.bg_selector_but_coner_green_stroke);
+                newRadioBut.setLayoutParams(layoutParams);
+                newRadioBut.setText(mStandardList.get(i).getName());
+                mStandardRadiogroup.addView(newRadioBut);
+            }
+        }else{
+
+            mStandardLayout.setVisibility(View.GONE);
+        }
+        //默认第一个选中
+        if (mStandardRadiogroup.getChildCount() > 0) {
+            ((RadioButton) (mStandardRadiogroup.getChildAt(0))).setChecked(true);
+        }
+        //电话
         if (null != msg.getTel()) {
-            telephone.setText("客服电话：" + msg.getTel());
+            telephone.setText(msg.getTel());
             telPhone = msg.getTel();
         } else {
             telephone.setVisibility(View.GONE);
         }
+        //服务时间
         if (null != msg.getDelivery()) {
-
-            time.setText("服务时间：" + msg.getDelivery());
+            time.setText(msg.getDelivery());
         } else {
             telephone.setVisibility(View.GONE);
         }
+        mStandardRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                for (int i = 0; i < mStandardList.size(); i++) {
+                    if (checkedId == Integer.parseInt(mStandardList.get(i).getId())) {
+                        if (goodsdata.getType().equals("0")) {//商品类型(0=>普通商品,1=>抢购商品,2=>非卖品,比如服务什么的)
+                         if (mStandardList.get(i).getPrice()!=null)
+                                price.setText("￥:" + mStandardList.get(i).getPrice());
+                            if (null != mStandardList.get(i).getOld_price() && !mStandardList.get(i).getOld_price().equals("")
+                                    && !mStandardList.get(i).getOld_price().equals("null")) {
+                                Spannable spanStrikethrough = new SpannableString("￥:" +mStandardList.get(i).getOld_price());
+                                StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
+                                try {
+                                    spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
+                                } catch (Exception ex) {
 
+                                }
+                                mOldprice.setText(spanStrikethrough);
+                            } else {
+                                mOldprice.setVisibility(View.GONE);
+                            }
+                            if (null != mStandardList.get(i).getStorage())
+                                mKucunCount_Standard.setText("库存" + mStandardList.get(i).getStorage());
+
+                        } else if (goodsdata.getType().equals("1")) {
+                            if (null != mStandardList.get(i).getPrice())
+                                mFlashNowPrice.setText("￥:" + mStandardList.get(i).getPrice());
+                            if (null != mStandardList.get(i).getOld_price() && !mStandardList.get(i).getOld_price().equals("")
+                                    && !mStandardList.get(i).getOld_price().equals("null")) {
+                                Spannable spanStrikethrough = new SpannableString("￥:" + mStandardList.get(i).getOld_price());
+                                StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
+                                try {
+                                    spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+                                } catch (Exception ex) {
+
+                                }
+                                mFlashOldPrice.setText(spanStrikethrough);
+                            } else {
+                                mFlashOldPrice.setVisibility(View.GONE);
+                            }
+                            if (null != mStandardList.get(i).getStorage())
+                                mKucunCount_Standard.setText(mStandardList.get(i).getStorage());
+                        }
+
+                    }
+                }
+            }
+        });
+        //设置底部的数据
+        setBottomPageUI(msg);
+    }
+
+    List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.StandardEntity> mStandardList = new ArrayList<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.StandardEntity>();
+
+    /**
+     * 设置底部的数据
+     *
+     * @param msg
+     */
+    private void setBottomPageUI(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
         if (null != msg.getDetail()) {
             Log.e(Tag, "图文详情url:" + msg.getDetail());
             loadPicDetail(msg.getDetail());
@@ -634,21 +729,18 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 //			mCommentListview.setEmptyView(tv_empty);
             mCommentListview.setAdapter(mEvaluationAdapter);
 //            setCarAmount();
-
         }
 
         if (null != msg.getSupply()) {
             mHishequTV.setVisibility(View.VISIBLE);
             mHishequTV.setText("—— " + msg.getSupply() + " ——");
         }
-
         //set推荐商品
         if (msg.getRecommend() != null) {
             List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.RecommendEntity> mRecommendList = msg.getRecommend();
             SupplGoodsDetailGridAdapter mAdapter = new SupplGoodsDetailGridAdapter(mRecommendList, SupplyGoodsDetailActivity.this);
             mRecommendGridView.setAdapter(mAdapter);
         }
-
     }
 
     /**
@@ -1059,12 +1151,12 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         }
 
     }
+
     @Override
     public void onPause() {
         super.onPause();
         mViewPager.stopAutoScroll();
     }
-
 
 
 }

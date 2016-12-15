@@ -7,12 +7,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/Defult_Color_ShallowGrey"
         android:orientation="vertical" >
 
         <LinearLayout
             android:id="@+id/layout0"
             android:layout_width="match_parent"
             android:layout_height="35dp"
+            android:background="@color/white"
             android:orientation="horizontal" >
 
             <RadioButton
@@ -87,17 +89,19 @@
                 android:textSize="15sp"
                 android:visibility="gone" />
         </RelativeLayout>
+
         <TextView
             android:id="@+id/ac_shopdetail_tv_Hishequ"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-
             android:gravity="center"
+            android:layout_marginTop="40dp"
+            android:background="@color/white"
             android:text="—— 本商品由嗨社区所有 ——"
             android:textColor="#aaaaaa" />
         <cn.hi028.android.highcommunity.view.NoScroolGridView
            android:id="@+id/ac_shopdetail_recommendGoods"
-            android:columnWidth="80dp"
+            android:columnWidth="70dp"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:horizontalSpacing="12dp"
@@ -105,6 +109,8 @@
             android:listSelector="#00000000"
             android:numColumns="2"
             android:stretchMode="columnWidth"
+            android:background="@color/white"
+
             android:scrollbars="none"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

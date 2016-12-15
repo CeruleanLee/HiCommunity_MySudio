@@ -55,15 +55,35 @@
 
         </RelativeLayout>
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/item_evalution_content_tv"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="42dp"
-        android:layout_marginTop="10dp"
-        android:textColor="#5F605E"
-        android:text="content" />
+        android:layout_marginTop="5dp" >
+
+        <ImageView
+            android:id="@+id/item_evaluation_iv2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="invisible"
+         />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/item_evaluation_iv2"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/item_evaluation_iv2" >
+            <TextView
+                android:id="@+id/item_evalution_content_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#5F605E"
+                android:text="content" />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
     <View 
         android:layout_width="match_parent"
         android:layout_height="10dp"

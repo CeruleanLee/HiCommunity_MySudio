@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--圆角背景  默认灰色边框 选中绿色边框-->
+    <item android:state_checked="false"><shape android:shape="rectangle">
+            <corners android:radius="3dp">
+            </corners>
+            <!--<stroke android:color="@color/Defult_Color_AppGreen" android:width="1dp" />-->
+            <stroke android:color="@color/Defult_Color_Grey" android:width="0.5dp" />
+        </shape>
+    </item>
+    <item  android:state_checked="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="3dp">
+            </corners>
+            <stroke android:color="@color/Defult_Color_AppGreen" android:width="0.5dp" />
+
+        </shape>
+    </item>
+    <item  android:state_selected="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="3dp">
+            </corners>
+            <stroke android:color="@color/Defult_Color_AppGreen" android:width="0.5dp" />
+
+        </shape>
+    </item>
+
+</selector>

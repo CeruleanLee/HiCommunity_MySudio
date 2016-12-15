@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import com.don.tools.BpiUniveralImage;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
@@ -80,11 +82,14 @@ static final String Tag="SupplyGoodsDetailCommentAdapter:";
         }
         mViewHolder.username.setText(mBean.getNick());
         mViewHolder.merchantname.setVisibility(View.GONE);
-        mViewHolder.time.setText(mBean.getTime());
+        mViewHolder.time.setText(getTime(Long.parseLong(mBean.getTime())));
         mViewHolder.content.setText(mBean.getContent());
         return convertView;
     }
-
+    public String getTime(long time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        return sdf.format(new Date(time));
+    }
     @Override
     public void AddNewData(Object mObject) {
         if (mObject instanceof List<?>) {
