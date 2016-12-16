@@ -1,49 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Defult_Color_ShallowGrey" >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-        <include
-            android:id="@+id/progress_gdcar_notice"
-            layout="@layout/progress" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/tv_gdcar_Nodata"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="暂无数据"
-                android:visibility="visible" />
-
-            <com.handmark.pulltorefresh.library.PullToRefreshListView
-                android:id="@+id/ptrlv_gdcar_listView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/padding_4"
-                android:cacheColorHint="#00000000"
-                android:divider="@color/Defult_Color_ShallowGrey"
-                android:dividerHeight="6dip"
-                android:listSelector="@drawable/ll_leftmenu_bg_selector"
-                android:scrollbars="none" />
-        </LinearLayout>
-    </LinearLayout>
-
     <FrameLayout
+        android:id="@+id/gdCar_bottomlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
         android:background="@color/defult_color_white" >
 
         <View
@@ -127,4 +92,42 @@
         </LinearLayout>
     </FrameLayout>
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_above="@id/gdCar_bottomlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <include
+            android:id="@+id/progress_gdcar_notice"
+            layout="@layout/progress" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_gdcar_Nodata"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="暂无数据"
+                android:visibility="visible" />
+
+            <com.handmark.pulltorefresh.library.PullToRefreshListView
+                android:id="@+id/ptrlv_gdcar_listView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/padding_4"
+                android:cacheColorHint="#00000000"
+                android:divider="@color/Defult_Color_ShallowGrey"
+                android:dividerHeight="6dip"
+                android:listSelector="@drawable/ll_leftmenu_bg_selector"
+                android:scrollbars="none" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

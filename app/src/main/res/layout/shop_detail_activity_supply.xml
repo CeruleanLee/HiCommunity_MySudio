@@ -106,8 +106,19 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="去支付"
+                android:visibility="gone"
                 android:textColor="@color/white" />
+
         </cn.hi028.android.highcommunity.view.RevealLayout>
+        <Button
+            android:id="@+id/ac_shop_car_addtocar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFA52B"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="加入购物车"
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <View

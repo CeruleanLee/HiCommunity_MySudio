@@ -4,8 +4,10 @@
 
 package cn.hi028.android.highcommunity.activity;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -17,7 +19,18 @@ import org.androidannotations.annotations.ViewById;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.HuiChipsDetailFrag;
-import cn.hi028.android.highcommunity.activity.fragment.*;
+import cn.hi028.android.highcommunity.activity.fragment.HuiChipsDetailFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.HuiLifeSuppBuyFrag;
+import cn.hi028.android.highcommunity.activity.fragment.HuiLifeSuppBuyFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.NewHuiBuyFrag;
+import cn.hi028.android.highcommunity.activity.fragment.SeriRepairJJFrag;
+import cn.hi028.android.highcommunity.activity.fragment.SeriRepairJJFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.SeriRepairRecordFrag;
+import cn.hi028.android.highcommunity.activity.fragment.SeriRepairRecordFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.ServiceCaftsDetailFrag;
+import cn.hi028.android.highcommunity.activity.fragment.ServiceNoticeDetailFrag;
+import cn.hi028.android.highcommunity.activity.fragment.ServiceTenDetailFrag;
+import cn.hi028.android.highcommunity.activity.fragment.ServiceTenDetailFrag_;
 import cn.hi028.android.highcommunity.utils.Constacts;
 
 /**
@@ -28,6 +41,8 @@ import cn.hi028.android.highcommunity.utils.Constacts;
  */
 @EActivity(resName = "act_huilife_second")
 public class HuiLifeSecondAct extends BaseFragmentActivity {
+
+    public static final String Tag = "HuiLifeSecondAct";
     public static final String ACTIVITYTAG = "HuiLifeSecondAct";
     public static final String INTENTTAG = "HuiLifeSecondActIntent";
 
@@ -35,18 +50,31 @@ public class HuiLifeSecondAct extends BaseFragmentActivity {
     TextView mTitle;
     @ViewById(R.id.title_secondTitle_Hight)
     View mHight;
-
+    String carIdList;
     @AfterViews
     void intView() {
         if (!super.isVersionBiger()) {
             mHight.setVisibility(View.GONE);
         }
         int flag = getIntent().getIntExtra(ACTIVITYTAG, -1);
+
+        carIdList = getIntent().getStringExtra("carIdList");
+        Log.e(Tag,"传过来的数据：carIdList："+carIdList);
         if (flag == -1)
             return;
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         switch (flag) {
+            case Constacts.NEW_HUILIFE_ORDER:
+                mTitle.setText("订单支付");
+                NewHuiBuyFrag mNewHuiBuyFrag = (NewHuiBuyFrag) new NewHuiBuyFrag();
+                Bundle mBundle=new Bundle();
+                if (carIdList!=null&&carIdList!=""){
+                    mBundle.putString("carIdList",carIdList);
+                    mNewHuiBuyFrag.setArguments(mBundle);
+                    ft.replace(R.id.ll_huilife_second_layout, mNewHuiBuyFrag, ServiceNoticeDetailFrag.FRAGMENTTAG);
+                }
+                break;
             case Constacts.HUILIFE_SUPPORT_ORDER:
                 mTitle.setText("订单");
                 HuiLifeSuppBuyFrag mDetails = (HuiLifeSuppBuyFrag) new HuiLifeSuppBuyFrag_();

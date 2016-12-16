@@ -55,6 +55,7 @@ import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_UnitBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_VoteList_Vote;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_VoteResultBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.NewSupplyCarlistBean;
 import cn.hi028.android.highcommunity.bean.BillBean;
 import cn.hi028.android.highcommunity.bean.BillSimpleBean;
 import cn.hi028.android.highcommunity.bean.CarftsBean;
@@ -530,6 +531,20 @@ public class HTTPHelper {
     }
 
     /**
+     * v2.0添加到购物车
+     * @param mIbpi
+     * @param id 商品id
+     * @param sid 规格id
+     */
+    public static void addNewHuiGoodsToCar(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                        String id, String sid) {
+        String url = HTTPPOSTURL + "sgoods/cart-join.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("id", id);
+        mParamMap.put("sid", sid);
+        post(mParamMap, mIbpi, url);
+    }
+    /**
      * 获取惠生活众筹列表
      **/
     public static void GetHuiChipsList(BpiHttpHandler.IBpiHttpHandler mIbpi) {
@@ -982,7 +997,28 @@ public class HTTPHelper {
         HashMap<String, String> mParamMap = getBaseParamMap();
         post(mParamMap, mIbpi, url);
     }
+    /**
+     * v2.0获取购物车列表接口
+     **/
+    public static void getGdCarList2(BpiHttpHandler.IBpiHttpHandler mIbpi) {
+        String url = HTTPPOSTURL + "sgoods/cart-index.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        post(mParamMap, mIbpi, url);
+    }
 
+    /**
+     * v2.0购物车加减数量
+     * @param mIbpi
+     * @param id 购物车id
+     * @param type 类型(0=>减,1=>加)
+     */
+    public static void changeGdCarNum(BpiHttpHandler.IBpiHttpHandler mIbpi,String id,String type ) {
+        String url = HTTPPOSTURL + "sgoods/cart-index.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("id", id);
+        mParamMap.put("type", type);
+        post(mParamMap, mIbpi, url);
+    }
     /**
      * 购物车删除商品
      *
@@ -996,7 +1032,19 @@ public class HTTPHelper {
         mParamMap.put("cart_ids", cart_ids);
         post(mParamMap, mIbpi, url);
     }
-
+    /**
+     * v2.0购物车删除商品
+     *
+     * @param mIbpi
+     * @param ids
+     */
+    public static void deleteGdCarList2(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                       String ids) {
+        String url = HTTPPOSTURL + "sgoods/cart-remove.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("ids", ids);
+        post(mParamMap, mIbpi, url);
+    }
     /**
      * 获取用户收货地址列表
      **/
@@ -3115,7 +3163,23 @@ public class HTTPHelper {
             return null;
         }
     }
-
+    /**
+     * v2.0解析购物车列表
+     */
+    public static List<NewSupplyCarlistBean.SupplyCarlistDataEntity> ResolvGdCarList2(String result) {
+        List<NewSupplyCarlistBean.SupplyCarlistDataEntity> mlist = new ArrayList<NewSupplyCarlistBean.SupplyCarlistDataEntity>();
+        try {
+            JSONArray mArray = new JSONArray(result);
+            for (int i = 0; i < mArray.length(); i++) {
+                NewSupplyCarlistBean.SupplyCarlistDataEntity mBean = gson.fromJson(mArray.getString(i),
+                        NewSupplyCarlistBean.SupplyCarlistDataEntity.class);
+                mlist.add(mBean);
+            }
+            return mlist;
+        } catch (JSONException e) {
+            return null;
+        }
+    }
     /**
      * 解析地址列表address数据
      */

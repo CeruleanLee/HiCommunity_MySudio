@@ -10,8 +10,8 @@
         android:background="@color/Defult_Color_ShallowGrey"
         android:orientation="vertical" >
 
-        <LinearLayout
-            android:id="@+id/layout0"
+        <RadioGroup
+            android:id="@+id/ac_shopdetail_RadioGroup"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:background="@color/white"
@@ -24,7 +24,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/frag_picdetail_checktextview_selector"
                 android:button="@null"
-                android:checked="true"
+
                 android:clickable="true"
                 android:gravity="center"
                 android:text="图文详情"
@@ -42,19 +42,34 @@
                 android:layout_weight="1"
                 android:background="@drawable/frag_picdetail_checktextview_selector"
                 android:button="@null"
-                android:checked="false"
                 android:clickable="true"
                 android:gravity="center"
                 android:text="商品评价"
                 android:textColor="@color/color_group_selector" />
-        </LinearLayout>
+        </RadioGroup>
 
         <RelativeLayout
             android:id="@+id/ac_shopdetail_FrameLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff" >
-
+            <cn.hi028.android.highcommunity.view.DrawableCenterTextView
+                android:id="@+id/ac_good_picdetail_nodata"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:gravity="center"
+                android:text="暂无数据"
+                android:textColor="#aaaaaa"
+                android:textSize="15sp"
+                android:visibility="gone" />
+            <TextView
+                android:id="@+id/ac_good_nodata"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:text="暂无数据"
+                android:textColor="#aaaaaa"
+                android:textSize="15sp"
+                android:visibility="visible" />
             <cn.hi028.android.highcommunity.view.ScrollWebView
                 android:id="@+id/ac_good_detail_webview"
                 android:layout_width="match_parent"
@@ -65,18 +80,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="none"
+                android:divider="@color/Defult_Color_LineGrey"
+                android:dividerHeight="0.5dp"
                 android:visibility="gone" >
             </cn.hi028.android.highcommunity.view.NoScrollListview>
 
-            <cn.hi028.android.highcommunity.view.DrawableCenterTextView
-                android:id="@+id/ac_good_nodata"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawableLeft="@drawable/ic_nodata"
-                android:text="暂无数据"
-                android:textColor="#aaaaaa"
-                android:textSize="15sp"
-                android:visibility="gone" />
+
 
             <cn.hi028.android.highcommunity.view.DrawableCenterTextView
                 android:id="@+id/ac_good_comment_empty"

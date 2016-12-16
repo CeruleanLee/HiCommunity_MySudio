@@ -42,7 +42,7 @@ public class MenuLeftAct extends BaseFragmentActivity {
     View mHight;
     @ViewById(R.id.tv_right_name)
     TextView tv_right_name;
-    HuiSuppGdCarFrag mGdCarment;
+    NewHuiGdCarFrag mGdCarment;
 
     @AfterViews
     void initView() {
@@ -84,7 +84,8 @@ public class MenuLeftAct extends BaseFragmentActivity {
                 mTitle.setText("购物车");
                 Log.d(Tag,"------goto购物车");
                 tv_right_name.setVisibility(View.VISIBLE);
-                mGdCarment = (HuiSuppGdCarFrag) new HuiSuppGdCarFrag_();
+//                mGdCarment = (HuiSuppGdCarFrag) new HuiSuppGdCarFrag_();
+                mGdCarment = new NewHuiGdCarFrag();
                 ft.replace(R.id.ll_menuleft_layout, mGdCarment, ServicePaymentFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_LEFT_BILL:

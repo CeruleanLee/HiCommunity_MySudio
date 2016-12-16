@@ -80,6 +80,7 @@ public class Constacts {
 
     //惠生活-物业直供订单
     public static final int HUILIFE_SUPPORT_ORDER = 0x000021;
+
     //惠生活-物业直供支付
     public static final int HUILIFE_SUPPORT_PAY = 0x000021;
     //惠生活-众筹详情
@@ -140,6 +141,8 @@ public class Constacts {
     //与我相关和系统消息
     public static final int MENU_MYMESSAGE = 0x000043;
     public static final int MENU_SYSMESSAGE = 0x000044;
+    //新版惠生活-商品订单
+    public static final int NEW_HUILIFE_ORDER = 0x000045;
     /**
      * 全局数据保存
      **/

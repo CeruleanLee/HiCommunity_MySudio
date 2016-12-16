@@ -38,6 +38,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.don.tools.BpiHttpHandler;
 import com.don.tools.BpiHttpHandler.IBpiHttpHandler;
 
 import net.duohuo.dhroid.view.AutoScrollViewPager;
@@ -64,7 +65,6 @@ import cn.hi028.android.highcommunity.lisenter.PayPop2FragFace;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.TimeUtil;
-import cn.hi028.android.highcommunity.view.DrawableCenterTextView;
 import cn.hi028.android.highcommunity.view.NoScrollListview;
 import cn.hi028.android.highcommunity.view.NoScroolGridView;
 import cn.hi028.android.highcommunity.view.PaylistPopupWindow;
@@ -95,7 +95,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     TextView subimg, addimg, kucun, conttv, detail, goodname, guige, origin;
     //	TextView time,telephone;
     TextView guige_, origin_, edible_;
-    Button goPay;
+    Button goPay,addToCar;
     TextView caramount, mAllprice, telephone, time;
     View viewline1, viewline2, viewline3;
     ImageButton call;
@@ -103,6 +103,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     RelativeLayout tuwenxiangqing;
     RelativeLayout goodevaluation;
     LinearLayout payrl;
+    RadioGroup mRadioGroup;
     RadioButton mPicDetail, mCommentDetail;
     ScrollView mScrollView2;
     private TextView edible, scrollText;
@@ -140,12 +141,14 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
      * 规格的RadioGroup
      **/
     RadioGroup mStandardRadiogroup;
-    DrawableCenterTextView tv_noData, tv_empty;
+    TextView  tv_pic_nodata;
+    TextView tv_noData;
     /**
      * 获取商品详情数据的商品id
      **/
     String id = -1 + "";
-
+String goodsId;
+        String standardId="";
     int width, height;
 
     Handler mHandler = new Handler();
@@ -168,8 +171,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         top_view = topPage.getRootView();
         bottom_View = bottomPage.getRootView();
         id = getIntent().getStringExtra("id");
-//		getDatas();
-//		HTTPHelper.GetGoodDetail(mIbpi, good_id);
+        goodsId=id;
         init();
         registerListener();
         mcoySnapPageLayout.setPageSnapListener(new PageSnapedListener() {
@@ -259,32 +261,33 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         addimg.setOnClickListener(this);
         shopcar.setOnClickListener(this);
         goPay.setOnClickListener(this);
+        addToCar.setOnClickListener(this);
         call.setOnClickListener(this);
         telephone.setOnClickListener(this);
 
-        mPicDetail.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    mWebview.setVisibility(View.VISIBLE);
-                    mCommentListview.setVisibility(View.GONE);
-                    mCommentDetail.setChecked(false);
-
-                }
-            }
-        });
-        mCommentDetail.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    mWebview.setVisibility(View.GONE);
-                    mCommentListview.setVisibility(View.VISIBLE);
-                    mPicDetail.setChecked(false);
-                }
-            }
-        });
+//        mPicDetail.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+//
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//
+//                    mWebview.setVisibility(View.VISIBLE);
+//                    mCommentListview.setVisibility(View.GONE);
+//                    mCommentDetail.setChecked(false);
+//                }
+//            }
+//        });
+//        mCommentDetail.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+//
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    mWebview.setVisibility(View.GONE);
+//                    mCommentListview.setVisibility(View.VISIBLE);
+//                    mPicDetail.setChecked(false);
+//                }
+//            }
+//        });
         toSeeMore.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
             @Override
@@ -355,6 +358,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         payrl = (LinearLayout) findViewById(R.id.shop_deatil_bottom_pay_rl);
         mAllprice = (TextView) findViewById(R.id.ac_shop_car_price);
         goPay = (Button) findViewById(R.id.ac_shop_car_go_pay);
+        addToCar = (Button) findViewById(R.id.ac_shop_car_addtocar);
         shopcar = (FrameLayout) findViewById(R.id.ac_shop_car_fl);
 /*************************   top  ********************************/
 
@@ -418,13 +422,14 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 //---暂时无用的
 /*************************   bottom_View  ********************************/
         //		moreDetailGroup.setVisibility(View.GONE);
+        mRadioGroup = (RadioGroup) bottom_View.findViewById(R.id.ac_shopdetail_RadioGroup);
         // toSeeMore.setChecked(false);
         mPicDetail = (RadioButton) bottom_View.findViewById(R.id.ac_shopdetail_mypicdetail);
         mCommentDetail = (RadioButton) bottom_View.findViewById(R.id.ac_shopdetail_mycommentdetail);
         mWebview = (ScrollWebView) bottom_View.findViewById(R.id.ac_good_detail_webview);
         mCommentListview = (NoScrollListview) bottom_View.findViewById(R.id.ac_good_evaluation_listview);
-        tv_noData = (DrawableCenterTextView) bottom_View.findViewById(R.id.ac_good_nodata);
-        tv_empty = (DrawableCenterTextView) bottom_View.findViewById(R.id.ac_good_comment_empty);
+        tv_noData = (TextView) bottom_View.findViewById(R.id.ac_good_nodata);
+        tv_pic_nodata = (TextView) bottom_View.findViewById(R.id.ac_good_picdetail_nodata);
         mHishequTV = (TextView) bottom_View.findViewById(R.id.ac_shopdetail_tv_Hishequ);
         mRecommendGridView = (NoScroolGridView) bottom_View.findViewById(R.id.ac_shopdetail_recommendGoods);
         //		mScrollView2=(ScrollView) findViewById(R.id.scrollView2);
@@ -445,7 +450,6 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         public void setAsyncTask(AsyncTask asyncTask) {
             if (mWatingWindow != null) {
                 mWatingWindow.dismiss();
-
             }
 
         }
@@ -460,6 +464,8 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             goodsdata = (NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity) message;
             Log.e(Tag, "商品详情数据message-" + message);
             Log.e(Tag, "商品详情数据-" + goodsdata.toString());
+            goodsId=goodsdata.getId();
+
             setUi(goodsdata);
             mPicDetail.setChecked(true);
         }
@@ -467,10 +473,6 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         @Override
         public Object onResolve(String result) {
             return HTTPHelper.ResolveSupplyGoodsDetailEntity(result);
-//			Log.e("renk", "106>goodsdata");
-//			Log.e("renk", result);
-//			Gson gson = new Gson();
-//			return gson.fromJson(result, GoodsData.class);
         }
 
         @Override
@@ -635,10 +637,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
             mStandardLayout.setVisibility(View.GONE);
         }
-        //默认第一个选中
-        if (mStandardRadiogroup.getChildCount() > 0) {
-            ((RadioButton) (mStandardRadiogroup.getChildAt(0))).setChecked(true);
-        }
+
         //电话
         if (null != msg.getTel()) {
             telephone.setText(msg.getTel());
@@ -657,6 +656,8 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 for (int i = 0; i < mStandardList.size(); i++) {
                     if (checkedId == Integer.parseInt(mStandardList.get(i).getId())) {
+                       standardId= mStandardList.get(i).getId();
+                        Log.e(Tag,"规格id:"+standardId);
                         if (goodsdata.getType().equals("0")) {//商品类型(0=>普通商品,1=>抢购商品,2=>非卖品,比如服务什么的)
                          if (mStandardList.get(i).getPrice()!=null)
                                 price.setText("￥:" + mStandardList.get(i).getPrice());
@@ -702,38 +703,73 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                 }
             }
         });
+        //默认第一个选中
+        if (mStandardRadiogroup.getChildCount() > 0) {
+            ((RadioButton) (mStandardRadiogroup.getChildAt(0))).setChecked(true);
+        }
         //设置底部的数据
         setBottomPageUI(msg);
     }
 
     List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.StandardEntity> mStandardList = new ArrayList<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.StandardEntity>();
-
+boolean isNoWebDetail=false;
     /**
      * 设置底部的数据
      *
      * @param msg
      */
     private void setBottomPageUI(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
-        if (null != msg.getDetail()) {
+        if (null != msg.getDetail()&& !msg.getDetail().startsWith("http")) {
             Log.e(Tag, "图文详情url:" + msg.getDetail());
             loadPicDetail(msg.getDetail());
+            isNoWebDetail=false;
         } else {
-            mWebview.setVisibility(View.GONE);
-            tv_noData.setText("暂无图文详情");
-            tv_noData.setVisibility(View.VISIBLE);
+            isNoWebDetail=true;
+//            mWebview.setVisibility(View.GONE);
+//            tv_pic_nodata.setVisibility(View.VISIBLE);
         }
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId==R.id.ac_shopdetail_mypicdetail){
+if (isNoWebDetail){
+    mWebview.setVisibility(View.GONE);
+//    tv_noData.setText("暂无图文详情");
+    tv_pic_nodata.setVisibility(View.VISIBLE);
+}else{
+
+    mWebview.setVisibility(View.VISIBLE);
+    tv_pic_nodata.setVisibility(View.GONE);
+}
+                    mCommentListview.setVisibility(View.GONE);
+
+                }else if (checkedId==R.id.ac_shopdetail_mycommentdetail){
+
+                    mWebview.setVisibility(View.GONE);
+                    mCommentListview.setVisibility(View.VISIBLE);
+
+
+                }
+
+
+
+
+            }
+        });
+
+
         //set评价内容
         if (null != msg.getComment()) {
             List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.CommentEntity> mCommentList = msg.getComment();
             SupplyGoodsDetailCommentAdapter mEvaluationAdapter = new SupplyGoodsDetailCommentAdapter(mCommentList, SupplyGoodsDetailActivity.this);
-//			mCommentListview.setEmptyView(tv_empty);
+			mCommentListview.setEmptyView(tv_noData);
             mCommentListview.setAdapter(mEvaluationAdapter);
 //            setCarAmount();
         }
 
         if (null != msg.getSupply()) {
             mHishequTV.setVisibility(View.VISIBLE);
-            mHishequTV.setText("—— " + msg.getSupply() + " ——");
+            mHishequTV.setText("—— 本商品由" + msg.getSupply() + "所有 ——");
         }
         //set推荐商品
         if (msg.getRecommend() != null) {
@@ -817,20 +853,6 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             case R.id.ac_good_title_go_back:
                 goBack();
                 break;
-            // 图文详情
-            //		case R.id.ac_shop_look_map_detail:
-            //			bundle.putInt("type", 0);
-            //			bundle.putString("detail", contentdetail);
-            //			intent.putExtras(bundle);
-            //			startActivity(intent);
-            //			break;
-            //			// 评价
-            //		case R.id.ac_shop_look_good_detail:
-            //			bundle.putInt("type", 1);
-            //			bundle.putSerializable("data", goodsdata);
-            //			intent.putExtras(bundle);
-            //			startActivity(intent);
-            //			break;
             case R.id.ac_shop_goods_right_add_iv:
                 good_count++;
                 goods_count++;
@@ -930,6 +952,10 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                     }
                 }
                 break;
+            case R.id.ac_shop_car_addtocar:
+                addCarGoods();
+
+                break;
             // activity 中点击去支付
             case R.id.ac_shop_car_go_pay:
                 if (good_count == 0) {
@@ -977,7 +1003,51 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
         }
     }
+    /**加入购物车**/
+    public void addCarGoods() {
+        if (HighCommunityUtils.isLogin(SupplyGoodsDetailActivity.this)) {
+            waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity.this, mRadioGroup, Gravity.CENTER);
+            HTTPHelper.addNewHuiGoodsToCar(mIbpiAddShopCar, goodsId, standardId);
+        }
+    }
 
+    /**
+     * 加入购物车弹窗
+     */
+    PopupWindow waitPop;
+    /**
+     * 加入购物车回调
+     */
+    BpiHttpHandler.IBpiHttpHandler mIbpiAddShopCar = new BpiHttpHandler.IBpiHttpHandler() {
+        @Override
+        public void onError(int id, String message) {
+            waitPop.dismiss();
+            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+        }
+
+        @Override
+        public void onSuccess(Object message) {
+            waitPop.dismiss();
+            HighCommunityUtils.GetInstantiation().ShowToast("成功加入购物车", 0);
+        }
+
+        @Override
+        public Object onResolve(String result) {
+            Log.e(Tag,"onResolve result"+result);
+            return  result;
+//            return HTTPHelper.ResolveHuiSupportList(result);
+        }
+
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
+
+        }
+
+        @Override
+        public void cancleAsyncTask() {
+            waitPop.dismiss();
+        }
+    };
     public String gettotalprice() {
         String pric = mAllprice.getText().toString();
         return pric;
