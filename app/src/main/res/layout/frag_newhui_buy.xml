@@ -35,6 +35,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
+                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/padding_12">
 
@@ -225,17 +226,87 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/fl_huiLife_NoAddress"
+            android:id="@+id/fl_huiLife_NoAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:background="@color/defult_color_white"
+            android:gravity="center"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:text="新建收货地址"
+            android:textColor="@color/Defult_Color_MidGrey"
+            android:textSize="@dimen/font_large"></TextView>
+
+            <EditText
+                android:id="@+id/fl_huiLife_Message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_8"
                 android:background="@color/defult_color_white"
-                android:gravity="center"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp"
-                android:text="新建收货地址"
+                android:paddingLeft="10dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+              android:hint="备注:"
+                android:focusableInTouchMode="true"
                 android:textColor="@color/Defult_Color_MidGrey"
-                android:textSize="@dimen/font_large"></TextView>
+                android:textSize="@dimen/font_large"></EditText>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@color/defult_color_white"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="12dp"
+                    android:text="选择支付方式"
+                    android:textColor="@color/Defult_Color_MidGrey"
+                    android:textSize="@dimen/font_middle" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@color/Defult_Color_LineGrey"></View>
+
+                <RadioGroup
+                    android:id="@+id/rg_huil_ife"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/defult_color_white"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/rb_pay_wx"
+                        style="@style/rb_pay_style"
+
+                        android:drawableLeft="@mipmap/img_pay_wx"
+                        android:drawableRight="@drawable/img_check"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:text="微信支付" />
+
+                    <RadioButton
+                        android:id="@+id/rb_pay_ipay"
+                        style="@style/rb_pay_style"
+                        android:checked="false"
+                        android:drawableLeft="@mipmap/img_pay_ipay"
+                        android:drawableRight="@drawable/img_check"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:text="支付宝支付" />
+                </RadioGroup>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
@@ -309,7 +380,7 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:paddingTop="14dp"
-                android:text="提交订单"
+                android:text="支付"
                 android:textColor="@color/defult_color_white"
                 android:textSize="@dimen/font_extra_small_half" />
         </LinearLayout>

@@ -206,7 +206,7 @@ public class NewHuiGdCarFrag extends BaseFragment {
                 mIntent.putExtra("carIdList", list());
                 mIntent.putExtra(HuiLifeSecondAct.INTENTTAG, 1);
                 //TODO 这里要改
-                NewHuiBuyFrag.listData = list;
+//                NewHuiBuyFrag.listData = list;
                 startActivity(mIntent);
             } else {
                 HighCommunityUtils.GetInstantiation().ShowToast("所选商品为零，不能结算", 0);

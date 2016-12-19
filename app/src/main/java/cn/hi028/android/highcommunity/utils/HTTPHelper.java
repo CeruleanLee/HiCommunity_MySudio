@@ -56,6 +56,7 @@ import cn.hi028.android.highcommunity.bean.Autonomous.Auto_UnitBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_VoteList_Vote;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_VoteResultBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.NewSupplyCarlistBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.NewSupplyPaydetailBean;
 import cn.hi028.android.highcommunity.bean.BillBean;
 import cn.hi028.android.highcommunity.bean.BillSimpleBean;
 import cn.hi028.android.highcommunity.bean.CarftsBean;
@@ -713,15 +714,56 @@ public class HTTPHelper {
     }
 
     /**
+     * v2.0展示支付界面(含从购物车点结算和从待付款列表到支付界面两种情况)获取零钱包和默认收货地址信息接口
+     * @param mIbpi
+     * @param ids 购物车id集合,以逗号间隔  /或是订单编号
+     * @param type  ids和order_num任传一个,传ids时表示从购物车到结算页面,传order_num时表示从待付款列表到支付界面
+     *              type=0,ids;  type=1,order_num
+     */
+    public static void NewSupplyShowPay(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                          String ids, int type) {
+        String url = HTTPPOSTURL + "sgoods/show-pay.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        if (type==0){
+            mParamMap.put("ids", ids);
+
+        }else if (type==1){
+            mParamMap.put("order_num", ids);
+        }
+        post(mParamMap, mIbpi, url);
+    }
+    /**
+     * v2.0解析展示支付界面
+     *
+     * @param result
+     * @return
+     */
+    public static NewSupplyPaydetailBean.SupplyPayDataEntity ResolveNewSupplyShowPay(String result) {
+        return gson.fromJson(result, NewSupplyPaydetailBean.SupplyPayDataEntity.class);
+    }
+    /**
      * 创建订单
      *
      * @param mIbpi
      * @param order
      */
-    public static void submitHuiSuppOrder(BpiHttpHandler.IBpiHttpHandler mIbpi,
-                                          String order) {
+    public static void submitHuiSuppOrder(BpiHttpHandler.IBpiHttpHandler mIbpi, String order) {
         Log.d(Tag,"------创建订单");
         String url = HTTPPOSTURL + "goods/order.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("order", order);
+        Log.d(Tag,"------post2");
+        post(mParamMap, mIbpi, url);
+    }
+    /**
+     * v2.0创建订单
+     *
+     * @param mIbpi
+     * @param order
+     */
+    public static void submitNewHuiOrder(BpiHttpHandler.IBpiHttpHandler mIbpi, String order) {
+        Log.d(Tag,"------创建订单");
+        String url = HTTPPOSTURL + "sgoods/pay.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("order", order);
         Log.d(Tag,"------post2");

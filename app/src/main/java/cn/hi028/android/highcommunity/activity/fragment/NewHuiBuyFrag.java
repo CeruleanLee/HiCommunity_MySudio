@@ -1,7 +1,3 @@
-/***************************************************************************
- * Copyright (c) by raythinks.com, Inc. All Rights Reserved
- **************************************************************************/
-
 package cn.hi028.android.highcommunity.activity.fragment;
 
 import android.content.Intent;
@@ -19,18 +15,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
 
 import net.duohuo.dhroid.activity.BaseFragment;
-import net.duohuo.dhroid.util.ListUtils;
-import net.duohuo.dhroid.util.LogUtil;
 import net.duohuo.dhroid.view.CustomListView;
 
-import org.androidannotations.annotations.Click;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,22 +33,19 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.AddressAct;
 import cn.hi028.android.highcommunity.activity.HuiLifeSecondAct;
-import cn.hi028.android.highcommunity.activity.PaymentActivity;
 import cn.hi028.android.highcommunity.activity.TicketAct;
 import cn.hi028.android.highcommunity.adapter.NewHuiBuyAdapter;
 import cn.hi028.android.highcommunity.bean.AddressBean;
 import cn.hi028.android.highcommunity.bean.AllTicketBean;
-import cn.hi028.android.highcommunity.bean.Autonomous.NewSupplyCarlistBean;
-import cn.hi028.android.highcommunity.bean.GoodsOrderBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.NewSupplyPaydetailBean;
 import cn.hi028.android.highcommunity.bean.HSuppGdDefBean;
-import cn.hi028.android.highcommunity.bean.HuiSupportBean;
-import cn.hi028.android.highcommunity.params.HuiSuppOrderParams;
+import cn.hi028.android.highcommunity.params.HuiSuppOrderParams2;
 import cn.hi028.android.highcommunity.utils.CommonUtils;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
@@ -65,7 +56,7 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @时间：2016/12/14<br>
  */
 public class NewHuiBuyFrag extends BaseFragment {
-    static  final  String Tag="NewHuiBuyFrag--->";
+    static final String Tag = "NewHuiBuyFrag--->";
     @Bind(R.id.cl_goods)
     CustomListView cl_goods;
     @Bind(R.id.tv_reserve_name)
@@ -82,6 +73,8 @@ public class NewHuiBuyFrag extends BaseFragment {
     TextView tv_wallet;
     @Bind(R.id.edt_pay_num)
     EditText edt_pay_num;//零钱包输入金额
+    @Bind(R.id.fl_huiLife_Message)
+    EditText et_Message;//订单留言
     @Bind(R.id.tv_total_actual)
     TextView tv_total_actual;
     @Bind(R.id.tv_total_pay)
@@ -94,17 +87,24 @@ public class NewHuiBuyFrag extends BaseFragment {
     FrameLayout fl_yhq;
     @Bind(R.id.btn_pay)
     Button btn_pay;
-    @Bind(R.id.btn_order)
-    Button btn_order;
-    public static HuiSupportBean entyBean;
-    public static List<NewSupplyCarlistBean.SupplyCarlistDataEntity> listData;
+//    public static HuiSupportBean entyBean;
+    //    public static List<NewSupplyCarlistBean.SupplyCarlistDataEntity> listData;
     int type = 0;
-    public HuiSuppOrderParams orderParams;
-    HSuppGdDefBean data;
+    public HuiSuppOrderParams2 orderParams;
+    NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayConsignEntity mConsign;//订单参数
+//    HSuppGdDefBean data;
     PopupWindow waitPop;
     NewHuiBuyAdapter adapter;
     View view;
-String carIdList;
+    String carIdList;
+    List<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity> mList = new ArrayList<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity>();
+    @Bind(R.id.rb_pay_wx)
+    RadioButton rbPayWx;
+    @Bind(R.id.rb_pay_ipay)
+    RadioButton rbPayIpay;
+    @Bind(R.id.rg_huil_ife)
+    RadioGroup rgPay;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(Tag, "onCreateView");
@@ -113,17 +113,16 @@ String carIdList;
         Bundle bundle = getArguments();
         carIdList = bundle.getString("carIdList");
         Log.d(Tag, "carIdList=" + carIdList);
-        initView();
+//        initView();
+        initData();
         return view;
     }
-    public  void initView() {
-        adapter = new NewHuiBuyAdapter(this);
-        cl_goods.setAdapter(adapter);
-        orderParams = new HuiSuppOrderParams();
+
+    public void initView() {
         edt_pay_num.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!v.isClickable()){
+                if (!v.isClickable()) {
                     HighCommunityUtils.GetInstantiation().ShowToast("无可抵扣零钱", 0);
                 }
             }
@@ -147,12 +146,12 @@ String carIdList;
                     }
 
                     if (money >= 0) {
-                        if (data != null) {
-                            if (money > data.getZero_money()) {
-                                edt_pay_num.setText(data.getZero_money() + "");
+                        if (mBean != null) {
+                            if (money > mBean.getZero_money()) {
+                                edt_pay_num.setText(mBean.getZero_money() + "");
                             } else {
-                                if (money > (orderParams.getTotal_price() - orderParams.getTicket_value())) {
-                                    edt_pay_num.setText((orderParams.getTotal_price() - orderParams.getTicket_value()) + "");
+                                if (money > (orderParams.getTotal_amount() - orderParams.getTicket_value())) {
+                                    edt_pay_num.setText((orderParams.getTotal_amount() - orderParams.getTicket_value()) + "");
                                     return;
                                 }
                                 orderParams.setZero_money(money);
@@ -178,40 +177,167 @@ String carIdList;
         });
         type = getActivity().getIntent().getIntExtra(HuiLifeSecondAct.INTENTTAG, 0);
         fl_huiLife_addressChooice.setVisibility(View.GONE);
-        if (type == 0) {
-            NewSupplyCarlistBean.SupplyCarlistDataEntity gdParams = new NewSupplyCarlistBean.SupplyCarlistDataEntity();
-            gdParams.setId(entyBean.getGid()+"");
-            gdParams.setStorage(entyBean.getNumber());
-            gdParams.setName(entyBean.getGoods_name());
-            gdParams.setCover_pic(entyBean.getPic().get(0).getSmall());
-            gdParams.setPrice(entyBean.getPrice());
-            gdParams.setNum(1);
-            List<NewSupplyCarlistBean.SupplyCarlistDataEntity> dataGdParams = new ArrayList<NewSupplyCarlistBean.SupplyCarlistDataEntity>();
-            dataGdParams.add(gdParams);
-            adapter.setData(dataGdParams);
-            HTTPHelper.GetHuiSuppGoodsMsg(mIbpi, HighCommunityApplication.mUserInfo.getId() + "", entyBean.getGid() + "");
-        } else {
-            adapter.setData(listData);
-            HTTPHelper.GetHuiSuppGoodsMsg(mIbpi, HighCommunityApplication.mUserInfo.getId() + "", listData.get(0).getId() + "");
+//        if (type == 0) {
+//            NewSupplyCarlistBean.SupplyCarlistDataEntity gdParams = new NewSupplyCarlistBean.SupplyCarlistDataEntity();
+//            gdParams.setId(entyBean.getGid() + "");
+//            gdParams.setStorage(entyBean.getNumber());
+//            gdParams.setName(entyBean.getGoods_name());
+//            gdParams.setCover_pic(entyBean.getPic().get(0).getSmall());
+//            gdParams.setPrice(entyBean.getPrice());
+//            gdParams.setNum(1);
+//            List<NewSupplyCarlistBean.SupplyCarlistDataEntity> dataGdParams = new ArrayList<NewSupplyCarlistBean.SupplyCarlistDataEntity>();
+//            dataGdParams.add(gdParams);
+//            adapter.setData(dataGdParams);
+//            HTTPHelper.GetHuiSuppGoodsMsg(mIbpi, HighCommunityApplication.mUserInfo.getId() + "", entyBean.getGid() + "");
+//        } else {
+//            adapter.setData(listData);
+//            HTTPHelper.GetHuiSuppGoodsMsg(mIbpi, HighCommunityApplication.mUserInfo.getId() + "", listData.get(0).getId() + "");
+//        }
+
+        rbPayWx.setChecked(true);
+
+    }
+
+    @OnClick({R.id.fl_yhq, R.id.btn_pay, R.id.fl_huiLife_addressChooice, R.id.fl_huiLife_NoAddress,
+            R.id.rb_pay_wx,R.id.rb_pay_ipay})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.fl_yhq:
+                onTicket();
+                break;
+            case R.id.btn_pay:
+                payClick();
+                break;
+            case R.id.fl_huiLife_addressChooice:
+                ChooiceAddress();
+                break;
+            case R.id.fl_huiLife_NoAddress:
+                CreateAddress();
+                break;
+            case R.id.rb_pay_wx:
+                orderParams.setPay_type(1);
+                break;
+            case R.id.rb_pay_ipay:
+                orderParams.setPay_type(2);
+                break;
+
         }
     }
 
-    @Click(R.id.fl_yhq)
+    /**
+     * 转到优惠券界面   v2.0没有了
+     */
     public void onTicket() {
         Intent mIntent = new Intent(getActivity(), GeneratedClassUtils.get(TicketAct.class));
         mIntent.putExtra(TicketAct.TICKET_TYPE, 2);
-        mIntent.putExtra(TicketAct.TICKET_PRICE, orderParams.getTotal_price() + "");
+        mIntent.putExtra(TicketAct.TICKET_PRICE, orderParams.getTotal_amount() + "");
         startActivityForResult(mIntent, 0x22);
     }
 
 
     @Override
     public void onResume() {
+//        initData();
         super.onResume();
     }
 
+    private void initData() {
+        if (carIdList != null && !carIdList.equals("")) {
+
+            HTTPHelper.NewSupplyShowPay(mShowPayIbpi, carIdList, 0);
+        }
+    }
+
+    NewSupplyPaydetailBean.SupplyPayDataEntity mBean;
     /**
-     * 獲取訂單內容
+     * 展示支付界面
+     */
+    BpiHttpHandler.IBpiHttpHandler mShowPayIbpi = new BpiHttpHandler.IBpiHttpHandler() {
+        @Override
+        public void onError(int id, String message) {
+        }
+
+        @Override
+        public void onSuccess(Object message) {
+            if (null == message)
+                return;
+            mBean = (NewSupplyPaydetailBean.SupplyPayDataEntity) message;
+            orderParams = new HuiSuppOrderParams2();
+            orderParams.setToken(HighCommunityApplication.mUserInfo.getToken());
+            Log.e(Tag,"onSuccess:"+mBean.getTotal_fee()+","+mBean.getZero_money());
+            orderParams.setTotal_amount(mBean.getTotal_fee());
+            orderParams.setTotal_fee(mBean.getTotal_fee());
+            orderParams.setZero_money(mBean.getZero_money());
+            orderParams.setCart_ids(carIdList);
+            setOrderList(mBean);
+            setFee(mBean);
+            setUserAddress(mBean);
+            initView();
+//            HSuppGdDefBean data = (HSuppGdDefBean) message;
+//            updateData(data);
+        }
+
+        @Override
+        public Object onResolve(String result) {
+            return HTTPHelper.ResolveNewSupplyShowPay(result);
+        }
+
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
+        }
+
+        @Override
+        public void cancleAsyncTask() {
+        }
+    };
+
+    /**
+     * 数据获取成功后设置收货人地址留言等
+     *
+     * @param mBean
+     */
+    private void setUserAddress(NewSupplyPaydetailBean.SupplyPayDataEntity mBean) {
+        mConsign = mBean.getConsign();
+        if (mConsign != null) {
+            updateData(mConsign);
+        }
+    }
+
+    /**
+     * 数据获取成功后设置应付款、零钱等数据
+     *
+     * @param mBean
+     */
+    private void setFee(NewSupplyPaydetailBean.SupplyPayDataEntity mBean) {
+        tv_wallet.setText("零钱包（" + mBean.getZero_money() + "元）");
+        if (mBean.getZero_money() < 0.1) {
+            edt_pay_num.setClickable(false);
+            edt_pay_num.setFocusable(false);
+        } else {
+
+            edt_pay_num.setFocusable(true);
+            edt_pay_num.setClickable(true);
+
+        }
+
+    }
+
+    /**
+     * 数据获取成功后设置订单列表的数据
+     *
+     * @param mBean
+     */
+    private void setOrderList(NewSupplyPaydetailBean.SupplyPayDataEntity mBean) {
+        mList = mBean.getGoods();
+        adapter = new NewHuiBuyAdapter(NewHuiBuyFrag.this, getActivity(), mList);
+        cl_goods.setAdapter(adapter);
+
+
+
+    }
+
+    /**
+     * 获取订单内容
      */
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
@@ -223,7 +349,7 @@ String carIdList;
             if (null == message)
                 return;
             HSuppGdDefBean data = (HSuppGdDefBean) message;
-            updateData(data);
+//            updateData(data);
         }
 
         @Override
@@ -241,53 +367,60 @@ String carIdList;
         }
     };
 
-    @Click(R.id.btn_pay)
+    //    @Click(R.id.btn_pay)
     void payClick() {
         if (HighCommunityUtils.isLogin(getActivity())) {
-            if (orderParams.getNum() == 0) {
-                HighCommunityUtils.GetInstantiation().ShowToast("商品总数不能为零", 0);
-                return;
-            }
 
-            if (orderParams.getReal_price() == 0) {
+            if (orderParams.getTotal_fee() == 0) {
                 HighCommunityUtils.GetInstantiation().ShowToast("实际支付不能为零", 0);
                 return;
             }
-            if (TextUtils.isEmpty(orderParams.getAid())) {
+            if (TextUtils.isEmpty(orderParams.getAddress_id() + "")) {
                 HighCommunityUtils.GetInstantiation().ShowToast("请选择收货地址", 0);
                 return;
             }
             waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), btn_pay, Gravity.CENTER);
             JSONObject params = new JSONObject();
             try {
-                params.put("user_id", HighCommunityApplication.mUserInfo.getId() + "");
-                params.put("aid", orderParams.getAid());
-                params.put("real_price", orderParams.getReal_price());
-                params.put("total_price", orderParams.getTotal_price());
-                if (orderParams.getZero_money() != 0.0f) {
-                    params.put("zero_money", orderParams.getZero_money());
-                }
+                params.put("token", HighCommunityApplication.mUserInfo.getToken());
                 if (!TextUtils.isEmpty(orderParams.getTicket_id())) {
                     params.put("ticket_id", orderParams.getTicket_id());
                 }
-                JSONArray jsonArray = new JSONArray();
-                for (int i = 0; i < ListUtils.getSize(orderParams.getGoods()); i++) {
-                    JSONObject goods = new JSONObject();
-                    goods.put("goods_id", orderParams.getGoods().get(i).getGid());
-                    goods.put("goods_price", orderParams.getGoods().get(i).getPrice());
-                    goods.put("number", orderParams.getGoods().get(i).getNum());
-                    jsonArray.put(goods);
+                if (orderParams.getZero_money() != 0.0f) {
+                    params.put("zero_money", orderParams.getZero_money());
                 }
-                params.put("goods", jsonArray);
-            	LogUtil.d("------a1");
-                HTTPHelper.submitHuiSuppOrder(mIbpiOrder, params.toString());
-                LogUtil.d("------a2");
+                params.put("pay_type", orderParams.getPay_type());
+                params.put("address_id", orderParams.getAddress_id());
+                params.put("total_amoun", orderParams.getTotal_amount());
+                params.put("total_fee", orderParams.getTotal_fee());
+                orderParams.setMark(et_Message.getText().toString().trim());
+                params.put("mark", orderParams.getMark());
+                if (orderParams.getCart_ids() != null && !orderParams.getCart_ids().equals("")) {
+                    params.put("cart_ids", orderParams.getCart_ids());
+                }
+                if (orderParams.getOrder_num() != null && !orderParams.getOrder_num().equals("")) {
+                    params.put("order_num", orderParams.getCart_ids());
+                }
+//                JSONArray jsonArray = new JSONArray();
+//                for (int i = 0; i < ListUtils.getSize(orderParams.getGoods()); i++) {
+//                    JSONObject goods = new JSONObject();
+//                    goods.put("goods_id", orderParams.getGoods().get(i).getGid());
+//                    goods.put("goods_price", orderParams.getGoods().get(i).getPrice());
+//                    goods.put("number", orderParams.getGoods().get(i).getNum());
+//                    jsonArray.put(goods);
+//                }
+                Log.e(Tag, "params:" + params.toString());
+                HTTPHelper.submitNewHuiOrder(mIbpiOrder, params.toString());
+                Log.e(Tag, "------a2");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
 
+    /**
+     * 支付回调
+     */
     BpiHttpHandler.IBpiHttpHandler mIbpiOrder = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
@@ -300,17 +433,20 @@ String carIdList;
             waitPop.dismiss();
             if (null == message)
                 return;
-            GoodsOrderBean bean = (GoodsOrderBean) message;
-            Intent mIntent = new Intent(getActivity(), GeneratedClassUtils.get(PaymentActivity.class));
-            mIntent.putExtra(PaymentActivity.ACTIVITYTAG, Constacts.HUILIFE_SUPPORT_PAY);
-            mIntent.putExtra(PaymentActivity.INTENTTAG, bean.getOrder_id());
-            startActivity(mIntent);
-            getActivity().finish();
+            Log.e(Tag,"message："+message.toString());
+//            GoodsOrderBean bean = (GoodsOrderBean) message;
+//            Intent mIntent = new Intent(getActivity(), GeneratedClassUtils.get(PaymentActivity.class));
+//            mIntent.putExtra(PaymentActivity.ACTIVITYTAG, Constacts.HUILIFE_SUPPORT_PAY);
+//            mIntent.putExtra(PaymentActivity.INTENTTAG, bean.getOrder_id());
+//            startActivity(mIntent);
+//            getActivity().finish();
         }
 
         @Override
         public Object onResolve(String result) {
-            return HTTPHelper.ResolveHuiSuppOrder(result);
+
+            return result;
+//            return HTTPHelper.ResolveHuiSuppOrder(result);
         }
 
         @Override
@@ -324,13 +460,13 @@ String carIdList;
         }
     };
 
-    @Click(R.id.fl_huiLife_addressChooice)
+    //    @Click(R.id.fl_huiLife_addressChooice)
     void ChooiceAddress() {
         Intent mAddress = new Intent(getActivity(), GeneratedClassUtils.get(AddressAct.class));
         startActivityForResult(mAddress, 0x21);
     }
 
-    @Click(R.id.fl_huiLife_NoAddress)
+    //    @Click(R.id.fl_huiLife_NoAddress)
     void CreateAddress() {
         Intent mAddress = new Intent(getActivity(), GeneratedClassUtils.get(AddressAct.class));
         startActivityForResult(mAddress, 0x21);
@@ -338,11 +474,11 @@ String carIdList;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	LogUtil.d("------onActivityResult");
+        Log.e(Tag, "------onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && requestCode == 0x21 && resultCode == 0x22) {
             AddressBean address = (AddressBean) data.getSerializableExtra("address");
-            orderParams.setAid(address.getId());
+            orderParams.setAddress_id(Integer.parseInt(address.getId()));
 //            orderParams.setAid(address.getId());
             tv_reserve_name.setText(address.getReal_name());
             tv_reserve_phone.setText(address.getTel());
@@ -359,7 +495,7 @@ String carIdList;
             AllTicketBean aticketBean = (AllTicketBean) data.getSerializableExtra("ticket");
             orderParams.setTicket_id(aticketBean.getTid());
             orderParams.setTicket_value(aticketBean.getTicket_value());
-            float realToatal = orderParams.getTotal_price() - orderParams.getTicket_value();
+            float realToatal = orderParams.getTotal_amount() - orderParams.getTicket_value();
             if (realToatal < orderParams.getZero_money()) {
                 edt_pay_num.setText("");
             }
@@ -369,17 +505,19 @@ String carIdList;
     }
 
 
-    public void updateData(HSuppGdDefBean data) {
-        this.data = data;
-        orderParams.setZero_money(0.0f);
-        orderParams.setUid(HighCommunityApplication.mUserInfo.getId());
-        if (data.getDefault_address() != null && data.getDefault_address().getId() != null) {
+    public void updateData(NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayConsignEntity mConsign) {
+
+
+
+
+        if (mConsign != null) {
             fl_huiLife_addressChooice.setVisibility(View.VISIBLE);
-            orderParams.setAid(data.getDefault_address().getId());
-            tv_reserve_name.setText(data.getDefault_address().getReal_name());
-            tv_reserve_phone.setText(data.getDefault_address().getTel());
-            tv_reserve_address.setText(data.getDefault_address().getAddress());
-            if ("0".equals(data.getDefault_address().getIsDefault())) {
+            orderParams.setAddress_id(mConsign.getId());
+
+            tv_reserve_name.setText(mConsign.getName());
+            tv_reserve_phone.setText(mConsign.getTel());
+            tv_reserve_address.setText(mConsign.getAddress());
+            if ("0".equals(mConsign.getIsDefault())) {
                 tv_address_default.setVisibility(View.GONE);
             } else {
                 tv_address_default.setVisibility(View.VISIBLE);
@@ -389,42 +527,34 @@ String carIdList;
             mNoAddress.setVisibility(View.VISIBLE);
             fl_huiLife_addressChooice.setVisibility(View.GONE);
         }
-        tv_wallet.setText("零钱包（" + data.getZero_money() + "元）");
-        if (data.getZero_money()<0.1){
-            edt_pay_num.setClickable(false);
-            edt_pay_num.setFocusable(false);
-        }else {
 
-            edt_pay_num.setFocusable(true);
-            edt_pay_num.setClickable(true);
-
-        }
         updateOrder();
     }
 
     public void updateOrder() {
-        tv_total_pay.setText("合计金额￥" + CommonUtils.f2Bi(orderParams.getTotal_price()) + "");
-        tv_total_actual.setText("￥" + CommonUtils.f2Bi(orderParams.getReal_price()) + "");
+        Log.e(Tag,"updateOrder:"+orderParams.toString());
 
-        Log.e(Tag,"orderParams.getTotal_price()--"+orderParams.getTotal_price()+",tv_coupon.toString()--"+tv_coupon.getText().toString()
-                +",orderParams.getTicket_value()--"+orderParams.getTicket_value());
+        tv_total_pay.setText("合计金额￥" + CommonUtils.f2Bi(orderParams.getTotal_amount()));
+        tv_total_actual.setText("￥" + CommonUtils.f2Bi(orderParams.getTotal_fee()));
 
-        if (orderParams.getTotal_price()<100&&tv_coupon.getText().toString().contains("￥")){
-            tv_coupon.setText( " - ");
-            tv_total_actual.setText("￥" + CommonUtils.f2Bi(orderParams.getReal_price()+orderParams.getTicket_value()) + "");
-            orderParams.setTicket_value(0.0f);
+        Log.e(Tag, "orderParams.getTotal_amount()--" + orderParams.getTotal_amount() + ",tv_coupon.toString()--" + tv_coupon.getText().toString()
+                + ",orderParams.getTicket_value()--" + orderParams.getTicket_value());
 
-//            tv_coupon.setText("￥" + orderParams.getTicket_value() + "");
-        }
+//        if (orderParams.getTotal_amount() < 100 && tv_coupon.getText().toString().contains("￥")) {
+//            tv_coupon.setText(" - ");
+//            tv_total_actual.setText("￥" + CommonUtils.f2Bi(orderParams.getTotal_fee()) + orderParams.getTicket_value());
+//            orderParams.setTicket_value(0.0f);
+////            tv_coupon.setText("￥" + orderParams.getTicket_value() + "");
+//        }
 
-        if (orderParams.getTotal_price()<=0||orderParams.getReal_price()<=0){
-if (orderParams.getTotal_price()<=0){
-    tv_total_pay.setText("合计金额￥" + 0.0 + "");
-    tv_total_actual.setText("￥" + 0.0 + "");
-}
+        if (orderParams.getTotal_amount() <= 0 || orderParams.getTotal_fee() <= 0) {
+            if (orderParams.getTotal_amount() <= 0) {
+                tv_total_pay.setText("合计金额￥" + 0.0 + "");
+                tv_total_actual.setText("￥" + 0.0 + "");
+            }
             btn_pay.setClickable(false);
             btn_pay.setBackgroundResource(R.color.Defult_Color_Grey);
-        }else{
+        } else {
             btn_pay.setClickable(true);
             btn_pay.setBackgroundResource(R.color.Defult_Color_AppBotton);
 
@@ -438,5 +568,6 @@ if (orderParams.getTotal_price()<=0){
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
 
 }

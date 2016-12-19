@@ -888,7 +888,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 tabSelector(2);
                 break;
             case R.id.main_tab_five://
-                mTitle.setText("活动");
+                mTitle.setText("个人中心");
                 tabSelector(3);
                 break;
             case R.id.tx_LeftFrag_userlocation_layout:

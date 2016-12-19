@@ -18,19 +18,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.fragment.HuiChipsDetailFrag;
-import cn.hi028.android.highcommunity.activity.fragment.HuiChipsDetailFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.HuiLifeSuppBuyFrag;
-import cn.hi028.android.highcommunity.activity.fragment.HuiLifeSuppBuyFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.NewHuiBuyFrag;
-import cn.hi028.android.highcommunity.activity.fragment.SeriRepairJJFrag;
-import cn.hi028.android.highcommunity.activity.fragment.SeriRepairJJFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.SeriRepairRecordFrag;
-import cn.hi028.android.highcommunity.activity.fragment.SeriRepairRecordFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.ServiceCaftsDetailFrag;
-import cn.hi028.android.highcommunity.activity.fragment.ServiceNoticeDetailFrag;
-import cn.hi028.android.highcommunity.activity.fragment.ServiceTenDetailFrag;
-import cn.hi028.android.highcommunity.activity.fragment.ServiceTenDetailFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.*;
 import cn.hi028.android.highcommunity.utils.Constacts;
 
 /**
@@ -66,8 +54,9 @@ public class HuiLifeSecondAct extends BaseFragmentActivity {
         FragmentTransaction ft = fm.beginTransaction();
         switch (flag) {
             case Constacts.NEW_HUILIFE_ORDER:
+                Log.e(Tag,"ready to 订单支付");
                 mTitle.setText("订单支付");
-                NewHuiBuyFrag mNewHuiBuyFrag = (NewHuiBuyFrag) new NewHuiBuyFrag();
+                NewHuiBuyFrag mNewHuiBuyFrag = new NewHuiBuyFrag();
                 Bundle mBundle=new Bundle();
                 if (carIdList!=null&&carIdList!=""){
                     mBundle.putString("carIdList",carIdList);

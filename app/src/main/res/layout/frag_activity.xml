@@ -25,6 +25,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="暂无数据"
+                android:textColor="@color/Defult_Color_DeepGrey"
                 android:visibility="gone" />
 
             <com.handmark.pulltorefresh.library.PullToRefreshListView
