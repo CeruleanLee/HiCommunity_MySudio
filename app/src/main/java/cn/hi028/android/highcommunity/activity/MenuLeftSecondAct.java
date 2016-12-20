@@ -66,7 +66,8 @@ public class MenuLeftSecondAct extends BaseFragmentActivity {
                 break;
             case Constacts.MENU_LEFTSECOND_ORDER_DETAIL://订单详情
                 mTitle.setText("订单详情");
-                HuiOrderDetailFrag mOrder = (HuiOrderDetailFrag) new HuiOrderDetailFrag_();
+                NewHuiOrderDetailFrag mOrder = (NewHuiOrderDetailFrag) new NewHuiOrderDetailFrag_();
+//                HuiOrderDetailFrag mOrder = (HuiOrderDetailFrag) new HuiOrderDetailFrag_();
                 ft.replace(R.id.ll_menuleftSecond_layout, mOrder, HuiOrderDetailFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_LEFTSECOND_CHIP_ORDER_DETAIL://众筹订单详情

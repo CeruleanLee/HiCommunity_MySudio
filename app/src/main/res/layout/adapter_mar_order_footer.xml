@@ -55,9 +55,19 @@
         android:layout_marginTop="6dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_orderId"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:drawablePadding="2dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="订单号：D5231456521"
+            android:textColor="@color/Defult_Color_Grey"
+            android:textSize="@dimen/font_extra_small_half" />
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:gravity="center_vertical|right"

@@ -18,6 +18,7 @@
             android:clickable="true"
             android:paddingLeft="@dimen/padding_12"
             android:paddingRight="42dp"
+            android:visibility="gone"
             android:src="@mipmap/img_title_left" />
 
         <ImageView
@@ -28,6 +29,7 @@
             android:layout_marginTop="14dip"
             android:layout_toRightOf="@id/tv_mainlevel_LeftButton"
             android:clickable="true"
+            android:visibility="gone"
             android:src="@mipmap/img_title_new_message" />
 
         <TextView

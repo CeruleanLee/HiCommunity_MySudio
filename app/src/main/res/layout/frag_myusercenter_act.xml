@@ -4,15 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-
-
-
-    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+    <ScrollView
         android:id="@+id/ptrsv_leftmenu_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:scrollbars="none">
 
         <LinearLayout
@@ -21,14 +16,30 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:background="@drawable/bg_leftmenu_grandient"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="150dp"
+                android:background="@drawable/bg_leftmenu_grandient">
+
+                <TextView
+                    android:id="@+id/myinfor_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="8dp"
+                    android:text="编辑"
+                    android:textColor="@color/white"
+
+                    android:textSize="14dp" />
 
                 <RelativeLayout
                     android:id="@+id/rl_leftmenu_userinfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/padding_15"
                     android:background="@drawable/ll_leftmenu_bg_selector"
                     android:clickable="true"
@@ -42,74 +53,83 @@
                         style="@style/civ_avatar_type1"
                         android:gravity="center" />
 
-                    <TextView
-                        android:id="@+id/tx_LeftFrag_userName"
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/img_LeftFrag_Avatar"
-                        android:layout_marginBottom="@dimen/padding_8"
-                        android:layout_marginLeft="@dimen/padding_12"
-                        android:layout_marginTop="@dimen/padding_8"
-                        android:layout_toRightOf="@id/img_LeftFrag_Avatar"
-                        android:text="name"
-                        android:textColor="@color/defult_color_white"
-                        android:textSize="@dimen/font_middle" />
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/img_LeftFrag_Avatar">
 
-                    <TextView
-                        android:id="@+id/tx_LeftFrag_userSex"
-                        style="@style/cb_community_sex"
-                        android:layout_alignBottom="@id/img_LeftFrag_Avatar"
-                        android:layout_marginBottom="@dimen/padding_8"
-                        android:layout_marginTop="@dimen/padding_8"
+                        <TextView
+                            android:id="@+id/tx_LeftFrag_userName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
 
-                        android:layout_toRightOf="@id/tx_LeftFrag_userName"
-                        android:text="未知" />
+                            android:layout_marginLeft="@dimen/padding_12"
+                            android:layout_marginTop="@dimen/padding_8"
+                            android:text="name"
+                            android:textColor="@color/defult_color_white"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tx_LeftFrag_userSex"
+                            style="@style/cb_community_sex"
+
+                            android:layout_marginTop="@dimen/padding_8"
+
+                            android:layout_toRightOf="@id/tx_LeftFrag_userName"
+                            android:text="未知" />
+
+                        <LinearLayout
+                            android:id="@+id/tx_LeftFrag_userlocation_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_below="@+id/tx_LeftFrag_userName"
+                            android:layout_marginLeft="@dimen/padding_12"
+                            android:background="@drawable/ll_leftmenu_bg_selector"
+                            android:focusable="true"
+                            android:orientation="horizontal"
+                            android:paddingBottom="6dp"
+
+                            android:paddingTop="6dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:padding="@dimen/padding_4"
+                                android:src="@mipmap/img_label_location" />
+
+                            <TextView
+                                android:id="@+id/tx_LeftFrag_userlocation"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="3dp"
+                                android:text="所在小区:"
+                                android:textColor="@color/Defult_Color_ShallowGrey"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
                 </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/tx_LeftFrag_userlocation_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/rl_leftmenu_userinfo"
-                    android:background="@drawable/ll_leftmenu_bg_selector"
-                    android:focusable="true"
-                    android:orientation="horizontal"
-                    android:paddingBottom="6dp"
-                    android:paddingLeft="@dimen/padding_24"
-                    android:paddingTop="6dp">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:padding="@dimen/padding_4"
-                        android:src="@mipmap/img_label_location" />
-
-                    <TextView
-                        android:id="@+id/tx_LeftFrag_userlocation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="3dp"
-                        android:text="所在小区:"
-                        android:textColor="@color/Defult_Color_ShallowGrey"
-                        android:textSize="@dimen/font_extra_small_half" />
-
-                </LinearLayout>
             </RelativeLayout>
+
             <LinearLayout
                 android:id="@+id/ll_leftMenu_Order"
-                style="@style/ll_leftmenu_style"
-                android:clickable="true" >
+                style="@style/ll_leftmenu_style_padinglitter"
+                android:clickable="true">
 
                 <com.don.view.DrawableCenterTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/img_leftmenu_order"
+                    android:drawableLeft="@drawable/frag_my_order"
                     android:drawablePadding="@dimen/padding_12"
                     android:text="我的订单"
-                 android:textColor="@color/Service_title_text_color"
+                    android:textColor="@color/colorselector_myfrag_text"
                     android:textSize="@dimen/font_middle" />
 
                 <View
@@ -118,6 +138,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+
                     android:id="@+id/tv_leftMenu_Order_Num"
                     android:layout_width="wrap_content"
                     android:layout_height="20dip"
@@ -133,24 +154,195 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/ll_leftMenu_order_all"
+                    style="@style/ll_leftmenu_style_weight1"
+                    android:clickable="true">
+
+                    <com.don.view.DrawableCenterTextView
+                        android:id="@+id/tv_leftMenu_order_all_tv"
+
+
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="8dp"
+                        android:drawableTop="@drawable/frag_my_order_all"
+                        android:text="全部订单"
+
+                        android:textColor="@color/color_actfrag_text"
+                        android:textSize="@dimen/font_middle" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dip"
+
+                        android:layout_weight="1" />
+
+                    <TextView
+                    android:layout_toRightOf="@id/tv_leftMenu_order_all_tv"
+                       android:layout_alignBottom="@id/tv_leftMenu_order_all_tv"
+                        android:id="@+id/tv_leftMenu_order_all_Num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dip"
+                        android:visibility="gone"
+                       android:layout_marginLeft="3dp"
+                        android:background="@drawable/bg_leftmenu_num"
+                        android:paddingBottom="@dimen/margin_2"
+                        android:paddingLeft="@dimen/padding_8"
+                        android:paddingRight="@dimen/padding_8"
+                        android:paddingTop="@dimen/margin_2"
+                        android:textColor="@color/defult_text_color"
+                        android:textSize="@dimen/font_extra_small_half"
+              />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/ll_leftMenu_order_topay"
+                    style="@style/ll_leftmenu_style_weight1"
+                    android:clickable="true">
+
+                    <com.don.view.DrawableCenterTextView
+                        android:id="@+id/tv_leftMenu_order_topay_tv"
+
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="8dp"
+                        android:drawableTop="@drawable/frag_my_order_topay"
+                        android:text="待付款"
+                        android:textColor="@color/color_actfrag_text"
+                        android:textSize="@dimen/font_middle" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dip"
+
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_toRightOf="@id/tv_leftMenu_order_topay_tv"
+                        android:layout_alignBottom="@id/tv_leftMenu_order_topay_tv"
+                        android:id="@+id/tv_leftMenu_order_topay_Num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dip"
+                        android:visibility="gone"
+                       android:layout_marginLeft="3dp"
+                        android:background="@drawable/bg_leftmenu_num"
+                        android:paddingBottom="@dimen/margin_2"
+                        android:paddingLeft="@dimen/padding_8"
+                        android:paddingRight="@dimen/padding_8"
+                        android:paddingTop="@dimen/margin_2"
+                        android:textColor="@color/defult_text_color"
+                        android:textSize="@dimen/font_extra_small_half"
+                         />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/ll_leftMenu_order_torec"
+                    style="@style/ll_leftmenu_style_weight1"
+                    android:clickable="true">
+
+                    <com.don.view.DrawableCenterTextView
+                        android:id="@+id/tv_leftMenu_order_torec_tv"
+
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="8dp"
+                        android:drawableTop="@drawable/frag_my_order_torec"
+                        android:text="待收货"
+                        android:textColor="@color/color_actfrag_text"
+                        android:textSize="@dimen/font_middle" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dip"
+
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_toRightOf="@id/tv_leftMenu_order_torec_tv"
+
+                        android:layout_alignBottom="@id/tv_leftMenu_order_torec_tv" android:id="@+id/tv_leftMenu_order_torec_Num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dip"
+                        android:visibility="gone"
+                        android:layout_marginLeft="3dp"
+                        android:background="@drawable/bg_leftmenu_num"
+                        android:paddingBottom="@dimen/margin_2"
+                        android:paddingLeft="@dimen/padding_8"
+                        android:paddingRight="@dimen/padding_8"
+                        android:paddingTop="@dimen/margin_2"
+                        android:textColor="@color/defult_text_color"
+                        android:textSize="@dimen/font_extra_small_half"
+                      />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/ll_leftMenu_order_com"
+                    style="@style/ll_leftmenu_style_weight1"
+                    android:clickable="true">
+
+                    <com.don.view.DrawableCenterTextView
+                        android:id="@+id/tv_leftMenu_order_all_com_tv"
+
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="8dp"
+                        android:drawableTop="@drawable/frag_my_order_com"
+                        android:text="待评价"
+                        android:textColor="@color/color_actfrag_text"
+                        android:textSize="@dimen/font_middle" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dip"
+
+                        android:layout_weight="1" />
+
+                    android:textSize="@dimen/font_extra_small_half"
+                    <TextView
+                        android:id="@+id/tv_leftMenu_order_all_com_num"
+                        android:layout_toRightOf="@id/tv_leftMenu_order_all_com_tv"
+                        android:layout_alignBottom="@id/tv_leftMenu_order_all_com_tv"
+                        android:layout_marginLeft="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dip"
+                        android:visibility="gone"
+                        android:background="@drawable/bg_leftmenu_num"
+                        android:paddingBottom="@dimen/margin_2"
+                        android:paddingLeft="@dimen/padding_8"
+                        android:paddingRight="@dimen/padding_8"
+                        android:paddingTop="@dimen/margin_2"
+                        android:textColor="@color/defult_text_color"
+                         />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/ll_leftMenu_topic"
-                style="@style/ll_leftmenu_style"
-                android:layout_marginTop="28dip"
+                  style="@style/ll_leftmenu_style_padinglitter"
+
 
                 android:clickable="true">
 
                 <com.don.view.DrawableCenterTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/img_leftmenu_topic"
+                    android:drawableLeft="@drawable/frag_my_topic"
+
                     android:drawablePadding="@dimen/padding_12"
                     android:text="话题"
-                 android:textColor="@color/Service_title_text_color"
+                         android:textColor="@color/colorselector_myfrag_text"
                     android:textSize="@dimen/font_middle" />
 
                 <View
                     android:layout_width="wrap_content"
                     android:layout_height="1dip"
+
                     android:layout_weight="1" />
 
                 <TextView
@@ -159,6 +351,7 @@
                     android:layout_height="20dip"
                     android:layout_marginRight="30dip"
                     android:background="@drawable/bg_leftmenu_num"
+
                     android:paddingBottom="@dimen/margin_2"
                     android:paddingLeft="@dimen/padding_8"
                     android:paddingRight="@dimen/padding_8"
@@ -170,16 +363,17 @@
 
             <LinearLayout
                 android:id="@+id/ll_leftMenu_collection"
-                style="@style/ll_leftmenu_style"
+                  style="@style/ll_leftmenu_style_padinglitter"
                 android:clickable="true">
 
                 <com.don.view.DrawableCenterTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/img_leftmenu_collection"
+                    android:drawableLeft="@drawable/frag_my_star"
+
                     android:drawablePadding="@dimen/padding_12"
                     android:text="我的收藏"
-                 android:textColor="@color/Service_title_text_color"
+                         android:textColor="@color/colorselector_myfrag_text"
                     android:textSize="@dimen/font_middle" />
 
                 <View
@@ -204,16 +398,17 @@
 
             <LinearLayout
                 android:id="@+id/ll_leftMenu_cart"
-                style="@style/ll_leftmenu_style"
+                  style="@style/ll_leftmenu_style_padinglitter"
                 android:clickable="true">
 
                 <com.don.view.DrawableCenterTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/img_leftmenu_cart"
+                    android:drawableLeft="@drawable/frag_my_cart"
+
                     android:drawablePadding="@dimen/padding_12"
                     android:text="购物车"
-                 android:textColor="@color/Service_title_text_color"
+                         android:textColor="@color/colorselector_myfrag_text"
                     android:textSize="@dimen/font_middle" />
 
                 <View
@@ -238,16 +433,17 @@
 
             <LinearLayout
                 android:id="@+id/ll_leftMenu_bill"
-                style="@style/ll_leftmenu_style"
+                  style="@style/ll_leftmenu_style_padinglitter"
                 android:clickable="true">
 
                 <com.don.view.DrawableCenterTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/img_leftmenu_bill"
+                    android:drawableLeft="@drawable/frag_my_wyorder"
+
                     android:drawablePadding="@dimen/padding_12"
                     android:text="物业账单"
-                 android:textColor="@color/Service_title_text_color"
+                         android:textColor="@color/colorselector_myfrag_text"
                     android:textSize="@dimen/font_middle" />
 
                 <View
@@ -274,16 +470,17 @@
 
             <LinearLayout
                 android:id="@+id/ll_leftMenu_myAddress"
-                style="@style/ll_leftmenu_style"
+                  style="@style/ll_leftmenu_style_padinglitter"
                 android:clickable="true">
 
                 <com.don.view.DrawableCenterTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/img_leftmenu_wallet"
+                    android:drawableLeft="@drawable/frag_my_address"
+
                     android:drawablePadding="@dimen/padding_12"
                     android:text="收货地址"
-              android:textColor="@color/Service_title_text_color"
+                         android:textColor="@color/colorselector_myfrag_text"
                     android:textSize="@dimen/font_middle" />
 
                 <View
@@ -309,16 +506,17 @@
 
             <LinearLayout
                 android:id="@+id/ll_leftMenu_wallet"
-                style="@style/ll_leftmenu_style"
+                  style="@style/ll_leftmenu_style_padinglitter"
                 android:clickable="true">
 
                 <com.don.view.DrawableCenterTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/img_leftmenu_wallet"
+                    android:drawableLeft="@drawable/frag_my_money"
+
                     android:drawablePadding="@dimen/padding_12"
                     android:text="我的钱包"
-                 android:textColor="@color/Service_title_text_color"
+                         android:textColor="@color/colorselector_myfrag_text"
                     android:textSize="@dimen/font_middle" />
 
                 <View
@@ -343,16 +541,17 @@
 
             <LinearLayout
                 android:id="@+id/ll_leftMenu_ZhongCou"
-                style="@style/ll_leftmenu_style"
+                  style="@style/ll_leftmenu_style_padinglitter"
                 android:clickable="true">
 
                 <com.don.view.DrawableCenterTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/img_leftmenu_zhongcou"
+                    android:drawableLeft="@drawable/frag_my_chips"
+
                     android:drawablePadding="@dimen/padding_12"
                     android:text="我的众筹"
-                 android:textColor="@color/Service_title_text_color"
+                         android:textColor="@color/colorselector_myfrag_text"
                     android:textSize="@dimen/font_middle" />
 
                 <View
@@ -377,16 +576,17 @@
 
             <LinearLayout
                 android:id="@+id/ll_leftMenu_Carft"
-                style="@style/ll_leftmenu_style"
+                  style="@style/ll_leftmenu_style_padinglitter"
                 android:clickable="true">
 
                 <com.don.view.DrawableCenterTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/img_leftmenu_carft"
+                    android:drawableLeft="@drawable/frag_my_skill"
+
                     android:drawablePadding="@dimen/padding_12"
                     android:text="我的手艺"
-                    android:textColor="@color/Service_title_text_color"
+                         android:textColor="@color/colorselector_myfrag_text"
 
                     android:textSize="@dimen/font_middle" />
 
@@ -411,16 +611,17 @@
 
             <LinearLayout
                 android:id="@+id/ll_leftMenu_MyMsg"
-                style="@style/ll_leftmenu_style"
+                  style="@style/ll_leftmenu_style_padinglitter"
                 android:clickable="true">
 
                 <com.don.view.DrawableCenterTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/img_mymsg"
+                    android:drawableLeft="@drawable/frag_my_mymsg"
+
                     android:drawablePadding="@dimen/padding_12"
                     android:text="与我相关"
-                 android:textColor="@color/Service_title_text_color"
+                         android:textColor="@color/colorselector_myfrag_text"
                     android:textSize="@dimen/font_middle" />
 
                 <View
@@ -445,16 +646,17 @@
 
             <LinearLayout
                 android:id="@+id/ll_leftMenu_SysMsg"
-                style="@style/ll_leftmenu_style"
+                  style="@style/ll_leftmenu_style_padinglitter"
                 android:clickable="true">
 
                 <com.don.view.DrawableCenterTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/img_sysmsg"
+                    android:drawableLeft="@drawable/frag_my_sysmsg"
+
                     android:drawablePadding="@dimen/padding_12"
                     android:text="系统消息"
-                 android:textColor="@color/Service_title_text_color"
+                         android:textColor="@color/colorselector_myfrag_text"
                     android:textSize="@dimen/font_middle" />
 
                 <View
@@ -477,23 +679,20 @@
                     android:visibility="gone" />
             </LinearLayout>
 
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="100dip" />
-
             <LinearLayout
-                android:id="@+id/ll_leftMenu_alliance_Order"
-                style="@style/ll_leftmenu_style"
+                android:id="@+id/ll_leftMenu_setting"
+                  style="@style/ll_leftmenu_style_padinglitter"
                 android:clickable="true">
 
                 <com.don.view.DrawableCenterTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/img_leftmenu_alliorder"
-                    android:drawablePadding="12dp"
-                    android:text="联盟订单"
-                 android:textColor="@color/Service_title_text_color"
+                    android:drawableLeft="@drawable/frag_my_seting"
+
+                    android:drawablePadding="@dimen/padding_12"
+                    android:gravity="center_vertical"
+                    android:text="设置"
+                         android:textColor="@color/colorselector_myfrag_text"
                     android:textSize="@dimen/font_middle" />
 
                 <View
@@ -502,7 +701,7 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:id="@+id/tv_leftMenu_alliance_Order_Num"
+                    android:id="@+id/tv_leftMenu_setting_Num"
                     android:layout_width="wrap_content"
                     android:layout_height="20dip"
                     android:layout_marginRight="30dip"
@@ -516,43 +715,10 @@
                     android:visibility="gone" />
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="40dip" />
 
         </LinearLayout>
-    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
-
-    <LinearLayout
-        android:id="@+id/ll_leftMenu_setting"
-        style="@style/ll_leftmenu_style"
-        android:clickable="true">
-
-        <com.don.view.DrawableCenterTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/img_leftmenu_setting"
-            android:drawablePadding="@dimen/padding_12"
-            android:gravity="center_vertical"
-            android:text="设置"
-         android:textColor="@color/Service_title_text_color"
-            android:textSize="@dimen/font_middle" />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dip"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/tv_leftMenu_setting_Num"
-            android:layout_width="wrap_content"
-            android:layout_height="20dip"
-            android:layout_marginRight="30dip"
-            android:background="@drawable/bg_leftmenu_num"
-            android:paddingBottom="@dimen/margin_2"
-            android:paddingLeft="@dimen/padding_8"
-            android:paddingRight="@dimen/padding_8"
-            android:paddingTop="@dimen/margin_2"
-            android:textColor="@color/defult_text_color"
-            android:textSize="@dimen/font_extra_small_half"
-            android:visibility="gone" />
-    </LinearLayout>
-
+    </ScrollView>
 </LinearLayout>

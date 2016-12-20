@@ -21,7 +21,6 @@ import com.don.tools.BpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
 
 import net.duohuo.dhroid.activity.BaseFragment;
-import net.duohuo.dhroid.util.LogUtil;
 import net.duohuo.dhroid.view.CustomListView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -88,14 +87,22 @@ public class HuiOrderDetailFrag extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.e(Tag, "onCreateView...");
-        view = inflater.inflate(R.layout.frag_auto_superviselist, null);
+        view = inflater.inflate(R.layout.frag_hlife_order_detail, null);
 
         return view;
     }
     @AfterViews
     void initView() {
-    	LogUtil.d("------HuiOrderDetailFrag-initView");
+    	Log.e(Tag,"------HuiOrderDetailFrag-initView");
         adapter = new HuiGdPayAdapter(this);
+        if (adapter==null){
+            Log.e(Tag,"adapter null");
+
+        }
+        if (cl_goods==null){
+            Log.e(Tag,"cl_goods  null");
+
+        }
         cl_goods.setAdapter(adapter);
         order_id = getActivity().getIntent().getStringExtra(MenuLeftSecondAct.INTENTTAG);
         ll_NoticeDetails_Progress.setVisibility(View.VISIBLE);

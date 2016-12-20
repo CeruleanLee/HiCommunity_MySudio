@@ -409,7 +409,30 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@drawable/ll_leftmenu_bg_selector</item>
     </style>
+    <style name="ll_leftmenu_style_padinglitter">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">12dip</item>
+        <item name="android:paddingTop">@dimen/padding_15</item>
+        <item name="android:paddingRight">@dimen/padding_24</item>
+        <item name="android:paddingBottom">@dimen/padding_15</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/ll_leftmenu_bg_selector</item>
+    </style>
+    <style name="ll_leftmenu_style_weight1">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
 
+        <item name="android:paddingTop">@dimen/padding_15</item>
+
+        <item name="android:paddingBottom">@dimen/padding_15</item>
+        <item name="android:orientation">horizontal</item>
+
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/ll_leftmenu_bg_selector</item>
+    </style>
     <style name="My_RadioButton_Style" parent="@android:style/Widget.CompoundButton">
         <item name="android:gravity">center</item>
         <item name="android:button">@null</item>

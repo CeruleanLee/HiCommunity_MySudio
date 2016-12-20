@@ -1,5 +1,6 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
@@ -42,12 +44,19 @@ import cn.hi028.android.highcommunity.activity.TicketAct;
 import cn.hi028.android.highcommunity.adapter.NewHuiBuyAdapter;
 import cn.hi028.android.highcommunity.bean.AddressBean;
 import cn.hi028.android.highcommunity.bean.AllTicketBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.NewPaySuccessBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.NewSupplyPaydetailBean;
 import cn.hi028.android.highcommunity.bean.HSuppGdDefBean;
+import cn.hi028.android.highcommunity.bean.WpayBean;
 import cn.hi028.android.highcommunity.params.HuiSuppOrderParams2;
 import cn.hi028.android.highcommunity.utils.CommonUtils;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
+import cn.hi028.android.highcommunity.utils.alipay.AlipayUtils;
+import cn.hi028.android.highcommunity.utils.alipay.PayResult;
+import cn.hi028.android.highcommunity.utils.wchatpay.WchatPayUtils;
+import cn.hi028.android.highcommunity.view.ECAlertDialog;
+import cn.hi028.android.highcommunity.wxapi.WXPayEntryActivity;
 
 /**
  * @功能：新版惠生活商品支付界面<br>
@@ -87,12 +96,12 @@ public class NewHuiBuyFrag extends BaseFragment {
     FrameLayout fl_yhq;
     @Bind(R.id.btn_pay)
     Button btn_pay;
-//    public static HuiSupportBean entyBean;
+    //    public static HuiSupportBean entyBean;
     //    public static List<NewSupplyCarlistBean.SupplyCarlistDataEntity> listData;
     int type = 0;
     public HuiSuppOrderParams2 orderParams;
     NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayConsignEntity mConsign;//订单参数
-//    HSuppGdDefBean data;
+    //    HSuppGdDefBean data;
     PopupWindow waitPop;
     NewHuiBuyAdapter adapter;
     View view;
@@ -110,10 +119,12 @@ public class NewHuiBuyFrag extends BaseFragment {
         Log.d(Tag, "onCreateView");
         view = inflater.inflate(R.layout.frag_newhui_buy, null);
         ButterKnife.bind(this, view);
+        fragment=this;
         Bundle bundle = getArguments();
         carIdList = bundle.getString("carIdList");
         Log.d(Tag, "carIdList=" + carIdList);
 //        initView();
+        WchatPayUtils.getInstance().init(getActivity());
         initData();
         return view;
     }
@@ -127,6 +138,7 @@ public class NewHuiBuyFrag extends BaseFragment {
                 }
             }
         });
+        edt_pay_num.setText("0.00");
         edt_pay_num.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -161,7 +173,7 @@ public class NewHuiBuyFrag extends BaseFragment {
                             edt_pay_num.setText("");
                         }
                     } else {
-                        edt_pay_num.setText((-money) + "");
+                        edt_pay_num.setText("0.0");
                     }
                 } else {
                     orderParams.setZero_money(0);
@@ -194,12 +206,30 @@ public class NewHuiBuyFrag extends BaseFragment {
 //            HTTPHelper.GetHuiSuppGoodsMsg(mIbpi, HighCommunityApplication.mUserInfo.getId() + "", listData.get(0).getId() + "");
 //        }
 
+        rgPay.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_pay_wx:
+                        payType = 1;
+                        orderParams.setPay_type(1);
+                        break;
+                    case R.id.rb_pay_ipay:
+                        payType = 2;
+                        orderParams.setPay_type(2);
+                        break;
+
+                }
+            }
+        });
         rbPayWx.setChecked(true);
 
     }
 
+    int payType = -1;
+
     @OnClick({R.id.fl_yhq, R.id.btn_pay, R.id.fl_huiLife_addressChooice, R.id.fl_huiLife_NoAddress,
-            R.id.rb_pay_wx,R.id.rb_pay_ipay})
+            R.id.rb_pay_wx, R.id.rb_pay_ipay})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fl_yhq:
@@ -215,9 +245,11 @@ public class NewHuiBuyFrag extends BaseFragment {
                 CreateAddress();
                 break;
             case R.id.rb_pay_wx:
+                payType = 1;
                 orderParams.setPay_type(1);
                 break;
             case R.id.rb_pay_ipay:
+                payType = 2;
                 orderParams.setPay_type(2);
                 break;
 
@@ -264,10 +296,10 @@ public class NewHuiBuyFrag extends BaseFragment {
             mBean = (NewSupplyPaydetailBean.SupplyPayDataEntity) message;
             orderParams = new HuiSuppOrderParams2();
             orderParams.setToken(HighCommunityApplication.mUserInfo.getToken());
-            Log.e(Tag,"onSuccess:"+mBean.getTotal_fee()+","+mBean.getZero_money());
+            Log.e(Tag, "onSuccess:" + mBean.getTotal_fee() + "," + mBean.getZero_money());
             orderParams.setTotal_amount(mBean.getTotal_fee());
             orderParams.setTotal_fee(mBean.getTotal_fee());
-            orderParams.setZero_money(mBean.getZero_money());
+//            orderParams.setZero_money(mBean.getZero_money());
             orderParams.setCart_ids(carIdList);
             setOrderList(mBean);
             setFee(mBean);
@@ -331,7 +363,6 @@ public class NewHuiBuyFrag extends BaseFragment {
         mList = mBean.getGoods();
         adapter = new NewHuiBuyAdapter(NewHuiBuyFrag.this, getActivity(), mList);
         cl_goods.setAdapter(adapter);
-
 
 
     }
@@ -410,7 +441,9 @@ public class NewHuiBuyFrag extends BaseFragment {
 //                    jsonArray.put(goods);
 //                }
                 Log.e(Tag, "params:" + params.toString());
-                HTTPHelper.submitNewHuiOrder(mIbpiOrder, params.toString());
+                HTTPHelper.submitNewHuiOrder(mIbpiOrder, orderParams.getTicket_id() + "", orderParams.getZero_money() + "", orderParams.getPay_type() + "",
+                        orderParams.getAddress_id() + "", orderParams.getTotal_amount() + "", orderParams.getTotal_fee() + "",
+                        orderParams.getMark(), orderParams.getCart_ids(), 1 + "");
                 Log.e(Tag, "------a2");
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -433,20 +466,64 @@ public class NewHuiBuyFrag extends BaseFragment {
             waitPop.dismiss();
             if (null == message)
                 return;
-            Log.e(Tag,"message："+message.toString());
-//            GoodsOrderBean bean = (GoodsOrderBean) message;
-//            Intent mIntent = new Intent(getActivity(), GeneratedClassUtils.get(PaymentActivity.class));
-//            mIntent.putExtra(PaymentActivity.ACTIVITYTAG, Constacts.HUILIFE_SUPPORT_PAY);
-//            mIntent.putExtra(PaymentActivity.INTENTTAG, bean.getOrder_id());
-//            startActivity(mIntent);
-//            getActivity().finish();
+            Log.e(Tag, "payType == " + payType);
+
+            Log.e(Tag, "message：" + message.toString());
+
+            if (payType == -1) return;
+            if (payType == 2) {
+                NewPaySuccessBean.PaySuccessDataEntity mBean = (NewPaySuccessBean.PaySuccessDataEntity) message;
+                AlipayUtils.getInstance().payGoods(getActivity(), mBean.getSubject(), mBean.getBody(), mBean.getTotal_fee(), mBean.getOut_trade_no(), mBean.getTicket_id(),
+                        mBean.getZero_money(), mBean.getNotify_url(), new AlipayUtils.onPayListener() {
+
+                            @Override
+                            public void onPay(PayResult result) {
+
+                                String resultStatus = result.getResultStatus();
+                                Log.e(Tag, "resultStatus:" + resultStatus);
+                                // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
+                                if (TextUtils.equals(resultStatus, "9000")) {
+                                    Toast.makeText(getActivity(), "支付成功", Toast.LENGTH_SHORT).show();
+                                    showMsgDialog(1);
+                                } else {
+                                    // 判断resultStatus 为非"9000"则代表可能支付失败
+                                    // "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
+                                    if (TextUtils.equals(resultStatus, "8000")) {
+                                        Toast.makeText(getActivity(), "支付结果确认中", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
+//                                        showMsgDialog(2);
+                                        Toast.makeText(getActivity(), "支付失败", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        });
+            } else if (payType == 1) {
+                WXPayEntryActivity.toFrag = 4;
+
+                mWpayBean = (WpayBean) message;
+
+                Log.e(Tag, "WpayBean:" + mWpayBean.toString());
+                WchatPayUtils.getInstance().apay(getActivity(), mWpayBean.getAppid(), mWpayBean.getPartnerid(), mWpayBean.getPrepayid(), mWpayBean.getNoncestr(), mWpayBean.getPackages(), mWpayBean.getSign(), mWpayBean.getTimestamp());
+
+
+            }
+
         }
 
         @Override
         public Object onResolve(String result) {
+            if (payType == 1) {
+                Log.e(Tag, "payType == 1" + result);
 
+                return HTTPHelper.ResolveHotGoodsWXOrder(result);
+            } else if (payType == 2) {
+                Log.e(Tag, "payType == 2" + result);
+
+                return HTTPHelper.ResolveNewHuiOrder(result);
+
+            }
             return result;
-//            return HTTPHelper.ResolveHuiSuppOrder(result);
         }
 
         @Override
@@ -459,6 +536,34 @@ public class NewHuiBuyFrag extends BaseFragment {
             waitPop.dismiss();
         }
     };
+    WpayBean mWpayBean;
+    static NewHuiBuyFrag fragment;
+    public static void toOrderDetail() {
+        Toast.makeText(fragment.getActivity(),"结束本页，去订单列表，再从订单列表到详情",Toast.LENGTH_SHORT).show();
+//        Intent mIntent = new Intent(fragment.getActivity(), GeneratedClassUtils.get(MenuLeftSecondAct.class));
+//        mIntent.putExtra(MenuLeftSecondAct.ACTIVITYTAG, Constacts.MENU_LEFTSECOND_ORDER_DETAIL);
+//        mIntent.putExtra(MenuLeftSecondAct.INTENTTAG, mBean.geti + "");
+//        fragment.startActivity(mIntent);
+        fragment.getActivity().finish();
+    }
+    public void showMsgDialog(int x) {
+        String msg;
+        if (x == 1) {
+            msg = "支付成功";
+        } else {
+            msg = "支付失败";
+        }
+        ECAlertDialog dialog2 = ECAlertDialog.buildAlert(getActivity(), msg, "我知道了", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                toOrderDetail();
+//                getActivity().finish();
+            }
+        });
+        dialog2.setTitle("提示");
+        dialog2.show();
+    }
 
     //    @Click(R.id.fl_huiLife_addressChooice)
     void ChooiceAddress() {
@@ -507,9 +612,7 @@ public class NewHuiBuyFrag extends BaseFragment {
 
     public void updateData(NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayConsignEntity mConsign) {
 
-
-
-
+        orderParams.setZero_money(0.0f);
         if (mConsign != null) {
             fl_huiLife_addressChooice.setVisibility(View.VISIBLE);
             orderParams.setAddress_id(mConsign.getId());
@@ -532,8 +635,11 @@ public class NewHuiBuyFrag extends BaseFragment {
     }
 
     public void updateOrder() {
-        Log.e(Tag,"updateOrder:"+orderParams.toString());
+        Log.e(Tag, "updateOrder:" + orderParams.toString());
+//        float parseFloat = Float.parseFloat(edt_pay_num.getText().toString());
+        Log.e(Tag, "parseFloat:" + orderParams.getZero_money());
 
+        orderParams.setTotal_fee((float)(Math.round((orderParams.getTotal_amount()-orderParams.getZero_money())*100))/100);
         tv_total_pay.setText("合计金额￥" + CommonUtils.f2Bi(orderParams.getTotal_amount()));
         tv_total_actual.setText("￥" + CommonUtils.f2Bi(orderParams.getTotal_fee()));
 

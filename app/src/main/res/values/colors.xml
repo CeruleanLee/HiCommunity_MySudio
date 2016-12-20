@@ -115,4 +115,5 @@
     <!--搜索-->
     <color name="btn_press_color">#5677fc</color>
     <color name="btn_pressed_color">#3ca0ec</color>
+    <color name="color_actfrag_text">#626262</color>
 </resources>

@@ -408,13 +408,13 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         MiddleButton = (ImageView) this.findViewById(R.id.main_tab_third);
         mGroup.setVisibility(View.VISIBLE);
         mNewHuiLifeGroup.setVisibility(View.VISIBLE);
-        mLeftMenu.setVisibility(View.VISIBLE);
+//        mLeftMenu.setVisibility(View.VISIBLE);
         mRightMenu.setVisibility(View.VISIBLE);
-        mLeftMenu.setOnClickListener(mTitleListener);
+//        mLeftMenu.setOnClickListener(mTitleListener);
         mLeftButton.setOnClickListener(mTitleListener);
         mRightButton.setOnClickListener(mTitleListener);
         mRightMenu.setOnClickListener(mTitleListener);
-        mLeftMenu.setOnClickListener(mTitleListener);
+//        mLeftMenu.setOnClickListener(mTitleListener);
 //        mStatusHight.setVisibility(View.GONE);
     }
 
@@ -623,7 +623,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             // mLeftWalletNum.setText(Constacts.mUserCenter.getWallet());
             // }
             if (leftFlag) {
-                mLeftTop.setVisibility(View.VISIBLE);
+//                mLeftTop.setVisibility(View.VISIBLE);
             } else {
                 mLeftTop.setVisibility(View.GONE);
             }

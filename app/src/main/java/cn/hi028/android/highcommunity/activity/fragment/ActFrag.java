@@ -5,30 +5,37 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.don.tools.BpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
 import com.don.view.CircleImageView;
+import com.don.view.DrawableCenterTextView;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.ImageLoaderUtil;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.alliance.AllianceOrder;
+import cn.hi028.android.highcommunity.bean.UserCenterBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
+import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
@@ -38,39 +45,115 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @时间：2016/12/19<br>
  */
 public class ActFrag extends BaseFragment {
-    public static final String Tag = "~~~ActFrag~~~";
+    public static final String Tag = "ActFrag~~~";
     public static final String FRAGMENTTAG = "ActFrag";
+    @Bind(R.id.myinfor_edit)
+    TextView myinforEdit;
+    @Bind(R.id.rl_leftmenu_userinfo)
+    RelativeLayout mUserinfo;
+    @Bind(R.id.img_LeftFrag_Avatar)
+    CircleImageView mAvatar;
+    @Bind(R.id.tx_LeftFrag_userName)
+    TextView mLeftName;
+    @Bind(R.id.tx_LeftFrag_userSex)
+    TextView mLeftSex;
+    @Bind(R.id.tx_LeftFrag_userlocation)
+    TextView mLeftLocation;
+    @Bind(R.id.tx_LeftFrag_userlocation_layout)
+    LinearLayout mLeftLocation_layout;
+    @Bind(R.id.tv_leftMenu_Order_Num)
+    TextView mLeftOrderNum;
+    @Bind(R.id.ll_leftMenu_Order)
+    LinearLayout mOrder;
+    @Bind(R.id.tv_leftMenu_order_all_tv)
+    DrawableCenterTextView mOrder_AllTv;
+    @Bind(R.id.tv_leftMenu_order_all_Num)
+    TextView mOrder_allNum;
+    @Bind(R.id.ll_leftMenu_order_all)
+    RelativeLayout mOrder_all_layout;
+    @Bind(R.id.tv_leftMenu_order_topay_tv)
+    DrawableCenterTextView mOrder_TopayTv;
+    @Bind(R.id.tv_leftMenu_order_topay_Num)
+    TextView mOrder_TopayNum;
+    @Bind(R.id.ll_leftMenu_order_topay)
+    RelativeLayout mOrder_Topay_layout;
+    @Bind(R.id.tv_leftMenu_order_torec_tv)
+    DrawableCenterTextView mOrder_TorecTv;
+    @Bind(R.id.tv_leftMenu_order_torec_Num)
+    TextView mOrder_TorecNum;
+    @Bind(R.id.ll_leftMenu_order_torec)
+    RelativeLayout mOrder_Torec_layout;
+    @Bind(R.id.tv_leftMenu_order_all_com_tv)
+    DrawableCenterTextView mOrder_ComTv;
+    @Bind(R.id.tv_leftMenu_order_all_com_num)
+    TextView mOrder_ComNum;
+    @Bind(R.id.ll_leftMenu_order_com)
+    RelativeLayout mOrder_Com_layout;
+    @Bind(R.id.tv_leftMenu_topic_Num)
+    TextView mTopicNum;
+    @Bind(R.id.ll_leftMenu_topic)
+    LinearLayout mTopic;
+    @Bind(R.id.tv_leftMenu_collection_Num)
+    TextView mCollectionNum;
+    @Bind(R.id.ll_leftMenu_collection)
+    LinearLayout mCollection;
+    @Bind(R.id.tv_leftMenu_Cart_Num)
+    TextView mLeftCartNum;
+    @Bind(R.id.ll_leftMenu_cart)
+    LinearLayout mCart;
+    @Bind(R.id.tv_leftMenu_bill_Num)
+    TextView mLeftBillNum;
+    @Bind(R.id.ll_leftMenu_bill)
+    LinearLayout mBill;
+    @Bind(R.id.tv_leftMenu_myAddress_Num)
+    TextView mAddressNum;
+    @Bind(R.id.ll_leftMenu_myAddress)
+    LinearLayout mAddress;
+    @Bind(R.id.tv_leftMenu_wallet_Num)
+    TextView mLeftWalletNum;
+    @Bind(R.id.ll_leftMenu_wallet)
+    LinearLayout mWallet;
+    @Bind(R.id.tv_leftMenu_ZhongCou_Num)
+    TextView mLeftZhongCouNum;
+    @Bind(R.id.ll_leftMenu_ZhongCou)
+    LinearLayout mZhongCou;
+    @Bind(R.id.tv_leftMenu_Carft_Num)
+    TextView mLeftCarftNum;
+    @Bind(R.id.ll_leftMenu_Carft)
+    LinearLayout mCarft;
+    @Bind(R.id.tv_leftMenu_MyMsg_Num)
+    TextView mMsgNum;
+    @Bind(R.id.ll_leftMenu_MyMsg)
+    LinearLayout mMyMsg;
+    @Bind(R.id.tv_leftMenu_SysMsg_Num)
+    TextView mSysMsgNum;
+    @Bind(R.id.ll_leftMenu_SysMsg)
+    LinearLayout mSysMsg;
+    @Bind(R.id.tv_leftMenu_setting_Num)
+    TextView mSettingNum;
+    @Bind(R.id.ll_leftMenu_setting)
+    LinearLayout mSetting;
+    @Bind(R.id.ptrsv_leftmenu_layout)
+    ScrollView mLeftLayout;
+
+
     private View mFragmeView;
     PullToRefreshListView mListView;
-    private LinearLayout mTopic, mCollection, mBill, mWallet, mSetting, mCart,
-            mOrder, mAllianceOrder, mZhongCou, mCarft,mMyMsg,mSysMsg;;
-    private TextView mTopicNum, mCollectionNum, mLeftBillNum, mLeftWalletNum,
-            mSettingNum, mTitle, mLeftName, mLeftSex, mLeftLocation,
-            mLeftCartNum, mLeftOrderNum, mLeftAllianceOrder, mLeftZhongCouNum,
-            mLeftCarftNum;
-    private CircleImageView mAvatar;
-    /**社区或是群组  惠生活：0直供 1众筹**/
-    private RadioGroup mGroup,mNewHuiLifeGroup;
-    private LinearLayout mStatusHight;
-    /**社区  群组 直供  众筹**/
-    private RadioButton mLeftButton, mRightButton,mSupplyBut,mChipsBut;
-    /**左上角侧滑图片   右上角消息中心   有消息时提示的小红点      左上角订单更新之类的提醒的小红点**/
-    private ImageView mLeftMenu, mRightMenu, mRightTop, mLeftTop;
-    LinearLayout mLeftLocation_layout;
     private int mTouchMode = -1;
     // public static boolean isForeground = false;
-    public static String TAG = "MainActivity";
 
     private PopupWindow mWindow;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.e(Tag, "onCreateView");
-        if (mFragmeView == null) {
-            iniView();
-        }
+        mFragmeView = LayoutInflater.from(getActivity()).inflate(R.layout.frag_myusercenter_act, null);
+        ButterKnife.bind(this, mFragmeView);
+        iniView();
         ViewGroup parent = (ViewGroup) mFragmeView.getParent();
-        if (parent != null)
+        if (parent != null) {
             parent.removeView(mFragmeView);
+        }
         return mFragmeView;
     }
 
@@ -79,11 +162,10 @@ public class ActFrag extends BaseFragment {
      */
     void iniView() {
         Log.e(Tag, "iniView");
-        mFragmeView = LayoutInflater.from(getActivity()).inflate(R.layout.frag_myusercenter_act, null);
 //		 mListView.setEmptyView(mNodata);
 //		 mListView.setAdapter(mAdapter);
 //		 mListView.setMode(PullToRefreshBase.Mode.BOTH);
-
+        findView(mFragmeView);
 
         initDatas();
     }
@@ -92,113 +174,105 @@ public class ActFrag extends BaseFragment {
 
 
     }
+
     /**
-     * 初始化左侧菜单栏
+     * 找控件
      */
-    private void initLeftMenu() {
-//        menu = new SlidingMenu(this);
-//        menu.setMode(SlidingMenu.LEFT);
-//        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-//        menu.setShadowWidthRes(R.dimen.shadow_width);
-//        menu.setShadowDrawable(R.drawable.shadow);
-//        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);//// 设置滑动菜单视图的宽度
-//        menu.setFadeDegree(0.35f);// 设置渐入渐出效果的值
-//        menu.setEnabled(true);
-//        menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);//使SlidingMenu附加在Activity上
-//        // 为侧滑菜单设置布局
-//        menu.setMenu(R.layout.leftmenu);
-//        //找控件
-//        mLeftLayout = (PullToRefreshScrollView) menu.getMenu().findViewById(
-//                R.id.ptrsv_leftmenu_layout);
-//        mUserinfo = (RelativeLayout) menu.getMenu().findViewById(
-//                R.id.rl_leftmenu_userinfo);
-//        mTopic = (LinearLayout) menu.getMenu().findViewById(
-//                R.id.ll_leftMenu_topic);
-//        mCollection = (LinearLayout) menu.getMenu().findViewById(
-//                R.id.ll_leftMenu_collection);
-//        mCart = (LinearLayout) menu.getMenu().findViewById(
-//                R.id.ll_leftMenu_cart);
-//        mOrder = (LinearLayout) menu.getMenu().findViewById(
-//                R.id.ll_leftMenu_Order);
-//        mAllianceOrder = (LinearLayout) menu.getMenu().findViewById(
-//                R.id.ll_leftMenu_alliance_Order);
-//        mZhongCou = (LinearLayout) menu.getMenu().findViewById(
-//                R.id.ll_leftMenu_ZhongCou);
-//        mMyMsg = (LinearLayout) menu.getMenu().findViewById(
-//                R.id.ll_leftMenu_MyMsg);
-//        mSysMsg = (LinearLayout) menu.getMenu().findViewById(
-//                R.id.ll_leftMenu_SysMsg);
-//        mCarft = (LinearLayout) menu.getMenu().findViewById(
-//                R.id.ll_leftMenu_Carft);
-//        mBill = (LinearLayout) menu.getMenu().findViewById(
-//                R.id.ll_leftMenu_bill);
-//        mWallet = (LinearLayout) menu.getMenu().findViewById(
-//                R.id.ll_leftMenu_wallet);
-//        mSetting = (LinearLayout) menu.getMenu().findViewById(
-//                R.id.ll_leftMenu_setting);
-//        mAvatar = (CircleImageView) menu.getMenu().findViewById(
-//                R.id.img_LeftFrag_Avatar);
-//        mLeftLocation = (TextView) menu.getMenu().findViewById(
-//                R.id.tx_LeftFrag_userlocation);
+    private void findView(View mFragmeView) {
+
 //
-//        mLeftLocation_layout = (LinearLayout) menu.getMenu().findViewById(
-//                R.id.tx_LeftFrag_userlocation_layout);
-//        mLeftSex = (TextView) menu.getMenu().findViewById(
-//                R.id.tx_LeftFrag_userSex);
-//        mTopicNum = (TextView) menu.getMenu().findViewById(
-//                R.id.tv_leftMenu_topic_Num);
-//        mCollectionNum = (TextView) menu.getMenu().findViewById(
-//                R.id.tv_leftMenu_topic_Num);
-//        mLeftBillNum = (TextView) menu.getMenu().findViewById(
-//                R.id.tv_leftMenu_topic_Num);
-//        mLeftWalletNum = (TextView) menu.getMenu().findViewById(
-//                R.id.tv_leftMenu_wallet_Num);
-//        mSettingNum = (TextView) menu.getMenu().findViewById(
-//                R.id.tv_leftMenu_topic_Num);
-//        mLeftName = (TextView) menu.getMenu().findViewById(
-//                R.id.tx_LeftFrag_userName);
-//        mLeftCartNum = (TextView) menu.getMenu().findViewById(
-//                R.id.tv_leftMenu_Cart_Num);
-//        mLeftCarftNum = (TextView) menu.getMenu().findViewById(
-//                R.id.tv_leftMenu_Carft_Num);
-//        mLeftOrderNum = (TextView) menu.getMenu().findViewById(
-//                R.id.tv_leftMenu_Order_Num);
-//        mLeftAllianceOrder = (TextView) menu.getMenu().findViewById(
-//                R.id.tv_leftMenu_alliance_Order_Num);
-//        mLeftZhongCouNum = (TextView) menu.getMenu().findViewById(
-//                R.id.tv_leftMenu_ZhongCou_Num);
+//        mLeftLayout = (PullToRefreshScrollView) mFragmeView.findViewById(R.id.ptrsv_leftmenu_layout);
+//        mUserinfo = (RelativeLayout) mFragmeView.findViewById(R.id.rl_leftmenu_userinfo);
+//        mTopic = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_topic);
+//        mCollection = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_collection);
+//        mCart = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_cart);
+//        mOrder = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_Order);
+//        mAllianceOrder = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_alliance_Order);
+//        mZhongCou = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_ZhongCou);
+//        mMyMsg = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_MyMsg);
+//        mSysMsg = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_SysMsg);
+//        mCarft = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_Carft);
+//        mBill = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_bill);
+//        mWallet = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_wallet);
+//        mSetting = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_setting);
+//        mAvatar = (CircleImageView) mFragmeView.findViewById(R.id.img_LeftFrag_Avatar);
+//        mLeftLocation = (TextView) mFragmeView.findViewById(R.id.tx_LeftFrag_userlocation);
 //
-//        mLeftLayout.setMode(PullToRefreshBase.Mode.DISABLED);
+//        mLeftLocation_layout = (LinearLayout) mFragmeView.findViewById(R.id.tx_LeftFrag_userlocation_layout);
+//        mLeftSex = (TextView) mFragmeView.findViewById(R.id.tx_LeftFrag_userSex);
+//        mTopicNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_topic_Num);
+//        mCollectionNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_topic_Num);
+//        mLeftBillNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_topic_Num);
+//        mLeftWalletNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_wallet_Num);
+//        mSettingNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_topic_Num);
+//        mLeftName = (TextView) mFragmeView.findViewById(R.id.tx_LeftFrag_userName);
+//        mLeftCartNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_Cart_Num);
+//        mLeftCarftNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_Carft_Num);
+//        mLeftOrderNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_Order_Num);
+//        mLeftAllianceOrder = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_alliance_Order_Num);
+//        mLeftZhongCouNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_ZhongCou_Num);
+
+        myinforEdit.setOnClickListener(mLeftMenuListener);
+        mAvatar.setOnClickListener(mLeftMenuListener);
 //        mUserinfo.setOnClickListener(mLeftMenuListener);
-//        mTopic.setOnClickListener(mLeftMenuListener);
-//        mCollection.setOnClickListener(mLeftMenuListener);
-//        mBill.setOnClickListener(mLeftMenuListener);
-//        mWallet.setOnClickListener(mLeftMenuListener);
-//        mSetting.setOnClickListener(mLeftMenuListener);
-//        mCart.setOnClickListener(mLeftMenuListener);
-//        mLeftName.setOnClickListener(mLeftMenuListener);
-//        mAvatar.setOnClickListener(mLeftMenuListener);
-//        mCarft.setOnClickListener(mLeftMenuListener);
-//        mZhongCou.setOnClickListener(mLeftMenuListener);
-//        mOrder.setOnClickListener(mLeftMenuListener);
-//        mAllianceOrder.setOnClickListener(mLeftMenuListener);
-//        //
-//        mMyMsg.setOnClickListener(mLeftMenuListener);
-//        mSysMsg.setOnClickListener(mLeftMenuListener);
-//        if (HighCommunityApplication.mUserInfo.getId() != 0)
-//            HTTPHelper.getUserCenter(mIbpi,
-//                    HighCommunityApplication.mUserInfo.getId() + "");
-//        menu.setOnOpenedListener(new SlidingMenu.OnOpenedListener() {
-//            @Override
-//            public void onOpened() {
-//                if (HighCommunityApplication.mUserInfo.getId() != 0)
-//                    HTTPHelper.getUserCenter(mIbpi,
-//                            HighCommunityApplication.mUserInfo.getId() + "");
-//            }
-//        });
-//        menu.setVisibility(View.GONE);
+        //TODO  新增
+        mOrder_all_layout.setOnClickListener(mLeftMenuListener);
+        mOrder_Topay_layout.setOnClickListener(mLeftMenuListener);
+        mOrder_Torec_layout.setOnClickListener(mLeftMenuListener);
+        mOrder_Com_layout.setOnClickListener(mLeftMenuListener);
+
+        mTopic.setOnClickListener(mLeftMenuListener);
+        mCollection.setOnClickListener(mLeftMenuListener);
+        mCart.setOnClickListener(mLeftMenuListener);
+        mBill.setOnClickListener(mLeftMenuListener);
+        //TODO
+        mAddress.setOnClickListener(mLeftMenuListener);
+
+        mWallet.setOnClickListener(mLeftMenuListener);
+        mZhongCou.setOnClickListener(mLeftMenuListener);
+        mCarft.setOnClickListener(mLeftMenuListener);
+        mMyMsg.setOnClickListener(mLeftMenuListener);
+        mSysMsg.setOnClickListener(mLeftMenuListener);
+        mSetting.setOnClickListener(mLeftMenuListener);
+        //TODO 取消这两个点击
+        mLeftName.setOnClickListener(mLeftMenuListener);
+        mOrder.setOnClickListener(mLeftMenuListener);
+        //
+        if (HighCommunityApplication.mUserInfo.getId() != 0)
+            HTTPHelper.getUserCenter(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
+
     }
 
+    BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
+        @Override
+        public void onError(int id, String message) {
+            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+        }
+
+        @Override
+        public void onSuccess(Object message) {
+            if (null == message)
+                return;
+            Constacts.mUserCenter = (UserCenterBean) message;
+            setleftData();
+        }
+
+        @Override
+        public Object onResolve(String result) {
+            Log.e("renk", result);
+            return HTTPHelper.ResolveUserCenter(result);
+        }
+
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
+
+        }
+
+        @Override
+        public void cancleAsyncTask() {
+
+        }
+    };
     /**
      * 左侧菜单控件监听器
      */
@@ -215,8 +289,13 @@ public class ActFrag extends BaseFragment {
             }
             if (HighCommunityUtils.isLogin(getActivity())) {
                 switch (view.getId()) {
-                    case R.id.rl_leftmenu_userinfo:
                     case R.id.img_LeftFrag_Avatar:
+                        //TODO
+                        Toast.makeText(getActivity(), "头像大图", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.myinfor_edit:
+
+//                    case R.id.rl_leftmenu_userinfo:
                     case R.id.tx_LeftFrag_userName:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_USERINFO);
@@ -242,6 +321,30 @@ public class ActFrag extends BaseFragment {
                         Constacts.mUserCenter.setFee(0);
                         break;
                     case R.id.ll_leftMenu_Order:
+                        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
+                                Constacts.MENU_LEFT_ORDER);
+                        mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 0);
+                        Constacts.mUserCenter.setOrder(0);
+                        break;
+                    case R.id.ll_leftMenu_order_all:
+                        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
+                                Constacts.MENU_LEFT_ORDER);
+                        mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 0);
+                        Constacts.mUserCenter.setOrder(0);
+                        break;
+                    case R.id.ll_leftMenu_order_topay:
+                        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
+                                Constacts.MENU_LEFT_ORDER);
+                        mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 0);
+                        Constacts.mUserCenter.setOrder(0);
+                        break;
+                    case R.id.ll_leftMenu_order_torec:
+                        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
+                                Constacts.MENU_LEFT_ORDER);
+                        mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 0);
+                        Constacts.mUserCenter.setOrder(0);
+                        break;
+                    case R.id.ll_leftMenu_order_com:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_ORDER);
                         mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 0);
@@ -326,14 +429,6 @@ public class ActFrag extends BaseFragment {
                 mLeftOrderNum.setVisibility(View.VISIBLE);
                 mLeftOrderNum.setText(Constacts.mUserCenter.getOrder() + "");
             }
-            if (Constacts.mUserCenter.getNearby() == 0) {
-                mLeftAllianceOrder.setVisibility(View.GONE);
-            } else {
-                mLeftAllianceOrder.setVisibility(View.VISIBLE);
-                mLeftAllianceOrder.setText(Constacts.mUserCenter.getNearby()
-                        + "");
-
-            }
             if (Constacts.mUserCenter.getCart() == 0) {
                 mLeftCartNum.setVisibility(View.GONE);
             } else {
@@ -362,13 +457,18 @@ public class ActFrag extends BaseFragment {
             // mLeftWalletNum.setText(Constacts.mUserCenter.getWallet());
             // }
             if (leftFlag) {
-                mLeftTop.setVisibility(View.VISIBLE);
+//                mLeftTop.setVisibility(View.VISIBLE);
             } else {
-                mLeftTop.setVisibility(View.GONE);
+//                mLeftTop.setVisibility(View.GONE);
             }
         } else {
 
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 }

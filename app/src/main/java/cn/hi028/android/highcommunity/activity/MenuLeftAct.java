@@ -97,7 +97,8 @@ public class MenuLeftAct extends BaseFragmentActivity {
             case Constacts.MENU_LEFT_ORDER:
                 mTitle.setText("我的订单");
                 Log.d(Tag,"------goto我的订单");
-                HuiOrderFrag mOrder = (HuiOrderFrag) new HuiOrderFrag_();
+//                HuiOrderFrag mOrder = (HuiOrderFrag) new HuiOrderFrag_();
+                NewHuiOrderFrag mOrder = (NewHuiOrderFrag) new NewHuiOrderFrag_();
                 ft.replace(R.id.ll_menuleft_layout, mOrder, HuiOrderFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_LEFT_ZHONGCOU:

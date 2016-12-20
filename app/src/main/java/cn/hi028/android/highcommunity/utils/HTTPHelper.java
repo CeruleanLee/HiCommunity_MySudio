@@ -55,6 +55,7 @@ import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_UnitBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_VoteList_Vote;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_VoteResultBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.NewPaySuccessBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.NewSupplyCarlistBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.NewSupplyPaydetailBean;
 import cn.hi028.android.highcommunity.bean.BillBean;
@@ -87,6 +88,8 @@ import cn.hi028.android.highcommunity.bean.MerchantShopGoodBean;
 import cn.hi028.android.highcommunity.bean.MessageDetailsBean;
 import cn.hi028.android.highcommunity.bean.NearByShopData;
 import cn.hi028.android.highcommunity.bean.NearbyOrderDetailBean;
+import cn.hi028.android.highcommunity.bean.NewHuiOrderBean;
+import cn.hi028.android.highcommunity.bean.NewHuiOrderBean_StrStatus;
 import cn.hi028.android.highcommunity.bean.NewSupplyBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyGoodsDetailBean;
 import cn.hi028.android.highcommunity.bean.NoticeBean;
@@ -577,6 +580,19 @@ public class HTTPHelper {
     }
 
     /**
+     * v2.0获取订单列表
+     * @param mIbpi
+     * @param status 否,当不传时表示全部订单,0=>待付款,1=>待收货,2=>待评价 不传就是-1
+     */
+    public static void GetHuiOrder2(BpiHttpHandler.IBpiHttpHandler mIbpi, String status) {
+        String url = HTTPPOSTURL + "sorder/index.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        if (!status.equals("-1")){
+            mParamMap.put("status", status);
+        }
+        post(mParamMap, mIbpi, url);
+    }
+    /**
      * 摇一摇
      **/
     public static void ShakeData(BpiHttpHandler.IBpiHttpHandler mIbpi) {
@@ -628,7 +644,16 @@ public class HTTPHelper {
         mParamMap.put("order_id", order_id);
         post(mParamMap, mIbpi, url);
     }
-
+    /**
+     * v2.0取消直供订单接口
+     **/
+    public static void cancelOrder2(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                   String id) {
+        String url = HTTPPOSTURL + "sorder/cancel.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("id", id);
+        post(mParamMap, mIbpi, url);
+    }
     /**
      * 确认收货接口
      **/
@@ -754,21 +779,55 @@ public class HTTPHelper {
         Log.d(Tag,"------post2");
         post(mParamMap, mIbpi, url);
     }
+
     /**
      * v2.0创建订单
-     *
      * @param mIbpi
-     * @param order
+     * @param ticket_id
+     * @param zero_money
+     * @param pay_type 支付类型(1=>微信,2=>支付宝)
+     * @param address_id
+     * @param total_amount
+     * @param total_fee
+     * @param mark 备注
+     * @param cart_ids
+     * @param id_type  cart_ids和order_num中有且仅传一个.
+     *                id_type=1 当传cart_ids表示从购物车列表跳转至支付界面;
+     *                 id_type=2 当传order_num时表示从待付款列表跳转至支付界面
      */
-    public static void submitNewHuiOrder(BpiHttpHandler.IBpiHttpHandler mIbpi, String order) {
+    public static void submitNewHuiOrder(BpiHttpHandler.IBpiHttpHandler mIbpi, String ticket_id,
+                                         String zero_money,String pay_type,String address_id,
+                                         String total_amount,String total_fee,
+                                         String mark,String cart_ids,String id_type) {
         Log.d(Tag,"------创建订单");
         String url = HTTPPOSTURL + "sgoods/pay.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
-        mParamMap.put("order", order);
+        mParamMap.put("ticket_id", ticket_id);
+        mParamMap.put("zero_money", zero_money);
+        mParamMap.put("pay_type", pay_type);
+        mParamMap.put("address_id", address_id);
+        mParamMap.put("total_amount", total_amount);
+        mParamMap.put("total_fee", total_fee);
+        mParamMap.put("mark", mark);
+        if (id_type.equals("1")){
+
+            mParamMap.put("cart_ids", cart_ids);
+        }else if (id_type.equals("2")){
+            mParamMap.put("order_num", cart_ids);
+        }
+
         Log.d(Tag,"------post2");
         post(mParamMap, mIbpi, url);
     }
-
+    /**
+     * v2.0解析创建的订单
+     *
+     * @param result
+     * @return
+     */
+    public static NewPaySuccessBean.PaySuccessDataEntity ResolveNewHuiOrder(String result) {
+        return gson.fromJson(result, NewPaySuccessBean.PaySuccessDataEntity.class);
+    }
     /**
      * 获取订单信息
      *
@@ -797,6 +856,19 @@ public class HTTPHelper {
         post(mParamMap, mIbpi, url);
     }
 
+    /**
+     * v2.0获取订单信息详情
+     *
+     * @param mIbpi
+     * @param id
+     */
+    public static void getSuppOrderDetail2(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                          String id) {
+        String url = HTTPPOSTURL + "sorder/detail.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("id", id);
+        post(mParamMap, mIbpi, url);
+    }
     public static void getChipOrderDetail(BpiHttpHandler.IBpiHttpHandler mIbpi,
                                           String order_id) {
         Log.d(Tag,"获取众筹订单信息详情");
@@ -3188,6 +3260,26 @@ public class HTTPHelper {
     }
 
     /**
+     * v2.0我的订单解析
+     *
+     * @param result
+     * @return
+     */
+    public static List<NewHuiOrderBean> ResolveOrderList2(String result) {
+        List<NewHuiOrderBean> mlist = new ArrayList<NewHuiOrderBean>();
+        try {
+            JSONArray mArray = new JSONArray(result);
+            for (int i = 0; i < mArray.length(); i++) {
+                NewHuiOrderBean mBean = gson.fromJson(mArray.getString(i),
+                        NewHuiOrderBean.class);
+                mlist.add(mBean);
+            }
+            return mlist;
+        } catch (JSONException e) {
+            return null;
+        }
+    }
+    /**
      * 解析购物车列表
      */
     public static List<GdCarBean> ResolvGdCarList(String result) {
@@ -3660,6 +3752,8 @@ public class HTTPHelper {
         return gson.fromJson(result, GoodsOrderBean.class);
     }
 
+
+
     /**
      * 惠生活-物品直供订单结果解析
      *
@@ -3669,7 +3763,15 @@ public class HTTPHelper {
     public static HuiOrderBean ResolveHuiOrder(String result) {
         return gson.fromJson(result, HuiOrderBean.class);
     }
-
+    /**
+     * v2.0惠生活-物品直供订单结果解析
+     *
+     * @param result
+     * @return
+     */
+    public static NewHuiOrderBean_StrStatus ResolveHuiOrder2(String result) {
+        return gson.fromJson(result, NewHuiOrderBean_StrStatus.class);
+    }
     /**
      * 我的众筹订单详情
      *

@@ -5,7 +5,7 @@
     <string name="tb_third">服务</string>
     <string name="tb_second">服务 </string>
     <string name="tb_fourth">惠生活</string>
-    <string name="tb_five">活动</string>
+    <string name="tb_five">我的</string>
     <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
     <string name="tv_login_login">登录</string>
     <string name="tv_register_get_identifycode">获取验证码</string>

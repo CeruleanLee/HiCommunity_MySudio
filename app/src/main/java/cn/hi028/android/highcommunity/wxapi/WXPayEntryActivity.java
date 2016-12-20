@@ -19,6 +19,7 @@ import cn.hi028.android.highcommunity.activity.ShowCaptureActivity;
 import cn.hi028.android.highcommunity.activity.fragment.BillPayFrag;
 import cn.hi028.android.highcommunity.activity.fragment.HuiChipsPayFrag;
 import cn.hi028.android.highcommunity.activity.fragment.HuiSuppPayFrag;
+import cn.hi028.android.highcommunity.activity.fragment.NewHuiBuyFrag;
 import cn.hi028.android.highcommunity.utils.wchatpay.Constants;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
@@ -27,7 +28,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     private IWXAPI api;
     TextView tv_payresult, tv_close;
-    public static int toFrag = -1;//0：物业直供，1：众筹；2：账单 3:活动页支付
+    public static int toFrag = -1;//0：物业直供，1：众筹；2：账单 3:活动页支付 4:新版惠生活
     BaseResp resp = null;
 
     @Override
@@ -51,6 +52,8 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                         BillPayFrag.toDetail();
                     }else if (toFrag==3){
                         ShowCaptureActivity.finishThisAct();
+                    }else if (toFrag==4){
+                        NewHuiBuyFrag.toOrderDetail();
                     }
                 }
                 toFrag = -1;
