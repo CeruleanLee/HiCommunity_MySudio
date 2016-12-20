@@ -38,7 +38,8 @@ public class HuiLifeSecondAct extends BaseFragmentActivity {
     TextView mTitle;
     @ViewById(R.id.title_secondTitle_Hight)
     View mHight;
-    String carIdList;
+    String carIdList,order_num;
+    boolean isFromOrder;
     @AfterViews
     void intView() {
         if (!super.isVersionBiger()) {
@@ -47,6 +48,9 @@ public class HuiLifeSecondAct extends BaseFragmentActivity {
         int flag = getIntent().getIntExtra(ACTIVITYTAG, -1);
 
         carIdList = getIntent().getStringExtra("carIdList");
+        order_num = getIntent().getStringExtra("order_num");
+        isFromOrder = getIntent().getBooleanExtra("isFromOrder",false);
+
         Log.e(Tag,"传过来的数据：carIdList："+carIdList);
         if (flag == -1)
             return;
@@ -58,10 +62,18 @@ public class HuiLifeSecondAct extends BaseFragmentActivity {
                 mTitle.setText("订单支付");
                 NewHuiBuyFrag mNewHuiBuyFrag = new NewHuiBuyFrag();
                 Bundle mBundle=new Bundle();
-                if (carIdList!=null&&carIdList!=""){
+                if (!isFromOrder&&carIdList!=null&&carIdList!=""){
                     mBundle.putString("carIdList",carIdList);
+                    mBundle.putInt("orderType",0);
                     mNewHuiBuyFrag.setArguments(mBundle);
                     ft.replace(R.id.ll_huilife_second_layout, mNewHuiBuyFrag, ServiceNoticeDetailFrag.FRAGMENTTAG);
+                }else if (isFromOrder&&order_num!=null&&order_num!=""){
+                    mBundle.putString("order_num",order_num);
+                    mBundle.putInt("orderType",1);
+                    mNewHuiBuyFrag.setArguments(mBundle);
+                    ft.replace(R.id.ll_huilife_second_layout, mNewHuiBuyFrag, ServiceNoticeDetailFrag.FRAGMENTTAG);
+
+
                 }
                 break;
             case Constacts.HUILIFE_SUPPORT_ORDER:

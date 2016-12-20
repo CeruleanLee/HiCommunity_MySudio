@@ -51,11 +51,19 @@ public class MenuLeftAct extends BaseFragmentActivity {
             mHight.setVisibility(View.GONE);
         }
         int flag = getIntent().getIntExtra(ACTIVITYTAG, -1);
+        int intentPage = getIntent().getIntExtra(INTENTTAG, -1);
         if (-1 == flag)
             return;
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         switch (flag) {
+            case Constacts.MENU_LEFT_USERINFO_EDIT:
+                mTitleLayout.setVisibility(View.GONE);
+                Log.d(Tag,"------gotoUSERINFO");
+                UserInfoFrag mPersonal_edit = (UserInfoFrag) new UserInfoFrag_();
+                ft.replace(R.id.ll_menuleft_layout, mPersonal_edit, PersonalAuthFrag.FRAGMENTTAG);
+                mPersonal_edit.write();
+                break;
             case Constacts.MENU_LEFT_USERINFO:
                 mTitleLayout.setVisibility(View.GONE);
                 Log.d(Tag,"------gotoUSERINFO");
@@ -99,6 +107,10 @@ public class MenuLeftAct extends BaseFragmentActivity {
                 Log.d(Tag,"------goto我的订单");
 //                HuiOrderFrag mOrder = (HuiOrderFrag) new HuiOrderFrag_();
                 NewHuiOrderFrag mOrder = (NewHuiOrderFrag) new NewHuiOrderFrag_();
+                if(intentPage!=-1){
+//                    mOrder.
+                }
+
                 ft.replace(R.id.ll_menuleft_layout, mOrder, HuiOrderFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_LEFT_ZHONGCOU:

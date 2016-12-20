@@ -28,9 +28,9 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.HuiLifeSecondAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftSecondAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftThirdAct;
-import cn.hi028.android.highcommunity.activity.PaymentActivity;
 import cn.hi028.android.highcommunity.adapter.NewHuiGdPayAdapter;
 import cn.hi028.android.highcommunity.bean.HuiOrderBean;
 import cn.hi028.android.highcommunity.bean.NewHuiOrderBean_StrStatus;
@@ -187,10 +187,17 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
                 @Override
                 public void onClick(View v) {
 
-                    Intent mIntent = new Intent(getActivity(), GeneratedClassUtils.get(PaymentActivity.class));
-                    mIntent.putExtra(PaymentActivity.ACTIVITYTAG, Constacts.HUILIFE_SUPPORT_PAY);
-                    mIntent.putExtra(PaymentActivity.INTENTTAG, data.getId() + "");
-                    startActivity(mIntent);
+//                    Intent mIntent = new Intent(getActivity(), GeneratedClassUtils.get(PaymentActivity.class));
+//                    mIntent.putExtra(PaymentActivity.ACTIVITYTAG, Constacts.HUILIFE_SUPPORT_PAY);
+//                    mIntent.putExtra(PaymentActivity.INTENTTAG, data.getId() + "");
+//                    startActivity(mIntent);
+                    Intent mIntent = new Intent(getActivity(), GeneratedClassUtils.get(HuiLifeSecondAct.class));
+                    mIntent.putExtra(HuiLifeSecondAct.ACTIVITYTAG, Constacts.NEW_HUILIFE_ORDER);
+                    mIntent.putExtra("order_num", data.getOrder_num() + "");
+                    mIntent.putExtra("isFromOrder", true);
+                    mIntent.putExtra(HuiLifeSecondAct.INTENTTAG, 1);
+                    //TODO 这里要改
+                    getActivity().startActivity(mIntent);
                 }
             });
         } else if (bean.getStatus_id() == 1 || bean.getStatus_id() == 2) {

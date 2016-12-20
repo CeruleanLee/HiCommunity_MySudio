@@ -16,7 +16,6 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
@@ -31,6 +30,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.AddressAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.alliance.AllianceOrder;
 import cn.hi028.android.highcommunity.bean.UserCenterBean;
@@ -225,8 +225,6 @@ public class ActFrag extends BaseFragment {
         mCollection.setOnClickListener(mLeftMenuListener);
         mCart.setOnClickListener(mLeftMenuListener);
         mBill.setOnClickListener(mLeftMenuListener);
-        //TODO
-        mAddress.setOnClickListener(mLeftMenuListener);
 
         mWallet.setOnClickListener(mLeftMenuListener);
         mZhongCou.setOnClickListener(mLeftMenuListener);
@@ -238,6 +236,18 @@ public class ActFrag extends BaseFragment {
         mLeftName.setOnClickListener(mLeftMenuListener);
         mOrder.setOnClickListener(mLeftMenuListener);
         //
+        //TODO
+        mAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (HighCommunityUtils.isLogin(getActivity())) {
+                    Intent mAddress = new Intent(getActivity(), GeneratedClassUtils.get(AddressAct.class));
+                    mAddress.putExtra(AddressAct.ACTIVITYTAG, "fromSetting");
+                    startActivity(mAddress);
+                }
+            }
+        });
+
         if (HighCommunityApplication.mUserInfo.getId() != 0)
             HTTPHelper.getUserCenter(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
 
@@ -289,14 +299,17 @@ public class ActFrag extends BaseFragment {
             }
             if (HighCommunityUtils.isLogin(getActivity())) {
                 switch (view.getId()) {
-                    case R.id.img_LeftFrag_Avatar:
-                        //TODO
-                        Toast.makeText(getActivity(), "头像大图", Toast.LENGTH_SHORT).show();
-                        break;
                     case R.id.myinfor_edit:
+                        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
+                                Constacts.MENU_LEFT_USERINFO_EDIT);
+                        mLeftjump.putExtra(MenuLeftAct.INTENTTAG,
+                                HighCommunityApplication.mUserInfo.getId() + "");
 
+
+                        break;
 //                    case R.id.rl_leftmenu_userinfo:
-                    case R.id.tx_LeftFrag_userName:
+                    case R.id.img_LeftFrag_Avatar:
+//                    case R.id.tx_LeftFrag_userName:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_USERINFO);
                         mLeftjump.putExtra(MenuLeftAct.INTENTTAG,
@@ -335,20 +348,20 @@ public class ActFrag extends BaseFragment {
                     case R.id.ll_leftMenu_order_topay:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_ORDER);
-                        mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 0);
-                        Constacts.mUserCenter.setOrder(0);
+                        mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 1);
+                        Constacts.mUserCenter.setOrder(1);
                         break;
                     case R.id.ll_leftMenu_order_torec:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_ORDER);
-                        mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 0);
-                        Constacts.mUserCenter.setOrder(0);
+                        mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 2);
+                        Constacts.mUserCenter.setOrder(2);
                         break;
                     case R.id.ll_leftMenu_order_com:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_ORDER);
-                        mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 0);
-                        Constacts.mUserCenter.setOrder(0);
+                        mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 3);
+                        Constacts.mUserCenter.setOrder(3);
                         break;
                     case R.id.ll_leftMenu_alliance_Order:
                         Intent intent = new Intent(getActivity(),

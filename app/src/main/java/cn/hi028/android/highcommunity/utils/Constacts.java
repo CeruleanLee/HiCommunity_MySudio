@@ -143,6 +143,8 @@ public class Constacts {
     public static final int MENU_SYSMESSAGE = 0x000044;
     //新版惠生活-商品订单
     public static final int NEW_HUILIFE_ORDER = 0x000045;
+    public static final int MENU_LEFT_USERINFO_EDIT = 0x000046;
+
     /**
      * 全局数据保存
      **/

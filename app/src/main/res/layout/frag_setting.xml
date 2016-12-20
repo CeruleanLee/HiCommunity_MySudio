@@ -104,6 +104,7 @@
                 android:id="@+id/tv_settings_ReciveAddress"
                 style="@style/tv_settings_tyle"
                 android:layout_marginTop="@dimen/padding_8"
+                android:visibility="gone"
                 android:text="收货地址" />
 
             <TextView

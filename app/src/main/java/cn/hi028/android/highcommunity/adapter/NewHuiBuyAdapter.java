@@ -23,27 +23,28 @@ import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.NewHuiBuyFrag;
 import cn.hi028.android.highcommunity.bean.Autonomous.NewSupplyPaydetailBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
+import cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview;
 
 /**
- *@功能：新版惠生活商品支付adapter<br>
- *@作者： Lee_yting<br>
- *@版本：2.0<br>
- *@时间：2016/12/14<br>
+ * @功能：新版惠生活商品支付adapter<br>
+ * @作者： Lee_yting<br>
+ * @版本：2.0<br>
+ * @时间：2016/12/14<br>
  */
 public class NewHuiBuyAdapter extends BaseFragmentAdapter {
-    static final String Tag="NewHuiBuyAdapter:";
+    static final String Tag = "NewHuiBuyAdapter:";
     NewHuiBuyFrag frag;
-    List<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity> mList=new ArrayList<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity>();
+    List<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity> mList = new ArrayList<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity>();
     Context context;
     LayoutInflater inflater;
 
-    public NewHuiBuyAdapter(NewHuiBuyFrag frag,Context context){
-        this.frag=frag;
-        this.context=context;
-        inflater = LayoutInflater.from(context);
-    }
+//    public NewHuiBuyAdapter(NewHuiBuyFrag frag,Context context){
+//        this.frag=frag;
+//        this.context=context;
+//        inflater = LayoutInflater.from(context);
+//    }
 
-    public NewHuiBuyAdapter(NewHuiBuyFrag frag,Context context, List<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity> mList) {
+    public NewHuiBuyAdapter(NewHuiBuyFrag frag, Context context, List<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity> mList) {
         this.context = context;
         this.mList = mList;
         this.frag = frag;
@@ -53,7 +54,7 @@ public class NewHuiBuyAdapter extends BaseFragmentAdapter {
 
     @Override
     public int getCount() {
-        return  ListUtils.getSize(mList);
+        return ListUtils.getSize(mList);
     }
 
     @Override
@@ -65,8 +66,11 @@ public class NewHuiBuyAdapter extends BaseFragmentAdapter {
     public long getItemId(int position) {
         return position;
     }
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+        Log.e(Tag, "getView:" + position);
+
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(frag.getActivity()).inflate(
@@ -80,19 +84,34 @@ public class NewHuiBuyAdapter extends BaseFragmentAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+        if (((MyNoScrollMeasureListview) parent).isMeasure) {
+
+            return convertView;
+        }
         NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity mBean = mList.get(position);
         viewHolder.tv_merchant.setText(mBean.getMerchant());
-        if (mBean.getTotal_amount()!=-1){
+        if (mBean.getTotal_amount() != -1) {
             viewHolder.tv_merchantSum.setText("小计：￥" + mBean.getTotal_amount());
         }
         List<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity.SupplyPayInfoEntity> mInfoList = mBean.getInfo();
-        Log.e(Tag,"mInfoList.size:"+mInfoList.size());
+        Log.e(Tag, "mInfoList.size:" + mInfoList.size());
+        LinearLayout infoView = getGoodsInfoView(mInfoList);
+        viewHolder.listContainer.addView(infoView);
+
+        return convertView;
+    }
+
+    private LinearLayout getGoodsInfoView(List<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity.SupplyPayInfoEntity> mInfoList) {
+        LinearLayout layout = new LinearLayout(context);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layout.setLayoutParams(layoutParams);
         for (int i = 0; i < mInfoList.size(); i++) {
-            Log.e(Tag,"mInfoList.i :"+i);
+            Log.e(Tag, "mInfoList.i :" + i);
 
             NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity.SupplyPayInfoEntity mInfoBean = mInfoList.get(i);
             View mListView = inflater.inflate(R.layout.item_newsupp_showpay, null);
-            TextView  tv_goods_name = (TextView) mListView.findViewById(R.id.tv_goods_name);
+            TextView tv_goods_name = (TextView) mListView.findViewById(R.id.tv_goods_name);
             TextView tv_goods_total = (TextView) mListView.findViewById(R.id.tv_goods_total);
             TextView tv_goods_price = (TextView) mListView.findViewById(R.id.tv_goods_price);
             TextView tv_standard = (TextView) mListView.findViewById(R.id.tv_goods_standard);
@@ -103,22 +122,22 @@ public class NewHuiBuyAdapter extends BaseFragmentAdapter {
             tv_goods_price.setText(mInfoBean.getPrice() + "");
 //            tv_goods_total.setText("小计：￥" + CommonUtils.f2Bi(mInfoBean.getLittle_amount()));
             tv_goods_total.setText("小计：￥" + mInfoBean.getLittle_amount());
-            tv_goods_num.setText("× "+mInfoBean.getNum());
+            tv_goods_num.setText("× " + mInfoBean.getNum());
             tv_standard.setText(mInfoBean.getStandard());
-            ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP+mInfoBean.getPic(),img_goods_pic,R.mipmap.default_no_pic,null);
-            viewHolder.listContainer.addView(mListView);
+            ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + mInfoBean.getPic(), img_goods_pic, R.mipmap.default_no_pic, null);
+            layout.addView(mListView);
         }
-
-        return convertView;
+        return layout;
     }
 
-    @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
-        //TODO 这里需要改
-//        frag.orderParams.setGoods(data);
-//        frag.updateOrder();
-    }
+    //
+//    @Override
+//    public void notifyDataSetChanged() {
+//        super.notifyDataSetChanged();
+//        //TODO 这里需要改
+////        frag.orderParams.setGoods(data);
+////        frag.updateOrder();
+//    }
     @Override
     public void AddNewData(Object mObject) {
         if (mObject instanceof List<?>) {
@@ -133,8 +152,8 @@ public class NewHuiBuyAdapter extends BaseFragmentAdapter {
         notifyDataSetChanged();
     }
 
-    class ViewHolder{
-        TextView tv_merchant,tv_merchantSum;
+    class ViewHolder {
+        TextView tv_merchant, tv_merchantSum;
         LinearLayout listContainer;
 
 

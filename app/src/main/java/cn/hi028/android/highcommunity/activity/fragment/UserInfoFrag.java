@@ -203,7 +203,7 @@ public class UserInfoFrag extends BaseFragment {
     }
 
     @Click(R.id.tv_UserInfo_RightnMenu)
-    void write() {
+    public  void write() {
         Intent mModify = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftSecondAct.class));
         mModify.putExtra(MenuLeftSecondAct.ACTIVITYTAG, Constacts.MENU_LEFTSECOND_PERSONAL);
         mModify.putExtra(MenuLeftSecondAct.INTENTTAG, mBean);

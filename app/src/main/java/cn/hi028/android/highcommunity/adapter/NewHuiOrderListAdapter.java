@@ -28,9 +28,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.HuiLifeSecondAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftSecondAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftThirdAct;
-import cn.hi028.android.highcommunity.activity.PaymentActivity;
 import cn.hi028.android.highcommunity.activity.fragment.NewHuiOrderFrag;
 import cn.hi028.android.highcommunity.bean.NewHuiOrderBean;
 import cn.hi028.android.highcommunity.params.NewHuiSuppGdParams;
@@ -180,10 +180,20 @@ public class NewHuiOrderListAdapter extends BaseExpandableListAdapter {
             holder.tv_order_operate2.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent mIntent = new Intent(frag.getActivity(), GeneratedClassUtils.get(PaymentActivity.class));
-                    mIntent.putExtra(PaymentActivity.ACTIVITYTAG, Constacts.HUILIFE_SUPPORT_PAY);
-                    mIntent.putExtra(PaymentActivity.INTENTTAG, mList.get(groupPosition).getId() + "");
+//                    Intent mIntent = new Intent(frag.getActivity(), GeneratedClassUtils.get(PaymentActivity.class));
+//                    mIntent.putExtra(PaymentActivity.ACTIVITYTAG, Constacts.HUILIFE_SUPPORT_PAY);
+//                    mIntent.putExtra(PaymentActivity.INTENTTAG, mList.get(groupPosition).getId() + "");
+//                    frag.startActivity(mIntent);
+                    Intent mIntent = new Intent(frag.getActivity(), GeneratedClassUtils.get(HuiLifeSecondAct.class));
+                    mIntent.putExtra(HuiLifeSecondAct.ACTIVITYTAG, Constacts.NEW_HUILIFE_ORDER);
+                    mIntent.putExtra("order_num", mList.get(groupPosition).getOrder_num() + "");
+                    mIntent.putExtra("isFromOrder", true);
+                    mIntent.putExtra(HuiLifeSecondAct.INTENTTAG, 1);
+                    //TODO 这里要改
                     frag.startActivity(mIntent);
+
+
+
                 }
             });
         } else if (mList.get(groupPosition).getStatus() == 1 || mList.get(groupPosition).getStatus() == 2) {

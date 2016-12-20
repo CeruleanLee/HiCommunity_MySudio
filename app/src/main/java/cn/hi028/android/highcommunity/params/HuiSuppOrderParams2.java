@@ -5,10 +5,10 @@
 package cn.hi028.android.highcommunity.params;
 
 /**
- * @功能：惠生活物品直供订单参数<br>
- * @作者： 赵海<br>
- * @版本：1.0<br>
- * @时间：2016-01-21<br>
+ * @功能：v2.0惠生活物品直供订单参数<br>
+ * @作者： Lee_yting<br>
+ * @版本：2.0<br>
+ * @时间：2016/12/18<br>
  */
 public class HuiSuppOrderParams2 extends BaseParams {
 

@@ -25,7 +25,6 @@ import com.don.tools.BpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
 
 import net.duohuo.dhroid.activity.BaseFragment;
-import net.duohuo.dhroid.view.CustomListView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +55,7 @@ import cn.hi028.android.highcommunity.utils.alipay.AlipayUtils;
 import cn.hi028.android.highcommunity.utils.alipay.PayResult;
 import cn.hi028.android.highcommunity.utils.wchatpay.WchatPayUtils;
 import cn.hi028.android.highcommunity.view.ECAlertDialog;
+import cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview;
 import cn.hi028.android.highcommunity.wxapi.WXPayEntryActivity;
 
 /**
@@ -67,7 +67,7 @@ import cn.hi028.android.highcommunity.wxapi.WXPayEntryActivity;
 public class NewHuiBuyFrag extends BaseFragment {
     static final String Tag = "NewHuiBuyFrag--->";
     @Bind(R.id.cl_goods)
-    CustomListView cl_goods;
+    MyNoScrollMeasureListview cl_goods;
     @Bind(R.id.tv_reserve_name)
     TextView tv_reserve_name;
     @Bind(R.id.tv_reserve_phone)
@@ -105,7 +105,7 @@ public class NewHuiBuyFrag extends BaseFragment {
     PopupWindow waitPop;
     NewHuiBuyAdapter adapter;
     View view;
-    String carIdList;
+    String carIdList,order_num;
     List<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity> mList = new ArrayList<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity>();
     @Bind(R.id.rb_pay_wx)
     RadioButton rbPayWx;
@@ -113,7 +113,7 @@ public class NewHuiBuyFrag extends BaseFragment {
     RadioButton rbPayIpay;
     @Bind(R.id.rg_huil_ife)
     RadioGroup rgPay;
-
+int orderType=-1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(Tag, "onCreateView");
@@ -122,6 +122,8 @@ public class NewHuiBuyFrag extends BaseFragment {
         fragment=this;
         Bundle bundle = getArguments();
         carIdList = bundle.getString("carIdList");
+        order_num = bundle.getString("order_num");
+        orderType= bundle.getInt("orderType",-1);
         Log.d(Tag, "carIdList=" + carIdList);
 //        initView();
         WchatPayUtils.getInstance().init(getActivity());
@@ -223,7 +225,7 @@ public class NewHuiBuyFrag extends BaseFragment {
             }
         });
         rbPayWx.setChecked(true);
-
+        tv_wallet.requestFocus();
     }
 
     int payType = -1;
@@ -257,7 +259,7 @@ public class NewHuiBuyFrag extends BaseFragment {
     }
 
     /**
-     * 转到优惠券界面   v2.0没有了
+     * 转到优惠券界面
      */
     public void onTicket() {
         Intent mIntent = new Intent(getActivity(), GeneratedClassUtils.get(TicketAct.class));
@@ -274,9 +276,13 @@ public class NewHuiBuyFrag extends BaseFragment {
     }
 
     private void initData() {
+        if (orderType==-1)return;
         if (carIdList != null && !carIdList.equals("")) {
 
-            HTTPHelper.NewSupplyShowPay(mShowPayIbpi, carIdList, 0);
+            HTTPHelper.NewSupplyShowPay(mShowPayIbpi, carIdList, orderType);
+        }else if (order_num != null && !order_num.equals("")){
+            HTTPHelper.NewSupplyShowPay(mShowPayIbpi, order_num, orderType);
+
         }
     }
 

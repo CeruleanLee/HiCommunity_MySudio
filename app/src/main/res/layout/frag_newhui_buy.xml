@@ -1,29 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Defult_Color_ShallowGrey"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/hui_pay_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@color/defult_color_white">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="top"
+            android:background="@color/Defult_Color_LineGrey"></View>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="12dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="实付款"
+                    android:textColor="@color/Defult_Color_DeepGrey"
+                    android:textSize="@dimen/font_extra_small_half" />
+
+                <TextView
+                    android:id="@+id/tv_total_actual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:paddingRight="6dp"
+                    android:singleLine="true"
+                    android:textColor="@color/color_deep_red"
+                    android:textSize="@dimen/font_extra_small_half" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_total_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/Defult_Color_Grey"
+                android:textSize="@dimen/font_extra_small_half" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/Defult_Color_AppBotton"
+                android:paddingBottom="14dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="14dp"
+                android:text="支付"
+                android:textColor="@color/defult_color_white"
+                android:textSize="@dimen/font_extra_small_half" />
+        </LinearLayout>
+    </FrameLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:paddingBottom="48dp">
-
+        android:layout_above="@id/hui_pay_bottom_layout">
+        <!-- android:fillViewport="true"-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <net.duohuo.dhroid.view.CustomListView
-                android:id="@+id/cl_goods"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:cacheColorHint="@android:color/transparent"
-                android:divider="@color/Defult_Color_LineGrey"
-                android:dividerHeight="0.5dp"
-                android:listSelector="@android:color/transparent"></net.duohuo.dhroid.view.CustomListView>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+
+
+    <cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview
+        android:id="@+id/cl_goods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@color/Defult_Color_LineGrey"
+        android:dividerHeight="0.5dp"
+        android:listSelector="@android:color/transparent">
+
+    </cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview>
+</LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,9 +125,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
-                    android:visibility="gone"
                     android:orientation="horizontal"
-                    android:paddingLeft="@dimen/padding_12">
+                    android:paddingLeft="@dimen/padding_12"
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -128,12 +218,12 @@
                         android:background="@drawable/img_pay_num"
                         android:gravity="center"
                         android:hint="输入金额"
+                        android:inputType="numberDecimal"
                         android:maxEms="5"
+                        android:numeric="decimal"
                         android:paddingBottom="7dp"
                         android:paddingRight="@dimen/padding_12"
                         android:paddingTop="7dp"
-                        android:inputType="numberDecimal"
-                        android:numeric="decimal"
                         android:singleLine="true"
                         android:textColor="@color/Defult_Color_MidGrey"
                         android:textColorHint="@color/Defult_Color_Grey"
@@ -226,17 +316,17 @@
             </FrameLayout>
 
             <TextView
-            android:id="@+id/fl_huiLife_NoAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_8"
-            android:background="@color/defult_color_white"
-            android:gravity="center"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp"
-            android:text="新建收货地址"
-            android:textColor="@color/Defult_Color_MidGrey"
-            android:textSize="@dimen/font_large"></TextView>
+                android:id="@+id/fl_huiLife_NoAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8"
+                android:background="@color/defult_color_white"
+                android:gravity="center"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:text="新建收货地址"
+                android:textColor="@color/Defult_Color_MidGrey"
+                android:textSize="@dimen/font_large"></TextView>
 
             <EditText
                 android:id="@+id/fl_huiLife_Message"
@@ -244,13 +334,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_8"
                 android:background="@color/defult_color_white"
-                android:paddingLeft="10dp"
+                android:hint="备注:"
                 android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
                 android:paddingTop="5dp"
-              android:hint="备注:"
-                android:focusableInTouchMode="true"
                 android:textColor="@color/Defult_Color_MidGrey"
                 android:textSize="@dimen/font_large"></EditText>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -303,86 +393,13 @@
                         android:paddingRight="12dp"
                         android:text="支付宝支付" />
                 </RadioGroup>
+
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"/>
+                    android:layout_height="50dp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/defult_color_white">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_gravity="top"
-            android:background="@color/Defult_Color_LineGrey"></View>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|center_vertical"
-            android:layout_marginLeft="12dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="实付款"
-                    android:textColor="@color/Defult_Color_DeepGrey"
-                    android:textSize="@dimen/font_extra_small_half" />
-
-                <TextView
-                    android:id="@+id/tv_total_actual"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:paddingRight="6dp"
-                    android:singleLine="true"
-                    android:textColor="@color/color_deep_red"
-                    android:textSize="@dimen/font_extra_small_half" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_total_pay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:textColor="@color/Defult_Color_Grey"
-                android:textSize="@dimen/font_extra_small_half" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn_pay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/Defult_Color_AppBotton"
-                android:paddingBottom="14dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="14dp"
-                android:text="支付"
-                android:textColor="@color/defult_color_white"
-                android:textSize="@dimen/font_extra_small_half" />
-        </LinearLayout>
-    </FrameLayout>
-</FrameLayout>
+</RelativeLayout>
