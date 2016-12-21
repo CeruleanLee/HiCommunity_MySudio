@@ -1,11 +1,10 @@
 package cn.hi028.android.highcommunity.view;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.adapter.AutoNamelist_YZAdapter;
 
 
 /**
@@ -28,7 +28,7 @@ import cn.hi028.android.highcommunity.R;
  */
 
 public class SearchView extends LinearLayout implements View.OnClickListener {
-
+    public static final String Tag = "SearchView:";
     /**
      * 输入框
      */
@@ -62,13 +62,24 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
     /**
      * 自动补全adapter 只显示名字
      */
-    private ArrayAdapter<String> mAutoCompleteAdapter;
+    private AutoNamelist_YZAdapter mAutoCompleteAdapter;
 
     /**
      * 搜索回调接口
      */
     private SearchViewListener mListener;
-    SearchViewVisibleListener mVisibleListener;
+    SearchingChangeListener mVisibleListener;
+
+    boolean isSearching = false;
+
+    public boolean isSearching() {
+        return isSearching;
+    }
+
+    public void setSearching(boolean searching) {
+        isSearching = searching;
+    }
+
     /**
      * 设置搜索回调接口
      *
@@ -78,7 +89,7 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
         mListener = listener;
     }
 
-    public void setSearchViewVisibleListener(SearchViewVisibleListener mVisibleListener) {
+    public void setSearchingChangeListener(SearchingChangeListener mVisibleListener) {
         this.mVisibleListener = mVisibleListener;
     }
 
@@ -99,10 +110,13 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //set edit text
-                String text = lvTips.getAdapter().getItem(i).toString();
+//                ListAdapter adapter = lvTips.getAdapter();
+                String text = ((AutoNamelist_YZAdapter)(lvTips.getAdapter())).getItem(i).getName().toString();
+//                String text = lvTips.getAdapter().getItem(i).toString();
                 etInput.setText(text);
                 etInput.setSelection(text.length());
                 //hint list view gone and result list view show
+                mAutoCompleteAdapter.ClearData();
                 lvTips.setVisibility(View.GONE);
                 notifyStartSearching(text);
             }
@@ -151,7 +165,7 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
     /**
      * 设置自动补全adapter
      */
-    public void setAutoCompleteAdapter(ArrayAdapter<String> adapter) {
+    public void setAutoCompleteAdapter(AutoNamelist_YZAdapter adapter) {
         this.mAutoCompleteAdapter = adapter;
 
     }
@@ -165,6 +179,8 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             if (!"".equals(charSequence.toString())) {
+                Log.e(Tag, "1.onTextChanged"+charSequence.toString()+",lenght:"+charSequence.toString().length());
+                isSearching=true;
                 ivDelete.setVisibility(VISIBLE);
                 lvTips.setVisibility(VISIBLE);
                 if (mAutoCompleteAdapter != null && lvTips.getAdapter() != mAutoCompleteAdapter) {
@@ -175,13 +191,17 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
                     mListener.onRefreshAutoComplete(charSequence + "");
                 }
             } else {
+                Log.e(Tag, "2.onTextChanged"+charSequence.toString()+",lenght:"+charSequence.toString().length());
+
+                isSearching=false;
+                mAutoCompleteAdapter.ClearData();
                 ivDelete.setVisibility(GONE);
-                if (mHintAdapter != null) {
-                    lvTips.setAdapter(mHintAdapter);
-                }
+//                if (mHintAdapter != null) {
+//                    lvTips.setAdapter(mHintAdapter);
+//                }
                 lvTips.setVisibility(GONE);
             }
-
+            mVisibleListener.onSearchingChange(isSearching);
         }
 
         @Override
@@ -197,26 +217,18 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
                 break;
             case R.id.search_iv_delete:
                 etInput.setText("");
+                mAutoCompleteAdapter.ClearData();
+                mVisibleListener.onSearchingChange(false);
                 ivDelete.setVisibility(GONE);
                 break;
             case R.id.search_btn_back:
 //                ((Activity) mContext).finish();
 //                closeSearch();
-                mVisibleListener.onSearchViewVisible(false);
+//                mVisibleListener.onSearchViewVisible(false);
                 break;
         }
     }
-    private void closeSearch() {
-        ObjectAnimator anim2 = ObjectAnimator.ofFloat(this, "scaleX", 1f, 60);
-        ObjectAnimator anim4 = ObjectAnimator.ofFloat(this, "alpha", 1f, 0f);
-        this.setPivotX(0);
-        this.setPivotY(this.getHeight() / 2);
-        AnimatorSet animSet1 = new AnimatorSet();
-        animSet1.play(anim2).with(anim4);
-        animSet1.setDuration(100);
-        animSet1.start();
-        this.setVisibility(GONE);
-    }
+
     /**
      * search view回调方法
      */
@@ -244,9 +256,9 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
     /**
      * search view回调方法
      */
-    public interface SearchViewVisibleListener {
+    public interface SearchingChangeListener {
 
-        void onSearchViewVisible(Boolean isVisible);
+        void onSearchingChange(Boolean isSearching);
 
     }
 }

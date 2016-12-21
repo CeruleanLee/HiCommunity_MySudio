@@ -14,26 +14,26 @@
 
         <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:background="#ffffff">
 
             <EditText
                 android:id="@+id/search_et_input"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_marginBottom="3dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/search_edittext_shape"
                 android:drawableLeft="@drawable/search_icon"
                 android:drawablePadding="5dp"
                 android:hint="请输入关键字"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
 
             <ImageView
                 android:id="@+id/search_iv_delete"
@@ -55,6 +55,7 @@
             android:layout_marginTop="10dp"
             android:background="@null"
             android:text="取消"
+            android:visibility="gone"
             android:textColor="@color/Defult_Color_AppGreen"
             android:textSize="12dp" />
     </LinearLayout>
@@ -64,8 +65,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:background="@color/white"
         android:listSelector="@drawable/bg_third_service_selector_nostrike"
         android:visibility="gone"></ListView>

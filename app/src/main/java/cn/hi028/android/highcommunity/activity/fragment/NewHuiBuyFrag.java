@@ -55,7 +55,7 @@ import cn.hi028.android.highcommunity.utils.alipay.AlipayUtils;
 import cn.hi028.android.highcommunity.utils.alipay.PayResult;
 import cn.hi028.android.highcommunity.utils.wchatpay.WchatPayUtils;
 import cn.hi028.android.highcommunity.view.ECAlertDialog;
-import cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview;
+import cn.hi028.android.highcommunity.view.LinearLayoutForListView;
 import cn.hi028.android.highcommunity.wxapi.WXPayEntryActivity;
 
 /**
@@ -67,7 +67,7 @@ import cn.hi028.android.highcommunity.wxapi.WXPayEntryActivity;
 public class NewHuiBuyFrag extends BaseFragment {
     static final String Tag = "NewHuiBuyFrag--->";
     @Bind(R.id.cl_goods)
-    MyNoScrollMeasureListview cl_goods;
+    LinearLayoutForListView cl_goods;
     @Bind(R.id.tv_reserve_name)
     TextView tv_reserve_name;
     @Bind(R.id.tv_reserve_phone)
@@ -366,6 +366,9 @@ int orderType=-1;
      * @param mBean
      */
     private void setOrderList(NewSupplyPaydetailBean.SupplyPayDataEntity mBean) {
+//        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//
+//        cl_goods.setLayoutParams(layoutParams);
         mList = mBean.getGoods();
         adapter = new NewHuiBuyAdapter(NewHuiBuyFrag.this, getActivity(), mList);
         cl_goods.setAdapter(adapter);
@@ -620,6 +623,7 @@ int orderType=-1;
 
         orderParams.setZero_money(0.0f);
         if (mConsign != null) {
+            Log.e(Tag,"mConsign != null");
             fl_huiLife_addressChooice.setVisibility(View.VISIBLE);
             orderParams.setAddress_id(mConsign.getId());
 
@@ -633,6 +637,8 @@ int orderType=-1;
             }
             mNoAddress.setVisibility(View.GONE);
         } else {
+            Log.e(Tag,"mConsign = null");
+
             mNoAddress.setVisibility(View.VISIBLE);
             fl_huiLife_addressChooice.setVisibility(View.GONE);
         }

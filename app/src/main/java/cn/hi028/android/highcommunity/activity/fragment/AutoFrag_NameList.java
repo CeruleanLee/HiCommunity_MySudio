@@ -1,7 +1,5 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,13 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
 
@@ -26,7 +23,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.AutoNamelist_YWHAdapter;
 import cn.hi028.android.highcommunity.adapter.AutoNamelist_YZAdapter;
@@ -55,8 +51,7 @@ public class AutoFrag_NameList extends BaseFragment {
     RadioGroup mRadioGroup;
     @Bind(R.id.frag_AutoName_fragContainer)
     RelativeLayout mFragContainer;
-    //    @Bind(R.id.tv_Autonotice_Nodata)
-//    TextView mNodata;
+
     @Bind(R.id.frag_AutoName_list_CO)
     ListView mListCO;
     @Bind(R.id.frag_AutoName_list_Re)
@@ -74,17 +69,20 @@ public class AutoFrag_NameList extends BaseFragment {
     ListView mSearchResultsListview;
     @Bind(R.id.tv_create)
     TextView mTvSearch;
+    @Bind(R.id.namelist_Owner_layout)
+    LinearLayout mOwnerLayout;
     private List<Auto_NameListBean.NameListDataEntity.YwhEntity> mYWHList;
     private List<Auto_NameListBean.NameListDataEntity.YzdbEntity> mYWDBList;
     private List<Auto_NameListBean.NameListDataEntity.YzEntity> mYZList;
     /**
      * 自动补全列表adapter
      */
-    private ArrayAdapter<String> autoCompleteAdapter;
+    private AutoNamelist_YZAdapter autoCompleteAdapter;
+//    private ArrayAdapter<String> autoCompleteAdapter;
     /**
      * 搜索过程中自动补全数据
      */
-    private List<String> autoCompleteData;
+    private List<Auto_NameListBean.NameListDataEntity.YzEntity> autoCompleteData;
     /**
      * 搜索结果列表adapter
      */
@@ -96,7 +94,7 @@ public class AutoFrag_NameList extends BaseFragment {
     /**
      * 默认提示框显示项的个数
      */
-    private static int DEFAULT_HINT_SIZE = 4;
+    private static int DEFAULT_HINT_SIZE =7;
 
     /**
      * 提示框显示项的个数
@@ -115,17 +113,11 @@ public class AutoFrag_NameList extends BaseFragment {
 
     private void initView() {
         Log.e(Tag, "initView");
-        if (mCommittee.isChecked()){
 
-//            mSearchView.setVisibility(View.GONE);
-        }
         mYWHList = new ArrayList<Auto_NameListBean.NameListDataEntity.YwhEntity>();
         mYWDBList = new ArrayList<Auto_NameListBean.NameListDataEntity.YzdbEntity>();
         mYWHadapter = new AutoNamelist_YWHAdapter(mYWHList, getActivity());
         mYZDBadapter = new AutoNamelist_YZDBAdapter(mYWDBList, getActivity());
-//        mListCO.setEmptyView(mNodata);
-//        mListRe.setEmptyView(mNodata);
-//        mListOwner.setEmptyView(mNodata);
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -135,6 +127,7 @@ public class AutoFrag_NameList extends BaseFragment {
                         mFragContainer.setVisibility(View.VISIBLE);
                         mListRe.setVisibility(View.GONE);
                         mListOwner.setVisibility(View.GONE);
+                        mOwnerLayout.setVisibility(View.GONE);
                         mListCO.setVisibility(View.VISIBLE);
                         mTvSearch.setVisibility(View.GONE);
                         mSearchView.setVisibility(View.GONE);
@@ -144,8 +137,10 @@ public class AutoFrag_NameList extends BaseFragment {
                         mFragContainer.setVisibility(View.VISIBLE);
                         mListCO.setVisibility(View.GONE);
                         mListOwner.setVisibility(View.GONE);
+                        mOwnerLayout.setVisibility(View.GONE);
+
                         mListRe.setVisibility(View.VISIBLE);
-                        mSearchView.setVisibility(View.VISIBLE);
+
                         mTvSearch.setVisibility(View.GONE);
                         mSearchView.setVisibility(View.GONE);
                         mSearchResultsListview.setVisibility(View.GONE);
@@ -156,18 +151,18 @@ public class AutoFrag_NameList extends BaseFragment {
                         mFragContainer.setVisibility(View.VISIBLE);
                         mListRe.setVisibility(View.GONE);
                         mListCO.setVisibility(View.GONE);
-//                        mListOwner.setVisibility(View.VISIBLE);
-                        if (mYZList != null && mYZList.size() != 0) {
+                        mSearchView.setVisibility(View.VISIBLE);
+                        Log.e(Tag, "isSearching:"+mSearchView.isSearching());
+                        mOwnerLayout.setVisibility(View.VISIBLE);
 
-                            mTvSearch.setVisibility(View.VISIBLE);
-                        }
-                        if (isSearching&&mTvSearch.getVisibility()==View.VISIBLE) {
+                        if (mSearchView.isSearching()) {
                             mSearchView.setVisibility(View.VISIBLE);
-                            mListOwner.setVisibility(View.GONE);
+//                            mListOwner.setVisibility(View.GONE);
                             mSearchResultsListview.setVisibility(View.VISIBLE);
-
                         } else {
+                            mSearchView.setVisibility(View.VISIBLE);
                             mListOwner.setVisibility(View.VISIBLE);
+                            mOwnerLayout.setVisibility(View.VISIBLE);
                             mSearchResultsListview.setVisibility(View.GONE);
                         }
 //                        mSearchView.setVisibility(View.VISIBLE);
@@ -202,7 +197,7 @@ public class AutoFrag_NameList extends BaseFragment {
         } else {
             Log.e(Tag, "mYZList  =null|| mYZList.size()=0");
 
-            mSearchView.setVisibility(View.GONE);
+//            mSearchView.setVisibility(View.GONE);
             mSearchResultsListview.setVisibility(View.GONE);
         }
     }
@@ -219,6 +214,16 @@ public class AutoFrag_NameList extends BaseFragment {
              */
             @Override
             public void onRefreshAutoComplete(String text) {
+                Log.e(Tag, "text.length():"+text.length());
+                if (text.length()==0) {
+                    Log.e(Tag, "text.length() 0");
+                    mListOwner.setVisibility(View.VISIBLE);
+
+                } else {
+                    Log.e(Tag, "text.length() /0");
+
+                    mListOwner.setVisibility(View.GONE);
+                }
                 //更新数据
                 getAutoCompleteData(text);
             }
@@ -230,6 +235,8 @@ public class AutoFrag_NameList extends BaseFragment {
              */
             @Override
             public void onSearch(String text) {
+                mListOwner.setVisibility(View.GONE);
+
                 //更新result数据
                 getResultData(text);
                 mSearchResultsListview.setVisibility(View.VISIBLE);
@@ -252,14 +259,26 @@ public class AutoFrag_NameList extends BaseFragment {
         mSearchResultsListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), position + "", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), position + "", Toast.LENGTH_SHORT).show();
 
             }
         });
-        mSearchView.setSearchViewVisibleListener(new SearchView.SearchViewVisibleListener() {
+
+        mSearchView.setSearchingChangeListener(new SearchView.SearchingChangeListener() {
             @Override
-            public void onSearchViewVisible(Boolean isVisible) {
-                closeSearch();
+            public void onSearchingChange(Boolean isSearching) {
+                Log.e(Tag,"onSearchingChange isSearching:"+isSearching);
+                if (isSearching){
+                    mSearchResultsListview.setVisibility(View.VISIBLE);
+                    mListOwner.setVisibility(View.GONE);
+                }else{
+                    resultAdapter.ClearData();
+                    mSearchResultsListview.setVisibility(View.GONE);
+                    mListOwner.setVisibility(View.VISIBLE);
+
+                }
+
+
 
             }
         });
@@ -271,30 +290,30 @@ public class AutoFrag_NameList extends BaseFragment {
     private void getAutoCompleteData(String text) {
         if (autoCompleteData == null) {
             //初始化
-            autoCompleteData = new ArrayList<>(hintSize);
+            autoCompleteData = new ArrayList<>();
         } else {
             // 根据text 获取auto data
             autoCompleteData.clear();
-            for (int i = 0, count = 0; i < mYZList.size()
-                    && count < hintSize; i++) {
-                if (mYZList==null){
-                    Log.e(Tag,"mYZList==null");
+            for (int i = 0, count = 0; i < mYZList.size(); i++) {
+                if (mYZList == null) {
+                    Log.e(Tag, "mYZList==null");
                 }
-                if (mYZList.get(i).getName()==null){
-                    Log.e(Tag,"mYZList.get(i).getName()==null");
+                if (mYZList.get(i).getName() == null) {
+                    Log.e(Tag, "mYZList.get(i).getName()==null");
                 }
-                if (text.trim()==null){
-                    Log.e(Tag,"text.trim() null");
+                if (text.trim() == null) {
+                    Log.e(Tag, "text.trim() null");
 
                 }
                 if (mYZList.get(i).getName().contains(text.trim())) {
-                    autoCompleteData.add(mYZList.get(i).getName());
+                    autoCompleteData.add(mYZList.get(i));
                     count++;
                 }
             }
         }
         if (autoCompleteAdapter == null) {
-            autoCompleteAdapter = new ArrayAdapter<>(getActivity(), R.layout.item_just_text, autoCompleteData);
+//            autoCompleteAdapter = new ArrayAdapter<>(getActivity(), R.layout.item_just_text, autoCompleteData);
+            autoCompleteAdapter = new AutoNamelist_YZAdapter(autoCompleteData, getActivity());
         } else {
             autoCompleteAdapter.notifyDataSetChanged();
         }
@@ -383,13 +402,6 @@ public class AutoFrag_NameList extends BaseFragment {
         }
     };
 
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.e(Tag, "onPause");
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -404,64 +416,11 @@ public class AutoFrag_NameList extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    private void expandSearch() {
-        isSearching = true;
-//        mSearchView.setVisibility(View.VISIBLE);
-        mTvSearch.setVisibility(View.VISIBLE);
-        ObjectAnimator anim1 = ObjectAnimator.ofFloat(mTvSearch, "alpha", 1f, 0f);
-        ObjectAnimator anim2 = ObjectAnimator.ofFloat(mSearchView, "alpha", 0f, 1f);
-        ObjectAnimator anim3 = ObjectAnimator.ofFloat(mSearchView, "scaleX", scale, 1f);
-        mSearchView.setPivotX(mSearchView.getRight());
-        AnimatorSet animSet2 = new AnimatorSet();
-        animSet2.play(anim1).with(anim2);
-        animSet2.setDuration(100);
-        animSet2.start();
-        mSearchResultsListview.setVisibility(View.VISIBLE);
-        mListOwner.setVisibility(View.GONE);
-        mSearchView.setVisibility(View.VISIBLE);
 
-    }
 
-    private void closeSearch() {
-        Log.e(Tag,"closeSearch");
-        isSearching = false;
-        mSearchView.setVisibility(View.GONE);
-        Log.e(Tag,"closeSearch2");
-//        ObjectAnimator anim2 = ObjectAnimator.ofFloat(mSearchView, "scaleX", 1f, 0f);
-        ObjectAnimator anim3 = ObjectAnimator.ofFloat(mTvSearch, "alpha", 0f, 1f);
-//        ObjectAnimator anim4 = ObjectAnimator.ofFloat(mSearchView, "alpha", 1f, 0f);
-//        mSearchView.setPivotX(0);
-//        mSearchView.setPivotY(mSearchView.getHeight() / 2);
-        AnimatorSet animSet1 = new AnimatorSet();
-        animSet1.play(anim3);
-        animSet1.setDuration(100);
-        animSet1.start();
-        mSearchResultsListview.setVisibility(View.GONE);
-        Log.e(Tag,"closeSearch3");
-
-        mListOwner.setVisibility(View.VISIBLE);
-        mTvSearch.setVisibility(View.VISIBLE);
-
-//        initSearchData();
-    }
 
     float scale;
 
-    @OnClick(R.id.tv_create)
-    public void onClick() {
-        mSearchView.setVisibility(View.VISIBLE);
-//        mTvSearch.setText("234");
-        double serchWid = mSearchView.getWidth() / 1.0;
-        double wid = 60 / 1.0;
-        double fenshu = wid / serchWid;
-        scale = (float) fenshu;
-        expandSearch();
-////        if (isExpand) {
-//        } else {
-//            closeSearch();
-//        }
-
-    }
 
     boolean isSearching = false;
 }

@@ -23,7 +23,6 @@ import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.NewHuiBuyFrag;
 import cn.hi028.android.highcommunity.bean.Autonomous.NewSupplyPaydetailBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
-import cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview;
 
 /**
  * @功能：新版惠生活商品支付adapter<br>
@@ -84,10 +83,10 @@ public class NewHuiBuyAdapter extends BaseFragmentAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if (((MyNoScrollMeasureListview) parent).isMeasure) {
-
-            return convertView;
-        }
+//        if (((MyNoScrollMeasureListview) parent).isMeasure) {
+//
+//            return convertView;
+//        }
         NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity mBean = mList.get(position);
         viewHolder.tv_merchant.setText(mBean.getMerchant());
         if (mBean.getTotal_amount() != -1) {

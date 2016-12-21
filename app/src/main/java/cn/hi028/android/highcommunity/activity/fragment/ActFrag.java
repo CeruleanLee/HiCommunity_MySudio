@@ -136,11 +136,8 @@ public class ActFrag extends BaseFragment {
     @Bind(R.id.ptrsv_leftmenu_layout)
     ScrollView mLeftLayout;
 
-
     private View mFragmeView;
     PullToRefreshListView mListView;
-    private int mTouchMode = -1;
-    // public static boolean isForeground = false;
 
     private PopupWindow mWindow;
 
@@ -166,14 +163,11 @@ public class ActFrag extends BaseFragment {
 //		 mListView.setAdapter(mAdapter);
 //		 mListView.setMode(PullToRefreshBase.Mode.BOTH);
         findView(mFragmeView);
-
-        initDatas();
-    }
-
-    private void initDatas() {
-
+        initData();
 
     }
+
+
 
     /**
      * 找控件
@@ -248,8 +242,6 @@ public class ActFrag extends BaseFragment {
             }
         });
 
-        if (HighCommunityApplication.mUserInfo.getId() != 0)
-            HTTPHelper.getUserCenter(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
 
     }
 
@@ -477,6 +469,20 @@ public class ActFrag extends BaseFragment {
         } else {
 
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    private void initData() {
+//        if (HighCommunityApplication.mUserInfo.getId() != 0){
+
+            HTTPHelper.getUserCenter(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
+//        }
+
     }
 
     @Override

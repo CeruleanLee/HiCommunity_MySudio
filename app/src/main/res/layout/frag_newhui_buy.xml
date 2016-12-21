@@ -94,25 +94,17 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
 
+                <cn.hi028.android.highcommunity.view.LinearLayoutForListView
+                    android:id="@+id/cl_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
 
+                >
 
+                </cn.hi028.android.highcommunity.view.LinearLayoutForListView>
 
-    <cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview
-        android:id="@+id/cl_goods"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:cacheColorHint="@android:color/transparent"
-        android:divider="@color/Defult_Color_LineGrey"
-        android:dividerHeight="0.5dp"
-        android:listSelector="@android:color/transparent">
-
-    </cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview>
-</LinearLayout>
 
 
             <LinearLayout
@@ -231,7 +223,7 @@
                 </FrameLayout>
             </LinearLayout>
 
-            <FrameLayout
+            <RelativeLayout
                 android:id="@+id/fl_huiLife_addressChooice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -310,10 +302,11 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right|center_vertical"
+                   android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="12dp"
                     android:src="@mipmap/img_arrow_right"></ImageView>
-            </FrameLayout>
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/fl_huiLife_NoAddress"

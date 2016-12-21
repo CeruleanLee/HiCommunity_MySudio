@@ -98,14 +98,10 @@
                 android:divider="@null"
                 android:visibility="gone"></ListView>
 
-            <ListView
-                android:id="@+id/frag_AutoName_list_Owner"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@null"
-                android:visibility="gone"></ListView>
+
 
             <LinearLayout
+                android:id="@+id/namelist_Owner_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -117,14 +113,21 @@
                     android:background="@color/gray">
 
                 </cn.hi028.android.highcommunity.view.SearchView>
-
                 <ListView
                     android:id="@+id/lv_search_results"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:divider="@null"
                     android:visibility="gone">
 
                 </ListView>
+                <ListView
+                    android:id="@+id/frag_AutoName_list_Owner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@null"
+                    android:visibility="gone"></ListView>
+
             </LinearLayout>
             <TextView
                 android:id="@+id/tv_create"
@@ -135,6 +138,7 @@
                 android:layout_alignParentRight="true"
                 android:background="@drawable/bg_autonamelist_search"
                 android:clickable="true"
+                android:visibility="gone"
               />
         </RelativeLayout>
     </LinearLayout>

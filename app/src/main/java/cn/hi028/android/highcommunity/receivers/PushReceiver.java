@@ -165,7 +165,7 @@ public class PushReceiver extends BroadcastReceiver {
                     i.putExtra(MenuLeftAct.INTENTTAG, 2);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.startActivity(i);
-                } else if (type == 2) {// 处理更新通知   极光推送更新的时候记得type=2
+                } else if (type == 1024) {// 处理更新通知   极光推送更新的时候记得type=2
                     Intent i = new Intent(context, MainActivity.class);
                     i.putExtras(bundle);
                     i.putExtra("checkupdata", 6);
