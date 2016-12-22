@@ -36,7 +36,7 @@
     <LinearLayout
         android:id="@+id/shop_deatil_bottom_pay_rl"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/go_pay_orange_bottom"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:gravity="center_vertical"
@@ -91,6 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:visibility="gone"
                 android:text="获取金额" />
         </LinearLayout>
 
@@ -116,7 +117,10 @@
             android:layout_height="match_parent"
             android:background="@drawable/bg_but_addtocart"
             android:gravity="center"
-            android:padding="10dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="@dimen/ui_10_dip"
+            android:paddingTop="@dimen/ui_10_dip"
+            android:paddingRight="15dp"
             android:text="加入购物车"
             android:textColor="@color/white" />
     </LinearLayout>

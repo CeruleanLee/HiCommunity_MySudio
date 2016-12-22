@@ -125,6 +125,8 @@ int orderType=-1;
         order_num = bundle.getString("order_num");
         orderType= bundle.getInt("orderType",-1);
         Log.d(Tag, "carIdList=" + carIdList);
+        Log.d(Tag, "order_num=" + order_num);
+        orderParams.setOrder_num(order_num);
 //        initView();
         WchatPayUtils.getInstance().init(getActivity());
         initData();
@@ -228,7 +230,7 @@ int orderType=-1;
         tv_wallet.requestFocus();
     }
 
-    int payType = -1;
+    int payType = 1;
 
     @OnClick({R.id.fl_yhq, R.id.btn_pay, R.id.fl_huiLife_addressChooice, R.id.fl_huiLife_NoAddress,
             R.id.rb_pay_wx, R.id.rb_pay_ipay})
@@ -450,10 +452,21 @@ int orderType=-1;
 //                    jsonArray.put(goods);
 //                }
                 Log.e(Tag, "params:" + params.toString());
-                HTTPHelper.submitNewHuiOrder(mIbpiOrder, orderParams.getTicket_id() + "", orderParams.getZero_money() + "", orderParams.getPay_type() + "",
-                        orderParams.getAddress_id() + "", orderParams.getTotal_amount() + "", orderParams.getTotal_fee() + "",
-                        orderParams.getMark(), orderParams.getCart_ids(), 1 + "");
-                Log.e(Tag, "------a2");
+                if (orderType==0){
+
+
+                    HTTPHelper.submitNewHuiOrder(mIbpiOrder, orderParams.getTicket_id() + "", orderParams.getZero_money() + "", orderParams.getPay_type() + "",
+                            orderParams.getAddress_id() + "", orderParams.getTotal_amount() + "", orderParams.getTotal_fee() + "",
+                            orderParams.getMark(), orderParams.getCart_ids(),orderType + "");
+                    Log.e(Tag, "------a2");
+                }else if (orderType==1){
+                    HTTPHelper.submitNewHuiOrder(mIbpiOrder, orderParams.getTicket_id() + "", orderParams.getZero_money() + "", orderParams.getPay_type() + "",
+                            orderParams.getAddress_id() + "", orderParams.getTotal_amount() + "", orderParams.getTotal_fee() + "",
+                            orderParams.getMark(), orderParams.getOrder_num(),orderType + "");
+                    Log.e(Tag, "------a2");
+
+
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -610,6 +623,7 @@ int orderType=-1;
             orderParams.setTicket_id(aticketBean.getTid());
             orderParams.setTicket_value(aticketBean.getTicket_value());
             float realToatal = orderParams.getTotal_amount() - orderParams.getTicket_value();
+//            orderParams.setTotal_fee(realToatal);
             if (realToatal < orderParams.getZero_money()) {
                 edt_pay_num.setText("");
             }
@@ -651,7 +665,7 @@ int orderType=-1;
 //        float parseFloat = Float.parseFloat(edt_pay_num.getText().toString());
         Log.e(Tag, "parseFloat:" + orderParams.getZero_money());
 
-        orderParams.setTotal_fee((float)(Math.round((orderParams.getTotal_amount()-orderParams.getZero_money())*100))/100);
+        orderParams.setTotal_fee((float)(Math.round((orderParams.getTotal_amount()-orderParams.getZero_money()-orderParams.getTicket_value())*100))/100);
         tv_total_pay.setText("合计金额￥" + CommonUtils.f2Bi(orderParams.getTotal_amount()));
         tv_total_actual.setText("￥" + CommonUtils.f2Bi(orderParams.getTotal_fee()));
 

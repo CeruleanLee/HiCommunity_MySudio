@@ -151,6 +151,7 @@
                     android:textColor="@color/defult_text_color"
                     android:textSize="@dimen/font_extra_small_half"
                     android:visibility="gone" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -187,9 +188,9 @@
                     android:layout_toRightOf="@id/tv_leftMenu_order_all_tv"
                        android:layout_alignBottom="@id/tv_leftMenu_order_all_tv"
                         android:id="@+id/tv_leftMenu_order_all_Num"
-                        android:layout_width="wrap_content"
+                        android:layout_width="10dp"
                         android:gravity="center"
-                        android:layout_height="15dip"
+                        android:layout_height="10dip"
                         android:visibility="gone"
                        android:layout_marginLeft="3dp"
                         android:background="@drawable/bg_leftmenu_num2_red"
@@ -228,8 +229,8 @@
                         android:layout_toRightOf="@id/tv_leftMenu_order_topay_tv"
                         android:layout_alignBottom="@id/tv_leftMenu_order_topay_tv"
                         android:id="@+id/tv_leftMenu_order_topay_Num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="15dip"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
                         android:visibility="gone"
                         android:gravity="center"
                        android:layout_marginLeft="3dp"
@@ -269,8 +270,8 @@
                         android:layout_toRightOf="@id/tv_leftMenu_order_torec_tv"
                         android:gravity="center"
                         android:layout_alignBottom="@id/tv_leftMenu_order_torec_tv" android:id="@+id/tv_leftMenu_order_torec_Num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="15dip"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
                         android:visibility="gone"
                         android:layout_marginLeft="3dp"
                         android:background="@drawable/bg_leftmenu_num2_red"
@@ -311,8 +312,8 @@
                         android:layout_toRightOf="@id/tv_leftMenu_order_all_com_tv"
                         android:layout_alignBottom="@id/tv_leftMenu_order_all_com_tv"
                         android:layout_marginLeft="3dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="15dip"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
                         android:visibility="gone"
                         android:gravity="center"
                         android:background="@drawable/bg_leftmenu_num2_red"
@@ -324,7 +325,10 @@
                          />
                 </RelativeLayout>
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/Defult_Color_LineGrey" />
             <LinearLayout
                 android:id="@+id/ll_leftMenu_topic"
                   style="@style/ll_leftmenu_style_padinglitter"
@@ -352,6 +356,7 @@
                     android:id="@+id/tv_leftMenu_topic_Num"
                     android:layout_width="wrap_content"
                     android:layout_height="20dip"
+                    android:clickable="true"
                     android:layout_marginRight="20dip"
                     android:background="@drawable/bg_leftmenu_num"
                     android:gravity="center"
@@ -362,8 +367,12 @@
                     android:textColor="@color/defult_text_color"
                     android:textSize="@dimen/font_extra_small_half"
                     android:visibility="gone" />
-            </LinearLayout>
 
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/Defult_Color_LineGrey" />
             <LinearLayout
                 android:id="@+id/ll_leftMenu_collection"
                   style="@style/ll_leftmenu_style_padinglitter"
@@ -399,7 +408,10 @@
                     android:textSize="@dimen/font_extra_small_half"
                     android:visibility="gone" />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/Defult_Color_LineGrey" />
             <LinearLayout
                 android:id="@+id/ll_leftMenu_cart"
                   style="@style/ll_leftmenu_style_padinglitter"
@@ -435,7 +447,10 @@
                     android:textSize="@dimen/font_extra_small_half"
                     android:visibility="gone" />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/Defult_Color_LineGrey" />
             <LinearLayout
                 android:id="@+id/ll_leftMenu_bill"
                   style="@style/ll_leftmenu_style_padinglitter"
@@ -472,7 +487,10 @@
                     android:textSize="@dimen/font_extra_small_half"
                     android:visibility="gone" />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/Defult_Color_LineGrey" />
             <LinearLayout
                 android:id="@+id/ll_leftMenu_myAddress"
                   style="@style/ll_leftmenu_style_padinglitter"
@@ -508,7 +526,10 @@
                     android:textSize="@dimen/font_extra_small_half"
                     android:visibility="gone" />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/Defult_Color_LineGrey" />
 
             <LinearLayout
                 android:id="@+id/ll_leftMenu_wallet"
@@ -545,7 +566,10 @@
                     android:textSize="@dimen/font_extra_small_half"
                     android:visibility="gone" />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/Defult_Color_LineGrey" />
             <LinearLayout
                 android:id="@+id/ll_leftMenu_ZhongCou"
                   style="@style/ll_leftmenu_style_padinglitter"
@@ -581,7 +605,10 @@
                     android:textSize="@dimen/font_extra_small_half"
                     android:visibility="gone" />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/Defult_Color_LineGrey" />
             <LinearLayout
                 android:id="@+id/ll_leftMenu_Carft"
                   style="@style/ll_leftmenu_style_padinglitter"
@@ -617,7 +644,10 @@
                     android:textSize="@dimen/font_extra_small_half"
                     android:visibility="gone" />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/Defult_Color_LineGrey" />
             <LinearLayout
                 android:id="@+id/ll_leftMenu_MyMsg"
                   style="@style/ll_leftmenu_style_padinglitter"
@@ -653,7 +683,10 @@
                     android:textSize="@dimen/font_extra_small_half"
                     android:visibility="gone" />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/Defult_Color_LineGrey" />
             <LinearLayout
                 android:id="@+id/ll_leftMenu_SysMsg"
                   style="@style/ll_leftmenu_style_padinglitter"
@@ -689,7 +722,10 @@
                     android:textSize="@dimen/font_extra_small_half"
                     android:visibility="gone" />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/Defult_Color_LineGrey" />
             <LinearLayout
                 android:id="@+id/ll_leftMenu_setting"
                   style="@style/ll_leftmenu_style_padinglitter"
@@ -726,10 +762,13 @@
                     android:textSize="@dimen/font_extra_small_half"
                     android:visibility="gone" />
             </LinearLayout>
-
             <View
                 android:layout_width="match_parent"
-                android:layout_height="40dip" />
+                android:layout_height="0.5dp"
+                android:background="@color/Defult_Color_LineGrey" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dip" />
 
         </LinearLayout>
     </ScrollView>

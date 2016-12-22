@@ -675,7 +675,16 @@ public class HTTPHelper {
         mParamMap.put("comment", content);
         post(mParamMap, mIbpi, url);
     }
-
+    /**
+     * v2.0评论直供订单接口
+     **/
+    public static void commentOrder2(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                    String info) {
+        String url = HTTPPOSTURL + "sorder/comment.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("info", info);
+        post(mParamMap, mIbpi, url);
+    }
     /**
      * 取消众筹订单接口
      **/
@@ -792,8 +801,8 @@ public class HTTPHelper {
      * @param mark 备注
      * @param cart_ids
      * @param id_type  cart_ids和order_num中有且仅传一个.
-     *                id_type=1 当传cart_ids表示从购物车列表跳转至支付界面;
-     *                 id_type=2 当传order_num时表示从待付款列表跳转至支付界面
+     *                id_type=0 当传cart_ids表示从购物车列表跳转至支付界面;
+     *                 id_type=1 当传order_num时表示从待付款列表跳转至支付界面
      */
     public static void submitNewHuiOrder(BpiHttpHandler.IBpiHttpHandler mIbpi, String ticket_id,
                                          String zero_money,String pay_type,String address_id,
@@ -809,10 +818,10 @@ public class HTTPHelper {
         mParamMap.put("total_amount", total_amount);
         mParamMap.put("total_fee", total_fee);
         mParamMap.put("mark", mark);
-        if (id_type.equals("1")){
+        if (id_type.equals("0")){
 
             mParamMap.put("cart_ids", cart_ids);
-        }else if (id_type.equals("2")){
+        }else if (id_type.equals("1")){
             mParamMap.put("order_num", cart_ids);
         }
 

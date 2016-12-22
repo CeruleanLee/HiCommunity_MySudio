@@ -16,7 +16,6 @@ import com.don.tools.BpiHttpHandler;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.ListUtils;
-import net.duohuo.dhroid.view.CustomListView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -26,12 +25,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.MenuLeftThirdAct;
 import cn.hi028.android.highcommunity.adapter.HuiCommOrderAdapter;
 import cn.hi028.android.highcommunity.bean.HuiOrderBean;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
@@ -68,25 +65,23 @@ public class HuiCommOrderFrag extends BaseFragment{
             try {
                 for (int i=0;i<ListUtils.getSize(adapter.getData());i++){
                     JSONObject goods=new JSONObject();
-                    goods.put("user_id", HighCommunityApplication.mUserInfo.getId()+"");
+//                    goods.put("user_id", HighCommunityApplication.mUserInfo.getId()+"");
                     goods.put("gid",adapter.getData().get(i).getGoods_id()+"");
                     goods.put("content",adapter.getData().get(i).getComment());
                     params.put(goods);
                 }
-                jsonParams.put("comment",params);
-                jsonParams.put("order_id",data.getId());
+//                jsonParams.put("comment",params);
+//                jsonParams.put("order_id",data.getId());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), btn_comment, Gravity.CENTER);
-            HTTPHelper.commentOrder(new BpiHttpHandler.IBpiHttpHandler() {
+            HTTPHelper.commentOrder2(new BpiHttpHandler.IBpiHttpHandler() {
                 @Override
                 public void onError(int id, String message) {
                     waitPop.dismiss();
                     HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
-
                 }
-
                 @Override
                 public void onSuccess(Object message) {
                     waitPop.dismiss();

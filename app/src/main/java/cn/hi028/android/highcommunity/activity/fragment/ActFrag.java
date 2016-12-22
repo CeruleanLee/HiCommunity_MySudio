@@ -175,38 +175,6 @@ public class ActFrag extends BaseFragment {
      */
     private void findView(View mFragmeView) {
 
-//
-//        mLeftLayout = (PullToRefreshScrollView) mFragmeView.findViewById(R.id.ptrsv_leftmenu_layout);
-//        mUserinfo = (RelativeLayout) mFragmeView.findViewById(R.id.rl_leftmenu_userinfo);
-//        mTopic = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_topic);
-//        mCollection = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_collection);
-//        mCart = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_cart);
-//        mOrder = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_Order);
-//        mAllianceOrder = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_alliance_Order);
-//        mZhongCou = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_ZhongCou);
-//        mMyMsg = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_MyMsg);
-//        mSysMsg = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_SysMsg);
-//        mCarft = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_Carft);
-//        mBill = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_bill);
-//        mWallet = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_wallet);
-//        mSetting = (LinearLayout) mFragmeView.findViewById(R.id.ll_leftMenu_setting);
-//        mAvatar = (CircleImageView) mFragmeView.findViewById(R.id.img_LeftFrag_Avatar);
-//        mLeftLocation = (TextView) mFragmeView.findViewById(R.id.tx_LeftFrag_userlocation);
-//
-//        mLeftLocation_layout = (LinearLayout) mFragmeView.findViewById(R.id.tx_LeftFrag_userlocation_layout);
-//        mLeftSex = (TextView) mFragmeView.findViewById(R.id.tx_LeftFrag_userSex);
-//        mTopicNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_topic_Num);
-//        mCollectionNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_topic_Num);
-//        mLeftBillNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_topic_Num);
-//        mLeftWalletNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_wallet_Num);
-//        mSettingNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_topic_Num);
-//        mLeftName = (TextView) mFragmeView.findViewById(R.id.tx_LeftFrag_userName);
-//        mLeftCartNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_Cart_Num);
-//        mLeftCarftNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_Carft_Num);
-//        mLeftOrderNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_Order_Num);
-//        mLeftAllianceOrder = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_alliance_Order_Num);
-//        mLeftZhongCouNum = (TextView) mFragmeView.findViewById(R.id.tv_leftMenu_ZhongCou_Num);
-
         myinforEdit.setOnClickListener(mLeftMenuListener);
         mAvatar.setOnClickListener(mLeftMenuListener);
 //        mUserinfo.setOnClickListener(mLeftMenuListener);
@@ -242,7 +210,15 @@ public class ActFrag extends BaseFragment {
                 }
             }
         });
-
+        myinforEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mModify = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftSecondAct.class));
+                mModify.putExtra(MenuLeftSecondAct.ACTIVITYTAG, Constacts.MENU_LEFTSECOND_PERSONAL);
+//                        mModify.putExtra(MenuLeftSecondAct.INTENTTAG, mBean);
+                startActivity(mModify);
+            }
+        });
 
     }
 
@@ -292,17 +268,7 @@ public class ActFrag extends BaseFragment {
             }
             if (HighCommunityUtils.isLogin(getActivity())) {
                 switch (view.getId()) {
-                    case R.id.myinfor_edit:
-//                        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
-//                                Constacts.MENU_LEFT_USERINFO_EDIT);
-//                        mLeftjump.putExtra(MenuLeftAct.INTENTTAG,
-//                                HighCommunityApplication.mUserInfo.getId() + "");
-                        Intent mModify = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftSecondAct.class));
-                        mModify.putExtra(MenuLeftSecondAct.ACTIVITYTAG, Constacts.MENU_LEFTSECOND_PERSONAL);
-//                        mModify.putExtra(MenuLeftSecondAct.INTENTTAG, mBean);
-                        startActivity(mModify);
 
-                        break;
 //                    case R.id.rl_leftmenu_userinfo:
                     case R.id.img_LeftFrag_Avatar:
 //                    case R.id.tx_LeftFrag_userName:

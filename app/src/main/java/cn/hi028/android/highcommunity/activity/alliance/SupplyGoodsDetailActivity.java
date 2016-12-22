@@ -10,7 +10,6 @@ import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.TextUtils;
 import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.Gravity;
@@ -40,11 +39,11 @@ import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.BpiHttpHandler.IBpiHttpHandler;
+import com.don.tools.GeneratedClassUtils;
 
 import net.duohuo.dhroid.view.AutoScrollViewPager;
 import net.duohuo.dhroid.view.CirclePageIndicator;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +51,7 @@ import java.util.List;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.BaseFragmentActivity;
 import cn.hi028.android.highcommunity.activity.GoodImageDetailOrEvaluationActivity;
+import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.ShowPayActivity;
 import cn.hi028.android.highcommunity.adapter.PicPageAdapter;
 import cn.hi028.android.highcommunity.adapter.SupplGoodsDetailGridAdapter;
@@ -62,12 +62,12 @@ import cn.hi028.android.highcommunity.bean.MerchantEvaluationInfoListBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyGoodsDetailBean;
 import cn.hi028.android.highcommunity.bean.SubmitOrderBean;
 import cn.hi028.android.highcommunity.lisenter.PayPop2FragFace;
+import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.TimeUtil;
 import cn.hi028.android.highcommunity.view.NoScrollListview;
 import cn.hi028.android.highcommunity.view.NoScroolGridView;
-import cn.hi028.android.highcommunity.view.PaylistPopupWindow;
 import cn.hi028.android.highcommunity.view.ScrollWebView;
 import cn.hi028.android.highcommunity.view.ScrollWebView.OnScrollChangeListener;
 import cn.hi028.android.highcommunity.view.snap.McoyProductContentPage;
@@ -95,7 +95,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     TextView subimg, addimg, kucun, conttv, detail, goodname, guige, origin;
     //	TextView time,telephone;
     TextView guige_, origin_, edible_;
-    Button goPay,addToCar;
+    Button goPay, addToCar;
     TextView caramount, mAllprice, telephone, time;
     View viewline1, viewline2, viewline3;
     ImageButton call;
@@ -141,14 +141,14 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
      * 规格的RadioGroup
      **/
     RadioGroup mStandardRadiogroup;
-    TextView  tv_pic_nodata;
+    TextView tv_pic_nodata;
     TextView tv_noData;
     /**
      * 获取商品详情数据的商品id
      **/
     String id = -1 + "";
-String goodsId;
-        String standardId="";
+    String goodsId;
+    String standardId = "";
     int width, height;
 
     Handler mHandler = new Handler();
@@ -171,7 +171,7 @@ String goodsId;
         top_view = topPage.getRootView();
         bottom_View = bottomPage.getRootView();
         id = getIntent().getStringExtra("id");
-        goodsId=id;
+        goodsId = id;
         init();
         registerListener();
         mcoySnapPageLayout.setPageSnapListener(new PageSnapedListener() {
@@ -339,7 +339,7 @@ String goodsId;
     CirclePageIndicator mIndicator;
     RelativeLayout mCommonTitleLayout;
     TextView mSaleCount;
-    TextView mKucunCount,mKucunCount_Standard;
+    TextView mKucunCount, mKucunCount_Standard;
     TextView mOldprice;
     RelativeLayout mFlashTitleLayout;
     TextView mSaledTime;
@@ -464,7 +464,7 @@ String goodsId;
             goodsdata = (NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity) message;
             Log.e(Tag, "商品详情数据message-" + message);
             Log.e(Tag, "商品详情数据-" + goodsdata.toString());
-            goodsId=goodsdata.getId();
+            goodsId = goodsdata.getId();
 
             setUi(goodsdata);
             mPicDetail.setChecked(true);
@@ -493,6 +493,7 @@ String goodsId;
 
     /**
      * 展示数据
+     *
      * @param msg
      **/
     public void setUi(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
@@ -500,6 +501,8 @@ String goodsId;
             return;
         }
         goodsdata = msg;
+        setCarAmount(msg);
+
         if (msg.getMid().equals("0")) {//商品所属商家(0=>来自嗨社区)
             mHishequTV.setVisibility(View.VISIBLE);
         } else {
@@ -537,6 +540,7 @@ String goodsId;
             if (null != msg.getRemainTime()) mSaledTime.setText(msg.getName());
             if (null != msg.getStandard().get(0).getPrice())
                 mFlashNowPrice.setText("￥:" + msg.getStandard().get(0).getPrice());
+
             if (null != msg.getStandard().get(0).getOld_price() && !msg.getStandard().get(0).getOld_price().equals("")
                     && !msg.getStandard().get(0).getOld_price().equals("null")) {
                 Spannable spanStrikethrough = new SpannableString("￥:" + msg.getStandard().get(0).getOld_price());
@@ -582,6 +586,7 @@ String goodsId;
             @Override
             public void onPageSelected(int i) {
             }
+
             @Override
             public void onPageScrollStateChanged(int i) {
 
@@ -626,14 +631,14 @@ String goodsId;
 //                newRadioBut.setWidth(0);
                 RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT,
                         RadioGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(20,0,0,0);
+                layoutParams.setMargins(20, 0, 0, 0);
 //                newRadioBut.setBackground(getDrawable(R.drawable.bg_selector_but_coner_green_stroke));
                 newRadioBut.setBackgroundResource(R.drawable.bg_selector_but_coner_green_stroke);
                 newRadioBut.setLayoutParams(layoutParams);
                 newRadioBut.setText(mStandardList.get(i).getName());
                 mStandardRadiogroup.addView(newRadioBut);
             }
-        }else{
+        } else {
 
             mStandardLayout.setVisibility(View.GONE);
         }
@@ -656,14 +661,15 @@ String goodsId;
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 for (int i = 0; i < mStandardList.size(); i++) {
                     if (checkedId == Integer.parseInt(mStandardList.get(i).getId())) {
-                       standardId= mStandardList.get(i).getId();
-                        Log.e(Tag,"规格id:"+standardId);
+                        standardId = mStandardList.get(i).getId();
+                        Log.e(Tag, "规格id:" + standardId);
                         if (goodsdata.getType().equals("0")) {//商品类型(0=>普通商品,1=>抢购商品,2=>非卖品,比如服务什么的)
-                         if (mStandardList.get(i).getPrice()!=null)
+                            if (mStandardList.get(i).getPrice() != null)
                                 price.setText("￥:" + mStandardList.get(i).getPrice());
+                            updateCarNum(false);
                             if (null != mStandardList.get(i).getOld_price() && !mStandardList.get(i).getOld_price().equals("")
                                     && !mStandardList.get(i).getOld_price().equals("null")) {
-                                Spannable spanStrikethrough = new SpannableString("￥:" +mStandardList.get(i).getOld_price());
+                                Spannable spanStrikethrough = new SpannableString("￥:" + mStandardList.get(i).getOld_price());
                                 StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
                                 try {
                                     spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -707,51 +713,52 @@ String goodsId;
         if (mStandardRadiogroup.getChildCount() > 0) {
             ((RadioButton) (mStandardRadiogroup.getChildAt(0))).setChecked(true);
         }
+
         //设置底部的数据
         setBottomPageUI(msg);
+
     }
 
     List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.StandardEntity> mStandardList = new ArrayList<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.StandardEntity>();
-boolean isNoWebDetail=false;
+    boolean isNoWebDetail = false;
+
     /**
      * 设置底部的数据
      *
      * @param msg
      */
     private void setBottomPageUI(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
-        if (null != msg.getDetail()&& !msg.getDetail().startsWith("http")) {
+        if (null != msg.getDetail() && !msg.getDetail().startsWith("http")) {
             Log.e(Tag, "图文详情url:" + msg.getDetail());
             loadPicDetail(msg.getDetail());
-            isNoWebDetail=false;
+            isNoWebDetail = false;
         } else {
-            isNoWebDetail=true;
+            isNoWebDetail = true;
 //            mWebview.setVisibility(View.GONE);
 //            tv_pic_nodata.setVisibility(View.VISIBLE);
         }
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId==R.id.ac_shopdetail_mypicdetail){
-if (isNoWebDetail){
-    mWebview.setVisibility(View.GONE);
+                if (checkedId == R.id.ac_shopdetail_mypicdetail) {
+                    if (isNoWebDetail) {
+                        mWebview.setVisibility(View.GONE);
 //    tv_noData.setText("暂无图文详情");
-    tv_pic_nodata.setVisibility(View.VISIBLE);
-}else{
+                        tv_pic_nodata.setVisibility(View.VISIBLE);
+                    } else {
 
-    mWebview.setVisibility(View.VISIBLE);
-    tv_pic_nodata.setVisibility(View.GONE);
-}
+                        mWebview.setVisibility(View.VISIBLE);
+                        tv_pic_nodata.setVisibility(View.GONE);
+                    }
                     mCommentListview.setVisibility(View.GONE);
 
-                }else if (checkedId==R.id.ac_shopdetail_mycommentdetail){
+                } else if (checkedId == R.id.ac_shopdetail_mycommentdetail) {
 
                     mWebview.setVisibility(View.GONE);
                     mCommentListview.setVisibility(View.VISIBLE);
 
 
                 }
-
-
 
 
             }
@@ -762,7 +769,7 @@ if (isNoWebDetail){
         if (null != msg.getComment()) {
             List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.CommentEntity> mCommentList = msg.getComment();
             SupplyGoodsDetailCommentAdapter mEvaluationAdapter = new SupplyGoodsDetailCommentAdapter(mCommentList, SupplyGoodsDetailActivity.this);
-			mCommentListview.setEmptyView(tv_noData);
+            mCommentListview.setEmptyView(tv_noData);
             mCommentListview.setAdapter(mEvaluationAdapter);
 //            setCarAmount();
         }
@@ -853,108 +860,13 @@ if (isNoWebDetail){
             case R.id.ac_good_title_go_back:
                 goBack();
                 break;
-            case R.id.ac_shop_goods_right_add_iv:
-                good_count++;
-                goods_count++;
-                conttv.setText(good_count + "");
-                double price = Double.parseDouble(goods_price);
-                if (hasThisGoodsInfo(goodslist, goods_info)) {
-                    for (Goods_info goods_info : goodslist) {
-                        if (goods_info.getGoods_id().equals(good_id)) {
-                            goods_info.setCounts(good_count);
-                            price += Double.parseDouble(goods_info.getPrice());
-                            BigDecimal bigDecimal = new BigDecimal(price);
-                            price = bigDecimal.setScale(2,
-                                    BigDecimal.ROUND_HALF_DOWN).doubleValue();
-                            goods_price = String.valueOf(price);
-                            break;
-                        }
-                    }
-                } else {
-                    if (goodslist == null) {
-                        goodslist = new ArrayList<Goods_info>();
-                    }
-                    goodslist.add(goods_info);
-                    price += Double.parseDouble(goods_info.getPrice());
-                    BigDecimal bigDecimal = new BigDecimal(price);
-                    price = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_DOWN)
-                            .doubleValue();
-                    goods_price = String.valueOf(price);
-                }
-                setCarAmount();
-                break;
-            case R.id.ac_shop_goods_right_sub_iv:
-                if (good_count > 0) {
-                    good_count--;
-                    goods_count--;
-                    conttv.setText(good_count + "");
-                    double allprice = Double.parseDouble(goods_price);
-                    for (Goods_info goods_info : goodslist) {
-                        if (goods_info.getGoods_id().equals(good_id)) {
-                            goods_info.setCounts(good_count);
-                            allprice -= Double.parseDouble(goods_info.getPrice());
-                            BigDecimal bigDecimal = new BigDecimal(allprice);
-                            allprice = bigDecimal.setScale(2,
-                                    BigDecimal.ROUND_HALF_DOWN).doubleValue();
-                            goods_price = String.valueOf(allprice);
-                            break;
-                        }
-                    }
-                    setCarAmount();
-                }
-                break;
-            case R.id.ac_shop_car_fl:
-                if (null != goodslist && goodslist.size() > 0) {
-                    payrl.setVisibility(View.INVISIBLE);
-                    upDateList();
-                    PaylistPopupWindow pop = new PaylistPopupWindow(this, goodslist);
-                    pop.setFace(this);
-                    double total_price = Double.parseDouble(goods_price);
-                    BigDecimal decimal = new BigDecimal(total_price);
-                    total_price = decimal.setScale(2, BigDecimal.ROUND_HALF_UP)
-                            .doubleValue();
-                    pop.setAmount(total_price);
-                    pop.setNumber(goods_count);
-                    pop.showPopwindow();
-                } else if (goodslist.size() == 0) {
-                    Goods_info info = new Goods_info();
-                    if (!TextUtils.isEmpty(good_id)) {
-                        return;
-                    }
-                    if (good_count < 1) {
-                        return;
-                    }
-                    if (goodsdata == null) {
-                        return;
-                    }
-                    if (!TextUtils.isEmpty(good_sales)) {
-                        return;
-                    }
-                    info.setGoods_id(good_id);
-                    info.setCounts(good_count);
-                    info.setGoods_name(goodsdata.getName());
-                    info.setPrice(goodsdata.getStandard().get(1).getPrice());
-//                    info.setThumb_pic(goodsdata.getGoods_pic().get(0));
-                    info.setSales(good_sales);
-                    goodslist.add(info);
-                    if (good_count > 0) {
-                        payrl.setVisibility(View.INVISIBLE);
-                        PaylistPopupWindow pop = new PaylistPopupWindow(this,
-                                goodslist);
-                        pop.setFace(this);
-                        double total_price = Double.parseDouble(goods_price);
-                        BigDecimal decimal = new BigDecimal(total_price);
-                        total_price = decimal.setScale(2, BigDecimal.ROUND_HALF_UP)
-                                .doubleValue();
-                        pop.setAmount(total_price);
-                        pop.setNumber(goods_count);
-                        pop.showPopwindow();
-                    }
-                }
-                break;
+            case R.id.ac_shop_car_fl://点击购物车跳转购物车列表
+                Intent mIntent = new Intent(this, GeneratedClassUtils.get(MenuLeftAct.class));
+                mIntent.putExtra(MenuLeftAct.ACTIVITYTAG,
+                        Constacts.MENU_LEFT_GDCAR);
+                startActivity(mIntent);
             case R.id.ac_shop_car_addtocar:
                 addCarGoods();
-
                 break;
             // activity 中点击去支付
             case R.id.ac_shop_car_go_pay:
@@ -1003,11 +915,15 @@ if (isNoWebDetail){
 
         }
     }
-    /**加入购物车**/
+
+    /**
+     * 加入购物车
+     **/
     public void addCarGoods() {
         if (HighCommunityUtils.isLogin(SupplyGoodsDetailActivity.this)) {
             waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity.this, mRadioGroup, Gravity.CENTER);
             HTTPHelper.addNewHuiGoodsToCar(mIbpiAddShopCar, goodsId, standardId);
+
         }
     }
 
@@ -1029,12 +945,15 @@ if (isNoWebDetail){
         public void onSuccess(Object message) {
             waitPop.dismiss();
             HighCommunityUtils.GetInstantiation().ShowToast("成功加入购物车", 0);
+
+            updateCarNum(true);
         }
+
 
         @Override
         public Object onResolve(String result) {
-            Log.e(Tag,"onResolve result"+result);
-            return  result;
+            Log.e(Tag, "onResolve result" + result);
+            return result;
 //            return HTTPHelper.ResolveHuiSupportList(result);
         }
 
@@ -1048,6 +967,7 @@ if (isNoWebDetail){
             waitPop.dismiss();
         }
     };
+
     public String gettotalprice() {
         String pric = mAllprice.getText().toString();
         return pric;
@@ -1060,21 +980,49 @@ if (isNoWebDetail){
             }
         }
     }
+    private void updateCarNum(boolean isAddCar) {
+        if (isAddCar){
+            int carNum = Integer.parseInt(caramount.getText().toString());
+            caramount.setText(carNum+1+"");
+        }
+        float allPrice = Float.parseFloat(price.getText().toString().replace("￥", "").trim()) * Integer.parseInt(caramount.getText().toString().trim());
+        Log.e(Tag,"allPrice:"+allPrice);
+        mAllprice.setText("￥:" +allPrice);
 
-    private void setCarAmount() {
-        if (goods_count > 99) {
-            caramount.setText("99");
-        } else {
-            caramount.setText(goods_count + "");
+    }
+    /**
+     * set底部购物车数量等
+     * @param msg
+     */
+    private void setCarAmount(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
+        if (msg.getCartNum()==null||msg.getCartNum()==""){
+
+            caramount.setText("0");
+        }else{
+            caramount.setText(msg.getCartNum());
+
         }
-        BigDecimal total_price = new BigDecimal(goods_price);
-        double all = total_price.setScale(2, BigDecimal.ROUND_HALF_DOWN)
-                .doubleValue();
-        if (all == 0) {
-            mAllprice.setText("0.00");
-        } else {
-            mAllprice.setText(all + "");
+        if (msg.getStandard().get(0).getPrice()!=null||!msg.getStandard().get(0).getPrice().equals("")){
+            mAllprice.setText("￥:" + Integer.parseInt(msg.getStandard().get(0).getPrice())*Integer.parseInt(caramount.getText().toString().trim()));
+        }else{
+            mAllprice.setText("￥:" +"0.00");
         }
+
+//
+//
+//        if (goods_count > 99) {
+//            caramount.setText("99");
+//        } else {
+//            caramount.setText(goods_count + "");
+//        }
+//        BigDecimal total_price = new BigDecimal(goods_price);
+//        double all = total_price.setScale(2, BigDecimal.ROUND_HALF_DOWN)
+//                .doubleValue();
+//        if (all == 0) {
+//            mAllprice.setText("0.00");
+//        } else {
+//            mAllprice.setText(all + "");
+//        }
     }
 
     // Popupwindow 关闭后返回列表数据，更新rightlist 列表数据

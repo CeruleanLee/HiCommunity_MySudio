@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -58,6 +59,18 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
     TextView tv_order_id;
     @ViewById(R.id.tv_order_time)
     TextView tv_order_time;
+    @ViewById(R.id.tv_pay_time)
+    TextView tv_pay_time;
+    @ViewById(R.id.tv_send_time)
+    TextView tv_send_time;
+    @ViewById(R.id.tv_receive_time)
+    TextView tv_receive_time;
+    @ViewById(R.id.tv_comment_time)
+    TextView tv_comment_time;
+    @ViewById(R.id.tv_reserve_mark)
+    TextView tv_reserve_mark;
+    @ViewById(R.id.tv_order_merchant)
+    TextView tv_order_merchant;
 
     @ViewById(R.id.tv_reserve_phone)
     TextView tv_reserve_phone;
@@ -67,6 +80,12 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
     TextView tv_coupon;
     @ViewById(R.id.tv_reserve_wallet)
     TextView tv_reserve_wallet;
+    @ViewById(R.id.paytype_layout)
+    LinearLayout paytype_layout;
+    @ViewById(R.id.mark_layout)
+    LinearLayout mark_layout;
+    @ViewById(R.id.tv_reserve_paytype)
+    TextView tv_reserve_paytype;
     @ViewById(R.id.tv_price)
     TextView tv_price;
     @ViewById(R.id.tv_total_pay)
@@ -165,11 +184,60 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
         adapter.setData(bean.getList());
         tv_order_id.setText("订单号：" + bean.getOrder_num());
         tv_order_time.setText("下单时间：" + TimeUtil.getDayAllTime(bean.getCreate_time()));
+
+        if (bean.getPay_time()!=0){
+            tv_pay_time.setVisibility(View.VISIBLE);
+            tv_pay_time.setText("支付时间：" + TimeUtil.getDayAllTime(bean.getPay_time()));
+        }else{
+            tv_pay_time.setVisibility(View.VISIBLE);
+
+        }
+        if (bean.getSend_time()!=0){
+            tv_send_time.setVisibility(View.VISIBLE);
+            tv_send_time.setText("发货时间：" + TimeUtil.getDayAllTime(bean.getSend_time()));
+        }else{
+            tv_send_time.setVisibility(View.VISIBLE);
+
+        }
+        if (bean.getFinish_time()!=0){
+            tv_receive_time.setVisibility(View.VISIBLE);
+            tv_receive_time.setText("收货时间：" + TimeUtil.getDayAllTime(bean.getFinish_time()));
+        }else{
+            tv_receive_time.setVisibility(View.VISIBLE);
+
+        }
+        if (bean.getComment_time()!=0){
+            tv_comment_time.setVisibility(View.VISIBLE);
+            tv_comment_time.setText("评论时间：" + TimeUtil.getDayAllTime(bean.getComment_time()));
+        }else{
+            tv_comment_time.setVisibility(View.VISIBLE);
+        }
         tv_reserve_name.setText(bean.getConsign());
         tv_reserve_phone.setText(bean.getTel());
         tv_reserve_address.setText(bean.getAddress());
         tv_coupon.setText(bean.getTicket_val() + "");
         tv_reserve_wallet.setText(bean.getZero_money() + "");
+        if (bean.getPay_type()==1){
+            paytype_layout.setVisibility(View.VISIBLE);
+            tv_reserve_paytype.setText("微信支付");
+        }else if (bean.getPay_type()==1){
+            paytype_layout.setVisibility(View.VISIBLE);
+            tv_reserve_paytype.setText("支付宝支付");
+        }else{
+            paytype_layout.setVisibility(View.GONE);
+        }
+        if (bean.getMark()!=null){
+            mark_layout.setVisibility(View.VISIBLE);
+            tv_reserve_mark.setText( bean.getMark());
+        }else{
+            mark_layout.setVisibility(View.VISIBLE);
+        }
+        if (bean.getMerchant()!=null){
+            tv_order_merchant.setVisibility(View.VISIBLE);
+            tv_order_merchant.setText( bean.getMerchant());
+        }else{
+            tv_order_merchant.setVisibility(View.VISIBLE);
+        }
         tv_total_pay.setText("￥" + bean.getOld_fee() + "");
         tv_price.setText("￥" + CommonUtils.f2Bi(bean.getTotal_fee()));
         if (bean.getStatus_id() == 0) {

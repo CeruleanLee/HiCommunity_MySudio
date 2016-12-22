@@ -89,7 +89,7 @@ public class NewSupplyGoodsDetailBean {
         private String delivery;
         private String supply;
         private String percent;
-        private Object cartNum;
+        private String cartNum;
         private List<String> pic;
         private List<AttrEntity> attr;
         private List<StandardEntity> standard;
@@ -161,7 +161,7 @@ public class NewSupplyGoodsDetailBean {
             this.supply = supply;
         }
 
-        public void setCartNum(Object cartNum) {
+        public void setCartNum(String cartNum) {
             this.cartNum = cartNum;
         }
 
@@ -233,7 +233,7 @@ public class NewSupplyGoodsDetailBean {
             return supply;
         }
 
-        public Object getCartNum() {
+        public String getCartNum() {
             return cartNum;
         }
 

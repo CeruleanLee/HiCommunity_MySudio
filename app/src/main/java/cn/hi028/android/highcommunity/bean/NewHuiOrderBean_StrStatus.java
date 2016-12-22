@@ -47,11 +47,11 @@ public class NewHuiOrderBean_StrStatus extends BaseBean{
     private int count;//商品总数量
 //这些是在订单详情中会返回
     private int create_time;
-    private String pay_time;
-    private String send_time;
-    private String finish_time;
-    private String comment_time;
-    private String pay_type;
+    private int pay_time;
+    private int send_time;
+    private int finish_time;
+    private int comment_time;
+    private int pay_type;
     private String zero_money;
     private String ticket_val;
     private String mark;
@@ -60,12 +60,68 @@ public class NewHuiOrderBean_StrStatus extends BaseBean{
     private String tel;
     private List<NewHuiSuppGdParams> list;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getOrder_num() {
+        return order_num;
+    }
+
+    public void setOrder_num(String order_num) {
+        this.order_num = order_num;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public int getStatus_id() {
         return status_id;
     }
 
     public void setStatus_id(int status_id) {
         this.status_id = status_id;
+    }
+
+    public float getOld_fee() {
+        return old_fee;
+    }
+
+    public void setOld_fee(float old_fee) {
+        this.old_fee = old_fee;
+    }
+
+    public float getTotal_fee() {
+        return total_fee;
+    }
+
+    public void setTotal_fee(float total_fee) {
+        this.total_fee = total_fee;
+    }
+
+    public String getMerchant() {
+        return merchant;
+    }
+
+    public void setMerchant(String merchant) {
+        this.merchant = merchant;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public int getCreate_time() {
@@ -76,43 +132,43 @@ public class NewHuiOrderBean_StrStatus extends BaseBean{
         this.create_time = create_time;
     }
 
-    public String getPay_time() {
+    public int getPay_time() {
         return pay_time;
     }
 
-    public void setPay_time(String pay_time) {
+    public void setPay_time(int pay_time) {
         this.pay_time = pay_time;
     }
 
-    public String getSend_time() {
+    public int getSend_time() {
         return send_time;
     }
 
-    public void setSend_time(String send_time) {
+    public void setSend_time(int send_time) {
         this.send_time = send_time;
     }
 
-    public String getFinish_time() {
+    public int getFinish_time() {
         return finish_time;
     }
 
-    public void setFinish_time(String finish_time) {
+    public void setFinish_time(int finish_time) {
         this.finish_time = finish_time;
     }
 
-    public String getComment_time() {
+    public int getComment_time() {
         return comment_time;
     }
 
-    public void setComment_time(String comment_time) {
+    public void setComment_time(int comment_time) {
         this.comment_time = comment_time;
     }
 
-    public String getPay_type() {
+    public int getPay_type() {
         return pay_type;
     }
 
-    public void setPay_type(String pay_type) {
+    public void setPay_type(int pay_type) {
         this.pay_type = pay_type;
     }
 
@@ -162,62 +218,6 @@ public class NewHuiOrderBean_StrStatus extends BaseBean{
 
     public void setTel(String tel) {
         this.tel = tel;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getOrder_num() {
-        return order_num;
-    }
-
-    public void setOrder_num(String order_num) {
-        this.order_num = order_num;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public float getOld_fee() {
-        return old_fee;
-    }
-
-    public void setOld_fee(float old_fee) {
-        this.old_fee = old_fee;
-    }
-
-    public float getTotal_fee() {
-        return total_fee;
-    }
-
-    public void setTotal_fee(float total_fee) {
-        this.total_fee = total_fee;
-    }
-
-    public String getMerchant() {
-        return merchant;
-    }
-
-    public void setMerchant(String merchant) {
-        this.merchant = merchant;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
     }
 
     public List<NewHuiSuppGdParams> getList() {

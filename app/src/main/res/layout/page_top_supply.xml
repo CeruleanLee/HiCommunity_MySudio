@@ -57,26 +57,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="5dp"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/ac_shop_detail_goods_saledCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="已售998"
-                android:textColor="@color/old_price_color"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/ac_shop_detail_goods_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:layout_toLeftOf="@id/ac_shop_detail_goods_saledCount"
-                android:text="库存99"
-                android:visibility="invisible"
-                android:textSize="10sp" />
+            android:visibility="visible">
 
             <LinearLayout
                 android:id="@+id/ac_shop_detailGood_countLayout"
@@ -87,6 +68,7 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/img_select_num"
                 android:gravity="center_vertical"
+                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <TextView
@@ -143,6 +125,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="3dp"
+                android:visibility="gone"
                 android:layout_toLeftOf="@id/ac_shop_detailGood_countLayout"
                 android:background="@color/Defult_Color_LineGrey" />
 
@@ -174,6 +157,16 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/ac_shop_detail_goods_price"
                 android:text="¥：9.9"
+                android:textColor="@color/old_price_color"
+                android:textSize="10sp" />
+            <TextView
+                android:id="@+id/ac_shop_detail_goods_saledCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="已售998"
+                android:layout_alignBottom="@id/ac_shop_detail_goods_price"
+
                 android:textColor="@color/old_price_color"
                 android:textSize="10sp" />
         </RelativeLayout>

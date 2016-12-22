@@ -50,6 +50,7 @@ public class NewHuiOrderListAdapter extends BaseExpandableListAdapter {
     private List<NewHuiOrderBean> mList = new ArrayList<NewHuiOrderBean>();
 
     int flagTp;
+
     public NewHuiOrderListAdapter(NewHuiOrderFrag frag, int flagTp) {
         this.frag = frag;
         this.flagTp = flagTp;
@@ -149,7 +150,7 @@ public class NewHuiOrderListAdapter extends BaseExpandableListAdapter {
         holder.tv_goods_price.setText("￥" + mList.get(groupPosition).getList().get(childPosition).getGoods_price());
         holder.tv_goods_num.setText("x" + mList.get(groupPosition).getList().get(childPosition).getGoods_number());
         ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + mList.get(groupPosition).getList().get(childPosition)
-                        .getPic(), holder.img_goods_pic);
+                .getPic(), holder.img_goods_pic);
         LinearLayout lin = new LinearLayout(frag.getActivity());
         lin.setOrientation(LinearLayout.VERTICAL);
         lin.removeAllViews();
@@ -191,7 +192,6 @@ public class NewHuiOrderListAdapter extends BaseExpandableListAdapter {
                     mIntent.putExtra(HuiLifeSecondAct.INTENTTAG, 1);
                     //TODO 这里要改
                     frag.startActivity(mIntent);
-
 
 
                 }
@@ -367,7 +367,7 @@ public class NewHuiOrderListAdapter extends BaseExpandableListAdapter {
         if (data != null) {
 
             this.mList.clear();
-this.mList=data;
+            this.mList = data;
 //            this.data.addAll(data);
         }
         notifyDataSetChanged();
@@ -389,7 +389,7 @@ this.mList=data;
     }
 
     class ViewParentHolder {
-        TextView tv_order_state,tv_merchant;
+        TextView tv_order_state, tv_merchant;
     }
 
     PopupWindow waitPop;

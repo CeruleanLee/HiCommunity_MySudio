@@ -66,20 +66,24 @@ public class NewHuiGdPayAdapter extends BaseAdapter {
 		ViewHolder viewHolder = null;
 		if (convertView == null) {
 			convertView = LayoutInflater.from(frag.getActivity()).inflate(
-					R.layout.adapter_hui_gd_payitem, null);
+					R.layout.item_newsupp_showpay, null);
 			viewHolder = new ViewHolder();
-			viewHolder.tv_goods_name = (TextView) convertView
-					.findViewById(R.id.tv_goods_name);
-			viewHolder.tv_goods_price = (TextView) convertView
-					.findViewById(R.id.tv_goods_price);
-			viewHolder.tv_goods_num = (TextView) convertView
-					.findViewById(R.id.tv_goods_num);
-			viewHolder.img_goods_pic = (ImageView) convertView
-					.findViewById(R.id.img_goods_pic);
-			convertView.setTag(viewHolder);
+
+			viewHolder.tv_goods_name = (TextView) convertView.findViewById(R.id.tv_goods_name);
+			viewHolder.tv_goods_total = (TextView) convertView.findViewById(R.id.tv_goods_total);
+			viewHolder.tv_goods_price = (TextView) convertView.findViewById(R.id.tv_goods_price);
+			viewHolder.tv_standard = (TextView) convertView.findViewById(R.id.tv_goods_standard);
+			viewHolder.tv_goods_num = (TextView) convertView.findViewById(R.id.tv_goods_num);
+			viewHolder.img_goods_pic = (ImageView) convertView.findViewById(R.id.img_goods_pic);
+
+
+
+
+
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
+		viewHolder.tv_goods_total.setVisibility(View.GONE);
 		viewHolder.tv_goods_name.setText(data.get(position).getName());
 		viewHolder.tv_goods_price.setText(data.get(position).getGoods_price()
 				+ "");
@@ -100,8 +104,8 @@ public class NewHuiGdPayAdapter extends BaseAdapter {
 
 	class ViewHolder {
 		ImageView img_goods_pic;
-		TextView tv_goods_name;
+		TextView tv_goods_name,tv_goods_total;
 		TextView tv_goods_price;
-		TextView tv_goods_num;
+		TextView tv_goods_num,tv_standard;
 	}
 }
