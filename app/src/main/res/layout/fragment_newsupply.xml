@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:divider="@color/Defult_Color_ShallowGrey"
-            android:dividerHeight="8dip"
+            android:dividerHeight="10dip"
             android:listSelector="@drawable/bg_third_service_selector">
 
         </cn.hi028.android.highcommunity.view.MyNoScrollListview>
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="30dp">
 
             <TextView
                 android:id="@+id/item_category_tv_flashsaleTitle"
@@ -62,7 +62,7 @@
                 android:layout_marginRight="8dp"
                 android:text="限时抢购"
                 android:textColor="@color/Defult_Color_AppGreen"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -85,14 +85,14 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:divider="@color/Defult_Color_ShallowGrey"
-            android:dividerHeight="8dip"
+            android:dividerHeight="10dip"
             android:listSelector="@drawable/bg_third_service_selector"></cn.hi028.android.highcommunity.view.MyNoScrollListview>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="30dp">
 
             <TextView
 
@@ -104,7 +104,7 @@
                 android:layout_marginRight="8dp"
                 android:text="商家推荐"
                 android:textColor="@color/Defult_Color_AppGreen"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
 
             <View
                 android:layout_width="match_parent"

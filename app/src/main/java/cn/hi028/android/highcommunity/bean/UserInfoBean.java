@@ -243,6 +243,7 @@ String user_Type;//用户在业主大厅的身份
                 ", history_vid='" + history_vid + '\'' +
                 ", third_uid='" + third_uid + '\'' +
                 ", owner_id='" + owner_id + '\'' +
+                ", user_Type='" + user_Type + '\'' +
                 '}';
     }
 }

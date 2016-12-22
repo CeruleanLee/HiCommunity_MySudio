@@ -4,8 +4,8 @@
 
 package cn.hi028.android.highcommunity.utils;
 
+import android.app.Activity;
 import android.content.Context;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -19,6 +19,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.DisplayMetrics;
+
 import net.duohuo.dhroid.util.LogUtil;
 
 import java.io.BufferedOutputStream;
@@ -392,4 +394,7 @@ public class CommonUtils {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f) - 15;
     }
+
+
+
 }

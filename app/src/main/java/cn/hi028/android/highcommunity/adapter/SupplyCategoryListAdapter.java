@@ -3,29 +3,37 @@ package cn.hi028.android.highcommunity.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.don.tools.BpiHttpHandler;
 import com.don.tools.BpiUniveralImage;
 import com.lidroid.xutils.BitmapUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.NewSupplyMoreAct;
 import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyBean;
+import cn.hi028.android.highcommunity.utils.CommonUtils;
 import cn.hi028.android.highcommunity.utils.Constacts;
+import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.MBitmapHolder;
 
 /**
@@ -38,7 +46,7 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
     List<NewSupplyBean.NewSupplyDataEntity.CategoryEntity> mList = new ArrayList<NewSupplyBean.NewSupplyDataEntity.CategoryEntity>();
     private Context context;
     private LayoutInflater layoutInflater;
-
+int bigImgWith,smallImgWith;
     Auto_SupportedResultBean.SupportedResultDataEntity mResultData;
 
     public SupplyCategoryListAdapter(List<NewSupplyBean.NewSupplyDataEntity.CategoryEntity> list, Context context) {
@@ -69,11 +77,7 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
     }
 
     ViewHolder mViewHolder = null;
-    ImageView mBigGoodsimg, msmallGoodsimg1, msmallGoodsimg2;
-    TextView mbigTvTag, msmallTvTag1, msmallTvTag2;
-    TextView mbigTitle, msmallTitle1, msmallTitle2;
-    TextView mbigNowPrice, msmallNowPrice1, msmallNowPrice2;
-    ImageView mBigShopcart, msmallShopcart1, msmallShopcart2;
+
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -81,6 +85,7 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
             mViewHolder = new ViewHolder();
             convertView = layoutInflater.inflate(R.layout.item_supply_coegory, null);
             mViewHolder.mTitle = (TextView) convertView.findViewById(R.id.item_category_tv_title);
+            mViewHolder.mLine = convertView.findViewById(R.id.position_line);
             mViewHolder.mTvMore = (TextView) convertView.findViewById(R.id.item_category_tv_more);
             mViewHolder.mBigView = (RelativeLayout) convertView.findViewById(R.id.item_category_bigpic);
             mViewHolder.mSmallview1 = (RelativeLayout) convertView.findViewById(R.id.item_category_smallpic1);
@@ -92,8 +97,32 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
         final NewSupplyBean.NewSupplyDataEntity.CategoryEntity mBean = mList.get(position);
+        Log.e(TAG, "占位线:宽：" + mViewHolder.mLine.getLayoutParams().width + "高：" + mViewHolder.mLine.getLayoutParams().height);
+        bigImgWith=(HighCommunityApplication.screenWidth - CommonUtils.dip2px(context, 20)) / 2;
+        smallImgWith=(bigImgWith+ CommonUtils.dip2px(context, 80)) / 2;
         mViewHolder.mTitle.setText(mBean.getName());
         //动态加载大图
+//        mViewHolder.mBigView
+        // 设置内容view的大小为屏幕宽度,这样按钮就正好被挤出屏幕外
+        Log.e(TAG, "更改前屏幕宽度" + HighCommunityApplication.screenWidth);
+        int myWith = (HighCommunityApplication.screenWidth - CommonUtils.dip2px(context, 20)) / 2;
+        Log.e(TAG, "更改中屏幕宽度" + myWith);
+        ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(myWith, myWith);
+//        mViewHolder.mBigView.getLayoutParams().width=myWith;
+//        mViewHolder.mBigView.getLayoutParams().height=myWith;
+//        mViewHolder.mSmallview1.getLayoutParams().width=myWith;
+//        mViewHolder.mSmallview1.getLayoutParams().height=myWith;
+//        mViewHolder.mSmallview2.getLayoutParams().width=myWith;
+//        mViewHolder.mSmallview2.getLayoutParams().height=myWith;
+//        mViewHolder.mBigView.setLayoutParams(parm);
+//        lp.width = (HighCommunityApplication.screenWidth- CommonUtils.dip2px(context,10))/2;
+        Log.e(TAG, "设置后大图的px:宽：" + mViewHolder.mBigView.getLayoutParams().width + "高：" + mViewHolder.mBigView.getLayoutParams().height);
+//        mViewHolder.mSmallview1.setLayoutParams(parm);
+        Log.e(TAG, "设置后mSmallview1的px:宽：" + mViewHolder.mSmallview1.getLayoutParams().width + "高：" + mViewHolder.mBigView.getLayoutParams().height);
+//        mViewHolder.mSmallview2.setLayoutParams(parm);
+        Log.e(TAG, "设置后mSmallview2px:宽：" + mViewHolder.mSmallview2.getLayoutParams().width + "高：" + mViewHolder.mBigView.getLayoutParams().height);
+
+
         View bigView = getBigView(mBean);
         mViewHolder.mBigView.addView(bigView);
         //第一个小图
@@ -106,7 +135,7 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
         mViewHolder.itemCateLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "到更多:"+mBean.getId(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "到更多:"+mBean.getId(), Toast.LENGTH_SHORT).show();
                 Intent mIntent_report = new Intent(context, NewSupplyMoreAct.class);
                 mIntent_report.putExtra("category_id", mBean.getId());
                 context.startActivity(mIntent_report);
@@ -115,54 +144,50 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
         mViewHolder.mBigView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "详情:"+mBean.getGoods().get(0).getId(), Toast.LENGTH_SHORT).show();
-                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity.class);
-                mIntent.putExtra("id",mBean.getGoods().get(0).getId());
+//                Toast.makeText(context, "详情:"+mBean.getGoods().get(0).getId(), Toast.LENGTH_SHORT).show();
+                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity.class);
+                mIntent.putExtra("id", mBean.getGoods().get(0).getId());
                 context.startActivity(mIntent);
             }
         });
         mViewHolder.mSmallview1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "详情:"+mBean.getGoods().get(1).getId(), Toast.LENGTH_SHORT).show();
-                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity.class);
-                mIntent.putExtra("id",mBean.getGoods().get(1).getId());
+//                Toast.makeText(context, "详情:"+mBean.getGoods().get(1).getId(), Toast.LENGTH_SHORT).show();
+                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity.class);
+                mIntent.putExtra("id", mBean.getGoods().get(1).getId());
                 context.startActivity(mIntent);
             }
         });
         mViewHolder.mSmallview2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "详情:"+mBean.getGoods().get(2).getId(), Toast.LENGTH_SHORT).show();
-                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity.class);
-                mIntent.putExtra("id",mBean.getGoods().get(2).getId());
+//                Toast.makeText(context, "详情:"+mBean.getGoods().get(2).getId(), Toast.LENGTH_SHORT).show();
+                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity.class);
+                mIntent.putExtra("id", mBean.getGoods().get(2).getId());
                 context.startActivity(mIntent);
             }
         });
 
         return convertView;
     }
+
     /**
      * 第2个小图
+     *
      * @param mBean
      * @return
      */
-    private View getSmallView2(NewSupplyBean.NewSupplyDataEntity.CategoryEntity mBean) {
+    private View getSmallView2(final NewSupplyBean.NewSupplyDataEntity.CategoryEntity mBean) {
         View smallView1 = LayoutInflater.from(context).inflate(R.layout.item_newsupply_type_small, null);
+        ImageView msmallGoodsimg2;
+        TextView msmallTvTag2;
+        TextView msmallTitle2;
+        TextView msmallNowPrice2;
+        final ImageView msmallShopcart2;
         msmallGoodsimg2 = (ImageView) smallView1.findViewById(R.id.category_small_goodsimg_goodsimg);
-//        ViewTreeObserver vto = msmallGoodsimg2.getViewTreeObserver();
-//        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @SuppressWarnings("deprecation")
-//            @Override
-//            public void onGlobalLayout() {
-//                removeOnGlobalLayoutListener(msmallGoodsimg2,this);
-//                int newwidth= msmallGoodsimg2.getWidth();
-//                int newheight = msmallGoodsimg2.getHeight();
-//                Log.d(TAG,"here sec"+"--->"+ newwidth +"*"+ newheight);
-//                RelativeLayout.LayoutParams prams=new RelativeLayout.LayoutParams(newwidth,newwidth);
-//                msmallGoodsimg2.setLayoutParams(prams);
-//            }
-//        });
+        msmallGoodsimg2.getLayoutParams().width=smallImgWith;
+        msmallGoodsimg2.getLayoutParams().height=smallImgWith;
         msmallTvTag2 = (TextView) smallView1.findViewById(R.id.category_small_goodsimg_tv_tag);
         msmallTitle2 = (TextView) smallView1.findViewById(R.id.category_small_goodsimg_goodsTitle);
         msmallNowPrice2 = (TextView) smallView1.findViewById(R.id.category_small_goodsimg_nowPrice);
@@ -172,33 +197,44 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
         } else {
             BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(2).getCover_pic(), msmallGoodsimg2);
         }
-        msmallTvTag2.setText(mBean.getGoods().get(2).getLabel());
+        if (mBean.getGoods().get(1).getLabel()!=null){
+
+            msmallTvTag2.setText(mBean.getGoods().get(2).getLabel());
+        }else{
+            msmallTvTag2.setVisibility(View.GONE);
+        }
         msmallTitle2.setText(mBean.getGoods().get(2).getName());
         msmallNowPrice2.setText("￥:" + mBean.getGoods().get(2).getPrice());
+        msmallShopcart2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (HighCommunityUtils.isLogin(context)) {
+                    waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, msmallShopcart2, Gravity.CENTER);
+                    HTTPHelper.addNewHuiGoodsToCar(mIbpiAddShopCar, mBean.getGoods().get(2).getId(), mBean.getGoods().get(2).getId());
+                }
+            }
+        });
         return smallView1;
     }
+
     BitmapUtils bitmapUtils;
+
     /**
      * 第一个小图
+     *
      * @param mBean
      * @return
      */
-    private View getSmallView1(NewSupplyBean.NewSupplyDataEntity.CategoryEntity mBean) {
+    private View getSmallView1(final NewSupplyBean.NewSupplyDataEntity.CategoryEntity mBean) {
         View smallView1 = LayoutInflater.from(context).inflate(R.layout.item_newsupply_type_small, null);
+        ImageView msmallGoodsimg1;
+        TextView msmallTvTag1;
+        TextView msmallTitle1;
+        TextView msmallNowPrice1;
+        final ImageView msmallShopcart1;
         msmallGoodsimg1 = (ImageView) smallView1.findViewById(R.id.category_small_goodsimg_goodsimg);
-//        ViewTreeObserver vto = msmallGoodsimg1.getViewTreeObserver();
-//                vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @SuppressWarnings("deprecation")
-//            @Override
-//            public void onGlobalLayout() {
-//                removeOnGlobalLayoutListener(msmallGoodsimg1,this);
-//                int newwidth= msmallGoodsimg1.getWidth();
-//                int newheight = msmallGoodsimg1.getHeight();
-//                Log.d(TAG,"here"+"--->"+ newwidth +"*"+ newheight);
-//                RelativeLayout.LayoutParams prams=new RelativeLayout.LayoutParams(newwidth,newwidth);
-//                msmallGoodsimg1.setLayoutParams(prams);
-//            }
-//        });
+        msmallGoodsimg1.getLayoutParams().width=smallImgWith;
+        msmallGoodsimg1.getLayoutParams().height=smallImgWith;
         msmallTvTag1 = (TextView) smallView1.findViewById(R.id.category_small_goodsimg_tv_tag);
         msmallTitle1 = (TextView) smallView1.findViewById(R.id.category_small_goodsimg_goodsTitle);
         msmallNowPrice1 = (TextView) smallView1.findViewById(R.id.category_small_goodsimg_nowPrice);
@@ -208,62 +244,52 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
         } else {
             BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(1).getCover_pic(), msmallGoodsimg1);
         }
-        msmallTvTag1.setText(mBean.getGoods().get(1).getLabel());
+        if (mBean.getGoods().get(1).getLabel()!=null){
+
+            msmallTvTag1.setText(mBean.getGoods().get(1).getLabel());
+        }else{
+            msmallTvTag1.setVisibility(View.GONE);
+        }
         msmallTitle1.setText(mBean.getGoods().get(1).getName());
         msmallNowPrice1.setText("￥:" + mBean.getGoods().get(1).getPrice());
-//        ViewGroup.LayoutParams layoutParams = msmallGoodsimg1.getLayoutParams();
-//        float densityMargin = context.getResources().getDisplayMetrics().density;
-//        Log.d(TAG,"layoutParams.width:"+layoutParams.width);
-//        Log.d(TAG,"layoutParams.height:"+layoutParams.height);
-//        Log.d(TAG,"msmallGoodsimg1.getWidth():"+msmallGoodsimg1.getWidth());
-//        Log.d(TAG,"msmallGoodsimg1.getHeight():"+msmallGoodsimg1.getHeight());
-//        Log.d(TAG,"msmallGoodsimg1.getMeasuredWidth():"+msmallGoodsimg1.getMeasuredWidth());
-//        Log.d(TAG,"msmallGoodsimg1.getMeasuredHeight():"+msmallGoodsimg1.getMeasuredHeight());
-//
-//        Log.d(TAG,"densityMargin:"+densityMargin);
-//        final int[] newheight = new int[1];
-//        final int[] newwidth = new int[1];
-//        ViewTreeObserver vto = msmallGoodsimg1.getViewTreeObserver();
-//        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @SuppressWarnings("deprecation")
-//            @Override
-//            public void onGlobalLayout() {
-//                removeOnGlobalLayoutListener(msmallGoodsimg1,this);
-//                int newwidth= msmallGoodsimg1.getWidth();
-//                int newheight = msmallGoodsimg1.getHeight();
-//                Log.d(TAG,"here"+"--->"+ newwidth +"*"+ newheight);
-//                RelativeLayout.LayoutParams prams=new RelativeLayout.LayoutParams(newwidth,newwidth);
-//        msmallGoodsimg1.setLayoutParams(prams);
-//
-//            }
-//        });
-//        Log.d(TAG,"new22"+"--->"+newwidth[0]+"*"+newheight[0]);
-
-//        layoutParams.height=msmallGoodsimg1.getWidth();
-//        layoutParams.width=msmallGoodsimg1.getWidth();
-////        RelativeLayout.LayoutParams prams=new RelativeLayout.LayoutParams(msmallGoodsimg2.getWidth(),msmallGoodsimg2.getWidth());
-//        msmallGoodsimg1.setLayoutParams(layoutParams);
-//        bitmapUtils.display(msmallGoodsimg1,Constacts.IMAGEHTTP + mBean.getGoods().get(1).getCover_pic());
-
+        msmallShopcart1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (HighCommunityUtils.isLogin(context)) {
+                    waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, msmallShopcart1, Gravity.CENTER);
+                    HTTPHelper.addNewHuiGoodsToCar(mIbpiAddShopCar, mBean.getGoods().get(1).getId(), mBean.getGoods().get(1).getId());
+                }
+            }
+        });
         return smallView1;
     }
+
     @SuppressLint("NewApi")
-    public static void removeOnGlobalLayoutListener(View view,ViewTreeObserver.OnGlobalLayoutListener victim){
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN){
+    public static void removeOnGlobalLayoutListener(View view, ViewTreeObserver.OnGlobalLayoutListener victim) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             view.getViewTreeObserver().removeOnGlobalLayoutListener(victim);
-        }else{
+        } else {
             view.getViewTreeObserver().removeGlobalOnLayoutListener(victim);
         }
     }
+
     /**
      * 动态加载大图
+     *
      * @param mBean
      * @return
      */
     @NonNull
-    private View getBigView(NewSupplyBean.NewSupplyDataEntity.CategoryEntity mBean) {
+    private View getBigView(final NewSupplyBean.NewSupplyDataEntity.CategoryEntity mBean) {
         View bigView = LayoutInflater.from(context).inflate(R.layout.item_newsupply_type_big, null);
+        ImageView mBigGoodsimg;
+        TextView mbigTvTag;
+        TextView mbigTitle;
+        TextView mbigNowPrice;
+        final ImageView mBigShopcart;
         mBigGoodsimg = (ImageView) bigView.findViewById(R.id.category_big_goodsimg);
+        mBigGoodsimg.getLayoutParams().width=bigImgWith;
+        mBigGoodsimg.getLayoutParams().height=bigImgWith;
         mbigTvTag = (TextView) bigView.findViewById(R.id.category_big_tv_tag);
         mbigTitle = (TextView) bigView.findViewById(R.id.category_big_goodsTitle);
         mbigNowPrice = (TextView) bigView.findViewById(R.id.category_big_nowPrice);
@@ -274,9 +300,23 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
 
             BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(0).getCover_pic(), mBigGoodsimg);
         }
-        mbigTvTag.setText(mBean.getGoods().get(0).getLabel());
+        if (mBean.getGoods().get(0).getLabel()!=null){
+
+            mbigTvTag.setText(mBean.getGoods().get(0).getLabel());
+        }else{
+            mbigTvTag.setVisibility(View.GONE);
+        }
         mbigTitle.setText(mBean.getGoods().get(0).getName());
         mbigNowPrice.setText("￥:" + mBean.getGoods().get(0).getPrice());
+        mBigShopcart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (HighCommunityUtils.isLogin(context)) {
+                    waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, mBigShopcart, Gravity.CENTER);
+                    HTTPHelper.addNewHuiGoodsToCar(mIbpiAddShopCar, mBean.getGoods().get(0).getId(), mBean.getGoods().get(0).getId());
+                }
+            }
+        });
         return bigView;
     }
 
@@ -297,6 +337,7 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
 
     class ViewHolder {
         TextView mTitle;
+        View mLine;
         TextView mTvMore;
         RelativeLayout itemCateLayout1;
         RelativeLayout mBigView;
@@ -304,6 +345,40 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
         RelativeLayout mSmallview2;
 
     }
+
+    /**
+     * 加入购物车弹窗
+     */
+    PopupWindow waitPop;
+    /**
+     * 加入购物车回调
+     */
+    BpiHttpHandler.IBpiHttpHandler mIbpiAddShopCar = new BpiHttpHandler.IBpiHttpHandler() {
+        @Override
+        public void onError(int id, String message) {
+            waitPop.dismiss();
+            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+        }
+
+        @Override
+        public void onSuccess(Object message) {
+            waitPop.dismiss();
+            HighCommunityUtils.GetInstantiation().ShowToast("成功加入购物车", 0);
+        }
+
+        @Override
+        public Object onResolve(String result) {
+            Log.e(TAG, "onResolve result" + result);
+            return result;
+        }
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
+        }
+        @Override
+        public void cancleAsyncTask() {
+            waitPop.dismiss();
+        }
+    };
 
 
 }

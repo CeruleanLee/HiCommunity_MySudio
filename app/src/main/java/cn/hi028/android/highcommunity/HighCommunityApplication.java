@@ -168,8 +168,16 @@ static  final String Tag="HighCommunityApplication--->";
         dialog.show();
     }
 
-    //----检测更新--------------------------------------------------------
-//
+    public static int screenWidth;// 屏幕宽度，单位为px
+    public static int screenHeight;// 屏幕高度，单位为px
+    public static int densityDpi;// 屏幕密度，单位为dpi
+    public float scale;// 缩放系数，值为 densityDpi/160
+    public static float fontScale;// 文字缩放系数，同scale
+
+    public final static int SCREEN_ORIENTATION_VERTICAL = 1; // 屏幕状态：横屏
+    public final static int SCREEN_ORIENTATION_HORIZONTAL = 2; // 屏幕状态：竖屏
+    public static int screenOrientation = SCREEN_ORIENTATION_VERTICAL;// 当前屏幕状态，默认为竖屏
+
 
 
 

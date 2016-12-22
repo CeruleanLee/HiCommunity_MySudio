@@ -19,6 +19,55 @@ public class UserCenterBean extends BaseBean {
 	int cho;
 	int wallet;
 	int nearby;
+	UserCenterOrder sorder;
+
+
+   public class UserCenterOrder {
+		int pay;
+		int confirm;
+		int comment;
+
+	   public int getPay() {
+		   return pay;
+	   }
+
+	   public void setPay(int pay) {
+		   this.pay = pay;
+	   }
+
+	   public int getConfirm() {
+		   return confirm;
+	   }
+
+	   public void setConfirm(int confirm) {
+		   this.confirm = confirm;
+	   }
+
+	   public int getComment() {
+		   return comment;
+	   }
+
+	   public void setComment(int comment) {
+		   this.comment = comment;
+	   }
+
+	   @Override
+	   public String toString() {
+		   return "UserCenterOrder{" +
+				   "pay=" + pay +
+				   ", confirm=" + confirm +
+				   ", comment=" + comment +
+				   '}';
+	   }
+   }
+
+	public UserCenterOrder getSorder() {
+		return sorder;
+	}
+
+	public void setSorder(UserCenterOrder sorder) {
+		this.sorder = sorder;
+	}
 
 	public int getNearby() {
 		return nearby;
@@ -143,10 +192,16 @@ public class UserCenterBean extends BaseBean {
 
 	@Override
 	public String toString() {
-		return "UserCenterBean [userInfo=" + userInfo + ", message=" + message
-				+ ", fee=" + fee + ", cart=" + cart + ", order=" + order
-				+ ", cho=" + cho + ", wallet=" + wallet + ", nearby=" + nearby
-				+ "]";
+		return "UserCenterBean{" +
+				"userInfo=" + userInfo +
+				", message=" + message +
+				", fee=" + fee +
+				", cart=" + cart +
+				", order=" + order +
+				", cho=" + cho +
+				", wallet=" + wallet +
+				", nearby=" + nearby +
+				", sorder=" + sorder +
+				'}';
 	}
-
 }

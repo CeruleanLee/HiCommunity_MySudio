@@ -32,6 +32,7 @@ import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.AddressAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
+import cn.hi028.android.highcommunity.activity.MenuLeftSecondAct;
 import cn.hi028.android.highcommunity.activity.alliance.AllianceOrder;
 import cn.hi028.android.highcommunity.bean.UserCenterBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
@@ -292,11 +293,14 @@ public class ActFrag extends BaseFragment {
             if (HighCommunityUtils.isLogin(getActivity())) {
                 switch (view.getId()) {
                     case R.id.myinfor_edit:
-                        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
-                                Constacts.MENU_LEFT_USERINFO_EDIT);
-                        mLeftjump.putExtra(MenuLeftAct.INTENTTAG,
-                                HighCommunityApplication.mUserInfo.getId() + "");
-
+//                        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
+//                                Constacts.MENU_LEFT_USERINFO_EDIT);
+//                        mLeftjump.putExtra(MenuLeftAct.INTENTTAG,
+//                                HighCommunityApplication.mUserInfo.getId() + "");
+                        Intent mModify = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftSecondAct.class));
+                        mModify.putExtra(MenuLeftSecondAct.ACTIVITYTAG, Constacts.MENU_LEFTSECOND_PERSONAL);
+//                        mModify.putExtra(MenuLeftSecondAct.INTENTTAG, mBean);
+                        startActivity(mModify);
 
                         break;
 //                    case R.id.rl_leftmenu_userinfo:
@@ -420,19 +424,19 @@ public class ActFrag extends BaseFragment {
             } else {
                 mLeftSex.setSelected(true);
             }
-            mTopicNum.setVisibility(View.GONE);
-            // if (Constacts.mUserCenter.getMessage() == 0) {
-            // } else {
-            // leftFlag = true;
-            // mTopicNum.setVisibility(View.VISIBLE);
-            // mTopicNum.setText("+" + Constacts.mUserCenter.getMessage());
-            // }
-            if (Constacts.mUserCenter.getOrder() == 0) {
-                mLeftOrderNum.setVisibility(View.GONE);
+             if (Constacts.mUserCenter.getMessage() == 0) {
+                 mTopicNum.setVisibility(View.GONE);
+             } else {
+             leftFlag = true;
+             mTopicNum.setVisibility(View.VISIBLE);
+             mTopicNum.setText(Constacts.mUserCenter.getMessage()+"");
+             }
+            if (Constacts.mUserCenter.getFee() == 0) {
+                mLeftBillNum.setVisibility(View.GONE);
             } else {
                 leftFlag = true;
-                mLeftOrderNum.setVisibility(View.VISIBLE);
-                mLeftOrderNum.setText(Constacts.mUserCenter.getOrder() + "");
+                mLeftBillNum.setVisibility(View.VISIBLE);
+                mLeftBillNum.setText(Constacts.mUserCenter.getFee() + "");
             }
             if (Constacts.mUserCenter.getCart() == 0) {
                 mLeftCartNum.setVisibility(View.GONE);
@@ -441,13 +445,13 @@ public class ActFrag extends BaseFragment {
                 mLeftCartNum.setVisibility(View.VISIBLE);
                 mLeftCartNum.setText(Constacts.mUserCenter.getCart() + "");
             }
-            if (Constacts.mUserCenter.getFee() == 0) {
-                mLeftBillNum.setVisibility(View.GONE);
-            } else {
-                leftFlag = true;
-                mLeftBillNum.setVisibility(View.VISIBLE);
-                mLeftBillNum.setText(Constacts.mUserCenter.getFee() + "");
-            }
+//            if (Constacts.mUserCenter.getOrder() == 0) {
+//                mLeftOrderNum.setVisibility(View.GONE);
+//            } else {
+//                leftFlag = true;
+//                mLeftOrderNum.setVisibility(View.VISIBLE);
+//                mLeftOrderNum.setText(Constacts.mUserCenter.getOrder() + "");
+//            }
             if (Constacts.mUserCenter.getCho() == 0) {
                 mLeftZhongCouNum.setVisibility(View.GONE);
             } else {
@@ -455,12 +459,48 @@ public class ActFrag extends BaseFragment {
                 mLeftZhongCouNum.setVisibility(View.VISIBLE);
                 mLeftZhongCouNum.setText(Constacts.mUserCenter.getCho() + "");
             }
-            mLeftWalletNum.setVisibility(View.GONE);
-            // if (Constacts.mUserCenter.getWallet() == 0) {
-            // } else {
-            // mLeftWalletNum.setVisibility(View.VISIBLE);
-            // mLeftWalletNum.setText(Constacts.mUserCenter.getWallet());
-            // }
+             if (Constacts.mUserCenter.getWallet() == 0) {
+                 mLeftWalletNum.setVisibility(View.GONE);
+             } else {
+             mLeftWalletNum.setVisibility(View.VISIBLE);
+             mLeftWalletNum.setText(Constacts.mUserCenter.getWallet()+"");
+             }
+
+            if (Constacts.mUserCenter.getSorder()!=null) {
+                UserCenterBean.UserCenterOrder sorder = Constacts.mUserCenter.getSorder();
+                if (Constacts.mUserCenter.getOrder() == 0) {
+                    mOrder_allNum.setVisibility(View.GONE);
+                } else {
+                    leftFlag = true;
+                    mOrder_allNum.setVisibility(View.VISIBLE);
+                    mOrder_allNum.setText(Constacts.mUserCenter.getOrder() + "");
+                }
+                if (sorder.getPay() == 0) {
+                    mOrder_TopayNum.setVisibility(View.GONE);
+                } else {
+                    leftFlag = true;
+                    mOrder_TopayNum.setVisibility(View.VISIBLE);
+                    mOrder_TopayNum.setText(sorder.getPay() + "");
+                }
+                if (sorder.getConfirm() == 0) {
+                    mOrder_TorecNum.setVisibility(View.GONE);
+                } else {
+                    leftFlag = true;
+                    mOrder_TorecNum.setVisibility(View.VISIBLE);
+                    mOrder_TorecNum.setText(sorder.getConfirm() + "");
+                }
+                if (sorder.getComment() == 0) {
+                    mOrder_ComNum.setVisibility(View.GONE);
+                } else {
+                    leftFlag = true;
+                    mOrder_ComNum.setVisibility(View.VISIBLE);
+                    mOrder_ComNum.setText(sorder.getComment() + "");
+                }
+            }
+
+
+
+
             if (leftFlag) {
 //                mLeftTop.setVisibility(View.VISIBLE);
             } else {

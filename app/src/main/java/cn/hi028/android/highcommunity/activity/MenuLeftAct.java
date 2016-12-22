@@ -18,7 +18,30 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.fragment.*;
+import cn.hi028.android.highcommunity.activity.fragment.HuiChipsOrderFrag;
+import cn.hi028.android.highcommunity.activity.fragment.HuiChipsOrderFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.HuiOrderFrag;
+import cn.hi028.android.highcommunity.activity.fragment.MessageCenterFrag;
+import cn.hi028.android.highcommunity.activity.fragment.MessageCenterFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.MyCarftsFrag;
+import cn.hi028.android.highcommunity.activity.fragment.MyCarftsFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.MyCollectionSwitchFrag;
+import cn.hi028.android.highcommunity.activity.fragment.MyCollectionSwitchFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.MyMessageFrag;
+import cn.hi028.android.highcommunity.activity.fragment.NewHuiGdCarFrag;
+import cn.hi028.android.highcommunity.activity.fragment.NewHuiOrderFrag;
+import cn.hi028.android.highcommunity.activity.fragment.NewHuiOrderFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.PersonalAuthFrag;
+import cn.hi028.android.highcommunity.activity.fragment.ServicePaymentFrag;
+import cn.hi028.android.highcommunity.activity.fragment.SettingFrag;
+import cn.hi028.android.highcommunity.activity.fragment.SettingFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.SysMessageFrag;
+import cn.hi028.android.highcommunity.activity.fragment.TenementBillFrag;
+import cn.hi028.android.highcommunity.activity.fragment.TenementBillFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.UserInfoFrag;
+import cn.hi028.android.highcommunity.activity.fragment.UserInfoFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.WalletSwitchFrag;
+import cn.hi028.android.highcommunity.activity.fragment.WalletSwitchFrag_;
 import cn.hi028.android.highcommunity.utils.Constacts;
 
 /**
@@ -57,13 +80,17 @@ public class MenuLeftAct extends BaseFragmentActivity {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         switch (flag) {
-            case Constacts.MENU_LEFT_USERINFO_EDIT:
-                mTitleLayout.setVisibility(View.GONE);
-                Log.d(Tag,"------gotoUSERINFO");
-                UserInfoFrag mPersonal_edit = (UserInfoFrag) new UserInfoFrag_();
-                ft.replace(R.id.ll_menuleft_layout, mPersonal_edit, PersonalAuthFrag.FRAGMENTTAG);
-                mPersonal_edit.write();
-                break;
+//            case Constacts.MENU_LEFT_USERINFO_EDIT:
+//                mTitleLayout.setVisibility(View.GONE);
+//
+//                Intent mModify = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftSecondAct.class));
+//                mModify.putExtra(MenuLeftSecondAct.ACTIVITYTAG, Constacts.MENU_LEFTSECOND_PERSONAL);
+//                mModify.putExtra(MenuLeftSecondAct.INTENTTAG, mBean);
+//                startActivity(mModify);
+//
+//
+//
+//                break;
             case Constacts.MENU_LEFT_USERINFO:
                 mTitleLayout.setVisibility(View.GONE);
                 Log.d(Tag,"------gotoUSERINFO");

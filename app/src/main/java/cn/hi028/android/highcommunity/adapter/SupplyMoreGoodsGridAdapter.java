@@ -2,17 +2,20 @@ package cn.hi028.android.highcommunity.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StrikethroughSpan;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.don.tools.BpiHttpHandler;
 import com.don.tools.BpiUniveralImage;
 
 import java.util.ArrayList;
@@ -23,6 +26,8 @@ import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivit
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.SupplyGoodsMoreBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
+import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
  * @功能：直供商品分类adapter<br>
@@ -112,10 +117,11 @@ public class SupplyMoreGoodsGridAdapter extends BaseFragmentAdapter {
        mViewHolder.mShopcart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "加入购物车", Toast.LENGTH_SHORT).show();
-//                Intent mIntent_report = new Intent(context, NewSupplyMoreAct.class);
-//                mIntent_report.putExtra("category_id", mBean.getId());
-//                context.startActivity(mIntent_report);
+//                Toast.makeText(context, "加入购物车", Toast.LENGTH_SHORT).show();
+                if (HighCommunityUtils.isLogin(context)) {
+                    waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, mViewHolder.mShopcart, Gravity.CENTER);
+                    HTTPHelper.addNewHuiGoodsToCar(mIbpiAddShopCar, mBean.getId(), mBean.getId());
+                }
             }
         });
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -155,6 +161,46 @@ public class SupplyMoreGoodsGridAdapter extends BaseFragmentAdapter {
         TextView mSaledNum;
         ImageView mShopcart;
     }
+
+
+    /**
+     * 加入购物车弹窗
+     */
+    PopupWindow waitPop;
+    /**
+     * 加入购物车回调
+     */
+    BpiHttpHandler.IBpiHttpHandler mIbpiAddShopCar = new BpiHttpHandler.IBpiHttpHandler() {
+        @Override
+        public void onError(int id, String message) {
+            waitPop.dismiss();
+            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+        }
+
+        @Override
+        public void onSuccess(Object message) {
+            waitPop.dismiss();
+            HighCommunityUtils.GetInstantiation().ShowToast("成功加入购物车", 0);
+        }
+
+        @Override
+        public Object onResolve(String result) {
+            Log.e(Tag,"onResolve result"+result);
+            return  result;
+//            return HTTPHelper.ResolveHuiSupportList(result);
+        }
+
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
+
+        }
+
+        @Override
+        public void cancleAsyncTask() {
+            waitPop.dismiss();
+        }
+    };
+
 
 
 }

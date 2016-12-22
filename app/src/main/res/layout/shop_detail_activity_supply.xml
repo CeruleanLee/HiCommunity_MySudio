@@ -113,8 +113,8 @@
         <Button
             android:id="@+id/ac_shop_car_addtocar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#FFA52B"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_but_addtocart"
             android:gravity="center"
             android:padding="10dp"
             android:text="加入购物车"

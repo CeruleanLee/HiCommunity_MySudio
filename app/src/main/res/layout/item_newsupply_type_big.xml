@@ -1,22 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
     android:layout_marginLeft="12dp"
     android:layout_marginRight="12dp"
     android:layout_marginTop="8dp"
+    android:orientation="vertical"
     android:background="@color/white">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+
+
+        <ImageView
+            android:id="@+id/category_big_goodsimg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/default_no_pic" />
+
+        <TextView
+            android:id="@+id/category_big_tv_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_tv_red_shape"
+            android:paddingBottom="1dp"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:paddingTop="1dp"
+            android:text="热卖"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/bottom_layout_big"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="80dp">
 
         <TextView
             android:id="@+id/category_big_goodsTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ellipsize="end"
@@ -54,25 +80,5 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/category_big_goodsimg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:layout_above="@id/bottom_layout_big"
-        android:src="@mipmap/default_no_pic" />
 
-    <TextView
-        android:id="@+id/category_big_tv_tag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_tv_red_shape"
-        android:paddingBottom="1dp"
-        android:paddingLeft="6dp"
-        android:paddingRight="6dp"
-        android:paddingTop="1dp"
-        android:text="热卖"
-        android:textColor="@color/white"
-        android:textSize="12sp" />
-
-</RelativeLayout>
+</LinearLayout>

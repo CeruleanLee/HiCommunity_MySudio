@@ -8,14 +8,14 @@
     android:orientation="horizontal">
 
     <RelativeLayout
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_weight="1">
+        >
 
         <ImageView
             android:id="@+id/category_small_goodsimg_goodsimg"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@mipmap/default_no_pic" />
