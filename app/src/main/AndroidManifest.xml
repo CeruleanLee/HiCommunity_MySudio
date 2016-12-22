@@ -88,11 +88,9 @@
 
         <!-- meta-data需要写在application中 -->
         <!-- 百度地图//key:开发者申请的Key -->
-        <!--我申请的： 	M3QEKDRLq6dsa2N8WakLdHfFKhKykWi2  可以直接搜索定位的 之前那个暂时弃用了 目前测试版可用-->
-        <!--项目原有的：ome6RKGb08ZugrZwxgTQVm0iFETfycEc-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="M3QEKDRLq6dsa2N8WakLdHfFKhKykWi2" />
+            android:value="ome6RKGb08ZugrZwxgTQVm0iFETfycEc" />
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5668f43c67e58ebf1b00015b" />
@@ -224,7 +222,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.LabelAct"
+            android:name=".activity.LabelAct_"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
@@ -305,7 +303,6 @@
         <activity
             android:name=".activity.HuiLifeSecondAct_"
             android:configChanges="orientation|keyboardHidden"
-            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AddressAct_"
@@ -380,10 +377,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.MipcaActivityCapture"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.alliance.SupplyGoodsDetailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
 
@@ -535,8 +528,7 @@
         <!-- </>值来自开发者平台取得的AppKey -->
         <activity android:name=".activity.AutoAct_Four" />
         <activity android:name=".activity.ShowCaptureActivity" />
-        <activity android:name=".activity.NewSupplyMoreAct" />
-        <activity android:name=".activity.ShowLocationListAct"></activity>
+        <activity android:name=".activity.Auto_Five"></activity>
     </application>
 
 </manifest>

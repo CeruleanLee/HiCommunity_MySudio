@@ -2221,7 +2221,22 @@ public class HTTPHelper {
         mParamMap.put("vote_id",vote_id);
         post(mParamMap, mIbpi, url);
     }
+    /**
+     * 自治大厅选举投票结果得票率_单个
+     **/
+    public static void getSingleVotedData(BpiHttpHandler.IBpiHttpHandler mIbpi,String title_id) {
+        String url = HTTPPOSTURL + "yvote/result2.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("title_id",title_id);
+        post(mParamMap, mIbpi, url);
+    }
 
+    /**
+     * 解析自治选举投票结果得票率——单个
+     */
+    public static Auto_VoteResultBean.VoteResultDataEntity ResolveSingleVotedDataEntity(String result) {
+        return gson.fromJson(result, Auto_VoteResultBean.VoteResultDataEntity.class);
+    }
     /**
      * 解析自治选举投票结果得票率
      *

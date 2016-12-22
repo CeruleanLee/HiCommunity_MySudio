@@ -76,6 +76,16 @@ public class Auto_InitBean implements Parcelable {
 
         private int status;
         private int owner_id;
+        private int type;//新增业主身份标识
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
+
         private VillageEntity village;
         private List<BuildingEntity> building;
 
@@ -305,7 +315,7 @@ public class Auto_InitBean implements Parcelable {
         this.msg = in.readString();
     }
 
-    public static final Parcelable.Creator<Auto_InitBean> CREATOR = new Parcelable.Creator<Auto_InitBean>() {
+    public static final Creator<Auto_InitBean> CREATOR = new Creator<Auto_InitBean>() {
         public Auto_InitBean createFromParcel(Parcel source) {
             return new Auto_InitBean(source);
         }

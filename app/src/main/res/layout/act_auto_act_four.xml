@@ -35,7 +35,7 @@
             android:layout_marginRight="64dp"
             android:ellipsize="middle"
             android:singleLine="true"
-            android:text=" "
+            android:text="投票结果"
             android:textColor="#ffffff"
             android:textSize="16sp" />
         <!-- android:textSize="@dimen/font_extra_large" -->
@@ -46,8 +46,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="投票结果："
+        android:visibility="gone"
         android:textColor="@color/Defult_Color_AppGreen"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -57,12 +58,13 @@
 
     <TextView
         android:id="@+id/four_content_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:gravity="center"
         android:layout_marginTop="15dp"
-        android:text="  123 "
+        android:text="   "
         android:textColor="@color/Defult_Color_AppGreen"
         android:textSize="16sp"
 
@@ -79,17 +81,17 @@
             android:orientation="vertical">
 
 
-            <cn.hi028.android.highcommunity.view.MyNoScrollListview
+            <cn.hi028.android.highcommunity.view.LinearForVoteResult
                 android:id="@+id/four_listiew"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
-                android:divider="@null"
-                android:scrollbars="none"></cn.hi028.android.highcommunity.view.MyNoScrollListview>
+               ></cn.hi028.android.highcommunity.view.LinearForVoteResult>
 
             <Button
                 android:id="@+id/four_back"
@@ -103,6 +105,7 @@
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:text="  返回  "
+                android:visibility="gone"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
         </LinearLayout>

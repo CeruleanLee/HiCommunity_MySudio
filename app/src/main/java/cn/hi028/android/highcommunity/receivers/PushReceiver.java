@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.util.Iterator;
 
+import cn.hi028.android.highcommunity.activity.AutonomousAct_Second;
 import cn.hi028.android.highcommunity.activity.MainActivity;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.utils.Constacts;
@@ -165,10 +166,16 @@ public class PushReceiver extends BroadcastReceiver {
                     i.putExtra(MenuLeftAct.INTENTTAG, 2);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.startActivity(i);
-                } else if (type == 1024) {// 处理更新通知   极光推送更新的时候记得type=2
+                } else if (type == 1024) {// 处理更新通知   极光推送更新的时候记得type=1024
                     Intent i = new Intent(context, MainActivity.class);
                     i.putExtras(bundle);
                     i.putExtra("checkupdata", 6);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    context.startActivity(i);
+                }else if (type == 2) {// 自治大厅公告type=2
+                    Intent i = new Intent(context, AutonomousAct_Second.class);
+                    i.putExtras(bundle);
+                    i.putExtra("title", TAG_NOTIC);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.startActivity(i);
                 }
@@ -179,5 +186,6 @@ public class PushReceiver extends BroadcastReceiver {
         }
 
     }
+    public static final int TAG_NOTIC = 0;
 //    }
 }

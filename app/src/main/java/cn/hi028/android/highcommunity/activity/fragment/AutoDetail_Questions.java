@@ -40,6 +40,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.AutoAct_Four;
+import cn.hi028.android.highcommunity.activity.Auto_Five;
 import cn.hi028.android.highcommunity.bean.Autonomous.AutoDetail_QuestionVotedBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_QuestionDeatailBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Title_CommitQuestionAnswer;
@@ -69,7 +70,7 @@ public class AutoDetail_Questions extends BaseFragment {
     Button mback;
     @Bind(R.id.txt_content)
     TextView mContent;
-
+/**来自 1-问卷   2  选举**/
     int type;
     @Bind(R.id.watchResult)
     Button mWatchResult;
@@ -81,12 +82,12 @@ public class AutoDetail_Questions extends BaseFragment {
     @Bind(R.id.pg_progress)
     ProgressBar mProgress;
     //问题所在的View
-    private View que_view;
+    private LinearLayout que_view;
     //答案所在的View
     private View ans_view;
     private LayoutInflater mInflater;
     int is_voted;
-
+    String vote_Title;
     //下面这两个list是为了实现点击的时候改变图片，因为单选多选时情况不一样，为了方便控制
     //存每个问题下的imageview
     private ArrayList<ArrayList<ImageView>> imglist = new ArrayList<ArrayList<ImageView>>();
@@ -127,6 +128,8 @@ public class AutoDetail_Questions extends BaseFragment {
         initDatas();
     }
 
+    boolean isShowButton = false;
+
     private void initDatas() {
         mProgress.setVisibility(View.VISIBLE);
         Log.d(Tag, "initDatas");
@@ -136,10 +139,12 @@ public class AutoDetail_Questions extends BaseFragment {
         test_layout.removeAllViews();
         if (is_voted == 1) {
             Log.d(Tag, "initDatas==1");
+            isShowButton = true;
 
             HTTPHelper.GetQuestionAnswerArray(mAnswersIbpi, question_id);
 
         } else {
+            isShowButton = false;
             Log.d(Tag, "initDatas!=1");
             mSubmit.setVisibility(View.VISIBLE);
             mWatchResult.setVisibility(View.GONE);
@@ -172,7 +177,7 @@ public class AutoDetail_Questions extends BaseFragment {
             initQuestionHead();
             questionList = mBean.getTitles();
             for (int i = 0; i < questionList.size(); i++) {
-                que_view = mInflater.inflate(R.layout.frag_auto_detail_questions_question_layout, null);
+                que_view = (LinearLayout) mInflater.inflate(R.layout.frag_auto_detail_questions_question_layout, null);
                 TextView txt_que = (TextView) que_view.findViewById(R.id.txt_question_item);
                 //答案选项要加入的 布局
                 LinearLayout add_layout = (LinearLayout) que_view.findViewById(R.id.lly_answer);
@@ -227,13 +232,20 @@ public class AutoDetail_Questions extends BaseFragment {
                     ans_view = mInflater.inflate(R.layout.frag_auto_detail_questions_answer_layout, null);
                     TextView txt_ans = (TextView) ans_view.findViewById(R.id.txt_answer_item);
                     ImageView image = (ImageView) ans_view.findViewById(R.id.image);
-                    View line_view = ans_view.findViewById(R.id.vw_line);
+//                    View line_view = ans_view.findViewById(R.id.vw_line);
+
+
+                    if (isShowButton) {
+                        //最后一条答案下面不要线是指布局的问题
+//                        line_view.setVisibility(View.GONE);
+                    }
+
                     if (j == answerList.size() - 1) {
                         //最后一条答案下面不要线是指布局的问题
-                        line_view.setVisibility(View.GONE);
+//                        line_view.setVisibility(View.GONE);
                     }
                     //判断单选多选加载不同选项图片
-                    if (questionList.get(i).getType().equals("2")&&!questionList.get(i).getMax_option().equals("1")) {
+                    if (questionList.get(i).getType().equals("2") && !questionList.get(i).getMax_option().equals("1")) {
 
                         //多选
                         if (answerList.get(j).getAns_state() == 0) {
@@ -272,9 +284,25 @@ public class AutoDetail_Questions extends BaseFragment {
  /*for(int r=0; r<imglist2.size();r++){
                 Log.e("---", "imglist2--------"+imglist2.get(r));
             }*/
-
                 imglist.add(imglist2);
+                Log.e(Tag, "isShowButton :" + isShowButton);
+                if (isShowButton&&type==2) {
+                    View inflate = LayoutInflater.from(getActivity()).inflate(R.layout.but_vote_showresult, null);
+                    Button but= (Button) inflate.findViewById(R.id.watchResult);
+                    final int finalI = i;
+                    but.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent mIntent = new Intent(getActivity(), Auto_Five.class);
+                            mIntent.putExtra("title_id", questionList.get(finalI).getId());
+                            getActivity().startActivity(mIntent);
+                        }
+                    });
 
+                    que_view.addView(inflate);
+
+
+                }
                 test_layout.addView(que_view);
 
             }
@@ -292,7 +320,7 @@ public class AutoDetail_Questions extends BaseFragment {
                     mback.setVisibility(View.VISIBLE);
                     mWatchResult.setVisibility(View.GONE);
                 } else {
-                    mWatchResult.setVisibility(View.VISIBLE);
+//                    mWatchResult.setVisibility(View.VISIBLE);
                     mback.setVisibility(View.GONE);
                 }
             }
@@ -300,6 +328,8 @@ public class AutoDetail_Questions extends BaseFragment {
         }
 
         private void initQuestionHead() {
+
+            vote_Title = mBean.getVote().getTitle();
             mTitle.setText(mBean.getVote().getTitle());
             mContent.setText("\u3000\u3000" + mBean.getVote().getAbstractX());
 
@@ -328,8 +358,10 @@ public class AutoDetail_Questions extends BaseFragment {
         //为了加载问题后面的* 和*多选
         // TODO Auto-generated method stub
         String w;
-        if (questionList.size()==1){
-            if (!questionList.get(0).getMax_option().equals("-1")){return;}
+        if (questionList.size() == 1) {
+            if (!questionList.get(0).getMax_option().equals("-1")) {
+                return;
+            }
         }
         if (type == 1) {
             w = content + " (可多选)";
@@ -360,12 +392,14 @@ public class AutoDetail_Questions extends BaseFragment {
             case R.id.watchResult:
                 Intent mIntent = new Intent(getActivity(), AutoAct_Four.class);
                 mIntent.putExtra("vote_id", question_id);
+                mIntent.putExtra("vote_title", vote_Title);
                 getActivity().startActivity(mIntent);
                 break;
         }
     }
 
     int mutilOptionCount = 0;
+
     class answerItemOnClickListener implements View.OnClickListener {
         private int i;
         private int j;
@@ -395,7 +429,7 @@ public class AutoDetail_Questions extends BaseFragment {
             }
             Log.e("----", "点击了---"+imglist.get(i).get(j));*/
 
-            if (questionList.get(i).getType().equals("2")&&!questionList.get(i).getMax_option().equals("1")) {
+            if (questionList.get(i).getType().equals("2") && !questionList.get(i).getMax_option().equals("1")) {
                 //多选
                 if (the_answer_lists.get(j).getAns_state() == 0) {
                     //如果未被选中
@@ -403,9 +437,9 @@ public class AutoDetail_Questions extends BaseFragment {
 //                    imglist.get(i).get(j).setBackgroundDrawable(getResources().getDrawable(R.drawable.multiselect_true));
                     imglist.get(i).get(j).setBackgroundResource(R.drawable.multiselect_true);
                     the_answer_lists.get(j).setAns_state(1);
-                    mutilOptionCount=mutilOptionCount+1;
+                    mutilOptionCount = mutilOptionCount + 1;
                     questionList.get(i).setQue_state(1);
-                    Log.d(Tag,"多选选中数1：--->"+mutilOptionCount);
+                    Log.d(Tag, "多选选中数1：--->" + mutilOptionCount);
                 } else {
 //                    txt.setTextColor(Color.parseColor("#595757"));
 //                    imglist.get(i).get(j).setBackgroundDrawable(getResourcesces().getDrawable(R.drawable.multiselect_false));
@@ -413,14 +447,14 @@ public class AutoDetail_Questions extends BaseFragment {
                     the_answer_lists.get(j).setAns_state(0);
                     mutilOptionCount--;
                     //判断问题是否完成
-                    if (mutilOptionCount>0) {
+                    if (mutilOptionCount > 0) {
 
                         questionList.get(i).setQue_state(1);
                     } else {
                         questionList.get(i).setQue_state(0);
 
                     }
-                    Log.d(Tag,"多选选中数2：--->"+mutilOptionCount);
+                    Log.d(Tag, "多选选中数2：--->" + mutilOptionCount);
                 }
             } else {
 //                单选

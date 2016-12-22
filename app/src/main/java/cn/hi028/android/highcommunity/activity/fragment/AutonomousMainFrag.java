@@ -1,6 +1,5 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -67,9 +66,9 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
     public Auto_InitBean.Auto_Init_DataEntity mData;
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.context = activity;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
         contentView = LayoutInflater.from(context).inflate(R.layout.frag_autonomous_identified2, null);
         ButterKnife.bind(this, contentView);
         initView();
@@ -122,6 +121,11 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
             mData = (Auto_InitBean.Auto_Init_DataEntity) message;
             isLocationNoData = false;
             mStatus = mData.getStatus();
+            if (mData.getType() != -1) {
+
+                HighCommunityApplication.mUserInfo.setUser_Type(mData.getType() + "");
+                Log.e(Tag,"用户业主大厅属性："+ HighCommunityApplication.mUserInfo.getUser_Type());
+            }
             if (mData.getOwner_id() != -1) {
 
                 HighCommunityApplication.mUserInfo.setOwner_id(mData.getOwner_id() + "");

@@ -24,6 +24,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.AutonomousAct_Third;
 import cn.hi028.android.highcommunity.adapter.AutoSuperviseAdapter_Inq;
@@ -80,7 +81,7 @@ public class AutoFrag_SuperVise extends BaseFragment {
     @Bind(R.id.img_Supervise_creat)
     ImageButton but_Creat;
     int selectId = -1;
-
+  static   final String user_type = HighCommunityApplication.mUserInfo.getUser_Type();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.e("HJJ", "ArrayListFragment **** onCreateView...");
@@ -89,6 +90,7 @@ public class AutoFrag_SuperVise extends BaseFragment {
         Bundle bundle = getArguments();
         owner_id = bundle.getInt("owner_id", -1);
         Log.d(Tag, "owner_id=" + owner_id);
+        Log.d(Tag, "user_type=" + user_type);
         initView();
         return view;
     }
@@ -114,6 +116,7 @@ public class AutoFrag_SuperVise extends BaseFragment {
 
     public void initView() {
         Log.e(Tag, "initView");
+
         mListview_Report.setEmptyView(tv_Nodata);
         mListview_Inquiry.setEmptyView(tv_Nodata);
         mListview_Message.setEmptyView(tv_Nodata);
@@ -127,23 +130,35 @@ public class AutoFrag_SuperVise extends BaseFragment {
 
 //        mListview_Report.setAdapter(mReportAdapter);
 //        mListview_Inquiry.setAdapter(mInquiryAdapter);
-        but_Report.setChecked(true);
+
 
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                Log.e(Tag, "click user_type:"+user_type);
                 switch (checkedId) {
+
                     case R.id.frag_Supervise_Report:
 //                        isReportSelected = true;
                         selectId = TAG_CREAT_REPORT;
                         mListview_Report.setVisibility(View.VISIBLE);
                         mListview_Inquiry.setVisibility(View.GONE);
                         mListview_Message.setVisibility(View.GONE);
-                        if (isOwner) {
-                            but_Creat.setVisibility(View.GONE);
-                        }else {
+                        if (user_type.equals("2")){
                             but_Creat.setVisibility(View.VISIBLE);
+                            Log.e(Tag, "click user_type:"+user_type+"VISIBLE");
+
+                        }else{
+                            Log.e(Tag, "click user_type:"+user_type+"GONE");
+
+                            but_Creat.setVisibility(View.GONE);
+
                         }
+//                        if (isOwner) {
+//                            but_Creat.setVisibility(View.GONE);
+//                        }else {
+//                            but_Creat.setVisibility(View.VISIBLE);
+//                        }
                         break;
                     case R.id.frag_Supervise_Inquiry:
 //                        isReportSelected = false;
@@ -151,29 +166,49 @@ public class AutoFrag_SuperVise extends BaseFragment {
                         mListview_Inquiry.setVisibility(View.VISIBLE);
                         mListview_Report.setVisibility(View.GONE);
                         mListview_Message.setVisibility(View.GONE);
-                        if (isOwner) {
-                            but_Creat.setVisibility(View.GONE);
-                        }else {
+                        if (user_type.equals("3")){
                             but_Creat.setVisibility(View.VISIBLE);
+                            Log.e(Tag, "click user_type:"+user_type+"VISIBLE");
+
+                        }else{
+                            but_Creat.setVisibility(View.GONE);
+                            Log.e(Tag, "click user_type:"+user_type+"GONE");
+
                         }
+//                        if (isOwner) {
+//                            but_Creat.setVisibility(View.GONE);
+//                        }else {
+//                            but_Creat.setVisibility(View.VISIBLE);
+//                        }
                         break;
                     case R.id.frag_Supervise_Message:
                         selectId = TAG_CREAT_MESSAGE;
                         mListview_Message.setVisibility(View.VISIBLE);
                         mListview_Inquiry.setVisibility(View.GONE);
                         mListview_Report.setVisibility(View.GONE);
+                        if (user_type.equals("1")){
+                            but_Creat.setVisibility(View.VISIBLE);
+                            Log.e(Tag, "click user_type:"+user_type+"VISIBLE");
+
+                        }else{
+                            but_Creat.setVisibility(View.GONE);
+                            Log.e(Tag, "click user_type:"+user_type+"GONE");
+
+                        }
                         if (isOwner) {
                             but_Creat.setVisibility(View.VISIBLE);
+                            Log.e(Tag, "isOwner click user_type:"+user_type+"VISIBLE");
+
                         } else {
                             but_Creat.setVisibility(View.GONE);
-
+                            Log.e(Tag, "isOwner click user_type:"+user_type+"GONE");
 
                         }
                         break;
                 }
             }
         });
-
+        but_Report.setChecked(true);
     }
 
     private void initDatas() {
@@ -200,16 +235,28 @@ public class AutoFrag_SuperVise extends BaseFragment {
                 mReportList = mList.get(0);
                 Log.d(Tag, "list type" + mReportList.get(0).getType());
 
-                if (mReportList.get(0).getType() != null && mReportList.get(0).getType().equals("1")) {
+//                if (mReportList.get(0).getType() != null && mReportList.get(0).getType().equals("1")) {
+//                    isOwner = true;
+//                    but_Creat.setVisibility(View.GONE);
+//                    but_mMessage.setVisibility(View.VISIBLE);
+//                } else {
+//                    isOwner = false;
+////                    but_mMessage.setVisibility(View.GONE);
+//                    but_Creat.setVisibility(View.VISIBLE);
+//                }
+                if (user_type.equals("1")){
                     isOwner = true;
-                    but_Creat.setVisibility(View.GONE);
-                    but_mMessage.setVisibility(View.VISIBLE);
-                } else {
-                    isOwner = false;
-//                    but_mMessage.setVisibility(View.GONE);
-                    but_Creat.setVisibility(View.VISIBLE);
-                }
 
+//                    but_Creat.setVisibility(View.VISIBLE);
+//                    but_mMessage.setVisibility(View.VISIBLE);
+
+                }else{
+                    isOwner = false;
+
+//                    but_Creat.setVisibility(View.GONE);
+//                    but_mMessage.setVisibility(View.GONE);
+
+                }
 
                 mReportAdapter.AddNewData(mReportList);
                 mListview_Report.setAdapter(mReportAdapter);
@@ -254,22 +301,35 @@ public class AutoFrag_SuperVise extends BaseFragment {
             mListview_Inquiry.setVisibility(View.GONE);
             mListview_Report.setVisibility(View.VISIBLE);
             mListview_Message.setVisibility(View.GONE);
-            if (isOwner) {
-                but_Creat.setVisibility(View.GONE);
-            }else {
+//            if (isOwner) {
+//                but_Creat.setVisibility(View.GONE);
+//            }else {
+//                but_Creat.setVisibility(View.VISIBLE);
+//            }
+            if (user_type.equals("2")){
                 but_Creat.setVisibility(View.VISIBLE);
-            }
 
+            }else{
+                but_Creat.setVisibility(View.GONE);
+
+            }
         } else if (but_Inquiry.isChecked()) {
 
             listviewContainer.setVisibility(View.VISIBLE);
             mListview_Inquiry.setVisibility(View.VISIBLE);
             mListview_Report.setVisibility(View.GONE);
             mListview_Message.setVisibility(View.GONE);
-            if (isOwner) {
-                but_Creat.setVisibility(View.GONE);
-            }else {
+//            if (isOwner) {
+//                but_Creat.setVisibility(View.GONE);
+//            }else {
+//                but_Creat.setVisibility(View.VISIBLE);
+//            }
+            if (user_type.equals("3")){
                 but_Creat.setVisibility(View.VISIBLE);
+
+            }else{
+                but_Creat.setVisibility(View.GONE);
+
             }
         } else if (but_mMessage.isChecked()) {
 
@@ -279,10 +339,17 @@ public class AutoFrag_SuperVise extends BaseFragment {
             mListview_Message.setVisibility(View.VISIBLE);
             if (selectId==TAG_CREAT_MESSAGE) {
 
-                if (isOwner) {
+//                if (isOwner) {
+//                    but_Creat.setVisibility(View.VISIBLE);
+//                } else {
+//                    but_Creat.setVisibility(View.GONE);
+//                }
+                if (user_type.equals("1")){
                     but_Creat.setVisibility(View.VISIBLE);
-                } else {
+
+                }else{
                     but_Creat.setVisibility(View.GONE);
+
                 }
             }
         }

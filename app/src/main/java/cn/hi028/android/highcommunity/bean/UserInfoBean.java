@@ -34,6 +34,15 @@ public class UserInfoBean extends BaseBean {
     String history_vid;
     String third_uid;
 String owner_id;//业主id
+String user_Type;//用户在业主大厅的身份
+
+    public String getUser_Type() {
+        return user_Type;
+    }
+
+    public void setUser_Type(String user_Type) {
+        this.user_Type = user_Type;
+    }
 
     public String getOwner_id() {
         return owner_id;

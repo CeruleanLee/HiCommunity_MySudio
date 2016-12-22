@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -22,16 +23,13 @@ import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.view.LinearForVoteResult;
 
-/**
- * 投票结果展示
- */
-public class AutoAct_Four extends BaseFragmentActivity {
+public class Auto_Five extends BaseFragmentActivity {
 
     String Tag = "~~~ AutoAct_Four";
 
     public static final String ACTIVITYTAG = "AutoAct_Four";
     public static final String INTENTTAG = "AutoAct_Four";
-    String vote_id;
+    String title_id;
     @Bind(R.id.auto_four_img_back)
     ImageView mImgBack;
 
@@ -41,36 +39,26 @@ public class AutoAct_Four extends BaseFragmentActivity {
     LinearForVoteResult mListiew;
     @Bind(R.id.four_back)
     Button mfourBack;
-    List<Auto_VoteResultBean.VoteResultDataEntity> mList;
+    List<Auto_VoteResultBean.VoteResultDataEntity> mList=new ArrayList<Auto_VoteResultBean.VoteResultDataEntity>();
     ShowVoteResultAdapter mAdapter;
     @Bind(R.id.auto_four_tv_title)
     TextView mFourTvTitle;
-String vote_title="";
+    String vote_title="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_auto_act_four);
         ButterKnife.bind(this);
-        vote_id = getIntent().getStringExtra("vote_id");
-        vote_title = getIntent().getStringExtra("vote_title");
+        title_id = getIntent().getStringExtra("title_id");
 //        initView();
         initDtas();
     }
 
-    private void initView() {
-
-
-//        mListiew.addFooterView(mfourBack);
-        mListiew.setAdapter(mAdapter);
-
-    }
-
     private void initDtas() {
-        HTTPHelper.getVotedData(mIbpi, vote_id);
+        HTTPHelper.getSingleVotedData(mIbpi, title_id);
     }
 
     Auto_VoteResultBean.VoteResultDataEntity mData;
-    List<Auto_VoteResultBean.VoteResultDataEntity> mBeanList;
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
@@ -83,12 +71,13 @@ String vote_title="";
                 Log.d(Tag, "onSuccess message null");
                 return;
             }
-            Log.d(Tag, "onSuccess message 不空");
-            mList = (List<Auto_VoteResultBean.VoteResultDataEntity>) message;
+            mData= (Auto_VoteResultBean.VoteResultDataEntity) message;
+//            Log.d(Tag, "onSuccess message 不空");
+            mList.add(mData);
             setData();
-            mAdapter = new ShowVoteResultAdapter(AutoAct_Four.this,mList);
+            mAdapter = new ShowVoteResultAdapter(Auto_Five.this,mList);
 //                mList = mData.getOptions();
-                mListiew.setAdapter(mAdapter);
+            mListiew.setAdapter(mAdapter);
             mfourBack.setVisibility(View.VISIBLE);
         }
 
@@ -98,7 +87,7 @@ String vote_title="";
 
         @Override
         public Object onResolve(String result) {
-            return HTTPHelper.ResolveVoteResultDataEntity(result);
+            return HTTPHelper.ResolveSingleVotedDataEntity(result);
         }
 
         @Override

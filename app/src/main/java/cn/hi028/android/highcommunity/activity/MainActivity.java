@@ -424,12 +424,14 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     private void initLeftMenu() {
         menu = new SlidingMenu(this);
         menu.setMode(SlidingMenu.LEFT);
-        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+//        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
         menu.setShadowWidthRes(R.dimen.shadow_width);
         menu.setShadowDrawable(R.drawable.shadow);
         menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);//// 设置滑动菜单视图的宽度
         menu.setFadeDegree(0.35f);// 设置渐入渐出效果的值
         menu.setEnabled(true);
+//        menu.setEnabled(false);
         menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);//使SlidingMenu附加在Activity上
         // 为侧滑菜单设置布局
         menu.setMenu(R.layout.leftmenu);

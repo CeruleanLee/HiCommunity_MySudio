@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.don.tools.BpiUniveralImage;
@@ -84,7 +83,7 @@ public class AutoNamelist_YZAdapter extends BaseFragmentAdapter {
         }
         mViewHolder.mYWHName.setText(mBean.getName());
         mViewHolder.mYWHName.setText(mBean.getName());
-        mViewHolder.mYWHAdress.setText("职位：" + mBean.getAddress());
+        mViewHolder.mYWHAdress.setText("地址：" + mBean.getAddress());
         mViewHolder.mYWHTel.setText("电话：" + mBean.getTel());
         return convertView;
     }
