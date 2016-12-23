@@ -188,18 +188,9 @@
                     android:layout_toRightOf="@id/tv_leftMenu_order_all_tv"
                        android:layout_alignBottom="@id/tv_leftMenu_order_all_tv"
                         android:id="@+id/tv_leftMenu_order_all_Num"
-                        android:layout_width="10dp"
-                        android:gravity="center"
-                        android:layout_height="10dip"
+                        style="@style/mycenter_order_num"
+                        android:text="10"
                         android:visibility="gone"
-                       android:layout_marginLeft="3dp"
-                        android:background="@drawable/bg_leftmenu_num2_red"
-                        android:paddingBottom="@dimen/margin_2"
-                        android:paddingLeft="@dimen/padding_8"
-                        android:paddingRight="@dimen/padding_8"
-                        android:paddingTop="@dimen/margin_2"
-                        android:textColor="@color/defult_text_color"
-                        android:textSize="@dimen/font_extra_small_half"
               />
                 </RelativeLayout>
                 <RelativeLayout
@@ -229,18 +220,9 @@
                         android:layout_toRightOf="@id/tv_leftMenu_order_topay_tv"
                         android:layout_alignBottom="@id/tv_leftMenu_order_topay_tv"
                         android:id="@+id/tv_leftMenu_order_topay_Num"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
+                        style="@style/mycenter_order_num"
+                        android:text="10"
                         android:visibility="gone"
-                        android:gravity="center"
-                       android:layout_marginLeft="3dp"
-                        android:background="@drawable/bg_leftmenu_num2_red"
-                        android:paddingBottom="@dimen/margin_2"
-                        android:paddingLeft="@dimen/padding_8"
-                        android:paddingRight="@dimen/padding_8"
-                        android:paddingTop="@dimen/margin_2"
-                        android:textColor="@color/defult_text_color"
-                        android:textSize="@dimen/font_extra_small_half"
                          />
                 </RelativeLayout>
                 <RelativeLayout
@@ -268,19 +250,11 @@
 
                     <TextView
                         android:layout_toRightOf="@id/tv_leftMenu_order_torec_tv"
-                        android:gravity="center"
-                        android:layout_alignBottom="@id/tv_leftMenu_order_torec_tv" android:id="@+id/tv_leftMenu_order_torec_Num"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
+                        android:layout_alignBottom="@id/tv_leftMenu_order_torec_tv"
+                        android:id="@+id/tv_leftMenu_order_torec_Num"
+                        style="@style/mycenter_order_num"
+                        android:text="10"
                         android:visibility="gone"
-                        android:layout_marginLeft="3dp"
-                        android:background="@drawable/bg_leftmenu_num2_red"
-                        android:paddingBottom="@dimen/margin_2"
-                        android:paddingLeft="@dimen/padding_8"
-                        android:paddingRight="@dimen/padding_8"
-                        android:paddingTop="@dimen/margin_2"
-                        android:textColor="@color/defult_text_color"
-                        android:textSize="@dimen/font_extra_small_half"
                       />
                 </RelativeLayout>
                 <RelativeLayout
@@ -311,18 +285,10 @@
                         android:id="@+id/tv_leftMenu_order_all_com_num"
                         android:layout_toRightOf="@id/tv_leftMenu_order_all_com_tv"
                         android:layout_alignBottom="@id/tv_leftMenu_order_all_com_tv"
-                        android:layout_marginLeft="3dp"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
+                        style="@style/mycenter_order_num"
+                        android:text="10"
                         android:visibility="gone"
-                        android:gravity="center"
-                        android:background="@drawable/bg_leftmenu_num2_red"
-                        android:paddingBottom="@dimen/margin_2"
-                        android:paddingLeft="@dimen/padding_8"
-                        android:paddingRight="@dimen/padding_8"
-                        android:paddingTop="@dimen/margin_2"
-                        android:textColor="@color/defult_text_color"
-                         />
+                        />
                 </RelativeLayout>
             </LinearLayout>
             <View
@@ -354,18 +320,8 @@
 
                 <TextView
                     android:id="@+id/tv_leftMenu_topic_Num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dip"
-                    android:clickable="true"
-                    android:layout_marginRight="20dip"
-                    android:background="@drawable/bg_leftmenu_num"
-                    android:gravity="center"
-                    android:paddingBottom="@dimen/margin_2"
-                    android:paddingLeft="@dimen/padding_8"
-                    android:paddingRight="@dimen/padding_8"
-                    android:paddingTop="@dimen/margin_2"
-                    android:textColor="@color/defult_text_color"
-                    android:textSize="@dimen/font_extra_small_half"
+                   style="@style/mycenter_item_num"
+                    android:text="10"
                     android:visibility="gone" />
 
             </LinearLayout>
@@ -395,17 +351,8 @@
 
                 <TextView
                     android:id="@+id/tv_leftMenu_collection_Num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dip"
-                    android:layout_marginRight="20dip"
-                    android:background="@drawable/bg_leftmenu_num"
-                    android:paddingBottom="@dimen/margin_2"
-                    android:paddingLeft="@dimen/padding_8"
-                    android:gravity="center"
-                    android:paddingRight="@dimen/padding_8"
-                    android:paddingTop="@dimen/margin_2"
-                    android:textColor="@color/defult_text_color"
-                    android:textSize="@dimen/font_extra_small_half"
+                    style="@style/mycenter_item_num"
+                    android:text="10"
                     android:visibility="gone" />
             </LinearLayout>
             <View
@@ -434,17 +381,8 @@
 
                 <TextView
                     android:id="@+id/tv_leftMenu_Cart_Num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dip"
-                    android:layout_marginRight="20dip"
-                    android:background="@drawable/bg_leftmenu_num"
-                    android:paddingBottom="@dimen/margin_2"
-                    android:paddingLeft="@dimen/padding_8"
-                    android:paddingRight="@dimen/padding_8"
-                    android:gravity="center"
-                    android:paddingTop="@dimen/margin_2"
-                    android:textColor="@color/defult_text_color"
-                    android:textSize="@dimen/font_extra_small_half"
+                    style="@style/mycenter_item_num"
+
                     android:visibility="gone" />
             </LinearLayout>
             <View
@@ -473,18 +411,8 @@
 
                 <TextView
                     android:id="@+id/tv_leftMenu_bill_Num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dip"
-                    android:background="@drawable/bg_leftmenu_num"
-                    android:gravity="center"
-                    android:paddingBottom="@dimen/margin_2"
-                    android:paddingLeft="@dimen/padding_8"
-                    android:paddingRight="@dimen/padding_8"
-                    android:paddingTop="@dimen/margin_2"
-                    android:text=""
-                    android:textColor="@color/defult_text_color"
-                    android:textSize="@dimen/font_extra_small_half"
+                    style="@style/mycenter_item_num"
+                    android:text="10"
                     android:visibility="gone" />
             </LinearLayout>
             <View
@@ -513,17 +441,8 @@
 
                 <TextView
                     android:id="@+id/tv_leftMenu_myAddress_Num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dip"
-                    android:layout_marginRight="20dip"
-                    android:background="@drawable/bg_leftmenu_num"
-                    android:paddingBottom="@dimen/margin_2"
-                    android:paddingLeft="@dimen/padding_8"
-                    android:paddingRight="@dimen/padding_8"
-                    android:paddingTop="@dimen/margin_2"
-                    android:gravity="center"
-                    android:textColor="@color/defult_text_color"
-                    android:textSize="@dimen/font_extra_small_half"
+                    style="@style/mycenter_item_num"
+                    android:text="10"
                     android:visibility="gone" />
             </LinearLayout>
             <View
@@ -553,17 +472,8 @@
 
                 <TextView
                     android:id="@+id/tv_leftMenu_wallet_Num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dip"
-                    android:layout_marginRight="20dip"
-                    android:background="@drawable/bg_leftmenu_num"
-                    android:paddingBottom="@dimen/margin_2"
-                    android:paddingLeft="@dimen/padding_8"
-                    android:paddingRight="@dimen/padding_8"
-                    android:paddingTop="@dimen/margin_2"
-                    android:gravity="center"
-                    android:textColor="@color/defult_text_color"
-                    android:textSize="@dimen/font_extra_small_half"
+                    style="@style/mycenter_item_num"
+                    android:text="10"
                     android:visibility="gone" />
             </LinearLayout>
             <View
@@ -592,17 +502,8 @@
 
                 <TextView
                     android:id="@+id/tv_leftMenu_ZhongCou_Num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dip"
-                    android:layout_marginRight="20dip"
-                    android:background="@drawable/bg_leftmenu_num"
-                    android:paddingBottom="@dimen/margin_2"
-                    android:paddingLeft="@dimen/padding_8"
-                    android:paddingRight="@dimen/padding_8"
-                    android:paddingTop="@dimen/margin_2"
-                    android:gravity="center"
-                    android:textColor="@color/defult_text_color"
-                    android:textSize="@dimen/font_extra_small_half"
+                    style="@style/mycenter_item_num"
+                    android:text="10"
                     android:visibility="gone" />
             </LinearLayout>
             <View
@@ -632,16 +533,8 @@
 
                 <TextView
                     android:id="@+id/tv_leftMenu_Carft_Num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dip"
-                    android:layout_marginRight="20dip"
-                    android:background="@drawable/bg_leftmenu_num"
-                    android:paddingBottom="@dimen/margin_2"
-                    android:paddingLeft="@dimen/padding_8"
-                    android:gravity="center"
-                    android:paddingRight="@dimen/padding_8"
-                    android:paddingTop="@dimen/margin_2"
-                    android:textSize="@dimen/font_extra_small_half"
+                    style="@style/mycenter_item_num"
+                    android:text="10"
                     android:visibility="gone" />
             </LinearLayout>
             <View
@@ -670,17 +563,8 @@
 
                 <TextView
                     android:id="@+id/tv_leftMenu_MyMsg_Num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dip"
-                    android:layout_marginRight="20dip"
-                    android:background="@drawable/bg_leftmenu_num"
-                    android:paddingBottom="@dimen/margin_2"
-                    android:paddingLeft="@dimen/padding_8"
-                    android:gravity="center"
-                    android:paddingRight="@dimen/padding_8"
-                    android:paddingTop="@dimen/margin_2"
-                    android:textColor="@color/defult_text_color"
-                    android:textSize="@dimen/font_extra_small_half"
+                    style="@style/mycenter_item_num"
+                    android:text="10"
                     android:visibility="gone" />
             </LinearLayout>
             <View
@@ -709,17 +593,8 @@
 
                 <TextView
                     android:id="@+id/tv_leftMenu_SysMsg_Num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dip"
-                    android:layout_marginRight="20dip"
-                    android:background="@drawable/bg_leftmenu_num"
-                    android:paddingBottom="@dimen/margin_2"
-                    android:paddingLeft="@dimen/padding_8"
-                    android:paddingRight="@dimen/padding_8"
-                    android:paddingTop="@dimen/margin_2"
-                    android:gravity="center"
-                    android:textColor="@color/defult_text_color"
-                    android:textSize="@dimen/font_extra_small_half"
+                    style="@style/mycenter_item_num"
+                    android:text="10"
                     android:visibility="gone" />
             </LinearLayout>
             <View
@@ -749,17 +624,8 @@
 
                 <TextView
                     android:id="@+id/tv_leftMenu_setting_Num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dip"
-                    android:layout_marginRight="20dip"
-                    android:background="@drawable/bg_leftmenu_num"
-                    android:paddingBottom="@dimen/margin_2"
-                    android:paddingLeft="@dimen/padding_8"
-                    android:gravity="center"
-                    android:paddingRight="@dimen/padding_8"
-                    android:paddingTop="@dimen/margin_2"
-                    android:textColor="@color/defult_text_color"
-                    android:textSize="@dimen/font_extra_small_half"
+                    style="@style/mycenter_item_num"
+                    android:text="10"
                     android:visibility="gone" />
             </LinearLayout>
             <View

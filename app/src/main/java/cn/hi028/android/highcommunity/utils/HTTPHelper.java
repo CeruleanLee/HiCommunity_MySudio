@@ -55,6 +55,7 @@ import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_UnitBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_VoteList_Vote;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_VoteResultBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.NewHuiPayDetail_OederBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.NewPaySuccessBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.NewSupplyCarlistBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.NewSupplyPaydetailBean;
@@ -772,7 +773,21 @@ public class HTTPHelper {
      * @return
      */
     public static NewSupplyPaydetailBean.SupplyPayDataEntity ResolveNewSupplyShowPay(String result) {
-        return gson.fromJson(result, NewSupplyPaydetailBean.SupplyPayDataEntity.class);
+
+            return gson.fromJson(result, NewSupplyPaydetailBean.SupplyPayDataEntity.class);
+
+
+    }
+    /**
+     * v2.0解析展示支付界面_当orderType是订单的时候
+     * @param result
+     * @return
+     */
+    public static NewHuiPayDetail_OederBean.NewHuiPayDetail_OederDataEntity ResolveNewSupplyShowPay_Order(String result) {
+
+            return gson.fromJson(result, NewHuiPayDetail_OederBean.NewHuiPayDetail_OederDataEntity.class);
+
+
     }
     /**
      * 创建订单

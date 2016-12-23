@@ -6,6 +6,8 @@ package cn.hi028.android.highcommunity.activity.fragment;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -65,12 +67,14 @@ public class AddressListFrag extends BaseFragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                if (TextUtils.isEmpty(from)) {
-//                    Intent intent = getActivity().getIntent();
-//                    intent.putExtra("address", mAdapter.getItem(position - 1));
-//                    getActivity().setResult(0x22, intent);
-//                    getActivity().finish();
-//                }
+                if (TextUtils.isEmpty(from)) {
+                    Intent intent = getActivity().getIntent();
+                    Bundle mbundle=new Bundle();
+                    mbundle.putParcelable("address",mAdapter.getItem(position - 1));
+                    intent.putExtra("data", mbundle);
+                    getActivity().setResult(0x22, intent);
+                    getActivity().finish();
+                }
             }
         });
 

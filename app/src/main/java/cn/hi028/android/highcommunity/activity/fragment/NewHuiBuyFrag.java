@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,8 +44,11 @@ import cn.hi028.android.highcommunity.activity.TicketAct;
 import cn.hi028.android.highcommunity.adapter.NewHuiBuyAdapter;
 import cn.hi028.android.highcommunity.bean.AddressBean;
 import cn.hi028.android.highcommunity.bean.AllTicketBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.NewHuiPayDetail_OederBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.NewPaySuccessBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.NewSupplyPaydetailBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.SupplyPayConsignEntity;
+import cn.hi028.android.highcommunity.bean.Autonomous.SupplyPayGoodsEntity;
 import cn.hi028.android.highcommunity.bean.HSuppGdDefBean;
 import cn.hi028.android.highcommunity.bean.WpayBean;
 import cn.hi028.android.highcommunity.params.HuiSuppOrderParams2;
@@ -91,7 +95,7 @@ public class NewHuiBuyFrag extends BaseFragment {
     @Bind(R.id.fl_huiLife_NoAddress)
     TextView mNoAddress;
     @Bind(R.id.fl_huiLife_addressChooice)
-    FrameLayout fl_huiLife_addressChooice;
+    RelativeLayout fl_huiLife_addressChooice;
     @Bind(R.id.fl_yhq)
     FrameLayout fl_yhq;
     @Bind(R.id.btn_pay)
@@ -100,13 +104,13 @@ public class NewHuiBuyFrag extends BaseFragment {
     //    public static List<NewSupplyCarlistBean.SupplyCarlistDataEntity> listData;
     int type = 0;
     public HuiSuppOrderParams2 orderParams;
-    NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayConsignEntity mConsign;//订单参数
+    SupplyPayConsignEntity mConsign;//订单参数
     //    HSuppGdDefBean data;
     PopupWindow waitPop;
     NewHuiBuyAdapter adapter;
     View view;
     String carIdList,order_num;
-    List<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity> mList = new ArrayList<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity>();
+    List<SupplyPayGoodsEntity> mList = new ArrayList<SupplyPayGoodsEntity>();
     @Bind(R.id.rb_pay_wx)
     RadioButton rbPayWx;
     @Bind(R.id.rb_pay_ipay)
@@ -126,7 +130,7 @@ int orderType=-1;
         orderType= bundle.getInt("orderType",-1);
         Log.d(Tag, "carIdList=" + carIdList);
         Log.d(Tag, "order_num=" + order_num);
-        orderParams.setOrder_num(order_num);
+
 //        initView();
         WchatPayUtils.getInstance().init(getActivity());
         initData();
@@ -192,7 +196,7 @@ int orderType=-1;
             }
         });
         type = getActivity().getIntent().getIntExtra(HuiLifeSecondAct.INTENTTAG, 0);
-        fl_huiLife_addressChooice.setVisibility(View.GONE);
+//        fl_huiLife_addressChooice.setVisibility(View.GONE);
 //        if (type == 0) {
 //            NewSupplyCarlistBean.SupplyCarlistDataEntity gdParams = new NewSupplyCarlistBean.SupplyCarlistDataEntity();
 //            gdParams.setId(entyBean.getGid() + "");
@@ -299,16 +303,47 @@ int orderType=-1;
 
         @Override
         public void onSuccess(Object message) {
-            if (null == message)
+            Log.e(Tag, "onSuccess:0");
+
+            if (null == message){
+                Log.e(Tag, "onSuccess:null ");
+
                 return;
-            mBean = (NewSupplyPaydetailBean.SupplyPayDataEntity) message;
+            }
+            if (orderType==1){
+
+                NewHuiPayDetail_OederBean.NewHuiPayDetail_OederDataEntity orderDetailBean= (NewHuiPayDetail_OederBean.NewHuiPayDetail_OederDataEntity) message;
+                mBean=new NewSupplyPaydetailBean.SupplyPayDataEntity();
+                mBean.setTotal_fee(orderDetailBean.getTotal_fee());
+mBean.setZero_money(orderDetailBean.getZero_money());
+
+                mBean.setConsign(orderDetailBean.getConsign());
+                List<SupplyPayGoodsEntity> goods=new ArrayList<SupplyPayGoodsEntity>();
+                goods.add(orderDetailBean.getGoods());
+                mBean.setGoods(goods);
+
+            }else if (orderType==0){
+                mBean = (NewSupplyPaydetailBean.SupplyPayDataEntity) message;
+            }
+            if (orderType!=1&&orderType!=0){
+                return;
+            }
+            Log.e(Tag, "onSuccess:" + mBean.toString());
+
             orderParams = new HuiSuppOrderParams2();
             orderParams.setToken(HighCommunityApplication.mUserInfo.getToken());
             Log.e(Tag, "onSuccess:" + mBean.getTotal_fee() + "," + mBean.getZero_money());
             orderParams.setTotal_amount(mBean.getTotal_fee());
             orderParams.setTotal_fee(mBean.getTotal_fee());
 //            orderParams.setZero_money(mBean.getZero_money());
-            orderParams.setCart_ids(carIdList);
+            if (orderType==0&&carIdList!=null){
+
+                orderParams.setCart_ids(carIdList);
+            }
+            if (orderType==1&&order_num!=null){
+
+                orderParams.setOrder_num(order_num);
+            }
             setOrderList(mBean);
             setFee(mBean);
             setUserAddress(mBean);
@@ -319,7 +354,17 @@ int orderType=-1;
 
         @Override
         public Object onResolve(String result) {
-            return HTTPHelper.ResolveNewSupplyShowPay(result);
+            Log.e(Tag, "onResolve:" + result);
+
+            if (orderType==0){
+
+                return HTTPHelper.ResolveNewSupplyShowPay(result);
+            }
+            else if (orderType==1){
+
+                return HTTPHelper.ResolveNewSupplyShowPay_Order(result);
+            }
+            return null;
         }
 
         @Override
@@ -604,7 +649,9 @@ int orderType=-1;
         Log.e(Tag, "------onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && requestCode == 0x21 && resultCode == 0x22) {
-            AddressBean address = (AddressBean) data.getSerializableExtra("address");
+            Bundle bundle = data.getBundleExtra("data");
+            AddressBean address =bundle.getParcelable("address");
+//            AddressBean address = (AddressBean) data.getSerializableExtra("address");
             orderParams.setAddress_id(Integer.parseInt(address.getId()));
 //            orderParams.setAid(address.getId());
             tv_reserve_name.setText(address.getReal_name());
@@ -633,7 +680,7 @@ int orderType=-1;
     }
 
 
-    public void updateData(NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayConsignEntity mConsign) {
+    public void updateData(SupplyPayConsignEntity mConsign) {
 
         orderParams.setZero_money(0.0f);
         if (mConsign != null) {

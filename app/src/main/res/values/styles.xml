@@ -299,6 +299,7 @@
         <item name="android:button">@drawable/bg_selector_but_coner_green_stroke</item>
         <item name="android:textSize">@dimen/font_small</item>
     </style>
+
     <style name="rb_huichips_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -354,6 +355,7 @@
         <item name="android:button">@null</item>
         <item name="android:textSize">@dimen/font_small</item>
     </style>
+
     <style name="tv_community_content">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -409,6 +411,7 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@drawable/ll_leftmenu_bg_selector</item>
     </style>
+
     <style name="ll_leftmenu_style_padinglitter">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -420,6 +423,7 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@drawable/ll_leftmenu_bg_selector</item>
     </style>
+
     <style name="ll_leftmenu_style_weight1">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
@@ -433,6 +437,7 @@
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/ll_leftmenu_bg_selector</item>
     </style>
+
     <style name="My_RadioButton_Style" parent="@android:style/Widget.CompoundButton">
         <item name="android:gravity">center</item>
         <item name="android:button">@null</item>
@@ -450,6 +455,7 @@
         <item name="android:textColor">@color/color_main_radiobutton_selector</item>
         <item name="android:textSize">12dp</item>
     </style>
+
     <style name="AnimBottom" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
         <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
@@ -688,7 +694,7 @@
         <item name="android:layout_marginRight">6dp</item>
     </style>
 
-<!--自治大厅 业主头像-->
+    <!--自治大厅 业主头像-->
     <style name="autoact_namelist_avatar">
         <item name="android:layout_height">50dip</item>
         <item name="android:layout_width">50dip</item>
@@ -714,7 +720,7 @@
         <item name="android:button">@null</item>
         <item name="android:textSize">@dimen/font_small</item>
         <item name="android:drawablePadding">13dp</item>
-       <!-- <item name="android:drawableBottom">@drawable/bg_dw_huilife_selector</item>-->
+        <!-- <item name="android:drawableBottom">@drawable/bg_dw_huilife_selector</item>-->
         <!--<item name="android:background">@drawable/frag_picdetail_checktextview_selector</item>-->
     </style>
 
@@ -742,4 +748,31 @@
         <item name="android:layout_gravity">center</item>
 
     </style>
+
+
+    <!--个人中心界面-显示订单数字的textview-->
+    <style name="mycenter_order_num">
+        <item name="android:layout_width">15dp</item>
+        <item name="android:layout_height">15dp</item>
+        <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_leftmenu_num2_red</item>
+        <item name="android:textSize">10dp</item>
+        <item name="android:textColor">@color/white</item>
+
+    </style>
+
+    <!--个人中心界面-显示正常item数字的textview-->
+    <style name="mycenter_item_num">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_leftmenu_num</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:padding">0dp</item>
+<item name="android:clickable">true</item>
+    </style>
+
+
 </resources>

@@ -12,7 +12,7 @@
         android:text="商家名称："
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:layout_marginLeft="12dp"
+        android:paddingLeft="12dp"
         android:background="@color/white"
         android:textColor="@color/Defult_Color_DeepGrey"
         android:textSize="15sp"

@@ -6,7 +6,11 @@ package cn.hi028.android.highcommunity.adapter;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -134,6 +138,7 @@ public class NewHuiOrderListAdapter extends BaseExpandableListAdapter {
             cView = LayoutInflater.from(frag.getActivity()).inflate(R.layout.adapter_huilife_order, null);
             holder.img_goods_pic = (ImageView) cView.findViewById(R.id.img_goods_pic);
             holder.tv_goods_name = (TextView) cView.findViewById(R.id.tv_goods_name);
+            holder.tv_goods_standard = (TextView) cView.findViewById(R.id.tv_goods_standard);
             holder.tv_goods_price = (TextView) cView.findViewById(R.id.tv_goods_price);
             holder.tv_goods_num = (TextView) cView.findViewById(R.id.tv_goods_num);
             holder.tv_goods_total = (TextView) cView.findViewById(R.id.tv_goods_total);
@@ -143,10 +148,12 @@ public class NewHuiOrderListAdapter extends BaseExpandableListAdapter {
 
             holder.tv_goods_total_num = (TextView) view.findViewById(R.id.tv_goods_total_num);
             holder.tv_total = (TextView) view.findViewById(R.id.tv_goods_total);
+            holder.tv_goods_realpay_price = (TextView) view.findViewById(R.id.tv_goods_realpay_price);
             holder.tv_order_operate1 = (TextView) view.findViewById(R.id.tv_order_operate1);
             holder.tv_order_operate2 = (TextView) view.findViewById(R.id.tv_order_operate2);
         }
         holder.tv_goods_name.setText(mList.get(groupPosition).getList().get(childPosition).getName());
+        holder.tv_goods_standard.setText(mList.get(groupPosition).getList().get(childPosition).getStandard_name());
         holder.tv_goods_price.setText("￥" + mList.get(groupPosition).getList().get(childPosition).getGoods_price());
         holder.tv_goods_num.setText("x" + mList.get(groupPosition).getList().get(childPosition).getGoods_number());
         ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + mList.get(groupPosition).getList().get(childPosition)
@@ -162,10 +169,21 @@ public class NewHuiOrderListAdapter extends BaseExpandableListAdapter {
             vLine.setBackgroundResource(R.color.defult_color_white);
             lin.addView(vLine);
         }
-        holder.tv_goods_total.setText("小计：￥" + mList.get(groupPosition).getList().get(childPosition).getGoods_price());
+        holder.tv_goods_total.setText("小计：￥" + mList.get(groupPosition).getList().get(childPosition).getGoods_price()*mList.get(groupPosition).getList().get(childPosition).getGoods_number());
         holder.tv_goods_total_num.setText("共" + mList.get(groupPosition).getCount() + "件商品");
-        holder.tv_total.setText("合计：￥" + mList.get(groupPosition).getTotal_fee());
+        holder.tv_total.setText("合计：￥" + mList.get(groupPosition).getOld_fee());
 
+        if (mList.get(groupPosition).getStatus()!=-1&&mList.get(groupPosition).getStatus()!=0&&mList.get(groupPosition).getTotal_fee()!=0){
+            holder.tv_goods_realpay_price.setVisibility(View.VISIBLE);
+            holder.tv_total.setText("合计：￥" + mList.get(groupPosition).getOld_fee());
+            String str = "实付：￥" + mList.get(groupPosition).getTotal_fee();
+            SpannableString ss = new SpannableString(str);
+            ss.setSpan(new ForegroundColorSpan(0x666666), 0, 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new ForegroundColorSpan(Color.RED), 4, str.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            holder.tv_goods_realpay_price.setText(ss);
+        }else{
+            holder.tv_goods_realpay_price.setVisibility(View.GONE);
+        }
         holder.tv_orderId.setText("订单号：" + mList.get(groupPosition).getOrder_num());
         if (mList.get(groupPosition).getStatus() == 0) {
             holder.tv_order_operate1.setText("取消订单");
@@ -384,8 +402,8 @@ public class NewHuiOrderListAdapter extends BaseExpandableListAdapter {
 
     class ViewChildHolder {
         ImageView img_goods_pic;
-        TextView tv_goods_name, tv_goods_price, tv_goods_num, tv_goods_total,
-                tv_goods_total_num, tv_total, tv_order_operate1, tv_orderId, tv_order_operate2;
+        TextView tv_goods_name,tv_goods_standard, tv_goods_price, tv_goods_num, tv_goods_total,
+                tv_goods_total_num, tv_total,tv_goods_realpay_price, tv_order_operate1, tv_orderId, tv_order_operate2;
     }
 
     class ViewParentHolder {

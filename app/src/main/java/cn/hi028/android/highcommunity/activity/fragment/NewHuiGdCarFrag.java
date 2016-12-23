@@ -12,11 +12,13 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
@@ -79,7 +81,20 @@ public class NewHuiGdCarFrag extends BaseFragment {
         adapter = new NewHuiGdcarAdapter(this);
         mListView.setAdapter(adapter);
         mListView.setEmptyView(mNodata);
+        mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         img_goods_ch.setSelected(false);
+        mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                adapter.ClearData();
+                new GetDataTask2().execute();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+
+            }
+        });
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -237,5 +252,21 @@ public class NewHuiGdCarFrag extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
+    private class GetDataTask2 extends AsyncTask<Void, Void, String> {
 
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            HTTPHelper.getGdCarList2(mIbpi);
+        }
+    }
 }

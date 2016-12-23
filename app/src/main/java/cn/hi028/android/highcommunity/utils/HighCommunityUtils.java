@@ -113,6 +113,42 @@ public class HighCommunityUtils extends DongUtils {
 		mPhotoPopupWindow.setOutsideTouchable(true);
 		return mPhotoPopupWindow;
 	}
+	/**
+	 * @param context
+	 *            上下文对象
+	 * @param weixin
+	 *            微信
+	 * @param alipay
+	 *            支付宝
+	 * @return
+	 */
+	public PopupWindow ShowPayPopupWindow(Context context,
+			View.OnClickListener weixin, View.OnClickListener alipay) {
+		View view = LayoutInflater.from(context).inflate(
+				R.layout.showpay_popupwindow, null, false);
+		final PopupWindow mPhotoPopupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT,
+				HighCommunityUtils.DisplayMetricsHeight - HighCommunityUtils.GetInstantiation().dip2px(63));
+		TextView mPhoto = (TextView) view.findViewById(R.id.PhotoPopupWindow_photo);
+		TextView mFile = (TextView) view.findViewById(R.id.PhotoPopupWindow_file);
+		TextView mCancal = (TextView) view.findViewById(R.id.PhotoPopupWindow_cancal);
+		View mOut = view.findViewById(R.id.PhotoPopupWindow_OutView);
+		mCancal.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				mPhotoPopupWindow.dismiss();
+			}
+		});
+		mOut.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				mPhotoPopupWindow.dismiss();
+			}
+		});
+		mPhoto.setOnClickListener(weixin);
+		mFile.setOnClickListener(alipay);
+		mPhotoPopupWindow.setOutsideTouchable(true);
+		return mPhotoPopupWindow;
+	}
 
 	/**
 	 * show Popupwindow to select take photo or get picture or select Expression

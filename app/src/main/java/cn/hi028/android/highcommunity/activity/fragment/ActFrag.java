@@ -33,6 +33,7 @@ import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.AddressAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftSecondAct;
+import cn.hi028.android.highcommunity.activity.VallageAct;
 import cn.hi028.android.highcommunity.activity.alliance.AllianceOrder;
 import cn.hi028.android.highcommunity.bean.UserCenterBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
@@ -367,6 +368,11 @@ public class ActFrag extends BaseFragment {
                                 Constacts.MENU_SYSMESSAGE);
                         Constacts.mUserCenter.setCho(0);
                         break;
+                    case R.id.tx_LeftFrag_userlocation_layout:
+                    case R.id.tx_LeftFrag_userlocation:
+                        VallageAct.toStartAct(getActivity(), 1, false);
+                        // finish();
+                        break;
                 }
                 if (view.getId() != R.id.ll_leftMenu_setting) {
 //					setleftData();
@@ -382,7 +388,7 @@ public class ActFrag extends BaseFragment {
         if (Constacts.mUserCenter != null) {
             ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + Constacts.mUserCenter.getUserInfo().getHead_pic(), mAvatar);
             mLeftLocation.setText("所在小区:" + Constacts.mUserCenter.getUserInfo().getVillage());
-//            mLeftLocation_layout.setOnClickListener(this);
+            mLeftLocation_layout.setOnClickListener(mLeftMenuListener);
             mLeftName.setText(Constacts.mUserCenter.getUserInfo().getNick());
             mLeftSex.setText(Constacts.mUserCenter.getUserInfo().getAge());
             if (Constacts.mUserCenter.getUserInfo().getSex().equals("0")) {

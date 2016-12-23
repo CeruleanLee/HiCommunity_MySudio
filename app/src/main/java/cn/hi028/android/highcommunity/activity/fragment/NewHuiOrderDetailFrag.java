@@ -28,6 +28,9 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.HuiLifeSecondAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftSecondAct;
@@ -35,6 +38,7 @@ import cn.hi028.android.highcommunity.activity.MenuLeftThirdAct;
 import cn.hi028.android.highcommunity.adapter.NewHuiGdPayAdapter;
 import cn.hi028.android.highcommunity.bean.HuiOrderBean;
 import cn.hi028.android.highcommunity.bean.NewHuiOrderBean_StrStatus;
+import cn.hi028.android.highcommunity.params.NewHuiSuppGdParams;
 import cn.hi028.android.highcommunity.utils.CommonUtils;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
@@ -103,7 +107,7 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
     NewHuiOrderBean_StrStatus data;
     PopupWindow waitPop;
     View view;
-
+    List<NewHuiSuppGdParams> list = new ArrayList<NewHuiSuppGdParams>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.e(Tag, "onCreateView...");
@@ -114,7 +118,9 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
     @AfterViews
     void initView() {
         Log.e(Tag,"------HuiOrderDetailFrag-initView");
-        adapter = new NewHuiGdPayAdapter(this);
+        adapter = new NewHuiGdPayAdapter(this,getActivity(),list);
+
+
         if (adapter==null){
             Log.e(Tag,"adapter null");
 
@@ -189,28 +195,28 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
             tv_pay_time.setVisibility(View.VISIBLE);
             tv_pay_time.setText("支付时间：" + TimeUtil.getDayAllTime(bean.getPay_time()));
         }else{
-            tv_pay_time.setVisibility(View.VISIBLE);
+            tv_pay_time.setVisibility(View.GONE);
 
         }
         if (bean.getSend_time()!=0){
             tv_send_time.setVisibility(View.VISIBLE);
             tv_send_time.setText("发货时间：" + TimeUtil.getDayAllTime(bean.getSend_time()));
         }else{
-            tv_send_time.setVisibility(View.VISIBLE);
+            tv_send_time.setVisibility(View.GONE);
 
         }
         if (bean.getFinish_time()!=0){
             tv_receive_time.setVisibility(View.VISIBLE);
             tv_receive_time.setText("收货时间：" + TimeUtil.getDayAllTime(bean.getFinish_time()));
         }else{
-            tv_receive_time.setVisibility(View.VISIBLE);
+            tv_receive_time.setVisibility(View.GONE);
 
         }
         if (bean.getComment_time()!=0){
             tv_comment_time.setVisibility(View.VISIBLE);
             tv_comment_time.setText("评论时间：" + TimeUtil.getDayAllTime(bean.getComment_time()));
         }else{
-            tv_comment_time.setVisibility(View.VISIBLE);
+            tv_comment_time.setVisibility(View.GONE);
         }
         tv_reserve_name.setText(bean.getConsign());
         tv_reserve_phone.setText(bean.getTel());
@@ -218,10 +224,10 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
         tv_coupon.setText(bean.getTicket_val() + "");
         tv_reserve_wallet.setText(bean.getZero_money() + "");
         if (bean.getPay_type()==1){
-            paytype_layout.setVisibility(View.VISIBLE);
+            paytype_layout.setVisibility(View.GONE);
             tv_reserve_paytype.setText("微信支付");
         }else if (bean.getPay_type()==1){
-            paytype_layout.setVisibility(View.VISIBLE);
+            paytype_layout.setVisibility(View.GONE);
             tv_reserve_paytype.setText("支付宝支付");
         }else{
             paytype_layout.setVisibility(View.GONE);
@@ -230,13 +236,13 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
             mark_layout.setVisibility(View.VISIBLE);
             tv_reserve_mark.setText( bean.getMark());
         }else{
-            mark_layout.setVisibility(View.VISIBLE);
+            mark_layout.setVisibility(View.GONE);
         }
         if (bean.getMerchant()!=null){
             tv_order_merchant.setVisibility(View.VISIBLE);
             tv_order_merchant.setText( bean.getMerchant());
         }else{
-            tv_order_merchant.setVisibility(View.VISIBLE);
+            tv_order_merchant.setVisibility(View.GONE);
         }
         tv_total_pay.setText("￥" + bean.getOld_fee() + "");
         tv_price.setText("￥" + CommonUtils.f2Bi(bean.getTotal_fee()));
@@ -255,10 +261,6 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
                 @Override
                 public void onClick(View v) {
 
-//                    Intent mIntent = new Intent(getActivity(), GeneratedClassUtils.get(PaymentActivity.class));
-//                    mIntent.putExtra(PaymentActivity.ACTIVITYTAG, Constacts.HUILIFE_SUPPORT_PAY);
-//                    mIntent.putExtra(PaymentActivity.INTENTTAG, data.getId() + "");
-//                    startActivity(mIntent);
                     Intent mIntent = new Intent(getActivity(), GeneratedClassUtils.get(HuiLifeSecondAct.class));
                     mIntent.putExtra(HuiLifeSecondAct.ACTIVITYTAG, Constacts.NEW_HUILIFE_ORDER);
                     mIntent.putExtra("order_num", data.getOrder_num() + "");
@@ -266,6 +268,21 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
                     mIntent.putExtra(HuiLifeSecondAct.INTENTTAG, 1);
                     //TODO 这里要改
                     getActivity().startActivity(mIntent);
+//                    if (mPayWindow == null) {
+//                        mPayWindow = HighCommunityUtils.GetInstantiation().ShowPhotoPopupWindow(getActivity(), new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//
+//                            }
+//                        }, new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//
+//                            }
+//                        });
+//                    }
+//                    mPayWindow.showAtLocation(tv_order_time, Gravity.BOTTOM, 0, HighCommunityApplication.SoftKeyHight);
+
                 }
             });
         } else if (bean.getStatus_id() == 1 || bean.getStatus_id() == 2) {
@@ -313,7 +330,7 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
             });
         }
     }
-    private PopupWindow mWatingWindow;
+    private PopupWindow mPayWindow,mWatingWindow;
 
     /**
      * 取消订单

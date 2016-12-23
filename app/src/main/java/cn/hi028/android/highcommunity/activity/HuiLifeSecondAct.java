@@ -52,6 +52,7 @@ public class HuiLifeSecondAct extends BaseFragmentActivity {
         isFromOrder = getIntent().getBooleanExtra("isFromOrder",false);
 
         Log.e(Tag,"传过来的数据：carIdList："+carIdList);
+        Log.e(Tag,"传过来的数据：order_num："+order_num);
         if (flag == -1)
             return;
         FragmentManager fm = getSupportFragmentManager();

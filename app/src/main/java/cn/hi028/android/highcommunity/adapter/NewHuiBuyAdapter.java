@@ -21,7 +21,8 @@ import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.NewHuiBuyFrag;
-import cn.hi028.android.highcommunity.bean.Autonomous.NewSupplyPaydetailBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.SupplyPayGoodsEntity;
+import cn.hi028.android.highcommunity.bean.Autonomous.SupplyPayInfoEntity;
 import cn.hi028.android.highcommunity.utils.Constacts;
 
 /**
@@ -33,7 +34,7 @@ import cn.hi028.android.highcommunity.utils.Constacts;
 public class NewHuiBuyAdapter extends BaseFragmentAdapter {
     static final String Tag = "NewHuiBuyAdapter:";
     NewHuiBuyFrag frag;
-    List<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity> mList = new ArrayList<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity>();
+    List<SupplyPayGoodsEntity> mList = new ArrayList<SupplyPayGoodsEntity>();
     Context context;
     LayoutInflater inflater;
 
@@ -43,7 +44,7 @@ public class NewHuiBuyAdapter extends BaseFragmentAdapter {
 //        inflater = LayoutInflater.from(context);
 //    }
 
-    public NewHuiBuyAdapter(NewHuiBuyFrag frag, Context context, List<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity> mList) {
+    public NewHuiBuyAdapter(NewHuiBuyFrag frag, Context context, List<SupplyPayGoodsEntity> mList) {
         this.context = context;
         this.mList = mList;
         this.frag = frag;
@@ -57,7 +58,7 @@ public class NewHuiBuyAdapter extends BaseFragmentAdapter {
     }
 
     @Override
-    public NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity getItem(int position) {
+    public SupplyPayGoodsEntity getItem(int position) {
         return mList.get(position);
     }
 
@@ -87,12 +88,12 @@ public class NewHuiBuyAdapter extends BaseFragmentAdapter {
 //
 //            return convertView;
 //        }
-        NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity mBean = mList.get(position);
+        SupplyPayGoodsEntity mBean = mList.get(position);
         viewHolder.tv_merchant.setText(mBean.getMerchant());
         if (mBean.getTotal_amount() != -1) {
             viewHolder.tv_merchantSum.setText("小计：￥" + mBean.getTotal_amount());
         }
-        List<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity.SupplyPayInfoEntity> mInfoList = mBean.getInfo();
+        List<SupplyPayInfoEntity> mInfoList = mBean.getInfo();
         Log.e(Tag, "mInfoList.size:" + mInfoList.size());
         LinearLayout infoView = getGoodsInfoView(mInfoList);
         viewHolder.listContainer.addView(infoView);
@@ -100,7 +101,7 @@ public class NewHuiBuyAdapter extends BaseFragmentAdapter {
         return convertView;
     }
 
-    private LinearLayout getGoodsInfoView(List<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity.SupplyPayInfoEntity> mInfoList) {
+    private LinearLayout getGoodsInfoView(List<SupplyPayInfoEntity> mInfoList) {
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -108,7 +109,7 @@ public class NewHuiBuyAdapter extends BaseFragmentAdapter {
         for (int i = 0; i < mInfoList.size(); i++) {
             Log.e(Tag, "mInfoList.i :" + i);
 
-            NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity.SupplyPayInfoEntity mInfoBean = mInfoList.get(i);
+            SupplyPayInfoEntity mInfoBean = mInfoList.get(i);
             View mListView = inflater.inflate(R.layout.item_newsupp_showpay, null);
             TextView tv_goods_name = (TextView) mListView.findViewById(R.id.tv_goods_name);
             TextView tv_goods_total = (TextView) mListView.findViewById(R.id.tv_goods_total);
@@ -140,7 +141,7 @@ public class NewHuiBuyAdapter extends BaseFragmentAdapter {
     @Override
     public void AddNewData(Object mObject) {
         if (mObject instanceof List<?>) {
-            mList = (List<NewSupplyPaydetailBean.SupplyPayDataEntity.SupplyPayGoodsEntity>) mObject;
+            mList = (List<SupplyPayGoodsEntity>) mObject;
         }
         notifyDataSetChanged();
         super.AddNewData(mObject);

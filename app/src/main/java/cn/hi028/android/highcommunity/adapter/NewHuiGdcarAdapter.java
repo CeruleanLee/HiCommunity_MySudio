@@ -40,6 +40,7 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @时间：2016/12/14<br>
  */
 public class NewHuiGdcarAdapter extends BaseAdapter {
+    static final  String Tag="NewHuiGdcarAdapter:";
     NewHuiGdCarFrag frag;
     private PopupWindow mWatingWindow;
     public NewHuiGdcarAdapter(NewHuiGdCarFrag frag) {
@@ -101,7 +102,7 @@ View view;
             if (viewHolder.img_goods_pic != null) {
                 BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getCover_pic(), viewHolder.img_goods_pic);
             } else {
-                Log.d("~~~", "mViewHolder.mYWHAvatar null");
+                Log.d(Tag, "mViewHolder.img_goods_pic null");
             }
         }
 //		ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + mBean.getCover_pic(), viewHolder.img_goods_pic);
@@ -148,8 +149,8 @@ View view;
                             @Override
                             public void onSuccess(Object message) {
                                 mWatingWindow.dismiss();
-
-                                HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
+Log.e(Tag,"加入购物车 onSuccess 返回数据："+message.toString());
+//                                HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
 
                             }
 
@@ -199,7 +200,7 @@ View view;
                             @Override
                             public void onSuccess(Object message) {
                                 mWatingWindow.dismiss();
-                                HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
+                                Log.e(Tag,"加入购物车 onSuccess 返回数据："+message.toString());
                             }
                             @Override
                             public Object onResolve(String result) {
@@ -255,7 +256,10 @@ View view;
         frag.img_goods_ch.setSelected(isCheck);
 
     }
-
+    public void ClearData() {
+        data.clear();
+        notifyDataSetChanged();
+    }
 
     class ViewHolder {
         TextView tv_goods_name, tv_goods_standard, tv_goods_price, tv_goods_num, tv_goods_add, tv_goods_reduce, tv_total_pay;

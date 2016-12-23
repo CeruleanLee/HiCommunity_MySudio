@@ -37,13 +37,24 @@
                     android:text="----"
                     android:textColor="@color/Defult_Color_MidGrey"
                     android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tv_goods_standard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:singleLine="true"
+                    android:layout_marginTop="5dp"
+                    android:text=""
+                    android:textColor="@color/Defult_Color_MidGrey"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tv_goods_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:singleLine="true"
                     android:text="￥---"
                     android:textColor="@color/color_deep_red"
