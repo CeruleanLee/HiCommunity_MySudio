@@ -1,6 +1,7 @@
 package cn.hi028.android.highcommunity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StrikethroughSpan;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyGoodsDetailBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
@@ -110,10 +112,13 @@ public class SupplGoodsDetailGridAdapter extends BaseFragmentAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"到详情 id:"+mBean.getId(),Toast.LENGTH_SHORT).show();
-//                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity.class);
-//                mIntent.putExtra("id",mBean.getId());
-//                context.startActivity(mIntent);
+//                Toast.makeText(context,"到详情 id:"+mBean.getId(),Toast.LENGTH_SHORT).show();
+////                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity.class);
+////                mIntent.putExtra("id",mBean.getId());
+////                context.startActivity(mIntent);
+                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity.class);
+                mIntent.putExtra("id", mBean.getId());
+                context.startActivity(mIntent);
             }
         });
         return convertView;

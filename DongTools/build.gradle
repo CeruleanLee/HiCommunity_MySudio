@@ -3,6 +3,8 @@ apply plugin: 'android-library'
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
     compile files('libs/universal-image-loader-1.9.5.jar')
+
+    compile 'com.nineoldandroids:library:2.4.0'
 }
 
 android {

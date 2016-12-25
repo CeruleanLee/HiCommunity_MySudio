@@ -265,6 +265,22 @@
         <item name="android:button">@null</item>
         <item name="android:textSize">@dimen/font_small</item>
     </style>
+    <style name="rb_huilife_style3">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:paddingLeft">7dp</item>
+        <item name="android:paddingRight">7dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:textColor">@color/color_group_selector</item>
+        <item name="android:drawablePadding">13dp</item>
+        <item name="android:drawableBottom">@drawable/bg_dw_huilife_selector</item>
+        <item name="android:background">@null</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">@dimen/font_small</item>
+    </style>
 
     <!--new直供商品 rg bg-->
     <style name="rb_huilife_style2">
@@ -450,7 +466,7 @@
     <style name="My_RadioButton_Style2" parent="@android:style/Widget.CompoundButton">
         <item name="android:gravity">center</item>
         <item name="android:button">@null</item>
-        <item name="android:layout_width">80dip</item>
+        <item name="android:layout_width">60dip</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:textColor">@color/color_main_radiobutton_selector</item>
         <item name="android:textSize">12dp</item>

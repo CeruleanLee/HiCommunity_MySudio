@@ -1,31 +1,26 @@
 package com.don.wheel;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import com.don.dongtools.R;
-import com.don.view.DrawableCenterTextView;
-import com.nineoldandroids.view.ViewHelper;
-
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.GradientDrawable.Orientation;
 import android.util.AttributeSet;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
+
+import com.don.dongtools.R;
+import com.nineoldandroids.view.ViewHelper;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Numeric wheel view.

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -98,7 +97,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     private RadioGroup mGroup,mNewHuiLifeGroup;
     private LinearLayout mStatusHight;
     /**社区  群组 直供  众筹**/
-    private RadioButton mLeftButton, mRightButton,mSupplyBut,mChipsBut;
+    private RadioButton mLeftButton, mRightButton,mRightButton_right,mSupplyBut,mChipsBut;
     /**左上角侧滑图片   右上角消息中心   有消息时提示的小红点      左上角订单更新之类的提醒的小红点**/
     private ImageView mLeftMenu, mRightMenu, mRightTop, mLeftTop;
     LinearLayout mLeftLocation_layout;
@@ -256,7 +255,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             }
         });//注册监听函数
         Log.e(TAG,"定位3");
-        GetScreenParams();
+
     }
 
     public void setTag() {
@@ -344,13 +343,11 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         if (i==0) {//直供选中
             mSupplyBut.setChecked(true);
             mChipsBut.setChecked(false);
-            mTouchMode = SlidingMenu.TOUCHMODE_FULLSCREEN;
-//            menu.setTouchModeAbove(mTouchMode);
+
         } else if (i==1){//众筹选中
             mSupplyBut.setChecked(false);
             mChipsBut.setChecked(true);
-            mTouchMode = SlidingMenu.TOUCHMODE_NONE;
-//            menu.setTouchModeAbove(mTouchMode);
+;
         }
 
     }
@@ -404,6 +401,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         mNewHuiLifeGroup = (RadioGroup) this.findViewById(R.id.rg_title_newHuilifegroup);
         mLeftButton = (RadioButton) this.findViewById(R.id.rb_maintitle_leftbutton);
         mRightButton = (RadioButton) this.findViewById(R.id.rb_maintitle_rightbutton);
+        mRightButton_right = (RadioButton) this.findViewById(R.id.rb_maintitle_rightbutton_right);
         mSupplyBut = (RadioButton) this.findViewById(R.id.rb_title_supply);
         mChipsBut = (RadioButton) this.findViewById(R.id.rb_title_chips);
         MiddleButton = (ImageView) this.findViewById(R.id.main_tab_third);
@@ -414,6 +412,9 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 //        mLeftMenu.setOnClickListener(mTitleListener);
         mLeftButton.setOnClickListener(mTitleListener);
         mRightButton.setOnClickListener(mTitleListener);
+        mRightButton_right.setOnClickListener(mTitleListener);
+        mSupplyBut.setOnClickListener(mTitleListener);
+        mChipsBut.setOnClickListener(mTitleListener);
         mRightMenu.setOnClickListener(mTitleListener);
 //        mLeftMenu.setOnClickListener(mTitleListener);
 //        mStatusHight.setVisibility(View.GONE);
@@ -920,6 +921,9 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 case R.id.rb_maintitle_rightbutton:
                     mFrag.setCurrentPage(1);
                     break;
+                case R.id.rb_maintitle_rightbutton_right:
+                    mFrag.setCurrentPage(2);
+                    break;
                 case R.id.rb_title_supply://直供
                     mHuiLifeFrag.setCurrentPage(0);
                     break;
@@ -976,17 +980,19 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     public static LocationClient mLocationClient=null;
     public BDLocationListener myListener = new MyLocationListener();
     @Override
-    public void onChange(boolean flag) {
-        if (flag) {
+    public void onChange(int flag) {
+        if (flag==0) {
             mLeftButton.setChecked(true);
             mRightButton.setChecked(false);
-            mTouchMode = SlidingMenu.TOUCHMODE_FULLSCREEN;
-//            menu.setTouchModeAbove(mTouchMode);
-        } else {
+            mRightButton_right.setChecked(false);
+        } else if (flag==1){
             mLeftButton.setChecked(false);
             mRightButton.setChecked(true);
-            mTouchMode = SlidingMenu.TOUCHMODE_NONE;
-//            menu.setTouchModeAbove(mTouchMode);
+            mRightButton_right.setChecked(false);
+        }else if (flag==2){
+            mRightButton_right.setChecked(true);
+            mLeftButton.setChecked(false);
+            mRightButton.setChecked(false);
         }
     }
 
@@ -1035,59 +1041,59 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     }
 
 
-
-    public int screenWidth;// 屏幕宽度，单位为px
-    public int screenHeight;// 屏幕高度，单位为px
-    public int densityDpi;// 屏幕密度，单位为dpi
-    public float scale;// 缩放系数，值为 densityDpi/160
-    public float fontScale;// 文字缩放系数，同scale
-
-    public final static int SCREEN_ORIENTATION_VERTICAL = 1; // 屏幕状态：横屏
-    public final static int SCREEN_ORIENTATION_HORIZONTAL = 2; // 屏幕状态：竖屏
-    public int screenOrientation = SCREEN_ORIENTATION_VERTICAL;// 当前屏幕状态，默认为竖屏
-
-    /**
-     * 获取屏幕参数
-     * @param
-     */
-    public void GetScreenParams() {
-        DisplayMetrics dm = new DisplayMetrics();
-        MainActivity.this.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        screenWidth = dm.widthPixels;
-        screenHeight = dm.heightPixels;
-        densityDpi = dm.densityDpi;
-        scale = dm.density;
-        fontScale = dm.scaledDensity;
-
-        screenOrientation = screenHeight > screenWidth ? SCREEN_ORIENTATION_VERTICAL
-                : SCREEN_ORIENTATION_HORIZONTAL;
-
-
-        Log.e(TAG,"屏幕参数："+ ":[screenWidth: "
-                + screenWidth
-                + " screenHeight: "
-                + screenHeight
-                + " scale: "
-                + scale
-                + " fontScale: "
-                + fontScale
-                + " densityDpi: "
-                + densityDpi
-                + " screenOrientation: "
-                + (screenOrientation == SCREEN_ORIENTATION_VERTICAL ? "vertical"
-                : "horizontal") + "]");
-//        return dm;
-        setScreenParams();
-    }
-
-    /**
-     * 设置全局屏幕参数
-     */
-    private void setScreenParams() {
-        HighCommunityApplication.screenWidth=screenWidth;
-        HighCommunityApplication.screenHeight=screenHeight;
-        HighCommunityApplication.densityDpi=densityDpi;
-        HighCommunityApplication.screenOrientation=screenOrientation;
-
-    }
+//
+//    public int screenWidth;// 屏幕宽度，单位为px
+//    public int screenHeight;// 屏幕高度，单位为px
+//    public int densityDpi;// 屏幕密度，单位为dpi
+//    public float scale;// 缩放系数，值为 densityDpi/160
+//    public float fontScale;// 文字缩放系数，同scale
+//
+//    public final static int SCREEN_ORIENTATION_VERTICAL = 1; // 屏幕状态：横屏
+//    public final static int SCREEN_ORIENTATION_HORIZONTAL = 2; // 屏幕状态：竖屏
+//    public int screenOrientation = SCREEN_ORIENTATION_VERTICAL;// 当前屏幕状态，默认为竖屏
+//
+//    /**
+//     * 获取屏幕参数
+//     * @param
+//     */
+//    public void GetScreenParams() {
+//        DisplayMetrics dm = new DisplayMetrics();
+//        MainActivity.this.getWindowManager().getDefaultDisplay().getMetrics(dm);
+//        screenWidth = dm.widthPixels;
+//        screenHeight = dm.heightPixels;
+//        densityDpi = dm.densityDpi;
+//        scale = dm.density;
+//        fontScale = dm.scaledDensity;
+//
+//        screenOrientation = screenHeight > screenWidth ? SCREEN_ORIENTATION_VERTICAL
+//                : SCREEN_ORIENTATION_HORIZONTAL;
+//
+//
+//        Log.e(TAG,"屏幕参数："+ ":[screenWidth: "
+//                + screenWidth
+//                + " screenHeight: "
+//                + screenHeight
+//                + " scale: "
+//                + scale
+//                + " fontScale: "
+//                + fontScale
+//                + " densityDpi: "
+//                + densityDpi
+//                + " screenOrientation: "
+//                + (screenOrientation == SCREEN_ORIENTATION_VERTICAL ? "vertical"
+//                : "horizontal") + "]");
+////        return dm;
+//        setScreenParams();
+//    }
+//
+//    /**
+//     * 设置全局屏幕参数
+//     */
+//    private void setScreenParams() {
+//        HighCommunityApplication.screenWidth=screenWidth;
+//        HighCommunityApplication.screenHeight=screenHeight;
+//        HighCommunityApplication.densityDpi=densityDpi;
+//        HighCommunityApplication.screenOrientation=screenOrientation;
+//
+//    }
 }

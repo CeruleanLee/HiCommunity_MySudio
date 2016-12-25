@@ -14,23 +14,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.bean.SimplePoiBean;
 
 /**
  * @功能：附近定位Listadapter<br>
  * @作者： Lee_yting<br>
  * @时间：2016/10/12<br>
  */
-public class ShowLocListAdapter extends BaseFragmentAdapter {
+public class ShowSugAdapter extends BaseFragmentAdapter {
 
-    List<SimplePoiBean> mList = new ArrayList<SimplePoiBean>();
+    List<String> mList = new ArrayList<String>();
     private Context context;
     private LayoutInflater layoutInflater;
-    public ShowLocListAdapter(List<SimplePoiBean> list, Context context) {
+    public ShowSugAdapter(List<String> list, Context context) {
         super();
         this.mList = list;
         if (this.mList == null) {
-            this.mList = new ArrayList<SimplePoiBean>();
+            this.mList = new ArrayList<String>();
         }
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
@@ -42,7 +41,7 @@ public class ShowLocListAdapter extends BaseFragmentAdapter {
     }
 
     @Override
-    public SimplePoiBean getItem(int position) {
+    public String getItem(int position) {
         return mList.get(position);
     }
 
@@ -63,20 +62,16 @@ public class ShowLocListAdapter extends BaseFragmentAdapter {
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
-        final SimplePoiBean mBean = mList.get(position);
+        final String mBean = mList.get(position);
+        mViewHolder.mAddressDetail.setVisibility(View.GONE);
 
-        mViewHolder.mAddress.setText(mBean.getName());
-        mViewHolder.mAddressDetail.setText(mBean.getAddr());
-        if (mBean.getAddr()==""){
-            mViewHolder.mAddressDetail.setVisibility(View.GONE);
-
-        }
+        mViewHolder.mAddress.setText(mBean);
         return convertView;
     }
     @Override
     public void AddNewData(Object mObject) {
         if (mObject instanceof List<?>) {
-            mList = (List<SimplePoiBean>) mObject;
+            mList = (List<String>) mObject;
         }
         notifyDataSetChanged();
         super.AddNewData(mObject);

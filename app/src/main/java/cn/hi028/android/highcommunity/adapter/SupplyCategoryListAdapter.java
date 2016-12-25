@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.BpiUniveralImage;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.lidroid.xutils.BitmapUtils;
 
 import java.util.ArrayList;
@@ -30,7 +31,6 @@ import cn.hi028.android.highcommunity.activity.NewSupplyMoreAct;
 import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyBean;
-import cn.hi028.android.highcommunity.utils.CommonUtils;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
@@ -42,15 +42,20 @@ import cn.hi028.android.highcommunity.utils.MBitmapHolder;
  * @时间：2016/11/28<br>
  */
 public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
-    public static final String TAG = "SupplyCategoryListAdapter：";
+    public static final String TAG = "SuppCategoryAdapter：";
     List<NewSupplyBean.NewSupplyDataEntity.CategoryEntity> mList = new ArrayList<NewSupplyBean.NewSupplyDataEntity.CategoryEntity>();
     private Context context;
     private LayoutInflater layoutInflater;
-int bigImgWith,smallImgWith;
+    int   bigImgWith=HighCommunityApplication.bigImgWith;
+    //因为高太多，有减掉了40
+    int bigImgHeight=HighCommunityApplication.bigImgHeight;
+    int smallImgWith=HighCommunityApplication.smallImgWith;
     Auto_SupportedResultBean.SupportedResultDataEntity mResultData;
 
     public SupplyCategoryListAdapter(List<NewSupplyBean.NewSupplyDataEntity.CategoryEntity> list, Context context) {
         super();
+        Log.e(TAG, "SupplyCategoryListAdapter");
+
         this.mList = list;
         if (this.mList == null) {
             this.mList = new ArrayList<NewSupplyBean.NewSupplyDataEntity.CategoryEntity>();
@@ -98,31 +103,10 @@ int bigImgWith,smallImgWith;
         }
         final NewSupplyBean.NewSupplyDataEntity.CategoryEntity mBean = mList.get(position);
         Log.e(TAG, "占位线:宽：" + mViewHolder.mLine.getLayoutParams().width + "高：" + mViewHolder.mLine.getLayoutParams().height);
-        bigImgWith=(HighCommunityApplication.screenWidth - CommonUtils.dip2px(context, 20)) / 2;
-        smallImgWith=(bigImgWith+ CommonUtils.dip2px(context, 80)) / 2;
         mViewHolder.mTitle.setText(mBean.getName());
         //动态加载大图
 //        mViewHolder.mBigView
         // 设置内容view的大小为屏幕宽度,这样按钮就正好被挤出屏幕外
-        Log.e(TAG, "更改前屏幕宽度" + HighCommunityApplication.screenWidth);
-        int myWith = (HighCommunityApplication.screenWidth - CommonUtils.dip2px(context, 20)) / 2;
-        Log.e(TAG, "更改中屏幕宽度" + myWith);
-        ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(myWith, myWith);
-//        mViewHolder.mBigView.getLayoutParams().width=myWith;
-//        mViewHolder.mBigView.getLayoutParams().height=myWith;
-//        mViewHolder.mSmallview1.getLayoutParams().width=myWith;
-//        mViewHolder.mSmallview1.getLayoutParams().height=myWith;
-//        mViewHolder.mSmallview2.getLayoutParams().width=myWith;
-//        mViewHolder.mSmallview2.getLayoutParams().height=myWith;
-//        mViewHolder.mBigView.setLayoutParams(parm);
-//        lp.width = (HighCommunityApplication.screenWidth- CommonUtils.dip2px(context,10))/2;
-        Log.e(TAG, "设置后大图的px:宽：" + mViewHolder.mBigView.getLayoutParams().width + "高：" + mViewHolder.mBigView.getLayoutParams().height);
-//        mViewHolder.mSmallview1.setLayoutParams(parm);
-        Log.e(TAG, "设置后mSmallview1的px:宽：" + mViewHolder.mSmallview1.getLayoutParams().width + "高：" + mViewHolder.mBigView.getLayoutParams().height);
-//        mViewHolder.mSmallview2.setLayoutParams(parm);
-        Log.e(TAG, "设置后mSmallview2px:宽：" + mViewHolder.mSmallview2.getLayoutParams().width + "高：" + mViewHolder.mBigView.getLayoutParams().height);
-
-
         View bigView = getBigView(mBean);
         mViewHolder.mBigView.addView(bigView);
         //第一个小图
@@ -180,12 +164,12 @@ int bigImgWith,smallImgWith;
      */
     private View getSmallView2(final NewSupplyBean.NewSupplyDataEntity.CategoryEntity mBean) {
         View smallView1 = LayoutInflater.from(context).inflate(R.layout.item_newsupply_type_small, null);
-        ImageView msmallGoodsimg2;
+        SimpleDraweeView msmallGoodsimg2;
         TextView msmallTvTag2;
         TextView msmallTitle2;
         TextView msmallNowPrice2;
         final ImageView msmallShopcart2;
-        msmallGoodsimg2 = (ImageView) smallView1.findViewById(R.id.category_small_goodsimg_goodsimg);
+        msmallGoodsimg2 = (SimpleDraweeView) smallView1.findViewById(R.id.category_small_goodsimg_goodsimg);
         msmallGoodsimg2.getLayoutParams().width=smallImgWith;
         msmallGoodsimg2.getLayoutParams().height=smallImgWith;
         msmallTvTag2 = (TextView) smallView1.findViewById(R.id.category_small_goodsimg_tv_tag);
@@ -195,7 +179,8 @@ int bigImgWith,smallImgWith;
         if (mBean.getGoods().get(2).getCover_pic() == null || mBean.getGoods().get(2).getCover_pic().equals("")) {
             BpiUniveralImage.displayImage("drawable://" + R.mipmap.default_no_pic, msmallGoodsimg2);
         } else {
-            BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(2).getCover_pic(), msmallGoodsimg2);
+            msmallGoodsimg2.setImageURI(Constacts.IMAGEHTTP + mBean.getGoods().get(2).getCover_pic());
+//            BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(2).getCover_pic(), msmallGoodsimg2);
         }
         if (mBean.getGoods().get(1).getLabel()!=null){
 
@@ -227,12 +212,12 @@ int bigImgWith,smallImgWith;
      */
     private View getSmallView1(final NewSupplyBean.NewSupplyDataEntity.CategoryEntity mBean) {
         View smallView1 = LayoutInflater.from(context).inflate(R.layout.item_newsupply_type_small, null);
-        ImageView msmallGoodsimg1;
+        SimpleDraweeView msmallGoodsimg1;
         TextView msmallTvTag1;
         TextView msmallTitle1;
         TextView msmallNowPrice1;
         final ImageView msmallShopcart1;
-        msmallGoodsimg1 = (ImageView) smallView1.findViewById(R.id.category_small_goodsimg_goodsimg);
+        msmallGoodsimg1 = (SimpleDraweeView) smallView1.findViewById(R.id.category_small_goodsimg_goodsimg);
         msmallGoodsimg1.getLayoutParams().width=smallImgWith;
         msmallGoodsimg1.getLayoutParams().height=smallImgWith;
         msmallTvTag1 = (TextView) smallView1.findViewById(R.id.category_small_goodsimg_tv_tag);
@@ -242,7 +227,8 @@ int bigImgWith,smallImgWith;
         if (mBean.getGoods().get(1).getCover_pic() == null || mBean.getGoods().get(1).getCover_pic().equals("")) {
             BpiUniveralImage.displayImage("drawable://" + R.mipmap.default_no_pic, msmallGoodsimg1);
         } else {
-            BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(1).getCover_pic(), msmallGoodsimg1);
+            msmallGoodsimg1.setImageURI(Constacts.IMAGEHTTP + mBean.getGoods().get(1).getCover_pic());
+//            BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(1).getCover_pic(), msmallGoodsimg1);
         }
         if (mBean.getGoods().get(1).getLabel()!=null){
 
@@ -282,14 +268,14 @@ int bigImgWith,smallImgWith;
     @NonNull
     private View getBigView(final NewSupplyBean.NewSupplyDataEntity.CategoryEntity mBean) {
         View bigView = LayoutInflater.from(context).inflate(R.layout.item_newsupply_type_big, null);
-        ImageView mBigGoodsimg;
+        SimpleDraweeView mBigGoodsimg;
         TextView mbigTvTag;
         TextView mbigTitle;
         TextView mbigNowPrice;
         final ImageView mBigShopcart;
-        mBigGoodsimg = (ImageView) bigView.findViewById(R.id.category_big_goodsimg);
+        mBigGoodsimg = (SimpleDraweeView) bigView.findViewById(R.id.category_big_goodsimg);
         mBigGoodsimg.getLayoutParams().width=bigImgWith;
-        mBigGoodsimg.getLayoutParams().height=bigImgWith;
+        mBigGoodsimg.getLayoutParams().height=bigImgHeight;
         mbigTvTag = (TextView) bigView.findViewById(R.id.category_big_tv_tag);
         mbigTitle = (TextView) bigView.findViewById(R.id.category_big_goodsTitle);
         mbigNowPrice = (TextView) bigView.findViewById(R.id.category_big_nowPrice);
@@ -297,8 +283,8 @@ int bigImgWith,smallImgWith;
         if (mBean.getGoods().get(0).getCover_pic() == null || mBean.getGoods().get(0).getCover_pic().equals("")) {
             BpiUniveralImage.displayImage("drawable://" + R.mipmap.default_no_pic, mBigGoodsimg);
         } else {
-
-            BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(0).getCover_pic(), mBigGoodsimg);
+            mBigGoodsimg.setImageURI(Constacts.IMAGEHTTP + mBean.getGoods().get(0).getCover_pic());
+//            BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(0).getCover_pic(), mBigGoodsimg);
         }
         if (mBean.getGoods().get(0).getLabel()!=null){
 

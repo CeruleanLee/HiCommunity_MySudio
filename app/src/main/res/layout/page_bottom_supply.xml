@@ -2,66 +2,52 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/Defult_Color_ShallowGrey"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <RadioGroup
             android:id="@+id/ac_shopdetail_RadioGroup"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:background="@color/white"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/ac_shopdetail_mypicdetail"
-                android:layout_width="0dp"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:background="@drawable/frag_picdetail_checktextview_selector"
-                android:button="@null"
-
-                android:clickable="true"
-                android:gravity="center"
+                style="@style/rb_huilife_style3"
                 android:text="图文详情"
-                android:textColor="@color/color_group_selector" />
+                android:checked="true"
+                 />
 
-            <View
-                android:layout_width="0.5dp"
-                android:layout_height="match_parent"
-                android:background="@color/gray" />
+
 
             <RadioButton
                 android:id="@+id/ac_shopdetail_mycommentdetail"
-                android:layout_width="0dp"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:background="@drawable/frag_picdetail_checktextview_selector"
-                android:button="@null"
-                android:clickable="true"
-                android:gravity="center"
+                style="@style/rb_huilife_style3"
                 android:text="商品评价"
-                android:textColor="@color/color_group_selector" />
+              />
         </RadioGroup>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/detail_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+        </android.support.v4.view.ViewPager>
 
         <RelativeLayout
             android:id="@+id/ac_shopdetail_FrameLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffffff" >
-            <cn.hi028.android.highcommunity.view.DrawableCenterTextView
-                android:id="@+id/ac_good_picdetail_nodata"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:gravity="center"
-                android:text="暂无数据"
-                android:textColor="#aaaaaa"
-                android:textSize="15sp"
-                android:visibility="gone" />
+            android:background="#ffffff"
+            android:visibility="gone">
+
+
             <TextView
                 android:id="@+id/ac_good_nodata"
                 android:layout_width="match_parent"
@@ -69,7 +55,8 @@
                 android:text="暂无数据"
                 android:textColor="#aaaaaa"
                 android:textSize="15sp"
-                android:visibility="visible" />
+                android:visibility="gone" />
+
             <cn.hi028.android.highcommunity.view.ScrollWebView
                 android:id="@+id/ac_good_detail_webview"
                 android:layout_width="match_parent"
@@ -79,53 +66,43 @@
                 android:id="@+id/ac_good_evaluation_listview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="none"
                 android:divider="@color/Defult_Color_LineGrey"
                 android:dividerHeight="0.5dp"
-                android:visibility="gone" >
-            </cn.hi028.android.highcommunity.view.NoScrollListview>
+                android:scrollbars="none"
+                android:visibility="gone"></cn.hi028.android.highcommunity.view.NoScrollListview>
 
 
 
-            <cn.hi028.android.highcommunity.view.DrawableCenterTextView
-                android:id="@+id/ac_good_comment_empty"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawableLeft="@drawable/ic_nodata"
-                android:gravity="center"
-                android:text="暂无评论"
-                android:textColor="#aaaaaa"
-                android:textSize="15sp"
-                android:visibility="gone" />
         </RelativeLayout>
 
         <TextView
             android:id="@+id/ac_shopdetail_tv_Hishequ"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:gravity="center"
             android:layout_marginTop="40dp"
             android:background="@color/white"
+            android:gravity="center"
+            android:visibility="gone"
             android:text="—— 本商品由嗨社区所有 ——"
             android:textColor="#aaaaaa" />
+
         <cn.hi028.android.highcommunity.view.NoScroolGridView
-           android:id="@+id/ac_shopdetail_recommendGoods"
+            android:id="@+id/ac_shopdetail_recommendGoods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
             android:columnWidth="70dp"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:horizontalSpacing="12dp"
-            android:verticalSpacing="@dimen/margin_12"
             android:listSelector="#00000000"
             android:numColumns="2"
-            android:stretchMode="columnWidth"
-            android:background="@color/white"
-
+android:visibility="gone"
             android:scrollbars="none"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="@dimen/margin_12">
 
         </cn.hi028.android.highcommunity.view.NoScroolGridView>
-
 
 
     </LinearLayout>

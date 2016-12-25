@@ -83,11 +83,11 @@ final String Tag="NeighborFrag--->";
 
             @Override
             public void onPageSelected(int i) {
-                if (i == 0) {
-                    myChangelistener.onChange(true);
-                } else {
-                    myChangelistener.onChange(false);
-                }
+                myChangelistener.onChange(i);
+//                if (i == 0) {
+//                } else {
+//                    myChangelistener.onChange(false);
+//                }
             }
 
             @Override
@@ -102,8 +102,10 @@ final String Tag="NeighborFrag--->";
     	 LogUtil.d(Tag+"setCurrentPage");
         if (page == 0) {
             mViewPager.setCurrentItem(0);
-        } else {
+        } else if (page == 1){
             mViewPager.setCurrentItem(1);
+        }else {
+            mViewPager.setCurrentItem(2);
         }
     }
 
@@ -116,6 +118,6 @@ final String Tag="NeighborFrag--->";
 
 
     public interface MyChangeListener {
-        public void onChange(boolean flag);
+        public void onChange(int flag);
     }
 }

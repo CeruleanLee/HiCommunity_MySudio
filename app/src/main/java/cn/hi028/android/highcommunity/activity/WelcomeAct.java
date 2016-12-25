@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
@@ -34,6 +35,7 @@ import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.LoginFrag;
 import cn.hi028.android.highcommunity.activity.fragment.WelcomeFrag;
 import cn.hi028.android.highcommunity.utils.AppSharedPreference;
+import cn.hi028.android.highcommunity.utils.CommonUtils;
 import cn.hi028.android.highcommunity.utils.LocUtils;
 import cn.jpush.android.api.JPushInterface;
 
@@ -44,6 +46,7 @@ import cn.jpush.android.api.JPushInterface;
  * @时间：2015/12/9<br>
  */
 public class WelcomeAct extends BaseActivity {
+	static  final String Tag="WelcomeAct--->";
 
 	LinearLayout mWelcomeLayout;
 	FragmentManager ft = null;
@@ -66,6 +69,7 @@ public class WelcomeAct extends BaseActivity {
 		SDKInitializer.initialize(getApplicationContext());
 			setContentView(R.layout.act_welcome);
 		LocUtils.startLocation(this, null);
+		GetScreenParams();
 		ft = getSupportFragmentManager();
 //		 MyPushMessageReceiver.MessageCount = 0;
 		//TODO  后续加引导页的话加载这个位置    加引导页蒙层的话在mainAct加
@@ -197,6 +201,69 @@ public class WelcomeAct extends BaseActivity {
 	 }
 	 private boolean isNoNetwork;
 
+	public int screenWidth;// 屏幕宽度，单位为px
+	public int screenHeight;// 屏幕高度，单位为px
+	public int densityDpi;// 屏幕密度，单位为dpi
+	public float scale;// 缩放系数，值为 densityDpi/160
+	public float fontScale;// 文字缩放系数，同scale
+
+	public final static int SCREEN_ORIENTATION_VERTICAL = 1; // 屏幕状态：横屏
+	public final static int SCREEN_ORIENTATION_HORIZONTAL = 2; // 屏幕状态：竖屏
+	public int screenOrientation = SCREEN_ORIENTATION_VERTICAL;// 当前屏幕状态，默认为竖屏
+
+	/**
+	 * 获取屏幕参数
+	 * @param
+	 */
+	public void GetScreenParams() {
+		DisplayMetrics dm = new DisplayMetrics();
+		WelcomeAct.this.getWindowManager().getDefaultDisplay().getMetrics(dm);
+		screenWidth = dm.widthPixels;
+		screenHeight = dm.heightPixels;
+		densityDpi = dm.densityDpi;
+		scale = dm.density;
+		fontScale = dm.scaledDensity;
+
+		screenOrientation = screenHeight > screenWidth ? SCREEN_ORIENTATION_VERTICAL
+				: SCREEN_ORIENTATION_HORIZONTAL;
+
+
+		Log.e(Tag,"屏幕参数："+ ":[screenWidth: "
+				+ screenWidth
+				+ " screenHeight: "
+				+ screenHeight
+				+ " scale: "
+				+ scale
+				+ " fontScale: "
+				+ fontScale
+				+ " densityDpi: "
+				+ densityDpi
+				+ " screenOrientation: "
+				+ (screenOrientation == SCREEN_ORIENTATION_VERTICAL ? "vertical"
+				: "horizontal") + "]");
+//        return dm;
+		setScreenParams();
+	}
+	public static int bigImgWith,bigImgHeight,smallImgWith;
+	/**
+	 * 设置全局屏幕参数
+	 */
+	private void setScreenParams() {
+		HighCommunityApplication.screenWidth=screenWidth;
+		HighCommunityApplication.screenHeight=screenHeight;
+		HighCommunityApplication.densityDpi=densityDpi;
+		HighCommunityApplication.screenOrientation=screenOrientation;
+		HighCommunityApplication.bigImgWith=(HighCommunityApplication.screenWidth - CommonUtils.dip2px(this, 20)) / 2;
+		//因为高太多，有减掉了40
+		bigImgHeight=(HighCommunityApplication.screenWidth - CommonUtils.dip2px(this, 20)-CommonUtils.dip2px(this, 40)) / 2;
+		HighCommunityApplication.bigImgHeight=bigImgHeight;
+		HighCommunityApplication.smallImgWith=(bigImgHeight+ CommonUtils.dip2px(this, 80)) / 2;
+
+
+
+
+
+	}
 	
 	
 }

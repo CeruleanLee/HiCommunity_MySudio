@@ -8,18 +8,16 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
 import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.WebSettings;
-import android.webkit.WebSettings.LayoutAlgorithm;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -53,6 +51,7 @@ import cn.hi028.android.highcommunity.activity.BaseFragmentActivity;
 import cn.hi028.android.highcommunity.activity.GoodImageDetailOrEvaluationActivity;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.ShowPayActivity;
+import cn.hi028.android.highcommunity.adapter.HuiOrderAdapter;
 import cn.hi028.android.highcommunity.adapter.PicPageAdapter;
 import cn.hi028.android.highcommunity.adapter.SupplGoodsDetailGridAdapter;
 import cn.hi028.android.highcommunity.adapter.SupplyGoodsDetailCommentAdapter;
@@ -69,7 +68,6 @@ import cn.hi028.android.highcommunity.utils.TimeUtil;
 import cn.hi028.android.highcommunity.view.NoScrollListview;
 import cn.hi028.android.highcommunity.view.NoScroolGridView;
 import cn.hi028.android.highcommunity.view.ScrollWebView;
-import cn.hi028.android.highcommunity.view.ScrollWebView.OnScrollChangeListener;
 import cn.hi028.android.highcommunity.view.snap.McoyProductContentPage;
 import cn.hi028.android.highcommunity.view.snap.McoyProductDetailInfoPage;
 import cn.hi028.android.highcommunity.view.snap.McoySnapPageLayout;
@@ -105,6 +103,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     LinearLayout payrl;
     RadioGroup mRadioGroup;
     RadioButton mPicDetail, mCommentDetail;
+    ViewPager mPager;
     ScrollView mScrollView2;
     private TextView edible, scrollText;
 
@@ -126,8 +125,8 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     private McoyProductContentPage bottomPage = null;
     private McoyProductDetailInfoPage topPage = null;
     View top_view, bottom_View;
-    ScrollWebView mWebview;
-    NoScrollListview mCommentListview;
+//    ScrollWebView mWebview;
+//    NoScrollListview mCommentListview;
     CheckBox toSeeMore;
     /**
      * 更多商品参数  动态添加
@@ -185,20 +184,20 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
             }
         });
-        mWebview.setOnScrollChangeListener(new OnScrollChangeListener() {
-
-            @Override
-            public void onScrollChanged(int l, int t, int oldl, int oldt) {
-            }
-
-            @Override
-            public void onPageTop(int l, int t, int oldl, int oldt) {
-            }
-
-            @Override
-            public void onPageEnd(int l, int t, int oldl, int oldt) {
-            }
-        });
+//        mWebview.setOnScrollChangeListener(new OnScrollChangeListener() {
+//
+//            @Override
+//            public void onScrollChanged(int l, int t, int oldl, int oldt) {
+//            }
+//
+//            @Override
+//            public void onPageTop(int l, int t, int oldl, int oldt) {
+//            }
+//
+//            @Override
+//            public void onPageEnd(int l, int t, int oldl, int oldt) {
+//            }
+//        });
     }
 
     private Handler popupHandler = new Handler() {
@@ -350,7 +349,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     TextView mFlashprogressTV;
     ProgressBar mFlashProgressBar;
     TextView mHishequTV;
-    NoScroolGridView mRecommendGridView;
+//    NoScroolGridView mRecommendGridView;
 
     private void initView() {
         caramount = (TextView) findViewById(R.id.ac_shop_count);
@@ -426,17 +425,20 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         // toSeeMore.setChecked(false);
         mPicDetail = (RadioButton) bottom_View.findViewById(R.id.ac_shopdetail_mypicdetail);
         mCommentDetail = (RadioButton) bottom_View.findViewById(R.id.ac_shopdetail_mycommentdetail);
-        mWebview = (ScrollWebView) bottom_View.findViewById(R.id.ac_good_detail_webview);
-        mCommentListview = (NoScrollListview) bottom_View.findViewById(R.id.ac_good_evaluation_listview);
+        mPager = (ViewPager) bottom_View.findViewById(R.id.detail_pager);
+//        mWebview = (ScrollWebView) bottom_View.findViewById(R.id.ac_good_detail_webview);
+//        mCommentListview = (NoScrollListview) bottom_View.findViewById(R.id.ac_good_evaluation_listview);
         tv_noData = (TextView) bottom_View.findViewById(R.id.ac_good_nodata);
-        tv_pic_nodata = (TextView) bottom_View.findViewById(R.id.ac_good_picdetail_nodata);
+//        tv_pic_nodata = (TextView) bottom_View.findViewById(R.id.ac_good_picdetail_nodata);
         mHishequTV = (TextView) bottom_View.findViewById(R.id.ac_shopdetail_tv_Hishequ);
-        mRecommendGridView = (NoScroolGridView) bottom_View.findViewById(R.id.ac_shopdetail_recommendGoods);
+//        mRecommendGridView = (NoScroolGridView) bottom_View.findViewById(R.id.ac_shopdetail_recommendGoods);
         //		mScrollView2=(ScrollView) findViewById(R.id.scrollView2);
         //		mScrollView2.smoothScrollTo(0, 20);
         Log.e(Tag, "~~~ top_view.getHeight()==" + top_view.getHeight());
 
     }
+
+
 
     @Override
     protected void onResume() {
@@ -504,7 +506,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         setCarAmount(msg);
 
         if (msg.getMid().equals("0")) {//商品所属商家(0=>来自嗨社区)
-            mHishequTV.setVisibility(View.VISIBLE);
+            mHishequTV.setVisibility(View.GONE);
         } else {
             mHishequTV.setVisibility(View.GONE);
         }
@@ -516,6 +518,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                 mSaleCount.setText("已售" + msg.getSale());
             if (null != msg.getStandard().get(0).getPrice())
                 price.setText("￥:" + msg.getStandard().get(0).getPrice());
+            singlePrice=Float.parseFloat(msg.getStandard().get(0).getPrice());
             if (null != msg.getStandard().get(0).getOld_price() && !msg.getStandard().get(0).getOld_price().equals("")
                     && !msg.getStandard().get(0).getOld_price().equals("null")) {
                 Spannable spanStrikethrough = new SpannableString("￥:" + msg.getStandard().get(0).getOld_price());
@@ -540,6 +543,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             if (null != msg.getRemainTime()) mSaledTime.setText(msg.getName());
             if (null != msg.getStandard().get(0).getPrice())
                 mFlashNowPrice.setText("￥:" + msg.getStandard().get(0).getPrice());
+            singlePrice=Float.parseFloat(msg.getStandard().get(0).getPrice());
 
             if (null != msg.getStandard().get(0).getOld_price() && !msg.getStandard().get(0).getOld_price().equals("")
                     && !msg.getStandard().get(0).getOld_price().equals("null")) {
@@ -666,7 +670,9 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                         if (goodsdata.getType().equals("0")) {//商品类型(0=>普通商品,1=>抢购商品,2=>非卖品,比如服务什么的)
                             if (mStandardList.get(i).getPrice() != null)
                                 price.setText("￥:" + mStandardList.get(i).getPrice());
-                            updateCarNum(false);
+                            singlePrice=Float.parseFloat(mStandardList.get(i).getPrice());
+
+                            updateCarNum(false,singlePrice);
                             if (null != mStandardList.get(i).getOld_price() && !mStandardList.get(i).getOld_price().equals("")
                                     && !mStandardList.get(i).getOld_price().equals("null")) {
                                 Spannable spanStrikethrough = new SpannableString("￥:" + mStandardList.get(i).getOld_price());
@@ -687,6 +693,12 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                         } else if (goodsdata.getType().equals("1")) {
                             if (null != mStandardList.get(i).getPrice())
                                 mFlashNowPrice.setText("￥:" + mStandardList.get(i).getPrice());
+                            singlePrice=Float.parseFloat(mStandardList.get(i).getPrice());
+
+                            updateCarNum(false,singlePrice);
+
+
+
                             if (null != mStandardList.get(i).getOld_price() && !mStandardList.get(i).getOld_price().equals("")
                                     && !mStandardList.get(i).getOld_price().equals("null")) {
                                 Spannable spanStrikethrough = new SpannableString("￥:" + mStandardList.get(i).getOld_price());
@@ -722,99 +734,8 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.StandardEntity> mStandardList = new ArrayList<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.StandardEntity>();
     boolean isNoWebDetail = false;
 
-    /**
-     * 设置底部的数据
-     *
-     * @param msg
-     */
-    private void setBottomPageUI(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
-        if (null != msg.getDetail() && !msg.getDetail().startsWith("http")) {
-            Log.e(Tag, "图文详情url:" + msg.getDetail());
-            loadPicDetail(msg.getDetail());
-            isNoWebDetail = false;
-        } else {
-            isNoWebDetail = true;
-//            mWebview.setVisibility(View.GONE);
-//            tv_pic_nodata.setVisibility(View.VISIBLE);
-        }
-        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.ac_shopdetail_mypicdetail) {
-                    if (isNoWebDetail) {
-                        mWebview.setVisibility(View.GONE);
-//    tv_noData.setText("暂无图文详情");
-                        tv_pic_nodata.setVisibility(View.VISIBLE);
-                    } else {
-
-                        mWebview.setVisibility(View.VISIBLE);
-                        tv_pic_nodata.setVisibility(View.GONE);
-                    }
-                    mCommentListview.setVisibility(View.GONE);
-
-                } else if (checkedId == R.id.ac_shopdetail_mycommentdetail) {
-
-                    mWebview.setVisibility(View.GONE);
-                    mCommentListview.setVisibility(View.VISIBLE);
 
 
-                }
-
-
-            }
-        });
-
-
-        //set评价内容
-        if (null != msg.getComment()) {
-            List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.CommentEntity> mCommentList = msg.getComment();
-            SupplyGoodsDetailCommentAdapter mEvaluationAdapter = new SupplyGoodsDetailCommentAdapter(mCommentList, SupplyGoodsDetailActivity.this);
-            mCommentListview.setEmptyView(tv_noData);
-            mCommentListview.setAdapter(mEvaluationAdapter);
-//            setCarAmount();
-        }
-
-        if (null != msg.getSupply()) {
-            mHishequTV.setVisibility(View.VISIBLE);
-            mHishequTV.setText("—— 本商品由" + msg.getSupply() + "所有 ——");
-        }
-        //set推荐商品
-        if (msg.getRecommend() != null) {
-            List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.RecommendEntity> mRecommendList = msg.getRecommend();
-            SupplGoodsDetailGridAdapter mAdapter = new SupplGoodsDetailGridAdapter(mRecommendList, SupplyGoodsDetailActivity.this);
-            mRecommendGridView.setAdapter(mAdapter);
-        }
-    }
-
-    /**
-     * 获取图文详情数据
-     **/
-    private void loadPicDetail(String msg) {
-        contentdetail = msg;
-        WebSettings mSetting = mWebview.getSettings();
-        mSetting.setJavaScriptEnabled(true);
-        mSetting.setDefaultTextEncodingName("utf-8");
-        //		mSetting.setDisplayZoomControls(false);
-        mSetting.setUseWideViewPort(true);
-        mSetting.setLoadWithOverviewMode(true);
-        mSetting.setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS);
-        mWebview.setWebViewClient(new WebViewClient() {
-            public boolean shouldOverrideUrlLoading(WebView view, String url) { // 重写此方法表明点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边
-                view.loadUrl(url);
-                return true;
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                //	super.onPageFinished(view, url);
-                //	layoutCall.setVisibility(View.VISIBLE);
-            }
-        });
-        Log.e(Tag, "----------准备loadUrl-------------：" + contentdetail);
-        mWebview.loadUrl(contentdetail);
-        // contentevaluation = (ArrayList<String>) msg.getComments();
-        //		aboutCallService(msg);
-    }
 
     private void aboutCallService(GoodsData msg) {
         if (null != msg.getTel()) {
@@ -865,6 +786,8 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                 mIntent.putExtra(MenuLeftAct.ACTIVITYTAG,
                         Constacts.MENU_LEFT_GDCAR);
                 startActivity(mIntent);
+                break;
+
             case R.id.ac_shop_car_addtocar:
                 addCarGoods();
                 break;
@@ -946,7 +869,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             waitPop.dismiss();
             HighCommunityUtils.GetInstantiation().ShowToast("成功加入购物车", 0);
 
-            updateCarNum(true);
+            updateCarNum(true,singlePrice);
         }
 
 
@@ -967,7 +890,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             waitPop.dismiss();
         }
     };
-
+float singlePrice=0;
     public String gettotalprice() {
         String pric = mAllprice.getText().toString();
         return pric;
@@ -980,14 +903,16 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             }
         }
     }
-    private void updateCarNum(boolean isAddCar) {
+    private void updateCarNum(boolean isAddCar,float singlePrice) {
         if (isAddCar){
             int carNum = Integer.parseInt(caramount.getText().toString());
             caramount.setText(carNum+1+"");
         }
-        float allPrice = Float.parseFloat(price.getText().toString().replace("￥", "").trim()) * Integer.parseInt(caramount.getText().toString().trim());
+
+            float allPrice = singlePrice * Integer.parseInt(caramount.getText().toString().trim());
+
         Log.e(Tag,"allPrice:"+allPrice);
-        mAllprice.setText("￥:" +allPrice);
+        mAllprice.setText("￥:" +singlePrice);
 
     }
     /**
@@ -1003,7 +928,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
         }
         if (msg.getStandard().get(0).getPrice()!=null||!msg.getStandard().get(0).getPrice().equals("")){
-            mAllprice.setText("￥:" + Integer.parseInt(msg.getStandard().get(0).getPrice())*Integer.parseInt(caramount.getText().toString().trim()));
+            mAllprice.setText("￥:" + Float.parseFloat(msg.getStandard().get(0).getPrice())*Integer.parseInt(caramount.getText().toString().trim()));
         }else{
             mAllprice.setText("￥:" +"0.00");
         }
@@ -1176,5 +1101,274 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         mViewPager.stopAutoScroll();
     }
 
+    private void initPager(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                if (checkedId == R.id.ac_shopdetail_mypicdetail) {
+//                    if (isNoWebDetail) {
+//                        mWebview.setVisibility(View.GONE);
+////    tv_noData.setText("暂无图文详情");
+//                        tv_pic_nodata.setVisibility(View.VISIBLE);
+//                    } else {
+//
+//                        mWebview.setVisibility(View.VISIBLE);
+//                        tv_pic_nodata.setVisibility(View.GONE);
+//                    }
+//                    mCommentListview.setVisibility(View.GONE);
+//
+//                } else if (checkedId == R.id.ac_shopdetail_mycommentdetail) {
+//
+//                    mWebview.setVisibility(View.GONE);
+//                    mCommentListview.setVisibility(View.VISIBLE);
+//
+//
+//                }
+                if (checkedId == R.id.ac_shopdetail_mypicdetail) {
+                    if (currentPo != 0)
+                        mPager.setCurrentItem(0);
+                } else if (checkedId == R.id.ac_shopdetail_mycommentdetail) {
+                    if (currentPo != 1)
+                        mPager.setCurrentItem(1);
+                }
+
+            }
+        });
+
+        mPager.setCurrentItem(0);
+        proPressList = new ArrayList<View>();
+        noDataList = new ArrayList<TextView>();
+        HuiOrderAdapter adapter = new HuiOrderAdapter();//与我相关用
+
+        List<View> viewList = new ArrayList<View>();
+        //将与我相关和系统消息添加进viewlist
+        viewList.add(getPicDetail(msg));
+        viewList.add(getCommentPageView(msg));
+        mPager.setAdapter(adapter);
+        mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                currentPo = i;
+                if (!((RadioButton) mRadioGroup.getChildAt(i)).isChecked()) {
+                    ((RadioButton) mRadioGroup.getChildAt(i)).setChecked(true);
+                }
+//                // 如果页面滑动的时候 adapter里面的数据是空的 就访问接口获取数据  与我相关是0  系统消息是1
+//                if (adapterList.get(i).getCount() == 0) {
+//                    if (i == 0) {
+//                        HTTPHelper.GetRelatedMsg(mRelateIbpi);
+//                    } else if (i == 1) {
+//                        HTTPHelper.GetSystemMsg(mIbpi);
+//                    }
+//                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+        adapter.setViewList(viewList);
+        mPager.setCurrentItem(0);
+
+
+    }
+    /**评论 view**/
+    View getCommentPageView(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
+        Log.e(Tag,"getCommentPageView");
+        View view = LayoutInflater.from(this).inflate(R.layout.page_commentlistdetail, null);
+        NoScrollListview evaluation_listview = (NoScrollListview) view.findViewById(R.id.page2_evaluation_listview);
+        TextView tv_Hishequ = (TextView) view.findViewById(R.id.page2_shopdetail_tv_Hishequ);
+        NoScroolGridView shopdetail_recommendGoods = (NoScroolGridView) view.findViewById(R.id.page2_shopdetail_recommendGoods);
+        View mProgress = view.findViewById(R.id.ll_sysMsg_Progress);
+        TextView mNodata = (TextView) view.findViewById(R.id.tv_NoticeDetails_noData);
+        evaluation_listview.setEmptyView(mNodata);
+
+        //set评价内容
+        if (null != msg.getComment()) {
+            List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.CommentEntity> mCommentList = msg.getComment();
+            SupplyGoodsDetailCommentAdapter mEvaluationAdapter = new SupplyGoodsDetailCommentAdapter(mCommentList, SupplyGoodsDetailActivity.this);
+            evaluation_listview.setAdapter(mEvaluationAdapter);
+//            setCarAmount();
+        }
+
+        if (null != msg.getSupply()) {
+            tv_Hishequ.setVisibility(View.VISIBLE);
+            tv_Hishequ.setText("—— 本商品由" + msg.getSupply() + "所有 ——");
+        }else{
+            tv_Hishequ.setVisibility(View.INVISIBLE);
+
+
+        }
+        //set推荐商品
+        if (msg.getRecommend() != null) {
+            List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.RecommendEntity> mRecommendList = msg.getRecommend();
+            SupplGoodsDetailGridAdapter mAdapter = new SupplGoodsDetailGridAdapter(mRecommendList, SupplyGoodsDetailActivity.this);
+            shopdetail_recommendGoods.setAdapter(mAdapter);
+        }
+
+
+        return view;
+    }
+    /**返回图文详情的view**/
+    View getPicDetail(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
+        Log.e(Tag,"getPicDetail");
+
+        View view = LayoutInflater.from(this).inflate(R.layout.page_picdetail, null);
+
+        View mProgress = view.findViewById(R.id.ll_NoticeDetails_Progress);
+        TextView tv_showhtml = (TextView) view.findViewById(R.id.page1_tv_showhtml);
+        ScrollWebView detail_webview = (ScrollWebView) view.findViewById(R.id.page1_good_detail_webview);
+        TextView tv_Hishequ = (TextView) view.findViewById(R.id.page1_shopdetail_tv_Hishequ);
+        NoScroolGridView recommendGoodsGview = (NoScroolGridView) view.findViewById(R.id.page1_shopdetail_recommendGoods);
+        mProgress.setVisibility(View.GONE);
+        TextView mNodata = (TextView) view.findViewById(R.id.tv_NoticeDetails_noData);
+
+        if (null != msg.getDetail() ) {
+            if (msg.getDetail().startsWith("http")){
+
+                Log.e(Tag, "getPicDetail 图文详情url:" + msg.getDetail());
+//                loadPicDetail(msg.getDetail());
+//                isNoWebDetail = false;
+            }else{
+                Log.e(Tag, "解析图文详情" + Html.fromHtml(msg.getDetail()));
+                tv_showhtml.setMovementMethod(LinkMovementMethod.getInstance());
+                tv_showhtml.setText(Html.fromHtml(msg.getDetail()));
+//                Document document = Jsoup.parse(msg.getDetail());
+//                Elements allElements = document.head().getAllElements();
+//                if (allElements!=null){
+//
+//                    Log.e(Tag, "解析图文详情2  allElements" + allElements.size());
+//                    StringBuffer sb = new StringBuffer();
+//                    for (int i = 0; i < allElements.size(); i++) {
+//                        allElements.get(i).toString();
+//                        sb.append(allElements.get(i).toString()+"\n");
+//                    }
+//                    Log.e(Tag, "解析图文详情2" + sb);
+//
+//                    tv_showhtml.setText(sb);
+//
+//
+//                }else{
+//                    Log.e(Tag, "解析图文详情2  allElements null" );
+//
+//                }
+
+
+
+            }
+        } else {
+            Log.e(Tag, "图文详情url: null");
+
+            isNoWebDetail = true;
+//            mWebview.setVisibility(View.GONE);
+//            tv_pic_nodata.setVisibility(View.VISIBLE);
+        }
+
+
+        if (null != msg.getSupply()) {
+            tv_Hishequ.setVisibility(View.VISIBLE);
+            tv_Hishequ.setText("—— 本商品由" + msg.getSupply() + "所有 ——");
+        }else{
+            tv_Hishequ.setVisibility(View.INVISIBLE);
+
+
+        }
+
+        //set推荐商品
+        if (msg.getRecommend() != null) {
+            List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.RecommendEntity> mRecommendList = msg.getRecommend();
+            SupplGoodsDetailGridAdapter mAdapter = new SupplGoodsDetailGridAdapter(mRecommendList, SupplyGoodsDetailActivity.this);
+            recommendGoodsGview.setAdapter(mAdapter);
+        }
+
+        return view;
+    }
+    /**
+     * 获取图文详情数据
+     **/
+    private void loadPicDetail(String msg) {
+        contentdetail = msg;
+//        WebSettings mSetting = mWebview.getSettings();
+//        mSetting.setJavaScriptEnabled(true);
+//        mSetting.setDefaultTextEncodingName("utf-8");
+//        //		mSetting.setDisplayZoomControls(false);
+//        mSetting.setUseWideViewPort(true);
+//        mSetting.setLoadWithOverviewMode(true);
+//        mSetting.setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS);
+//        mWebview.setWebViewClient(new WebViewClient() {
+//            public boolean shouldOverrideUrlLoading(WebView view, String url) { // 重写此方法表明点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边
+//                view.loadUrl(url);
+//                return true;
+//            }
+//
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//                //	super.onPageFinished(view, url);
+//                //	layoutCall.setVisibility(View.VISIBLE);
+//            }
+//        });
+//        Log.e(Tag, "----------准备loadUrl-------------：" + contentdetail);
+//        mWebview.loadUrl(contentdetail);
+//        // contentevaluation = (ArrayList<String>) msg.getComments();
+//        //		aboutCallService(msg);
+    }
+
+    /**
+     * 设置底部的数据
+     *
+     * @param msg
+     */
+    private void setBottomPageUI(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
+
+
+        initPager(msg);
+
+//        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+////                if (checkedId == R.id.ac_shopdetail_mypicdetail) {
+////                    if (isNoWebDetail) {
+////                        mWebview.setVisibility(View.GONE);
+//////    tv_noData.setText("暂无图文详情");
+////                        tv_pic_nodata.setVisibility(View.VISIBLE);
+////                    } else {
+////
+////                        mWebview.setVisibility(View.VISIBLE);
+////                        tv_pic_nodata.setVisibility(View.GONE);
+////                    }
+////                    mCommentListview.setVisibility(View.GONE);
+////
+////                } else if (checkedId == R.id.ac_shopdetail_mycommentdetail) {
+////
+////                    mWebview.setVisibility(View.GONE);
+////                    mCommentListview.setVisibility(View.VISIBLE);
+////
+////
+////                }
+//                if (checkedId == R.id.ac_shopdetail_mypicdetail) {
+//                    if (currentPo != 0)
+//                        mPager.setCurrentItem(0);
+//                } else if (checkedId == R.id.ac_shopdetail_mycommentdetail) {
+//                    if (currentPo != 1)
+//                        mPager.setCurrentItem(1);
+//                }
+//
+//            }
+//        });
+
+
+
+    }
+
+
+    /**当前页**/
+    int currentPo = 0;
+    public List<View> proPressList; // Tab页面列表
+    public List<TextView> noDataList; // Tab页面列表
 
 }

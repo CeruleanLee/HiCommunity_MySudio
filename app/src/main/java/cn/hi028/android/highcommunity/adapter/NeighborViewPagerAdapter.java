@@ -14,6 +14,7 @@ import cn.hi028.android.highcommunity.activity.fragment.*;
 public class NeighborViewPagerAdapter extends FragmentPagerAdapter {
     CommunityFrag mCommuFrag;
     GroupFrag mGroupFrag;
+    ActFrag_NewV mActFrag;
     final String Tag="------------NeighborFrag";
     public NeighborViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -28,18 +29,25 @@ public class NeighborViewPagerAdapter extends FragmentPagerAdapter {
                 mCommuFrag = new CommunityFrag();
             }
             return mCommuFrag;
-        } else {
+        } else if (arg0 == 1){
             if (mGroupFrag == null) {
             	 LogUtil.d(Tag+"new GroupFrag_()");
                 mGroupFrag = new GroupFrag_();
             }
             return mGroupFrag;
+        }else{
+            if (mActFrag == null) {
+                LogUtil.d(Tag+"new GroupFrag_()");
+                mActFrag = new ActFrag_NewV();
+            }
+            return mActFrag;
+
         }
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
 

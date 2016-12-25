@@ -3,7 +3,8 @@ apply plugin: 'android-library'
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
     compile files('libs/xutils3.jar')
-    compile files('libs/android-support-v4.jar')
+
+    compile 'com.android.support:support-v4:23.2.1'
 }
 
 android {

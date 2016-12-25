@@ -98,6 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:visibility="gone"
         android:text="New Button" />
 
     <EditText
@@ -111,38 +112,45 @@
     <TextView
         android:id="@+id/tv_address_Nodata"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:text="暂无数据"
-
         android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_address_noaddress"
         android:layout_width="match_parent"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="12dp"
+        android:clickable="true"
         android:layout_height="wrap_content"
         android:background="@drawable/ll_leftmenu_bg_selector"
-        android:gravity="left"
+        android:gravity="center_vertical"
         android:text="不显示位置" />
-
+<View
+    android:layout_width="match_parent"
+    android:layout_height="0.125dip"
+    android:background="@color/Defult_Color_LineGrey"/>
     <ListView
         android:id="@+id/loc_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="12dp"
-        android:divider="@color/Defult_Color_ShallowGrey"
-        android:dividerHeight="2dip"
+
+
+        android:divider="@color/Defult_Color_LineGrey"
+        android:dividerHeight="0.125dip"
         android:listSelector="@drawable/ll_leftmenu_bg_selector">
 
     </ListView>
 
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
+    <ListView
         android:id="@+id/loc_list2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="12dp"
-        android:divider="@color/Defult_Color_ShallowGrey"
-        android:dividerHeight="2dip"
+
+        android:divider="@color/Defult_Color_LineGrey"
+        android:dividerHeight="0.125dip"
         android:listSelector="@drawable/ll_leftmenu_bg_selector"
-        android:visibility="gone"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+        android:visibility="gone"></ListView>
 </LinearLayout>

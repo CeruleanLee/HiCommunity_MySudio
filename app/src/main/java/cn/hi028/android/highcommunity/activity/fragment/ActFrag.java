@@ -277,54 +277,64 @@ public class ActFrag extends BaseFragment {
                                 Constacts.MENU_LEFT_USERINFO);
                         mLeftjump.putExtra(MenuLeftAct.INTENTTAG,
                                 HighCommunityApplication.mUserInfo.getId() + "");
+                        getActivity().startActivity(mLeftjump);
                         break;
                     case R.id.ll_leftMenu_topic:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_TOPIC);
-                        Constacts.mUserCenter.setMessage(0);
+//                        Constacts.mUserCenter.setMessage(0);
+                        getActivity().startActivity(mLeftjump);
                         break;
                     case R.id.ll_leftMenu_collection:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_COLLECTION);
+                        getActivity().startActivity(mLeftjump);
                         break;
                     case R.id.ll_leftMenu_wallet:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_WALLET);
+                        getActivity().startActivity(mLeftjump);
                         break;
                     case R.id.ll_leftMenu_bill:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_BILL);
                         Constacts.mUserCenter.setFee(0);
+                        getActivity().startActivity(mLeftjump);
                         break;
                     case R.id.ll_leftMenu_Order:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_ORDER);
                         mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 0);
                         Constacts.mUserCenter.setOrder(0);
+                        getActivity().startActivity(mLeftjump);
                         break;
                     case R.id.ll_leftMenu_order_all:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_ORDER);
                         mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 0);
                         Constacts.mUserCenter.setOrder(0);
+                        getActivity().startActivity(mLeftjump);
                         break;
                     case R.id.ll_leftMenu_order_topay:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_ORDER);
                         mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 1);
                         Constacts.mUserCenter.setOrder(1);
+                        getActivity().startActivity(mLeftjump);
                         break;
                     case R.id.ll_leftMenu_order_torec:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_ORDER);
                         mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 2);
                         Constacts.mUserCenter.setOrder(2);
+                        getActivity().startActivity(mLeftjump);
                         break;
                     case R.id.ll_leftMenu_order_com:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_ORDER);
                         mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 3);
                         Constacts.mUserCenter.setOrder(3);
+                        getActivity().startActivity(mLeftjump);
                         break;
                     case R.id.ll_leftMenu_alliance_Order:
                         Intent intent = new Intent(getActivity(),
@@ -334,16 +344,19 @@ public class ActFrag extends BaseFragment {
                     case R.id.ll_leftMenu_cart:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_GDCAR);
+                        getActivity().startActivity(mLeftjump);
                         // Constacts.mUserCenter.setCart(0);
                         break;
                     case R.id.ll_leftMenu_Carft:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_CARFTS);
+                        getActivity().startActivity(mLeftjump);
                         break;
                     case R.id.ll_leftMenu_ZhongCou:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_ZHONGCOU);
                         Constacts.mUserCenter.setCho(0);
+                        getActivity().startActivity(mLeftjump);
                         break;
                     case R.id.ll_leftMenu_MyMsg://我的消息
                         Log.d(Tag, "点击我的消息");
@@ -352,6 +365,7 @@ public class ActFrag extends BaseFragment {
 //                        Constacts.mUserCenter.setCho(0);
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_MESSAGECENTER);
+                        getActivity().startActivity(mLeftjump);
 //                        if (HighCommunityUtils.isLogin(getActivity())) {
 //                            mRightTop.setVisibility(View.GONE);
 ////                            Intent mLeftjump = new Intent(getActivity(),
@@ -367,6 +381,7 @@ public class ActFrag extends BaseFragment {
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_SYSMESSAGE);
                         Constacts.mUserCenter.setCho(0);
+                        getActivity().startActivity(mLeftjump);
                         break;
                     case R.id.tx_LeftFrag_userlocation_layout:
                     case R.id.tx_LeftFrag_userlocation:
@@ -374,10 +389,10 @@ public class ActFrag extends BaseFragment {
                         // finish();
                         break;
                 }
-                if (view.getId() != R.id.ll_leftMenu_setting) {
-//					setleftData();
-                    getActivity().startActivity(mLeftjump);
-                }
+//                if (view.getId() != R.id.ll_leftMenu_setting) {
+////					setleftData();
+//                    getActivity().startActivity(mLeftjump);
+//                }
             }
 
         }

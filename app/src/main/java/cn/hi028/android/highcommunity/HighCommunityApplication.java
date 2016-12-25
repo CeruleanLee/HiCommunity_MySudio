@@ -14,6 +14,7 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.don.tools.BpiHttpClient;
 import com.don.tools.MyImageDownloader;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import net.duohuo.dhroid.BaseApplication;
@@ -54,7 +55,7 @@ public class HighCommunityApplication extends BaseApplication implements
 
     static HighCommunityApplication app;
     static boolean isAliPayInStalled;
-static  final String Tag="HighCommunityApplication--->";
+static  final String Tag="HiApplication->";
 
     @Override
     public void onCreate() {
@@ -88,6 +89,7 @@ static  final String Tag="HighCommunityApplication--->";
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+        Fresco.initialize(this);
         mDongUtils = HighCommunityUtils.GetInstantiation();
         BpiHttpClient.initCookies(this);
         HighCommunityUtils.GetInstantiation().SetApplicationContext(this);
@@ -173,7 +175,7 @@ static  final String Tag="HighCommunityApplication--->";
     public static int densityDpi;// 屏幕密度，单位为dpi
     public float scale;// 缩放系数，值为 densityDpi/160
     public static float fontScale;// 文字缩放系数，同scale
-
+    public static int bigImgWith,bigImgHeight,smallImgWith;
     public final static int SCREEN_ORIENTATION_VERTICAL = 1; // 屏幕状态：横屏
     public final static int SCREEN_ORIENTATION_HORIZONTAL = 2; // 屏幕状态：竖屏
     public static int screenOrientation = SCREEN_ORIENTATION_VERTICAL;// 当前屏幕状态，默认为竖屏

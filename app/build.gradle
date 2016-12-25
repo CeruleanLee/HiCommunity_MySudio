@@ -13,7 +13,7 @@ android {
     buildToolsVersion '23.0.1'
 
     dexOptions {
-        javaMaxHeapSize "4g"
+        javaMaxHeapSize "1024m"
     }
     defaultConfig {
         applicationId "cn.hi028.android.highcommunity"
@@ -55,7 +55,9 @@ android {
         }
     }
 }
-
+configurations {
+    all*.exclude group: 'com.android.support', module: 'support-v4'
+}
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
@@ -102,6 +104,13 @@ dependencies {
     compile files('libs/baidumapapi_v3_2_0.jar')
     compile files('libs/baidumapapi_base_v4_1_1.jar')
     compile files('libs/BASE64.jar')
+    compile files('libs/AMap_Location_V3.2.0_20161206.jar')
+    // 其他依赖
+    compile 'com.facebook.fresco:fresco:0.12.0'
+    // jsoup HTML parser library @ http://jsoup.org/
+
+    //    compile 'org.jsoup:jsoup:1.10.1'
+    compile files('libs/jsoup-1.10.1.jar')
 }
 
 apt {

@@ -4,8 +4,10 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_third_service_selector"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/margin_8"
-    android:paddingRight="@dimen/margin_8">
+    android:paddingLeft="12dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    android:paddingRight="12dp">
 
     <TextView
         android:id="@+id/item_loclist_address"
@@ -20,7 +22,7 @@
         android:id="@+id/item_loclist_addressDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginTop="3dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="address:"

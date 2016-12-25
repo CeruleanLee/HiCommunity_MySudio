@@ -1,6 +1,7 @@
 package cn.hi028.android.highcommunity.view.snap;
 
 import android.content.Context;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -8,11 +9,11 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.Scroller;
 
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.view.NoScrollListview;
-import cn.hi028.android.highcommunity.view.ScrollWebView;
 
 /**
  * @author jiangxinxing---mcoy in English
@@ -57,9 +58,11 @@ public class McoySnapPageLayout extends ViewGroup {
 	//这个值表示需要第一页和第二页之间的鸿沟
 	private int gapBetweenTopAndBottom;
 
-	private NoScrollListview mCommentListview;
-
-	ScrollWebView mPicDetailWebview;
+	private ViewPager mCommentListview;
+	private RadioGroup mRadioGroup;
+	ScrollView child1;
+	ScrollView child2;
+//	ScrollWebView mPicDetailWebview;
 
 	public interface McoySnapPage {
 		/**
@@ -159,8 +162,14 @@ public class McoySnapPageLayout extends ViewGroup {
 	public void setSnapPages(McoySnapPage pageTop, McoySnapPage pageBottom) {
 		mPageTop = pageTop;
 		mPageBottom = pageBottom;
-		mCommentListview=(NoScrollListview) mPageBottom.getRootView().findViewById(R.id.ac_good_evaluation_listview);
-		mPicDetailWebview=(ScrollWebView) mPageBottom.getRootView().findViewById(R.id.ac_good_detail_webview);
+		mCommentListview=(ViewPager) mPageBottom.getRootView().findViewById(R.id.detail_pager);
+		mRadioGroup=(RadioGroup) mPageBottom.getRootView().findViewById(R.id.ac_shopdetail_RadioGroup);
+//		mPicDetailWebview=(ScrollWebView) mPageBottom.getRootView().findViewById(R.id.ac_good_detail_webview);
+
+		child1 = (ScrollView) mCommentListview.getChildAt(0);
+		child2 = (ScrollView) mCommentListview.getChildAt(1);
+
+
 		addPagesAndRefresh();
 	}
 
@@ -281,30 +290,48 @@ public class McoySnapPageLayout extends ViewGroup {
 
 				if(yDiff > 0 ){
 					if(mPageBottom.isAtTop() && mCurrentScreen == 1){
-						if (mCommentListview.getVisibility()==View.VISIBLE) {
-							if(mCommentListview.getFirstVisiblePosition() == 0){
-								mTouchState = TOUCH_STATE_SCROLLING;
-							}else{
-								int moveX = (int) (x- mLastMotionX);
-								int moveY = (int) (y- mLastMotionY);
-								if (moveY > moveX+20) {
-									return false;
-								}
+						mTouchState = TOUCH_STATE_SCROLLING;
+
+						if (child1.getScaleY()==0){
+//								mCommentListview.getChildAt(0).getHeight()-mCommentListview.getHeight()==mCommentListview.getScrollY()){
+//							mTouchState = TOUCH_STATE_SCROLLING;
+
+						}
+//						else if(child2.getScaleY()==0||child2.getChildAt(0).getTop()==0){
+//
+//
+//						}
+						else{
+							int moveX = (int) (x- mLastMotionX);
+							int moveY = (int) (y- mLastMotionY);
+							if (moveY > moveX+20) {
+								return false;
 							}
 						}
-						if(mPicDetailWebview.getVisibility()==View.VISIBLE){
-//							mPicDetailWebview.getParent().g
-							if (mPicDetailWebview.isWebviewOnTop) {
-//								Toast.makeText(getContext(), "WebviewOnTop", 0).show();
-								mTouchState = TOUCH_STATE_SCROLLING;
-							}else{
-								int moveX = (int) (x- mLastMotionX);
-								int moveY = (int) (y- mLastMotionY);
-								if (moveY > moveX+20) {
-									return false;
-								}
-							}
-						}
+//						if (mCommentListview.getVisibility()==View.VISIBLE) {
+//							if(mCommentListview.getFirstVisiblePosition() == 0){
+//								mTouchState = TOUCH_STATE_SCROLLING;
+//							}else{
+//								int moveX = (int) (x- mLastMotionX);
+//								int moveY = (int) (y- mLastMotionY);
+//								if (moveY > moveX+20) {
+//									return false;
+//								}
+//							}
+//						}
+//						if(mPicDetailWebview.getVisibility()==View.VISIBLE){
+////							mPicDetailWebview.getParent().g
+//							if (mPicDetailWebview.isWebviewOnTop) {
+////								Toast.makeText(getContext(), "WebviewOnTop", 0).show();
+//								mTouchState = TOUCH_STATE_SCROLLING;
+//							}else{
+//								int moveX = (int) (x- mLastMotionX);
+//								int moveY = (int) (y- mLastMotionY);
+//								if (moveY > moveX+20) {
+//									return false;
+//								}
+//							}
+//						}
 
 					}
 

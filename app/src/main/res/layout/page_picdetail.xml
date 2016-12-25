@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/ll_NoticeDetails_Progress"
+            layout="@layout/progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_NoticeDetails_noData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="暂无数据"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/page1_tv_showhtml"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="html"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
+            android:lineSpacingExtra="3dp"
+            android:visibility="visible" />
+        <cn.hi028.android.highcommunity.view.ScrollWebView
+            android:id="@+id/page1_good_detail_webview"
+            android:layout_width="match_parent"
+            android:visibility="visible"
+            android:layout_height="1dp" />
+
+        <TextView
+            android:id="@+id/page1_shopdetail_tv_Hishequ"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="—— 本商品由xxx所有 ——"
+            android:textColor="#aaaaaa" />
+
+        <cn.hi028.android.highcommunity.view.NoScroolGridView
+            android:id="@+id/page1_shopdetail_recommendGoods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:columnWidth="70dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:horizontalSpacing="12dp"
+            android:listSelector="#00000000"
+            android:numColumns="2"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="@dimen/margin_12">
+
+        </cn.hi028.android.highcommunity.view.NoScroolGridView>
+    </LinearLayout>
+
+</ScrollView>

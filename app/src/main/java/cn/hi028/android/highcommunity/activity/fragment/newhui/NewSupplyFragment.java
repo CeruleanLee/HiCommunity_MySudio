@@ -4,6 +4,7 @@ package cn.hi028.android.highcommunity.activity.fragment.newhui;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -66,14 +67,15 @@ public class NewSupplyFragment extends BaseFragment {
         Log.d(Tag, "onCreateView");
         view = inflater.inflate(R.layout.fragment_newsupply, null);
         ButterKnife.bind(this, view);
-        initView();
         return view;
     }
-
-    private void initView() {
-        //TODO 新版
-//        initData();
+Handler mHandler=new Handler();
+Runnable mRunable=new Runnable() {
+    @Override
+    public void run() {
+        mWatingWindow.dismiss();
     }
+};
 
     private void initData() {
 
@@ -89,22 +91,36 @@ public class NewSupplyFragment extends BaseFragment {
             containerNewsupply.setVisibility(View.VISIBLE);
             mProgress.setVisibility(View.GONE);
             mNodata.setVisibility(View.VISIBLE);
-
             mNodata.setText(message);
         }
 
         @Override
         public void onSuccess(Object message) {
-            mWatingWindow.dismiss();
+            Log.e(Tag, "onSuccess");
+
             containerNewsupply.setVisibility(View.VISIBLE);
+            Log.e(Tag, "onSuccess  1");
+
             mProgress.setVisibility(View.GONE);
+            Log.e(Tag, "onSuccess  2");
+
             mNodata.setVisibility(View.GONE);
-            if (null == message)
+            Log.e(Tag, "onSuccess  3");
+
+            if (null == message) {
+                Log.e(Tag, "onSuccess  4");
+
                 return;
+            }
+            Log.e(Tag, "onSuccess  5");
+
             mBean = (NewSupplyBean.NewSupplyDataEntity) message;
+            Log.e(Tag, "onSuccess  6");
+
             initCategoryList(mBean);
-            initPurchaseList(mBean);
-            initmerchantList(mBean);
+
+            mHandler.postDelayed(mRunable,5000);
+
         }
 
         @Override
@@ -153,18 +169,7 @@ public class NewSupplyFragment extends BaseFragment {
     private void initPurchaseList(NewSupplyBean.NewSupplyDataEntity mBean) {
         final SupplyPurchaseListAdapter mPurchaseAdapter = new SupplyPurchaseListAdapter(mBean.getPurchase(), getActivity(), mMerchantListview);
         mPurchaseListview.setAdapter(mPurchaseAdapter);
-//        countDownTimer = new CountDownTimer(100000, 1000) {
-//            @Override
-//            public void onTick(long millisUntilFinished) {
-//                mPurchaseAdapter.notifyDataSetChanged();
-//
-//            }
-//
-//            @Override
-//            public void onFinish() {
-////                this.start();
-//            }
-//        };
+        initmerchantList(mBean);
     }
 
     public CountDownTimer countDownTimer;
@@ -175,10 +180,16 @@ public class NewSupplyFragment extends BaseFragment {
      * @param mBean
      */
     private void initCategoryList(NewSupplyBean.NewSupplyDataEntity mBean) {
+        Log.e(Tag, "initCategoryList");
+
         SupplyCategoryListAdapter mCategoryAdapter = new SupplyCategoryListAdapter(mBean.getCategory(), getActivity());
 
-        mCategoryListview.setAdapter(mCategoryAdapter);
+        Log.e(Tag, "setAdapter");
 
+        mCategoryListview.setAdapter(mCategoryAdapter);
+        Log.e(Tag, "setAdapter ok");
+
+        initPurchaseList(mBean);
 
     }
 
@@ -186,6 +197,7 @@ public class NewSupplyFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+        mHandler.removeCallbacks(mRunable);
     }
 
     @Override
