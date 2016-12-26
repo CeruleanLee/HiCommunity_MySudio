@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-
     android:background="@color/white"
     android:orientation="horizontal">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="3"
 
         >
 
@@ -19,8 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            fresco:placeholderImage="@mipmap/default_no_pic"
-            android:src="@mipmap/default_no_pic" />
+            android:src="@mipmap/default_no_pic"
+            fresco:placeholderImage="@mipmap/default_no_pic" />
 
         <TextView
             android:id="@+id/category_small_goodsimg_tv_tag"
@@ -41,28 +41,26 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        android:layout_weight="1">
+
+        android:layout_weight="2">
 
         <TextView
             android:id="@+id/category_small_goodsimg_goodsTitle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="8dp"
+
             android:ellipsize="end"
             android:maxLines="2"
             android:text="美国红提"
             android:textColor="#666666"
-
-            />
+            android:textSize="12sp" />
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/category_small_goodsimg_goodsTitle"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="12dp"
+
             android:layout_marginTop="5dp">
 
             <TextView
@@ -70,19 +68,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="￥：29.5"
-                android:textColor="@color/red" />
-
+                android:singleLine="true"
+                android:textColor="@color/red"
+                android:textSize="12sp" />
 
 
         </RelativeLayout>
+
         <ImageView
             android:id="@+id/category_small_goodsimg_shopcart"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginRight="5dp"
             android:paddingBottom="5dp"
             android:src="@mipmap/img_supply_cart_small" />
 

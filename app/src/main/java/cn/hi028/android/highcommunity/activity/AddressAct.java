@@ -4,6 +4,7 @@
 
 package cn.hi028.android.highcommunity.activity;
 
+
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -15,7 +16,6 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.fragment.AddressListFrag;
 import cn.hi028.android.highcommunity.activity.fragment.*;
 
 /**

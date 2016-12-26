@@ -55,6 +55,8 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                     }else if (toFrag==4){
                         NewHuiBuyFrag.toOrderDetail();
                     }
+                }else{
+                    NewHuiBuyFrag.toOrderTopayDetail();
                 }
                 toFrag = -1;
                 finish();

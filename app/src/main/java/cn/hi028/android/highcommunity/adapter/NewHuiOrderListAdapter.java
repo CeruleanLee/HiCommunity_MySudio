@@ -178,7 +178,7 @@ public class NewHuiOrderListAdapter extends BaseExpandableListAdapter {
             holder.tv_total.setText("合计：￥" + mList.get(groupPosition).getOld_fee());
             String str = "实付：￥" + mList.get(groupPosition).getTotal_fee();
             SpannableString ss = new SpannableString(str);
-            ss.setSpan(new ForegroundColorSpan(0x666666), 0, 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new ForegroundColorSpan(0xff666666), 0, 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             ss.setSpan(new ForegroundColorSpan(Color.RED), 4, str.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             holder.tv_goods_realpay_price.setText(ss);
         }else{

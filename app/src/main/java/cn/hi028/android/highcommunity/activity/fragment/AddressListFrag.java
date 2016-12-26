@@ -26,7 +26,6 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
-import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.AddressAct;
 import cn.hi028.android.highcommunity.activity.AddressModifyAct;
@@ -104,7 +103,7 @@ public class AddressListFrag extends BaseFragment {
             mList = (List<AddressBean>) message;
             if (mList.size()==0&&isFirstRequested){
                 isFirstRequested=false;
-                HTTPHelper.getAddressList(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
+//                HTTPHelper.getAddressList(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
             }else{
                 isFirstRequested=false;
                 mAdapter.AddNewData(mList);

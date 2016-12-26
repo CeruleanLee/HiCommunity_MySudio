@@ -362,7 +362,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 // StringBuilder showMsg = new StringBuilder();
                 // showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
                 if (extras == 1) {
-                    mRightTop.setVisibility(View.VISIBLE);
+                    mRightTop.setVisibility(View.GONE);
                 } else {
                     mRightTop.setVisibility(View.GONE);
                 }
@@ -793,7 +793,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                     if (msgNum == 0) {
                         mRightTop.setVisibility(View.GONE);
                     } else {
-                        mRightTop.setVisibility(View.VISIBLE);
+                        mRightTop.setVisibility(View.GONE);
                     }
                 }
             }

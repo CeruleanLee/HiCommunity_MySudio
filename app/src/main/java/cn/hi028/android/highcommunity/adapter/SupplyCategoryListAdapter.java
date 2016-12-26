@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,6 @@ import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivit
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
-import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.MBitmapHolder;
 
@@ -102,7 +100,6 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
         final NewSupplyBean.NewSupplyDataEntity.CategoryEntity mBean = mList.get(position);
-        Log.e(TAG, "占位线:宽：" + mViewHolder.mLine.getLayoutParams().width + "高：" + mViewHolder.mLine.getLayoutParams().height);
         mViewHolder.mTitle.setText(mBean.getName());
         //动态加载大图
 //        mViewHolder.mBigView
@@ -193,10 +190,9 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
         msmallShopcart2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (HighCommunityUtils.isLogin(context)) {
-                    waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, msmallShopcart2, Gravity.CENTER);
-                    HTTPHelper.addNewHuiGoodsToCar(mIbpiAddShopCar, mBean.getGoods().get(2).getId(), mBean.getGoods().get(2).getId());
-                }
+                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity.class);
+                mIntent.putExtra("id", mBean.getGoods().get(2).getId());
+                context.startActivity(mIntent);
             }
         });
         return smallView1;
@@ -241,10 +237,9 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
         msmallShopcart1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (HighCommunityUtils.isLogin(context)) {
-                    waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, msmallShopcart1, Gravity.CENTER);
-                    HTTPHelper.addNewHuiGoodsToCar(mIbpiAddShopCar, mBean.getGoods().get(1).getId(), mBean.getGoods().get(1).getId());
-                }
+                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity.class);
+                mIntent.putExtra("id", mBean.getGoods().get(1).getId());
+                context.startActivity(mIntent);
             }
         });
         return smallView1;
@@ -297,10 +292,13 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
         mBigShopcart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (HighCommunityUtils.isLogin(context)) {
-                    waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, mBigShopcart, Gravity.CENTER);
-                    HTTPHelper.addNewHuiGoodsToCar(mIbpiAddShopCar, mBean.getGoods().get(0).getId(), mBean.getGoods().get(0).getId());
-                }
+//                if (HighCommunityUtils.isLogin(context)) {
+//                    waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, mBigShopcart, Gravity.CENTER);
+//                    HTTPHelper.addNewHuiGoodsToCar(mIbpiAddShopCar, mBean.getGoods().get(0).getId(), mBean.getGoods().get(0).getId());
+//                }
+                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity.class);
+                mIntent.putExtra("id", mBean.getGoods().get(0).getId());
+                context.startActivity(mIntent);
             }
         });
         return bigView;

@@ -4,6 +4,7 @@
 
 package cn.hi028.android.highcommunity.activity.fragment;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -13,6 +14,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 
 import com.don.tools.BpiHttpHandler;
+import com.don.tools.GeneratedClassUtils;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.ListUtils;
@@ -26,9 +28,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftThirdAct;
 import cn.hi028.android.highcommunity.adapter.HuiCommOrderAdapter;
 import cn.hi028.android.highcommunity.bean.HuiOrderBean;
+import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
@@ -86,6 +90,12 @@ public class HuiCommOrderFrag extends BaseFragment{
                 public void onSuccess(Object message) {
                     waitPop.dismiss();
                     HighCommunityUtils.GetInstantiation().ShowToast("评论成功", 0);
+                    Intent mLeftjump = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftAct.class));
+                    mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
+                            Constacts.MENU_LEFT_ORDER);
+                    mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 0);
+                    Constacts.mUserCenter.setOrder(0);
+                    getActivity().startActivity(mLeftjump);
                     getActivity().finish();
                 }
 

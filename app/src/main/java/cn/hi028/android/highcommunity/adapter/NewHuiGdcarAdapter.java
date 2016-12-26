@@ -220,6 +220,7 @@ Log.e(Tag,"加入购物车 onSuccess 返回数据："+message.toString());
                 }
             }
         });
+
         return convertView;
     }
 

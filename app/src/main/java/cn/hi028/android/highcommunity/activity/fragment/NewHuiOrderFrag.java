@@ -142,6 +142,7 @@ public class NewHuiOrderFrag extends BaseFragment {
         noDataList.add(mNodata);
         ExpandableListView lv_list = ptfl.getRefreshableView();
         ptfl.setMode(PullToRefreshBase.Mode.DISABLED);
+        ptfl.setEmptyView(mNodata);
         lv_list.setGroupIndicator(null);
         lv_list.setAdapter(adapter);
         adapterList.add(adapter);

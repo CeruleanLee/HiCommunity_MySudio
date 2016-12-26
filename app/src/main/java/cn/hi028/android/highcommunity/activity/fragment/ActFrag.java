@@ -282,7 +282,7 @@ public class ActFrag extends BaseFragment {
                     case R.id.ll_leftMenu_topic:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_TOPIC);
-//                        Constacts.mUserCenter.setMessage(0);
+                        Constacts.mUserCenter.setMessage(0);
                         getActivity().startActivity(mLeftjump);
                         break;
                     case R.id.ll_leftMenu_collection:

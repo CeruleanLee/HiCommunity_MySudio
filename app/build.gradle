@@ -13,7 +13,7 @@ android {
     buildToolsVersion '23.0.1'
 
     dexOptions {
-        javaMaxHeapSize "1024m"
+        javaMaxHeapSize "4g"
     }
     defaultConfig {
         applicationId "cn.hi028.android.highcommunity"
@@ -55,9 +55,7 @@ android {
         }
     }
 }
-configurations {
-    all*.exclude group: 'com.android.support', module: 'support-v4'
-}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'

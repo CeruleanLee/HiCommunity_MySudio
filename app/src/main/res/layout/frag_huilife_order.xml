@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="暂无数据"
+        android:text="暂无订单"
         android:visibility="gone" />
     <com.handmark.pulltorefresh.library.PullToRefreshExpandableListView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"

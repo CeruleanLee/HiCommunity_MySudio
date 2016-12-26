@@ -40,6 +40,7 @@ import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.AddressAct;
 import cn.hi028.android.highcommunity.activity.HuiLifeSecondAct;
+import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.TicketAct;
 import cn.hi028.android.highcommunity.adapter.NewHuiBuyAdapter;
 import cn.hi028.android.highcommunity.bean.AddressBean;
@@ -53,6 +54,7 @@ import cn.hi028.android.highcommunity.bean.HSuppGdDefBean;
 import cn.hi028.android.highcommunity.bean.WpayBean;
 import cn.hi028.android.highcommunity.params.HuiSuppOrderParams2;
 import cn.hi028.android.highcommunity.utils.CommonUtils;
+import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.alipay.AlipayUtils;
@@ -355,7 +357,13 @@ mBean.setZero_money(orderDetailBean.getZero_money());
         @Override
         public Object onResolve(String result) {
             Log.e(Tag, "onResolve:" + result);
+if (result.contains("\"consign\":false")){
+    Log.e(Tag, "onResolve:替换" );
 
+    result=  result.replace("\"consign\":false","\"consign\":null");
+    Log.e(Tag, "onResolve:替换ok" +"onResolve:" + result);
+
+}
             if (orderType==0){
 
                 return HTTPHelper.ResolveNewSupplyShowPay(result);
@@ -383,9 +391,9 @@ mBean.setZero_money(orderDetailBean.getZero_money());
      */
     private void setUserAddress(NewSupplyPaydetailBean.SupplyPayDataEntity mBean) {
         mConsign = mBean.getConsign();
-        if (mConsign != null) {
-            updateData(mConsign);
-        }
+        updateData(mConsign);
+//        if (mConsign != null) {
+//        }
     }
 
     /**
@@ -559,8 +567,10 @@ mBean.setZero_money(orderDetailBean.getZero_money());
                                         Toast.makeText(getActivity(), "支付结果确认中", Toast.LENGTH_SHORT).show();
                                     } else {
                                         // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-//                                        showMsgDialog(2);
+                                        showMsgDialog(2);
                                         Toast.makeText(getActivity(), "支付失败", Toast.LENGTH_SHORT).show();
+
+
                                     }
                                 }
                             }
@@ -606,7 +616,29 @@ mBean.setZero_money(orderDetailBean.getZero_money());
     WpayBean mWpayBean;
     static NewHuiBuyFrag fragment;
     public static void toOrderDetail() {
-        Toast.makeText(fragment.getActivity(),"结束本页，去订单列表，再从订单列表到详情",Toast.LENGTH_SHORT).show();
+        Intent mLeftjump = new Intent(fragment.getActivity(), GeneratedClassUtils.get(MenuLeftAct.class));
+        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
+                Constacts.MENU_LEFT_ORDER);
+        mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 0);
+        Constacts.mUserCenter.setOrder(0);
+        fragment.getActivity().startActivity(mLeftjump);
+
+//        Toast.makeText(fragment.getActivity(),"结束本页，去订单列表，再从订单列表到详情",Toast.LENGTH_SHORT).show();
+//        Intent mIntent = new Intent(fragment.getActivity(), GeneratedClassUtils.get(MenuLeftSecondAct.class));
+//        mIntent.putExtra(MenuLeftSecondAct.ACTIVITYTAG, Constacts.MENU_LEFTSECOND_ORDER_DETAIL);
+//        mIntent.putExtra(MenuLeftSecondAct.INTENTTAG, mBean.geti + "");
+//        fragment.startActivity(mIntent);
+        fragment.getActivity().finish();
+    }
+    public static void toOrderTopayDetail() {
+        Intent mLeftjump = new Intent(fragment.getActivity(), GeneratedClassUtils.get(MenuLeftAct.class));
+        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
+                Constacts.MENU_LEFT_ORDER);
+        mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 1);
+        Constacts.mUserCenter.setOrder(1);
+        fragment.getActivity().startActivity(mLeftjump);
+
+//        Toast.makeText(fragment.getActivity(),"结束本页，去订单列表，再从订单列表到详情",Toast.LENGTH_SHORT).show();
 //        Intent mIntent = new Intent(fragment.getActivity(), GeneratedClassUtils.get(MenuLeftSecondAct.class));
 //        mIntent.putExtra(MenuLeftSecondAct.ACTIVITYTAG, Constacts.MENU_LEFTSECOND_ORDER_DETAIL);
 //        mIntent.putExtra(MenuLeftSecondAct.INTENTTAG, mBean.geti + "");
@@ -620,14 +652,27 @@ mBean.setZero_money(orderDetailBean.getZero_money());
         } else {
             msg = "支付失败";
         }
-        ECAlertDialog dialog2 = ECAlertDialog.buildAlert(getActivity(), msg, "我知道了", new DialogInterface.OnClickListener() {
+        ECAlertDialog dialog2;
+        if (x==1){
 
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                toOrderDetail();
+            dialog2 = ECAlertDialog.buildAlert(getActivity(), msg, "我知道了", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    toOrderDetail();
 //                getActivity().finish();
-            }
-        });
+                }
+            });
+        }else{
+            dialog2 = ECAlertDialog.buildAlert(getActivity(), msg, "我知道了", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    toOrderTopayDetail();
+//                getActivity().finish();
+                }
+            });
+        }
         dialog2.setTitle("提示");
         dialog2.show();
     }
@@ -686,6 +731,8 @@ mBean.setZero_money(orderDetailBean.getZero_money());
         if (mConsign != null) {
             Log.e(Tag,"mConsign != null");
             fl_huiLife_addressChooice.setVisibility(View.VISIBLE);
+
+
             orderParams.setAddress_id(mConsign.getId());
 
             tv_reserve_name.setText(mConsign.getName());

@@ -410,6 +410,7 @@ public class AddressModifyFrag extends BaseFragment {
                 if (mInitBean != null) {
                     HighCommunityUtils.GetInstantiation().ShowToast(mInitBean.getMsg(), 0);
 //                    mData = mInitBean.getData();
+                    getActivity().finish();
 
                 }
             }

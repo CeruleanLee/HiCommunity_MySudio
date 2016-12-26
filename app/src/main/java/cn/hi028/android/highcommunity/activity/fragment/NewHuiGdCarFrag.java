@@ -8,7 +8,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -61,7 +60,7 @@ public class NewHuiGdCarFrag extends BaseFragment {
     public ImageView img_goods_ch;
     @Bind(R.id.ptrlv_gdcar_listView)
     PullToRefreshListView mListView;
-    public NewHuiGdcarAdapter adapter;
+    public NewHuiGdcarAdapter adapter = new NewHuiGdcarAdapter(this);
     View view;
 
     @Override
@@ -78,7 +77,7 @@ public class NewHuiGdCarFrag extends BaseFragment {
         Log.d(Tag, "initView");
 
         mProgress.setVisibility(View.VISIBLE);
-        adapter = new NewHuiGdcarAdapter(this);
+
         mListView.setAdapter(adapter);
         mListView.setEmptyView(mNodata);
         mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
@@ -86,7 +85,7 @@ public class NewHuiGdCarFrag extends BaseFragment {
         mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                adapter.ClearData();
+
                 new GetDataTask2().execute();
             }
 
@@ -95,12 +94,15 @@ public class NewHuiGdCarFrag extends BaseFragment {
 
             }
         });
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            }
-        });
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         HTTPHelper.getGdCarList2(mIbpi);
+
     }
 
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
@@ -118,8 +120,10 @@ public class NewHuiGdCarFrag extends BaseFragment {
             mProgress.setVisibility(View.GONE);
             if (null == message)
                 return;
+            adapter.ClearData();
             List<NewSupplyCarlistBean.SupplyCarlistDataEntity> mlist = (List<NewSupplyCarlistBean.SupplyCarlistDataEntity>) message;
             adapter.setData(mlist);
+            mListView.onRefreshComplete();
         }
 
         @Override
@@ -257,7 +261,7 @@ public class NewHuiGdCarFrag extends BaseFragment {
         @Override
         protected String doInBackground(Void... params) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(800);
             } catch (InterruptedException e) {
             }
             return null;

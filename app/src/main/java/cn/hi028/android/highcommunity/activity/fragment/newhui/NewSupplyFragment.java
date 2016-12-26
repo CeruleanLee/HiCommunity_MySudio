@@ -44,6 +44,8 @@ import cn.hi028.android.highcommunity.view.nine.MyNineGridView;
 public class NewSupplyFragment extends BaseFragment {
     public static final String Tag = "NewSupplyFragment--->";
     public static final String FRAGMENTTAG = "NewSupplyFragment";
+    public static  boolean isFistRequest = true;
+    public static  boolean isFistRequestHttp = true;
     View view;
     @Bind(R.id.supply_category_listview)
     MyNoScrollListview mCategoryListview;
@@ -62,6 +64,7 @@ public class NewSupplyFragment extends BaseFragment {
     @Bind(R.id.container_newsupply)
     LinearLayout containerNewsupply;
     private PopupWindow mWatingWindow;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(Tag, "onCreateView");
@@ -118,8 +121,14 @@ Runnable mRunable=new Runnable() {
             Log.e(Tag, "onSuccess  6");
 
             initCategoryList(mBean);
+if (isFistRequest){
+    isFistRequest=false;
 
-            mHandler.postDelayed(mRunable,5000);
+    mHandler.postDelayed(mRunable,1000);
+}else{
+    mWatingWindow.dismiss();
+
+}
 
         }
 
@@ -203,6 +212,9 @@ Runnable mRunable=new Runnable() {
     @Override
     public void onResume() {
         super.onResume();
-        initData();
+        if (isFistRequestHttp){
+            isFistRequestHttp=false;
+            initData();
+        }
     }
 }

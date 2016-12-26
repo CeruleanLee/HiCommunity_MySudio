@@ -1,17 +1,15 @@
 package net.duohuo.dhroid.activity;
 
+
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.WindowManager;
 
-
 import com.umeng.analytics.MobclickAgent;
 
 import net.duohuo.dhroid.BaseApplication;
 import net.duohuo.dhroid.Const;
-import net.duohuo.dhroid.ioc.InjectUtil;
-import net.duohuo.dhroid.ioc.annotation.Inject;
 
 /***
  * @author duohuo-jinghao

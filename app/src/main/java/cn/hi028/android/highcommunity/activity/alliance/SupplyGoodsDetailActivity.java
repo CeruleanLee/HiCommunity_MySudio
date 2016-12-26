@@ -61,10 +61,13 @@ import cn.hi028.android.highcommunity.bean.MerchantEvaluationInfoListBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyGoodsDetailBean;
 import cn.hi028.android.highcommunity.bean.SubmitOrderBean;
 import cn.hi028.android.highcommunity.lisenter.PayPop2FragFace;
+import cn.hi028.android.highcommunity.lisenter.ScrollViewListener;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.TimeUtil;
+import cn.hi028.android.highcommunity.view.MyCustomViewPager;
+import cn.hi028.android.highcommunity.view.MyGoodetailScrollView;
 import cn.hi028.android.highcommunity.view.NoScrollListview;
 import cn.hi028.android.highcommunity.view.NoScroolGridView;
 import cn.hi028.android.highcommunity.view.ScrollWebView;
@@ -103,7 +106,8 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     LinearLayout payrl;
     RadioGroup mRadioGroup;
     RadioButton mPicDetail, mCommentDetail;
-    ViewPager mPager;
+    /**下半页的viewpager**/
+    MyCustomViewPager mPager;
     ScrollView mScrollView2;
     private TextView edible, scrollText;
 
@@ -181,6 +185,12 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                 } else if (mcoySnapPageLayout.getCurrentScreen() == 1) {
                     scrollText.setText("—— 继续拖动，查看商品信息 ——");
                 }
+
+            }
+        });
+        mcoySnapPageLayout.setScrollToTopListener(new McoySnapPageLayout.ScrollToTopListener() {
+            @Override
+            public void onScrollToTop(boolean isScrollToTop) {
 
             }
         });
@@ -425,7 +435,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         // toSeeMore.setChecked(false);
         mPicDetail = (RadioButton) bottom_View.findViewById(R.id.ac_shopdetail_mypicdetail);
         mCommentDetail = (RadioButton) bottom_View.findViewById(R.id.ac_shopdetail_mycommentdetail);
-        mPager = (ViewPager) bottom_View.findViewById(R.id.detail_pager);
+        mPager = (MyCustomViewPager) bottom_View.findViewById(R.id.detail_pager);
 //        mWebview = (ScrollWebView) bottom_View.findViewById(R.id.ac_good_detail_webview);
 //        mCommentListview = (NoScrollListview) bottom_View.findViewById(R.id.ac_good_evaluation_listview);
         tv_noData = (TextView) bottom_View.findViewById(R.id.ac_good_nodata);
@@ -435,7 +445,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         //		mScrollView2=(ScrollView) findViewById(R.id.scrollView2);
         //		mScrollView2.smoothScrollTo(0, 20);
         Log.e(Tag, "~~~ top_view.getHeight()==" + top_view.getHeight());
-
+        mPager.setPagingEnabled(false);
     }
 
 
@@ -1141,7 +1151,6 @@ float singlePrice=0;
         HuiOrderAdapter adapter = new HuiOrderAdapter();//与我相关用
 
         List<View> viewList = new ArrayList<View>();
-        //将与我相关和系统消息添加进viewlist
         viewList.add(getPicDetail(msg));
         viewList.add(getCommentPageView(msg));
         mPager.setAdapter(adapter);
@@ -1154,17 +1163,11 @@ float singlePrice=0;
             @Override
             public void onPageSelected(int i) {
                 currentPo = i;
+                mPager.setTag(currentPo);
                 if (!((RadioButton) mRadioGroup.getChildAt(i)).isChecked()) {
                     ((RadioButton) mRadioGroup.getChildAt(i)).setChecked(true);
                 }
-//                // 如果页面滑动的时候 adapter里面的数据是空的 就访问接口获取数据  与我相关是0  系统消息是1
-//                if (adapterList.get(i).getCount() == 0) {
-//                    if (i == 0) {
-//                        HTTPHelper.GetRelatedMsg(mRelateIbpi);
-//                    } else if (i == 1) {
-//                        HTTPHelper.GetSystemMsg(mIbpi);
-//                    }
-//                }
+
             }
 
             @Override
@@ -1181,6 +1184,8 @@ float singlePrice=0;
     View getCommentPageView(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
         Log.e(Tag,"getCommentPageView");
         View view = LayoutInflater.from(this).inflate(R.layout.page_commentlistdetail, null);
+        MyGoodetailScrollView mScrollView2 = (MyGoodetailScrollView) view.findViewById(R.id.srcollview_page_comment);
+
         NoScrollListview evaluation_listview = (NoScrollListview) view.findViewById(R.id.page2_evaluation_listview);
         TextView tv_Hishequ = (TextView) view.findViewById(R.id.page2_shopdetail_tv_Hishequ);
         NoScroolGridView shopdetail_recommendGoods = (NoScroolGridView) view.findViewById(R.id.page2_shopdetail_recommendGoods);
@@ -1221,6 +1226,7 @@ float singlePrice=0;
         View view = LayoutInflater.from(this).inflate(R.layout.page_picdetail, null);
 
         View mProgress = view.findViewById(R.id.ll_NoticeDetails_Progress);
+        MyGoodetailScrollView mScrollView1 = (MyGoodetailScrollView) view.findViewById(R.id.srcollview_page_picdetail);
         TextView tv_showhtml = (TextView) view.findViewById(R.id.page1_tv_showhtml);
         ScrollWebView detail_webview = (ScrollWebView) view.findViewById(R.id.page1_good_detail_webview);
         TextView tv_Hishequ = (TextView) view.findViewById(R.id.page1_shopdetail_tv_Hishequ);
@@ -1285,7 +1291,12 @@ float singlePrice=0;
             SupplGoodsDetailGridAdapter mAdapter = new SupplGoodsDetailGridAdapter(mRecommendList, SupplyGoodsDetailActivity.this);
             recommendGoodsGview.setAdapter(mAdapter);
         }
-
+        mScrollView1.setScrollViewListener(new ScrollViewListener() {
+            @Override
+            public void onScrollChanged(MyGoodetailScrollView scrollView, int x, int y, int oldx, int oldy) {
+                Log.e(Tag,"滑动x:"+x+"滑动y:"+y);
+            }
+        });
         return view;
     }
     /**

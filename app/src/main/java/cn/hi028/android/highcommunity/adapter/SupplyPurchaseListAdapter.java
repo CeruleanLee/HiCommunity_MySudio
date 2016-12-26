@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.don.tools.BpiUniveralImage;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
@@ -129,7 +128,7 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
         mViewHolder.mTojoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"去抢购"+mBean.getId(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context,"去抢购"+mBean.getId(),Toast.LENGTH_SHORT).show();
                 Intent mIntent=new Intent(context, SupplyGoodsDetailActivity.class);
                 mIntent.putExtra("id",mBean.getId());
                 context.startActivity(mIntent);
@@ -140,7 +139,7 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "详情:"+mBean.getId(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "详情:"+mBean.getId(), Toast.LENGTH_SHORT).show();
                 Intent mIntent=new Intent(context, SupplyGoodsDetailActivity.class);
                 mIntent.putExtra("id",mBean.getId());
                 context.startActivity(mIntent);

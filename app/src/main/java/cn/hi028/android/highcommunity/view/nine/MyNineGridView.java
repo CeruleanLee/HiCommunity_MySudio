@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
@@ -19,7 +18,6 @@ import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.PhotoScanActivity;
-import cn.hi028.android.highcommunity.activity.alliance.MerchantActivity;
 import cn.hi028.android.highcommunity.activity.fragment.CommunityFrag;
 import cn.hi028.android.highcommunity.bean.UrlsBean;
 import cn.hi028.android.highcommunity.utils.MBitmapHolder;
@@ -75,10 +73,10 @@ public class MyNineGridView extends NineGridView {
     @Override
     protected void onClickImage(int position, String url, List<String> bigUrlList,boolean isIntent) {
         if (isIntent){
-        Toast.makeText(mContext, "点击了 " + position+" 跳转商家id: "+bigUrlList.get(position), Toast.LENGTH_SHORT).show();
-            Intent mMerchant = new Intent(mContext, MerchantActivity.class);
-            mMerchant.putExtra("id",bigUrlList.get(position));
-            mContext.startActivity(mMerchant);
+//        Toast.makeText(mContext, "点击了 " + position+" 跳转商家id: "+bigUrlListgUrlList.get(position), Toast.LENGTH_SHORT).show();
+//            Intent mMerchant = new Intent(mContext, MerchantActivity.class);
+//            mMerchant.putExtra("id",bigUrlList.get(position));
+//            mContext.startActivity(mMerchant);
         }else{
             UrlsBean mUrls = new UrlsBean();
             mUrls.getmUrlList().addAll(bigUrlList);

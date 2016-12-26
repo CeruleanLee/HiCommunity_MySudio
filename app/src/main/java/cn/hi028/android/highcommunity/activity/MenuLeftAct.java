@@ -205,9 +205,10 @@ public class MenuLeftAct extends BaseFragmentActivity {
                 .findFragmentByTag(MyCollectionSwitchFrag.FRAGMENTTAG);
         if (keyCode == KeyEvent.KEYCODE_BACK) {
 //            if (mMyMessageFrag != null && mMyMessageFrag.onKeyDown()) {
-            if (mMyMessageFrag != null ) {
-                return true;
-            } else if (mCollection != null && mCollection.onKeyDown()) {
+//            if (mMyMessageFrag != null ) {
+//                return true;
+//            } else
+            if (mCollection != null && mCollection.onKeyDown()) {
                 return true;
             }
         }
