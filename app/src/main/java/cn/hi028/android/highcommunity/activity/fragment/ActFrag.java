@@ -35,6 +35,7 @@ import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftSecondAct;
 import cn.hi028.android.highcommunity.activity.VallageAct;
 import cn.hi028.android.highcommunity.activity.alliance.AllianceOrder;
+import cn.hi028.android.highcommunity.bean.PersonalInfoBean;
 import cn.hi028.android.highcommunity.bean.UserCenterBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
@@ -211,18 +212,50 @@ public class ActFrag extends BaseFragment {
                 }
             }
         });
+        mBean=new PersonalInfoBean();
+
         myinforEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mModify = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftSecondAct.class));
-                mModify.putExtra(MenuLeftSecondAct.ACTIVITYTAG, Constacts.MENU_LEFTSECOND_PERSONAL);
-//                        mModify.putExtra(MenuLeftSecondAct.INTENTTAG, mBean);
-                startActivity(mModify);
+                HTTPHelper.getPersonalInfo(mIbpi2, HighCommunityApplication.mUserInfo.getId()+"");
+
             }
         });
 
     }
+    BpiHttpHandler.IBpiHttpHandler mIbpi2 = new BpiHttpHandler.IBpiHttpHandler() {
+        @Override
+        public void onError(int id, String message) {
+            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+        }
 
+        @Override
+        public void onSuccess(Object message) {
+            if (null == message)
+                return;
+            mBean = (PersonalInfoBean) message;
+            Intent mModify = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftSecondAct.class));
+            mModify.putExtra(MenuLeftSecondAct.ACTIVITYTAG, Constacts.MENU_LEFTSECOND_PERSONAL);
+            mModify.putExtra(MenuLeftSecondAct.INTENTTAG, mBean);
+            startActivity(mModify);
+        }
+
+        @Override
+        public Object onResolve(String result) {
+            return HTTPHelper.ResolvePersonalInfo(result);
+        }
+
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
+
+        }
+
+        @Override
+        public void cancleAsyncTask() {
+
+        }
+    };
+    PersonalInfoBean mBean;
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
