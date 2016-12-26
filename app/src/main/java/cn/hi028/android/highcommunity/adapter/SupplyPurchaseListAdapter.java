@@ -36,7 +36,7 @@ import cn.hi028.android.highcommunity.view.CutdownTextView;
  * @时间：2016/11/28<br>
  */
 public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
-    public static final String TAG = "SupplyPurchaseListAdapter：";
+    public static final String TAG = "限时抢购adapter：";
     List<NewSupplyBean.NewSupplyDataEntity.PurchaseEntity> mList = new ArrayList<NewSupplyBean.NewSupplyDataEntity.PurchaseEntity>();
 
     private Context context;
@@ -122,8 +122,11 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
         }
         mViewHolder.mTvProgress.setText(mBean.getPercent());
         mViewHolder.flashsaleTvKucun.setText("共"+mBean.getStorage()+"份");
-//        Log.e(TAG,"时间--->"+Long.parseLong(mBean.getRemainTime()));
-        long time22 = Long.parseLong(mBean.getRemainTime()) - System.currentTimeMillis();
+        Log.e(TAG,"剩余时间--->"+Long.parseLong(mBean.getRemainTime()));
+//        long nowTime = Long.parseLong(String.valueOf(System.currentTimeMillis()).toString().substring(0,10));
+        long nowTime = System.currentTimeMillis();
+        Log.e(TAG,"现在的时间--->"+nowTime);
+        long time22 = Long.parseLong(mBean.getRemainTime())*1000- nowTime;
         Log.e(TAG,"时间222--->"+time22);
 
         startCutdown(mViewHolder.mCounterTime, position,(time22),1000);
