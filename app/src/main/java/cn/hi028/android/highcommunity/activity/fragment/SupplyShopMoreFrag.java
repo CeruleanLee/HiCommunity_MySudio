@@ -1,5 +1,6 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,11 +23,12 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.NewSupplyMoreAct;
+import cn.hi028.android.highcommunity.activity.NewSupplyMoreAct_2;
 import cn.hi028.android.highcommunity.adapter.SupplyMoreGoodsGridAdapter;
 import cn.hi028.android.highcommunity.bean.SupplyGoodsMoreBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
+import cn.hi028.android.highcommunity.view.CustomViewpager;
 
 /**
  * @功能：直供商品更多Frag<br>
@@ -34,7 +36,7 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @时间：2016/11/30<br>
  */
 
-public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct.MySortChangeListener {
+public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct_2.MySortChangeListener {
     public static final String Tag = "SupplyShopMoreFrag--->";
     public static final String FRAGMENTTAG = "SupplyShopMoreFrag";
     List<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity> mList
@@ -49,12 +51,21 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
     private PopupWindow mWatingWindow;
 
     View view;
+    CustomViewpager vp;
+
+    public SupplyShopMoreFrag() {
+    }
+
+    public SupplyShopMoreFrag(CustomViewpager vp) {
+        this.vp = vp;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(Tag, "onCreateView");
         view = inflater.inflate(R.layout.frag_supply_more, null);
         ButterKnife.bind(this, view);
+        vp.setObjectForPosition(view,1);
         initView();
         return view;
     }
@@ -102,16 +113,17 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
             mWatingWindow.dismiss();
             if (message==null)return;
             SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity mData= (SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity) message;
-           if (mList.size()>0){
-               Log.d(Tag, "---~~~clear1");
-
-               mList.clear();
-           }
-            if (mAdapter.getCount()>0){
-                Log.d(Tag, "---~~~clear2");
-
-                mAdapter.ClearData();
-            }
+            mList.clear();
+            mAdapter.ClearData();
+//           if (mList.size()>0){
+//               Log.d(Tag, "---~~~clear1");
+//
+//               mList.clear();
+//           }
+//            if (mAdapter.getCount()>0){
+//                Log.d(Tag, "---~~~clear2");
+//                mAdapter.ClearData();
+//            }
             mList = mData.getGoods();
             mAdapter.AddNewData(mList);
 //            HighCommunityUtils.GetInstantiation().setThirdServiceGridViewHeight(mGridview, mAdapter, 4);

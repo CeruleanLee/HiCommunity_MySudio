@@ -9,22 +9,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.activity.fragment.SupplyShopMoreFrag;
+import cn.hi028.android.highcommunity.view.CustomViewpager;
 
 /**
  * 直供商品更多pager适配器
  */
 public class SupplyMorePagerAdapter extends FragmentPagerAdapter {
     static    final String Tag = "MotionPagerAdapter";
-    SupplyShopMoreFrag mPublicMotionFrag;
+    CustomViewpager vp;
     List<SupplyShopMoreFrag> mFragList= new ArrayList<SupplyShopMoreFrag>();
 
-    public SupplyMorePagerAdapter(FragmentManager fm,int mFragListSize ) {
+    public SupplyMorePagerAdapter(FragmentManager fm,int mFragListSize ,CustomViewpager vp) {
         super(fm);
         Log.d(Tag, "MotionPagerAdapter");
-
+this.vp=vp;
         Log.d(Tag,"SIZE="+mFragList.size());
         while (mFragList.size()<mFragListSize){
-            SupplyShopMoreFrag mPublicMotionFrag = new SupplyShopMoreFrag();
+            SupplyShopMoreFrag mPublicMotionFrag = new SupplyShopMoreFrag(vp);
             mFragList.add( mPublicMotionFrag);
         }
     }

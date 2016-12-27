@@ -6,7 +6,6 @@ import android.os.CountDownTimer;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StrikethroughSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,9 +121,11 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
         }
         mViewHolder.mTvProgress.setText(mBean.getPercent());
         mViewHolder.flashsaleTvKucun.setText("共"+mBean.getStorage()+"份");
-//        Log.e(TAG,"时间--->"+Long.parseLong(mBean.getRemainTime()));
-        long time22 = Long.parseLong(mBean.getRemainTime()) - System.currentTimeMillis();
-        Log.e(TAG,"时间222--->"+time22);
+//        Log.e(TAG,"剩余时间--->"+Long.parseLong(mBean.getRemainTime()));
+        long nowTime = System.currentTimeMillis();
+//        Log.e(TAG,"现在时间--->"+nowTime);
+        long time22 = Long.parseLong(mBean.getRemainTime())*1000 - nowTime;
+//        Log.e(TAG,"时间222--->"+time22);
 
         startCutdown(mViewHolder.mCounterTime, position,(time22),1000);
         mViewHolder.mTojoin.setOnClickListener(new View.OnClickListener() {

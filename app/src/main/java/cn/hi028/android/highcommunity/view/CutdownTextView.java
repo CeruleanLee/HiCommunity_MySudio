@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+
+import cn.hi028.android.highcommunity.utils.TimeUtil;
 /**
  * @功能：直供页倒计时类<br>
  * @作者： Lee_yting<br>
@@ -44,11 +46,11 @@ public class CutdownTextView extends TextView{
 
 				@Override
 				public void onTick(long millisUntilFinished) {
-						if(currentState == STATE_HOUR && millisUntilFinished < 60*60*1000){
-					dateFormat.applyPattern(patternMinute);
-					currentState = STATE_MINUTE;
-				}
-				setText(dateFormat.format(millisUntilFinished+3600000*16));
+//					if(currentState == STATE_HOUR && millisUntilFinished < 60*60*1000){
+//						dateFormat.applyPattern(patternMinute);
+//						currentState = STATE_MINUTE;
+//					}
+//					setText(dateFormat.format(millisUntilFinished+3600000*16));
 				}
 				@Override
 				public void onFinish() {
@@ -79,21 +81,19 @@ public class CutdownTextView extends TextView{
 		}
 		if(countDownTimer == null){
 			countDownTimer = new CountDownTimer(time, period) {
-				
+
 				@Override
 				public void onTick(long millisUntilFinished) {
-
-					if(currentState == STATE_HOUR && millisUntilFinished < 60*60*1000){
-						dateFormat.applyPattern(patternMinute);
-						currentState = STATE_MINUTE;
-					}
-					setText(dateFormat.format(millisUntilFinished+3600000*16));
 					if (millisUntilFinished==0){
 						setText("抢购结束");
 
 					}else{
 
-//						setText(TimeUtil.getCountTime(millisUntilFinished / 1000));
+						setText(TimeUtil.getCountTime(millisUntilFinished / 1000));
+					}
+					if(currentState == STATE_HOUR && millisUntilFinished < 60*60*1000){
+						dateFormat.applyPattern(patternMinute);
+						currentState = STATE_MINUTE;
 					}
 				}
 				@Override
@@ -121,7 +121,7 @@ public class CutdownTextView extends TextView{
 	public interface OnCountDownFinishListener{
 		public void onFinish();
 	}
-	
+
 	private void print(int position,String str){
 		if(position != 0){
 			System.out.println(str);

@@ -136,7 +136,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginRight="8dp"
                 android:layout_toLeftOf="@id/vertial_line"
-                android:text="商品名称"
+                android:text=""
                 android:textSize="15sp" />
 
             <TextView
@@ -145,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ac_shop_detail_goods_name"
                 android:layout_marginTop="6dp"
-                android:text="¥：9.9"
+                android:text=""
                 android:textColor="@color/red"
                 android:textSize="15sp" />
 
@@ -156,7 +156,7 @@
                 android:layout_alignBottom="@id/ac_shop_detail_goods_price"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/ac_shop_detail_goods_price"
-                android:text="¥：9.9"
+                android:text=""
                 android:textColor="@color/old_price_color"
                 android:textSize="10sp" />
             <TextView
@@ -164,7 +164,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="已售998"
+                android:text=""
                 android:layout_alignBottom="@id/ac_shop_detail_goods_price"
 
                 android:textColor="@color/old_price_color"
@@ -339,14 +339,14 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
+                android:layout_height="0dp"
                 android:background="@null"
                 android:layerType="software" />
 
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
+                android:layout_height="0dp"
                 android:text="_ __ _" />
 
             <View
@@ -471,7 +471,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="8dp"
                 android:layout_toLeftOf="@id/call"
-                android:text="13036987456"
+                android:text=""
                 android:textSize="13sp" />
         </RelativeLayout>
 

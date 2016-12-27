@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cn.hi028.android.highcommunity.view.MyGoodetailScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/srcollview_page_picdetail"
     android:background="@color/Defult_Color_ShallowGrey"
@@ -26,33 +27,47 @@
             android:gravity="center"
             android:text="暂无数据"
             android:visibility="gone" />
-        <TextView
+        <LinearLayout
             android:id="@+id/page1_tv_showhtml"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="html"
+            android:layout_height="180dp"
+            android:orientation="vertical"
             android:background="@color/white"
             android:paddingBottom="12dp"
             android:paddingTop="12dp"
-            android:lineSpacingExtra="3dp"
-            android:visibility="visible" />
+
+            ></LinearLayout>
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/page1_img_showhtml"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            fresco:placeholderImage="@mipmap/default_no_pic"
+            />
         <cn.hi028.android.highcommunity.view.ScrollWebView
             android:id="@+id/page1_good_detail_webview"
             android:layout_width="match_parent"
             android:visibility="visible"
-            android:layout_height="1dp" />
+            android:layout_height="0dp" />
 
         <TextView
             android:id="@+id/page1_shopdetail_tv_Hishequ"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:background="@color/white"
             android:gravity="center"
             android:text="—— 本商品由xxx所有 ——"
             android:textColor="#aaaaaa" />
-
+        <TextView
+            android:id="@+id/page1_shopdetail_tv_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:text="商品推荐"
+            android:textColor="#666666" />
         <cn.hi028.android.highcommunity.view.NoScroolGridView
             android:id="@+id/page1_shopdetail_recommendGoods"
             android:layout_width="match_parent"

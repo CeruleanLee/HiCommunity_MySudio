@@ -96,6 +96,31 @@ public class NewSupplyGoodsDetailBean {
         private List<CommentEntity> comment;
         private List<RecommendEntity> recommend;
 
+        @Override
+        public String toString() {
+            return "SupplyGoodsDetailDataEntity{" +
+                    "id='" + id + '\'' +
+                    ", name='" + name + '\'' +
+                    ", mid='" + mid + '\'' +
+                    ", intro='" + intro + '\'' +
+                    ", sale='" + sale + '\'' +
+                    ", detail='" + detail + '\'' +
+                    ", type='" + type + '\'' +
+                    ", limitNum='" + limitNum + '\'' +
+                    ", sid='" + sid + '\'' +
+                    ", remainTime='" + remainTime + '\'' +
+                    ", tel='" + tel + '\'' +
+                    ", delivery='" + delivery + '\'' +
+                    ", supply='" + supply + '\'' +
+                    ", percent='" + percent + '\'' +
+                    ", cartNum='" + cartNum + '\'' +
+                    ", pic=" + pic +
+                    ", attr=" + attr +
+                    ", standard=" + standard +
+                    ", comment=" + comment +
+                    ", recommend=" + recommend +
+                    '}';
+        }
 
         public String getRemainTime() {
             return remainTime;
@@ -266,6 +291,14 @@ public class NewSupplyGoodsDetailBean {
             private String attr_name;
             private String attr_val;
 
+            @Override
+            public String toString() {
+                return "AttrEntity{" +
+                        "attr_name='" + attr_name + '\'' +
+                        ", attr_val='" + attr_val + '\'' +
+                        '}';
+            }
+
             public void setAttr_name(String attr_name) {
                 this.attr_name = attr_name;
             }
@@ -283,7 +316,7 @@ public class NewSupplyGoodsDetailBean {
             }
         }
 
-        public static class StandardEntity {
+        public static class StandardEntity implements Comparable<StandardEntity>{
             /**
              * id : 1
              * name : 5公斤/袋
@@ -297,6 +330,17 @@ public class NewSupplyGoodsDetailBean {
             private String price;
             private String old_price;
             private String storage;
+
+            @Override
+            public String toString() {
+                return "StandardEntity{" +
+                        "id='" + id + '\'' +
+                        ", name='" + name + '\'' +
+                        ", price='" + price + '\'' +
+                        ", old_price='" + old_price + '\'' +
+                        ", storage='" + storage + '\'' +
+                        '}';
+            }
 
             public void setId(String id) {
                 this.id = id;
@@ -337,6 +381,11 @@ public class NewSupplyGoodsDetailBean {
             public String getStorage() {
                 return storage;
             }
+
+            @Override
+            public int compareTo(StandardEntity another) {
+                return (int)(Float.parseFloat(this.getPrice())*100) - (int)(Float.parseFloat(another.getPrice())*100);//先按照年龄排序  ;
+            }
         }
 
         public static class CommentEntity {
@@ -353,6 +402,17 @@ public class NewSupplyGoodsDetailBean {
             private String nick;
             private String time;
             private String content;
+
+            @Override
+            public String toString() {
+                return "CommentEntity{" +
+                        "uid='" + uid + '\'' +
+                        ", head_pic='" + head_pic + '\'' +
+                        ", nick='" + nick + '\'' +
+                        ", time='" + time + '\'' +
+                        ", content='" + content + '\'' +
+                        '}';
+            }
 
             public void setUid(String uid) {
                 this.uid = uid;
@@ -412,6 +472,19 @@ public class NewSupplyGoodsDetailBean {
             private String sale;
             private String price;
             private String old_price;
+
+            @Override
+            public String toString() {
+                return "RecommendEntity{" +
+                        "id='" + id + '\'' +
+                        ", label='" + label + '\'' +
+                        ", cover_pic='" + cover_pic + '\'' +
+                        ", name='" + name + '\'' +
+                        ", sale='" + sale + '\'' +
+                        ", price='" + price + '\'' +
+                        ", old_price='" + old_price + '\'' +
+                        '}';
+            }
 
             public String getOld_price() {
                 return old_price;

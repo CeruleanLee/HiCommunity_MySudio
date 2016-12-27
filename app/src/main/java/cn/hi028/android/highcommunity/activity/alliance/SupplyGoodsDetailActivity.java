@@ -8,10 +8,8 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.method.LinkMovementMethod;
 import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.Gravity;
@@ -38,12 +36,19 @@ import android.widget.Toast;
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.BpiHttpHandler.IBpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import net.duohuo.dhroid.view.AutoScrollViewPager;
 import net.duohuo.dhroid.view.CirclePageIndicator;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
@@ -55,6 +60,7 @@ import cn.hi028.android.highcommunity.adapter.HuiOrderAdapter;
 import cn.hi028.android.highcommunity.adapter.PicPageAdapter;
 import cn.hi028.android.highcommunity.adapter.SupplGoodsDetailGridAdapter;
 import cn.hi028.android.highcommunity.adapter.SupplyGoodsDetailCommentAdapter;
+import cn.hi028.android.highcommunity.bean.Autonomous.NewSupplyCarlistBean;
 import cn.hi028.android.highcommunity.bean.GoodsData;
 import cn.hi028.android.highcommunity.bean.Goods_info;
 import cn.hi028.android.highcommunity.bean.MerchantEvaluationInfoListBean;
@@ -106,7 +112,9 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     LinearLayout payrl;
     RadioGroup mRadioGroup;
     RadioButton mPicDetail, mCommentDetail;
-    /**下半页的viewpager**/
+    /**
+     * 下半页的viewpager
+     **/
     MyCustomViewPager mPager;
     ScrollView mScrollView2;
     private TextView edible, scrollText;
@@ -129,7 +137,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     private McoyProductContentPage bottomPage = null;
     private McoyProductDetailInfoPage topPage = null;
     View top_view, bottom_View;
-//    ScrollWebView mWebview;
+    //    ScrollWebView mWebview;
 //    NoScrollListview mCommentListview;
     CheckBox toSeeMore;
     /**
@@ -156,6 +164,10 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
     Handler mHandler = new Handler();
     private PopupWindow mWatingWindow;
+    /**
+     * 购物车价格合计
+     **/
+    float mCarPriceSum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -226,8 +238,50 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     private void initData() {
         popupHandler.sendEmptyMessageDelayed(0, 100);
 //        mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity.this, getParent(), Gravity.CENTER);
-        HTTPHelper.GetNewSupplyGoodsDetail(mIbpi, id);
+
+        HTTPHelper.getGdCarList2(mGetCarIbpi);
     }
+
+    BpiHttpHandler.IBpiHttpHandler mGetCarIbpi = new BpiHttpHandler.IBpiHttpHandler() {
+        @Override
+        public void onError(int id, String message) {
+            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+        }
+
+        @Override
+        public void onSuccess(Object message) {
+            Log.d(Tag, "onSuccess");
+            if (null == message)
+                return;
+            mCarPriceSum = 0.00f;
+            List<NewSupplyCarlistBean.SupplyCarlistDataEntity> mlist = (List<NewSupplyCarlistBean.SupplyCarlistDataEntity>) message;
+            for (int i = 0; i < mlist.size(); i++) {
+                mCarPriceSum += mlist.get(i).getSum();
+            }
+            HTTPHelper.GetNewSupplyGoodsDetail(mIbpi, id);
+//            setCarAmount();
+//            adapter.setData(mlist);
+//            mListView.onRefreshComplete();
+        }
+
+        @Override
+        public Object onResolve(String result) {
+
+
+            return HTTPHelper.ResolvGdCarList2(result);
+        }
+
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
+
+        }
+
+        @Override
+        public void cancleAsyncTask() {
+
+        }
+
+    };
 
     private void getDatas() {
         Bundle bundle = getIntent().getExtras();
@@ -449,7 +503,6 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     }
 
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -528,7 +581,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                 mSaleCount.setText("已售" + msg.getSale());
             if (null != msg.getStandard().get(0).getPrice())
                 price.setText("￥:" + msg.getStandard().get(0).getPrice());
-            singlePrice=Float.parseFloat(msg.getStandard().get(0).getPrice());
+            singlePrice = Float.parseFloat(msg.getStandard().get(0).getPrice());
             if (null != msg.getStandard().get(0).getOld_price() && !msg.getStandard().get(0).getOld_price().equals("")
                     && !msg.getStandard().get(0).getOld_price().equals("null")) {
                 Spannable spanStrikethrough = new SpannableString("￥:" + msg.getStandard().get(0).getOld_price());
@@ -553,7 +606,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             if (null != msg.getRemainTime()) mSaledTime.setText(msg.getName());
             if (null != msg.getStandard().get(0).getPrice())
                 mFlashNowPrice.setText("￥:" + msg.getStandard().get(0).getPrice());
-            singlePrice=Float.parseFloat(msg.getStandard().get(0).getPrice());
+            singlePrice = Float.parseFloat(msg.getStandard().get(0).getPrice());
 
             if (null != msg.getStandard().get(0).getOld_price() && !msg.getStandard().get(0).getOld_price().equals("")
                     && !msg.getStandard().get(0).getOld_price().equals("null")) {
@@ -582,7 +635,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
             //set倒计时
             if (null != msg.getRemainTime()) {
-                mCounter = new onCounter(Long.parseLong(msg.getRemainTime()) * 1000, 1000);
+                mCounter = new onCounter(Long.parseLong(msg.getRemainTime()) * 1000 - System.currentTimeMillis(), 1000);
                 mCounter.start();
             }
 
@@ -637,7 +690,14 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             layoutInflater = LayoutInflater.from(this);
 
             mStandardList = msg.getStandard();
+            Log.e(Tag, "排序前list：" + mStandardList.toString());
+
+            Collections.sort(mStandardList);
+            Log.e(Tag, "排序后list：" + mStandardList.toString());
+
+
             Log.e(Tag, "规格长度：" + mStandardList.size());
+
             for (int i = 0; i < mStandardList.size(); i++) {
                 Log.e(Tag, "new一个规格");
                 RadioButton newRadioBut = (RadioButton) layoutInflater.inflate(R.layout.radiobut_standard, null);
@@ -680,9 +740,9 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                         if (goodsdata.getType().equals("0")) {//商品类型(0=>普通商品,1=>抢购商品,2=>非卖品,比如服务什么的)
                             if (mStandardList.get(i).getPrice() != null)
                                 price.setText("￥:" + mStandardList.get(i).getPrice());
-                            singlePrice=Float.parseFloat(mStandardList.get(i).getPrice());
+                            singlePrice = Float.parseFloat(mStandardList.get(i).getPrice());
 
-                            updateCarNum(false,singlePrice);
+                            updateCarNum(false, singlePrice);
                             if (null != mStandardList.get(i).getOld_price() && !mStandardList.get(i).getOld_price().equals("")
                                     && !mStandardList.get(i).getOld_price().equals("null")) {
                                 Spannable spanStrikethrough = new SpannableString("￥:" + mStandardList.get(i).getOld_price());
@@ -703,10 +763,9 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                         } else if (goodsdata.getType().equals("1")) {
                             if (null != mStandardList.get(i).getPrice())
                                 mFlashNowPrice.setText("￥:" + mStandardList.get(i).getPrice());
-                            singlePrice=Float.parseFloat(mStandardList.get(i).getPrice());
+                            singlePrice = Float.parseFloat(mStandardList.get(i).getPrice());
 
-                            updateCarNum(false,singlePrice);
-
+                            updateCarNum(false, singlePrice);
 
 
                             if (null != mStandardList.get(i).getOld_price() && !mStandardList.get(i).getOld_price().equals("")
@@ -743,8 +802,6 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
     List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.StandardEntity> mStandardList = new ArrayList<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.StandardEntity>();
     boolean isNoWebDetail = false;
-
-
 
 
     private void aboutCallService(GoodsData msg) {
@@ -879,7 +936,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             waitPop.dismiss();
             HighCommunityUtils.GetInstantiation().ShowToast("成功加入购物车", 0);
 
-            updateCarNum(true,singlePrice);
+            updateCarNum(true, singlePrice);
         }
 
 
@@ -900,11 +957,8 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             waitPop.dismiss();
         }
     };
-float singlePrice=0;
-    public String gettotalprice() {
-        String pric = mAllprice.getText().toString();
-        return pric;
-    }
+    float singlePrice = 0;
+
 
     private void upDateList() {
         for (Goods_info info : goodslist) {
@@ -913,35 +967,36 @@ float singlePrice=0;
             }
         }
     }
-    private void updateCarNum(boolean isAddCar,float singlePrice) {
-        if (isAddCar){
+
+    private void updateCarNum(boolean isAddCar, float singlePrice) {
+        if (isAddCar) {
             int carNum = Integer.parseInt(caramount.getText().toString());
-            caramount.setText(carNum+1+"");
+            caramount.setText(carNum + 1 + "");
+            mCarPriceSum += singlePrice;
+            Log.e(Tag, "mCarPriceSum:" + mCarPriceSum);
+            mAllprice.setText("购物车合计 ￥:" + mCarPriceSum);
         }
 
-            float allPrice = singlePrice * Integer.parseInt(caramount.getText().toString().trim());
-
-        Log.e(Tag,"allPrice:"+allPrice);
-        mAllprice.setText("￥:" +singlePrice);
 
     }
+
     /**
      * set底部购物车数量等
+     *
      * @param msg
      */
     private void setCarAmount(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
-        if (msg.getCartNum()==null||msg.getCartNum()==""){
+        if (msg.getCartNum() == null || msg.getCartNum() == "") {
 
             caramount.setText("0");
-        }else{
+        } else {
             caramount.setText(msg.getCartNum());
-
         }
-        if (msg.getStandard().get(0).getPrice()!=null||!msg.getStandard().get(0).getPrice().equals("")){
-            mAllprice.setText("￥:" + Float.parseFloat(msg.getStandard().get(0).getPrice())*Integer.parseInt(caramount.getText().toString().trim()));
-        }else{
-            mAllprice.setText("￥:" +"0.00");
-        }
+        mAllprice.setText("购物车合计 ￥:" + mCarPriceSum);
+//        if (msg.getStandard().get(0).getPrice()!=null||!msg.getStandard().get(0).getPrice().equals("")){
+//            mAllprice.setText("购物车合计 ￥:" + Float.parseFloat(msg.getStandard().get(0).getPrice())*Integer.parseInt(caramount.getText().toString().trim()));
+//        }else{
+//        }
 
 //
 //
@@ -1180,9 +1235,12 @@ float singlePrice=0;
 
 
     }
-    /**评论 view**/
+
+    /**
+     * 评论 view
+     **/
     View getCommentPageView(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
-        Log.e(Tag,"getCommentPageView");
+        Log.e(Tag, "getCommentPageView");
         View view = LayoutInflater.from(this).inflate(R.layout.page_commentlistdetail, null);
         MyGoodetailScrollView mScrollView2 = (MyGoodetailScrollView) view.findViewById(R.id.srcollview_page_comment);
 
@@ -1204,7 +1262,7 @@ float singlePrice=0;
         if (null != msg.getSupply()) {
             tv_Hishequ.setVisibility(View.VISIBLE);
             tv_Hishequ.setText("—— 本商品由" + msg.getSupply() + "所有 ——");
-        }else{
+        } else {
             tv_Hishequ.setVisibility(View.INVISIBLE);
 
 
@@ -1219,67 +1277,119 @@ float singlePrice=0;
 
         return view;
     }
-    /**返回图文详情的view**/
+
+    /**
+     * 返回图文详情的view
+     **/
     View getPicDetail(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
-        Log.e(Tag,"getPicDetail");
+        Log.e(Tag, "getPicDetail");
 
         View view = LayoutInflater.from(this).inflate(R.layout.page_picdetail, null);
 
         View mProgress = view.findViewById(R.id.ll_NoticeDetails_Progress);
         MyGoodetailScrollView mScrollView1 = (MyGoodetailScrollView) view.findViewById(R.id.srcollview_page_picdetail);
-        TextView tv_showhtml = (TextView) view.findViewById(R.id.page1_tv_showhtml);
+        LinearLayout layout_showhtml = (LinearLayout) view.findViewById(R.id.page1_tv_showhtml);
+        SimpleDraweeView img_showhtml = (SimpleDraweeView) view.findViewById(R.id.page1_img_showhtml);
         ScrollWebView detail_webview = (ScrollWebView) view.findViewById(R.id.page1_good_detail_webview);
         TextView tv_Hishequ = (TextView) view.findViewById(R.id.page1_shopdetail_tv_Hishequ);
         NoScroolGridView recommendGoodsGview = (NoScroolGridView) view.findViewById(R.id.page1_shopdetail_recommendGoods);
         mProgress.setVisibility(View.GONE);
         TextView mNodata = (TextView) view.findViewById(R.id.tv_NoticeDetails_noData);
-
-        if (null != msg.getDetail() ) {
-            if (msg.getDetail().startsWith("http")){
+        Element lastElement = null;
+        if (null != msg.getDetail()) {
+            if (msg.getDetail().startsWith("http")) {
 
                 Log.e(Tag, "getPicDetail 图文详情url:" + msg.getDetail());
 //                loadPicDetail(msg.getDetail());
 //                isNoWebDetail = false;
-            }else{
-                Log.e(Tag, "解析图文详情" + Html.fromHtml(msg.getDetail()));
-                tv_showhtml.setMovementMethod(LinkMovementMethod.getInstance());
-                tv_showhtml.setText(Html.fromHtml(msg.getDetail()));
-//                Document document = Jsoup.parse(msg.getDetail());
-//                Elements allElements = document.head().getAllElements();
-//                if (allElements!=null){
+            } else {
+                Log.e(Tag, "图文详情:" + msg.getDetail());
+
+//                Log.e(Tag, "解析图文详情" + Html.fromHtml(msg.getDetail()));
+//                tv_showhtml.setMovementMethod(LinkMovementMethod.getInstance());
+//                tv_showhtml.setText(Html.fromHtml(msg.getDetail()));
+                Document document = Jsoup.parse(msg.getDetail());
+                Elements allElements = document.getAllElements();
+                Log.e(Tag, allElements.toString() + "," + allElements.text());
+//                for (Element em :
+//                        allElements) {
+//                    Log.e(Tag,em.tagName()+"，遍历属性："+em.attributes().toString());
 //
-//                    Log.e(Tag, "解析图文详情2  allElements" + allElements.size());
-//                    StringBuffer sb = new StringBuffer();
-//                    for (int i = 0; i < allElements.size(); i++) {
-//                        allElements.get(i).toString();
-//                        sb.append(allElements.get(i).toString()+"\n");
-//                    }
-//                    Log.e(Tag, "解析图文详情2" + sb);
-//
-//                    tv_showhtml.setText(sb);
-//
-//
-//                }else{
-//                    Log.e(Tag, "解析图文详情2  allElements null" );
 //
 //                }
+                for (int i = 0; i < allElements.size(); i++) {
+                    if (i == allElements.size()) {
 
+                        lastElement = allElements.get(i);
+                        Log.e(Tag, "终标签：" + lastElement.toString());
+
+                    }
+                }
+                Elements media = document.select("[src]");
+                if (media != null) {
+
+                    for (Element src : media) {
+                        if (src.tagName().equals("img")) {
+                            Log.e(Tag, src.tagName() + "," + src.attr("src") + "," + src.attr("width") + "," + src.attr("height") + "," + src.attr("alt"));
+
+                            View imgview = LayoutInflater.from(this).inflate(R.layout.html_img, null);
+                            SimpleDraweeView html_img = (SimpleDraweeView) imgview.findViewById(R.id.page1_img_showhtml);
+                            if (html_img == null) {
+                                Log.e(Tag, "html_img null");
+
+                            } else {
+                                Log.e(Tag, "html_img ! null");
+
+                            }
+                            if (src.attr("height") != null && !src.attr("height").equals("")) {
+//                               html_img.getLayoutParams().height=Integer.parseInt(src.attr("height"));
+
+
+                            } else {
+//                               html_img.getLayoutParams().height= ViewGroup.LayoutParams.WRAP_CONTENT;
+
+                            }
+                            if (src.attr("src") != null && !src.attr("src").equals("")) {
+                                Log.e(Tag, "src ! null uri:"+Constacts.IMAGEHTTP + src.attr("src"));
+
+                                html_img.setImageURI(Constacts.IMAGEHTTP + src.attr("src"));
+//                                img_showhtml.setImageURI(Constacts.IMAGEHTTP + src.attr("src"));
+                            }
+
+                            layout_showhtml.addView(html_img);
+
+
+                        } else {
+                            Log.e(Tag, src.tagName() + ",_____________" + src.attr("src"));
+                        }
+                    }
+                } else {
+                    Log.e(Tag, "img null   显示text");
+
+                    if (lastElement != null) {
+                        Log.e(Tag, "img null   lastElement!=null");
+
+                        TextView tv = new TextView(this);
+                        Log.e(Tag, "img null   lastElement!=null222" + lastElement.text());
+
+                        tv.setText(lastElement.text());
+                        layout_showhtml.addView(tv);
+
+                    }
+                }
 
 
             }
         } else {
             Log.e(Tag, "图文详情url: null");
 
-            isNoWebDetail = true;
-//            mWebview.setVisibility(View.GONE);
-//            tv_pic_nodata.setVisibility(View.VISIBLE);
         }
 
 
         if (null != msg.getSupply()) {
             tv_Hishequ.setVisibility(View.VISIBLE);
             tv_Hishequ.setText("—— 本商品由" + msg.getSupply() + "所有 ——");
-        }else{
+        } else {
             tv_Hishequ.setVisibility(View.INVISIBLE);
 
 
@@ -1294,11 +1404,23 @@ float singlePrice=0;
         mScrollView1.setScrollViewListener(new ScrollViewListener() {
             @Override
             public void onScrollChanged(MyGoodetailScrollView scrollView, int x, int y, int oldx, int oldy) {
-                Log.e(Tag,"滑动x:"+x+"滑动y:"+y);
+                Log.e(Tag, "滑动x:" + x + "滑动y:" + y);
             }
         });
         return view;
     }
+
+    private static void print(String msg, Object... args) {
+        System.out.println(String.format(msg, args));
+    }
+
+    private static String trim(String s, int width) {
+        if (s.length() > width)
+            return s.substring(0, width - 1) + ".";
+        else
+            return s;
+    }
+
     /**
      * 获取图文详情数据
      **/
@@ -1373,11 +1495,12 @@ float singlePrice=0;
 //        });
 
 
-
     }
 
 
-    /**当前页**/
+    /**
+     * 当前页
+     **/
     int currentPo = 0;
     public List<View> proPressList; // Tab页面列表
     public List<TextView> noDataList; // Tab页面列表

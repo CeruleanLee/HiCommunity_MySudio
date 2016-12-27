@@ -83,7 +83,7 @@
                 android:id="@+id/ac_shop_car_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="¥99.99"
+                android:text=""
                 android:textColor="#FE0000" />
 
             <TextView
