@@ -8,12 +8,15 @@ bugly {
     appId = '63e6f78cb5' // 注册时分配的App ID
     appKey = '978b0ddc-e6eb-425a-b5e2-f4c6e5f39c59' // 注册时分配的App Key
 }
+configurations {
+    all*.exclude group: 'com.android.support', module: 'support-v4'
+}
 android {
     compileSdkVersion 21
     buildToolsVersion '23.0.1'
 
     dexOptions {
-        javaMaxHeapSize "4g"
+        javaMaxHeapSize "1024m"
     }
     defaultConfig {
         applicationId "cn.hi028.android.highcommunity"
