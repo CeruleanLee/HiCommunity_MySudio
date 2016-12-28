@@ -1385,7 +1385,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
         }
 
-
+//        recommendGoodsGview.
         if (null != msg.getSupply()) {
             tv_Hishequ.setVisibility(View.VISIBLE);
             tv_Hishequ.setText("—— 本商品由" + msg.getSupply() + "所有 ——");

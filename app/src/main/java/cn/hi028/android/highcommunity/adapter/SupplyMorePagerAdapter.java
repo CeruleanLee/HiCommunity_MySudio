@@ -19,13 +19,13 @@ public class SupplyMorePagerAdapter extends FragmentPagerAdapter {
     CustomViewpager vp;
     List<SupplyShopMoreFrag> mFragList= new ArrayList<SupplyShopMoreFrag>();
 
-    public SupplyMorePagerAdapter(FragmentManager fm,int mFragListSize ,CustomViewpager vp) {
+    public SupplyMorePagerAdapter(FragmentManager fm,int mFragListSize) {
         super(fm);
         Log.d(Tag, "MotionPagerAdapter");
 this.vp=vp;
         Log.d(Tag,"SIZE="+mFragList.size());
         while (mFragList.size()<mFragListSize){
-            SupplyShopMoreFrag mPublicMotionFrag = new SupplyShopMoreFrag(vp);
+            SupplyShopMoreFrag mPublicMotionFrag = new SupplyShopMoreFrag();
             mFragList.add( mPublicMotionFrag);
         }
     }

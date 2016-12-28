@@ -1,0 +1,164 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:clipToPadding="true"
+    android:background="@color/Defult_Color_AppGreen"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RadioGroup
+        android:id="@+id/supplyMore_rg_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@color/white"
+        android:orientation="horizontal"
+
+        android:paddingLeft="12dp"
+        android:visibility="gone"
+        android:paddingRight="12dp">
+
+
+
+    </RadioGroup>
+    <cn.hi028.android.highcommunity.view.mynew.StickyNavLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+
+    <LinearLayout
+        android:id="@id/id_stickynavlayout_topview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#4400ff00" >
+
+
+
+        <RelativeLayout
+            android:id="@+id/supplyMore_title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:visibility="visible"
+            android:background="@color/Defult_Color_AppGreen">
+
+            <LinearLayout
+                android:id="@+id/supplyMore_layout_title_go_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/supplyMore_back"
+                    android:layout_width="@dimen/title_height"
+                    android:layout_height="@dimen/title_height"
+                    android:layout_gravity="start"
+                    android:clickable="true"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="center"
+                    android:src="@drawable/img_back_selector" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/supplyMore_title_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="直供商品"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_title_size" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@id/id_stickynavlayout_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#ffffffff">
+        <RadioGroup
+            android:id="@+id/supplyMore_rg_sort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingLeft="12dp"
+            android:visibility="visible"
+            android:paddingRight="12dp">
+
+            <RadioButton
+                android:id="@+id/supplyMore_rb_newest"
+                style="@style/rb_huilife_style2"
+                android:checked="true"
+                android:text="最新" />
+
+            <RadioButton
+                android:id="@+id/supplyMore_rb_nums"
+                style="@style/rb_huilife_style2"
+
+                android:text="销量" />
+
+            <cn.hi028.android.highcommunity.view.MyRadioButton xmlns:myra="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/supplyMore_rb_price"
+                style="@style/rb_huilife_style2"
+                android:clickable="true"
+
+                android:gravity="center"
+                android:text="价格"
+
+                myra:drawableHeight="25dp"
+                android:drawablePadding="-18dp"
+                myra:drawableRight="@mipmap/img_sort_none"
+                myra:drawableWith="20dp" />
+        </RadioGroup>
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingLeft="12dp"
+            android:visibility="visible"
+            android:paddingRight="12dp">
+
+            <RadioButton
+                style="@style/rb_huilife_style2"
+                android:checked="true"
+                android:text="最新" />
+
+            <RadioButton
+                style="@style/rb_huilife_style2"
+
+                android:text="销量" />
+
+            <cn.hi028.android.highcommunity.view.MyRadioButton xmlns:myra="http://schemas.android.com/apk/res-auto"
+                style="@style/rb_huilife_style2"
+                android:clickable="true"
+
+                android:gravity="center"
+                android:text="价格"
+
+                myra:drawableHeight="25dp"
+                android:drawablePadding="-18dp"
+                myra:drawableRight="@mipmap/img_sort_none"
+                myra:drawableWith="20dp" />
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@id/id_stickynavlayout_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+
+</cn.hi028.android.highcommunity.view.mynew.StickyNavLayout>
+</LinearLayout>

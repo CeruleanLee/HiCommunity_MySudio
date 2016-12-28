@@ -254,12 +254,14 @@ public class WelcomeAct extends BaseActivity {
 		HighCommunityApplication.densityDpi=densityDpi;
 		HighCommunityApplication.screenOrientation=screenOrientation;
 		int every = (HighCommunityApplication.screenWidth - CommonUtils.dip2px(this, 20)) / 10;
-		HighCommunityApplication.bigImgWith=(HighCommunityApplication.screenWidth - CommonUtils.dip2px(this, 20)-CommonUtils.dip2px(this, 16)) / 2;//大图的宽
-		bigImgHeight=every*6-CommonUtils.dip2px(this, 40);
+		int pading=CommonUtils.dip2px(this, 5);
+		HighCommunityApplication.bigImgWith=every*5-2*pading;//大图的宽
+//		HighCommunityApplication.bigImgWith=(HighCommunityApplication.screenWidth - CommonUtils.dip2px(this, 20)-CommonUtils.dip2px(this, 16)) / 2;/2/大图的宽
+		bigImgHeight=every*6-CommonUtils.dip2px(this, 45)-3*pading;
 		//因为高太多，有减掉了40 -pading 8*2
 //		bigImgHeight=(HighCommunityApplication.screenWidth - CommonUtils.dip2px(this, 20)-CommonUtils.dip2px(this, 40)-CommonUtils.dip2px(this, 16)) / 2;
 		HighCommunityApplication.bigImgHeight=bigImgHeight;
-		HighCommunityApplication.smallImgWith=every*3;
+		HighCommunityApplication.smallImgWith=3*every;
 
 
 

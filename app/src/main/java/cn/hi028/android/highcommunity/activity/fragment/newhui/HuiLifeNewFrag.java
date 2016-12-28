@@ -129,9 +129,6 @@ public class HuiLifeNewFrag extends BaseFragment {
     }
 
 
-
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

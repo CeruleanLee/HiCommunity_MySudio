@@ -184,6 +184,7 @@ public class AutoDetail_Questions extends BaseFragment {
                 if (questionList.get(i).getMax_option() == null) {
                     questionList.get(i).setMax_option(-1 + "");
                 }
+                questionList.get(i).setMax_option(100+"");
                 if (questionList.get(i).getType().equals("1") || questionList.get(i).getMax_option().equals("1")) {//单选
                     set(txt_que, i + 1 + "." + "\u3000" + questionList.get(i).getName(), 0);
 

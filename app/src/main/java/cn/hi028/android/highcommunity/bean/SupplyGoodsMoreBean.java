@@ -105,6 +105,19 @@ public class SupplyGoodsMoreBean {
         }
 
         public static class SupplyMoreGoodsEntity {
+            public SupplyMoreGoodsEntity(String id, String name, String label, String cover_pic, String sale, String price, String old_price) {
+                this.id = id;
+                this.name = name;
+                this.label = label;
+                this.cover_pic = cover_pic;
+                this.sale = sale;
+                this.price = price;
+                this.old_price = old_price;
+            }
+
+            public SupplyMoreGoodsEntity() {
+            }
+
             /**
              * id : 3
              * name : 粤盐 澳洲湖盐雪晶盐无碘250g 无碘盐食用盐调味料

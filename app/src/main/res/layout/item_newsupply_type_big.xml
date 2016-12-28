@@ -41,7 +41,7 @@
         android:id="@+id/bottom_layout_big"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="70dp">
 
         <TextView
             android:id="@+id/category_big_goodsTitle"
@@ -75,6 +75,7 @@
                 android:id="@+id/category_big_shopcart"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
+                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:src="@mipmap/img_supply_cart_big" />
         </RelativeLayout>

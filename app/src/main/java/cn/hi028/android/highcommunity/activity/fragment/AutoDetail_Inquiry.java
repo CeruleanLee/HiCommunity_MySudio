@@ -138,9 +138,6 @@ public class AutoDetail_Inquiry extends BaseFragment {
         });
     }
 
-//    TextView  mReportTime, mContent;
-//    LinearLayout mInforLayout;
-
 
     public void setText(String text, String to_id, String parentId, boolean isReplay) {
         this.isReplay = isReplay;
@@ -172,9 +169,6 @@ public class AutoDetail_Inquiry extends BaseFragment {
             mList = mBean.getReply();
             mAdapter.AddNewData(mList);
             mCommentListview.setAdapter(mAdapter);
-//            mList = (List<Auto_NoticeListBean.NoticeListDataEntity>) message;
-//            mAdapter.AddNewData(mList);
-//            mListview.setAdapter(mAdapter);
 
 
         }
@@ -204,10 +198,6 @@ public class AutoDetail_Inquiry extends BaseFragment {
             mHeadName.setText(mBean.getName());
             mHeadContent.setText(mBean.getContent());
             mHeadTime.setText(TimeUtil.getDayAllTime(Long.parseLong(mBean.getCreate_time())));
-//            mReportTime.setText(TimeUtil.getDayTime(Long.parseLong(mBean.getCreate_time())));
-//            String url = mBean.getContent();
-//            CharSequence charSequence = Html.fromHtml(url);
-//            mContent.setText("    " + charSequence);
         }
 
 
@@ -241,11 +231,6 @@ public class AutoDetail_Inquiry extends BaseFragment {
                 InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             }
-//            if (isReplay) {
-//                mAdapter.setNewData(isReplay, content, null);
-//            } else {
-//                mAdapter.setNewData(isReplay, content, message.toString());
-//            }
             initSpoker();
             initDatas();
         }
@@ -277,36 +262,23 @@ public class AutoDetail_Inquiry extends BaseFragment {
         ParentId = "0";
         mSpeakerContent.setText("");
     }
-
     public void finish() {
-//        Intent result = new Intent();
-//        result.putExtra("PinLun", mPraisesNum);
-//        getActivity().setResult(getActivity().RESULT_OK, result);
     }
-
-
-
     @Override
     public void onPause() {
         super.onPause();
         LogUtil.d(Tag + "onPause");
     }
-
     @Override
     public void onResume() {
         super.onResume();
         LogUtil.d(Tag + "onResume");
     }
 
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-
-
-
 
 }

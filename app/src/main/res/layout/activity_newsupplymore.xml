@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/Defult_Color_ShallowGrey"
     android:orientation="vertical"
-    tools:context="cn.hi028.android.highcommunity.activity.NewSupplyMoreAct">
+>
 
     <LinearLayout
         android:id="@+id/top_titleHeight_layout"
@@ -54,7 +54,7 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <cn.hi028.android.highcommunity.view.MySlidingScrollView
+    <LinearLayout
         android:id="@+id/moreact_MySlidingScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -71,21 +71,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 >
-                <HorizontalScrollView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@color/red"
                     android:scrollbars="none">
                     <RadioGroup
                         android:id="@+id/supplyMore_rg_category"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:background="@color/white"
                         android:orientation="horizontal"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp">
                     </RadioGroup>
-                </HorizontalScrollView>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -136,7 +136,7 @@
 
             </cn.hi028.android.highcommunity.view.CustomViewpager>
         </LinearLayout>
-    </cn.hi028.android.highcommunity.view.MySlidingScrollView>
+    </LinearLayout>
 
 
 </LinearLayout>

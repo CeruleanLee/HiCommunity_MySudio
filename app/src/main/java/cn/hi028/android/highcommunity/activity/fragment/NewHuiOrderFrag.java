@@ -35,7 +35,7 @@ import cn.hi028.android.highcommunity.bean.NewHuiOrderBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 
 /**
- * @功能：新版v2.0用户订单<br>  从侧边栏我的订单跳过来的订单
+ * @功能：新版v2.0用户订单<br>
  * @作者： Lee_yting<br>
  * @版本：2.0<br>
  * @时间：2016/12/18<br>
@@ -195,7 +195,6 @@ public class NewHuiOrderFrag extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.e(Tag,"------进入onResume");
         if (currentPo == mPager.getCurrentItem()) {
         	  Log.e(Tag,"------进入currentPo"+currentPo);
             upateRefresh(currentPo);

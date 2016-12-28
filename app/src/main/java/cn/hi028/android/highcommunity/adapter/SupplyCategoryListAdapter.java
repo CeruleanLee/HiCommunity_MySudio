@@ -26,7 +26,7 @@ import java.util.List;
 
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.NewSupplyMoreAct_2;
+import cn.hi028.android.highcommunity.activity.NewSupplyMoreAct3;
 import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyBean;
@@ -117,7 +117,8 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(context, "到更多:"+mBean.getId(), Toast.LENGTH_SHORT).show();
-                Intent mIntent_report = new Intent(context, NewSupplyMoreAct_2.class);
+                Intent mIntent_report = new Intent(context, NewSupplyMoreAct3.class);
+//                Intent mIntent_report = new Intent(context, textActivity.class);
                 mIntent_report.putExtra("category_id", mBean.getId());
                 context.startActivity(mIntent_report);
             }

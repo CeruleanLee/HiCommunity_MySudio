@@ -1,39 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/id_stickynavlayout_innerscrollview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="12dp"
+    android:layout_height="1000dp"
     android:background="@color/Defult_Color_ShallowGrey"
-    android:orientation="vertical">
+    android:scrollbars="none"
 
 
-    <TextView
-        android:id="@+id/tv_Automotion_Nodata"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:background="@color/Defult_Color_LineGrey"
-        android:text="暂无数据"
-        />
+    >
 
-   <com.handmark.pulltorefresh.library.PullToRefreshGridView
-       android:id="@+id/frag_supplymore_gridview"
-       android:layout_width="match_parent"
-       android:background="@color/Defult_Color_ShallowGrey"
-       android:divider="@color/Defult_Color_LineGrey"
-
-       android:layout_height="match_parent"
-       android:gravity="fill"
-       android:horizontalSpacing="11dp"
-       android:listSelector="@drawable/bg_third_service_selector"
-       android:numColumns="2"
-       android:scrollbars="none"
-       android:stretchMode="columnWidth"
-       android:verticalSpacing="11dp"
-
-       >
-
-   </com.handmark.pulltorefresh.library.PullToRefreshGridView>
+</android.support.v7.widget.RecyclerView>
 
 
-</RelativeLayout>
+    <!--    android:divider="@color/Defult_Color_LineGrey"
+
+           android:gravity="fill"
+           android:horizontalSpacing="11dp"
+           android:listSelector="@drawable/bg_third_service_selector"
+           android:numColumns="2"
+           android:stretchMode="columnWidth"
+           android:verticalSpacing="11dp"-->

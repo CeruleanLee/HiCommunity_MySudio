@@ -60,7 +60,6 @@ public class AutoFrag_myMotion extends BaseFragment {
     void initView() {
         Log.d(Tag, "initView");
         mList = new ArrayList<Auto_MotionBean.MotionDataEntity>();
-//        List<Auto_MotionBean.MotionDataEntity> list, Context context, View view, int screenWidth, ListView listView
 
 DisplayMetrics mdm=new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(mdm);
@@ -83,7 +82,6 @@ DisplayMetrics mdm=new DisplayMetrics();
         public void onError(int id, String message) {
             Log.d(Tag, "---~~~onError");
             tv_Nodata.setText(message);
-//            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
         @Override
@@ -91,18 +89,6 @@ DisplayMetrics mdm=new DisplayMetrics();
             mList = (List<Auto_MotionBean.MotionDataEntity>) message;
             mAdapter.AddNewData(mList);
             mListview.setAdapter(mAdapter);
-//			mLoadingView.loadSuccess();
-//			mLoadingView.setVisibility(View.GONE);
-//			LogUtil.d(Tag+"---~~~initViewonSuccess");
-////						if (null == message) return;
-//			LogUtil.d(Tag+"---~~~ initView   message:"+message);
-//			ThirdServiceBean mBean = (ThirdServiceBean) message;
-//			mAdapter.AddNewData(mBean.getServices());
-//			mGridView.setAdapter(mAdapter);
-//			pagerAdapter.setImageIdList(mBean.getBanners());
-//			HighCommunityUtils.GetInstantiation()
-//			.setThirdServiceGridViewHeight(mGridView, mAdapter, 4);
-//			tatalLayout.setVisibility(View.VISIBLE);
 
         }
 
