@@ -28,7 +28,7 @@ import cn.hi028.android.highcommunity.adapter.SupplyMoreGoodsGridAdapter3;
 import cn.hi028.android.highcommunity.bean.SupplyGoodsMoreBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
-import cn.hi028.android.highcommunity.view.mynew.MyItemDecoration;
+import cn.hi028.android.highcommunity.view.mynew.SpaceItemDecoration2;
 
 
 /**
@@ -69,6 +69,10 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
 //        mGridview.setMode(PullToRefreshBase.Mode.DISABLED);
         mGridview.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 //        mGridview.setAdapter(mAdapter);
+        //RecycleView 增加边距
+        int spacingInPixels = 8;
+//        mGridview.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
+        mGridview.addItemDecoration(new SpaceItemDecoration2(10));
         mGridview.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new SupplyMoreGoodsGridAdapter3.OnRecyclerViewItemClickListener() {
 
@@ -79,7 +83,9 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
                 getActivity().startActivity(mIntent);
             }
         });
-        mGridview.addItemDecoration(new MyItemDecoration());
+
+//        mGridview.addItemDecoration(new MyItemDecoration());
+
 //        mAdapter = new SupplyMoreGoodsGridAdapter(mList, getActivity());
 //        mList = new ArrayList<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity>();
 ////        List<Auto_MotionBean.MotionDataEntity> list, Context context, View view, int screenWidth, ListView listView
