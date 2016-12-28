@@ -34,7 +34,7 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @时间：2016/11/28<br>
  */
 public class SupplyMoreGoodsGridAdapter3 extends RecyclerView.Adapter<SupplyMoreGoodsGridAdapter3.ViewHolder> implements View.OnClickListener{
-    public static final String Tag = "SupplyMoreGoodsGridAdapter：";
+    public static final String Tag = "直供商品更多Adapter：";
     List<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity> mList
             = new ArrayList<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity>();
     private Context context;

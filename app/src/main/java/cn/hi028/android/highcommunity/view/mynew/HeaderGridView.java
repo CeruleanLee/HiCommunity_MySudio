@@ -37,7 +37,7 @@ import java.util.ArrayList;
 @SuppressLint("NewApi")
 public class HeaderGridView extends GridView {
     private static final String TAG = "HeaderGridView";
-    /**
+    /**;
      * A class that represents a fixed view in a list, for example a header at the top
      * or a footer at the bottom.
      */

@@ -28,7 +28,7 @@ import cn.hi028.android.highcommunity.adapter.SupplyMoreGoodsGridAdapter3;
 import cn.hi028.android.highcommunity.bean.SupplyGoodsMoreBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
-import cn.hi028.android.highcommunity.view.mynew.SpaceItemDecoration2;
+import cn.hi028.android.highcommunity.view.mynew.SpaceItemDecoration3;
 
 
 /**
@@ -72,7 +72,8 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
         //RecycleView 增加边距
         int spacingInPixels = 8;
 //        mGridview.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
-        mGridview.addItemDecoration(new SpaceItemDecoration2(10));
+//        mGridview.addItemDecoration(new SpaceItemDecoration2(10));
+        mGridview.addItemDecoration(new SpaceItemDecoration3(18));
         mGridview.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new SupplyMoreGoodsGridAdapter3.OnRecyclerViewItemClickListener() {
 

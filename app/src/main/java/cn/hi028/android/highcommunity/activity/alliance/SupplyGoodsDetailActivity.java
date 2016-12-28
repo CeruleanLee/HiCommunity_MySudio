@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.BpiHttpHandler.IBpiHttpHandler;
+import com.don.tools.BpiUniveralImage;
 import com.don.tools.GeneratedClassUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -67,7 +68,6 @@ import cn.hi028.android.highcommunity.bean.MerchantEvaluationInfoListBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyGoodsDetailBean;
 import cn.hi028.android.highcommunity.bean.SubmitOrderBean;
 import cn.hi028.android.highcommunity.lisenter.PayPop2FragFace;
-import cn.hi028.android.highcommunity.lisenter.ScrollViewListener;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
@@ -76,7 +76,7 @@ import cn.hi028.android.highcommunity.view.MyCustomViewPager;
 import cn.hi028.android.highcommunity.view.MyGoodetailScrollView;
 import cn.hi028.android.highcommunity.view.NoScrollListview;
 import cn.hi028.android.highcommunity.view.NoScroolGridView;
-import cn.hi028.android.highcommunity.view.ScrollWebView;
+import cn.hi028.android.highcommunity.view.mynew.GridViewWithHeaderAndFooter;
 import cn.hi028.android.highcommunity.view.snap.McoyProductContentPage;
 import cn.hi028.android.highcommunity.view.snap.McoyProductDetailInfoPage;
 import cn.hi028.android.highcommunity.view.snap.McoySnapPageLayout;
@@ -1284,17 +1284,19 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     View getPicDetail(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
         Log.e(Tag, "getPicDetail");
 
-        View view = LayoutInflater.from(this).inflate(R.layout.page_picdetail, null);
+//        View view = LayoutInflater.from(this).inflate(R.layout.page_picdetail, null);
+        View view = LayoutInflater.from(this).inflate(R.layout.page_picdetail_newsupply, null);
+        GridViewWithHeaderAndFooter mGridview= (GridViewWithHeaderAndFooter) view.findViewById(R.id.GridWithHeader_page_picdetail);
 
-        View mProgress = view.findViewById(R.id.ll_NoticeDetails_Progress);
-        MyGoodetailScrollView mScrollView1 = (MyGoodetailScrollView) view.findViewById(R.id.srcollview_page_picdetail);
-        LinearLayout layout_showhtml = (LinearLayout) view.findViewById(R.id.page1_tv_showhtml);
-        SimpleDraweeView img_showhtml = (SimpleDraweeView) view.findViewById(R.id.page1_img_showhtml);
-        ScrollWebView detail_webview = (ScrollWebView) view.findViewById(R.id.page1_good_detail_webview);
-        TextView tv_Hishequ = (TextView) view.findViewById(R.id.page1_shopdetail_tv_Hishequ);
-        NoScroolGridView recommendGoodsGview = (NoScroolGridView) view.findViewById(R.id.page1_shopdetail_recommendGoods);
-        mProgress.setVisibility(View.GONE);
-        TextView mNodata = (TextView) view.findViewById(R.id.tv_NoticeDetails_noData);
+//        View mProgress = view.findViewById(R.id.ll_NoticeDetails_Progress);
+//        MyGoodetailScrollView mScrollView1 = (MyGoodetailScrollView) view.findViewById(R.id.srcollview_page_picdetail);
+//        LinearLayout layout_showhtml = (LinearLayout) view.findViewById(R.id.page1_tv_showhtml);
+//        SimpleDraweeView img_showhtml = (SimpleDraweeView) view.findViewById(R.id.page1_img_showhtml);
+//        ScrollWebView detail_webview = (ScrollWebView) view.findViewById(R.id.page1_good_detail_webview);
+//        TextView tv_Hishequ = (TextView) view.findViewById(R.id.page1_shopdetail_tv_Hishequ);
+//        NoScroolGridView recommendGoodsGview = (NoScroolGridView) view.findViewById(R.id.page1_shopdetail_recommendGoods);
+//        mProgress.setVisibility(View.GONE);
+//        TextView mNodata = (TextView) view.findViewById(R.id.tv_NoticeDetails_noData);
         Element lastElement = null;
         if (null != msg.getDetail()) {
             if (msg.getDetail().startsWith("http")) {
@@ -1333,6 +1335,14 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                             Log.e(Tag, src.tagName() + "," + src.attr("src") + "," + src.attr("width") + "," + src.attr("height") + "," + src.attr("alt"));
 
                             View imgview = LayoutInflater.from(this).inflate(R.layout.html_img, null);
+
+                            if (imgview == null) {
+                                Log.e(Tag, "imgview null");
+
+                            } else {
+                                Log.e(Tag, "imgview ! null");
+
+                            }
                             SimpleDraweeView html_img = (SimpleDraweeView) imgview.findViewById(R.id.page1_img_showhtml);
                             if (html_img == null) {
                                 Log.e(Tag, "html_img null");
@@ -1340,7 +1350,9 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                             } else {
                                 Log.e(Tag, "html_img ! null");
 
+//                                imgview.getLayoutParams().height=400;
                             }
+
                             if (src.attr("height") != null && !src.attr("height").equals("")) {
 //                               html_img.getLayoutParams().height=Integer.parseInt(src.attr("height"));
 
@@ -1354,9 +1366,25 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
                                 html_img.setImageURI(Constacts.IMAGEHTTP + src.attr("src"));
 //                                img_showhtml.setImageURI(Constacts.IMAGEHTTP + src.attr("src"));
+
+                                ImageView mImg=new ImageView(this);
+
+//                                BpiUniveralImage.displayImage("drawable://" + R.mipmap.defult_avatar, mViewHolder.mYWHAvatar);
+                                        BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + src.attr("src"), mImg);
+                                mGridview.addHeaderView(mImg);
+//                                if (mBean.getHead_pic() == null || mBean.getHead_pic().equals("")) {
+//                                } else {
+//                                    if (mViewHolder.mYWHAvatar!=null){
+//
+//                                    }else{
+//                                        Log.d("~~~","mViewHolder.mYWHAvatar null");
+//                                    }
+//                                }
+
+
                             }
 
-                            layout_showhtml.addView(html_img);
+                            mGridview.addHeaderView(imgview);
 
 
                         } else {
@@ -1373,7 +1401,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                         Log.e(Tag, "img null   lastElement!=null222" + lastElement.text());
 
                         tv.setText(lastElement.text());
-                        layout_showhtml.addView(tv);
+                        mGridview.addHeaderView(tv);
 
                     }
                 }
@@ -1386,7 +1414,9 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         }
 
 //        recommendGoodsGview.
+        TextView tv_Hishequ=new TextView(this);
         if (null != msg.getSupply()) {
+
             tv_Hishequ.setVisibility(View.VISIBLE);
             tv_Hishequ.setText("—— 本商品由" + msg.getSupply() + "所有 ——");
         } else {
@@ -1394,19 +1424,19 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
 
         }
-
+        mGridview.addHeaderView(tv_Hishequ);
         //set推荐商品
         if (msg.getRecommend() != null) {
             List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.RecommendEntity> mRecommendList = msg.getRecommend();
             SupplGoodsDetailGridAdapter mAdapter = new SupplGoodsDetailGridAdapter(mRecommendList, SupplyGoodsDetailActivity.this);
-            recommendGoodsGview.setAdapter(mAdapter);
+            mGridview.setAdapter(mAdapter);
         }
-        mScrollView1.setScrollViewListener(new ScrollViewListener() {
-            @Override
-            public void onScrollChanged(MyGoodetailScrollView scrollView, int x, int y, int oldx, int oldy) {
-                Log.e(Tag, "滑动x:" + x + "滑动y:" + y);
-            }
-        });
+//        mScrollView1.setScrollViewListener(new ScrollViewListener() {
+//            @Override
+//            public void onScrollChanged(MyGoodetailScrollView scrollView, int x, int y, int oldx, int oldy) {
+//                Log.e(Tag, "滑动x:" + x + "滑动y:" + y);
+//            }
+//        });
         return view;
     }
 
@@ -1460,39 +1490,6 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
 
         initPager(msg);
-
-//        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-////                if (checkedId == R.id.ac_shopdetail_mypicdetail) {
-////                    if (isNoWebDetail) {
-////                        mWebview.setVisibility(View.GONE);
-//////    tv_noData.setText("暂无图文详情");
-////                        tv_pic_nodata.setVisibility(View.VISIBLE);
-////                    } else {
-////
-////                        mWebview.setVisibility(View.VISIBLE);
-////                        tv_pic_nodata.setVisibility(View.GONE);
-////                    }
-////                    mCommentListview.setVisibility(View.GONE);
-////
-////                } else if (checkedId == R.id.ac_shopdetail_mycommentdetail) {
-////
-////                    mWebview.setVisibility(View.GONE);
-////                    mCommentListview.setVisibility(View.VISIBLE);
-////
-////
-////                }
-//                if (checkedId == R.id.ac_shopdetail_mypicdetail) {
-//                    if (currentPo != 0)
-//                        mPager.setCurrentItem(0);
-//                } else if (checkedId == R.id.ac_shopdetail_mycommentdetail) {
-//                    if (currentPo != 1)
-//                        mPager.setCurrentItem(1);
-//                }
-//
-//            }
-//        });
 
 
     }
