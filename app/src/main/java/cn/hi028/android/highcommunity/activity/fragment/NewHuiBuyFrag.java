@@ -284,7 +284,10 @@ int orderType=-1;
     }
 
     private void initData() {
-        mWaittingPop=HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), btn_pay, Gravity.CENTER);
+        if (getActivity().hasWindowFocus()){
+
+            mWaittingPop=HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), btn_pay, Gravity.CENTER);
+        }
 
         if (orderType==-1)return;
         if (carIdList != null && !carIdList.equals("")) {
@@ -808,5 +811,14 @@ if (result.contains("\"consign\":false")){
         ButterKnife.unbind(this);
     }
 
+//    @Override
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        // TODO Auto-generated method stub
+//        super.onWindowFocusChanged(hasFocus);
+//        if(hasFocus){
+//
+////            showPopupWindow(getApplicationContext());
+//        }
+//    }
 
 }
