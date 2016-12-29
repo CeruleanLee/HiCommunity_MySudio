@@ -24,7 +24,6 @@ import java.util.List;
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.SearchActivity;
-import cn.hi028.android.highcommunity.bean.GroupBean;
 import cn.hi028.android.highcommunity.bean.VallageBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
@@ -112,6 +111,7 @@ public class CitySearchAdapter extends BaseAdapter {
                                 waitPop.dismiss();
                                 Intent mInt = act.getIntent();
                                 mInt.putExtra(Constacts.SEARCH_RESULT, data.get(position).getId());
+                                mInt.putExtra(Constacts.SEARCH_RESULT_Address, data.get(position).getName());
                                 act.setResult(0x22, mInt);
                                 act.finish();
                             }

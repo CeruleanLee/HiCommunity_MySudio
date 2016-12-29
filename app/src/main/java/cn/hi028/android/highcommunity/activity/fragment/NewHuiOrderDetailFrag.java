@@ -88,6 +88,8 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
     LinearLayout paytype_layout;
     @ViewById(R.id.mark_layout)
     LinearLayout mark_layout;
+    @ViewById(R.id.already_pay)
+    LinearLayout already_pay_layout;
     @ViewById(R.id.tv_reserve_paytype)
     TextView tv_reserve_paytype;
     @ViewById(R.id.tv_price)
@@ -218,11 +220,21 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
         }else{
             tv_comment_time.setVisibility(View.GONE);
         }
+        if (bean.getStatus().equals("待付款")){
+            already_pay_layout.setVisibility(View.GONE);
+
+
+        }else{
+            already_pay_layout.setVisibility(View.VISIBLE);
+            tv_coupon.setText(bean.getTicket_val() + "");
+            tv_reserve_wallet.setText(bean.getZero_money() + "");
+            tv_price.setText("￥" + CommonUtils.f2Bi(bean.getTotal_fee()));
+        }
+        tv_total_pay.setText("￥" + bean.getOld_fee() + "");
         tv_reserve_name.setText(bean.getConsign());
         tv_reserve_phone.setText(bean.getTel());
         tv_reserve_address.setText(bean.getAddress());
-        tv_coupon.setText(bean.getTicket_val() + "");
-        tv_reserve_wallet.setText(bean.getZero_money() + "");
+
         if (bean.getPay_type()==1){
             paytype_layout.setVisibility(View.GONE);
             tv_reserve_paytype.setText("微信支付");
@@ -244,9 +256,9 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
         }else{
             tv_order_merchant.setVisibility(View.GONE);
         }
-        tv_total_pay.setText("￥" + bean.getOld_fee() + "");
-        tv_price.setText("￥" + CommonUtils.f2Bi(bean.getTotal_fee()));
-        if (bean.getStatus_id() == 0) {
+
+//        if (bean.getStatus_id() == 0) {
+        if (bean.getStatus().equals("待支付")) {
             tv_order_operate1.setText("取消订单");
             tv_order_operate2.setText("付款");
             tv_order_operate1.setVisibility(View.VISIBLE);
@@ -285,7 +297,8 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
 
                 }
             });
-        } else if (bean.getStatus_id() == 1 || bean.getStatus_id() == 2) {
+        } else if (bean.getStatus().equals("待收货")) {
+//        } else if (bean.getStatus_id() == 1 || bean.getStatus_id() == 2) {2
             tv_order_operate2.setText("确认收货");
             tv_order_operate1.setVisibility(View.INVISIBLE);
             tv_order_operate2.setVisibility(View.VISIBLE);
@@ -295,7 +308,8 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
                     reciveOrder(v);
                 }
             });
-        } else if (bean.getStatus_id() == 3) {
+        } else if (bean.getStatus().equals("待评价")) {
+//        } else if (bean.getStatus_id() == 3) {
             tv_order_operate2.setText("评价");
             tv_order_operate1.setVisibility(View.INVISIBLE);
             tv_order_operate2.setVisibility(View.VISIBLE);
@@ -308,27 +322,32 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
                     startActivity(mIntent);
                 }
             });
-        } else if (bean.getStatus_id() == -1) {
-            tv_order_operate2.setText("取消订单");
+        } else{
             tv_order_operate1.setVisibility(View.INVISIBLE);
-            tv_order_operate2.setVisibility(View.VISIBLE);
-            tv_order_operate2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    cancelOrder(v, "取消订单");
-                }
-            });
-        } else if (bean.getStatus_id() == 4) {
-            tv_order_operate2.setText("删除订单");
-            tv_order_operate1.setVisibility(View.INVISIBLE);
-            tv_order_operate2.setVisibility(View.VISIBLE);
-            tv_order_operate2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    cancelOrder(v, "删除订单");
-                }
-            });
+            tv_order_operate2.setVisibility(View.INVISIBLE);
+
         }
+//        else if (bean.getStatus_id() == -1) {
+//            tv_order_operate2.setText("取消订单");
+//            tv_order_operate1.setVisibility(View.INVISIBLE);
+//            tv_order_operate2.setVisibility(View.VISIBLE);
+//            tv_order_operate2.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(final View v) {
+//                    cancelOrder(v, "取消订单");
+//                }
+//            });
+//        } else if (bean.getStatus_id() == 4) {
+//            tv_order_operate2.setText("删除订单");
+//            tv_order_operate1.setVisibility(View.INVISIBLE);
+//            tv_order_operate2.setVisibility(View.VISIBLE);
+//            tv_order_operate2.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    cancelOrder(v, "删除订单");
+//                }
+//            });
+//        }
     }
     private PopupWindow mPayWindow,mWatingWindow;
 
@@ -391,7 +410,7 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), v, Gravity.CENTER);
-                HTTPHelper.reciveOrder(new BpiHttpHandler.IBpiHttpHandler() {
+                HTTPHelper.reciveOrder2(new BpiHttpHandler.IBpiHttpHandler() {
                     @Override
                     public void onError(int id, String message) {
                         waitPop.dismiss();

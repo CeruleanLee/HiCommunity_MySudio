@@ -418,7 +418,13 @@ public class ActFrag extends BaseFragment {
                         break;
                     case R.id.tx_LeftFrag_userlocation_layout:
                     case R.id.tx_LeftFrag_userlocation:
-                        VallageAct.toStartAct(getActivity(), 1, false);
+                        VallageAct.toStartAct(ActFrag.this, 1, 1);
+//                        Intent mLocIntent = new Intent(getActivity(), VallageAct.class);
+//                        mLocIntent.putExtra(TYPE,1);
+////                    startActivity(mModify);
+//                        startActivityForResult(mLocIntent, REQUEST_VILLAGE_CODE);
+
+//                        startActivityForResult();
                         // finish();
                         break;
                 }
@@ -430,7 +436,7 @@ public class ActFrag extends BaseFragment {
 
         }
     };
-
+    public static String TYPE = "type";
     private void setleftData() {
         boolean leftFlag = false, rightFlag = false;
         if (Constacts.mUserCenter != null) {
@@ -492,7 +498,7 @@ public class ActFrag extends BaseFragment {
                     mOrder_allNum.setVisibility(View.GONE);
                 } else {
                     leftFlag = true;
-                    mOrder_allNum.setVisibility(View.VISIBLE);
+                    mOrder_allNum.setVisibility(View.GONE);
                     mOrder_allNum.setText(Constacts.mUserCenter.getOrder() + "");
                 }
                 if (sorder.getPay() == 0) {
@@ -534,20 +540,45 @@ public class ActFrag extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (isFirst){
+isFirst=false;
+        }else {
 
+            initData();
+        }
     }
 
     private void initData() {
 //        if (HighCommunityApplication.mUserInfo.getId() != 0){
-
+Log.e(Tag,"initdata");
             HTTPHelper.getUserCenter(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
 //        }
 
     }
-
+boolean isFirst=true;
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+    public static int REQUEST_VILLAGE_CODE = 0x15;
+    public static int RESULT_VILLAGE_CODE = 0x15;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_VILLAGE_CODE&&resultCode==RESULT_VILLAGE_CODE) {
+            Log.e(Tag, "requestCode==0X1024:" + resultCode);
+//            if (requestCode != RESULT_VILLAGE_CODE) {
+//                Log.e(Tag, "requestCode:" + requestCode);
+//
+//                return;
+//            }
+            Log.e(Tag, "requestCode2:" + requestCode);
+data.getStringExtra("AD");
+            Log.e(Tag, "data.getStringExtra(Constacts.SEARCH_RESULT);:" +data.getStringExtra("AD"));
+
+            String address2 = data.getStringExtra("address");
+
+//            this.mLocation.setText(address2);
+        }
     }
 }

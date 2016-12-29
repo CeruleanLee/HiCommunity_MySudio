@@ -26,6 +26,7 @@
             android:layout_height="50dp"
             android:gravity="center"
             android:text="暂无数据"
+            android:background="@color/white"
             android:visibility="visible" />
         <cn.hi028.android.highcommunity.view.NoScrollListview
             android:id="@+id/page2_evaluation_listview"
@@ -42,12 +43,22 @@
             android:id="@+id/page2_shopdetail_tv_Hishequ"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="8dp"
             android:background="@color/white"
             android:gravity="center"
             android:text="—— 本商品由xxx所有 ——"
             android:textColor="#aaaaaa" />
+        <TextView
+            android:id="@+id/page1_shopdetail_tv_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="2dp"
+            android:background="#22aaaaaa"
+            android:gravity="center"
 
+            android:text="商品推荐"
+            android:textColor="#666666" />
         <cn.hi028.android.highcommunity.view.NoScroolGridView
             android:id="@+id/page2_shopdetail_recommendGoods"
             android:layout_width="match_parent"

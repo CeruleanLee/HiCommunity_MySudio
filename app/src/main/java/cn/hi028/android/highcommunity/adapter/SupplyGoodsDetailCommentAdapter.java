@@ -8,10 +8,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.don.tools.BpiUniveralImage;
+import com.don.view.CircleImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ static final String Tag="SupplyGoodsDetailCommentAdapter:";
         if (convertView == null) {
             mViewHolder = new ViewHolder();
             convertView = layoutInflater.inflate(R.layout.item_merchant_evaluation, null);
-            mViewHolder.head = (ImageView) convertView.findViewById(R.id.item_evaluation_iv);
+            mViewHolder.head = (CircleImageView) convertView.findViewById(R.id.item_evaluation_iv);
             mViewHolder.username = (TextView) convertView.findViewById(R.id.item_username_tv);
             mViewHolder.merchantname = (TextView) convertView.findViewById(R.id.item_evalutaion_merchantname_tv);
             mViewHolder.time = (TextView) convertView.findViewById(R.id.item_evaluation_time);
@@ -105,7 +105,7 @@ static final String Tag="SupplyGoodsDetailCommentAdapter:";
     }
 
     class ViewHolder {
-        ImageView head;
+        CircleImageView head;
         TextView username;
         TextView merchantname;
         TextView time;

@@ -30,8 +30,8 @@ import org.json.JSONObject;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftThirdAct;
-import cn.hi028.android.highcommunity.adapter.HuiCommOrderAdapter;
-import cn.hi028.android.highcommunity.bean.HuiOrderBean;
+import cn.hi028.android.highcommunity.adapter.NewHuiCommOrderAdapter;
+import cn.hi028.android.highcommunity.bean.NewHuiOrderBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
@@ -51,14 +51,15 @@ public class HuiCommOrderFrag extends BaseFragment{
     ListView lv_list;
     @ViewById(R.id.btn_comment)
     Button btn_comment;
-     HuiCommOrderAdapter adapter;
-    HuiOrderBean data;
+   NewHuiCommOrderAdapter adapter;
+//    HuiOrderBean data;
+    NewHuiOrderBean data;
     @AfterViews
     void initView(){
-         adapter=new HuiCommOrderAdapter(this);
+         adapter=new NewHuiCommOrderAdapter(this);
          lv_list.setAdapter(adapter);
-           data=(HuiOrderBean)getActivity().getIntent().getSerializableExtra(MenuLeftThirdAct.INTENTTAG);
-         adapter.setData(data.getGoods());
+           data=(NewHuiOrderBean)getActivity().getIntent().getSerializableExtra(MenuLeftThirdAct.INTENTTAG);
+         adapter.setData(data.getList());
     }
     PopupWindow waitPop;
     @Click(R.id.btn_comment)
@@ -74,7 +75,7 @@ public class HuiCommOrderFrag extends BaseFragment{
                     goods.put("content",adapter.getData().get(i).getComment());
                     params.put(goods);
                 }
-//                jsonParams.put("comment",params);
+                jsonParams.put("info",params);
 //                jsonParams.put("order_id",data.getId());
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -113,13 +114,13 @@ public class HuiCommOrderFrag extends BaseFragment{
                 public void cancleAsyncTask() {
                     waitPop.dismiss();
                 }
-            }, jsonParams.toString());
+            }, params.toString(),data.getId()+"");
         }
     }
     private boolean isEmptyComment(){
         for(int i=0;i< ListUtils.getSize(adapter.getData());i++){
             if (TextUtils.isEmpty(adapter.getData().get(i).getComment())){
-                HighCommunityUtils.GetInstantiation().ShowToast(adapter.getData().get(i).getGoods_name()+"的评论不能为空",0);
+                HighCommunityUtils.GetInstantiation().ShowToast(adapter.getData().get(i).getName()+"的评论不能为空",0);
                 return true;
             }
         }

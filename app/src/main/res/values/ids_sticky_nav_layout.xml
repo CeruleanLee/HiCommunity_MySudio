@@ -5,5 +5,7 @@
     <item name="id_stickynavlayout_viewpager" type="id"/>
     <item name="id_stickynavlayout_indicator" type="id"/>
     <item name="id_stickynavlayout_innerscrollview" type="id"/>
+    <item name="srcollview_page_picdetail" type="id"/>
+    <item name="srcollview_page_comment" type="id"/>
 
 </resources>

@@ -84,6 +84,27 @@ public class VallageAct extends BaseFragmentActivity implements
 		}
 	}
 
+	/**
+	 * 类型
+	 *
+	 * @param frag
+	 * @param type
+	 *            0:未登录，1：其他、登录
+	 *            requestData  0 否  1 是
+	 */
+	public static void toStartAct(BaseFragment frag, int type, int requestData) {
+		Intent intent = new Intent(frag.getActivity(),
+				GeneratedClassUtils.get(VallageAct.class));
+		intent.putExtra(TYPE, type);
+//		intent.putExtra(ISTOMAINACT, toMainAct);
+		if (requestData==0) {
+			frag.startActivity(intent);
+		} else {
+			frag.startActivityForResult(intent, REQUEST_VILLAGE_CODE);
+		}
+	}
+
+
 	@Override
 	public void setSelectedFragment(BackHandledFragment selectedFragment) {
 		this.mBackHandedFragment = selectedFragment;
@@ -122,6 +143,15 @@ public class VallageAct extends BaseFragmentActivity implements
 	}
 
 	@Override
+	public void onResultActivity_Address(String address) {
+		Intent intent = getIntent();
+		intent.putExtra("AD",address);
+		setResult(RESULT_VILLAGE_CODE, intent);
+
+//	finish();
+	}
+
+	@Override
 	public void onResultActivity(int id) {
 		Activity actLogin = ActivityTack.getInstanse().getActivityByClass(
 				WelcomeAct.class);
@@ -135,6 +165,7 @@ public class VallageAct extends BaseFragmentActivity implements
 			startActivity(intent);
 		} else {
 			Intent intent = getIntent();
+
 			setResult(RESULT_VILLAGE_CODE, intent);
 		}
 		finish();

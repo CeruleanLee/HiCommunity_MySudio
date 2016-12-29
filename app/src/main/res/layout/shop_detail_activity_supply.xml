@@ -96,13 +96,13 @@
         </LinearLayout>
 
         <cn.hi028.android.highcommunity.view.RevealLayout
-            android:layout_width="100dp"
+            android:layout_width="1dp"
             android:layout_height="match_parent" >
 
             <Button
                 android:id="@+id/ac_shop_car_go_pay"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="1dp"
                 android:background="#FFA52B"
                 android:gravity="center"
                 android:padding="10dp"

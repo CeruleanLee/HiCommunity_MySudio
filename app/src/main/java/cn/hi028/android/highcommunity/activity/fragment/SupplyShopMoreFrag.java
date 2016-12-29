@@ -80,6 +80,7 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
             @Override
             public void onItemClick(View view, SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity data) {
                 Intent mIntent = new Intent(getActivity(), SupplyGoodsDetailActivity.class);
+//                Intent mIntent = new Intent(getActivity(), NewSupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id", data.getId());
                 getActivity().startActivity(mIntent);
             }
@@ -96,7 +97,7 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
 //
 //        mGridview.setEmptyView(mNodata);
 //        mGridview.setAdapter(mAdapter);
-//        initDatas();
+        initDatas();
     }
 
     String category_id = 0 + "";
@@ -106,7 +107,10 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
     int sort = 1;
 
     private void initDatas() {
-        mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), view, Gravity.CENTER);
+        if (view!=null){
+
+            mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(),view, Gravity.CENTER);
+        }
         Log.e(Tag, "调用 initDatas+category_id：" + category_id + " sort " + sort);
 
         HTTPHelper.GetSupplyGoodsListMore(mIbpi, category_id, sort + "");
@@ -116,7 +120,10 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            mWatingWindow.dismiss();
+            if (mWatingWindow!=null){
+
+                mWatingWindow.dismiss();
+            }
             Log.d(Tag, "---~~~onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
@@ -124,7 +131,10 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
         @Override
         public void onSuccess(Object message) {
             Log.d(Tag, "---~~~onSuccess");
+       if (mWatingWindow!=null){
+
             mWatingWindow.dismiss();
+        }
             if (message == null) return;
             SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity mData = (SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity) message;
             mList.clear();
@@ -158,7 +168,11 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
 
         @Override
         public void cancleAsyncTask() {
-            mWatingWindow.dismiss();
+            if (mWatingWindow!=null){
+
+                mWatingWindow.dismiss();
+            }
+//            mWatingWindow.dismiss();
 
         }
     };

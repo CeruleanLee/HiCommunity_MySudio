@@ -108,7 +108,7 @@ public class NewHuiBuyFrag extends BaseFragment {
     public HuiSuppOrderParams2 orderParams;
     SupplyPayConsignEntity mConsign;//订单参数
     //    HSuppGdDefBean data;
-    PopupWindow waitPop;
+    PopupWindow waitPop,mWaittingPop;
     NewHuiBuyAdapter adapter;
     View view;
     String carIdList,order_num;
@@ -284,6 +284,8 @@ int orderType=-1;
     }
 
     private void initData() {
+        mWaittingPop=HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), btn_pay, Gravity.CENTER);
+
         if (orderType==-1)return;
         if (carIdList != null && !carIdList.equals("")) {
 
@@ -301,12 +303,20 @@ int orderType=-1;
     BpiHttpHandler.IBpiHttpHandler mShowPayIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
+            if (mWaittingPop!=null){
+                mWaittingPop.dismiss();
+            }
+
+            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+
         }
 
         @Override
         public void onSuccess(Object message) {
             Log.e(Tag, "onSuccess:0");
-
+            if (mWaittingPop!=null){
+                mWaittingPop.dismiss();
+            }
             if (null == message){
                 Log.e(Tag, "onSuccess:null ");
 
@@ -381,6 +391,9 @@ if (result.contains("\"consign\":false")){
 
         @Override
         public void cancleAsyncTask() {
+            if (mWaittingPop!=null){
+                mWaittingPop.dismiss();
+            }
         }
     };
 

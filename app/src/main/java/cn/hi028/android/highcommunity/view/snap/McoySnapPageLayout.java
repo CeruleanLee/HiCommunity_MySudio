@@ -8,18 +8,18 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Scroller;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.view.MyCustomViewPager;
 import cn.hi028.android.highcommunity.view.MyGoodetailScrollView;
-import cn.hi028.android.highcommunity.view.ScrollWebView;
+import cn.hi028.android.highcommunity.view.mynew.GridViewWithHeaderAndFooter;
+import cn.hi028.android.highcommunity.view.mynew.HeaderGridView;
 
 /**
  * @author jiangxinxing---mcoy in English
- *         <p>
+ *         <p/>
  *         了解此ViewGroup之前， 有两点一定要做到心中有数
  *         一个是对Scroller的使用， 另一个是对onInterceptTouchEvent和onTouchEvent要做到很熟悉
  *         以下几个网站可以做参考用
@@ -56,16 +56,20 @@ public class McoySnapPageLayout extends ViewGroup {
     private McoySnapPage mPageTop, mPageBottom;
 
     private PageSnapedListener mPageSnapedListener;
-    private ScrollToTopListener mScrollToTopListener;
 
     //这个值表示需要第一页和第二页之间的鸿沟
     private int gapBetweenTopAndBottom;
 
-    private MyCustomViewPager mCommentListview;
-    private RadioGroup mRadioGroup;
+//    private NoScrollListview mCommentListview;
+
+    //    ScrollWebView mPicDetailWebview;
+    GridViewWithHeaderAndFooter headerGridview_common;
     MyGoodetailScrollView child1;
-    RadioButton child2;
-    ScrollWebView mPicDetailWebview;
+    MyGoodetailScrollView child2;
+
+    HeaderGridView headerGridview_picdetail;
+    RadioGroup mRadioGroup;
+    private MyCustomViewPager mViewPager;
 
     public interface McoySnapPage {
         /**
@@ -98,20 +102,8 @@ public class McoySnapPageLayout extends ViewGroup {
         void onSnapedCompleted(int derection);
     }
 
-    public interface ScrollToTopListener {
-
-        /**
-         * @mcoy 当从某一页滑动到另一页完成时的回调函数
-         */
-        void onScrollToTop(boolean isScrollToTop);
-    }
-
     public void setPageSnapListener(PageSnapedListener listener) {
         mPageSnapedListener = listener;
-    }
-
-    public void setScrollToTopListener(ScrollToTopListener listener) {
-        mScrollToTopListener = listener;
     }
 
     public McoySnapPageLayout(Context context, AttributeSet att) {
@@ -177,40 +169,15 @@ public class McoySnapPageLayout extends ViewGroup {
     public void setSnapPages(McoySnapPage pageTop, McoySnapPage pageBottom) {
         mPageTop = pageTop;
         mPageBottom = pageBottom;
-        mCommentListview = (MyCustomViewPager) mPageBottom.getRootView().findViewById(R.id.detail_pager);
+//        mCommentListview = (NoScrollListview) mPageBottom.getRootView().findViewById(R.id.ac_good_evaluation_listview);
+//        mPicDetailWebview = (ScrollWebView) mPageBottom.getRootView().findViewById(R.id.ac_good_detail_webview);
+        mViewPager = (MyCustomViewPager) mPageBottom.getRootView().findViewById(R.id.detail_pager);
         mRadioGroup = (RadioGroup) mPageBottom.getRootView().findViewById(R.id.ac_shopdetail_RadioGroup);
-        mRadioGroup.getChildAt(0);
-//		mPicDetailWebview=(ScrollWebView) mPageBottom.getRootView().findViewById(R.id.ac_good_detail_webview);
-        if (mCommentListview == null) {
-            Log.e(TAG, "mCommentListview null");
-        } else {
-            Log.e(TAG, "mCommentListview !null");
+        headerGridview_picdetail = (HeaderGridView) mPageBottom.getRootView().findViewById(R.id.headerGridview_picdetail);
+        headerGridview_common = (GridViewWithHeaderAndFooter) mPageBottom.getRootView().findViewById(R.id.headerGridview_common);
 
-        }
-        if (mRadioGroup == null) {
-            Log.e(TAG, "mRadioGroup null");
-        } else {
-            Log.e(TAG, "mRadioGroup !null");
-
-        }
-//		child1 = (MyGoodetailScrollView) mCommentListview.findViewWithTag(mCommentListview.getCurrentItem());
-        child2 = (RadioButton) mRadioGroup.getChildAt(0);
-        child1 = (MyGoodetailScrollView) mCommentListview.findViewWithTag("1");
-
-//		Log.e(TAG, "mCommentListview.getAdapter().getCount();: " + mCommentListview.getAdapter().getCount());
-
-        if (child1 == null) {
-            Log.e(TAG, "child1 null");
-        } else {
-            Log.e(TAG, "child1 !null");
-
-        }
-        if (child2 == null) {
-            Log.e(TAG, "child2 null");
-        } else {
-            Log.e(TAG, "child2 !null");
-
-        }
+        child1 = (MyGoodetailScrollView) mViewPager.getChildAt(0);
+        child2 = (MyGoodetailScrollView) mViewPager.getChildAt(1);
 
 
         addPagesAndRefresh();
@@ -231,7 +198,7 @@ public class McoySnapPageLayout extends ViewGroup {
      * computeScroll方法会调用postInvalidate()方法， 而postInvalidate()方法中系统
      * 又会调用computeScroll方法， 因此会一直在循环互相调用， 循环的终结点是在computeScrollOffset()
      * 当computeScrollOffset这个方法返回false时，说明已经结束滚动。
-     * <p>
+     * <p/>
      * 重要：真正的实现此view的滚动是调用scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
      */
     @Override
@@ -318,6 +285,7 @@ public class McoySnapPageLayout extends ViewGroup {
 
                 if (yMoved) {
 
+
                     if (MCOY_DEBUG) {
                         Log.e(TAG, "yDiff is " + yDiff);
                         Log.e(TAG, "mPageTop.isFlipToBottom() is " + mPageTop.isAtBottom());
@@ -332,65 +300,135 @@ public class McoySnapPageLayout extends ViewGroup {
 
                     if (yDiff > 0) {
                         if (mPageBottom.isAtTop() && mCurrentScreen == 1) {
-
-                            for (int i = 0; i < mRadioGroup.getChildCount(); i++) {
-                                if (((RadioButton) mRadioGroup.getChildAt(i)).isChecked()) {
-                                    Log.e(TAG, "调试-mRadioGroup.getChildAt(i)).isChecked(): " + i);
-                                    Log.e(TAG, "调试-mCommentListview.getViewList().size" + mCommentListview.getViewList().size());
-                                    Log.e(TAG, "调试-mCommentListview.getViewList().get(i).getY()==0" + mCommentListview.getViewList().get(i).getY());
-                                    if (mCommentListview.getViewList().get(i).getY() == 0.0) {
-                                        Log.e(TAG, "调试-mCommentListview.getViewList().get(i).getY()==0 进入一个");
-
-                                        mTouchState = TOUCH_STATE_SCROLLING;
-
-                                    } else {
-                                        int moveX = (int) (x - mLastMotionX);
-                                        int moveY = (int) (y - mLastMotionY);
-                                        if (moveY > moveX + 20) {
-                                            return false;
-                                        }
-                                    }
-
-                                }
-                            }
-//						if (mRadioGroup.getScaleY()==0){
-////								mCommentListview.getChildAt(0).getHeight()-mCommentListview.getHeight()==mCommentListview.getScrollY()){
-////							mTouchState = TOUCH_STATE_SCROLLING;
-//
-//						}
-//
-//                            else{
-//                                int moveX = (int) (x - mLastMotionX);
-//                                int moveY = (int) (y - mLastMotionY);
-//                                if (moveY > moveX + 20) {
-//                                    return false;
+//                            if (mCommentListview.getVisibility() == View.VISIBLE) {
+//                                if (mCommentListview.getFirstVisiblePosition() == 0) {
+//                                    mTouchState = TOUCH_STATE_SCROLLING;
+//                                } else {
+//                                    int moveX = (int) (x - mLastMotionX);
+//                                    int moveY = (int) (y - mLastMotionY);
+//                                    if (moveY > moveX + 20) {
+//                                        return false;
+//                                    }
 //                                }
 //                            }
-
-//						if (mCommentListview.getVisibility()==View.VISIBLE) {
-//							if(mCommentListview.getFirstVisiblePosition() == 0){
-//								mTouchState = TOUCH_STATE_SCROLLING;
-//							}else{
-//								int moveX = (int) (x- mLastMotionX);
-//								int moveY = (int) (y- mLastMotionY);
-//								if (moveY > moveX+20) {
-//									return false;
-//								}
-//							}
-//						}
-//						if(mPicDetailWebview.getVisibility()==View.VISIBLE){
+                            if (headerGridview_common.getVisibility() == View.VISIBLE) {
+                                if (headerGridview_common.getFirstVisiblePosition() == 0) {
+                                    mTouchState = TOUCH_STATE_SCROLLING;
+                                } else {
+                                    int moveX = (int) (x - mLastMotionX);
+                                    int moveY = (int) (y - mLastMotionY);
+                                    if (moveY > moveX + 20) {
+                                        return false;
+                                    }
+                                }
+                            }
+//                            if (mPicDetailWebview.getVisibility() == View.VISIBLE) {
 ////							mPicDetailWebview.getParent().g
-//							if (mPicDetailWebview.isWebviewOnTop) {
+//                                if (mPicDetailWebview.isWebviewOnTop) {
 ////								Toast.makeText(getContext(), "WebviewOnTop", 0).show();
-//								mTouchState = TOUCH_STATE_SCROLLING;
-//							}else{
-//								int moveX = (int) (x- mLastMotionX);
-//								int moveY = (int) (y- mLastMotionY);
-//								if (moveY > moveX+20) {
-//									return false;
-//								}
-//							}
-//						}
+//                                    mTouchState = TOUCH_STATE_SCROLLING;
+//                                } else {
+//                                    int moveX = (int) (x - mLastMotionX);
+//                                    int moveY = (int) (y - mLastMotionY);
+//                                    if (moveY > moveX + 20) {
+//                                        return false;
+//                                    }
+//                                }
+//                            }
+                            if (headerGridview_picdetail.getVisibility() == View.VISIBLE) {
+                                Log.e(TAG, "headerGridview_picdetail getVisibility true");
+
+//							mPicDetailWebview.getParent().g
+                                if (headerGridview_picdetail.getFirstVisiblePosition() == 0) {
+                                    mTouchState = TOUCH_STATE_SCROLLING;
+                                } else {
+                                    int moveX = (int) (x - mLastMotionX);
+                                    int moveY = (int) (y - mLastMotionY);
+                                    if (moveY > moveX + 20) {
+                                        return false;
+                                    }
+                                }
+                            }
+                            if (mViewPager.getVisibility() == View.VISIBLE) {
+                                Log.e(TAG, "mViewPager getVisibility true");
+                                Log.e(TAG, "mViewPager.getY ---" + mViewPager.getY());
+                                Log.e(TAG, "mRadioGroup.getBottom() ---" + mRadioGroup.getBottom());
+                                if (mViewPager.getY() == mRadioGroup.getBottom()) {
+                                    mTouchState = TOUCH_STATE_SCROLLING;
+                                } else {
+                                    int moveX = (int) (x - mLastMotionX);
+                                    int moveY = (int) (y - mLastMotionY);
+                                    if (moveY > moveX + 20) {
+                                        return false;
+                                    }
+                                }
+
+
+
+
+
+
+
+
+
+//                                 if (child1 != null && child2 != null) {
+//                                    Log.e(TAG, "子view ! null");
+//
+//
+//                                    if (child1.getVisibility() == View.VISIBLE) {
+//                                        Log.e(TAG, "子view 1  VISIBLE");
+//                                        Log.e(TAG, "child1.getY ---" + child1.getY());
+//
+//                                        if (child1.getY() > mRadioGroup.getBottom()) {
+//                                            mTouchState = TOUCH_STATE_SCROLLING;
+//                                        } else {
+//                                            int moveX = (int) (x - mLastMotionX);
+//                                            int moveY = (int) (y - mLastMotionY);
+//                                            if (moveY > moveX + 20) {
+//                                                return false;
+//                                            }
+//                                        }
+//                                    }else {
+//                                        int moveX = (int) (x - mLastMotionX);
+//                                        int moveY = (int) (y - mLastMotionY);
+//                                        if (moveY > moveX + 20) {
+//                                            return false;
+//                                        }
+//                                    }
+//
+//
+//
+//                                     if (child2.getVisibility() == View.VISIBLE) {
+//                                        Log.e(TAG, "子view 2  VISIBLE");
+//                                        Log.e(TAG, "child2.getY ---" + child2.getY());
+//
+//                                        if (child2.getY() > mRadioGroup.getBottom()) {
+//                                            mTouchState = TOUCH_STATE_SCROLLING;
+//                                        } else {
+//                                            int moveX = (int) (x - mLastMotionX);
+//                                            int moveY = (int) (y - mLastMotionY);
+//                                            if (moveY > moveX + 20) {
+//                                                return false;
+//                                            }
+//                                        }
+//                                    }
+//                                    Log.e(TAG, "子view 2  inVISIBLE");
+//
+//                                }
+//                                Log.e(TAG, "子view null");
+
+////							mPicDetailWebview.getParent().g
+//                                if (mViewPager.getY() > mRadioGroup.getBottom()) {
+//                                    mTouchState = TOUCH_STATE_SCROLLING;
+//                                } else {
+//                                    int moveX = (int) (x - mLastMotionX);
+//                                    int moveY = (int) (y - mLastMotionY);
+//                                    if (moveY > moveX + 20) {
+//                                        return false;
+//                                    }
+//                                }
+                            }
+                            Log.e(TAG, "mViewPager getVisibility gone");
 
                         }
 

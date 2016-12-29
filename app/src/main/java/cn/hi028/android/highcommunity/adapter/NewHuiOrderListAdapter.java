@@ -332,7 +332,7 @@ public class NewHuiOrderListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(frag.getActivity(), v, Gravity.CENTER);
-                HTTPHelper.reciveOrder(new BpiHttpHandler.IBpiHttpHandler() {
+                HTTPHelper.reciveOrder2(new BpiHttpHandler.IBpiHttpHandler() {
                     @Override
                     public void onError(int id, String message) {
                         waitPop.dismiss();

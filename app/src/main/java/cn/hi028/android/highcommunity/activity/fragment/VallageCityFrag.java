@@ -242,7 +242,9 @@ public class VallageCityFrag extends BackHandledFragment implements MyLetterList
         super.onActivityResult(requestCode, resultCode, data);
         SearchActivity.searchResult(ll_village, searchY);
         if (requestCode == 0x22 && resultCode == 0x22 && data != null) {
+            mBackHandledInterface.onResultActivity_Address(data.getStringExtra(Constacts.SEARCH_RESULT_Address));
             mBackHandledInterface.onResultActivity(data.getIntExtra(Constacts.SEARCH_RESULT, 0));
+//            Constacts.SEARCH_RESULT, data.get(position).getName()
         }
     }
 

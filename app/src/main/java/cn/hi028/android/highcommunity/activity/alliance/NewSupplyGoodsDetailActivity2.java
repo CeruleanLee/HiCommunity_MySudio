@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -33,7 +34,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.don.tools.BpiHttpHandler;
 import com.don.tools.BpiHttpHandler.IBpiHttpHandler;
 import com.don.tools.BpiUniveralImage;
 import com.don.tools.GeneratedClassUtils;
@@ -75,7 +75,8 @@ import cn.hi028.android.highcommunity.view.MyCustomViewPager;
 import cn.hi028.android.highcommunity.view.MyGoodetailScrollView;
 import cn.hi028.android.highcommunity.view.NoScrollListview;
 import cn.hi028.android.highcommunity.view.NoScroolGridView;
-import cn.hi028.android.highcommunity.view.ScrollWebView;
+import cn.hi028.android.highcommunity.view.mynew.GridViewWithHeaderAndFooter;
+import cn.hi028.android.highcommunity.view.mynew.HeaderGridView;
 import cn.hi028.android.highcommunity.view.snap.McoyProductContentPage;
 import cn.hi028.android.highcommunity.view.snap.McoyProductDetailInfoPage;
 import cn.hi028.android.highcommunity.view.snap.McoySnapPageLayout;
@@ -86,7 +87,7 @@ import cn.hi028.android.highcommunity.view.snap.McoySnapPageLayout.PageSnapedLis
  *
  * @author Lee_yting
  */
-public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
+public class NewSupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
         OnClickListener, PayPop2FragFace {
 
     static String Tag = "SupplyGoodsDetailActivity";
@@ -175,10 +176,10 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         setContentView(R.layout.shop_detail_activity_supply);
         mcoySnapPageLayout = (McoySnapPageLayout) findViewById(R.id.flipLayout);
 
-        topPage = new McoyProductDetailInfoPage(SupplyGoodsDetailActivity.this,
+        topPage = new McoyProductDetailInfoPage(NewSupplyGoodsDetailActivity2.this,
                 getLayoutInflater().inflate(
                         R.layout.page_top_supply, null));
-        bottomPage = new McoyProductContentPage(SupplyGoodsDetailActivity.this,
+        bottomPage = new McoyProductContentPage(NewSupplyGoodsDetailActivity2.this,
                 getLayoutInflater().inflate(
                         R.layout.page_bottom_supply, null));
         mcoySnapPageLayout.setSnapPages(topPage, bottomPage);
@@ -186,8 +187,8 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         bottom_View = bottomPage.getRootView();
         id = getIntent().getStringExtra("id");
         goodsId = id;
-
-
+        init();
+        registerListener();
         mcoySnapPageLayout.setPageSnapListener(new PageSnapedListener() {
             @Override
             public void onSnapedCompleted(int derection) {
@@ -199,28 +200,8 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
             }
         });
-//        mcoySnapPageLayout.setScrollToTopListener(new McoySnapPageLayout.ScrollToTopListener() {
-//            @Override
-//            public void onScrollToTop(boolean isScrollToTop) {
-//
-//            }
-//        });
-//        mWebview.setOnScrollChangeListener(new OnScrollChangeListener() {
-//
-//            @Override
-//            public void onScrollChanged(int l, int t, int oldl, int oldt) {
-//            }
-//
-//            @Override
-//            public void onPageTop(int l, int t, int oldl, int oldt) {
-//            }
-//
-//            @Override
-//            public void onPageEnd(int l, int t, int oldl, int oldt) {
-//            }
-//        });
-        init();
-        registerListener();
+
+
     }
 
     private Handler popupHandler = new Handler() {
@@ -228,7 +209,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
-                    mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity.this, back, Gravity.CENTER);
+                    mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(NewSupplyGoodsDetailActivity2.this, back, Gravity.CENTER);
 
                     break;
             }
@@ -237,13 +218,13 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     };
 
     private void initData() {
-        popupHandler.sendEmptyMessageDelayed(0, 50);
-//        mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity.this, caramount, Gravity.CENTER);
+        popupHandler.sendEmptyMessageDelayed(0, 100);
+//        mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(NewSupplyGoodsDetailActivity2.this, caramount, Gravity.CENTER);
 
         HTTPHelper.getGdCarList2(mGetCarIbpi);
     }
 
-    BpiHttpHandler.IBpiHttpHandler mGetCarIbpi = new BpiHttpHandler.IBpiHttpHandler() {
+    IBpiHttpHandler mGetCarIbpi = new IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
@@ -329,29 +310,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         call.setOnClickListener(this);
         telephone.setOnClickListener(this);
 
-//        mPicDetail.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-//
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked) {
-//
-//                    mWebview.setVisibility(View.VISIBLE);
-//                    mCommentListview.setVisibility(View.GONE);
-//                    mCommentDetail.setChecked(false);
-//                }
-//            }
-//        });
-//        mCommentDetail.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-//
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked) {
-//                    mWebview.setVisibility(View.GONE);
-//                    mCommentListview.setVisibility(View.VISIBLE);
-//                    mPicDetail.setChecked(false);
-//                }
-//            }
-//        });
+
         toSeeMore.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
             @Override
@@ -414,6 +373,9 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     TextView mFlashprogressTV;
     ProgressBar mFlashProgressBar;
     TextView mHishequTV;
+
+    GridViewWithHeaderAndFooter headerGridview_common;
+            HeaderGridView headerGridview_picdetail;
 //    NoScroolGridView mRecommendGridView;
 
     private void initView() {
@@ -496,6 +458,8 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         tv_noData = (TextView) bottom_View.findViewById(R.id.ac_good_nodata);
 //        tv_pic_nodata = (TextView) bottom_View.findViewById(R.id.ac_good_picdetail_nodata);
         mHishequTV = (TextView) bottom_View.findViewById(R.id.ac_shopdetail_tv_Hishequ);
+        headerGridview_picdetail = (HeaderGridView) bottom_View.findViewById(R.id.headerGridview_picdetail);
+        headerGridview_common = (GridViewWithHeaderAndFooter) bottom_View.findViewById(R.id.headerGridview_common);
 //        mRecommendGridView = (NoScroolGridView) bottom_View.findViewById(R.id.ac_shopdetail_recommendGoods);
         //		mScrollView2=(ScrollView) findViewById(R.id.scrollView2);
         //		mScrollView2.smoothScrollTo(0, 20);
@@ -865,7 +829,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             // activity 中点击去支付
             case R.id.ac_shop_car_go_pay:
                 if (good_count == 0) {
-                    Toast.makeText(SupplyGoodsDetailActivity.this, "请选择商品数量", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewSupplyGoodsDetailActivity2.this, "请选择商品数量", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 upDateList();
@@ -914,8 +878,8 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
      * 加入购物车
      **/
     public void addCarGoods() {
-        if (HighCommunityUtils.isLogin(SupplyGoodsDetailActivity.this)) {
-            waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity.this, mRadioGroup, Gravity.CENTER);
+        if (HighCommunityUtils.isLogin(NewSupplyGoodsDetailActivity2.this)) {
+            waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(NewSupplyGoodsDetailActivity2.this, mRadioGroup, Gravity.CENTER);
             HTTPHelper.addNewHuiGoodsToCar(mIbpiAddShopCar, goodsId, standardId);
 
         }
@@ -928,7 +892,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     /**
      * 加入购物车回调
      */
-    BpiHttpHandler.IBpiHttpHandler mIbpiAddShopCar = new BpiHttpHandler.IBpiHttpHandler() {
+    IBpiHttpHandler mIbpiAddShopCar = new IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
             waitPop.dismiss();
@@ -1114,7 +1078,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
             mOrderBean = (SubmitOrderBean) message;
 
-            Intent intent = new Intent(SupplyGoodsDetailActivity.this,
+            Intent intent = new Intent(NewSupplyGoodsDetailActivity2.this,
                     ShowPayActivity.class);
             intent.putParcelableArrayListExtra("gods_list", goodslist);
             intent.putExtra("total_price",
@@ -1170,33 +1134,221 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         mViewPager.stopAutoScroll();
     }
 
+    private void initPager2(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
+
+        mPager.setVisibility(View.GONE);
+        headerGridview_picdetail.setVisibility(View.VISIBLE);
+        headerGridview_common.setVisibility(View.GONE);
+        mPicDetail.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+                    headerGridview_picdetail.setVisibility(View.VISIBLE);
+                    headerGridview_common.setVisibility(View.GONE);
+                    mCommentDetail.setChecked(false);
+                }
+            }
+        });
+        mCommentDetail.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    headerGridview_picdetail.setVisibility(View.GONE);
+                    headerGridview_common.setVisibility(View.VISIBLE);
+                    mPicDetail.setChecked(false);
+                }
+            }
+        });
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.ac_shopdetail_mypicdetail) {
+
+                    headerGridview_picdetail.setVisibility(View.VISIBLE);
+                    headerGridview_common.setVisibility(View.GONE);
+
+                } else if (checkedId == R.id.ac_shopdetail_mycommentdetail) {
+
+                    headerGridview_picdetail.setVisibility(View.GONE);
+                    headerGridview_common.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        LinearLayout picdetail_header = new LinearLayout(this);
+        picdetail_header.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        picdetail_header.setOrientation(LinearLayout.VERTICAL);
+
+//        View picdetail_header = LayoutInflater.from(this).inflate(R.layout.picdetail_header, null);
+//        NoScrollListview headerListview = (NoScrollListview) picdetail_header.findViewById(R.id.ac_picdetail_listview);
+        Element lastElement = null;
+        if (null != msg.getDetail()) {
+            if (msg.getDetail().startsWith("http")) {
+                Log.e(Tag, "getPicDetail 图文详情url:" + msg.getDetail());
+            } else {
+                Log.e(Tag, "图文详情:" + msg.getDetail());
+//                tv_showhtml.setText(Html.fromHtml(msg.getDetail()));
+                Document document = Jsoup.parse(msg.getDetail());
+                Elements allElements = document.getAllElements();
+                Log.e(Tag, allElements.toString() + "," + allElements.text());
+//                for (Element em :
+//                        allElements) {
+//                    Log.e(Tag,em.tagName()+"，遍历属性："+em.attributes().toString());
+//                }
+                for (int i = 0; i < allElements.size(); i++) {
+                    if (i == allElements.size()) {
+                        lastElement = allElements.get(i);
+                        Log.e(Tag, "终标签：" + lastElement.toString());
+                    }
+                }
+
+                Elements media = document.select("[src]");
+                if (media != null) {
+                    for (Element src : media) {
+                        if (src.tagName().equals("img")) {
+                            Log.e(Tag, src.tagName() + "," + src.attr("src") + "," + src.attr("width") + "," + src.attr("height") + "," + src.attr("alt"));
+//                            View imgview = LayoutInflater.from(this).inflate(R.layout.html_img, null);
+                            if (src.attr("src") != null && !src.attr("src").equals("")) {
+                                Log.e(Tag, "src ! null uri:" + Constacts.IMAGEHTTP + src.attr("src"));
+//                                View picdetail_header = LayoutInflater.from(this).inflate(R.layout.picdetail_header, null);
+//                                NoScrollListview headerListview = (NoScrollListview) picdetail_header.findViewById(R.id.ac_picdetail_listview);
+                                View imgview_common = LayoutInflater.from(this).inflate(R.layout.html_img_common, null);
+                                ImageView html_img_common = (ImageView) imgview_common.findViewById(R.id.page1_img_showhtml);
+                                BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + src.attr("src"), html_img_common);
+                                if (src.attr("height") != null && !src.attr("height").equals("")&&html_img_common.getLayoutParams()!=null) {
+//                               html_img.getLayoutParams().height=Integer.parseInt(src.attr("height"));
+                                    Log.e(Tag, "height ! " );
+
+                                    html_img_common.getLayoutParams().height=Integer.parseInt(src.attr("height"))*2;
+
+                                } else {
+                                    Log.e(Tag, "height null " );
+//                               html_img.getLayoutParams().height= ViewGroup.LayoutParams.WRAP_CONTENT;
+                                }
+                                picdetail_header.addView(imgview_common);
+                            } else {
+                                Log.e(Tag, src.tagName() + ",_____________" + src.attr("src"));
+                            }
+                        }
+                    }
+                } else {
+                    Log.e(Tag, "img null   显示text");
+                    if (lastElement != null) {
+                        Log.e(Tag, "img null   lastElement!=null");
+                        View tv_common = LayoutInflater.from(this).inflate(R.layout.picdetail_tv_hishequ_common, null);
+                        TextView tv = (TextView) tv_common.findViewById(R.id.ac_shopdetail_tv_Hishequ);
+                        Log.e(Tag, "img null   lastElement!=null222" + lastElement.text());
+                        tv.setText(lastElement.text());
+                        picdetail_header.addView(tv);
+
+                    }
+                }
+            }
+        } else {
+            Log.e(Tag, "图文详情url: null");
+
+        }
+
+//        recommendGoodsGview.
+        getTextView("a  ");
+        View tv_Hishequ_view = LayoutInflater.from(this).inflate(R.layout.picdetail_tv_hishequ_common, null);
+        TextView tv_Hishequ = (TextView) tv_Hishequ_view.findViewById(R.id.ac_shopdetail_tv_Hishequ);
+        if (null != msg.getSupply()) {
+            tv_Hishequ.setVisibility(View.VISIBLE);
+            tv_Hishequ.setText("—— 本商品由" + msg.getSupply() + "所有 ——");
+        } else {
+            tv_Hishequ.setVisibility(View.INVISIBLE);
+        }
+        picdetail_header.addView(tv_Hishequ_view);
+        picdetail_header.addView(getTextView("    "));
+        picdetail_header.addView(getTextView("     "));
+        picdetail_header.addView(getTextView("    "));
+        picdetail_header.addView(getTextView("商品推荐"));
+        headerGridview_picdetail.addHeaderView(picdetail_header);
+        //set推荐商品
+        if (msg.getRecommend() != null) {
+            List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.RecommendEntity> mRecommendList = msg.getRecommend();
+            SupplGoodsDetailGridAdapter mAdapter = new SupplGoodsDetailGridAdapter(mRecommendList, NewSupplyGoodsDetailActivity2.this);
+            headerGridview_picdetail.setAdapter(mAdapter);
+        }
+
+/**评论**/
+
+
+
+        View commentlistview = LayoutInflater.from(this).inflate(R.layout.gddetail_commentlistview, null);
+        NoScrollListview evaluation_listview = (NoScrollListview) commentlistview.findViewById(R.id.page2_evaluation_listview);
+        //set评价内容
+        if (null != msg.getComment()) {
+            List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.CommentEntity> mCommentList = msg.getComment();
+            SupplyGoodsDetailCommentAdapter mEvaluationAdapter = new SupplyGoodsDetailCommentAdapter(mCommentList, NewSupplyGoodsDetailActivity2.this);
+            evaluation_listview.setAdapter(mEvaluationAdapter);
+//            setCarAmount();
+//            headerGridview_common.addHeaderView(commentlistview);
+        }else{
+            View nodata_view = LayoutInflater.from(this).inflate(R.layout.picdetail_tv_hishequ_common, null);
+            TextView tv_nocomment = (TextView) nodata_view.findViewById(R.id.ac_shopdetail_tv_Hishequ);
+            tv_nocomment.setText("-暂无评论-");
+            evaluation_listview.addHeaderView(nodata_view);
+//            headerGridview_common.addHeaderView(commentlistview);
+        }
+        View nodata_view2 = LayoutInflater.from(this).inflate(R.layout.picdetail_tv_hishequ_common, null);
+        TextView tv_nocomment2 = (TextView) nodata_view2.findViewById(R.id.ac_shopdetail_tv_Hishequ);
+        tv_nocomment2.setText("     ");
+        evaluation_listview.addHeaderView(nodata_view2);
+        if (null != msg.getSupply()) {
+//            headerGridview_common.addHeaderView(getTextView("—— 本商品由" + msg.getSupply() + "所有 ——"));
+//
+            View nodata_view3 = LayoutInflater.from(this).inflate(R.layout.picdetail_tv_hishequ_common, null);
+            TextView tv_nocomment3 = (TextView) nodata_view3.findViewById(R.id.ac_shopdetail_tv_Hishequ);
+            tv_nocomment3.setText("—— 本商品由" + msg.getSupply() + "所有 ——");
+            evaluation_listview.addHeaderView(nodata_view3);
+        }
+        View nodata_view6 = LayoutInflater.from(this).inflate(R.layout.picdetail_tv_hishequ_common, null);
+        TextView tv_nocomment6 = (TextView) nodata_view6.findViewById(R.id.ac_shopdetail_tv_Hishequ);
+        tv_nocomment6.setText("     ");
+        evaluation_listview.addHeaderView(nodata_view6);
+        evaluation_listview.addHeaderView(getTextView("     "));
+        evaluation_listview.addHeaderView(getTextView("    "));
+        View nodata_view4 = LayoutInflater.from(this).inflate(R.layout.picdetail_tv_hishequ_common, null);
+        TextView tv_nocomment4 = (TextView) nodata_view4.findViewById(R.id.ac_shopdetail_tv_Hishequ);
+        tv_nocomment4.setText("商品推荐");
+        evaluation_listview.addHeaderView(nodata_view4);
+        View nodata_view5 = LayoutInflater.from(this).inflate(R.layout.picdetail_tv_hishequ_common, null);
+        TextView tv_nocomment5 = (TextView) nodata_view5.findViewById(R.id.ac_shopdetail_tv_Hishequ);
+        tv_nocomment5.setText("     ");
+        evaluation_listview.addHeaderView(nodata_view5);
+        headerGridview_common.addHeaderView(commentlistview);
+
+
+
+        //set推荐商品
+        if (msg.getRecommend() != null) {
+            List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.RecommendEntity> mRecommendList = msg.getRecommend();
+            SupplGoodsDetailGridAdapter mAdapter = new SupplGoodsDetailGridAdapter(mRecommendList, NewSupplyGoodsDetailActivity2.this);
+            headerGridview_common.setAdapter(mAdapter);
+        }
+
+
+
+    }
+
+    private View getTextView(String s) {
+
+        View tv_Hishequ_view = LayoutInflater.from(this).inflate(R.layout.picdetail_tv_hishequ_common, null);
+        TextView tv_Hishequ = (TextView) tv_Hishequ_view.findViewById(R.id.ac_shopdetail_tv_Hishequ);
+        tv_Hishequ.setText(s);
+        return tv_Hishequ_view;
+    }
+
     private void initPager(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
-
-
 
 
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                if (checkedId == R.id.ac_shopdetail_mypicdetail) {
-//                    if (isNoWebDetail) {
-//                        mWebview.setVisibility(View.GONE);
-////    tv_noData.setText("暂无图文详情");
-//                        tv_pic_nodata.setVisibility(View.VISIBLE);
-//                    } else {
-//
-//                        mWebview.setVisibility(View.VISIBLE);
-//                        tv_pic_nodata.setVisibility(View.GONE);
-//                    }
-//                    mCommentListview.setVisibility(View.GONE);
-//
-//                } else if (checkedId == R.id.ac_shopdetail_mycommentdetail) {
-//
-//                    mWebview.setVisibility(View.GONE);
-//                    mCommentListview.setVisibility(View.VISIBLE);
-//
-//
-//                }
                 if (checkedId == R.id.ac_shopdetail_mypicdetail) {
                     if (currentPo != 0)
                         mPager.setCurrentItem(0);
@@ -1214,8 +1366,8 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         HuiOrderAdapter adapter = new HuiOrderAdapter();//与我相关用
 
         List<View> viewList = new ArrayList<View>();
-        viewList.add(0,getPicDetail(msg));
-        viewList.add(1,getCommentPageView(msg));
+        viewList.add(getPicDetail(msg));
+        viewList.add(getCommentPageView(msg));
         mPager.setAdapter(adapter);
         mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -1262,7 +1414,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         //set评价内容
         if (null != msg.getComment()) {
             List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.CommentEntity> mCommentList = msg.getComment();
-            SupplyGoodsDetailCommentAdapter mEvaluationAdapter = new SupplyGoodsDetailCommentAdapter(mCommentList, SupplyGoodsDetailActivity.this);
+            SupplyGoodsDetailCommentAdapter mEvaluationAdapter = new SupplyGoodsDetailCommentAdapter(mCommentList, NewSupplyGoodsDetailActivity2.this);
             evaluation_listview.setAdapter(mEvaluationAdapter);
 //            setCarAmount();
         }
@@ -1278,7 +1430,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         //set推荐商品
         if (msg.getRecommend() != null) {
             List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.RecommendEntity> mRecommendList = msg.getRecommend();
-            SupplGoodsDetailGridAdapter mAdapter = new SupplGoodsDetailGridAdapter(mRecommendList, SupplyGoodsDetailActivity.this);
+            SupplGoodsDetailGridAdapter mAdapter = new SupplGoodsDetailGridAdapter(mRecommendList, NewSupplyGoodsDetailActivity2.this);
             shopdetail_recommendGoods.setAdapter(mAdapter);
         }
 
@@ -1292,21 +1444,18 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
     View getPicDetail(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
         Log.e(Tag, "getPicDetail");
 
-        View view = LayoutInflater.from(this).inflate(R.layout.page_picdetail, null);
-//        bottom_View.findViewById(R.id.page_pic)
-//        View view = LayoutInflater.from(this).inflate(R.layout.page_picdetail_newsupply, null);
-//        GridViewWithHeaderAndFooter mGridview= (GridViewWithHeaderAndFooter) view.findViewById(R.id.GridWithHeader_page_picdetail);
-
-        View mProgress = view.findViewById(R.id.ll_NoticeDetails_Progress);
-        MyGoodetailScrollView mScrollView1 = (MyGoodetailScrollView) view.findViewById(R.id.srcollview_page_picdetail);
-        LinearLayout layout_showhtml = (LinearLayout) view.findViewById(R.id.page1_tv_showhtml);
-        ImageView img_showhtml = (ImageView) view.findViewById(R.id.page1_img_showhtml);
-        ScrollWebView detail_webview = (ScrollWebView) view.findViewById(R.id.page1_good_detail_webview);
-        TextView tv_Hishequ = (TextView) view.findViewById(R.id.page1_shopdetail_tv_Hishequ);
-        TextView tv_nopicurl = (TextView) view.findViewById(R.id.tv_nopicurl);
-        NoScroolGridView recommendGoodsGview = (NoScroolGridView) view.findViewById(R.id.page1_shopdetail_recommendGoods);
-        mProgress.setVisibility(View.GONE);
-        TextView mNodata = (TextView) view.findViewById(R.id.tv_NoticeDetails_noData);
+//        View view = LayoutInflater.from(this).inflate(R.layout.page_picdetail, null);
+        View view = LayoutInflater.from(this).inflate(R.layout.page_picdetail_newsupply, null);
+        GridViewWithHeaderAndFooter mGridview = (GridViewWithHeaderAndFooter) view.findViewById(R.id.GridWithHeader_page_picdetail);
+//        View mProgress = view.findViewById(R.id.ll_NoticeDetails_Progress);
+//        MyGoodetailScrollView mScrollView1 = (MyGoodetailScrollView) view.findViewById(R.id.srcollview_page_picdetail);
+//        LinearLayout layout_showhtml = (LinearLayout) view.findViewById(R.id.page1_tv_showhtml);
+//        SimpleDraweeView img_showhtml = (SimpleDraweeView) view.findViewById(R.id.page1_img_showhtml);
+//        ScrollWebView detail_webview = (ScrollWebView) view.findViewById(R.id.page1_good_detail_webview);
+//        TextView tv_Hishequ = (TextView) view.findViewById(R.id.page1_shopdetail_tv_Hishequ);
+//        NoScroolGridView recommendGoodsGview = (NoScroolGridView) view.findViewById(R.id.page1_shopdetail_recommendGoods);
+//        mProgress.setVisibility(View.GONE);
+//        TextView mNodata = (TextView) view.findViewById(R.id.tv_NoticeDetails_noData);
         Element lastElement = null;
         if (null != msg.getDetail()) {
             if (msg.getDetail().startsWith("http")) {
@@ -1343,7 +1492,6 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                     for (Element src : media) {
                         if (src.tagName().equals("img")) {
                             Log.e(Tag, src.tagName() + "," + src.attr("src") + "," + src.attr("width") + "," + src.attr("height") + "," + src.attr("alt"));
-
 //                            View imgview = LayoutInflater.from(this).inflate(R.layout.html_img, null);
 
 //                            if (imgview == null) {
@@ -1363,34 +1511,23 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 ////                                imgview.getLayoutParams().height=400;
 //                            }
 
-                            if (src.attr("height") != null && !src.attr("height").equals("")&&img_showhtml.getLayoutParams()!=null) {
+                            if (src.attr("height") != null && !src.attr("height").equals("")) {
 //                               html_img.getLayoutParams().height=Integer.parseInt(src.attr("height"));
-                                Log.e(Tag, "height ! " );
 
-                                img_showhtml.getLayoutParams().height=(int) (Integer.parseInt(src.attr("height"))*1.5);
 
                             } else {
-                                Log.e(Tag, "height null " );
+//                               html_img.getLayoutParams().height= ViewGroup.LayoutParams.WRAP_CONTENT;
+
                             }
                             if (src.attr("src") != null && !src.attr("src").equals("")) {
-                                Log.e(Tag, "src ! null uri:"+Constacts.IMAGEHTTP + src.attr("src"));
-//                                View imgview_common = LayoutInflater.from(this).inflate(R.layout.html_img_common, null);
-//                                ImageView html_img_common = (ImageView) imgview_common.findViewById(R.id.page1_img_showhtml);
-//                                BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + src.attr("src"), html_img_common);
-//                                mGridview.addHeaderView(imgview_common);
-//                                html_img.setImageURI(Constacts.IMAGEHTTP + src.attr("src"));
-                                BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + src.attr("src"), img_showhtml);
-//                                if (src.attr("height") != null && !src.attr("height").equals("")&&img_showhtml.getLayoutParams()!=null) {
-////                               html_img.getLayoutParams().height=Integer.parseInt(src.attr("height"));
-//                                    Log.e(Tag, "height ! " );
-//
-//                                    img_showhtml.getLayoutParams().height=Integer.parseInt(src.attr("height"))*2;
-//
-//                                } else {
-//                                    Log.e(Tag, "height null " );
-////                               html_img.getLayoutParams().height= ViewGroup.LayoutParams.WRAP_CONTENT;
-//                                }
+                                Log.e(Tag, "src ! null uri:" + Constacts.IMAGEHTTP + src.attr("src"));
+                                View imgview_common = LayoutInflater.from(this).inflate(R.layout.html_img_common, null);
+                                ImageView html_img_common = (ImageView) imgview_common.findViewById(R.id.page1_img_showhtml);
+                                BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + src.attr("src"), html_img_common);
+                                mGridview.addHeaderView(imgview_common);
                             }
+//                            mGridview.addHeaderView(imgview);
+
 
                         } else {
                             Log.e(Tag, src.tagName() + ",_____________" + src.attr("src"));
@@ -1402,10 +1539,11 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
                     if (lastElement != null) {
                         Log.e(Tag, "img null   lastElement!=null");
 
+                        TextView tv = new TextView(this);
                         Log.e(Tag, "img null   lastElement!=null222" + lastElement.text());
 
-                        tv_nopicurl.setText(lastElement.text());
-//                        mGridview.addHeaderView(tv);
+                        tv.setText(lastElement.text());
+                        mGridview.addHeaderView(tv);
 
                     }
                 }
@@ -1414,12 +1552,11 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             }
         } else {
             Log.e(Tag, "图文详情url: null");
-            tv_nopicurl.setText("暂无图文详情");
-            tv_nopicurl.getLayoutParams().width= 50;
-//            tv_nopicurl.getLayoutParams().width= CommonUtils.px2dip(50);
+
         }
+
 //        recommendGoodsGview.
-//        TextView tv_Hishequ=new TextView(this);
+        TextView tv_Hishequ = new TextView(this);
         if (null != msg.getSupply()) {
 
             tv_Hishequ.setVisibility(View.VISIBLE);
@@ -1429,13 +1566,19 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
 
         }
-//        mGridview.addHeaderView(tv_Hishequ);
+        mGridview.addHeaderView(tv_Hishequ);
         //set推荐商品
         if (msg.getRecommend() != null) {
             List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.RecommendEntity> mRecommendList = msg.getRecommend();
-            SupplGoodsDetailGridAdapter mAdapter = new SupplGoodsDetailGridAdapter(mRecommendList, SupplyGoodsDetailActivity.this);
-            recommendGoodsGview.setAdapter(mAdapter);
+            SupplGoodsDetailGridAdapter mAdapter = new SupplGoodsDetailGridAdapter(mRecommendList, NewSupplyGoodsDetailActivity2.this);
+            mGridview.setAdapter(mAdapter);
         }
+//        mScrollView1.setScrollViewListener(new ScrollViewListener() {
+//            @Override
+//            public void onScrollChanged(MyGoodetailScrollView scrollView, int x, int y, int oldx, int oldy) {
+//                Log.e(Tag, "滑动x:" + x + "滑动y:" + y);
+//            }
+//        });
         return view;
     }
 
@@ -1450,6 +1593,35 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             return s;
     }
 
+    /**
+     * 获取图文详情数据
+     **/
+    private void loadPicDetail(String msg) {
+        contentdetail = msg;
+//        WebSettings mSetting = mWebview.getSettings();
+//        mSetting.setJavaScriptEnabled(true);
+//        mSetting.setDefaultTextEncodingName("utf-8");
+//        //		mSetting.setDisplayZoomControls(false);
+//        mSetting.setUseWideViewPort(true);
+//        mSetting.setLoadWithOverviewMode(true);
+//        mSetting.setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS);
+//        mWebview.setWebViewClient(new WebViewClient() {
+//            public boolean shouldOverrideUrlLoading(WebView view, String url) { // 重写此方法表明点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边
+//                view.loadUrl(url);
+//                return true;
+//            }
+//
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//                //	super.onPageFinished(view, url);
+//                //	layoutCall.setVisibility(View.VISIBLE);
+//            }
+//        });
+//        Log.e(Tag, "----------准备loadUrl-------------：" + contentdetail);
+//        mWebview.loadUrl(contentdetail);
+//        // contentevaluation = (ArrayList<String>) msg.getComments();
+//        //		aboutCallService(msg);
+    }
 
     /**
      * 设置底部的数据
@@ -1460,18 +1632,7 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
 
         initPager(msg);
-        initPager2(msg);
-
-
-    }
-
-    private void initPager2(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
-
-
-
-
-
-
+//        initPager2(msg);
 
 
     }

@@ -11,12 +11,38 @@ package cn.hi028.android.highcommunity.params;
  *@时间：2016/12/18<br>
  */
 public class NewHuiSuppGdParams extends BaseParams{
-    private String  pic;
     private int goods_id;
-    private String name;
-    private String standard_name;//商品规格名称
     private float goods_price;
     private int goods_number;
+    private String name;
+    private String  pic;
+    private String standard_name;//商品规格名称
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    private String comment;
+//    public List<String> getPic() {
+//        return pic;
+//    }
+//
+//    public void setPic(List<String> pic) {
+//        this.pic = pic;
+//    }
+//    private List<String> pic;
+    private float   goods_total_price;
+
+    public float getGoods_total_price() {
+        return goods_total_price;
+    }
+
+    public void setGoods_total_price(float goods_total_price) {
+        this.goods_total_price = goods_total_price;
+    }
 
     @Override
     public String toString() {

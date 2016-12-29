@@ -665,6 +665,16 @@ public class HTTPHelper {
         mParamMap.put("order_id", order_id);
         post(mParamMap, mIbpi, url);
     }
+    /**
+     * v2.0确认收货接口
+     **/
+    public static void reciveOrder2(BpiHttpHandler.IBpiHttpHandler mIbpi,
+                                   String order_id) {
+        String url = HTTPPOSTURL + "sorder/confirm.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        mParamMap.put("order_id", order_id);
+        post(mParamMap, mIbpi, url);
+    }
 
     /**
      * 评论直供订单接口
@@ -677,13 +687,13 @@ public class HTTPHelper {
         post(mParamMap, mIbpi, url);
     }
     /**
-     * v2.0评论直供订单接口
+     * v2.0评论直供订单接口  "order_id",data.getId()
      **/
-    public static void commentOrder2(BpiHttpHandler.IBpiHttpHandler mIbpi,
-                                    String info) {
+    public static void commentOrder2(BpiHttpHandler.IBpiHttpHandler mIbpi, String info,String order_id) {
         String url = HTTPPOSTURL + "sorder/comment.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("info", info);
+        mParamMap.put("order_id", order_id);
         post(mParamMap, mIbpi, url);
     }
     /**

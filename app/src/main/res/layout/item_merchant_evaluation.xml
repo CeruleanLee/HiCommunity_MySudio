@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/bg_third_service_selector"
+    android:background="@color/white"
     android:padding="10dp" >
 
     <RelativeLayout
@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp" >
 
-        <ImageView
+        <com.don.view.CircleImageView
             android:id="@+id/item_evaluation_iv"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -29,7 +29,7 @@
                 android:id="@+id/item_username_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="张三"
+                android:text=""
                  android:layout_alignParentTop="true"
                 android:textColor="@color/item_shopdeatil_commentdetail_title"
                 android:textSize="16sp"
@@ -42,7 +42,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_below="@id/item_username_tv"
                 android:textColor="#5F605E"
-                android:text="海螺店" />
+                android:text="" />
             <TextView
                 android:id="@+id/item_evalution_content_tv"
                 android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                 android:layout_below="@id/item_evalutaion_merchantname_tv"
                 android:layout_height="wrap_content"
                 android:textColor="#5F605E"
-                android:text="content" />
+                android:text="" />
             <TextView
                 android:id="@+id/item_evaluation_time"
                 android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:textColor="#5F605E"
-                android:text="time" />
+                android:text="" />
 
         </RelativeLayout>
     </RelativeLayout>

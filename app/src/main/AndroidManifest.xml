@@ -217,6 +217,10 @@
             android:name=".activity.VallageAct_"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.VallageAct"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
         <!-- 优惠券选择 -->
         <activity
             android:name=".activity.TicketAct_"
@@ -404,6 +408,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.hi028.android.highcommunity.activity.alliance.NewSupplyGoodsDetailActivity2"
             android:configChanges="orientation|keyboardHidden"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />

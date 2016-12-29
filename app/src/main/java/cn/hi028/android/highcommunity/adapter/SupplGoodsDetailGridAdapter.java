@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.don.tools.BpiUniveralImage;
 
@@ -95,17 +94,23 @@ public class SupplGoodsDetailGridAdapter extends BaseFragmentAdapter {
         mViewHolder.mTitle.setText(mBean.getName());
         mViewHolder.mNowPrice.setText("￥:"+mBean.getPrice());
         mViewHolder.mTvTag.setText(mBean.getLabel());
-        Spannable spanStrikethrough = new SpannableString("￥：" + mBean.getOld_price());
-        StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
+        if (mBean.getOld_price()!=null&&!mBean.getOld_price().equals("")&&!mBean.getOld_price().equals("null")){
+
+
+
+
+            Spannable spanStrikethrough = new SpannableString("￥：" + mBean.getOld_price());
+            StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
 //			spanStrikethrough.setSpan(stSpan, 0, 7, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 //        Log.e(TAG,"长度--->"+spanStrikethrough.length());
-        try {
-            spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            try {
+                spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
-        }catch (Exception ex){
+            }catch (Exception ex){
 
+            }
+            mViewHolder.mOldPrice.setText(spanStrikethrough);
         }
-        mViewHolder.mOldPrice.setText(spanStrikethrough);
         mViewHolder.mSaledNum.setText("已售"+mBean.getSale());
 
        mViewHolder.mShopcart.setVisibility(View.GONE);

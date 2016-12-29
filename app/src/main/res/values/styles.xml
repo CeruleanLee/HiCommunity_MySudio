@@ -437,7 +437,8 @@
         <item name="android:paddingBottom">@dimen/padding_15</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:background">@drawable/ll_leftmenu_bg_selector</item>
+        <!--android:background="@drawable/bg_third_service_selector"ll_leftmenu_bg_selector-->
+        <item name="android:background">@drawable/bg_third_service_selector_nostrike</item>
     </style>
 
     <style name="ll_leftmenu_style_weight1">
@@ -451,7 +452,7 @@
         <item name="android:orientation">horizontal</item>
 
         <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/ll_leftmenu_bg_selector</item>
+        <item name="android:background">@drawable/bg_third_service_selector_nostrike</item>
     </style>
 
     <style name="My_RadioButton_Style" parent="@android:style/Widget.CompoundButton">

@@ -20,25 +20,94 @@
             <RadioButton
                 android:id="@+id/ac_shopdetail_mypicdetail"
                 style="@style/rb_huilife_style3"
-                android:text="图文详情"
                 android:checked="true"
-                 />
-
+                android:text="图文详情" />
 
 
             <RadioButton
                 android:id="@+id/ac_shopdetail_mycommentdetail"
                 style="@style/rb_huilife_style3"
-                android:text="商品评价"
-              />
+                android:text="商品评价" />
         </RadioGroup>
-
+<View
+    android:layout_width="match_parent"
+    android:layout_height="0.5dp"
+    android:background="@color/Defult_Color_LineGrey"/>
         <cn.hi028.android.highcommunity.view.MyCustomViewPager
             android:id="@+id/detail_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+
             android:layout_weight="1">
+            <cn.hi028.android.highcommunity.view.MyGoodetailScrollView
+                android:id="@id/srcollview_page_picdetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            </cn.hi028.android.highcommunity.view.MyGoodetailScrollView>
+            <cn.hi028.android.highcommunity.view.MyGoodetailScrollView
+                android:id="@id/srcollview_page_comment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            </cn.hi028.android.highcommunity.view.MyGoodetailScrollView>
+
+
         </cn.hi028.android.highcommunity.view.MyCustomViewPager>
+
+        <cn.hi028.android.highcommunity.view.mynew.HeaderGridView
+            android:layout_width="match_parent"
+            android:id="@+id/headerGridview_picdetail"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:columnWidth="70dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:horizontalSpacing="12dp"
+            android:listSelector="#00000000"
+            android:numColumns="2"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="@dimen/margin_12"
+android:visibility="gone"
+            >
+
+
+
+        </cn.hi028.android.highcommunity.view.mynew.HeaderGridView>
+        <cn.hi028.android.highcommunity.view.mynew.GridViewWithHeaderAndFooter
+            android:layout_width="match_parent"
+            android:id="@+id/headerGridview_common"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:columnWidth="70dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:horizontalSpacing="12dp"
+            android:listSelector="#00000000"
+            android:numColumns="2"
+            android:visibility="gone"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="@dimen/margin_12"
+
+            >
+
+
+
+        </cn.hi028.android.highcommunity.view.mynew.GridViewWithHeaderAndFooter>
+
+
+
+
+
+
+
+
+
+
 
         <RelativeLayout
             android:id="@+id/ac_shopdetail_FrameLayout"
@@ -72,7 +141,6 @@
                 android:visibility="gone"></cn.hi028.android.highcommunity.view.NoScrollListview>
 
 
-
         </RelativeLayout>
 
         <TextView
@@ -82,9 +150,9 @@
             android:layout_marginTop="40dp"
             android:background="@color/white"
             android:gravity="center"
-            android:visibility="gone"
             android:text="—— 本商品由嗨社区所有 ——"
-            android:textColor="#aaaaaa" />
+            android:textColor="#aaaaaa"
+            android:visibility="gone" />
 
         <cn.hi028.android.highcommunity.view.NoScroolGridView
             android:id="@+id/ac_shopdetail_recommendGoods"
@@ -97,10 +165,10 @@
             android:horizontalSpacing="12dp"
             android:listSelector="#00000000"
             android:numColumns="2"
-android:visibility="gone"
             android:scrollbars="none"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="@dimen/margin_12">
+            android:verticalSpacing="@dimen/margin_12"
+            android:visibility="gone">
 
         </cn.hi028.android.highcommunity.view.NoScroolGridView>
 

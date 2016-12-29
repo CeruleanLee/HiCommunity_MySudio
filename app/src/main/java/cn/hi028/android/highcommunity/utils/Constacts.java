@@ -130,6 +130,7 @@ public class Constacts {
     //搜索类型
     public static final String SEARCH_TYPE = "search_type";
     public static final String SEARCH_RESULT = "search_result";
+    public static final String SEARCH_RESULT_Address = "search_result_Address";
     public static final int SEARCH_TYPE_VALLAGE = 0x000041;
     public static final int SEARCH_TYPE_GROUP = 0x000042;
     public static final int SEARCH_TYPE_CARFTS = 0x000043;

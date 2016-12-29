@@ -16,7 +16,7 @@ public class SupplyPayGoodsEntity {
      */
 
     private String merchant;
-    private int total_amount=-1;
+    private float total_amount=-1f;
     private List<SupplyPayInfoEntity> info;
 
     @Override
@@ -36,11 +36,11 @@ public class SupplyPayGoodsEntity {
         this.merchant = merchant;
     }
 
-    public int getTotal_amount() {
+    public float getTotal_amount() {
         return total_amount;
     }
 
-    public void setTotal_amount(int total_amount) {
+    public void setTotal_amount(float total_amount) {
         this.total_amount = total_amount;
     }
 
