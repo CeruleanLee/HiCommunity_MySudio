@@ -40,9 +40,10 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @时间：2016/12/14<br>
  */
 public class NewHuiGdcarAdapter extends BaseAdapter {
-    static final  String Tag="NewHuiGdcarAdapter:";
+    static final String Tag = "NewHuiGdcarAdapter:";
     NewHuiGdCarFrag frag;
     private PopupWindow mWatingWindow;
+
     public NewHuiGdcarAdapter(NewHuiGdCarFrag frag) {
         this.frag = frag;
 
@@ -73,14 +74,16 @@ public class NewHuiGdcarAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-View view;
+
+    View view;
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(frag.getActivity()).inflate(R.layout.adapter_huisupp_gdcar, null);
-            view=convertView;
+            view = convertView;
             viewHolder.tv_goods_name = (TextView) convertView.findViewById(R.id.tv_goods_name);
             viewHolder.tv_goods_standard = (TextView) convertView.findViewById(R.id.tv_goods_standard);
             viewHolder.tv_goods_price = (TextView) convertView.findViewById(R.id.tv_goods_price);
@@ -149,7 +152,7 @@ View view;
                             @Override
                             public void onSuccess(Object message) {
                                 mWatingWindow.dismiss();
-Log.e(Tag,"加入购物车 onSuccess 返回数据："+message.toString());
+                                Log.e(Tag, "加入购物车 onSuccess 返回数据：" + message.toString());
 //                                HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
 
                             }
@@ -200,12 +203,14 @@ Log.e(Tag,"加入购物车 onSuccess 返回数据："+message.toString());
                             @Override
                             public void onSuccess(Object message) {
                                 mWatingWindow.dismiss();
-                                Log.e(Tag,"加入购物车 onSuccess 返回数据："+message.toString());
+                                Log.e(Tag, "加入购物车 onSuccess 返回数据：" + message.toString());
                             }
+
                             @Override
                             public Object onResolve(String result) {
                                 return result;
                             }
+
                             @Override
                             public void setAsyncTask(AsyncTask asyncTask) {
                             }
@@ -257,6 +262,7 @@ Log.e(Tag,"加入购物车 onSuccess 返回数据："+message.toString());
         frag.img_goods_ch.setSelected(isCheck);
 
     }
+
     public void ClearData() {
         data.clear();
         notifyDataSetChanged();

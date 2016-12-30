@@ -1,5 +1,6 @@
 package cn.hi028.android.highcommunity.utils.updateutil;
 
+import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -7,6 +8,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -86,6 +88,7 @@ public class UpdateService extends Service {
 
     /** update UI**/
     private final Handler handler = new Handler() {
+        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -98,9 +101,15 @@ public class UpdateService extends Service {
                     pendingIntent = PendingIntent.getActivity(UpdateService.this, 0, intent, 0);
 
                     notification.flags = Notification.FLAG_AUTO_CANCEL;
-                    notification.setLatestEventInfo(UpdateService.this,app_name, getString(R.string.down_sucess), pendingIntent);
+//                    notification.setLatestEventInfo(UpdateService.this,app_name, getString(R.string.down_sucess), pendingIntent);
+                    notification=builder.setContentTitle(app_name).setContentText(getString(R.string.down_sucess))
+                            .setContentIntent(pendingIntent).build();
+//                    notification.flags = Notification.FLAG_ONGOING_EVENT;
+
+
+
                     //notification.setLatestEventInfo(UpdateService.this,app_name, app_name + getString(R.string.down_sucess), null);
-                    notificationManager.notify(R.layout.notification_item, notification);
+//                    notificationManager.notify(R.layout.notification_item, notification);
 
                     /*****安装APK******/
                     installApk();
@@ -113,7 +122,10 @@ public class UpdateService extends Service {
                 case DOWN_ERROR:
                     notification.flags = Notification.FLAG_AUTO_CANCEL;
                     //notification.setLatestEventInfo(UpdateService.this,app_name, getString(R.string.down_fail), pendingIntent);
-                    notification.setLatestEventInfo(UpdateService.this,app_name, getString(R.string.down_fail), null);
+//                    notification.setLatestEventInfo(UpdateService.this,app_name, getString(R.string.down_fail), null);
+notification=builder.setContentTitle(app_name).setContentText(getString(R.string.down_fail)).build();
+//                    notification.flags = Notification.FLAG_ONGOING_EVENT;
+
 
                     /***stop service*****/
                     //onDestroy();
@@ -175,23 +187,33 @@ public class UpdateService extends Service {
     }
 
 
-
+    Notification.Builder builder;
     /**
      * 方法描述：createNotification方法
      * @param
      * @return
      * @see     UpdateService
      */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void createNotification() {
 
         //notification = new Notification(R.drawable.dot_enable,app_name + getString(R.string.is_downing) ,System.currentTimeMillis());
-        notification = new Notification(
-                //R.drawable.video_player,//应用的图标
-                R.drawable.ic_launcher,//应用的图标
-                app_name + getString(R.string.is_downing),
-                System.currentTimeMillis());
+//        notification = new Notification(R.drawable.ic_launcher,//应用的图标
+//                app_name + getString(R.string.is_downing),
+//                System.currentTimeMillis());
+
+        /**高api**/
+
+        builder = new Notification.Builder(UpdateService.this).setTicker("app_name + getString(R.string.is_downing)")
+                .setSmallIcon(R.drawable.ic_launcher);
+        notification=builder.build();
+
         notification.flags = Notification.FLAG_ONGOING_EVENT;
         //notification.flags = Notification.FLAG_AUTO_CANCEL;
+
+
+
+
 
         /*** 自定义  Notification 的显示****/
         contentView = new RemoteViews(getPackageName(),R.layout.notification_item);

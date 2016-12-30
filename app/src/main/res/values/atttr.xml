@@ -43,7 +43,7 @@
 
     <declare-styleable name="MyRadioButton">
 
-        <attr name="drawableSize" format="dimension"/>
+        <attr name="mdrawableSize" format="dimension"/>
         <attr name="drawableWith" format="dimension"/>
         <attr name="drawableHeight" format="dimension"/>
         <attr name="drawableTop" format="reference"/>

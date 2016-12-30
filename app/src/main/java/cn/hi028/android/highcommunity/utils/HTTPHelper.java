@@ -1160,7 +1160,7 @@ public class HTTPHelper {
      * @param type 类型(0=>减,1=>加)
      */
     public static void changeGdCarNum(BpiHttpHandler.IBpiHttpHandler mIbpi,String id,String type ) {
-        String url = HTTPPOSTURL + "sgoods/cart-index.html";
+        String url = HTTPPOSTURL + "sgoods/cart-change.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("id", id);
         mParamMap.put("type", type);
