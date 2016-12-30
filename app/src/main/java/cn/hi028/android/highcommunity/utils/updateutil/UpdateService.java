@@ -115,6 +115,9 @@ public class UpdateService extends Service {
                     installApk();
 
                     //stopService(updateIntent);
+
+
+
                     /***stop service*****/
                     stopSelf();
                     break;
