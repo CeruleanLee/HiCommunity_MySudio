@@ -28,6 +28,7 @@ import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.NewSupplyMoreAct3;
 import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity;
+import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity2;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
@@ -297,7 +298,7 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
 //                    waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, mBigShopcart, Gravity.CENTER);
 //                    HTTPHelper.addNewHuiGoodsToCar(mIbpiAddShopCar, mBean.getGoods().get(0).getId(), mBean.getGoods().get(0).getId());
 //                }
-                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity.class);
+                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id", mBean.getGoods().get(0).getId());
                 context.startActivity(mIntent);
             }

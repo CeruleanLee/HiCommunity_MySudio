@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lzy.widget.vertical.VerticalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:id="@+id/srcollview_page_comment"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+
+        <include
+            android:id="@+id/ll_NoticeDetails_Progress"
+            layout="@layout/progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_NoticeDetails_noData"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="暂无数据"
+            android:background="@color/white"
+            android:visibility="visible" />
+        <cn.hi028.android.highcommunity.view.NoScrollListview
+            android:id="@+id/page2_evaluation_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/Defult_Color_LineGrey"
+            android:dividerHeight="0.5dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:scrollbars="none"
+            android:visibility="visible"></cn.hi028.android.highcommunity.view.NoScrollListview>
+
+        <TextView
+            android:id="@+id/page2_shopdetail_tv_Hishequ"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="—— 本商品由xxx所有 ——"
+            android:textColor="#aaaaaa" />
+        <TextView
+            android:id="@+id/page1_shopdetail_tv_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="2dp"
+            android:background="#22aaaaaa"
+            android:gravity="center"
+
+            android:text="商品推荐"
+            android:textColor="#666666" />
+        <cn.hi028.android.highcommunity.view.NoScroolGridView
+            android:id="@+id/page2_shopdetail_recommendGoods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/Defult_Color_ShallowGrey"
+            android:columnWidth="70dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:horizontalSpacing="12dp"
+            android:listSelector="#00000000"
+            android:numColumns="2"
+            android:scrollbars="none"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="@dimen/margin_12">
+
+        </cn.hi028.android.highcommunity.view.NoScroolGridView>
+
+    </LinearLayout>
+
+
+</com.lzy.widget.vertical.VerticalScrollView>

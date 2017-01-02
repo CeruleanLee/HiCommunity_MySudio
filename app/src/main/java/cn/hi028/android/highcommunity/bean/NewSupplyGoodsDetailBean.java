@@ -1,12 +1,16 @@
 package cn.hi028.android.highcommunity.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Lee_yting on 2016/12/2 0002.
  * 说明：新版直供商品详情Bean
  */
-public class NewSupplyGoodsDetailBean {
+public class NewSupplyGoodsDetailBean implements Parcelable {
 
 
     /**
@@ -53,7 +57,7 @@ public class NewSupplyGoodsDetailBean {
         return data;
     }
 
-    public static class SupplyGoodsDetailDataEntity {
+    public static class SupplyGoodsDetailDataEntity implements Parcelable {
         /**
          * id : 1
          * name : 东北大米
@@ -542,5 +546,107 @@ public class NewSupplyGoodsDetailBean {
                 return price;
             }
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.id);
+            dest.writeString(this.name);
+            dest.writeString(this.mid);
+            dest.writeString(this.intro);
+            dest.writeString(this.sale);
+            dest.writeString(this.detail);
+            dest.writeString(this.type);
+            dest.writeString(this.limitNum);
+            dest.writeString(this.sid);
+            dest.writeString(this.remainTime);
+            dest.writeString(this.tel);
+            dest.writeString(this.delivery);
+            dest.writeString(this.supply);
+            dest.writeString(this.percent);
+            dest.writeString(this.cartNum);
+            dest.writeStringList(this.pic);
+            dest.writeList(this.attr);
+            dest.writeList(this.standard);
+            dest.writeList(this.comment);
+            dest.writeList(this.recommend);
+        }
+
+        public SupplyGoodsDetailDataEntity() {
+        }
+
+        protected SupplyGoodsDetailDataEntity(Parcel in) {
+            this.id = in.readString();
+            this.name = in.readString();
+            this.mid = in.readString();
+            this.intro = in.readString();
+            this.sale = in.readString();
+            this.detail = in.readString();
+            this.type = in.readString();
+            this.limitNum = in.readString();
+            this.sid = in.readString();
+            this.remainTime = in.readString();
+            this.tel = in.readString();
+            this.delivery = in.readString();
+            this.supply = in.readString();
+            this.percent = in.readString();
+            this.cartNum = in.readString();
+            this.pic = in.createStringArrayList();
+            this.attr = new ArrayList<AttrEntity>();
+            in.readList(this.attr, List.class.getClassLoader());
+            this.standard = new ArrayList<StandardEntity>();
+            in.readList(this.standard, List.class.getClassLoader());
+            this.comment = new ArrayList<CommentEntity>();
+            in.readList(this.comment, List.class.getClassLoader());
+            this.recommend = new ArrayList<RecommendEntity>();
+            in.readList(this.recommend, List.class.getClassLoader());
+        }
+
+        public static final Creator<SupplyGoodsDetailDataEntity> CREATOR = new Creator<SupplyGoodsDetailDataEntity>() {
+            public SupplyGoodsDetailDataEntity createFromParcel(Parcel source) {
+                return new SupplyGoodsDetailDataEntity(source);
+            }
+
+            public SupplyGoodsDetailDataEntity[] newArray(int size) {
+                return new SupplyGoodsDetailDataEntity[size];
+            }
+        };
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeByte(success ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.code);
+        dest.writeString(this.msg);
+        dest.writeParcelable(this.data, flags);
+    }
+
+    public NewSupplyGoodsDetailBean() {
+    }
+
+    protected NewSupplyGoodsDetailBean(Parcel in) {
+        this.success = in.readByte() != 0;
+        this.code = in.readInt();
+        this.msg = in.readString();
+        this.data = in.readParcelable(SupplyGoodsDetailDataEntity.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<NewSupplyGoodsDetailBean> CREATOR = new Parcelable.Creator<NewSupplyGoodsDetailBean>() {
+        public NewSupplyGoodsDetailBean createFromParcel(Parcel source) {
+            return new NewSupplyGoodsDetailBean(source);
+        }
+
+        public NewSupplyGoodsDetailBean[] newArray(int size) {
+            return new NewSupplyGoodsDetailBean[size];
+        }
+    };
 }

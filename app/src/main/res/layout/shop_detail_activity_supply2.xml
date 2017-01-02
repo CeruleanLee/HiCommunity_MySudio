@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true" >
+
+    <RelativeLayout
+        android:id="@+id/ac_shop_good_title_rl"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/Defult_Color_AppGreen"
+       >
+
+        <ImageView
+            android:id="@+id/ac_good_title_go_back"
+                 android:layout_width="@dimen/title_height"
+            android:layout_height="@dimen/title_height"
+            android:layout_gravity="start"
+            android:clickable="true"
+            android:contentDescription="@string/app_name"
+            android:scaleType="center"
+            android:src="@drawable/img_back_selector" />
+        
+
+        <TextView
+            android:id="@+id/ac_good_title_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="商品详情"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_title_size" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/shop_deatil_bottom_pay_rl"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <FrameLayout
+            android:id="@+id/ac_shop_car_fl"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp" >
+
+            <RelativeLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp" >
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@mipmap/shop_car" />
+
+                <TextView
+                    android:id="@+id/ac_shop_count"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/shape_shopping_car_tv"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="0"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp" >
+
+            <TextView
+                android:id="@+id/ac_shop_car_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#FE0000" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/ac_shop_car_addtocar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_but_addtocart"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingBottom="@dimen/ui_10_dip"
+            android:paddingTop="@dimen/ui_10_dip"
+            android:paddingRight="15dp"
+            android:text="加入购物车"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:layout_above="@id/shop_deatil_bottom_pay_rl"
+        android:background="@color/Defult_Color_LineGrey" />
+
+    <com.lzy.widget.VerticalSlide
+        android:id="@+id/dragLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/line"
+        android:scrollbars="none"
+        android:layout_below="@id/ac_shop_good_title_rl">
+
+        <FrameLayout
+            android:id="@+id/first"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <FrameLayout
+            android:id="@+id/second"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.lzy.widget.VerticalSlide>
+
+
+
+
+</RelativeLayout>

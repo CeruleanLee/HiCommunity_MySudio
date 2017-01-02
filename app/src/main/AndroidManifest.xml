@@ -412,6 +412,11 @@
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
+            android:name="cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity2"
+            android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="cn.hi028.android.highcommunity.activity.alliance.NewSupplyGoodsDetailActivity2"
             android:configChanges="orientation|keyboardHidden"
             android:windowSoftInputMode="stateHidden|adjustResize"
