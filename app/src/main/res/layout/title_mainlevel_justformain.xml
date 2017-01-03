@@ -59,13 +59,20 @@
                 android:background="@drawable/maintitle_rbut_selector_newlife_supply"
                 android:checked="true"
                 android:text="社区" />
-
+<View
+    android:layout_width="0.5dp"
+    android:layout_height="match_parent"
+    android:background="@color/white"/>
             <RadioButton
                 android:id="@+id/rb_maintitle_rightbutton"
                 style="@style/My_RadioButton_Style2"
                 android:background="@drawable/maintitle_rbut_selector_newlife_middle"
 
                 android:text="群组" />
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"/>
             <RadioButton
                 android:id="@+id/rb_maintitle_rightbutton_right"
                 style="@style/My_RadioButton_Style2"

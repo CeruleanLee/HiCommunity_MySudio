@@ -23,7 +23,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.NewSupplyMoreAct3;
-import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity;
+import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity2;
 import cn.hi028.android.highcommunity.adapter.SupplyMoreGoodsGridAdapter3;
 import cn.hi028.android.highcommunity.bean.SupplyGoodsMoreBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
@@ -79,7 +79,7 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
 
             @Override
             public void onItemClick(View view, SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity data) {
-                Intent mIntent = new Intent(getActivity(), SupplyGoodsDetailActivity.class);
+                Intent mIntent = new Intent(getActivity(), SupplyGoodsDetailActivity2.class);
 //                Intent mIntent = new Intent(getActivity(), NewSupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id", data.getId());
                 getActivity().startActivity(mIntent);

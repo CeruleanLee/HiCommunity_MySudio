@@ -19,6 +19,7 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -119,6 +120,12 @@ public class NewHuiBuyFrag extends BaseFragment {
     RadioButton rbPayIpay;
     @Bind(R.id.rg_huil_ife)
     RadioGroup rgPay;
+    @Bind(R.id.tv_nodata)
+    TextView tv_reeor;
+    @Bind(R.id.hui_pay_bottom_layout)
+    FrameLayout layout_pay_bottom;
+    @Bind(R.id.layout_scrollview)
+    ScrollView layout_scrollview;
 int orderType=-1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -311,7 +318,10 @@ int orderType=-1;
             }
 
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
-
+            tv_reeor.setText(message);
+            layout_scrollview.setVisibility(View.GONE);
+            layout_pay_bottom.setVisibility(View.GONE);
+            tv_reeor.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -325,6 +335,7 @@ int orderType=-1;
 
                 return;
             }
+            tv_reeor.setVisibility(View.GONE);
             if (orderType==1){
 
                 NewHuiPayDetail_OederBean.NewHuiPayDetail_OederDataEntity orderDetailBean= (NewHuiPayDetail_OederBean.NewHuiPayDetail_OederDataEntity) message;

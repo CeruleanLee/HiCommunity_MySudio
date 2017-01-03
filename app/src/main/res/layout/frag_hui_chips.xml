@@ -16,13 +16,7 @@
             android:id="@+id/ll_NoticeDetails_Progress"
             layout="@layout/progress" />
 
-        <TextView
-            android:id="@+id/tv_NoticeDetails_noData"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="暂无数据"
-            android:visibility="gone" />
+
 
         <GridView
             android:id="@+id/gv_chips"
@@ -43,6 +37,13 @@
         android:id="@+id/loadingView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:layout_gravity="center" />
-
+    <TextView
+        android:id="@+id/tv_NoticeDetails_noData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂无数据"
+        android:visibility="visible" />
 </RelativeLayout>

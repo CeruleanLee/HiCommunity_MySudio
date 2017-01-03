@@ -117,6 +117,7 @@ findView(view);
     ImageButton call;
     private TextView edible, scrollText;
     TextView guige_, origin_, edible_;
+    PopupWindow mWaittingPop;
     private void findView(View view) {
 
         mViewPager = (AutoScrollViewPager) view.findViewById(R.id.view_pager);
@@ -175,6 +176,10 @@ findView(view);
         if (msg == null) {
             return;
         }
+//        if (getActivity().hasWindowFocus()&&mViewPager!=null){
+//
+//            mWaittingPop= HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), mViewPager, Gravity.CENTER);
+//        }
         goodsdata = msg;
 
 //        if (msg.getMid().equals("0")) {//商品所属商家(0=>来自嗨社区)
@@ -191,7 +196,8 @@ findView(view);
             if (null != msg.getStandard().get(0).getPrice())
                 price.setText("￥:" + msg.getStandard().get(0).getPrice());
             singlePrice = Float.parseFloat(msg.getStandard().get(0).getPrice());
-            mStandardChangeListener.onStandardChange(false,singlePrice);
+            standardId=msg.getStandard().get(0).getId();
+            mStandardChangeListener.onStandardChange(false,singlePrice,standardId);
             if (null != msg.getStandard().get(0).getOld_price() && !msg.getStandard().get(0).getOld_price().equals("")
                     && !msg.getStandard().get(0).getOld_price().equals("null")) {
                 Spannable spanStrikethrough = new SpannableString("￥:" + msg.getStandard().get(0).getOld_price());
@@ -217,7 +223,8 @@ findView(view);
             if (null != msg.getStandard().get(0).getPrice())
                 mFlashNowPrice.setText("￥:" + msg.getStandard().get(0).getPrice());
             singlePrice = Float.parseFloat(msg.getStandard().get(0).getPrice());
-            mStandardChangeListener.onStandardChange(false,singlePrice);
+            standardId=msg.getStandard().get(0).getId();
+            mStandardChangeListener.onStandardChange(false,singlePrice,standardId);
 
             if (null != msg.getStandard().get(0).getOld_price() && !msg.getStandard().get(0).getOld_price().equals("")
                     && !msg.getStandard().get(0).getOld_price().equals("null")) {
@@ -353,7 +360,7 @@ findView(view);
                                 price.setText("￥:" + mStandardList.get(i).getPrice());
                             singlePrice = Float.parseFloat(mStandardList.get(i).getPrice());
 //TODO
-                            mStandardChangeListener.onStandardChange(false, singlePrice);
+                            mStandardChangeListener.onStandardChange(false, singlePrice,standardId);
 //                            updateCarNum(false, singlePrice);
                             if (null != mStandardList.get(i).getOld_price() && !mStandardList.get(i).getOld_price().equals("")
                                     && !mStandardList.get(i).getOld_price().equals("null")) {
@@ -377,7 +384,7 @@ findView(view);
                                 mFlashNowPrice.setText("￥:" + mStandardList.get(i).getPrice());
                             singlePrice = Float.parseFloat(mStandardList.get(i).getPrice());
 //TODO
-                            mStandardChangeListener.onStandardChange(false, singlePrice);
+                            mStandardChangeListener.onStandardChange(false, singlePrice,standardId);
 
 //                            updateCarNum(false, singlePrice);
 
@@ -448,7 +455,7 @@ findView(view);
     }
 
     public interface StandardChangeListener {
-        public void onStandardChange(boolean isAddCar, float singlePrice);
+        public void onStandardChange(boolean isAddCar, float singlePrice,String standardId);
     }
 
 

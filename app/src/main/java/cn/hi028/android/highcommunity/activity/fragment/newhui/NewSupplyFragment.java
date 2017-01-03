@@ -70,6 +70,7 @@ public class NewSupplyFragment extends BaseFragment {
         Log.d(Tag, "onCreateView");
         view = inflater.inflate(R.layout.fragment_newsupply, null);
         ButterKnife.bind(this, view);
+        initData();
         return view;
     }
 Handler mHandler=new Handler();
@@ -214,7 +215,7 @@ if (isFistRequest){
         super.onResume();
         if (isFistRequestHttp){
             isFistRequestHttp=false;
-            initData();
+//            initData();
         }
     }
 }

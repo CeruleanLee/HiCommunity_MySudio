@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity;
+import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity2;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyGoodsDetailBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
@@ -121,7 +121,7 @@ public class SupplGoodsDetailGridAdapter extends BaseFragmentAdapter {
 ////                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity.class);
 ////                mIntent.putExtra("id",mBean.getId());
 ////                context.startActivity(mIntent);
-                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity.class);
+                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id", mBean.getId());
                 context.startActivity(mIntent);
             }

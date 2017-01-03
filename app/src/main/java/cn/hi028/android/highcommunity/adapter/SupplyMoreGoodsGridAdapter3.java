@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity;
+import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity2;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.SupplyGoodsMoreBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
@@ -111,7 +111,7 @@ public class SupplyMoreGoodsGridAdapter3 extends RecyclerView.Adapter<SupplyMore
 //                    waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, mViewHolder.mShopcart, Gravity.CENTER);
 //                    HTTPHelper.addNewHuiGoodsToCar(mIbpiAddShopCar, mBean.getId(), mBean.getId());
 //                }
-                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity.class);
+                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id", mBean.getId());
                 context.startActivity(mIntent);
             }

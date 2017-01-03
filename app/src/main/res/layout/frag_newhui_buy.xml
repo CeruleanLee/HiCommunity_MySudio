@@ -85,6 +85,7 @@
     </FrameLayout>
 
     <ScrollView
+        android:id="@+id/layout_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
@@ -398,5 +399,13 @@
         </LinearLayout>
     </ScrollView>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tv_nodata"
+        android:text="错误信息"
+        android:gravity="center"
 
+
+        />
 </RelativeLayout>

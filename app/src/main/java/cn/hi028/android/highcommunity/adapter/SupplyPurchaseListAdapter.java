@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity;
+import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity2;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
@@ -132,7 +132,7 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(context,"去抢购"+mBean.getId(),Toast.LENGTH_SHORT).show();
-                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity.class);
+                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id",mBean.getId());
                 context.startActivity(mIntent);
 
@@ -143,7 +143,7 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(context, "详情:"+mBean.getId(), Toast.LENGTH_SHORT).show();
-                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity.class);
+                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id",mBean.getId());
                 context.startActivity(mIntent);
             }

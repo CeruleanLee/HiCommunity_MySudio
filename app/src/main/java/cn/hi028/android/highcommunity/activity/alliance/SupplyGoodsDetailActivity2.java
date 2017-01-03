@@ -12,14 +12,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,7 +25,6 @@ import com.don.tools.GeneratedClassUtils;
 import com.lzy.widget.VerticalSlide;
 
 import net.duohuo.dhroid.view.AutoScrollViewPager;
-import net.duohuo.dhroid.view.CirclePageIndicator;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -51,9 +46,6 @@ import cn.hi028.android.highcommunity.lisenter.PayPop2FragFace;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
-import cn.hi028.android.highcommunity.view.snap.McoyProductContentPage;
-import cn.hi028.android.highcommunity.view.snap.McoyProductDetailInfoPage;
-import cn.hi028.android.highcommunity.view.snap.McoySnapPageLayout;
 
 /**
  * 新版直供商品详情2  换了框架
@@ -61,30 +53,21 @@ import cn.hi028.android.highcommunity.view.snap.McoySnapPageLayout;
  * @author Lee_yting
  */
 public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
-        OnClickListener, PayPop2FragFace ,NewTopPageFrag.StandardChangeListener {
+        OnClickListener, PayPop2FragFace, NewTopPageFrag.StandardChangeListener {
 
     static String Tag = "SupplyGoodsDetailActivity";
     private static final int TAB_PICDETAIL = 0;
     public static final int TAB_COMMENTDETAIL = 1;
     int currentTab = 0;
-    String good_id;
     int good_count;
     ImageView back;
-    TextView name, price;
-    ImageView headimg;
-    TextView subimg, addimg, kucun, conttv, detail, goodname, guige, origin;
-    //	TextView time,telephone;
-    TextView guige_, origin_, edible_;
-    Button goPay, addToCar;
-    TextView caramount, mAllprice, telephone, time;
-    View viewline1, viewline2, viewline3;
-    ImageButton call;
+    TextView conttv;
+    Button addToCar;
+    TextView caramount, mAllprice, telephone, time,tv_mynodata;
     FrameLayout shopcar;
-    RelativeLayout tuwenxiangqing;
-    RelativeLayout goodevaluation;
     LinearLayout payrl;
+    RelativeLayout layout_hasData;
     RadioGroup mRadioGroup;
-    RadioButton mPicDetail, mCommentDetail;
 
 
     /**
@@ -94,42 +77,16 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
     ArrayList<Goods_info> goodslist;
     private String goods_price;
     private int goods_count;
-    private String good_sales;
-    private String storeId;
-    private String storeName;
     private String telPhone = "";
     private Goods_info goods_info = null;
-    private McoySnapPageLayout mcoySnapPageLayout = null;
-    private McoyProductContentPage bottomPage = null;
-    private McoyProductDetailInfoPage topPage = null;
-    View top_view, bottom_View;
-    //    ScrollWebView mWebview;
-//    NoScrollListview mCommentListview;
-    CheckBox toSeeMore;
-    /**
-     * 更多商品参数  动态添加
-     **/
-    LinearLayout moreDetailGroup;
-    /**
-     * 规格的容器
-     **/
-    RelativeLayout mStandardLayout;
-    /**
-     * 规格的RadioGroup
-     **/
-    RadioGroup mStandardRadiogroup;
-    TextView tv_pic_nodata;
-    TextView tv_noData;
     /**
      * 获取商品详情数据的商品id
      **/
     String id = -1 + "";
     String goodsId;
     String standardId = "";
-    int width, height;
 
     Handler mHandler = new Handler();
-    private PopupWindow mWatingWindow;
     /**
      * 购物车价格合计
      **/
@@ -138,57 +95,57 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
     private NewTopPageFrag topFragment;
     private NewBottomPageFrag bottomFragment;
     private FloatingActionButton fab;
+    PopupWindow mWaittingPop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e(Tag, Tag + "——————————————————啦啦啦  进入详情3");
+        Log.e(Tag, "~~~啦啦啦  进入详情onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_detail_activity_supply2);
         id = getIntent().getStringExtra("id");
         goodsId = id;
-
         verticalSlide = (VerticalSlide) findViewById(R.id.dragLayout);
-
         init();
-
     }
+
     private void init() {
         findView();
         registerListener();
-        if (goods_count > 99) {
-            caramount.setText("99");
-        } else {
-            caramount.setText(goods_count + "");
-        }
+//        if (goods_count > 99) {
+//            caramount.setText("99");
+//        } else {
+//            caramount.setText(goods_count + "");
+//        }
         initData();
     }
+
     private void findView() {
         caramount = (TextView) findViewById(R.id.ac_shop_count);
+        tv_mynodata = (TextView) findViewById(R.id.tv_mynodata);
         back = (ImageView) findViewById(R.id.ac_good_title_go_back);
         payrl = (LinearLayout) findViewById(R.id.shop_deatil_bottom_pay_rl);
+        layout_hasData = (RelativeLayout) findViewById(R.id.layout_hasData);
         mAllprice = (TextView) findViewById(R.id.ac_shop_car_price);
         addToCar = (Button) findViewById(R.id.ac_shop_car_addtocar);
         shopcar = (FrameLayout) findViewById(R.id.ac_shop_car_fl);
 
     }
+
     private void initViewNew() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
-        if (goodsdata!=null){
+        if (goodsdata != null) {
             bundle.putParcelable("goodsdata", goodsdata);
         }
-//        bundle.putInt("isModify",1);
-        topFragment = (NewTopPageFrag) new NewTopPageFrag();
+        topFragment = new NewTopPageFrag();
         topFragment.setArguments(bundle);
         transaction.replace(R.id.first, topFragment);
-
-
+/******* 上 下 *************/
         Bundle bundle2 = new Bundle();
-        if (goodsdata!=null){
+        if (goodsdata != null) {
             bundle2.putParcelable("goodsdata", goodsdata);
         }
-//        bundle.putInt("isModify",1);
-        bottomFragment =  new NewBottomPageFrag();
+        bottomFragment = new NewBottomPageFrag();
         bottomFragment.setArguments(bundle2);
         transaction.replace(R.id.second, bottomFragment);
 
@@ -196,23 +153,20 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
     }
 
     @Override
-    public void onStandardChange(boolean isAddCar, float singlePrice) {
-        this.singlePrice=singlePrice;
-        updateCarNum(isAddCar,singlePrice);
-
-
-
-
-
-
+    public void onStandardChange(boolean isAddCar, float singlePrice, String standardId) {
+        this.singlePrice = singlePrice;
+        this.standardId = standardId;
+        updateCarNum(isAddCar, singlePrice);
     }
+
     private Handler popupHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
-//                    mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity2.this, back, Gravity.CENTER);
-
+                    if (SupplyGoodsDetailActivity2.this.hasWindowFocus() && mViewPager != null) {
+                        mWaittingPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity2.this, caramount, Gravity.CENTER);
+                    }
                     break;
             }
         }
@@ -220,15 +174,22 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
     };
 
     private void initData() {
-//        popupHandler.sendEmptyMessageDelayed(0, 50);
+        popupHandler.sendEmptyMessageDelayed(0, 50);
 //        mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity.this, caramount, Gravity.CENTER);
-
         HTTPHelper.getGdCarList2(mGetCarIbpi);
     }
 
     IBpiHttpHandler mGetCarIbpi = new IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
+            if (mWaittingPop != null) {
+                mWaittingPop.dismiss();
+            }
+            layout_hasData.setVisibility(View.GONE);
+            tv_mynodata.setText(message);
+            tv_mynodata.setVisibility(View.VISIBLE);
+
+
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
@@ -242,6 +203,7 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
             for (int i = 0; i < mlist.size(); i++) {
                 mCarPriceSum += mlist.get(i).getSum();
             }
+
             HTTPHelper.GetNewSupplyGoodsDetail(mIbpi, id);
 //            setCarAmount();
 //            adapter.setData(mlist);
@@ -262,13 +224,12 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
 
         @Override
         public void cancleAsyncTask() {
-
+            if (mWaittingPop!=null){
+                mWaittingPop.dismiss();
+            }
         }
 
     };
-
-
-
 
 
     Bundle bundle = new Bundle();
@@ -282,50 +243,34 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
 //        telephone.setOnClickListener(this);
 
     }
-
-    RelativeLayout toSeeMoreLayout;
     AutoScrollViewPager mViewPager;
-    CirclePageIndicator mIndicator;
-    RelativeLayout mCommonTitleLayout;
-    TextView mSaleCount;
-    TextView mKucunCount, mKucunCount_Standard;
-    TextView mOldprice;
-    RelativeLayout mFlashTitleLayout;
-    TextView mSaledTime;
-    TextView mFlashName;
-    TextView mFlashNowPrice;
-    TextView mFlashOldPrice;
-    TextView mFlashKucun;
-    TextView mFlashprogressTV;
-    ProgressBar mFlashProgressBar;
-    TextView mHishequTV;
-//    NoScroolGridView mRecommendGridView;
-
-
-
-
     @Override
     protected void onResume() {
         super.onResume();
 //        mViewPager.startAutoScroll();
     }
-
     private IBpiHttpHandler mIbpi = new IBpiHttpHandler() {
-
+        @Override
+        public void onError(int id, String message) {
+            if (mWaittingPop != null) {
+                mWaittingPop.dismiss();
+            }
+            layout_hasData.setVisibility(View.GONE);
+            tv_mynodata.setText(message);
+            tv_mynodata.setVisibility(View.VISIBLE);
+            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
+        }
         @Override
         public void setAsyncTask(AsyncTask asyncTask) {
-            if (mWatingWindow != null) {
-                mWatingWindow.dismiss();
-            }
 
         }
-
         @Override
         public void onSuccess(Object message) {
-            if (mWatingWindow != null) {
-                mWatingWindow.dismiss();
-
+            if (mWaittingPop != null) {
+                mWaittingPop.dismiss();
             }
+            layout_hasData.setVisibility(View.VISIBLE);
+            tv_mynodata.setVisibility(View.GONE);
             if (message == null) return;
             goodsdata = (NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity) message;
             Log.e(Tag, "商品详情数据message-" + message);
@@ -342,15 +287,12 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
             return HTTPHelper.ResolveSupplyGoodsDetailEntity(result);
         }
 
-        @Override
-        public void onError(int id, String message) {
 
-        }
 
         @Override
         public void cancleAsyncTask() {
-            if (mWatingWindow != null) {
-                mWatingWindow.dismiss();
+            if (mWaittingPop != null) {
+                mWaittingPop.dismiss();
 
             }
         }
@@ -627,7 +569,6 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
     }
 
 
-
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(this,
@@ -660,7 +601,9 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
      **/
     public void addCarGoods() {
         if (HighCommunityUtils.isLogin(SupplyGoodsDetailActivity2.this)) {
-            waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity2.this, mRadioGroup, Gravity.CENTER);
+            if (waitPop != null && mRadioGroup != null) {
+                waitPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity2.this, mRadioGroup, Gravity.CENTER);
+            }
             HTTPHelper.addNewHuiGoodsToCar(mIbpiAddShopCar, goodsId, standardId);
 
         }
@@ -676,13 +619,19 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
     IBpiHttpHandler mIbpiAddShopCar = new IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            waitPop.dismiss();
+            if (waitPop != null) {
+
+                waitPop.dismiss();
+            }
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
         @Override
         public void onSuccess(Object message) {
-            waitPop.dismiss();
+            if (waitPop != null) {
+
+                waitPop.dismiss();
+            }
             HighCommunityUtils.GetInstantiation().ShowToast("成功加入购物车", 0);
 
             updateCarNum(true, singlePrice);
@@ -828,9 +777,6 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
         super.onPause();
 //        mViewPager.stopAutoScroll();
     }
-
-
-
 
 
     /**

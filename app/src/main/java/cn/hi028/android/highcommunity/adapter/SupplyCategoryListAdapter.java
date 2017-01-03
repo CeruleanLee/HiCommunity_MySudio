@@ -27,7 +27,6 @@ import java.util.List;
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.NewSupplyMoreAct3;
-import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity;
 import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity2;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyBean;
@@ -128,7 +127,7 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(context, "详情:"+mBean.getGoods().get(0).getId(), Toast.LENGTH_SHORT).show();
-                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity.class);
+                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id", mBean.getGoods().get(0).getId());
                 context.startActivity(mIntent);
             }
@@ -137,7 +136,7 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(context, "详情:"+mBean.getGoods().get(1).getId(), Toast.LENGTH_SHORT).show();
-                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity.class);
+                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id", mBean.getGoods().get(1).getId());
                 context.startActivity(mIntent);
             }
@@ -146,7 +145,7 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(context, "详情:"+mBean.getGoods().get(2).getId(), Toast.LENGTH_SHORT).show();
-                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity.class);
+                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id", mBean.getGoods().get(2).getId());
                 context.startActivity(mIntent);
             }
@@ -192,7 +191,7 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
         msmallShopcart2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity.class);
+                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id", mBean.getGoods().get(2).getId());
                 context.startActivity(mIntent);
             }
@@ -239,7 +238,7 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
         msmallShopcart1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity.class);
+                Intent mIntent = new Intent(context, SupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id", mBean.getGoods().get(1).getId());
                 context.startActivity(mIntent);
             }

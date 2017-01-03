@@ -286,7 +286,7 @@ public class NewSupplyGoodsDetailBean implements Parcelable {
             return recommend;
         }
 
-        public static class AttrEntity {
+        public static class AttrEntity implements Parcelable {
             /**
              * attr_name : 产地
              * attr_val : 东北
@@ -318,9 +318,38 @@ public class NewSupplyGoodsDetailBean implements Parcelable {
             public String getAttr_val() {
                 return attr_val;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.attr_name);
+                dest.writeString(this.attr_val);
+            }
+
+            public AttrEntity() {
+            }
+
+            protected AttrEntity(Parcel in) {
+                this.attr_name = in.readString();
+                this.attr_val = in.readString();
+            }
+
+            public static final Creator<AttrEntity> CREATOR = new Creator<AttrEntity>() {
+                public AttrEntity createFromParcel(Parcel source) {
+                    return new AttrEntity(source);
+                }
+
+                public AttrEntity[] newArray(int size) {
+                    return new AttrEntity[size];
+                }
+            };
         }
 
-        public static class StandardEntity implements Comparable<StandardEntity>{
+        public static class StandardEntity implements Comparable<StandardEntity>,Parcelable {
             /**
              * id : 1
              * name : 5公斤/袋
@@ -390,9 +419,44 @@ public class NewSupplyGoodsDetailBean implements Parcelable {
             public int compareTo(StandardEntity another) {
                 return (int)(Float.parseFloat(this.getPrice())*100) - (int)(Float.parseFloat(another.getPrice())*100);//先按照年龄排序  ;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.id);
+                dest.writeString(this.name);
+                dest.writeString(this.price);
+                dest.writeString(this.old_price);
+                dest.writeString(this.storage);
+            }
+
+            public StandardEntity() {
+            }
+
+            protected StandardEntity(Parcel in) {
+                this.id = in.readString();
+                this.name = in.readString();
+                this.price = in.readString();
+                this.old_price = in.readString();
+                this.storage = in.readString();
+            }
+
+            public static final Creator<StandardEntity> CREATOR = new Creator<StandardEntity>() {
+                public StandardEntity createFromParcel(Parcel source) {
+                    return new StandardEntity(source);
+                }
+
+                public StandardEntity[] newArray(int size) {
+                    return new StandardEntity[size];
+                }
+            };
         }
 
-        public static class CommentEntity {
+        public static class CommentEntity implements Parcelable {
             /**
              * uid : 1
              * head_pic : upload/head_pic/201608/201608051720247328.jpg
@@ -457,9 +521,44 @@ public class NewSupplyGoodsDetailBean implements Parcelable {
             public String getContent() {
                 return content;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.uid);
+                dest.writeString(this.head_pic);
+                dest.writeString(this.nick);
+                dest.writeString(this.time);
+                dest.writeString(this.content);
+            }
+
+            public CommentEntity() {
+            }
+
+            protected CommentEntity(Parcel in) {
+                this.uid = in.readString();
+                this.head_pic = in.readString();
+                this.nick = in.readString();
+                this.time = in.readString();
+                this.content = in.readString();
+            }
+
+            public static final Creator<CommentEntity> CREATOR = new Creator<CommentEntity>() {
+                public CommentEntity createFromParcel(Parcel source) {
+                    return new CommentEntity(source);
+                }
+
+                public CommentEntity[] newArray(int size) {
+                    return new CommentEntity[size];
+                }
+            };
         }
 
-        public static class RecommendEntity {
+        public static class RecommendEntity implements Parcelable {
             /**
              * id : 5
              * label : 限时抢购
@@ -545,6 +644,45 @@ public class NewSupplyGoodsDetailBean implements Parcelable {
             public String getPrice() {
                 return price;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.id);
+                dest.writeString(this.label);
+                dest.writeString(this.cover_pic);
+                dest.writeString(this.name);
+                dest.writeString(this.sale);
+                dest.writeString(this.price);
+                dest.writeString(this.old_price);
+            }
+
+            public RecommendEntity() {
+            }
+
+            protected RecommendEntity(Parcel in) {
+                this.id = in.readString();
+                this.label = in.readString();
+                this.cover_pic = in.readString();
+                this.name = in.readString();
+                this.sale = in.readString();
+                this.price = in.readString();
+                this.old_price = in.readString();
+            }
+
+            public static final Creator<RecommendEntity> CREATOR = new Creator<RecommendEntity>() {
+                public RecommendEntity createFromParcel(Parcel source) {
+                    return new RecommendEntity(source);
+                }
+
+                public RecommendEntity[] newArray(int size) {
+                    return new RecommendEntity[size];
+                }
+            };
         }
 
         @Override
