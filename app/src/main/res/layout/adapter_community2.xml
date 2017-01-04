@@ -29,7 +29,7 @@
             android:layout_toRightOf="@+id/civl_communityItem_avatar"
             android:orientation="vertical">
 
-            <FrameLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_2">
@@ -57,13 +57,13 @@
 
                     <ImageView
                         android:id="@+id/iv_communityItem_more"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="24dip"
                         android:paddingLeft="@dimen/padding_8"
                         android:paddingRight="@dimen/padding_8"
                         android:src="@mipmap/img_community_item_more" />
                 </LinearLayout>
-            </FrameLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -95,7 +95,7 @@
                 style="@style/view_line_ver"
                 android:layout_marginTop="@dimen/margin_2"></View>
 
-            <FrameLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_4">
@@ -110,29 +110,16 @@
                 <TextView
                     android:id="@+id/tv_communityItem_content"
                     style="@style/tv_community_content"
-                    android:text="    ------ "
+                    android:text="------ "
+                    android:layout_toRightOf="@id/img_label"
+                    android:layout_marginLeft="1dp"
                     android:textColor="@color/Defult_Color_translucentGrey"
                     android:textSize="@dimen/font_middle" />
-            </FrameLayout>
+            </RelativeLayout>
 
-            <FrameLayout
-                android:layout_width="fill_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-
-                <cn.hi028.android.highcommunity.view.nine.MyNineGridView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/ptrgv_communityItem_piclistView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:cacheColorHint="@android:color/transparent"
-                    android:gravity="center"
-                    android:horizontalSpacing="4dp"
-                    android:listSelector="@android:color/transparent"
-                    android:numColumns="3"
-                    android:stretchMode="columnWidth"
-                    android:verticalSpacing="4dp"
-                    app:sapcing="4dp" />
-
                 <LinearLayout
                     android:id="@+id/ll_act"
                     android:layout_width="match_parent"
@@ -167,7 +154,23 @@
                         android:textColor="@color/Service_title_text_color"
                         android:textSize="14sp" />
                 </LinearLayout>
-            </FrameLayout>
+                <cn.hi028.android.highcommunity.view.nine.MyNineGridView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ptrgv_communityItem_piclistView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:gravity="center"
+                    android:horizontalSpacing="4dp"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="3"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="4dp"
+                    app:sapcing="4dp" />
+
+
+            </RelativeLayout>
 
             <View
                 style="@style/view_line_ver"
@@ -181,11 +184,10 @@
 
 
                 <LinearLayout
-
                     android:id="@+id/ll_comm_loc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="top"
+
                     android:orientation="horizontal">
 
                     <TextView
@@ -252,4 +254,7 @@
         android:layout_height="0.5dip"
         android:background="@color/Defult_Color_ShallowHalfGrey" />
 
+
 </LinearLayout>
+
+<!---->

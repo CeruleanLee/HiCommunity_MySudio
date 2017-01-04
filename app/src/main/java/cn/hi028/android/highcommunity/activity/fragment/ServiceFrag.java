@@ -185,7 +185,7 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
             public void onPageScrollStateChanged(int i) {
             }
         });
-        viewPager.setInterval(2000);
+        viewPager.setInterval(3500);
         viewPager.startAutoScroll();
         viewPager.setCurrentItem(0);
     }

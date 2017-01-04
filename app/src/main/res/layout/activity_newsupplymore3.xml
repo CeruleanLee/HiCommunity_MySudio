@@ -66,11 +66,21 @@ android:background="@color/Defult_Color_ShallowGrey"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="#ffffffff">
+            <HorizontalScrollView
+                android:id="@+id/HorizontalScrollView"
+                android:layout_width="match_parent"
+                android:scrollbars="none"
+                android:fillViewport="true"
+                android:layout_height="wrap_content">
+
+
+            </HorizontalScrollView>
             <RadioGroup
+
                 android:id="@+id/supplyMore_rg_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-android:paddingTop="5dp"
+                android:paddingTop="5dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
 
@@ -81,6 +91,7 @@ android:paddingTop="5dp"
 
 
             </RadioGroup>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"

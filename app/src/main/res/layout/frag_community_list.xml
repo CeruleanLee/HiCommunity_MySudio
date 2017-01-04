@@ -43,6 +43,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="@dimen/padding_6"
                 android:layout_marginRight="@dimen/padding_8"
+                android:visibility="gone"
                 android:background="@mipmap/change_community" />
         </RelativeLayout>
     </RelativeLayout>

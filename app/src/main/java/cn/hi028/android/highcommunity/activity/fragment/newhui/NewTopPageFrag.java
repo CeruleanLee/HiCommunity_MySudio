@@ -277,7 +277,7 @@ findView(view);
 
             }
         });
-        mViewPager.setInterval(2000);
+        mViewPager.setInterval(3000);
         mViewPager.startAutoScroll();
         mViewPager.setCurrentItem(0);
         if (null != msg.getPic()) {

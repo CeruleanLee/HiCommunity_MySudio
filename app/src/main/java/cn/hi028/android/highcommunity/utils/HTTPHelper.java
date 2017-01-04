@@ -265,17 +265,11 @@ public class HTTPHelper {
     /**
      * 新版v2.0  获取信息流
      **/
-    public static void GetMessage2(BpiHttpHandler.IBpiHttpHandler mIbpi,
-                                   int userId, String time) {
+    public static void GetMessage2(BpiHttpHandler.IBpiHttpHandler mIbpi) {
         Log.d(Tag,"------------CommunityFrag   GetMessage");
         String url = HTTPPOSTURL + "smessage/index.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
-        if (userId != 0)
-            mParamMap.put("uid", userId + "");
-        if (!TextUtils.isEmpty(time)) {
-            mParamMap.put("time", time);
-        }
-//        mParamMap.put("vid", Vid + "");
+//            mParamMap.put("uid", HighCommunityApplication.mUserInfo.getId()+"");
         post(mParamMap, mIbpi, url);
     }
     /**
@@ -358,11 +352,9 @@ public class HTTPHelper {
      * 新版v2.0 刷新我的话题信息流
      **/
     public static void RefreshMessage2(BpiHttpHandler.IBpiHttpHandler mIbpi,
-                                       int type, String time, int userId) {
+                                       int type, String time) {
         String url = HTTPPOSTURL + "smessage/refresh.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
-        if (userId != 0)
-            mParamMap.put("uid", userId + "");
         mParamMap.put("type", type + "");
         mParamMap.put("time", time);
         post(mParamMap, mIbpi, url);

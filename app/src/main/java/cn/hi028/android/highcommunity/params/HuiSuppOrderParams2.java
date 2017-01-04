@@ -13,7 +13,7 @@ package cn.hi028.android.highcommunity.params;
 public class HuiSuppOrderParams2 extends BaseParams {
 
     private String token;//用户token
-    private String ticket_id;//int	优惠券id	      no
+    private int ticket_id;//int	优惠券id	      no
     private float zero_money = 0.0f;//	string	用户抵用零钱包金额	      no
     private int pay_type;//支付类型(1=>微信,2=>支付宝)
     private int address_id;//收货地址id
@@ -60,11 +60,11 @@ public class HuiSuppOrderParams2 extends BaseParams {
         this.token = token;
     }
 
-    public String getTicket_id() {
+    public int getTicket_id() {
         return ticket_id;
     }
 
-    public void setTicket_id(String ticket_id) {
+    public void setTicket_id(int ticket_id) {
         this.ticket_id = ticket_id;
     }
 

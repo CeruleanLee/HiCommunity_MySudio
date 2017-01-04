@@ -91,7 +91,7 @@ public class GroupMessageFrag extends Fragment {
         mChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mPublish = new Intent(getActivity(), GeneratedClassUtils.get(LabelAct.class));
+                Intent mPublish = new Intent(getActivity(), LabelAct.class);
                 mPublish.putExtra(LabelAct.ACTIVITYTAG, vid);
                 mPublish.putExtra(LabelAct.INTENTTAG, 1);
                 startActivity(mPublish);

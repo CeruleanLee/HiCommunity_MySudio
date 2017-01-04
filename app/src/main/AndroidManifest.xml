@@ -77,7 +77,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
-
+    <!-- 接收开机广播权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <application
         android:name=".HighCommunityApplication"
         android:allowBackup="true"
@@ -519,6 +520,13 @@
                 <!-- Required  显示通知栏 -->
                 <category android:name="cn.hi028.android.highcommunity" />
             </intent-filter>
+<!--接收开机广播-->
+            <intent-filter android:priority="999">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <!--  <category android:name="android.intent.category.LAUNCHER"/> -->
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />

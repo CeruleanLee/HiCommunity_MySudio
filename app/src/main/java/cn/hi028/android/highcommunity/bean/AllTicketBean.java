@@ -56,7 +56,13 @@ String pic;//奖品图片
     }
 
     public String getTid() {
-        return tid;
+        if(tid==null){
+            return 0+"";
+        }else{
+
+            return tid;
+        }
+
     }
 
     public void setTid(String tid) {

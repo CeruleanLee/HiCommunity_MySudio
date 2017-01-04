@@ -249,6 +249,66 @@ public class AlipayUtils {
 		Thread payThread = new Thread(payRunnable);
 		payThread.start();
 	}
+	public void payGoods(final Activity act, String gName, String gInfo,
+			String total_fee,String old_fee, String out_trade_no, String ticket_id,
+			String zero_money, String notify_url, final onPayListener lin) {
+		String orderInfo = getOrderInfo2(gName, gInfo, total_fee,old_fee, out_trade_no,
+				zero_money, ticket_id, notify_url);
+		Log.e(Tag,"orderInfo:"+orderInfo);
+		this.act=act;
+		if (!HighCommunityApplication.isAliPayInStalled()) {
+			Log.e(Tag,"------未安装支付宝");
+			showUnInstallPayDialog();
+		}
+
+		/**
+		 * 特别注意，这里的签名逻辑需要放在服务端，切勿将私钥泄露在代码中！
+		 */
+		String sign = sign(orderInfo);
+		try {
+			/**
+			 * 仅需对sign 做URL编码
+			 */
+			sign = URLEncoder.encode(sign, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		/**
+		 * 完整的符合支付宝参数规范的订单信息
+		 */
+		final String payInfo = orderInfo + "&sign=\"" + sign + "\"&"
+				+ getSignType();
+
+		Runnable payRunnable = new Runnable() {
+
+			@Override
+			public void run() {
+
+				if (!HighCommunityApplication.isAliPayInStalled()) {
+					Log.e(Tag,"------未安装支付宝");
+					//TODO
+					//加一个弹窗
+				}else{
+					// 构造PayTask 对象
+					PayTask alipay = new PayTask(act);
+					// 调用支付接口，获取支付结果
+					final String result = alipay.pay(payInfo, true);
+					Log.e(Tag,"~~~~~~~~~~~~~~获取支付结果   resultL---"+result);
+					act.runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							lin.onPay(new PayResult(result));
+						}
+					});
+				}
+			}
+		};
+
+		// 必须异步调用
+		Thread payThread = new Thread(payRunnable);
+		payThread.start();
+	}
 
 
 
@@ -328,6 +388,71 @@ public class AlipayUtils {
 
 		// 商品金额
 		orderInfo += "&total_fee=" + "\"" +price + "\"";
+
+		// 服务器异步通知页面路径
+		orderInfo += "&notify_url=" + "\"" + notify_url + "\"";
+
+		// 服务接口名称， 固定值
+		orderInfo += "&service=\"mobile.securitypay.pay\"";
+
+		// 支付类型， 固定值
+		orderInfo += "&payment_type=\"1\"";
+
+		// 参数编码， 固定值
+		orderInfo += "&_input_charset=\"utf-8\"";
+
+		// 设置未付款交易的超时时间
+		// 默认30分钟，一旦超时，该笔交易就会自动被关闭。
+		// 取值范围：1m～15d。
+		// m-分钟，h-小时，d-天，1c-当天（无论交易何时创建，都在0点关闭）。
+		// 该参数数值不接受小数点，如1.5h，可转换为90m。
+		orderInfo += "&it_b_pay=\"30m\"";
+
+		// extern_token为经过快登授权获取到的alipay_open_id,带上此参数用户将使用授权的账户进行支付
+		// orderInfo += "&extern_token=" + "\"" + extern_token + "\"";
+
+		// 支付宝处理完请求后，当前页面跳转到商户指定页面的路径，可空
+		orderInfo += "&return_url=\"m.alipay.com\"";
+		JSONObject json = new JSONObject();
+		try {
+			json.put("ticket_id", ticket_id);//这两个参数什么意思  优惠劵
+			json.put("zero_money", zero_money);
+			orderInfo += "&out_context=\"" + json.toString() + "\"";
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		// 调用银行卡支付，需配置此参数，参与签名， 固定值 （需要签约《无线银行卡快捷支付》才能使用）
+		// orderInfo += "&paymethod=\"expressGateway\"";
+
+		return orderInfo;
+	}
+	/**
+	 * create the order info. 创建订单信息
+	 */
+	private String getOrderInfo2(String subject, String body,String total_fee,String old_fee,
+			String out_trade_no, String zero_money, String ticket_id,
+			String notify_url) {
+
+		// 签约合作者身份ID
+		String orderInfo = "partner=" + "\"" + PARTNER + "\"";
+
+		// 签约卖家支付宝账号
+		orderInfo += "&seller_id=" + "\"" + SELLER + "\"";
+
+		// 商户网站唯一订单号
+		orderInfo += "&out_trade_no=" + "\"" + out_trade_no + "\"";
+
+		// 商品名称
+		orderInfo += "&subject=" + "\"" + subject + "\"";
+
+		// 商品详情
+		orderInfo += "&body=" + "\"" + body + "\"";
+
+		// 商品金额
+		orderInfo += "&total_fee=" + "\"" +total_fee + "\"";
+		// 原价
+		orderInfo += "&old_fee=" + "\"" +old_fee + "\"";
 
 		// 服务器异步通知页面路径
 		orderInfo += "&notify_url=" + "\"" + notify_url + "\"";

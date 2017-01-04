@@ -25,7 +25,6 @@ import com.lidroid.xutils.util.LogUtils;
 
 import net.duohuo.dhroid.util.LogUtil;
 
-import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.MainActivity;
 import cn.hi028.android.highcommunity.activity.VallageAct;
@@ -36,7 +35,6 @@ import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.view.LoadingView;
-import cn.hi028.android.highcommunity.view.LoadingView.OnLoadingViewListener;
 
 /**
  * @功能：邻里界面<br>
@@ -47,7 +45,7 @@ import cn.hi028.android.highcommunity.view.LoadingView.OnLoadingViewListener;
 public class CommunityFrag extends Fragment {
 
     public static final String FRAGMENTTAG = "CommunityFrag";
-    final String Tag = "CommunityFrag--->";
+    final String Tag = "数据流Frag--->";
     private int mCount = -1;
     private PullToRefreshListView mListView;
     private ImageView mChange;
@@ -65,12 +63,8 @@ public class CommunityFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.e(Tag, "onCreateView");
-        //		if (mFragmeView == null) {
-        //			initView();
-        //		}
         View view = inflater.inflate(R.layout.frag_community_list, null);
         findView(view);
-
         ViewGroup parent = (ViewGroup) view.getParent();
         if (parent != null)
             parent.removeView(view);
@@ -95,8 +89,8 @@ public class CommunityFrag extends Fragment {
 
     private void initView() {
         Log.e(Tag, "---initView");
-        mLoadingView.setOnLoadingViewListener(onLoadingViewListener);
-        mAdapter = new CommunityListAdapter2((MainActivity) getActivity());
+
+        mAdapter = new CommunityListAdapter2((MainActivity) getActivity(),this);
         mListView.setAdapter(mAdapter);
         mListView.setEmptyView(mNodata);
         mListView.setMode(PullToRefreshBase.Mode.BOTH);
@@ -104,18 +98,12 @@ public class CommunityFrag extends Fragment {
         mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//				RefreshData(0);
-//				mAdapter.notifyDataSetChanged();
                 new GetDataTask().execute();
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-
                 new GetDataTask2().execute();
-
-
-//				RefreshData(1);
             }
         });
         mChange.setOnClickListener(new View.OnClickListener() {
@@ -131,9 +119,6 @@ public class CommunityFrag extends Fragment {
                 isNeedRefresh = true;
             }
         });
-        //		mListView.setLoadingDrawable(getResources().getDrawable(R.drawable.ic_refreshanim));
-        //		mListView.setd
-        //		mListView.setLayoutAnimation(new LayoutAnimationController(animation));
         initDatas();
     }
 
@@ -146,28 +131,11 @@ public class CommunityFrag extends Fragment {
         mLoadingView = (LoadingView) view.findViewById(R.id.loadingView);
     }
 
-    OnLoadingViewListener onLoadingViewListener = new OnLoadingViewListener() {
-
-        @Override
-        public void onTryAgainClick() {
-            if (!isNoNetwork)
-                initDatas();
-        }
-    };
 
     private void initDatas() {
+        Log.e(Tag, "initDatas ");
         mLoadingView.startLoading();
-        mCount = -1;
-        //        if (isNeedRefresh) {
-        String time = "";
-        if (mAdapter != null && mAdapter.getCount() > 0) {
-            time = mAdapter.getItem(0).getCreate_time();//mList.getData().get(0).getCreate_time();
-        }
-
-//        HTTPHelper.GetMessage(mIbpi, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id(), time);
-       //v2.0 新接口
-//        HTTPHelper.GetMessage2(mIbpi, HighCommunityApplication.mUserInfo.getId(), time);
-        HTTPHelper.GetMessage2(mIbpi, time);
+        HTTPHelper.GetMessage2(mIbpi);
         Log.e(Tag, "GetMessage2 ");
     }
 
@@ -181,61 +149,22 @@ public class CommunityFrag extends Fragment {
     public void setGetInitMessage(boolean getInitMessage) {
         isGetInitMessage = getInitMessage;
     }
-
+public void setIsClick(boolean isGetInitMessage){
+    this.isGetInitMessage=isGetInitMessage;
+}
     @Override
     public void onResume() {
         Log.e(Tag, "---onResume---");
-        //		initReceiver();
-        //		mCount = -1;
-        //		//        if (isNeedRefresh) {
-        //		String time = "";
-        //		if (mAdapter != null && mAdapter.getCount() > 0) {
-        //			time = mAdapter.getItem(0).getCreate_time();//mList.getData().get(0).getCreate_time();
-        //		}
-        //
-        //		HTTPHelper.GetMessage(mIbpi, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id(), time);
-        //		Log.e(Tag,"GetMessage2 ");
-        //        }
+        /**刷新数据**/
         Log.e(Tag, "是否点击item---" + mAdapter.isClickItem());
-        if (isGetInitMessage) {
-            mAdapter.ClearData();
-            initDatas();
-            isGetInitMessage = false;
-
-        }
-//        else if (mAdapter.isClickItem()) {
-//            refreshCreatTime = mAdapter.getCreatTime();
-//            Log.e(Tag, "refreshCreatTime---" + refreshCreatTime);
-//            mAdapter.setClickItem(false);
-//            mAdapter.ClearData();
-//            initDatas();
-//
-//            for (int i = 0; i < mListData.getData().size(); i++) {
-//                Log.e(Tag, "遍历mListData---");
-//
-//                if (mListData.getData().get(i).getCreate_time().equals(refreshCreatTime)) {
-//                    Log.e(Tag, "等了---");
-//
-//
-//                    isRefreshHere = true;
-//                   break;
-//                }
-////                isRefreshHere = false;
-//            }
-//            mListData = new CommunityListBean();
-//            Log.e(Tag, "isRefreshHere---" + isRefreshHere);
-//            if (!isRefreshHere) {
-//
-//                RefreshDataForUpdata(refreshCreatTime);
-//            }
-//            isRefreshHere = false;
-//        }
-        else {
-//			mAdapter.ClearData();
-//			initDatas();
+//        isGetInitMessage=mAdapter.isClickItem();
+        Log.e(Tag, "isGetInitMessage---" + isGetInitMessage);
+        if (!isGetInitMessage) {
             RefreshDataForResume(0);
-        }
+        }else{
+            isGetInitMessage = !isGetInitMessage;
 
+        }
 
         registNetworkReceiver();
         isNeedRefresh = false;
@@ -248,53 +177,34 @@ public class CommunityFrag extends Fragment {
     @Override
     public void onDestroy() {
         Log.e(Tag, "---onDestroy");
-
         super.onDestroy();
         unregistNetworkReceiver();
     }
-
-    private void RefreshData(int type) {
-        Log.e(Tag, "RefreshData  mCount--- " + mCount);
-        String time = "";
-        if (type == 0) {
-            mCount = 0;
-            if (mAdapter != null && mAdapter.getCount() > 0) {
-                time = mAdapter.getItem(0).getCreate_time();//mList.getData().get(0).getCreate_time();
-            }
-        } else {
-            mCount = 1;
-            if (mAdapter != null && mAdapter.getCount() > 0) {
-                time = mAdapter.getItem(mAdapter.getCount() - 1).getCreate_time();//mList.getData().get(mList.getData().size() - 1).getCreate_time();
-            }
-        }
-//        //刷新方式（0-下拉刷新，1-加载更多）
-//        HTTPHelper.RefreshMessage(mIbpi, type, time, HighCommunityApplication.mUserInfo.getId(), HighCommunityApplication.mUserInfo.getV_id());//
-       //v2.0
-        HTTPHelper.RefreshMessage2(mIbpi, type, time, HighCommunityApplication.mUserInfo.getId());//
-    }
-
+    int refreshType = 0;
+    /**
+     * @param type 刷新方式（0-下拉刷新，1-加载更多）
+     */
     private void RefreshDataForResume(int type) {
-        Log.e(Tag, "RefreshData  mCount--- " + mCount);
+        Log.e(Tag, "RefreshDataForResume  type--- " + type);
+        refreshType = type;
         String time = "";
         if (type == 0) {
             mCount = 0;
             if (mAdapter != null && mAdapter.getCount() > 0) {
+                Log.e(Tag, "0  mAdapter.getCount()--- " + mAdapter.getCount());
+
                 time = mAdapter.getItem(0).getCreate_time();//mList.getData().get(0).getCreate_time();
             }
         } else {
             mCount = 1;
             if (mAdapter != null && mAdapter.getCount() > 0) {
+                Log.e(Tag, "1  mAdapter.getCount()--- " + mAdapter.getCount());
+
                 time = mAdapter.getItem(mAdapter.getCount() - 1).getCreate_time();//mList.getData().get(mList.getData().size() - 1).getCreate_time();
             }
         }
         //刷新方式（0-下拉刷新，1-加载更多）
-        HTTPHelper.RefreshMessage2(mIbpi2, type, time, HighCommunityApplication.mUserInfo.getId());//
-    }
-
-    private void RefreshDataForUpdata(String time) {
-        Log.e(Tag, "RefreshDataForUpdata--------- " );
-        //刷新方式（0-下拉刷新，1-加载更多）
-        HTTPHelper.RefreshMessage2(mIbpi2, 1, time, HighCommunityApplication.mUserInfo.getId());//
+        HTTPHelper.RefreshMessage2(mIbpi2, type, time);//
     }
 
     /**
@@ -308,6 +218,9 @@ public class CommunityFrag extends Fragment {
         return false;
     }
 
+    /**
+     * 只是获取信息流  不刷新
+     **/
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
@@ -319,9 +232,7 @@ public class CommunityFrag extends Fragment {
                 mAdapter.ClearData();
             }
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
-            //            if(!isNoNetwork){
-            //			mLoadingView.loadFailed();
-            //			}
+
         }
 
         @Override
@@ -334,14 +245,9 @@ public class CommunityFrag extends Fragment {
             mList = (CommunityListBean) message;
             mListData = mList;
             Log.e(Tag, "mCount:" + mCount + ",数据长度：" + mList.getData().size());
+            mAdapter.ClearData();
 
-            if (mCount == 0) {
-                mAdapter.AddNewData(mList.getData());
-            } else if (mCount == 1) {
-                mAdapter.RefreshData(mList.getData());
-            } else if (mCount == -1) {
-                mAdapter.SetData(mList.getData());
-            }
+            mAdapter.SetData(mList.getData());
 //			mListView.setAdapter(mAdapter);
             mListView.onRefreshComplete();
             mLoadingView.loadSuccess();
@@ -368,12 +274,13 @@ public class CommunityFrag extends Fragment {
             mListView.onRefreshComplete();
         }
     };
-    //专为resume刷新
+    /***
+     * 专为resume刷新
+     ***/
     BpiHttpHandler.IBpiHttpHandler mIbpi2 = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
             Log.e(Tag, "onError---" + message.toString());
-
             mProgress.setVisibility(View.GONE);
             mListView.onRefreshComplete();
             if (mCount == -1) {
@@ -394,14 +301,16 @@ public class CommunityFrag extends Fragment {
                 return;
             mList = (CommunityListBean) message;
             mListData = mList;
-            Log.e(Tag, "mCount:" + mCount + ",数据长度：" + mList.getData().size());
+            Log.e(Tag, "2refreshType:" + refreshType + ",数据长度：" + mList.getData().size());
 
-            if (mCount == 0) {
+            if (refreshType == 0) {
                 mAdapter.AddNewData(mList.getData());
-            } else if (mCount == 1) {
+//                scrollToListviewTop();
+                mListView.setAdapter(mAdapter);
+                Log.e(Tag, "0   mAdapter.getCount()" + mAdapter.getCount());
+            } else if (refreshType == 1) {
                 mAdapter.RefreshData(mList.getData());
-            } else if (mCount == -1) {
-                mAdapter.SetData(mList.getData());
+                Log.e(Tag, "1   mAdapter.getCount()" + mAdapter.getCount());
             }
 //			mListView.setAdapter(mAdapter);
             mListView.onRefreshComplete();
@@ -429,6 +338,25 @@ public class CommunityFrag extends Fragment {
             mListView.onRefreshComplete();
         }
     };
+
+
+//    public  void scrollToListviewTop() {
+//        mListView.smoothScrollToPosition(0);
+//        final Handler handler = new Handler();
+//        handler.postDelayed(new Runnable()
+//        {
+//            @Override
+//            public void run()
+//            {
+//
+//                if (mListView.getFirstVisiblePosition() > 0)
+//                {
+//                    mListView.smoothScrollToPosition(0);
+//                    handler.postDelayed(this, 100);
+//                }
+//            }
+//        }, 100);
+//    }
     /****
      * 与网络状态相关
      */
@@ -500,7 +428,7 @@ public class CommunityFrag extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            RefreshData(0);
+            RefreshDataForResume(0);
 
             // Call onRefreshComplete when the list has been refreshed.
             //				mListView.onRefreshComplete();
@@ -521,7 +449,7 @@ public class CommunityFrag extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            RefreshData(1);
+            RefreshDataForResume(1);
 
             // Call onRefreshComplete when the list has been refreshed.
             //				mListView.onRefreshComplete();

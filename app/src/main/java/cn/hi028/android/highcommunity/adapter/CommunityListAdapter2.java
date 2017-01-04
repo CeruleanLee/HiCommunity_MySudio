@@ -69,13 +69,24 @@ public class CommunityListAdapter2 extends BaseFragmentAdapter {
         this.mContext = mContext;
         String SaveData = HighCommunityApplication.share.getString(HighCommunityApplication.mUserInfo.getId() + CommunityFrag.FRAGMENTTAG, "");
         if (!TextUtils.isEmpty(SaveData)) {
-            mBean = HTTPHelper.gson.fromJson(SaveData, CommunityListBean.class);
-            mList = mBean.getData();
+//            mBean = HTTPHelper.gson.fromJson(SaveData, CommunityListBean.class);
+//            mList = mBean.getData();
         } else {
             mBean = new CommunityListBean();
         }
     }
-
+    CommunityFrag mFrag;
+    public CommunityListAdapter2(BaseFragmentActivity mContext,CommunityFrag mFrag) {
+        this.mFrag=mFrag;
+        this.mContext = mContext;
+        String SaveData = HighCommunityApplication.share.getString(HighCommunityApplication.mUserInfo.getId() + CommunityFrag.FRAGMENTTAG, "");
+        if (!TextUtils.isEmpty(SaveData)) {
+//            mBean = HTTPHelper.gson.fromJson(SaveData, CommunityListBean.class);
+//            mList = mBean.getData();
+        } else {
+            mBean = new CommunityListBean();
+        }
+    }
     @Override
     public int getCount() {
         return mList.size();
@@ -128,8 +139,21 @@ public class CommunityListAdapter2 extends BaseFragmentAdapter {
         mViewHolder.mAssist.setSelected(mBean.isPra());
         //创建群组的情况 隐藏地址 和用户照片容器
         if (mBean.getType() == 2 || mBean.getType() == 3) {
-            caseForGroup(mViewHolder, mBean);
-
+//            caseForGroup(mViewHolder, mBean);
+            mViewHolder.ll_comm_loc.setVisibility(View.GONE);
+            mViewHolder.mMore.setVisibility(View.INVISIBLE);
+            mViewHolder.mGridView.setVisibility(View.GONE);
+            //文字变色
+            SpannableString spanString = new SpannableString("     " + mBean.getLabel());
+            spanString.setSpan(new ForegroundColorSpan(Color.RED), 5, 5 + mBean.getLabel().length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+            mViewHolder.mContent.setText(spanString);
+            mViewHolder.mContent.append("  " + mBean.getWelcome());
+            mViewHolder.tv_community.setText(mBean.getContent());
+            //显示群组容器
+            mViewHolder.ll_act.setVisibility(View.VISIBLE);
+            ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + mBean.getAg_pic(), mViewHolder.img_community_pic);
+            mViewHolder.mFrom.setVisibility(View.VISIBLE);
+            mViewHolder.mFrom.setText("" + mBean.getTitle());
         } else {
             //显示用户发动态的情况
 //            caseForUserTopic(mViewHolder, mBean);
@@ -150,12 +174,15 @@ public class CommunityListAdapter2 extends BaseFragmentAdapter {
             Log.e(Tag,position+"getSite"+mBean.getSite());
             if (mBean.getSite()!=null&&!mBean.getSite().equals("null")&&!mBean.getSite().equals("")){
                 Log.e(Tag,position+"getSite"+1);
+                mViewHolder.mLocation.setVisibility(View.VISIBLE);
 
                 mViewHolder.mLocation.setText(mBean.getSite());
-            }else if (mBean.getVillage_name()!=null&&!mBean.getVillage_name().equals("null")&&!mBean.getVillage_name().equals("")){
-                Log.e(Tag,position+"getSite"+2);
-
-                mViewHolder.mLocation.setText(mBean.getVillage_name());
+//            }
+//
+//            else if (mBean.getVillage_name()!=null&&!mBean.getVillage_name().equals("null")&&!mBean.getVillage_name().equals("")){
+//                Log.e(Tag,position+"getSite"+2);
+//
+//                mViewHolder.mLocation.setText(mBean.getVillage_name());
 
             }else{
                 Log.e(Tag,position+"getSite"+3);
@@ -175,17 +202,6 @@ public class CommunityListAdapter2 extends BaseFragmentAdapter {
             } else {
                 mViewHolder.mFrom.setVisibility(View.GONE);
             }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -325,6 +341,7 @@ public class CommunityListAdapter2 extends BaseFragmentAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setClickItem(true);
                 if (mBean.getType() == 2) {
                     //跳转到活动详情
                     Intent ActCreate = new Intent(mContext, GeneratedClassUtils.get(ActiveAct.class));
@@ -341,7 +358,7 @@ public class CommunityListAdapter2 extends BaseFragmentAdapter {
 
                 } else {
                     //跳转到帖子
-                    setClickItem(true);
+
                     creatTime = mBean.getCreate_time();
                     Intent mCommunity = new Intent(mContext, GeneratedClassUtils.get(CommunityDetailAct.class));
                     mCommunity.putExtra(CommunityDetailAct.ACTIVITYTAG, "Details");
@@ -408,56 +425,61 @@ public class CommunityListAdapter2 extends BaseFragmentAdapter {
     }
 
     public void setClickItem(boolean clickItem) {
+        if (mFrag!=null){
+
+            mFrag.setIsClick(clickItem);
+        }
+
         isClickItem = clickItem;
     }
 
-    /**
-     * 用户发动态的情况
-     **/
-    private void caseForUserTopic(final ViewHolder mViewHolder,
-                                  final CommunityBean mBean) {
-        mViewHolder.ll_act.setVisibility(View.GONE);
-        mViewHolder.mGridView.setVisibility(View.VISIBLE);
-        mViewHolder.mMore.setVisibility(View.VISIBLE);
-        List<String> imgUrlList = new ArrayList<String>();
-        List<String> bigImgUrlList = new ArrayList<String>();
-        for (int i = 0; i < picList.size(); i++) {
-            imgUrlList.add(i, Constacts.IMAGEHTTP + picList.get(i).getSmall());
-            bigImgUrlList.add(i, Constacts.IMAGEHTTP + picList.get(i).getBig());
-
-        }
-        Log.e(Tag, "imgUrlList-----" + imgUrlList.size());
-        mViewHolder.mGridView.setUrlList(imgUrlList, bigImgUrlList);
-        Log.e(Tag,"getSite"+mBean.getSite());
-        if (mBean.getSite()!=null&&!mBean.getSite().equals("null")&&!mBean.getSite().equals("")){
-            Log.e(Tag,"getSite"+1);
-
-            mViewHolder.mLocation.setText(mBean.getSite());
-        }else if (mBean.getVillage_name()!=null&&!mBean.getVillage_name().equals("null")&&!mBean.getVillage_name().equals("")){
-            Log.e(Tag,"getSite"+2);
-
-            mViewHolder.mLocation.setText(mBean.getVillage_name());
-
-        }else{
-            Log.e(Tag,"getSite"+3);
-
-            mViewHolder.mLocation.setVisibility(View.GONE);
-        }
-
-        mViewHolder.mComment.setText(mBean.getD_count() + " 评论");
-        mViewHolder.mAssist.setText(mBean.getP_count() + " 点赞");
-        mViewHolder.ll_comm_loc.setVisibility(View.VISIBLE);
-        SpannableString spanString = new SpannableString("     " + mBean.getTitle());
-        spanString.setSpan(new ForegroundColorSpan(Color.RED), 5, 5 + mBean.getTitle().length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-        mViewHolder.mContent.setText(spanString);
-        mViewHolder.mContent.append("  " + mBean.getContent());
-        if (!TextUtils.isEmpty(mBean.getG_name())) {
-            mViewHolder.mFrom.setVisibility(View.VISIBLE);
-            mViewHolder.mFrom.setText("来自" + mBean.getG_name());
-        } else {
-            mViewHolder.mFrom.setVisibility(View.GONE);
-        }
-    }
+//    /**
+//     * 用户发动态的情况
+//     **/
+//    private void caseForUserTopic(final ViewHolder mViewHolder,
+//                                  final CommunityBean mBean) {
+//        mViewHolder.ll_act.setVisibility(View.GONE);
+//        mViewHolder.mGridView.setVisibility(View.VISIBLE);
+//        mViewHolder.mMore.setVisibility(View.VISIBLE);
+//        List<String> imgUrlList = new ArrayList<String>();
+//        List<String> bigImgUrlList = new ArrayList<String>();
+//        for (int i = 0; i < picList.size(); i++) {
+//            imgUrlList.add(i, Constacts.IMAGEHTTP + picList.get(i).getSmall());
+//            bigImgUrlList.add(i, Constacts.IMAGEHTTP + picList.get(i).getBig());
+//
+//        }
+//        Log.e(Tag, "imgUrlList-----" + imgUrlList.size());
+//        mViewHolder.mGridView.setUrlList(imgUrlList, bigImgUrlList);
+//        Log.e(Tag,"getSite"+mBean.getSite());
+//        if (mBean.getSite()!=null&&!mBean.getSite().equals("null")&&!mBean.getSite().equals("")){
+//            Log.e(Tag,"getSite"+1);
+//
+//            mViewHolder.mLocation.setText(mBean.getSite());
+//        }else if (mBean.getVillage_name()!=null&&!mBean.getVillage_name().equals("null")&&!mBean.getVillage_name().equals("")){
+//            Log.e(Tag,"getSite"+2);
+//
+//            mViewHolder.mLocation.setText(mBean.getVillage_name());
+//
+//        }else{
+//            Log.e(Tag,"getSite"+3);
+//
+//            mViewHolder.mLocation.setVisibility(View.GONE);
+//        }
+//
+//        mViewHolder.mComment.setText(mBean.getD_count() + " 评论");
+//        mViewHolder.mAssist.setText(mBean.getP_count() + " 点赞");
+//        mViewHolder.ll_comm_loc.setVisibility(View.VISIBLE);
+//        SpannableString spanString = new SpannableString("     " + mBean.getTitle());
+//        spanString.setSpan(new ForegroundColorSpan(Color.RED), 5, 5 + mBean.getTitle().length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+//        mViewHolder.mContent.setText(spanString);
+//        mViewHolder.mContent.append("  " + mBean.getContent());
+//        if (!TextUtils.isEmpty(mBean.getG_name())) {
+//            mViewHolder.mFrom.setVisibility(View.VISIBLE);
+//            mViewHolder.mFrom.setText("来自" + mBean.getG_name());
+//        } else {
+//            mViewHolder.mFrom.setVisibility(View.GONE);
+//        }
+//    }
 
     /**
      * 创建群组和活动的情况

@@ -1,7 +1,5 @@
 package net.duohuo.dhroid.view;
 
-import java.lang.reflect.Field;
-
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.animation.Interpolator;
+
+import java.lang.reflect.Field;
 
 /**
  * Auto Scroll View Pager
@@ -78,11 +78,11 @@ public class AutoScrollViewPager extends ViewPager {
     /**
      * scroll factor for auto scroll animation, default is 1.0
      **/
-    private double autoScrollFactor = 1.0;
+    private double autoScrollFactor = 2.0;
     /**
      * scroll factor for swipe scroll animation, default is 1.0
      **/
-    private double swipeScrollFactor = 1.0;
+    private double swipeScrollFactor = 2.0;
 
     private Handler handler;
     private boolean isAutoScroll = false;

@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -49,6 +51,8 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
     RadioButton mRbPrice;
     @Bind(R.id.supplyMore_rg_sort)
     RadioGroup mRgSort;
+    @Bind(R.id.HorizontalScrollView)
+    HorizontalScrollView mHorizontalScrollView;
 //    @Bind(R.id.id_stickynavlayout_viewpager)
     ViewPager mViewpager;
 
@@ -119,6 +123,13 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
 
             SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity mData = (SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity) message;
             mDataCategory = mData.getCategory();
+
+
+            mHorizontalScrollView.removeAllViews();
+            RadioGroup mGroup=new RadioGroup(NewSupplyMoreAct3.this);
+            mGroup.setLayoutParams(new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT));
+            mGroup.setOrientation(LinearLayout.HORIZONTAL);
+
             mRgCategory.removeAllViews();
             Log.e(Tag, "mDataCategory.size(): " + mDataCategory.size());
             if (mDataCategory.size() > 4) {
@@ -144,6 +155,7 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
 
             defaultRadioBut.setText("所有");
             mRgCategory.addView(defaultRadioBut);
+//            mGroup.addView(defaultRadioBut);
 
             for (int i = 0; i < mDataCategory.size(); i++) {
                 RadioButton newRadioBut = (RadioButton) LayoutInflater.from(NewSupplyMoreAct3.this).inflate(R.layout.radiobut_newsupplymore, null);
@@ -158,14 +170,18 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
                 } else {
                     Log.e(Tag, "isCategorySizeMuch false ");
 
-                    newRadioBut.setWidth(0);
-                    newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.MATCH_PARENT, 1f));
+                    newRadioBut.setWidth(80);
+                    newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(80, RadioGroup.LayoutParams.MATCH_PARENT));
+//                    newRadioBut.setWidth(0);
+//                    newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.MATCH_PARENT, 1f));
                 }
 
                 newRadioBut.setText(mDataCategory.get(i).getName());
-                mRgCategory.addView(newRadioBut);
+//                mRgCategory.addView(newRadioBut);
+                mGroup.addView(newRadioBut);
             }
             Log.e(Tag, "mRgCategory.size(): " + mRgCategory.getChildCount());
+            Log.e(Tag, "mGroup.size(): " + mGroup.getChildCount());
 //            ((RadioButton) (mRgCategory.getChildAt(0))).setChecked(true);
 
 //            for (int i = 0; i < mRgCategory.getChildCount(); i++) {
@@ -176,6 +192,8 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
 //                }
 //            }
 
+            mHorizontalScrollView.addView(mGroup);
+            Log.e(Tag, "mHorizontalScrollView.size(): " + mHorizontalScrollView.getChildCount());
 
             initView();
         }

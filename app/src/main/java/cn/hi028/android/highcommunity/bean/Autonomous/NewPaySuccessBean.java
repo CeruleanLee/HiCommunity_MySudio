@@ -21,6 +21,16 @@ public class NewPaySuccessBean {
     private String msg;
     private PaySuccessDataEntity data;
 
+    @Override
+    public String toString() {
+        return "NewPaySuccessBean{" +
+                "success=" + success +
+                ", code=" + code +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
+
     public void setSuccess(boolean success) {
         this.success = success;
     }
@@ -54,6 +64,27 @@ public class NewPaySuccessBean {
     }
 
     public static class PaySuccessDataEntity {
+        @Override
+        public String toString() {
+            return "PaySuccessDataEntity{" +
+                    "subject='" + subject + '\'' +
+                    ", body='" + body + '\'' +
+                    ", out_trade_no='" + out_trade_no + '\'' +
+                    ", total_fee='" + total_fee + '\'' +
+                    ", notify_url='" + notify_url + '\'' +
+                    ", old_fee='" + old_fee + '\'' +
+                    ", ticket_id='" + ticket_id + '\'' +
+                    ", zero_money='" + zero_money + '\'' +
+                    ", appid='" + appid + '\'' +
+                    ", noncestr='" + noncestr + '\'' +
+                    ", packageX='" + packageX + '\'' +
+                    ", partnerid='" + partnerid + '\'' +
+                    ", prepayid='" + prepayid + '\'' +
+                    ", timestamp='" + timestamp + '\'' +
+                    ", sign='" + sign + '\'' +
+                    '}';
+        }
+
         /**
          * subject : 东北大米
          * body : 嗨社区-商家联盟商品

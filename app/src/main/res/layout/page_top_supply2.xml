@@ -14,9 +14,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="219dp">
+            android:layout_height="230dp">
 
             <net.duohuo.dhroid.view.AutoScrollViewPager
                 android:id="@+id/view_pager"
@@ -26,10 +26,12 @@
 
             <net.duohuo.dhroid.view.CirclePageIndicator xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/view_cpi"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|bottom"
-                android:layout_marginBottom="8dp"
+               android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+android:layout_marginRight="8dp"
+                android:layout_marginBottom="6dp"
                 android:background="@android:color/transparent"
                 android:padding="6dp"
                 app:fillColor="@color/Defult_Color_AppGreen"
@@ -37,7 +39,7 @@
                 app:radius="5dp"
                 app:strokeColor="@color/Defult_Color_AppGreen"
                 app:strokeWidth="0dp" />
-        </FrameLayout>
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/ac_shop_goods_head_iv"

@@ -663,8 +663,9 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
             int carNum = Integer.parseInt(caramount.getText().toString());
             caramount.setText(carNum + 1 + "");
             mCarPriceSum += singlePrice;
-            Log.e(Tag, "mCarPriceSum:" + mCarPriceSum);
-            mAllprice.setText("购物车合计 ￥:" + mCarPriceSum);
+            float priceSum_F = (float) (Math.round(mCarPriceSum * 100)) / 100;
+            Log.e(Tag, "mCarPriceSum:" + mCarPriceSum+"float:"+priceSum_F);
+            mAllprice.setText("购物车合计 ￥:" + priceSum_F);
         }
 
 

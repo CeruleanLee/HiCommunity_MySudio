@@ -19,6 +19,7 @@ import cn.hi028.android.highcommunity.activity.MainActivity;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.service.PushService;
 
 /**
  * 自定义接收器
@@ -29,12 +30,25 @@ import cn.jpush.android.api.JPushInterface;
  */
 public class PushReceiver extends BroadcastReceiver {
     private static final String TAG = "JPush--->";
-
+    public final static String ACTION_BOOT_COMPLETED = "android.intent.action.BOOT_COMPLETED";
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
         Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
-
+        if(intent.getAction().equals(ACTION_BOOT_COMPLETED)){
+            // 后边的XXX.class就是要启动的服务
+            Intent actIntent = new Intent(context.getApplicationContext(), MainActivity.class);
+            actIntent.setAction("android.intent.action.MAIN");
+            actIntent.addCategory("android.intent.category.LAUNCHER");
+            actIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(actIntent);
+            Log.v(TAG, "开机自动服务自动启动.....");
+            // 启动应用，参数为需要自动启动的应用的包名
+            Intent serIntent= new Intent(context, PushService.class);
+            serIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startService(serIntent);
+            Log.v(TAG, "开机程序自动启动.....");
+        }
         if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
             String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
             Log.d(TAG, "[MyReceiver] 接收Registration Id : " + regId);

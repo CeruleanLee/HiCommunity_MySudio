@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -109,10 +110,10 @@ public class NewHuiBuyFrag extends BaseFragment {
     public HuiSuppOrderParams2 orderParams;
     SupplyPayConsignEntity mConsign;//订单参数
     //    HSuppGdDefBean data;
-    PopupWindow waitPop,mWaittingPop;
+    PopupWindow waitPop, mWaittingPop;
     NewHuiBuyAdapter adapter;
     View view;
-    String carIdList,order_num;
+    String carIdList, order_num;
     List<SupplyPayGoodsEntity> mList = new ArrayList<SupplyPayGoodsEntity>();
     @Bind(R.id.rb_pay_wx)
     RadioButton rbPayWx;
@@ -126,17 +127,20 @@ public class NewHuiBuyFrag extends BaseFragment {
     FrameLayout layout_pay_bottom;
     @Bind(R.id.layout_scrollview)
     ScrollView layout_scrollview;
-int orderType=-1;
+    @Bind(R.id.progress_layout)
+    LinearLayout progress_layout;
+    int orderType = -1;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(Tag, "onCreateView");
         view = inflater.inflate(R.layout.frag_newhui_buy, null);
         ButterKnife.bind(this, view);
-        fragment=this;
+        fragment = this;
         Bundle bundle = getArguments();
         carIdList = bundle.getString("carIdList");
         order_num = bundle.getString("order_num");
-        orderType= bundle.getInt("orderType",-1);
+        orderType = bundle.getInt("orderType", -1);
         Log.d(Tag, "carIdList=" + carIdList);
         Log.d(Tag, "order_num=" + order_num);
 
@@ -291,16 +295,16 @@ int orderType=-1;
     }
 
     private void initData() {
-        if (getActivity().hasWindowFocus()){
+        if (getActivity().hasWindowFocus()) {
 
-            mWaittingPop=HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), btn_pay, Gravity.CENTER);
+//            mWaittingPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), btn_pay, Gravity.CENTER);
         }
 
-        if (orderType==-1)return;
+        if (orderType == -1) return;
         if (carIdList != null && !carIdList.equals("")) {
 
             HTTPHelper.NewSupplyShowPay(mShowPayIbpi, carIdList, orderType);
-        }else if (order_num != null && !order_num.equals("")){
+        } else if (order_num != null && !order_num.equals("")) {
             HTTPHelper.NewSupplyShowPay(mShowPayIbpi, order_num, orderType);
 
         }
@@ -313,12 +317,13 @@ int orderType=-1;
     BpiHttpHandler.IBpiHttpHandler mShowPayIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            if (mWaittingPop!=null){
+            if (mWaittingPop != null) {
                 mWaittingPop.dismiss();
             }
 
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
             tv_reeor.setText(message);
+            progress_layout.setVisibility(View.GONE);
             layout_scrollview.setVisibility(View.GONE);
             layout_pay_bottom.setVisibility(View.GONE);
             tv_reeor.setVisibility(View.VISIBLE);
@@ -327,31 +332,31 @@ int orderType=-1;
         @Override
         public void onSuccess(Object message) {
             Log.e(Tag, "onSuccess:0");
-            if (mWaittingPop!=null){
+            if (mWaittingPop != null) {
                 mWaittingPop.dismiss();
             }
-            if (null == message){
+            if (null == message) {
                 Log.e(Tag, "onSuccess:null ");
 
                 return;
             }
+            progress_layout.setVisibility(View.GONE);
             tv_reeor.setVisibility(View.GONE);
-            if (orderType==1){
+            if (orderType == 1) {
 
-                NewHuiPayDetail_OederBean.NewHuiPayDetail_OederDataEntity orderDetailBean= (NewHuiPayDetail_OederBean.NewHuiPayDetail_OederDataEntity) message;
-                mBean=new NewSupplyPaydetailBean.SupplyPayDataEntity();
+                NewHuiPayDetail_OederBean.NewHuiPayDetail_OederDataEntity orderDetailBean = (NewHuiPayDetail_OederBean.NewHuiPayDetail_OederDataEntity) message;
+                mBean = new NewSupplyPaydetailBean.SupplyPayDataEntity();
                 mBean.setTotal_fee(orderDetailBean.getTotal_fee());
-mBean.setZero_money(orderDetailBean.getZero_money());
-
+                mBean.setZero_money(orderDetailBean.getZero_money());
                 mBean.setConsign(orderDetailBean.getConsign());
-                List<SupplyPayGoodsEntity> goods=new ArrayList<SupplyPayGoodsEntity>();
+                List<SupplyPayGoodsEntity> goods = new ArrayList<SupplyPayGoodsEntity>();
                 goods.add(orderDetailBean.getGoods());
                 mBean.setGoods(goods);
 
-            }else if (orderType==0){
+            } else if (orderType == 0) {
                 mBean = (NewSupplyPaydetailBean.SupplyPayDataEntity) message;
             }
-            if (orderType!=1&&orderType!=0){
+            if (orderType != 1 && orderType != 0) {
                 return;
             }
             Log.e(Tag, "onSuccess:" + mBean.toString());
@@ -362,11 +367,11 @@ mBean.setZero_money(orderDetailBean.getZero_money());
             orderParams.setTotal_amount(mBean.getTotal_fee());
             orderParams.setTotal_fee(mBean.getTotal_fee());
 //            orderParams.setZero_money(mBean.getZero_money());
-            if (orderType==0&&carIdList!=null){
+            if (orderType == 0 && carIdList != null) {
 
                 orderParams.setCart_ids(carIdList);
             }
-            if (orderType==1&&order_num!=null){
+            if (orderType == 1 && order_num != null) {
 
                 orderParams.setOrder_num(order_num);
             }
@@ -381,18 +386,17 @@ mBean.setZero_money(orderDetailBean.getZero_money());
         @Override
         public Object onResolve(String result) {
             Log.e(Tag, "onResolve:" + result);
-if (result.contains("\"consign\":false")){
-    Log.e(Tag, "onResolve:替换" );
+            if (result.contains("\"consign\":false")) {
+                Log.e(Tag, "onResolve:替换");
 
-    result=  result.replace("\"consign\":false","\"consign\":null");
-    Log.e(Tag, "onResolve:替换ok" +"onResolve:" + result);
+                result = result.replace("\"consign\":false", "\"consign\":null");
+                Log.e(Tag, "onResolve:替换ok" + "onResolve:" + result);
 
-}
-            if (orderType==0){
+            }
+            if (orderType == 0) {
 
                 return HTTPHelper.ResolveNewSupplyShowPay(result);
-            }
-            else if (orderType==1){
+            } else if (orderType == 1) {
 
                 return HTTPHelper.ResolveNewSupplyShowPay_Order(result);
             }
@@ -405,7 +409,7 @@ if (result.contains("\"consign\":false")){
 
         @Override
         public void cancleAsyncTask() {
-            if (mWaittingPop!=null){
+            if (mWaittingPop != null) {
                 mWaittingPop.dismiss();
             }
         }
@@ -505,7 +509,7 @@ if (result.contains("\"consign\":false")){
             JSONObject params = new JSONObject();
             try {
                 params.put("token", HighCommunityApplication.mUserInfo.getToken());
-                if (!TextUtils.isEmpty(orderParams.getTicket_id())) {
+                if (orderParams.getTicket_id()!=0) {
                     params.put("ticket_id", orderParams.getTicket_id());
                 }
                 if (orderParams.getZero_money() != 0.0f) {
@@ -532,17 +536,18 @@ if (result.contains("\"consign\":false")){
 //                    jsonArray.put(goods);
 //                }
                 Log.e(Tag, "params:" + params.toString());
-                if (orderType==0){
+                Log.e(Tag, "orderParams:" + orderParams.toString());
+                if (orderType == 0) {
 
 
                     HTTPHelper.submitNewHuiOrder(mIbpiOrder, orderParams.getTicket_id() + "", orderParams.getZero_money() + "", orderParams.getPay_type() + "",
                             orderParams.getAddress_id() + "", orderParams.getTotal_amount() + "", orderParams.getTotal_fee() + "",
-                            orderParams.getMark(), orderParams.getCart_ids(),orderType + "");
+                            orderParams.getMark(), orderParams.getCart_ids(), orderType + "");
                     Log.e(Tag, "------a2");
-                }else if (orderType==1){
+                } else if (orderType == 1) {
                     HTTPHelper.submitNewHuiOrder(mIbpiOrder, orderParams.getTicket_id() + "", orderParams.getZero_money() + "", orderParams.getPay_type() + "",
                             orderParams.getAddress_id() + "", orderParams.getTotal_amount() + "", orderParams.getTotal_fee() + "",
-                            orderParams.getMark(), orderParams.getOrder_num(),orderType + "");
+                            orderParams.getMark(), orderParams.getOrder_num(), orderType + "");
                     Log.e(Tag, "------a2");
 
 
@@ -575,7 +580,11 @@ if (result.contains("\"consign\":false")){
             if (payType == -1) return;
             if (payType == 2) {
                 NewPaySuccessBean.PaySuccessDataEntity mBean = (NewPaySuccessBean.PaySuccessDataEntity) message;
-                AlipayUtils.getInstance().payGoods(getActivity(), mBean.getSubject(), mBean.getBody(), mBean.getTotal_fee(), mBean.getOut_trade_no(), mBean.getTicket_id(),
+                Log.e(Tag, "mBean == " + mBean.toString());
+
+
+
+                AlipayUtils.getInstance().payGoods(getActivity(), mBean.getSubject(), mBean.getBody(), mBean.getTotal_fee(),mBean.getOld_fee(), mBean.getOut_trade_no(), mBean.getTicket_id(),
                         mBean.getZero_money(), mBean.getNotify_url(), new AlipayUtils.onPayListener() {
 
                             @Override
@@ -642,6 +651,7 @@ if (result.contains("\"consign\":false")){
     };
     WpayBean mWpayBean;
     static NewHuiBuyFrag fragment;
+
     public static void toOrderDetail() {
         Intent mLeftjump = new Intent(fragment.getActivity(), GeneratedClassUtils.get(MenuLeftAct.class));
         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
@@ -657,6 +667,7 @@ if (result.contains("\"consign\":false")){
 //        fragment.startActivity(mIntent);
         fragment.getActivity().finish();
     }
+
     public static void toOrderTopayDetail() {
         Intent mLeftjump = new Intent(fragment.getActivity(), GeneratedClassUtils.get(MenuLeftAct.class));
         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
@@ -672,6 +683,7 @@ if (result.contains("\"consign\":false")){
 //        fragment.startActivity(mIntent);
         fragment.getActivity().finish();
     }
+
     public void showMsgDialog(int x) {
         String msg;
         if (x == 1) {
@@ -680,7 +692,7 @@ if (result.contains("\"consign\":false")){
             msg = "支付失败";
         }
         ECAlertDialog dialog2;
-        if (x==1){
+        if (x == 1) {
 
             dialog2 = ECAlertDialog.buildAlert(getActivity(), msg, "我知道了", new DialogInterface.OnClickListener() {
 
@@ -690,7 +702,7 @@ if (result.contains("\"consign\":false")){
 //                getActivity().finish();
                 }
             });
-        }else{
+        } else {
             dialog2 = ECAlertDialog.buildAlert(getActivity(), msg, "我知道了", new DialogInterface.OnClickListener() {
 
                 @Override
@@ -722,7 +734,7 @@ if (result.contains("\"consign\":false")){
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && requestCode == 0x21 && resultCode == 0x22) {
             Bundle bundle = data.getBundleExtra("data");
-            AddressBean address =bundle.getParcelable("address");
+            AddressBean address = bundle.getParcelable("address");
 //            AddressBean address = (AddressBean) data.getSerializableExtra("address");
             orderParams.setAddress_id(Integer.parseInt(address.getId()));
 //            orderParams.setAid(address.getId());
@@ -739,7 +751,7 @@ if (result.contains("\"consign\":false")){
         }
         if (data != null && requestCode == 0x22 && resultCode == TicketAct.TICKET_RESULT) {
             AllTicketBean aticketBean = (AllTicketBean) data.getSerializableExtra("ticket");
-            orderParams.setTicket_id(aticketBean.getTid());
+            orderParams.setTicket_id(Integer.parseInt(aticketBean.getTid()));
             orderParams.setTicket_value(aticketBean.getTicket_value());
             float realToatal = orderParams.getTotal_amount() - orderParams.getTicket_value();
 //            orderParams.setTotal_fee(realToatal);
@@ -755,8 +767,9 @@ if (result.contains("\"consign\":false")){
     public void updateData(SupplyPayConsignEntity mConsign) {
 
         orderParams.setZero_money(0.0f);
+        orderParams.setTicket_id(0);
         if (mConsign != null) {
-            Log.e(Tag,"mConsign != null");
+            Log.e(Tag, "mConsign != null");
             fl_huiLife_addressChooice.setVisibility(View.VISIBLE);
 
 
@@ -772,7 +785,7 @@ if (result.contains("\"consign\":false")){
             }
             mNoAddress.setVisibility(View.GONE);
         } else {
-            Log.e(Tag,"mConsign = null");
+            Log.e(Tag, "mConsign = null");
 
             mNoAddress.setVisibility(View.VISIBLE);
             fl_huiLife_addressChooice.setVisibility(View.GONE);
@@ -786,7 +799,7 @@ if (result.contains("\"consign\":false")){
 //        float parseFloat = Float.parseFloat(edt_pay_num.getText().toString());
         Log.e(Tag, "parseFloat:" + orderParams.getZero_money());
 
-        orderParams.setTotal_fee((float)(Math.round((orderParams.getTotal_amount()-orderParams.getZero_money()-orderParams.getTicket_value())*100))/100);
+        orderParams.setTotal_fee((float) (Math.round((orderParams.getTotal_amount() - orderParams.getZero_money() - orderParams.getTicket_value()) * 100)) / 100);
         tv_total_pay.setText("合计金额￥" + CommonUtils.f2Bi(orderParams.getTotal_amount()));
         tv_total_actual.setText("￥" + CommonUtils.f2Bi(orderParams.getTotal_fee()));
 
