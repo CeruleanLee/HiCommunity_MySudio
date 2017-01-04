@@ -165,13 +165,13 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
 
 //                    newRadioBut.setWidth(rbutWith);
 //                    newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(rbutWith, RadioGroup.LayoutParams.MATCH_PARENT));
-                    newRadioBut.setWidth(0);
-                    newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.MATCH_PARENT, 1f));
+                    newRadioBut.setWidth(80);
+                    newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(300, RadioGroup.LayoutParams.MATCH_PARENT, 1f));
                 } else {
                     Log.e(Tag, "isCategorySizeMuch false ");
 
                     newRadioBut.setWidth(80);
-                    newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(80, RadioGroup.LayoutParams.MATCH_PARENT));
+                    newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(300, RadioGroup.LayoutParams.MATCH_PARENT));
 //                    newRadioBut.setWidth(0);
 //                    newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.MATCH_PARENT, 1f));
                 }

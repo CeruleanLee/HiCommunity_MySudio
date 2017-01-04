@@ -125,4 +125,10 @@ public class HuiLifeFrag extends BaseFragment {
     public interface MyChangeListener4HuiLife {
         public void onHuiLifeChange(int i);
     }
+
+    @Override
+    public void onResume() {
+        Log.e(Tag,"---onResume ");
+        super.onResume();
+    }
 }

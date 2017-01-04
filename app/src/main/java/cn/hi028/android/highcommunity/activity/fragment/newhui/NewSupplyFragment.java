@@ -212,6 +212,7 @@ if (isFistRequest){
 
     @Override
     public void onResume() {
+        Log.e(Tag,"---onResume ");
         super.onResume();
         if (isFistRequestHttp){
             isFistRequestHttp=false;

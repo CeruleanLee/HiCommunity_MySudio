@@ -827,16 +827,13 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
      * @param position 0-邻里 1-服务 2-惠生活 3-活动
      */
     private void tabSelector(int position) {
-        getMsgNum();
+//        getMsgNum();
         Log.d(Tag,"tabSelector:" + position);
         if (0 == position) {
             mTitle.setVisibility(View.GONE);
             mGroup.setVisibility(View.VISIBLE);
             mNewHuiLifeGroup.setVisibility(View.GONE);
-            if (mTouchMode != -1 && menu.getTouchModeAbove() != mTouchMode){
 
-//                menu.setTouchModeAbove(mTouchMode);
-            }
         } else if (position==2){
             mTitle.setVisibility(View.GONE);
             mGroup.setVisibility(View.GONE);
@@ -847,13 +844,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             mGroup.setVisibility(View.GONE);
             mTitle.setVisibility(View.VISIBLE);
             mNewHuiLifeGroup.setVisibility(View.GONE);
-            if (position != 2) {
-//                if (menu.getTouchModeAbove() != SlidingMenu.TOUCHMODE_FULLSCREEN)
-//                    menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-//            } else {
-//                if (menu.getTouchModeAbove() == SlidingMenu.TOUCHMODE_FULLSCREEN)
-//                    menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
-            }
+
         }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         for (int i = 0; i < tab_menu_text_ID.length; i++) {//
@@ -862,10 +853,13 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             } else {
                 menu_tvs[i].setSelected(false);
             }
-            if (position == i) {
+            if (i==position) {
                 //TODO
                 //这里出了问题 明天调试
-                ft.show(fragments.get(i));
+                Log.e(Tag,"选中的position："+i+",fragment"+fragments.get(position).getTag());
+                ft.show(fragments.get(position));
+//                ft.commit();
+
             } else {
                 ft.hide(fragments.get(i));
             }
@@ -1041,59 +1035,4 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     }
 
 
-//
-//    public int screenWidth;// 屏幕宽度，单位为px
-//    public int screenHeight;// 屏幕高度，单位为px
-//    public int densityDpi;// 屏幕密度，单位为dpi
-//    public float scale;// 缩放系数，值为 densityDpi/160
-//    public float fontScale;// 文字缩放系数，同scale
-//
-//    public final static int SCREEN_ORIENTATION_VERTICAL = 1; // 屏幕状态：横屏
-//    public final static int SCREEN_ORIENTATION_HORIZONTAL = 2; // 屏幕状态：竖屏
-//    public int screenOrientation = SCREEN_ORIENTATION_VERTICAL;// 当前屏幕状态，默认为竖屏
-//
-//    /**
-//     * 获取屏幕参数
-//     * @param
-//     */
-//    public void GetScreenParams() {
-//        DisplayMetrics dm = new DisplayMetrics();
-//        MainActivity.this.getWindowManager().getDefaultDisplay().getMetrics(dm);
-//        screenWidth = dm.widthPixels;
-//        screenHeight = dm.heightPixels;
-//        densityDpi = dm.densityDpi;
-//        scale = dm.density;
-//        fontScale = dm.scaledDensity;
-//
-//        screenOrientation = screenHeight > screenWidth ? SCREEN_ORIENTATION_VERTICAL
-//                : SCREEN_ORIENTATION_HORIZONTAL;
-//
-//
-//        Log.e(TAG,"屏幕参数："+ ":[screenWidth: "
-//                + screenWidth
-//                + " screenHeight: "
-//                + screenHeight
-//                + " scale: "
-//                + scale
-//                + " fontScale: "
-//                + fontScale
-//                + " densityDpi: "
-//                + densityDpi
-//                + " screenOrientation: "
-//                + (screenOrientation == SCREEN_ORIENTATION_VERTICAL ? "vertical"
-//                : "horizontal") + "]");
-////        return dm;
-//        setScreenParams();
-//    }
-//
-//    /**
-//     * 设置全局屏幕参数
-//     */
-//    private void setScreenParams() {
-//        HighCommunityApplication.screenWidth=screenWidth;
-//        HighCommunityApplication.screenHeight=screenHeight;
-//        HighCommunityApplication.densityDpi=densityDpi;
-//        HighCommunityApplication.screenOrientation=screenOrientation;
-//
-//    }
 }
