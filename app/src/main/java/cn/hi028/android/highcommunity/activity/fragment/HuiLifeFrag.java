@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,9 +62,9 @@ public class HuiLifeFrag extends BaseFragment {
         view = inflater.inflate(R.layout.fragment_hui_life_new, null);
         ButterKnife.bind(this, view);
         initView();
-        ViewGroup parent = (ViewGroup) view.getParent();
-        if (parent != null)
-            parent.removeView(view);
+//        ViewGroup parent = (ViewGroup) view.getParent();
+//        if (parent != null)
+//            parent.removeView(view);
         return view;
     }
 
@@ -82,13 +81,13 @@ public class HuiLifeFrag extends BaseFragment {
 
             @Override
             public void onPageSelected(int i) {
-                if (i == 0) {
-
-                    mlistenerHuiLife.onHuiLifeChange(0);
-                } else {
-
-                    mlistenerHuiLife.onHuiLifeChange(1);
-                }
+                mlistenerHuiLife.onHuiLifeChange(i);
+//                if (i == 0) {
+//
+//                } else {
+//
+//                    mlistenerHuiLife.onHuiLifeChange(1);
+//                }
             }
 
             @Override
@@ -108,13 +107,7 @@ public class HuiLifeFrag extends BaseFragment {
         }
     }
 
-    public boolean onKeyDown(int KeyCode, KeyEvent event) {
-        //TODO 新版需改
-//        if (KeyCode == KeyEvent.KEYCODE_BACK) {
-//            return ((CommunityFrag) mAdapter.getItem(0)).onKeyDown();
-//        }
-        return false;
-    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -123,7 +116,7 @@ public class HuiLifeFrag extends BaseFragment {
 
 
     public interface MyChangeListener4HuiLife {
-        public void onHuiLifeChange(int i);
+        void onHuiLifeChange(int i);
     }
 
     @Override

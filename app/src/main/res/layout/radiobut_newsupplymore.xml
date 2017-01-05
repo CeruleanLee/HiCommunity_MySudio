@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RadioButton xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/rb_huilife_style2"
+    style="@style/rb_huilife_style_add_category"
     >
 
 </RadioButton>

@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="180dp">
 
         <ImageView
             android:id="@+id/flasfscale_img"
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="#aaaaaa"
+            android:background="#D0D0D0"
             android:paddingBottom="2dp"
             android:paddingTop="2dp">
 

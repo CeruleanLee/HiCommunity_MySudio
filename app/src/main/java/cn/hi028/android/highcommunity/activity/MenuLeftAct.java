@@ -28,6 +28,7 @@ import cn.hi028.android.highcommunity.activity.fragment.MyCarftsFrag_;
 import cn.hi028.android.highcommunity.activity.fragment.MyCollectionSwitchFrag;
 import cn.hi028.android.highcommunity.activity.fragment.MyCollectionSwitchFrag_;
 import cn.hi028.android.highcommunity.activity.fragment.MyMessageFrag;
+import cn.hi028.android.highcommunity.activity.fragment.MyTopicFrag;
 import cn.hi028.android.highcommunity.activity.fragment.NewHuiGdCarFrag;
 import cn.hi028.android.highcommunity.activity.fragment.NewHuiOrderFrag;
 import cn.hi028.android.highcommunity.activity.fragment.NewHuiOrderFrag_;
@@ -100,8 +101,8 @@ public class MenuLeftAct extends BaseFragmentActivity {
             case Constacts.MENU_LEFT_TOPIC:
                 mTitle.setText("我的话题");
                 Log.d(Tag,"------goto我我的话题");
-                MyMessageFrag mMyMessageFrag = new MyMessageFrag();
-                ft.replace(R.id.ll_menuleft_layout, mMyMessageFrag, MyMessageFrag.FRAGMENTTAG);
+                MyTopicFrag mMyTopicFrag = new MyTopicFrag();
+                ft.replace(R.id.ll_menuleft_layout, mMyTopicFrag, MyTopicFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_LEFT_COLLECTION:
                 mTitle.setText("我的收藏");

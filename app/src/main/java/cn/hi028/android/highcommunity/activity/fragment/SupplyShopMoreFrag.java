@@ -68,6 +68,7 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
         mAdapter = new SupplyMoreGoodsGridAdapter3(mList, getActivity());
 //        mGridview.setMode(PullToRefreshBase.Mode.DISABLED);
         mGridview.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+
 //        mGridview.setAdapter(mAdapter);
         //RecycleView 增加边距
         int spacingInPixels = 8;

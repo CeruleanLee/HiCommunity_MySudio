@@ -25,7 +25,7 @@ public class NewHuiLifePagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int arg0) {
         if (arg0 == 0) {
             if (mNewSupplyFragment == null) {
-            	   Log.d(Tag,Tag+"new mPublicMotionFrag()");
+            	   Log.d(Tag,Tag+"new NewSupplyFragment()");
                 mNewSupplyFragment = new NewSupplyFragment();
             }
             return mNewSupplyFragment;

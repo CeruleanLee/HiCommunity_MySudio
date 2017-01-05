@@ -21,6 +21,16 @@ public class NewSupplyBean {
     private String msg;
     private NewSupplyDataEntity data;
 
+    @Override
+    public String toString() {
+        return "NewSupplyBean{" +
+                "success=" + success +
+                ", code=" + code +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
+
     public void setSuccess(boolean success) {
         this.success = success;
     }
@@ -64,6 +74,15 @@ public class NewSupplyBean {
         private List<PurchaseEntity> purchase;
         private List<MerchantEntity> merchant;
 
+        @Override
+        public String toString() {
+            return "NewSupplyDataEntity{" +
+                    "category=" + category +
+                    ", purchase=" + purchase +
+                    ", merchant=" + merchant +
+                    '}';
+        }
+
         public void setCategory(List<CategoryEntity> category) {
             this.category = category;
         }
@@ -98,6 +117,15 @@ public class NewSupplyBean {
             private String id;
             private String name;
             private List<GoodsEntity> goods;
+
+            @Override
+            public String toString() {
+                return "CategoryEntity{" +
+                        "id='" + id + '\'' +
+                        ", name='" + name + '\'' +
+                        ", goods=" + goods +
+                        '}';
+            }
 
             public void setId(String id) {
                 this.id = id;
@@ -137,6 +165,17 @@ public class NewSupplyBean {
                 private String label;
                 private String cover_pic;
                 private String price;
+
+                @Override
+                public String toString() {
+                    return "GoodsEntity{" +
+                            "id='" + id + '\'' +
+                            ", name='" + name + '\'' +
+                            ", label='" + label + '\'' +
+                            ", cover_pic='" + cover_pic + '\'' +
+                            ", price='" + price + '\'' +
+                            '}';
+                }
 
                 public void setId(String id) {
                     this.id = id;
@@ -200,6 +239,20 @@ public class NewSupplyBean {
             private String old_price;
             private String storage;
             private String percent;
+
+            @Override
+            public String toString() {
+                return "PurchaseEntity{" +
+                        "id='" + id + '\'' +
+                        ", name='" + name + '\'' +
+                        ", cover_pic='" + cover_pic + '\'' +
+                        ", remainTime='" + remainTime + '\'' +
+                        ", price='" + price + '\'' +
+                        ", old_price='" + old_price + '\'' +
+                        ", storage='" + storage + '\'' +
+                        ", percent='" + percent + '\'' +
+                        '}';
+            }
 
             public void setId(String id) {
                 this.id = id;
@@ -274,6 +327,14 @@ public class NewSupplyBean {
 
             private String id;
             private String logo;
+
+            @Override
+            public String toString() {
+                return "MerchantEntity{" +
+                        "id='" + id + '\'' +
+                        ", logo='" + logo + '\'' +
+                        '}';
+            }
 
             public void setId(String id) {
                 this.id = id;

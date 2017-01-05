@@ -6,6 +6,7 @@ package cn.hi028.android.highcommunity.activity;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,6 +30,7 @@ import cn.hi028.android.highcommunity.utils.Constacts;
 @EActivity(resName = "act_activity")
 
 public class ActiveAct extends BaseFragmentActivity {
+    public static final String Tag = "ActiveAct->";
 
     public static final String ACTIVITYTAG = "ActiveAct";
     public static final String INTENTTAG = "ActiveActIntent";
@@ -41,6 +43,8 @@ public class ActiveAct extends BaseFragmentActivity {
 
     @AfterViews
     void initView() {
+        Log.e(Tag,"initView");
+
         if (!super.isVersionBiger()) {
             mHight.setVisibility(View.GONE);
         }
@@ -53,13 +57,13 @@ public class ActiveAct extends BaseFragmentActivity {
             case Constacts.ACTIVITY_DETAILS:
                 mTitle.setText("活动详情");
                 mShare.setVisibility(View.VISIBLE);
-                ActivityDetailsFrag mDetails = (ActivityDetailsFrag) new ActivityDetailsFrag();
+                ActivityDetailsFrag mDetails = new ActivityDetailsFrag();
                 ft.replace(R.id.ll_activity_mainLayout, mDetails, ActivityDetailsFrag.FRAGMENTTAG);
                 break;
             case Constacts.ACTIVITY_CREATE:
                 mTitle.setText("创建活动");
                 mShare.setVisibility(View.GONE);
-                ActivityCreateFrag mCreate = (ActivityCreateFrag) new ActivityCreateFrag();
+                ActivityCreateFrag mCreate =  new ActivityCreateFrag();
                 ft.replace(R.id.ll_activity_mainLayout, mCreate, ActivityCreateFrag.FRAGMENTTAG);
                 break;
         }

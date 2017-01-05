@@ -2,11 +2,14 @@ package cn.hi028.android.highcommunity.activity.fragment;
 
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -22,11 +25,8 @@ import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.view.AutoScrollViewPager;
 import net.duohuo.dhroid.view.CirclePageIndicator;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
-
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.ActiveAct;
@@ -44,20 +44,21 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @版本：1.0<br>
  * @时间：2016/1/13<br>
  */
-@EFragment(resName = "frag_activitydetails")
+//@EFragment(resName = "frag_activitydetails")
 public class ActivityDetailsFrag extends BaseFragment {
+    public static final String Tag = "ActivityDetails->";
 
     public static final String FRAGMENTTAG = "ActivityDetailsFrag";
-    @ViewById(R.id.ptrlv_activitydetails_listview)
+   @Bind(R.id.ptrlv_activitydetails_listview)
     PullToRefreshListView mlistView;
-    @ViewById(R.id.tv_activitydetails_replay)
+   @Bind(R.id.tv_activitydetails_replay)
     ImageView mReplay;
-    @ViewById(R.id.tv_activitydetails_join)
+   @Bind(R.id.tv_activitydetails_join)
     TextView mJoin;
 
-    @ViewById(R.id.progress_ActivityDetails)
+   @Bind(R.id.progress_ActivityDetails)
     View mProgress;
-    @ViewById(R.id.tv_ActivityDetails_Nodata)
+   @Bind(R.id.tv_ActivityDetails_Nodata)
     TextView mNodata;
 
     String replayBG_grey="#aaaaaa";
@@ -80,11 +81,22 @@ public class ActivityDetailsFrag extends BaseFragment {
     ActivityDetailAdapter mAdapter;
     ActivityAssistAdapter mAssistPicAdapter;
     PopupWindow mWaitingWindow, mShareWindow;
+    View view;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(Tag, "onCreateView");
+        view = inflater.inflate(R.layout.frag_activitydetails, null);
+        ButterKnife.bind(this, view);
+        initView();
+        return view;
+    }
+
     /**
      * 初始化VIew
      */
-    @AfterViews
+//    @AfterViews
     void initView() {
+        Log.e(Tag,"initView");
         mProgress.setVisibility(View.VISIBLE);
         mAdapter = new ActivityDetailAdapter(this);
         mAssistPicAdapter = new ActivityAssistAdapter(getActivity());
@@ -124,6 +136,8 @@ public class ActivityDetailsFrag extends BaseFragment {
         mlistView.setMode(PullToRefreshBase.Mode.DISABLED);
         mlistView.getRefreshableView().addHeaderView(header);
         mlistView.setAdapter(mAdapter);
+        Log.e(Tag,"HTTPHelper.ActivityDetail---");
+
         HTTPHelper.ActivityDetail(mIbpi, HighCommunityApplication.mUserInfo.getId() + "", aid);
         mGridView.setAdapter(mAssistPicAdapter);
         pagerAdapter = new PicPageAdapter(getActivity()
@@ -149,6 +163,18 @@ public class ActivityDetailsFrag extends BaseFragment {
         mViewPage.setInterval(2000);
         mViewPage.startAutoScroll();
         mViewPage.setCurrentItem(0);
+        mReplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replay();
+            }
+        });
+        mJoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                join();
+            }
+        });
     }
 
     /**
@@ -221,7 +247,7 @@ public class ActivityDetailsFrag extends BaseFragment {
         }
     };
 
-    @Click(R.id.tv_activitydetails_replay)
+//    @Click(R.id.tv_activitydetails_replay)
     void replay() {
     	if (isReplayCanRepaly) {
 			
@@ -345,7 +371,7 @@ public class ActivityDetailsFrag extends BaseFragment {
     /**
      * 参与活动
      */
-    @Click(R.id.tv_activitydetails_join)
+//    @Click(R.id.tv_activitydetails_join)
     void join() {
         if (HighCommunityUtils.isLogin(getActivity())) {
             mWaitingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), mDeadTime, Gravity.CENTER);
@@ -414,4 +440,9 @@ public class ActivityDetailsFrag extends BaseFragment {
         return false;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 }

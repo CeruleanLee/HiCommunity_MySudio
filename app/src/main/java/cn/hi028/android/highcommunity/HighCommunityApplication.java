@@ -16,6 +16,7 @@ import com.don.tools.BpiHttpClient;
 import com.don.tools.MyImageDownloader;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import net.duohuo.dhroid.BaseApplication;
 
@@ -23,6 +24,7 @@ import org.xutils.x;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import cn.hi028.android.highcommunity.bean.UserInfoBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
@@ -31,6 +33,7 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.MyLocationListener;
 import cn.hi028.android.highcommunity.view.ECAlertDialog;
 import cn.jpush.android.api.JPushInterface;
+import okhttp3.OkHttpClient;
 
 /**
  * @功能：嗨社区application<br>
@@ -111,7 +114,16 @@ static  final String Tag="HiApplication->";
 //        Toast.makeText(getApplicationContext(), "是否安装支付宝：" + isAliPayInStalled, Toast.LENGTH_SHORT).show();
 
         Log.d(Tag,"---是否安装支付宝：" + isAliPayInStalled);
+        /**配置okhttp**/
 //       new UpdateUtil(getApplicationContext()).checkUpdate();
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+//                .addInterceptor(new LoggerInterceptor("TAG"))
+                .connectTimeout(10000L, TimeUnit.MILLISECONDS)
+                .readTimeout(10000L, TimeUnit.MILLISECONDS)
+                //其他配置
+                .build();
+
+        OkHttpUtils.initClient(okHttpClient);
 
     }
 

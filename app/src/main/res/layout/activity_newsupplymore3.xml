@@ -74,23 +74,19 @@ android:background="@color/Defult_Color_ShallowGrey"
                 android:layout_height="wrap_content">
 
 
+                <RadioGroup
+
+                    android:id="@+id/supplyMore_rg_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:paddingLeft="12dp"
+                    android:visibility="visible"
+                    android:paddingRight="12dp">
+                </RadioGroup>
             </HorizontalScrollView>
-            <RadioGroup
-
-                android:id="@+id/supplyMore_rg_category"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:background="@color/white"
-                android:orientation="horizontal"
-
-                android:paddingLeft="12dp"
-                android:visibility="visible"
-                android:paddingRight="12dp">
-
-
-
-            </RadioGroup>
 
             <View
                 android:layout_width="match_parent"

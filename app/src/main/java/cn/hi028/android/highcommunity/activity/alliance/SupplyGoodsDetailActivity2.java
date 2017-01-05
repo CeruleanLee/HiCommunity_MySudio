@@ -65,6 +65,7 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
     Button addToCar;
     TextView caramount, mAllprice, telephone, time,tv_mynodata;
     FrameLayout shopcar;
+    LinearLayout progress_layout;
     LinearLayout payrl;
     RelativeLayout layout_hasData;
     RadioGroup mRadioGroup;
@@ -124,6 +125,9 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
         tv_mynodata = (TextView) findViewById(R.id.tv_mynodata);
         back = (ImageView) findViewById(R.id.ac_good_title_go_back);
         payrl = (LinearLayout) findViewById(R.id.shop_deatil_bottom_pay_rl);
+        progress_layout = (LinearLayout) findViewById(R.id.progress_layout);
+
+
         layout_hasData = (RelativeLayout) findViewById(R.id.layout_hasData);
         mAllprice = (TextView) findViewById(R.id.ac_shop_car_price);
         addToCar = (Button) findViewById(R.id.ac_shop_car_addtocar);
@@ -186,6 +190,8 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
                 mWaittingPop.dismiss();
             }
             layout_hasData.setVisibility(View.GONE);
+            progress_layout.setVisibility(View.GONE);
+
             tv_mynodata.setText(message);
             tv_mynodata.setVisibility(View.VISIBLE);
 
@@ -198,6 +204,9 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
             Log.d(Tag, "onSuccess");
             if (null == message)
                 return;
+            progress_layout.setVisibility(View.GONE);
+            layout_hasData.setVisibility(View.VISIBLE);
+
             mCarPriceSum = 0.00f;
             List<NewSupplyCarlistBean.SupplyCarlistDataEntity> mlist = (List<NewSupplyCarlistBean.SupplyCarlistDataEntity>) message;
             for (int i = 0; i < mlist.size(); i++) {
@@ -576,7 +585,8 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.ac_good_title_go_back:
-                goBack();
+//                goBack();
+                onBackPressed();
                 break;
             case R.id.ac_shop_car_fl://点击购物车跳转购物车列表
                 Intent mIntent = new Intent(this, GeneratedClassUtils.get(MenuLeftAct.class));
@@ -768,10 +778,6 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
         return df.format(price);
     }
 
-    @Override
-    public void onBackPressed() {
-        goBack();
-    }
 
     @Override
     public void onPause() {

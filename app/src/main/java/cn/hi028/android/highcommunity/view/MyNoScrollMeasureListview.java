@@ -34,8 +34,9 @@ public boolean isMeasure=false;
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
 		Log.e("MyNoScrollMeasure--","onLayout");
 		isMeasure=false;
-		int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
-				MeasureSpec.AT_MOST);
-		super.onLayout(changed, l, t, r, expandSpec);
+//		int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
+//				MeasureSpec.AT_MOST);
+//		super.onLayout(changed, l, t, r, expandSpec);
+		super.onLayout(changed, l, t, r, b);
 	}
 }

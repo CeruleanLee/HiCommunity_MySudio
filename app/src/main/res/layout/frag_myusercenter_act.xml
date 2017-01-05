@@ -404,6 +404,7 @@
             <LinearLayout
                 android:id="@+id/ll_leftMenu_bill"
                 style="@style/ll_leftmenu_style_padinglitter"
+                android:visibility="gone"
                 android:clickable="true">
 
                 <com.don.view.DrawableCenterTextView
@@ -468,6 +469,7 @@
             <LinearLayout
                 android:id="@+id/ll_leftMenu_wallet"
                 style="@style/ll_leftmenu_style_padinglitter"
+                android:visibility="gone"
                 android:clickable="true">
 
                 <com.don.view.DrawableCenterTextView

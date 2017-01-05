@@ -144,7 +144,7 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
         mAdapter = new ThirdServiceAdapter(getActivity());
         mGridView.setMode(PullToRefreshBase.Mode.DISABLED);
         mGridView.setOnItemClickListener(mItemClickListener);
-//		initDatas();
+		initDatas();
 
 //		if (isFirstShowGuid){
 //			isFirstShowGuid=false;
@@ -197,8 +197,8 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
 
         @Override
         public void onTryAgainClick() {
-            if (!isNoNetwork)
-                initDatas();
+//            if (!isNoNetwork)
+//                initDatas();
             //				HTTPHelper.GetThirdService(mIbpi);
             //			Toast.makeText(getActivity(), "------------OnLoadingViewListener", 0).show();
         }
@@ -385,7 +385,7 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
     public void onResume() {
         super.onResume();
         Log.d(Tag, "onResume");
-        initDatas();
+//        initDatas();
         //		mLoadingView.startLoading();
 //		registNetworkReceiver();
     }

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
 
     <include
+
         android:id="@+id/progress_ActivityDetails"
         layout="@layout/progress" />
 
@@ -16,22 +17,12 @@
         android:gravity="center"
         android:text="暂无数据"
         android:visibility="gone" />
-
-
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/ptrlv_activitydetails_listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@android:color/white"
-        android:divider="@color/Defult_Color_ShallowGrey"
-        android:dividerHeight="0.5dip"
-        android:fadingEdge="none"
-        android:scrollbars="none" />
-
     <LinearLayout
+        android:id="@+id/layout_bottom"
         android:layout_width="match_parent"
         android:layout_height="42dip"
+
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <TextView
@@ -46,10 +37,25 @@
             android:layout_width="85dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-           android:background="#aaaaaa"
+            android:background="#aaaaaa"
             android:padding="10dip"
+
             android:src="@mipmap/img_activity_details_comment" />
     </LinearLayout>
     <!--  android:background="@drawable/bg_activity_replay_selector" -->
 
-</LinearLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/ptrlv_activitydetails_listview"
+        android:layout_above="@id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@android:color/white"
+        android:divider="@color/Defult_Color_ShallowGrey"
+        android:dividerHeight="0.5dip"
+        android:fadingEdge="none"
+        android:scrollbars="none" />
+
+
+</RelativeLayout>

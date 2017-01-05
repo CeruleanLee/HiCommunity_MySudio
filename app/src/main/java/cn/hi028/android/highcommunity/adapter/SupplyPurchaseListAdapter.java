@@ -14,7 +14,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.don.tools.BpiUniveralImage;
-import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.lidroid.xutils.BitmapUtils;
 
 import java.util.ArrayList;
@@ -40,10 +39,9 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private PullToRefreshGridView adapterView;
     Auto_SupportedResultBean.SupportedResultDataEntity mResultData;
 
-    public SupplyPurchaseListAdapter(List<NewSupplyBean.NewSupplyDataEntity.PurchaseEntity> list, Context context, PullToRefreshGridView adapterView) {
+    public SupplyPurchaseListAdapter(List<NewSupplyBean.NewSupplyDataEntity.PurchaseEntity> list, Context context) {
         super();
         this.mList = list;
         if (this.mList == null) {
@@ -52,7 +50,6 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
         bitmapUtils = MBitmapHolder.getBitmapUtils(context);
-        this.adapterView = adapterView;
     }
 
     @Override

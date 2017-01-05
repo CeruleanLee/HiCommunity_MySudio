@@ -24,6 +24,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.SupplyMorePagerAdapter;
 import cn.hi028.android.highcommunity.bean.SupplyGoodsMoreBean;
@@ -55,7 +56,7 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
     HorizontalScrollView mHorizontalScrollView;
 //    @Bind(R.id.id_stickynavlayout_viewpager)
     ViewPager mViewpager;
-
+public static  final int categray_with= (int)(HighCommunityApplication.screenWidth/3);
 
 //    private SimpleViewPagerIndicator mIndicator;
     List<RadioButton> mRadioButList = new ArrayList<RadioButton>();
@@ -143,14 +144,14 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
             RadioButton defaultRadioBut = (RadioButton) LayoutInflater.from(NewSupplyMoreAct3.this).inflate(R.layout.radiobut_newsupplymore, null);
             defaultRadioBut.setId(0);
             if (isCategorySizeMuch) {
-                defaultRadioBut.setWidth(0);
+//                defaultRadioBut.setWidth(0);
 //                defaultRadioBut.setLayoutParams(new RadioGroup.LayoutParams(rbutWith, RadioGroup.LayoutParams.MATCH_PARENT));
-                defaultRadioBut.setLayoutParams(new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.MATCH_PARENT, 1f));
+                defaultRadioBut.setLayoutParams(new RadioGroup.LayoutParams(categray_with, RadioGroup.LayoutParams.MATCH_PARENT));
 
             } else {
 
-                defaultRadioBut.setWidth(0);
-                defaultRadioBut.setLayoutParams(new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.MATCH_PARENT, 1f));
+//                defaultRadioBut.setWidth(0);
+                defaultRadioBut.setLayoutParams(new RadioGroup.LayoutParams(categray_with, RadioGroup.LayoutParams.MATCH_PARENT));
             }
 
             defaultRadioBut.setText("所有");
@@ -165,20 +166,20 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
 
 //                    newRadioBut.setWidth(rbutWith);
 //                    newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(rbutWith, RadioGroup.LayoutParams.MATCH_PARENT));
-                    newRadioBut.setWidth(80);
-                    newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(300, RadioGroup.LayoutParams.MATCH_PARENT, 1f));
+//                    newRadioBut.setWidth(80);
+                    newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(categray_with, RadioGroup.LayoutParams.MATCH_PARENT));
                 } else {
                     Log.e(Tag, "isCategorySizeMuch false ");
 
-                    newRadioBut.setWidth(80);
-                    newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(300, RadioGroup.LayoutParams.MATCH_PARENT));
+//                    newRadioBut.setWidth(80);
+                    newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(categray_with, RadioGroup.LayoutParams.MATCH_PARENT));
 //                    newRadioBut.setWidth(0);
 //                    newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.MATCH_PARENT, 1f));
                 }
 
                 newRadioBut.setText(mDataCategory.get(i).getName());
-//                mRgCategory.addView(newRadioBut);
-                mGroup.addView(newRadioBut);
+                mRgCategory.addView(newRadioBut);
+//                mGroup.addView(newRadioBut);
             }
             Log.e(Tag, "mRgCategory.size(): " + mRgCategory.getChildCount());
             Log.e(Tag, "mGroup.size(): " + mGroup.getChildCount());
@@ -192,7 +193,8 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
 //                }
 //            }
 
-            mHorizontalScrollView.addView(mGroup);
+//            mHorizontalScrollView.addView(mGroup);
+            mHorizontalScrollView.addView(mRgCategory);
             Log.e(Tag, "mHorizontalScrollView.size(): " + mHorizontalScrollView.getChildCount());
 
             initView();
@@ -257,6 +259,8 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
                     if (mRgCategory.getChildAt(i).getId() == checkedId) {
 
                         setCurrentPage(i);
+                        Log.e(Tag,"横向滑动的距离："+categray_with*i);
+                        mHorizontalScrollView.scrollTo(categray_with*i,0);
                     }
 
 

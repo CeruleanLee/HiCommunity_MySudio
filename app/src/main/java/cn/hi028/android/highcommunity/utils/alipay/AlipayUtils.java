@@ -130,18 +130,6 @@ public class AlipayUtils {
 
 			@Override
 			public void run() {
-				//				// 构造PayTask 对象
-				//				PayTask alipay = new PayTask(act);
-				//				// 调用支付接口，获取支付结果
-				//				final String result = alipay.pay(payInfo, true);
-				//				act.runOnUiThread(new Runnable() {
-				//					@Override
-				//					public void run() {
-				//						lin.onPay(new PayResult(result));
-				//					}
-				//				});
-
-
 				if (!HighCommunityApplication.isAliPayInStalled()) {
 					Log.e(Tag,"------未安装支付宝");
 					//					HighCommunityApplication.showDialog(new View(HighCommunityApplication.getApp()));
@@ -249,12 +237,26 @@ public class AlipayUtils {
 		Thread payThread = new Thread(payRunnable);
 		payThread.start();
 	}
+
+	/**
+	 * v2.0 直供商品支付页 创建订单支付信息
+	 * @param act
+	 * @param gName
+	 * @param gInfo
+	 * @param total_fee
+	 * @param old_fee
+	 * @param out_trade_no
+	 * @param ticket_id
+	 * @param zero_money
+     * @param notify_url
+     * @param lin
+     */
 	public void payGoods(final Activity act, String gName, String gInfo,
 			String total_fee,String old_fee, String out_trade_no, String ticket_id,
 			String zero_money, String notify_url, final onPayListener lin) {
 		String orderInfo = getOrderInfo2(gName, gInfo, total_fee,old_fee, out_trade_no,
 				zero_money, ticket_id, notify_url);
-		Log.e(Tag,"orderInfo:"+orderInfo);
+		Log.e(Tag,"v2.0 orderInfo:"+orderInfo);
 		this.act=act;
 		if (!HighCommunityApplication.isAliPayInStalled()) {
 			Log.e(Tag,"------未安装支付宝");
@@ -415,7 +417,7 @@ public class AlipayUtils {
 		orderInfo += "&return_url=\"m.alipay.com\"";
 		JSONObject json = new JSONObject();
 		try {
-			json.put("ticket_id", ticket_id);//这两个参数什么意思  优惠劵
+			json.put("ticket_id", ticket_id);
 			json.put("zero_money", zero_money);
 			orderInfo += "&out_context=\"" + json.toString() + "\"";
 		} catch (JSONException e) {
@@ -428,11 +430,10 @@ public class AlipayUtils {
 		return orderInfo;
 	}
 	/**
-	 * create the order info. 创建订单信息
+	 * 新版v2.0 惠生活直供商品 创建订单信息  加了现价，原价
 	 */
 	private String getOrderInfo2(String subject, String body,String total_fee,String old_fee,
-			String out_trade_no, String zero_money, String ticket_id,
-			String notify_url) {
+			String out_trade_no, String zero_money, String ticket_id, String notify_url) {
 
 		// 签约合作者身份ID
 		String orderInfo = "partner=" + "\"" + PARTNER + "\"";
@@ -447,12 +448,11 @@ public class AlipayUtils {
 		orderInfo += "&subject=" + "\"" + subject + "\"";
 
 		// 商品详情
-		orderInfo += "&body=" + "\"" + body + "\"";
+		orderInfo += "&body=" + "\"" + body + "|ticket_id="+ticket_id+"|zero_money="+zero_money+"|old_fee="+old_fee+"\"";
 
 		// 商品金额
 		orderInfo += "&total_fee=" + "\"" +total_fee + "\"";
-		// 原价
-		orderInfo += "&old_fee=" + "\"" +old_fee + "\"";
+
 
 		// 服务器异步通知页面路径
 		orderInfo += "&notify_url=" + "\"" + notify_url + "\"";
@@ -480,8 +480,10 @@ public class AlipayUtils {
 		orderInfo += "&return_url=\"m.alipay.com\"";
 		JSONObject json = new JSONObject();
 		try {
-			json.put("ticket_id", ticket_id);//这两个参数什么意思  优惠劵
+			json.put("ticket_id", ticket_id);
 			json.put("zero_money", zero_money);
+			// 原价
+			json.put("old_fee", old_fee);
 			orderInfo += "&out_context=\"" + json.toString() + "\"";
 		} catch (JSONException e) {
 			e.printStackTrace();

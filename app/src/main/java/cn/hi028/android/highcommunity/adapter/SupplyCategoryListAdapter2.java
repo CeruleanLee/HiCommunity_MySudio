@@ -3,7 +3,6 @@ package cn.hi028.android.highcommunity.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -12,11 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.don.tools.BpiHttpHandler;
 import com.don.tools.BpiUniveralImage;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.lidroid.xutils.BitmapUtils;
@@ -31,16 +28,16 @@ import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivit
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
-import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.MBitmapHolder;
+import cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview;
 
 /**
  * @功能：直供商品分类adapter<br>
  * @作者： Lee_yting<br>
  * @时间：2016/11/28<br>
  */
-public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
-    public static final String TAG = "SuppCategoryAdapter：";
+public class SupplyCategoryListAdapter2 extends BaseFragmentAdapter {
+    public static final String TAG = "SuppCategoryAdapter2：";
     List<NewSupplyBean.NewSupplyDataEntity.CategoryEntity> mList = new ArrayList<NewSupplyBean.NewSupplyDataEntity.CategoryEntity>();
     private Context context;
     private LayoutInflater layoutInflater;
@@ -50,7 +47,7 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
     int smallImgWith=HighCommunityApplication.smallImgWith;
     Auto_SupportedResultBean.SupportedResultDataEntity mResultData;
 
-    public SupplyCategoryListAdapter(List<NewSupplyBean.NewSupplyDataEntity.CategoryEntity> list, Context context) {
+    public SupplyCategoryListAdapter2(List<NewSupplyBean.NewSupplyDataEntity.CategoryEntity> list, Context context) {
         super();
         Log.e(TAG, "SupplyCategoryListAdapter");
 
@@ -80,26 +77,13 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
     }
 
     ViewHolder mViewHolder = null;
-    SimpleDraweeView mBigGoodsimg;
-    TextView mbigTvTag;
-    TextView mbigTitle;
-    TextView mbigNowPrice;
-    SimpleDraweeView msmallGoodsimg1;
-    TextView msmallTvTag1;
-    TextView msmallTitle1;
-    TextView msmallNowPrice1;
-    ImageView msmallShopcart1;
-    SimpleDraweeView msmallGoodsimg2;
-    TextView msmallTvTag2;
-    TextView msmallTitle2;
-    TextView msmallNowPrice2;
-     ImageView msmallShopcart2;
-     ImageView mBigShopcart;
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+        Log.e(TAG,"~~~getView");
         if (convertView == null) {
             mViewHolder = new ViewHolder();
-            convertView = layoutInflater.inflate(R.layout.item_supply_coegory, null);
+            convertView = layoutInflater.inflate(R.layout.item_supply_coegory2, null);
             mViewHolder.mTitle = (TextView) convertView.findViewById(R.id.item_category_tv_title);
             mViewHolder.mLine = convertView.findViewById(R.id.position_line);
             mViewHolder.mTvMore = (TextView) convertView.findViewById(R.id.item_category_tv_more);
@@ -107,6 +91,29 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
             mViewHolder.mSmallview1 = (RelativeLayout) convertView.findViewById(R.id.item_category_smallpic1);
             mViewHolder.mSmallview2 = (RelativeLayout) convertView.findViewById(R.id.item_category_smallpic2);
             mViewHolder.itemCateLayout1 = (RelativeLayout) convertView.findViewById(R.id.item_cate_layout_1);
+//1
+
+            mViewHolder.mBigGoodsimg = (ImageView) convertView.findViewById(R.id.category_big_goodsimg);
+            mViewHolder.mbigTvTag = (TextView) convertView.findViewById(R.id.category_big_tv_tag);
+            mViewHolder.mbigTitle = (TextView) convertView.findViewById(R.id.category_big_goodsTitle);
+            mViewHolder.mbigNowPrice = (TextView) convertView.findViewById(R.id.category_big_nowPrice);
+            mViewHolder.mBigShopcart = (ImageView) convertView.findViewById(R.id.category_big_shopcart);
+            //2
+
+            mViewHolder. msmallGoodsimg1 = (ImageView) convertView.findViewById(R.id.category_small_goodsimg_goodsimg);
+            mViewHolder.msmallTvTag1 = (TextView) convertView.findViewById(R.id.category_small_goodsimg_tv_tag);
+            mViewHolder.msmallTitle1 = (TextView) convertView.findViewById(R.id.category_small_goodsimg_goodsTitle);
+            mViewHolder.msmallNowPrice1 = (TextView) convertView.findViewById(R.id.category_small_goodsimg_nowPrice);
+            mViewHolder.msmallShopcart1 = (ImageView) convertView.findViewById(R.id.category_small_goodsimg_shopcart);
+            //3
+            mViewHolder.msmallGoodsimg2 = (ImageView) convertView.findViewById(R.id.category_small_goodsimg_goodsimg2);
+            mViewHolder.msmallTvTag2 = (TextView) convertView.findViewById(R.id.category_small_goodsimg_tv_tag2);
+            mViewHolder.msmallTitle2 = (TextView) convertView.findViewById(R.id.category_small_goodsimg_goodsTitle2);
+            mViewHolder.msmallNowPrice2 = (TextView) convertView.findViewById(R.id.category_small_goodsimg_nowPrice2);
+            mViewHolder. msmallShopcart2 = (ImageView) convertView.findViewById(R.id.category_small_goodsimg_shopcart2);
+
+
+
 
             convertView.setTag(mViewHolder);
         } else {
@@ -119,30 +126,29 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
         // 设置内容view的大小为屏幕宽度,这样按钮就正好被挤出屏幕外
 //        View bigView = getBigView(mBean);
         /**************/
-        View bigView = layoutInflater.inflate(R.layout.item_newsupply_type_big, null);
+        if(parent instanceof MyNoScrollMeasureListview){
 
-        mBigGoodsimg = (SimpleDraweeView) bigView.findViewById(R.id.category_big_goodsimg);
-        mBigGoodsimg.getLayoutParams().width=bigImgWith;
-        mBigGoodsimg.getLayoutParams().height=bigImgHeight;
-        mbigTvTag = (TextView) bigView.findViewById(R.id.category_big_tv_tag);
-        mbigTitle = (TextView) bigView.findViewById(R.id.category_big_goodsTitle);
-        mbigNowPrice = (TextView) bigView.findViewById(R.id.category_big_nowPrice);
-        mBigShopcart = (ImageView) bigView.findViewById(R.id.category_big_shopcart);
+            if(((MyNoScrollMeasureListview) parent).isMeasure){
+                Log.e(TAG,"~~~isMeasure");
+                return convertView;
+            }
+        }
+        Log.e(TAG,"~~~!  isMeasure");
         if (mBean.getGoods().get(0).getCover_pic() == null || mBean.getGoods().get(0).getCover_pic().equals("")) {
-            BpiUniveralImage.displayImage("drawable://" + R.mipmap.default_no_pic, mBigGoodsimg);
+            BpiUniveralImage.displayImage("drawable://" + R.mipmap.default_no_pic, mViewHolder.mBigGoodsimg);
         } else {
-            mBigGoodsimg.setImageURI(Constacts.IMAGEHTTP + mBean.getGoods().get(0).getCover_pic());
-//            BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(0).getCover_pic(), mBigGoodsimg);
+//            mViewHolder. mBigGoodsimg.setImageURI(Constacts.IMAGEHTTP + mBean.getGoods().get(0).getCover_pic());
+            BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(0).getCover_pic(), mViewHolder. mBigGoodsimg);
         }
         if (mBean.getGoods().get(0).getLabel()!=null){
 
-            mbigTvTag.setText(mBean.getGoods().get(0).getLabel());
+            mViewHolder.mbigTvTag.setText(mBean.getGoods().get(0).getLabel());
         }else{
-            mbigTvTag.setVisibility(View.GONE);
+            mViewHolder. mbigTvTag.setVisibility(View.GONE);
         }
-        mbigTitle.setText(mBean.getGoods().get(0).getName());
-        mbigNowPrice.setText("￥:" + mBean.getGoods().get(0).getPrice());
-        mBigShopcart.setOnClickListener(new View.OnClickListener() {
+        mViewHolder.mbigTitle.setText(mBean.getGoods().get(0).getName());
+        mViewHolder.mbigNowPrice.setText("￥:" + mBean.getGoods().get(0).getPrice());
+        mViewHolder. mBigShopcart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                if (HighCommunityUtils.isLogin(context)) {
@@ -154,34 +160,24 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
                 context.startActivity(mIntent);
             }
         });
-        mViewHolder.mBigView.addView(bigView);
         //第一个小图
         /***********************************/
-//        View smallView1 = getSmallView1(mBean);
-        View smallView1 = layoutInflater.inflate(R.layout.item_newsupply_type_small, null);
 
-        msmallGoodsimg1 = (SimpleDraweeView) smallView1.findViewById(R.id.category_small_goodsimg_goodsimg);
-        msmallGoodsimg1.getLayoutParams().width=smallImgWith;
-        msmallGoodsimg1.getLayoutParams().height=smallImgWith;
-        msmallTvTag1 = (TextView) smallView1.findViewById(R.id.category_small_goodsimg_tv_tag);
-        msmallTitle1 = (TextView) smallView1.findViewById(R.id.category_small_goodsimg_goodsTitle);
-        msmallNowPrice1 = (TextView) smallView1.findViewById(R.id.category_small_goodsimg_nowPrice);
-        msmallShopcart1 = (ImageView) smallView1.findViewById(R.id.category_small_goodsimg_shopcart);
         if (mBean.getGoods().get(1).getCover_pic() == null || mBean.getGoods().get(1).getCover_pic().equals("")) {
-            BpiUniveralImage.displayImage("drawable://" + R.mipmap.default_no_pic, msmallGoodsimg1);
+            BpiUniveralImage.displayImage("drawable://" + R.mipmap.default_no_pic, mViewHolder.msmallGoodsimg1);
         } else {
-            msmallGoodsimg1.setImageURI(Constacts.IMAGEHTTP + mBean.getGoods().get(1).getCover_pic());
-//            BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(1).getCover_pic(), msmallGoodsimg1);
+//            mViewHolder. msmallGoodsimg1.setImageURI(Constacts.IMAGEHTTP + mBean.getGoods().get(1).getCover_pic());
+            BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(1).getCover_pic(), mViewHolder. msmallGoodsimg1);
         }
         if (mBean.getGoods().get(1).getLabel()!=null){
 
-            msmallTvTag1.setText(mBean.getGoods().get(1).getLabel());
+            mViewHolder. msmallTvTag1.setText(mBean.getGoods().get(1).getLabel());
         }else{
-            msmallTvTag1.setVisibility(View.GONE);
+            mViewHolder.msmallTvTag1.setVisibility(View.GONE);
         }
-        msmallTitle1.setText(mBean.getGoods().get(1).getName());
-        msmallNowPrice1.setText("￥:" + mBean.getGoods().get(1).getPrice());
-        msmallShopcart1.setOnClickListener(new View.OnClickListener() {
+        mViewHolder. msmallTitle1.setText(mBean.getGoods().get(1).getName());
+        mViewHolder. msmallNowPrice1.setText("￥:" + mBean.getGoods().get(1).getPrice());
+        mViewHolder. msmallShopcart1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent mIntent = new Intent(context, SupplyGoodsDetailActivity2.class);
@@ -189,34 +185,25 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
                 context.startActivity(mIntent);
             }
         });
-        mViewHolder.mSmallview1.addView(smallView1);
         //第2个小图
         /************************************/
-//        View smallView2 = getSmallView2(mBean);
-        View smallView2 = layoutInflater.inflate(R.layout.item_newsupply_type_small, null);
 
-        msmallGoodsimg2 = (SimpleDraweeView) smallView2.findViewById(R.id.category_small_goodsimg_goodsimg);
-        msmallGoodsimg2.getLayoutParams().width=smallImgWith;
-        msmallGoodsimg2.getLayoutParams().height=smallImgWith;
-        msmallTvTag2 = (TextView) smallView2.findViewById(R.id.category_small_goodsimg_tv_tag);
-        msmallTitle2 = (TextView) smallView2.findViewById(R.id.category_small_goodsimg_goodsTitle);
-        msmallNowPrice2 = (TextView) smallView2.findViewById(R.id.category_small_goodsimg_nowPrice);
-        msmallShopcart2 = (ImageView) smallView2.findViewById(R.id.category_small_goodsimg_shopcart);
+
         if (mBean.getGoods().get(2).getCover_pic() == null || mBean.getGoods().get(2).getCover_pic().equals("")) {
-            BpiUniveralImage.displayImage("drawable://" + R.mipmap.default_no_pic, msmallGoodsimg2);
+            BpiUniveralImage.displayImage("drawable://" + R.mipmap.default_no_pic, mViewHolder.msmallGoodsimg2);
         } else {
-            msmallGoodsimg2.setImageURI(Constacts.IMAGEHTTP + mBean.getGoods().get(2).getCover_pic());
-//            BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(2).getCover_pic(), msmallGoodsimg2);
+//            mViewHolder.msmallGoodsimg2.setImageURI(Constacts.IMAGEHTTP + mBean.getGoods().get(2).getCover_pic());
+            BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(2).getCover_pic(), mViewHolder.msmallGoodsimg2);
         }
         if (mBean.getGoods().get(1).getLabel()!=null){
 
-            msmallTvTag2.setText(mBean.getGoods().get(2).getLabel());
+            mViewHolder.msmallTvTag2.setText(mBean.getGoods().get(2).getLabel());
         }else{
-            msmallTvTag2.setVisibility(View.GONE);
+            mViewHolder. msmallTvTag2.setVisibility(View.GONE);
         }
-        msmallTitle2.setText(mBean.getGoods().get(2).getName());
-        msmallNowPrice2.setText("￥:" + mBean.getGoods().get(2).getPrice());
-        msmallShopcart2.setOnClickListener(new View.OnClickListener() {
+        mViewHolder. msmallTitle2.setText(mBean.getGoods().get(2).getName());
+        mViewHolder.msmallNowPrice2.setText("￥:" + mBean.getGoods().get(2).getPrice());
+        mViewHolder.msmallShopcart2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent mIntent = new Intent(context, SupplyGoodsDetailActivity2.class);
@@ -224,9 +211,6 @@ public class SupplyCategoryListAdapter extends BaseFragmentAdapter {
                 context.startActivity(mIntent);
             }
         });
-
-        mViewHolder.mSmallview2.addView(smallView2);
-
         mViewHolder.itemCateLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -443,41 +427,25 @@ System.gc();
         RelativeLayout mSmallview1;
         RelativeLayout mSmallview2;
 
+
+        ImageView mBigGoodsimg;
+        TextView mbigTvTag;
+        TextView mbigTitle;
+        TextView mbigNowPrice;
+        ImageView msmallGoodsimg1;
+        TextView msmallTvTag1;
+        TextView msmallTitle1;
+        TextView msmallNowPrice1;
+        ImageView msmallShopcart1;
+        ImageView msmallGoodsimg2;
+        TextView msmallTvTag2;
+        TextView msmallTitle2;
+        TextView msmallNowPrice2;
+        ImageView msmallShopcart2;
+        ImageView mBigShopcart;
+
+
     }
-
-    /**
-     * 加入购物车弹窗
-     */
-    PopupWindow waitPop;
-    /**
-     * 加入购物车回调
-     */
-    BpiHttpHandler.IBpiHttpHandler mIbpiAddShopCar = new BpiHttpHandler.IBpiHttpHandler() {
-        @Override
-        public void onError(int id, String message) {
-            waitPop.dismiss();
-            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
-        }
-
-        @Override
-        public void onSuccess(Object message) {
-            waitPop.dismiss();
-            HighCommunityUtils.GetInstantiation().ShowToast("成功加入购物车", 0);
-        }
-
-        @Override
-        public Object onResolve(String result) {
-            Log.e(TAG, "onResolve result" + result);
-            return result;
-        }
-        @Override
-        public void setAsyncTask(AsyncTask asyncTask) {
-        }
-        @Override
-        public void cancleAsyncTask() {
-            waitPop.dismiss();
-        }
-    };
 
 
 }

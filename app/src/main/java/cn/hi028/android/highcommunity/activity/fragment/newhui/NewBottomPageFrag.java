@@ -7,13 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.don.tools.BpiUniveralImage;
 import com.lzy.widget.vertical.VerticalScrollView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
@@ -29,10 +27,13 @@ import java.util.List;
 import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.HuiOrderAdapter;
+import cn.hi028.android.highcommunity.adapter.PicDetailListAdapter;
 import cn.hi028.android.highcommunity.adapter.SupplGoodsDetailGridAdapter;
 import cn.hi028.android.highcommunity.adapter.SupplyGoodsDetailCommentAdapter;
+import cn.hi028.android.highcommunity.bean.Autonomous.PicBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyGoodsDetailBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
+import cn.hi028.android.highcommunity.view.MyNoScrollListview;
 import cn.hi028.android.highcommunity.view.NoScrollListview;
 import cn.hi028.android.highcommunity.view.NoScroolGridView;
 import cn.hi028.android.highcommunity.view.ScrollWebView;
@@ -45,9 +46,10 @@ import cn.hi028.android.highcommunity.view.ScrollWebView;
 public class NewBottomPageFrag extends BaseFragment {
     public static final String Tag = "NewBottomPageFrag--->";
     public static final String FRAGMENTTAG = "NewBottomPageFrag";
-    public static  boolean isFistRequest = true;
-    public static  boolean isFistRequestHttp = true;
+    public static boolean isFistRequest = true;
+    public static boolean isFistRequestHttp = true;
     View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(Tag, "onCreateView");
@@ -56,6 +58,7 @@ public class NewBottomPageFrag extends BaseFragment {
         initView();
         return view;
     }
+
     NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity goodsdata;
 
     private void initView() {
@@ -75,14 +78,13 @@ public class NewBottomPageFrag extends BaseFragment {
         }
 
 
-
-
-
     }
+
     RadioGroup mRadioGroup;
     RadioButton mPicDetail, mCommentDetail;
     TextView tv_noData;
     TextView mHishequTV;
+
     private void findView(View view) {
         mRadioGroup = (RadioGroup) view.findViewById(R.id.ac_shopdetail_RadioGroup);
         // toSeeMore.setChecked(false);
@@ -98,8 +100,8 @@ public class NewBottomPageFrag extends BaseFragment {
 //        mPager.setPagingEnabled(false);
 
 
-
     }
+
     /**
      * 设置底部的数据
      *
@@ -114,8 +116,6 @@ public class NewBottomPageFrag extends BaseFragment {
     }
 
     private void initPager(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
-
-
 
 
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -157,8 +157,8 @@ public class NewBottomPageFrag extends BaseFragment {
         HuiOrderAdapter adapter = new HuiOrderAdapter();//与我相关用
 
         List<View> viewList = new ArrayList<View>();
-        viewList.add(0,getPicDetail(msg));
-        viewList.add(1,getCommentPageView(msg));
+        viewList.add(0, getPicDetail(msg));
+        viewList.add(1, getCommentPageView(msg));
         mPager.setAdapter(adapter);
         mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -186,6 +186,7 @@ public class NewBottomPageFrag extends BaseFragment {
 
 
     }
+
     /**
      * 下半页的viewpager
      **/
@@ -250,13 +251,22 @@ public class NewBottomPageFrag extends BaseFragment {
         View mProgress = view.findViewById(R.id.ll_NoticeDetails_Progress);
         VerticalScrollView mScrollView1 = (VerticalScrollView) view.findViewById(R.id.srcollview_page_picdetail);
         LinearLayout layout_showhtml = (LinearLayout) view.findViewById(R.id.page1_tv_showhtml);
-        ImageView img_showhtml = (ImageView) view.findViewById(R.id.page1_img_showhtml);
+        MyNoScrollListview pic_noscrolllistview = (MyNoScrollListview) view.findViewById(R.id.pic_noscrolllistview);
+
+        List<PicBean> imguilList = new ArrayList<PicBean>();
+
+//        ImageView img_showhtml = (ImageView) view.findViewById(R.id.page1_img_showhtml);
+
         ScrollWebView detail_webview = (ScrollWebView) view.findViewById(R.id.page1_good_detail_webview);
         TextView tv_Hishequ = (TextView) view.findViewById(R.id.page1_shopdetail_tv_Hishequ);
         TextView tv_nopicurl = (TextView) view.findViewById(R.id.tv_nopicurl);
         NoScroolGridView recommendGoodsGview = (NoScroolGridView) view.findViewById(R.id.page1_shopdetail_recommendGoods);
         mProgress.setVisibility(View.GONE);
         TextView mNodata = (TextView) view.findViewById(R.id.tv_NoticeDetails_noData);
+
+        PicDetailListAdapter mPicDetailListAdapter = new PicDetailListAdapter(imguilList, getActivity());
+        pic_noscrolllistview.setEmptyView(mNodata);
+        pic_noscrolllistview.setAdapter(mPicDetailListAdapter);
         Element lastElement = null;
         if (null != msg.getDetail()) {
             if (msg.getDetail().startsWith("http")) {
@@ -284,29 +294,55 @@ public class NewBottomPageFrag extends BaseFragment {
                 }
                 Elements media = document.select("[src]");
                 if (media != null) {
+                    for (int i = 0; i < media.size(); i++) {
+                        Element src = media.get(i);
 
-                    for (Element src : media) {
                         if (src.tagName().equals("img")) {
                             Log.e(Tag, src.tagName() + "," + src.attr("src") + "," + src.attr("width") + "," + src.attr("height") + "," + src.attr("alt"));
-
-                            if (src.attr("height") != null && !src.attr("height").equals("")&&img_showhtml.getLayoutParams()!=null) {
+                            PicBean mPicbean = new PicBean();
+                            if (src.attr("height") != null && !src.attr("height").equals("")) {
 //                               html_img.getLayoutParams().height=Integer.parseInt(src.attr("height"));
-                                Log.e(Tag, "height ! " );
+                                Log.e(Tag, "height ! ");
 
-                                img_showhtml.getLayoutParams().height=(int) (Integer.parseInt(src.attr("height"))*1.5);
+                                mPicbean.setHeight(src.attr("height"));
 
                             } else {
-                                Log.e(Tag, "height null " );
+                                Log.e(Tag, "height null ");
                             }
                             if (src.attr("src") != null && !src.attr("src").equals("")) {
-                                Log.e(Tag, "src ! null uri:"+ Constacts.IMAGEHTTP + src.attr("src"));
-                                BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + src.attr("src"), img_showhtml);
+                                Log.e(Tag, "src ! null uri:" + Constacts.IMAGEHTTP + src.attr("src"));
+                                mPicbean.setImgUrl(src.attr("src"));
                             }
-
+                            imguilList.add(mPicbean);
+                            mPicDetailListAdapter.AddNewData(imguilList);
                         } else {
                             Log.e(Tag, src.tagName() + ",_____________" + src.attr("src"));
                         }
                     }
+
+
+//                    for (Element src : media) {
+//                        if (src.tagName().equals("img")) {
+//                            Log.e(Tag, src.tagName() + "," + src.attr("src") + "," + src.attr("width") + "," + src.attr("height") + "," + src.attr("alt"));
+//                            PicBean mPicbean = new PicBean();
+//                            if (src.attr("height") != null && !src.attr("height").equals("")) {
+////                               html_img.getLayoutParams().height=Integer.parseInt(src.attr("height"));
+//                                Log.e(Tag, "height ! ");
+//
+//                                mPicbean.setHeight(src.attr("height"));
+//
+//                            } else {
+//                                Log.e(Tag, "height null ");
+//                            }
+//                            if (src.attr("src") != null && !src.attr("src").equals("")) {
+//                                Log.e(Tag, "src ! null uri:" + Constacts.IMAGEHTTP + src.attr("src"));
+//                                mPicbean.setImgUrl(src.attr("src"));
+//                            }
+//
+//                        } else {
+//                            Log.e(Tag, src.tagName() + ",_____________" + src.attr("src"));
+//                        }
+//                    }
                 } else {
                     Log.e(Tag, "img null   显示text");
 
@@ -326,9 +362,11 @@ public class NewBottomPageFrag extends BaseFragment {
         } else {
             Log.e(Tag, "图文详情url: null");
             tv_nopicurl.setText("暂无图文详情");
-            tv_nopicurl.getLayoutParams().width= 50;
+            tv_nopicurl.getLayoutParams().width = 50;
 //            tv_nopicurl.getLayoutParams().width= CommonUtils.px2dip(50);
         }
+
+
         if (null != msg.getSupply()) {
             tv_Hishequ.setText("—— 本商品由" + msg.getSupply() + "所有 ——");
         } else {

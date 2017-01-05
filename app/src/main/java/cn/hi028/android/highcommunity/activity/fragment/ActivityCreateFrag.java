@@ -7,11 +7,15 @@ package cn.hi028.android.highcommunity.activity.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.PopupWindow;
@@ -24,15 +28,12 @@ import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.GridAdapter;
@@ -50,28 +51,31 @@ import photo.util.ImageItem;
  * @版本：1.0<br>
  * @时间：2016/1/13<br>
  */
-@EFragment(resName = "frag_activitycreate")
+//@EFragment(resName = "frag_activitycreate")
 public class ActivityCreateFrag extends BaseFragment {
+    public static final String Tag = "ActivityCreateFrag->";
 
     public static final String FRAGMENTTAG = "ActivityCreateFrag";
 
-    @ViewById(R.id.ptrgv_activityCreate_PostImage)
+    @Bind(R.id.ptrgv_activityCreate_PostImage)
     PullToRefreshGridView mGridView;
-    @ViewById(R.id.et_activityCreate_name)
+    @Bind(R.id.et_activityCreate_name)
     EditText mName;
-    @ViewById(R.id.et_activityCreate_activityContent)
+    @Bind(R.id.et_activityCreate_activityContent)
     EditText mContent;
-    @ViewById(R.id.et_activityCreate_StartTime)
+    @Bind(R.id.et_activityCreate_StartTime)
     TextView mStartTime;
-    @ViewById(R.id.et_activityCreate_EndTime)
+    @Bind(R.id.et_activityCreate_EndTime)
     TextView mEndTime;
-    @ViewById(R.id.et_activityCreate_Location)
+    @Bind(R.id.tv_activityCreate_submit)
+    TextView tv_activityCreate_submit;
+    @Bind(R.id.et_activityCreate_Location)
     EditText mLocation;
-    @ViewById(R.id.et_activityCreate_Phone)
+    @Bind(R.id.et_activityCreate_Phone)
     EditText mPhone;
-    @ViewById(R.id.et_activityCreate_QQ)
+    @Bind(R.id.et_activityCreate_QQ)
     EditText mQQ;
-    @ViewById(R.id.et_activityCreate_Weixin)
+    @Bind(R.id.et_activityCreate_Weixin)
     EditText mWeixin;
 
     private static final int TAKE_PICTURE = 0x000004;
@@ -82,11 +86,19 @@ public class ActivityCreateFrag extends BaseFragment {
     PopupWindow mWaitingWindow;
     boolean isClicked = false;
     List<String> mImages = new ArrayList<String>();
-
+    View view;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(Tag, "onCreateView");
+        view = inflater.inflate(R.layout.frag_activitycreate, null);
+        ButterKnife.bind(this, view);
+        initView();
+        return view;
+    }
     /**
      * 初始化VIew
      */
-    @AfterViews
+//    @AfterViews
     void initView() {
         mAdapter = new GridAdapter(getActivity());
         mGridView.setMode(PullToRefreshBase.Mode.DISABLED);
@@ -114,11 +126,17 @@ public class ActivityCreateFrag extends BaseFragment {
         );
         //初始化图片数组
         HighCommunityUtils.InitPicList(6);
+        tv_activityCreate_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
     }
 
     @Override
     public void onResume() {
-        mAdapter.notifyDataSetChanged();
+//        mAdapter.notifyDataSetChanged();
         setHeight();
         super.onResume();
     }
@@ -167,7 +185,7 @@ public class ActivityCreateFrag extends BaseFragment {
     /**
      * 提交创建
      */
-    @Click(R.id.tv_activityCreate_submit)
+//    @Click(R.id.tv_activityCreate_submit)
     void submit() {
         if (isClicked) {
             return;
