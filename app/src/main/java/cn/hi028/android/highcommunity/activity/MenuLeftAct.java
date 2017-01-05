@@ -200,8 +200,8 @@ public class MenuLeftAct extends BaseFragmentActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        MyMessageFrag mMyMessageFrag = (MyMessageFrag) getSupportFragmentManager()
-                .findFragmentByTag(MyMessageFrag.FRAGMENTTAG);
+//        MyMessageFrag mMyMessageFrag = (MyMessageFrag) getSupportFragmentManager()
+//                .findFragmentByTag(MyMessageFrag.FRAGMENTTAG);
         MyCollectionSwitchFrag mCollection = (MyCollectionSwitchFrag) getSupportFragmentManager()
                 .findFragmentByTag(MyCollectionSwitchFrag.FRAGMENTTAG);
         if (keyCode == KeyEvent.KEYCODE_BACK) {

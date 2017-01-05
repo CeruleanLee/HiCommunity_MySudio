@@ -36,7 +36,7 @@ import cn.hi028.android.highcommunity.view.LoadingView;
  */
 public class MyTopicFrag extends Fragment {
 
-    public static final String FRAGMENTTAG = "MyMessageFrag";
+    public static final String FRAGMENTTAG = "MyTopicFrag";
     private View mFragmeView;
     private int mCount = -1;
     CommunityListAdapter2 mAdapter;

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/supply_scrollview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     android:background="@color/Defult_Color_ShallowGrey"
     android:scrollbars="none"
     tools:context="cn.hi028.android.highcommunity.activity.fragment.newhui.NewSupplyFragment">
@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/container_newsupply"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -47,7 +47,7 @@
         <LinearLayout
             android:id="@+id/layout_hasdata"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="fill_parent"
             android:orientation="vertical"
             android:visibility="gone">
 
@@ -62,9 +62,6 @@
                 android:textColor="@color/Service_title_text_color"
                 android:textSize="15dp"
                 android:visibility="gone" />
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="fill_parent">
 
 
     <cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview
@@ -77,7 +74,7 @@
         android:listSelector="@drawable/bg_third_service_selector">
 
     </cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview>
-</RelativeLayout>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -110,9 +107,6 @@
                     android:layout_toRightOf="@id/item_category_tv_flashsaleTitle"
                     android:background="@color/Defult_Color_LineGrey" />
             </RelativeLayout>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="fill_parent">
 
 
     <cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview
@@ -125,7 +119,7 @@
         android:listSelector="@drawable/bg_third_service_selector">
 
     </cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview>
-</RelativeLayout>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
