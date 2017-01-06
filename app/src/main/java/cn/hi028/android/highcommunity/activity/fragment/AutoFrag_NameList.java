@@ -58,6 +58,12 @@ public class AutoFrag_NameList extends BaseFragment {
     ListView mListRe;
     @Bind(R.id.frag_AutoName_list_Owner)
     ListView mListOwner;
+
+
+
+
+    @Bind(R.id.tv_Autonotice_Nodata)
+    TextView tv_Autonotice_Nodata;
     AutoNamelist_YWHAdapter mYWHadapter;
     AutoNamelist_YZDBAdapter mYZDBadapter;
     AutoNamelist_YZAdapter mYZadapter;
@@ -118,6 +124,9 @@ public class AutoFrag_NameList extends BaseFragment {
         mYWDBList = new ArrayList<Auto_NameListBean.NameListDataEntity.YzdbEntity>();
         mYWHadapter = new AutoNamelist_YWHAdapter(mYWHList, getActivity());
         mYZDBadapter = new AutoNamelist_YZDBAdapter(mYWDBList, getActivity());
+        mListCO.setEmptyView(tv_Autonotice_Nodata);
+        mListRe.setEmptyView(tv_Autonotice_Nodata);
+
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

@@ -21,6 +21,7 @@ import java.util.List;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.bean.NewSupplyGoodsDetailBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
+import cn.hi028.android.highcommunity.utils.TimeUtil;
 
 /**
  * @功能：新版直供商品详情评价adapter<br>
@@ -82,7 +83,10 @@ static final String Tag="SupplyGoodsDetailCommentAdapter:";
         }
         mViewHolder.username.setText(mBean.getNick());
         mViewHolder.merchantname.setVisibility(View.GONE);
-        mViewHolder.time.setText(getTime(Long.parseLong(mBean.getTime())));
+
+        mViewHolder.time.setText(TimeUtil.longToString(Long.parseLong(mBean.getTime())*1000,"yyyy年MM月dd日"));
+//        mViewHolder.time.setText(TimeUtil.getDayAllTime(Long.parseLong(mBean.getTime())));
+//        mViewHolder.time.setText(getTime(Long.parseLong(mBean.getTime())));
         mViewHolder.content.setText(mBean.getContent());
         return convertView;
     }

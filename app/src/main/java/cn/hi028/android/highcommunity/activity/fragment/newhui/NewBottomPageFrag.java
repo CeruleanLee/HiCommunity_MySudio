@@ -34,7 +34,6 @@ import cn.hi028.android.highcommunity.bean.Autonomous.PicBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyGoodsDetailBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.view.MyNoScrollListview;
-import cn.hi028.android.highcommunity.view.NoScrollListview;
 import cn.hi028.android.highcommunity.view.NoScroolGridView;
 import cn.hi028.android.highcommunity.view.ScrollWebView;
 
@@ -206,7 +205,7 @@ public class NewBottomPageFrag extends BaseFragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.page_commentlistdetail2, null);
         VerticalScrollView mScrollView2 = (VerticalScrollView) view.findViewById(R.id.srcollview_page_comment);
 
-        NoScrollListview evaluation_listview = (NoScrollListview) view.findViewById(R.id.page2_evaluation_listview);
+        MyNoScrollListview evaluation_listview = (MyNoScrollListview) view.findViewById(R.id.page2_evaluation_listview);
         TextView tv_Hishequ = (TextView) view.findViewById(R.id.page2_shopdetail_tv_Hishequ);
         NoScroolGridView shopdetail_recommendGoods = (NoScroolGridView) view.findViewById(R.id.page2_shopdetail_recommendGoods);
         View mProgress = view.findViewById(R.id.ll_sysMsg_Progress);

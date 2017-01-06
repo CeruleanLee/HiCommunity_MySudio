@@ -2,6 +2,8 @@ package cn.hi028.android.highcommunity.activity.fragment.newhui;
 
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
@@ -21,6 +23,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.view.AutoScrollViewPager;
@@ -41,7 +44,7 @@ import cn.hi028.android.highcommunity.utils.TimeUtil;
  * @作者： Lee_yting<br>
  * @时间：2016/11/28<br>
  */
-public class NewTopPageFrag extends BaseFragment {
+public class NewTopPageFrag extends BaseFragment implements View.OnClickListener {
     public static final String Tag = "NewTopPageFrag--->";
     public static final String FRAGMENTTAG = "NewTopPageFrag";
     public static  boolean isFistRequest = true;
@@ -80,7 +83,7 @@ findView(view);
 
             Log.e(Tag, "传过来的对象：null");
         }
-
+        call.setOnClickListener(this);
     }
     AutoScrollViewPager mViewPager;
     CirclePageIndicator mIndicator;
@@ -299,6 +302,10 @@ findView(view);
                 TextView mAttr_val = (TextView) inflateView.findViewById(R.id.ac_shop_origin_tv);
                 mAttr_name.setText(attrEntityList.get(i).getAttr_name());
                 mAttr_val.setText(attrEntityList.get(i).getAttr_val());
+
+                //TODO 加虚线
+
+
                 moreDetailGroup.addView(inflateView);
             }
         }
@@ -425,6 +432,22 @@ findView(view);
     private String telPhone = "";
     List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.StandardEntity> mStandardList = new ArrayList<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.StandardEntity>();
     onCounter mCounter;
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.call:
+                if(telPhone==null||telPhone.equals("")){
+                    Toast.makeText(getActivity(),"客服电话为空",Toast.LENGTH_SHORT).show();
+                }else{
+
+                    Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + telPhone));
+                    startActivity(intent2);
+                }
+                break;
+        }
+    }
+
     public class onCounter extends CountDownTimer {
 
         public onCounter(long millisInFuture, long countDownInterval) {

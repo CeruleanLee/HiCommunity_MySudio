@@ -18,7 +18,7 @@ import java.util.List;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.AutonomousAct_Third;
 import cn.hi028.android.highcommunity.activity.fragment.AddressListFrag;
-import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SuperViseBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SuperViseBean2;
 import cn.hi028.android.highcommunity.utils.TimeUtil;
 
 /**
@@ -31,16 +31,16 @@ public class AutoSuperviseAdapter_Inq extends BaseFragmentAdapter {
     /**留言详情**/
     public static final int TAG_MESSAGE_DETAIL = 8;
     public AddressListFrag mFrag;
-    List<Auto_SuperViseBean.SuperViseDataEntity> mList = new ArrayList<Auto_SuperViseBean.SuperViseDataEntity>();
+    List<Auto_SuperViseBean2.SuperViseBean2DataEntity.SuperViseDataEntity> mList = new ArrayList<Auto_SuperViseBean2.SuperViseBean2DataEntity.SuperViseDataEntity>();
     private Context context;
     private LayoutInflater layoutInflater;
     private boolean isMessage = false;
 
-    public AutoSuperviseAdapter_Inq(List<Auto_SuperViseBean.SuperViseDataEntity> list, Context context, boolean isMessage) {
+    public AutoSuperviseAdapter_Inq(List<Auto_SuperViseBean2.SuperViseBean2DataEntity.SuperViseDataEntity> list, Context context, boolean isMessage) {
         super();
         this.mList = list;
         if (this.mList == null) {
-            this.mList = new ArrayList<Auto_SuperViseBean.SuperViseDataEntity>();
+            this.mList = new ArrayList<Auto_SuperViseBean2.SuperViseBean2DataEntity.SuperViseDataEntity>();
         }
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
@@ -53,7 +53,7 @@ public class AutoSuperviseAdapter_Inq extends BaseFragmentAdapter {
     }
 
     @Override
-    public Auto_SuperViseBean.SuperViseDataEntity getItem(int position) {
+    public Auto_SuperViseBean2.SuperViseBean2DataEntity.SuperViseDataEntity getItem(int position) {
         return mList.get(position);
     }
 
@@ -77,7 +77,7 @@ public class AutoSuperviseAdapter_Inq extends BaseFragmentAdapter {
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
-        final Auto_SuperViseBean.SuperViseDataEntity mBean = mList.get(position);
+        final Auto_SuperViseBean2.SuperViseBean2DataEntity.SuperViseDataEntity mBean = mList.get(position);
         mViewHolder.mTitle.setText(mBean.getTitle());
 //        TimeUtil.getDayAllTime(Long.parseLong(mBean.getCreate_time()))
         mViewHolder.mTime.setText(TimeUtil.getYearMonthDay(Long.parseLong(mBean.getTime())));
@@ -123,7 +123,7 @@ public class AutoSuperviseAdapter_Inq extends BaseFragmentAdapter {
     @Override
     public void AddNewData(Object mObject) {
         if (mObject instanceof List<?>) {
-            mList = (List<Auto_SuperViseBean.SuperViseDataEntity>) mObject;
+            mList = (List<Auto_SuperViseBean2.SuperViseBean2DataEntity.SuperViseDataEntity>) mObject;
 
         }
         notifyDataSetChanged();

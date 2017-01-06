@@ -146,7 +146,7 @@ public class ShakeFrag extends BaseFragment {
         HTTPHelper.ShakeDataList(new BpiHttpHandler.IBpiHttpHandler() {
             @Override
             public void onError(int id, String message) {
-
+                HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
             }
 
             @Override

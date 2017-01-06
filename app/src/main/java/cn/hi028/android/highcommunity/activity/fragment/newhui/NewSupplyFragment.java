@@ -68,13 +68,18 @@ public class NewSupplyFragment extends BaseFragment {
     @Bind(R.id.piclistView)
     MyNineGridView piclistView;
     @Bind(R.id.container_newsupply)
-    RelativeLayout containerNewsupply;
+    LinearLayout containerNewsupply;
 
     @Bind(R.id.progress_layout)
     LinearLayout progress_layout;
 
     @Bind(R.id.layout_hasdata)
     LinearLayout layout_hasdata;
+
+    @Bind(R.id.layout_splashTV)
+    RelativeLayout layout_splashTV;
+    @Bind(R.id.layout_merchantTV)
+    RelativeLayout layout_merchantTV;
     private PopupWindow mWatingWindow;
 
     @Override
@@ -239,8 +244,29 @@ progress_layout.setVisibility(View.GONE);
 
             mBean = (NewSupplyBean.NewSupplyDataEntity) message;
             Log.e(Tag, "onSuccess  6");
+            if (mBean!=null){
+                if (mBean.getCategory()!=null){
 
-            initCategoryList(mBean);
+                    initCategoryList(mBean);
+                }
+                if (mBean.getPurchase()!=null&&mBean.getPurchase().size()>0){
+
+                    initPurchaseList(mBean);
+
+                }else{
+                    layout_splashTV.setVisibility(View.GONE);
+                }
+                if (mBean.getMerchant()!=null&&mBean.getMerchant().size()>0){
+
+                    initmerchantList(mBean);
+
+
+                }else{
+                    layout_merchantTV.setVisibility(View.GONE);
+                }
+
+
+            }
             if (isFistRequest){
                 isFistRequest=false;
 
@@ -299,7 +325,7 @@ progress_layout.setVisibility(View.GONE);
     private void initPurchaseList(NewSupplyBean.NewSupplyDataEntity mBean) {
         final SupplyPurchaseListAdapter mPurchaseAdapter = new SupplyPurchaseListAdapter(mBean.getPurchase(), getActivity());
         mPurchaseListview.setAdapter(mPurchaseAdapter);
-        initmerchantList(mBean);
+
     }
 
     public CountDownTimer countDownTimer;
@@ -319,7 +345,7 @@ progress_layout.setVisibility(View.GONE);
         mCategoryListview.setAdapter(mCategoryAdapter);
         Log.e(Tag, "setAdapter ok");
 
-        initPurchaseList(mBean);
+
 
     }
 

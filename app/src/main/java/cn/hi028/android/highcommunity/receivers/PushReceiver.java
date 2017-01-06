@@ -192,6 +192,12 @@ public class PushReceiver extends BroadcastReceiver {
                     i.putExtra("title", TAG_NOTIC);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.startActivity(i);
+                }else if (type == 3) {// 自治大厅投票type=3
+                    Intent i = new Intent(context, AutonomousAct_Second.class);
+                    i.putExtras(bundle);
+                    i.putExtra("title", TAG_VOTE);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    context.startActivity(i);
                 }
             } catch (JSONException e) {
 
@@ -201,5 +207,6 @@ public class PushReceiver extends BroadcastReceiver {
 
     }
     public static final int TAG_NOTIC = 0;
+    public static final int TAG_VOTE = 1;
 //    }
 }

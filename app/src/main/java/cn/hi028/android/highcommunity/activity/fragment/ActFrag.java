@@ -488,7 +488,7 @@ public class ActFrag extends BaseFragment {
              if (Constacts.mUserCenter.getWallet() == 0) {
                  mLeftWalletNum.setVisibility(View.GONE);
              } else {
-             mLeftWalletNum.setVisibility(View.VISIBLE);
+             mLeftWalletNum.setVisibility(View.GONE);
              mLeftWalletNum.setText(Constacts.mUserCenter.getWallet()+"");
              }
 

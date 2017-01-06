@@ -23,10 +23,14 @@
         <TextView
             android:id="@+id/tv_NoticeDetails_noData"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:gravity="center"
-            android:text="暂无数据"
-            android:visibility="gone" />
+            android:text="暂无图文详情数据"
+            android:textColor="@color/Defult_Color_DeepGrey"
+            android:background="@color/white"
+            android:visibility="gone"
+
+            />
 
         <LinearLayout
             android:id="@+id/page1_tv_showhtml"
@@ -69,7 +73,7 @@
             android:id="@+id/page1_shopdetail_tv_Hishequ"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="1dp"
             android:background="@color/white"
             android:gravity="center"
             android:text="—— 本商品由xxx所有 ——"

@@ -1,15 +1,15 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/supply_scrollview"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/Defult_Color_ShallowGrey"
     android:scrollbars="none"
     tools:context="cn.hi028.android.highcommunity.activity.fragment.newhui.NewSupplyFragment">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/container_newsupply"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="10dp"
@@ -20,13 +20,13 @@
 
         <LinearLayout
             android:id="@+id/progress_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_centerInParent="true"
             android:background="@color/Defult_Color_ShallowGrey"
             android:gravity="center"
             android:orientation="horizontal"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <ProgressBar
                 android:id="@+id/pg_progress"
@@ -46,7 +46,7 @@
 
         <LinearLayout
             android:id="@+id/layout_hasdata"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical"
             android:visibility="gone">
@@ -55,7 +55,7 @@
             <TextView
                 android:id="@+id/tv_NoticeDetails_noData"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="fill_parent"
                 android:background="@color/defult_color_white"
                 android:gravity="center"
                 android:text=""
@@ -64,9 +64,10 @@
                 android:visibility="gone" />
 
 
+
     <cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview
         android:id="@+id/supply_category_listview"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@android:color/white"
         android:divider="@color/Defult_Color_ShallowGrey"
@@ -76,9 +77,11 @@
     </cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview>
 
 
+
             <RelativeLayout
+                android:id="@+id/layout_splashTV"
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="30dp"
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="30dp">
 
@@ -111,7 +114,7 @@
 
     <cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview
         android:id="@+id/supply_purchase_listview"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@android:color/white"
         android:divider="@color/Defult_Color_ShallowGrey"
@@ -121,9 +124,11 @@
     </cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview>
 
 
+
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent"
+                android:id="@+id/layout_merchantTV"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="30dp">
 
@@ -156,11 +161,10 @@
             </RelativeLayout>
 
 
-
             <cn.hi028.android.highcommunity.view.nine.MyNineGridView xmlns:lyt="http://schemas.android.com/apk/res-auto"
 
                 android:id="@+id/piclistView"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_marginBottom="30dp"
                 android:cacheColorHint="@android:color/transparent"
@@ -174,5 +178,5 @@
                 lyt:sapcing="12dp" />
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 </ScrollView>

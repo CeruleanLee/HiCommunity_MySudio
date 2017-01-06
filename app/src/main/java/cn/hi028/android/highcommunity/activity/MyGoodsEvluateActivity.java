@@ -133,7 +133,7 @@ ImageView goBack;
 					obj.put("gid", bean.getGoods_id());
 					obj.put("content", content.getText().toString().trim());
 					type = 1;
-					HTTPHelper.SendEvaluate2(mIbpi, obj);
+					HTTPHelper.SendEvaluate2(mIbpi, obj,id);
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}

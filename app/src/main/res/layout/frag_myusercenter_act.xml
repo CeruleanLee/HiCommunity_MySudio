@@ -469,7 +469,7 @@
             <LinearLayout
                 android:id="@+id/ll_leftMenu_wallet"
                 style="@style/ll_leftmenu_style_padinglitter"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:clickable="true">
 
                 <com.don.view.DrawableCenterTextView

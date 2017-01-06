@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
@@ -21,13 +20,11 @@ import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.CommunityDetailAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
-import cn.hi028.android.highcommunity.activity.VallageAct;
 import cn.hi028.android.highcommunity.adapter.CommunityListAdapter2;
 import cn.hi028.android.highcommunity.bean.CommunityBean;
 import cn.hi028.android.highcommunity.bean.CommunityListBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
-import cn.hi028.android.highcommunity.view.LoadingView;
 
 /**
  * @说明：我的话题
@@ -35,13 +32,13 @@ import cn.hi028.android.highcommunity.view.LoadingView;
  * @时间：2017/1/5 0005
  */
 public class MyTopicFrag extends Fragment {
+    public static final String TAG = "MyTopicFrag";
 
     public static final String FRAGMENTTAG = "MyTopicFrag";
     private View mFragmeView;
     private int mCount = -1;
     CommunityListAdapter2 mAdapter;
     private PullToRefreshListView mListView;
-    private ImageView mChange;
     private TextView mNodata;
     CommunityListBean mList = new CommunityListBean();
     CommunityBean mBean = null;
@@ -57,41 +54,17 @@ public class MyTopicFrag extends Fragment {
             parent.removeView(mFragmeView);
         return mFragmeView;
     }
-    private LoadingView mLoadingView;
     private void initView() {
         mFragmeView = LayoutInflater.from(getActivity()).inflate(
-                R.layout.frag_community_list, null);
+                R.layout.frag_community_list_mytopic, null);
         vid = getActivity().getIntent().getStringExtra(FRAGMENTTAG);
         mListView = (PullToRefreshListView) mFragmeView.findViewById(R.id.ptrlv_community_listview);
-        mChange = (ImageView) mFragmeView.findViewById(R.id.iv_community_change);
         mNodata = (TextView) mFragmeView.findViewById(R.id.tv_community_Nodata);
-        mLoadingView = (LoadingView) mFragmeView.findViewById(R.id.loadingView);
         mAdapter = new CommunityListAdapter2((MenuLeftAct) getActivity());
         mListView.setAdapter(mAdapter);
         mListView.setEmptyView(mNodata);
         mListView.setMode(PullToRefreshBase.Mode.DISABLED);
-        mChange.setVisibility(View.GONE);
-        mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                RefreshData(0);
-            }
 
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                RefreshData(1);
-            }
-        });
-        mChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (HighCommunityUtils.isLogin()) {
-                    VallageAct.toStartAct(getActivity(), 1, false);
-                } else {
-                    VallageAct.toStartAct(getActivity(), 0, false);
-                }
-            }
-        });
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -111,27 +84,10 @@ public class MyTopicFrag extends Fragment {
         super.onResume();
     }
 
-    private void RefreshData(int type) {
-        String time = "";
-        if (type == 0) {
-            mCount = 0;
-            if (mAdapter != null && mAdapter.getCount() > 0) {
-                time = mAdapter.getItem(0).getCreate_time();//mList.getData().get(0).getCreate_time();
-            }
-        } else {
-            mCount = 1;
-            if (mAdapter != null && mAdapter.getCount() > 0) {
-                time = mAdapter.getItem(mAdapter.getCount() - 1).getCreate_time();//mList.getData().get(mList.getData().size() - 1).getCreate_time();
-            }
-        }
-        HTTPHelper.RefreshMyMessage(mIbpi, type, time, HighCommunityApplication.mUserInfo.getId());//
-    }
 
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            mLoadingView.loadFailed();
-            mLoadingView.setVisibility(View.GONE);
             mNodata.setText(message);
             mNodata.setVisibility(View.VISIBLE);
             mListView.onRefreshComplete();
@@ -143,14 +99,17 @@ public class MyTopicFrag extends Fragment {
             if (null == message)
                 return;
             mList = (CommunityListBean) message;
-            mLoadingView.loadSuccess();
-            if (mCount == 0) {
-                mAdapter.AddNewData(mList.getData());
-            } else if (mCount == 1) {
-                mAdapter.RefreshData(mList.getData());
-            } else if (mCount == -1) {
-                mAdapter.SetData(mList.getData());
-            }
+            if (null == mList||mList.getData()==null)
+                return;
+            mAdapter.ClearData();
+            mAdapter.AddNewData(mList.getData());
+            Log.e(TAG,"AddNewData onSuccess");
+//            if (mCount == 0) {
+//            } else if (mCount == 1) {
+//                mAdapter.RefreshData(mList.getData());
+//            } else if (mCount == -1) {
+//                mAdapter.SetData(mList.getData());
+//            }
             mListView.onRefreshComplete();
         }
 

@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StrikethroughSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.MBitmapHolder;
 import cn.hi028.android.highcommunity.utils.TimeUtil;
 import cn.hi028.android.highcommunity.view.CutdownTextView;
+import cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview;
 
 /**
  * @功能：直供商品限时抢购adapter<br>
@@ -68,6 +70,7 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
     }
 
     ViewHolder mViewHolder = null;
+
     onCounter mCounter;
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
@@ -89,6 +92,20 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
+
+        /**************/
+        if(parent instanceof MyNoScrollMeasureListview &&((MyNoScrollMeasureListview) parent).isMeasure){
+//            if(((MyNoScrollMeasureListview) parent).isMeasure){
+            Log.e(TAG,"~~~isMeasure");
+            Log.e(TAG,"~~~isMeasure position---"+position);
+            return convertView;
+//            }
+        }
+        Log.e(TAG,"~~!  isMeasure ~position---"+position);
+
+        Log.e(TAG,"~~~!  isMeasure");
+
+
         final NewSupplyBean.NewSupplyDataEntity.PurchaseEntity mBean = mList.get(position);
 
         if (mBean.getCover_pic() == null || mBean.getCover_pic().equals("")) {

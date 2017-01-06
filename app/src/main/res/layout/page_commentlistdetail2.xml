@@ -25,25 +25,28 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
-            android:text="暂无数据"
+            android:text="暂无评论数据"
+            android:textColor="@color/Defult_Color_DeepGrey"
             android:background="@color/white"
             android:visibility="visible" />
-        <cn.hi028.android.highcommunity.view.NoScrollListview
+        <cn.hi028.android.highcommunity.view.MyNoScrollListview
             android:id="@+id/page2_evaluation_listview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:divider="@color/Defult_Color_LineGrey"
             android:dividerHeight="0.5dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:scrollbars="none"
-            android:visibility="visible"></cn.hi028.android.highcommunity.view.NoScrollListview>
+            android:visibility="visible">
+
+        </cn.hi028.android.highcommunity.view.MyNoScrollListview>
 
         <TextView
             android:id="@+id/page2_shopdetail_tv_Hishequ"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="1dp"
             android:background="@color/white"
             android:gravity="center"
             android:text="—— 本商品由xxx所有 ——"

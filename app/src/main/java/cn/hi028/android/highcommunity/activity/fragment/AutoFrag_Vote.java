@@ -179,10 +179,10 @@ public class AutoFrag_Vote extends BaseFragment {
         listview_Questions.setAdapter(mQuestionAdapter);
         adapterList.add(mQuestionAdapter);
         listViewList.add(listview_Questions);
-        HTTPHelper.GetAutoVoteList(mIbpi1, 1 + "");
+//        HTTPHelper.GetAutoVoteList(mIbpi1, 1 + "");
         return view_Q;
     }
-
+boolean isFirstClick=true;
     View getVoteView() {
         Log.e(Tag, "getPageView  v");
         View view_V = LayoutInflater.from(getActivity()).inflate(R.layout.page_vote, null);
@@ -204,7 +204,7 @@ public class AutoFrag_Vote extends BaseFragment {
     private void initDatas() {
         //1  问卷  2 选举
         HTTPHelper.GetAutoVoteList(mIbpi2, 2 + "");
-        HTTPHelper.GetAutoVoteList(mIbpi1, 1 + "");
+//        HTTPHelper.GetAutoVoteList(mIbpi1, 1 + "");
     }
 
     BpiHttpHandler.IBpiHttpHandler mIbpi1 = new BpiHttpHandler.IBpiHttpHandler() {
@@ -218,6 +218,7 @@ public class AutoFrag_Vote extends BaseFragment {
         public void onSuccess(Object message) {
             if (message == null) return;
             mQuestionList = (List<Auto_VoteList_Vote.VoteVVDataEntity>) message;
+            if (mQuestionList == null) return;
             Log.e(Tag, "mQuestionList---" + mQuestionList.size());
             if (mQuestionAdapter != null && listview_Questions != null) {
                 mQuestionAdapter.ClearData();
@@ -257,6 +258,8 @@ public class AutoFrag_Vote extends BaseFragment {
         public void onSuccess(Object message) {
             if (message == null) return;
             mVoteList = (List<Auto_VoteList_Vote.VoteVVDataEntity>) message;
+            if (mVoteList == null) return;
+
             Log.e(Tag, "mVoteList---" + mVoteList.size());
             if (mVoteAdapter == null) {
 

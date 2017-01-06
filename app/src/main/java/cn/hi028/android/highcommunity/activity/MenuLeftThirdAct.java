@@ -6,10 +6,10 @@ package cn.hi028.android.highcommunity.activity;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
+
 import net.duohuo.dhroid.util.LogUtil;
 
 import org.androidannotations.annotations.AfterViews;
@@ -19,8 +19,12 @@ import org.androidannotations.annotations.ViewById;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.ConstantsFrag;
-import cn.hi028.android.highcommunity.activity.fragment.*;
+import cn.hi028.android.highcommunity.activity.fragment.ConstantsFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.EditPersonalFrag;
+import cn.hi028.android.highcommunity.activity.fragment.HuiCommOrderFrag;
+import cn.hi028.android.highcommunity.activity.fragment.HuiCommOrderFrag_;
 import cn.hi028.android.highcommunity.activity.fragment.PersonalAuthInfoFrag;
+import cn.hi028.android.highcommunity.activity.fragment.PersonalAuthInfoFrag_;
 import cn.hi028.android.highcommunity.utils.Constacts;
 
 /**
@@ -54,7 +58,7 @@ LogUtil.d("------MenuLeftThirdAct");
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         switch (flag) {
-            case Constacts.MENU_LEFTTHIRD_ORDER_COMMENT://编辑资料
+            case Constacts.MENU_LEFTTHIRD_ORDER_COMMENT://
                 mTitle.setText("评论");
                 HuiCommOrderFrag moCmment = (HuiCommOrderFrag) new HuiCommOrderFrag_();
                 ft.replace(R.id.ll_menuleftSecond_layout, moCmment, HuiCommOrderFrag.FRAGMENTTAG);

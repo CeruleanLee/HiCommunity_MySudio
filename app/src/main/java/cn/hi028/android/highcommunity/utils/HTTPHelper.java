@@ -51,6 +51,7 @@ import cn.hi028.android.highcommunity.bean.Autonomous.Auto_NoticeListBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_QuestionDeatailBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_ReportDetailBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SuperViseBean;
+import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SuperViseBean2;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_UnitBean;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_VoteList_Vote;
@@ -1964,7 +1965,15 @@ public class HTTPHelper {
         mParamMap.put("id", owner_id+"");
         post(mParamMap, mIbpi, url);
     }
-
+    /**
+     * 解析自治大厅 监督列表 1月6日修改
+     *
+     * @param result
+     * @return
+     */
+    public static Auto_SuperViseBean2.SuperViseBean2DataEntity ResolveSuperViseDataEntity2(String result) {
+        return gson.fromJson(result, Auto_SuperViseBean2.SuperViseBean2DataEntity.class);
+    }
     /**
      * 解析自治大厅 监督列表
      *
@@ -3490,11 +3499,12 @@ public class HTTPHelper {
      * @param obj json化的数组字符串, 如[{"gid":1,"content":"味道真错"},{"gid":1,"content":"物美价廉"}]
     gid表示商品id, content为某个商品对应的评论内容
      */
-    public static void SendEvaluate2(BpiHttpHandler.IBpiHttpHandler mIbpi, JSONObject obj) {
+    public static void SendEvaluate2(BpiHttpHandler.IBpiHttpHandler mIbpi, JSONObject obj,String order_id) {
         String url = HTTPPOSTURL + "sorder/comment.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
 
         mParamMap.put("info", "[" + obj.toString() + "]");
+        mParamMap.put("order_id", order_id);
         Log.e("renk", mParamMap.toString());
         Log.e("renk", url);
         post(mParamMap, mIbpi, url);
