@@ -74,11 +74,11 @@ static  final  String Tag="AddressModifyAct:";
             mCreate.setArguments(bundle);
         }
         int flagDelete = getIntent().getIntExtra(INTENTTAGDELETE_TAG, 0);
-        if (flagDelete != 0) {
-            mDelete.setVisibility(View.INVISIBLE);
-        } else {
-            mDelete.setVisibility(View.VISIBLE);
-        }
+//        if (flagDelete != 0) {
+//            mDelete.setVisibility(View.INVISIBLE);
+//        } else {
+//            mDelete.setVisibility(View.VISIBLE);
+//        }
 //        mCreate = (AddressModifyFrag) new AddressModifyFrag_();
         ft.replace(R.id.ll_activity_mainLayout, mCreate, AddressModifyFrag.FRAGMENTTAG);
         ft.commit();

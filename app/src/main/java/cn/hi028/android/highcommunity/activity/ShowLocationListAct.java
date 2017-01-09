@@ -1,5 +1,6 @@
 package cn.hi028.android.highcommunity.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -38,6 +40,8 @@ import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
 import com.baidu.mapapi.search.sug.SuggestionResult;
 import com.baidu.mapapi.search.sug.SuggestionSearch;
 import com.baidu.mapapi.search.sug.SuggestionSearchOption;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +79,7 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
     @Bind(R.id.button)
     Button button;
     @Bind(R.id.loc_list2)
-    ListView mSearchResultListView;
+    PullToRefreshListView mSearchResultListView;
     @Bind(R.id.search)
     EditText mSearchEd;
     @Bind(R.id.button2)
@@ -88,7 +92,7 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
 
     private List<String> suggestList;
     private ArrayAdapter<String> sugAdapter = null;
-    private int loadIndex = 0;
+    private int loadIndex = 1;
 
     int searchType = 1;  // 搜索的类型，在显示时区分
     private double longitude = 104.164;// 精度
@@ -116,14 +120,46 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
     List<SimplePoiBean> mSimplePOiList = new ArrayList<SimplePoiBean>();
     List<Poi> list = new ArrayList<Poi>();
     BDLocation mlocation;
+
     private void initView() {
         mPoiListView.setVisibility(View.VISIBLE);
         mSLocListAdapter = new ShowLocListAdapter(mSimplePOiList, this);
         mPoiListView.setAdapter(mSLocListAdapter);
 //关键字搜索相关
-//        mSearchResultListView.setMode(PullToRefreshBase.Mode.DISABLED);
+//        mSearchResultListView.setMode(PullToRefreshBase.Mode.BOTH);
+//        mSearchResultListView.onRefreshComplete();
         mSearchResultListView.setVisibility(View.GONE);
+        mSearchResultListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
 
+
+                Log.e(Tag, "刷新  top");
+
+
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                Log.e(Tag, "刷新  bottom loadIndex:"+loadIndex);
+                Log.e(Tag, "刷新 loadIndex: "+loadIndex);
+
+                searchType = 1;
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),
+                            0);
+                }
+
+                String citystr = "成都";
+                String keystr = keyWorldsView.getText().toString();
+                mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(ShowLocationListAct.this, mSearchBut, Gravity.CENTER);
+                mPoiSearch.searchInCity((new PoiCitySearchOption()).city(citystr).keyword(keystr).pageNum(loadIndex));
+                loadIndex++;
+                Log.e(Tag, "刷新 loadIndex2   ~~~: "+loadIndex);
+
+            }
+        });
         dingwei();
 //        BDLocation location = getIntent().getParcelableExtra("BDLocation");
 
@@ -149,7 +185,7 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
             @Override
             public void onClick(View v) {
                 mPoiListView.setVisibility(View.GONE);
-                if (mSearchAdapter!=null){
+                if (mSearchAdapter != null) {
                     mSearchAdapter.ClearData();
                 }
                 mSearchResultListView.setVisibility(View.VISIBLE);
@@ -175,9 +211,9 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
             @Override
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
                 Log.e(Tag, "动态更新建议列表 onTextChanged ");
-                loadIndex = 0;
+                loadIndex = 1;
                 if (cs.length() <= 0) {
-                    mSearchBut.setVisibility(View.VISIBLE);
+                    mSearchBut.setVisibility(View.GONE);
                     mSearchBut.setText("取消");
                     mPoiListView.setVisibility(View.VISIBLE);
                     mSearchResultListView.setVisibility(View.GONE);
@@ -187,7 +223,7 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
                     mSearchBut.setVisibility(View.VISIBLE);
                     mSearchBut.setText("搜索");
                 } else if (cs.length() == 0) {
-                    mSearchBut.setVisibility(View.VISIBLE);
+                    mSearchBut.setVisibility(View.GONE);
                     mSearchBut.setText("取消");
 
                 }
@@ -209,50 +245,42 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
 //                adapter.setCheckposition(position);
 //                adapter.notifyDataSetChanged();
 //                PoiInfo ad = (PoiInfo) adapter.getItem(position);
-                Log.e(Tag, "点击name:" + searchResultPoiList.get(position).name.toString());
+                Log.e(Tag, "点击name:" + position+",,,"+searchResultPoiList.get(position-1).name.toString());
 //              mAddressListener.onAddressChange(searchResultPoiList.get(position).name.toString());
                 Intent mIntent = new Intent();
-                mIntent.putExtra("address", searchResultPoiList.get(position).name.toString());
+                mIntent.putExtra("address", searchResultPoiList.get(position-1).name.toString());
                 setResult(8, mIntent);
                 ShowLocationListAct.this.finish();
 
             }
         });
-//        mSearchResultListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-//            @Override
-//            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//                searchType = 1;
-//                String citystr = "成都";
-//                String keystr = keyWorldsView.getText().toString();
-//
-//                mPoiSearch.searchInCity((new PoiCitySearchOption()).city(citystr).keyword(keystr).pageNum(loadIndex));
-//                loadIndex++;
-//            }
-//
-//            @Override
-//            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//                return;
-//
-//            }
-//        });return
 
         //城市内搜索，已固定成都
         mSearchBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e(Tag, "城市内搜索 点击 ");
                 searchType = 1;
+                loadIndex=1;
+                Log.e(Tag, "城市内搜索 点击 loadIndex: "+loadIndex);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),
+                            0);
+                }
+                mSearchResultListView.setVisibility(View.VISIBLE);
+
+
                 String citystr = "成都";
                 String keystr = keyWorldsView.getText().toString();
                 mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(ShowLocationListAct.this, mSearchBut, Gravity.CENTER);
-                mPoiSearch.searchInCity((new PoiCitySearchOption()).city(citystr).keyword(keystr).pageNum(loadIndex));
-                loadIndex++;
+                mPoiSearch.searchInCity((new PoiCitySearchOption()).city(citystr).keyword(keystr).pageNum(0));
+
             }
         });
         mShowNoAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e(Tag, "点击" +"不显示地址");
+                Log.e(Tag, "点击" + "不显示地址");
 //                mAddressListener.onAddressChange(list.get(position).getName());
                 Intent mIntent = new Intent();
                 mIntent.putExtra("address", "");
@@ -282,42 +310,43 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
         mLocationClient.registerLocationListener(new BDLocationListener() {
             @Override
             public void onReceiveLocation(BDLocation location) {
-            if (location!=null){
-                mlocation=location;   if (mlocation != null) {
-                    Log.e(Tag, "dingwei过来的对象 ： no null");
-                    longitude = location.getLongitude();
-                    latitude = location.getLatitude();
-                    List<SimplePoiBean> SimplePOiList = BDHttpUtil.getSimplePOiList(longitude, latitude);
-                    if (SimplePOiList != null&&SimplePOiList.size()>0) {
-                        mSimplePOiList=SimplePOiList;
-                        Log.e(Tag, "获取的poiList：no null" + SimplePOiList.size());
-                        mSLocListAdapter.ClearData();
-                        mSLocListAdapter.AddNewData(SimplePOiList);
-                    }else{
-                        Log.e(Tag, "获取的poiList： null" );
-                        list = mlocation.getPoiList();
-                        List<SimplePoiBean> mSimplePOiList2 = new ArrayList<SimplePoiBean>();
+                if (location != null) {
+                    mlocation = location;
+                    if (mlocation != null) {
+                        Log.e(Tag, "dingwei过来的对象 ： no null");
+                        longitude = location.getLongitude();
+                        latitude = location.getLatitude();
+                        List<SimplePoiBean> SimplePOiList = BDHttpUtil.getSimplePOiList(longitude, latitude);
+                        if (SimplePOiList != null && SimplePOiList.size() > 0) {
+                            mSimplePOiList = SimplePOiList;
+                            Log.e(Tag, "获取的poiList：no null" + SimplePOiList.size());
+                            mSLocListAdapter.ClearData();
+                            mSLocListAdapter.AddNewData(SimplePOiList);
+                        } else {
+                            Log.e(Tag, "获取的poiList： null");
+                            list = mlocation.getPoiList();
+                            List<SimplePoiBean> mSimplePOiList2 = new ArrayList<SimplePoiBean>();
 
-                        for (int i = 0; i < list.size(); i++) {
-                            SimplePoiBean mBean=new SimplePoiBean();
-                            mBean.setName(list.get(i).getName());
-                            mBean.setAddr("");
-                            mSimplePOiList2.add(mBean);
+                            for (int i = 0; i < list.size(); i++) {
+                                SimplePoiBean mBean = new SimplePoiBean();
+                                mBean.setName(list.get(i).getName());
+                                mBean.setAddr("");
+                                mSimplePOiList2.add(mBean);
+                            }
+                            mSimplePOiList = mSimplePOiList2;
+                            Log.e(Tag, "获取的poiList： null 使用传递过来的数据" + mSimplePOiList2.size());
+                            mSLocListAdapter.ClearData();
+                            mSLocListAdapter.AddNewData(mSimplePOiList2);
+
                         }
-                        mSimplePOiList=mSimplePOiList2;
-                        Log.e(Tag, "获取的poiList： null 使用传递过来的数据" + mSimplePOiList2.size());
-                        mSLocListAdapter.ClearData();
-                        mSLocListAdapter.AddNewData(mSimplePOiList2);
+                    } else {
+                        Log.e(Tag, "传过来的对象 ： null");
+
 
                     }
-                } else {
-                    Log.e(Tag, "传过来的对象 ： null");
 
 
                 }
-
-
-            }
                 StringBuffer sb = new StringBuffer(256);
                 sb.append("time : ");
                 sb.append(location.getTime());
@@ -381,61 +410,8 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
         mLocationClient.start();
 
     }
-    LocationClient mLocationClient;
-    public BDLocationListener myListener = new MyLocationListener();
 
-    /**
-     * 定位SDK监听函数
-     *
-     * @author
-     */
-    public class MyLocationListener implements BDLocationListener {
-        @Override
-        public void onReceiveLocation(BDLocation location) {
-//            Log.e(Tag, "城市内搜索 onReceiveLocation ");
-//
-//            if (location == null) {
-//                return;
-//            }
-//
-//            locType = location.getLocType();
-//            Log.i("mybaidumap", "当前定位的返回值是：" + locType);
-//
-//            longitude = location.getLongitude();
-//            latitude = location.getLatitude();
-//            if (location.hasRadius()) {// 判断是否有定位精度半径
-//                radius = location.getRadius();
-//            }
-//            if (locType == BDLocation.TypeNetWorkLocation) {
-//                addrStr = location.getAddrStr();// 获取反地理编码(文字描述的地址)
-//                Log.i("mybaidumap", "当前定位的地址是：" + addrStr);
-//            }
-//            direction = location.getDirection();// 获取手机方向，【0~360°】,手机上面正面朝北为0°
-//            province = location.getProvince();// 省份
-//            city = location.getCity();// 城市
-//            district = location.getDistrict();// 区县
-//            LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
-//            //将当前位置加入List里面
-//            PoiInfo info = new PoiInfo();
-//            info.address = location.getAddrStr();
-//            info.city = location.getCity();
-////            info.location = ll;
-//            info.name = location.getAddrStr();
-//            dataList.add(info);
-//            adapter.notifyDataSetChanged();
-//            Log.i("mybaidumap", "province是：" + province + " city是" + city + " 区县是: " + district);
-//            //poi 搜索周边
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    // TODO Auto-generated method stub
-//                    Looper.prepare();
-////                    searchNeayBy();
-//                    Looper.loop();
-//                }
-//            }).start();
-        }
-    }
+    LocationClient mLocationClient;
 
     StringBuilder sb2, sb3;
 
@@ -454,14 +430,18 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
         mWatingWindow.dismiss();
         if (result == null || result.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {// 没有找到检索结果
             Log.e(Tag, "没有找到检索结果  ");
+            if (mSearchResultListView!=null){
+                mSearchResultListView.onRefreshComplete();
+            }
             Toast.makeText(ShowLocationListAct.this, "未找到结果", Toast.LENGTH_LONG).show();
+
             return;
         }
 
         if (result.error == SearchResult.ERRORNO.NO_ERROR) {// 检索结果正常返回
             Log.e(Tag, "检索结果正常返回  ");
-            Toast.makeText(ShowLocationListAct.this, "检索结果正常返回", Toast.LENGTH_LONG).show();
-            Log.e(Tag, "检索结果正常返回  searchType:"+searchType);
+//            Toast.makeText(ShowLocationListAct.this, "检索结果正常返回", Toast.LENGTH_LONG).show();
+            Log.e(Tag, "检索结果正常返回  searchType:" + searchType);
 
             switch (searchType) {
                 case 1:
@@ -488,7 +468,7 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
                 strInfo += ",";
             }
             strInfo += "找到结果";
-            Toast.makeText(this, strInfo, Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, strInfo, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -498,7 +478,7 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
      * @param result
      */
     private void searchForText(PoiResult result) {
-        Log.e(Tag, "searchForText result:"+result.toString());
+        Log.e(Tag, "searchForText result:" + result.toString());
         if (result != null) {
             mPoiListView.setVisibility(View.GONE);
             Log.e(Tag, "searchForText != null  :");
@@ -513,32 +493,45 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
                 }
                 Log.e(Tag, "搜索到的POI信息:" + sb2.toString());
 
-                if (loadIndex == 0) {
+                if (loadIndex == 1) {
                     searchResultPoiList.clear();
                 }
-                searchResultPoiList = result.getAllPoi();
+                searchResultPoiList.addAll((List<PoiInfo>)(result.getAllPoi()));
                 if (searchResultPoiList != null) {
-                    Log.e(Tag, "搜索到的POI信息:填充数据" );
+                    Log.e(Tag, "搜索到的POI信息!= null  loadIndex:"+loadIndex);
+
+                    Log.e(Tag, "搜索到的POI信息:填充数据");
 
 //                    mPoiListView.setVisibility(View.GONE);
 //                    mSearchResultListView.setVisibility(View.VISIBLE);
-                    if (loadIndex == 0) {
-                        Log.e(Tag, "搜索到的POI信息:填充数据  loadIndex == 0" );
+                    if (loadIndex == 1) {
+                        Log.e(Tag, "搜索到的POI信息:填充数据  loadIndex == 0");
+                        mSearchAdapter = new ShowSearchListAdapter(searchResultPoiList, this);
+                        mSearchResultListView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
+//                        mSearchAdapter.AddNewData(searchResultPoiList);
 
-                        mSearchAdapter.ClearData();
+                        Log.e(Tag, "填充数据  长度："+searchResultPoiList.size());
+                        mSearchResultListView.setAdapter(mSearchAdapter);
+                        mSearchResultListView.onRefreshComplete();
+//                        mSearchAdapter.ClearData();
+                    } else {
+                        Log.e(Tag, "搜索到的POI信息:填充数据  loadIndex " + loadIndex);
+                        Log.e(Tag, "叠加 填充数据  长度："+searchResultPoiList.size());
+
+//                        mSearchAdapter.AddNewData(result.getAllPoi());
+                        mSearchAdapter.setData(searchResultPoiList);
+                        mSearchResultListView.onRefreshComplete();
                     }
-                    Log.e(Tag, "搜索到的POI信息:填充数据  loadIndex ! 02" );
 
-                    mSearchAdapter = new ShowSearchListAdapter(searchResultPoiList, this);
-                    mSearchResultListView.setAdapter(mSearchAdapter);
-//                    mSearchAdapter.AddNewData(searchResultPoiList);
                 }
-              
+
+
             }
         }
         Log.e(Tag, "接受周边地理位置结果 sb " + sb2);
 
     }
+
 
     @Override
     public void onGetPoiDetailResult(PoiDetailResult result) {
@@ -575,9 +568,6 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
         keyWorldsView.setAdapter(sugAdapter);
         sugAdapter.notifyDataSetChanged();
     }
-
-
-  
 
 
     @Override

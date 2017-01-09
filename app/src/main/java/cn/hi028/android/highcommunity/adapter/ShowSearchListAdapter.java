@@ -24,9 +24,10 @@ import cn.hi028.android.highcommunity.R;
  */
 public class ShowSearchListAdapter extends BaseFragmentAdapter {
 
-    List<PoiInfo> mList= new ArrayList<PoiInfo>();
+    List<PoiInfo> mList = new ArrayList<PoiInfo>();
     private Context context;
     private LayoutInflater layoutInflater;
+
     public ShowSearchListAdapter(List<PoiInfo> list, Context context) {
         super();
         this.mList = list;
@@ -70,18 +71,31 @@ public class ShowSearchListAdapter extends BaseFragmentAdapter {
         mViewHolder.mAddressDetail.setText(mBean.address);
         return convertView;
     }
+
     @Override
     public void AddNewData(Object mObject) {
-        if (mObject instanceof List<?>) {
-            mList = (List<PoiInfo>) mObject;
-        }
+
+        if (mObject instanceof List<?>)
+            mList.addAll((List<PoiInfo>) mObject);
         notifyDataSetChanged();
-        super.AddNewData(mObject);
+        super.RefreshData(mObject);
+
+//        notifyDataSetChanged();
+////        super.AddNewData(mObject);
     }
+
+
+    public void setData(List<PoiInfo> mObject) {
+//        mList.clear();
+        mList = mObject;
+        notifyDataSetChanged();
+    }
+
     public void ClearData() {
         mList.clear();
         notifyDataSetChanged();
     }
+
     static class ViewHolder {
         TextView mAddress;
         TextView mAddressDetail;

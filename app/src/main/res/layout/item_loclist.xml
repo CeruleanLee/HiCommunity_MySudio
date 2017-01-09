@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_third_service_selector"
+
     android:orientation="vertical"
     android:paddingLeft="12dp"
     android:paddingTop="12dp"
     android:paddingBottom="12dp"
     android:paddingRight="12dp">
-
+<!--   android:background="@drawable/bg_third_service_selector"-->
     <TextView
         android:id="@+id/item_loclist_address"
         android:layout_width="wrap_content"

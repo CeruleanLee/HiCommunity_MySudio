@@ -417,7 +417,7 @@ public class NewSupplyGoodsDetailBean implements Parcelable {
 
             @Override
             public int compareTo(StandardEntity another) {
-                return (int)(Float.parseFloat(this.getPrice())*100) - (int)(Float.parseFloat(another.getPrice())*100);//先按照年龄排序  ;
+                return (int)(Float.parseFloat(this.getPrice())*100) - (int)(Float.parseFloat(another.getPrice())*100);//先按照价格排序  ;
             }
 
             @Override
@@ -456,7 +456,7 @@ public class NewSupplyGoodsDetailBean implements Parcelable {
             };
         }
 
-        public static class CommentEntity implements Parcelable {
+        public static class CommentEntity implements Comparable<CommentEntity>, Parcelable {
             /**
              * uid : 1
              * head_pic : upload/head_pic/201608/201608051720247328.jpg
@@ -556,6 +556,13 @@ public class NewSupplyGoodsDetailBean implements Parcelable {
                     return new CommentEntity[size];
                 }
             };
+
+            @Override
+            public int compareTo(CommentEntity another) {
+
+
+                return   (Integer.parseInt(another.getTime()))-(Integer.parseInt(this.getTime()));//时间排序  ;
+            }
         }
 
         public static class RecommendEntity implements Parcelable {

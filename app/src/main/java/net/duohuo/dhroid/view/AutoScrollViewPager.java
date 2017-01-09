@@ -78,11 +78,11 @@ public class AutoScrollViewPager extends ViewPager {
     /**
      * scroll factor for auto scroll animation, default is 1.0
      **/
-    private double autoScrollFactor = 6.0;
+    private double autoScrollFactor = 8.0;
     /**
      * scroll factor for swipe scroll animation, default is 1.0
      **/
-    private double swipeScrollFactor = 6.0;
+    private double swipeScrollFactor = 1.0;
 
     private Handler handler;
     private boolean isAutoScroll = false;

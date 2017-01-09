@@ -98,8 +98,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:visibility="gone"
-        android:text="New Button" />
+        android:text="New Button"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/search"
@@ -120,37 +120,47 @@
     <TextView
         android:id="@+id/tv_address_noaddress"
         android:layout_width="match_parent"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingLeft="12dp"
-        android:clickable="true"
         android:layout_height="wrap_content"
         android:background="@drawable/ll_leftmenu_bg_selector"
+        android:clickable="true"
         android:gravity="center_vertical"
+        android:paddingBottom="8dp"
+        android:paddingLeft="12dp"
+        android:paddingTop="8dp"
         android:text="不显示位置" />
-<View
-    android:layout_width="match_parent"
-    android:layout_height="0.125dip"
-    android:background="@color/Defult_Color_LineGrey"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.125dip"
+        android:background="@color/Defult_Color_LineGrey" />
+
     <ListView
         android:id="@+id/loc_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:listSelector="@drawable/bg_third_service_selector_nostrike"
 
+android:visibility="gone"
 
-        android:divider="@color/Defult_Color_LineGrey"
-        android:dividerHeight="0.125dip"
-        android:listSelector="@drawable/ll_leftmenu_bg_selector">
+>
 
     </ListView>
-
-    <ListView
+<!--        android:listSelector="@drawable/ll_leftmenu_bg_selector"
+ android:divider="@color/Defult_Color_LineGrey"
+        android:dividerHeight="0.125dip"-->
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/loc_list2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:divider="@color/Defult_Color_LineGrey"
-        android:dividerHeight="0.125dip"
-        android:listSelector="@drawable/ll_leftmenu_bg_selector"
-        android:visibility="gone"></ListView>
+        android:listSelector="@drawable/bg_third_service_selector_nostrike"
+
+
+        android:fadingEdge="none"
+        android:visibility="visible"
+       />
 </LinearLayout>
+<!--
+android:listSelector="@drawable/ll_leftmenu_bg_selector"
+android:divider="@color/Defult_Color_LineGrey"
+        android:dividerHeight="0.125dip"-->

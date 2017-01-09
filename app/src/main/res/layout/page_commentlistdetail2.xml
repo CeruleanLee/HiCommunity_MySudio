@@ -33,6 +33,7 @@
             android:id="@+id/page2_evaluation_listview"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
+            android:background="@color/white"
             android:divider="@color/Defult_Color_LineGrey"
             android:dividerHeight="0.5dp"
             android:layout_marginLeft="12dp"

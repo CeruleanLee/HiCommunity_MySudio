@@ -44,6 +44,7 @@
 <cn.hi028.android.highcommunity.view.MyNoScrollListview
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:id="@+id/pic_noscrolllistview"
 
     ></cn.hi028.android.highcommunity.view.MyNoScrollListview>

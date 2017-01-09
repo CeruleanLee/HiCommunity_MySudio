@@ -228,6 +228,7 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
             HighCommunityUtils.GetInstantiation()
                     .setThirdServiceGridViewHeight(mGridView, mAdapter, 4);
             tatalLayout.setVisibility(View.VISIBLE);
+            viewPager.startAutoScroll();
 
         }
 
@@ -248,64 +249,6 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
 
         }
     };
-
-    //	public void payment(View view) {
-    //		mIntent.putExtra(ServiceAct.ACTIVITYTAG, Constacts.SERVICE_PAYMENT);
-    //		startActivity(mIntent);
-    //	}
-    //
-    //	void tenement(View view) {
-    //		mIntent.putExtra(ServiceAct.ACTIVITYTAG, Constacts.SERVICE_TENEMENT);
-    //		startActivity(mIntent);
-    //	}
-    //
-    //	void notice(View view) {
-    //		mIntent.putExtra(ServiceAct.ACTIVITYTAG, Constacts.SERVICE_NOTICE);
-    //		startActivity(mIntent);
-    //	}
-    //
-    //	/**
-    //	 * 此处处理社区
-    //	 */
-    //	void tenement2(View view) {
-    //		Intent i = new Intent(getActivity(), Service_AutonomousActivity.class);
-    //		startActivity(i);
-    //	}
-    //
-    //	void guide(View view) {
-    //		Intent i = new Intent(getActivity(), Service_ManageGuideActivity.class);
-    //		startActivity(i);
-    //
-    //	}
-    //
-    //	void research(View view) {
-    //		Intent i = new Intent(getActivity(), Service_SurveyWorldActivity.class);
-    //		startActivity(i);
-    //	}
-    //
-    //	void voluntary(View view) {
-    //		Intent i = new Intent(getActivity(), Service_VoluntaryActivity.class);
-    //		startActivity(i);
-    //	}
-    //
-    //	void one(View view) {
-    //		mIntent.putExtra(ServiceAct.ACTIVITYTAG, Constacts.SERVICE_NOTICE_ONE);
-    //		startActivity(mIntent);
-    //	}
-    //
-    //	void crafts(View view) {
-    //		mIntent.putExtra(ServiceAct.ACTIVITYTAG, Constacts.SERVICE_CARFSMAN);
-    //		startActivity(mIntent);
-    //	}
-    //
-    //	void become(View view) {
-    //		if (HighCommunityUtils.GetInstantiation().isLogin(getActivity())) {
-    //			mIntent.putExtra(ServiceAct.ACTIVITYTAG,
-    //					Constacts.SERVICE_BECOME_CARFSMAN);
-    //			startActivity(mIntent);
-    //		}
-    //	}
-
     AdapterView.OnItemClickListener mItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i,
@@ -384,6 +327,7 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        viewPager.startAutoScroll();
         Log.d(Tag, "onResume");
 //        initDatas();
         //		mLoadingView.startLoading();

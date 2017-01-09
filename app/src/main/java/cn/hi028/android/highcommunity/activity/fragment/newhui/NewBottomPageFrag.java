@@ -22,6 +22,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -215,6 +216,11 @@ public class NewBottomPageFrag extends BaseFragment {
         //set评价内容
         if (null != msg.getComment()) {
             List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.CommentEntity> mCommentList = msg.getComment();
+            //排序
+            Collections.sort(mCommentList);
+
+
+
             SupplyGoodsDetailCommentAdapter mEvaluationAdapter = new SupplyGoodsDetailCommentAdapter(mCommentList, getActivity());
             evaluation_listview.setAdapter(mEvaluationAdapter);
 //            setCarAmount();

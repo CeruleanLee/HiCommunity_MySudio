@@ -476,7 +476,7 @@ android:layout_marginRight="8dp"
             android:id="@+id/view13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_line_det_black" />
+            android:background="@color/Defult_Color_LineGrey" />
 
         <TextView
             android:id="@+id/scroll_Text"

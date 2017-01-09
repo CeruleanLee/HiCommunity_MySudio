@@ -207,7 +207,7 @@ notification=builder.setContentTitle(app_name).setContentText(getString(R.string
 
         /**高api**/
 
-        builder = new Notification.Builder(UpdateService.this).setTicker("app_name + getString(R.string.is_downing)")
+        builder = new Notification.Builder(UpdateService.this).setTicker(app_name + getString(R.string.is_downing))
                 .setSmallIcon(R.drawable.ic_launcher);
         notification=builder.build();
 

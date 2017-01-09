@@ -2,13 +2,12 @@ package cn.hi028.android.highcommunity.activity.fragment.newhui;
 
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +22,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.view.AutoScrollViewPager;
@@ -37,6 +35,7 @@ import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.PicPageAdapter;
 import cn.hi028.android.highcommunity.bean.NewSupplyGoodsDetailBean;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.TimeUtil;
 
 /**
@@ -437,12 +436,18 @@ findView(view);
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.call:
-                if(telPhone==null||telPhone.equals("")){
-                    Toast.makeText(getActivity(),"客服电话为空",Toast.LENGTH_SHORT).show();
-                }else{
-
-                    Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + telPhone));
-                    startActivity(intent2);
+//                if(telPhone==null||telPhone.equals("")){
+//                    Toast.makeText(getActivity(),"客服电话为空",Toast.LENGTH_SHORT).show();
+//                }else{
+//
+//                    Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + telPhone));
+//                    startActivity(intent2);
+//                }
+                if (!TextUtils.isEmpty(telPhone)) {
+                    HighCommunityUtils.GetInstantiation().callDialogPhone(
+                            getActivity(), telPhone);
+                } else {
+                    HighCommunityUtils.GetInstantiation().ShowToast("客服电话为空", 0);
                 }
                 break;
         }

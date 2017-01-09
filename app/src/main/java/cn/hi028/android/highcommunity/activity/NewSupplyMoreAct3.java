@@ -56,7 +56,7 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
     HorizontalScrollView mHorizontalScrollView;
 //    @Bind(R.id.id_stickynavlayout_viewpager)
     ViewPager mViewpager;
-public static  final int categray_with= (int)(HighCommunityApplication.screenWidth/3);
+public static  final int categray_with= (int)(HighCommunityApplication.screenWidth/2);
 
 //    private SimpleViewPagerIndicator mIndicator;
     List<RadioButton> mRadioButList = new ArrayList<RadioButton>();
@@ -260,7 +260,8 @@ public static  final int categray_with= (int)(HighCommunityApplication.screenWid
 
                         setCurrentPage(i);
                         Log.e(Tag,"横向滑动的距离："+categray_with*i);
-                        mHorizontalScrollView.scrollTo(categray_with*i,0);
+//                        mHorizontalScrollView.scrollTo(categray_with*i,0);
+                        mHorizontalScrollView.smoothScrollTo(categray_with*i,0);
                     }
 
 
@@ -336,13 +337,20 @@ public static  final int categray_with= (int)(HighCommunityApplication.screenWid
         });
         for (int i = 0; i < mRgCategory.getChildCount(); i++) {
             if (mRgCategory.getChildAt(i).getId() == category_id) {
+                Log.e(Tag,"初始设置 选中but:"+category_id);
 
                 ((RadioButton) (mRgCategory.getChildAt(i))).setChecked(true);
                 setCurrentPage(i);
+
+
+
+
             }
 
 
         }
+        Log.e(Tag,"初始设置  横向滑动的距离："+categray_with*category_id);
+        mHorizontalScrollView.scrollTo(categray_with*category_id,0);
 //        category_id = checkedId;
 //                mPagerAdapter.updateFragmentData(category_id,1);
 //        mPagerAdapter.updateFragmentData(page, category_id + "", sort);
