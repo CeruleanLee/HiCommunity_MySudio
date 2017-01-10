@@ -59,7 +59,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.25dip"
+                        android:layout_height="0.125dip"
                         android:background="@color/Defult_Color_LineGrey" />
 
                     <TextView
@@ -73,7 +73,7 @@
 
                     <View
                         android:layout_width="wrap_content"
-                        android:layout_height="0.25dip"
+                        android:layout_height="0.125dip"
                         android:background="@color/Defult_Color_LineGrey" />
 
                     <com.handmark.pulltorefresh.library.PullToRefreshGridView
@@ -81,16 +81,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="180dip"
                         android:background="@color/defult_color_white"
-                        android:horizontalSpacing="0.25dip"
+
                         android:listSelector="@drawable/selector_service_btn_bg"
                         android:numColumns="4"
                         android:smoothScrollbar="true"
                         android:stretchMode="columnWidth"
-                        android:verticalSpacing="0.25dip" />
 
+                        />
+<!--     android:horizontalSpacing="0.25dip"
+                        android:verticalSpacing="0.25dip"-->
                     <View
                         android:layout_width="wrap_content"
-                        android:layout_height="0.25dip"
+                        android:layout_height="0.125dip"
                         android:background="@color/Defult_Color_LineGrey" />
 
                     <TextView
@@ -104,7 +106,7 @@
 
                     <View
                         android:layout_width="wrap_content"
-                        android:layout_height="0.25dip"
+                        android:layout_height="0.125dip"
                         android:background="@color/Defult_Color_LineGrey" />
 
                     <LinearLayout
@@ -205,7 +207,7 @@
 
                     <View
                         android:layout_width="wrap_content"
-                        android:layout_height="0.25dip"
+                        android:layout_height="0.125dip"
                         android:background="@color/Defult_Color_LineGrey" />
 
                     <TextView
@@ -219,7 +221,7 @@
 
                     <View
                         android:layout_width="wrap_content"
-                        android:layout_height="0.25dip"
+                        android:layout_height="0.125dip"
                         android:background="@color/Defult_Color_LineGrey" />
 
                     <LinearLayout
@@ -322,7 +324,7 @@
 
                     <View
                         android:layout_width="wrap_content"
-                        android:layout_height="0.25dip"
+                        android:layout_height="0.125dip"
                         android:background="@color/Defult_Color_LineGrey" />
 
                     <TextView
@@ -336,7 +338,7 @@
 
                     <View
                         android:layout_width="wrap_content"
-                        android:layout_height="0.25dip"
+                        android:layout_height="0.125dip"
                         android:background="@color/Defult_Color_LineGrey" />
 
                     <LinearLayout
@@ -393,7 +395,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.25dip"
+                        android:layout_height="0.125dip"
                         android:background="@color/Defult_Color_LineGrey" />
 
                     <View
