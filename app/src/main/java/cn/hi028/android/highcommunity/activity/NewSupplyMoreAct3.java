@@ -3,6 +3,7 @@ package cn.hi028.android.highcommunity.activity;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -54,15 +55,15 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
     RadioGroup mRgSort;
     @Bind(R.id.HorizontalScrollView)
     HorizontalScrollView mHorizontalScrollView;
-//    @Bind(R.id.id_stickynavlayout_viewpager)
+    //    @Bind(R.id.id_stickynavlayout_viewpager)
     ViewPager mViewpager;
-public static  final int categray_with= (int)(HighCommunityApplication.screenWidth/2);
+    public static final int categray_with = (int) (HighCommunityApplication.screenWidth / 3);
 
-//    private SimpleViewPagerIndicator mIndicator;
+    //    private SimpleViewPagerIndicator mIndicator;
     List<RadioButton> mRadioButList = new ArrayList<RadioButton>();
     List<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreCategoryEntity> mDataCategory = new ArrayList<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreCategoryEntity>();
 
-    private String[] mTitles = new String[] { "最新", "销量", "价格" };
+    private String[] mTitles = new String[]{"最新", "销量", "价格"};
 
     int category_id = 0;
     /**
@@ -73,7 +74,7 @@ public static  final int categray_with= (int)(HighCommunityApplication.screenWid
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //透明状态栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             //透明导航栏
@@ -127,7 +128,7 @@ public static  final int categray_with= (int)(HighCommunityApplication.screenWid
 
 
             mHorizontalScrollView.removeAllViews();
-            RadioGroup mGroup=new RadioGroup(NewSupplyMoreAct3.this);
+            RadioGroup mGroup = new RadioGroup(NewSupplyMoreAct3.this);
             mGroup.setLayoutParams(new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT));
             mGroup.setOrientation(LinearLayout.HORIZONTAL);
 
@@ -214,6 +215,19 @@ public static  final int categray_with= (int)(HighCommunityApplication.screenWid
         public void cancleAsyncTask() {
 
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(NewSupplyMoreAct3.this);
+            }
+        }
     };
 
     private void initView() {
@@ -259,9 +273,9 @@ public static  final int categray_with= (int)(HighCommunityApplication.screenWid
                     if (mRgCategory.getChildAt(i).getId() == checkedId) {
 
                         setCurrentPage(i);
-                        Log.e(Tag,"横向滑动的距离："+categray_with*i);
+                        Log.e(Tag, "横向滑动的距离：" + categray_with * i);
 //                        mHorizontalScrollView.scrollTo(categray_with*i,0);
-                        mHorizontalScrollView.smoothScrollTo(categray_with*i,0);
+                        mHorizontalScrollView.smoothScrollTo(categray_with * i, 0);
                     }
 
 
@@ -337,20 +351,28 @@ public static  final int categray_with= (int)(HighCommunityApplication.screenWid
         });
         for (int i = 0; i < mRgCategory.getChildCount(); i++) {
             if (mRgCategory.getChildAt(i).getId() == category_id) {
-                Log.e(Tag,"初始设置 选中but:"+category_id);
+                Log.e(Tag, "初始设置 选中but:" + category_id);
 
                 ((RadioButton) (mRgCategory.getChildAt(i))).setChecked(true);
                 setCurrentPage(i);
+                final int finalI = i;
+                Log.e(Tag, "准备Handler  横向滑动");
 
 
-
-
+                new Handler().postDelayed((new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.e(Tag, "Handler  横向滑动");
+                                mHorizontalScrollView.smoothScrollTo(((RadioButton) mRgCategory.getChildAt(finalI)).getLeft() - 100, 0);
+                            }
+                        }),
+                        300);
             }
 
 
         }
-        Log.e(Tag,"初始设置  横向滑动的距离："+categray_with*category_id);
-        mHorizontalScrollView.scrollTo(categray_with*category_id,0);
+//        Log.e(Tag,"初始设置  横向滑动的距离："+categray_with*category_id);
+//        mHorizontalScrollView.scrollTo(categray_with*category_id,0);
 //        category_id = checkedId;
 //                mPagerAdapter.updateFragmentData(category_id,1);
 //        mPagerAdapter.updateFragmentData(page, category_id + "", sort);
@@ -375,7 +397,6 @@ public static  final int categray_with= (int)(HighCommunityApplication.screenWid
     public void onClick() {
         onBackPressed();
     }
-
 
 
     public interface MySortChangeListener {

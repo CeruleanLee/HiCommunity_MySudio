@@ -31,6 +31,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.HuiLifeSecondAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftSecondAct;
@@ -169,6 +170,19 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
             ll_NoticeDetails_Progress.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
     HuiOrderBean bean;
@@ -389,6 +403,19 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
                     public void cancleAsyncTask() {
                         waitPop.dismiss();
                     }
+
+                    @Override
+                    public void shouldLogin(boolean isShouldLogin) {
+
+                    }
+
+                    @Override
+                    public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                        if (isShouldLogin){
+                            HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                            HighCommunityApplication.toLoginAgain(getActivity());
+                        }
+                    }
                 }, data.getId() + "");
             }
         }, new DialogInterface.OnClickListener() {
@@ -437,6 +464,19 @@ public class NewHuiOrderDetailFrag extends BaseFragment {
                     @Override
                     public void cancleAsyncTask() {
                         waitPop.dismiss();
+                    }
+
+                    @Override
+                    public void shouldLogin(boolean isShouldLogin) {
+
+                    }
+
+                    @Override
+                    public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                        if (isShouldLogin){
+                            HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                            HighCommunityApplication.toLoginAgain(getActivity());
+                        }
                     }
                 }, data.getId() + "");
             }

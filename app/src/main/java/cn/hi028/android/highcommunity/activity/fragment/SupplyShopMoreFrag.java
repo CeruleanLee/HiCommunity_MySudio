@@ -21,6 +21,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.NewSupplyMoreAct3;
 import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity2;
@@ -175,6 +176,19 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
             }
 //            mWatingWindow.dismiss();
 
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

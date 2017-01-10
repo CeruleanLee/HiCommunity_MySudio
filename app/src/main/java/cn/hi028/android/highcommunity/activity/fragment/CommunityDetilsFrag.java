@@ -225,6 +225,19 @@ public class CommunityDetilsFrag extends BaseFragment {
 		@Override
 		public void cancleAsyncTask() {
 		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
+		}
 	};
 
 //	@Click(R.id.civl_commDetails_avatar)
@@ -297,6 +310,19 @@ public class CommunityDetilsFrag extends BaseFragment {
 		@Override
 		public void cancleAsyncTask() {
 
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
 		}
 	};
 
@@ -433,6 +459,19 @@ public class CommunityDetilsFrag extends BaseFragment {
 				mWindow.dismiss();
 			if (null != mWatingWindow && mWatingWindow.isShowing())
 				mWatingWindow.dismiss();
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
 		}
 	};
 

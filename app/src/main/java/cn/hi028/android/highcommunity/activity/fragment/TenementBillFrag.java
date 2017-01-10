@@ -29,13 +29,11 @@ import java.util.List;
 
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.adapter.HuiChipOrderAdapter;
 import cn.hi028.android.highcommunity.adapter.HuiOrderAdapter;
 import cn.hi028.android.highcommunity.adapter.TenementBillAdapter;
 import cn.hi028.android.highcommunity.bean.BillSimpleBean;
-import cn.hi028.android.highcommunity.bean.ChipsOrderBean;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
  * @功能：物业账单页面<br>
@@ -158,6 +156,19 @@ public class TenementBillFrag extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
 
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 }

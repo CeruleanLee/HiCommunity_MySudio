@@ -1,22 +1,5 @@
 package cn.hi028.android.highcommunity.activity.alliance;
 
-import net.duohuo.dhroid.util.LogUtil;
-
-import com.don.tools.BpiHttpHandler;
-import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
-
-import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.BaseFragmentActivity;
-import cn.hi028.android.highcommunity.activity.MyGoodsEvluateActivity;
-import cn.hi028.android.highcommunity.activity.ShowPayActivity;
-import cn.hi028.android.highcommunity.bean.Alli_Root;
-import cn.hi028.android.highcommunity.bean.AlliancePayBean;
-import cn.hi028.android.highcommunity.utils.Constacts;
-import cn.hi028.android.highcommunity.utils.HTTPHelper;
-import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
-import cn.hi028.android.highcommunity.utils.TimeUtil;
-import cn.hi028.android.highcommunity.view.ECAlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,6 +16,25 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+
+import com.don.tools.BpiHttpHandler;
+import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
+
+import net.duohuo.dhroid.util.LogUtil;
+
+import cn.hi028.android.highcommunity.HighCommunityApplication;
+import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.activity.BaseFragmentActivity;
+import cn.hi028.android.highcommunity.activity.MyGoodsEvluateActivity;
+import cn.hi028.android.highcommunity.activity.ShowPayActivity;
+import cn.hi028.android.highcommunity.bean.Alli_Root;
+import cn.hi028.android.highcommunity.bean.AlliancePayBean;
+import cn.hi028.android.highcommunity.utils.Constacts;
+import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
+import cn.hi028.android.highcommunity.utils.TimeUtil;
+import cn.hi028.android.highcommunity.view.ECAlertDialog;
 
 /**
  * 联盟订单的详情
@@ -151,6 +153,19 @@ public class AllianceOderDetailActivity extends BaseFragmentActivity {
 		public void cancleAsyncTask() {
 			LogUtil.d("------7");
 			ll_NoticeDetails_Progress.setVisibility(View.GONE);
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(AllianceOderDetailActivity.this);
+			}
 		}
 	};
 
@@ -321,6 +336,19 @@ public class AllianceOderDetailActivity extends BaseFragmentActivity {
 					@Override
 					public void cancleAsyncTask() {
 					}
+
+					@Override
+					public void shouldLogin(boolean isShouldLogin) {
+
+					}
+
+					@Override
+					public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+						if (isShouldLogin){
+							HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+							HighCommunityApplication.toLoginAgain(AllianceOderDetailActivity.this);
+						}
+					}
 				};
 
 				HTTPHelper.CancelOrder(mIbpiCancel,bean.getOrder_num());
@@ -425,6 +453,19 @@ public class AllianceOderDetailActivity extends BaseFragmentActivity {
 			// TODO Auto-generated method stub
 
 		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(AllianceOderDetailActivity.this);
+			}
+		}
 	};
 
 	/**
@@ -458,6 +499,19 @@ public class AllianceOderDetailActivity extends BaseFragmentActivity {
 		public void cancleAsyncTask() {
 			// TODO Auto-generated method stub
 
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(AllianceOderDetailActivity.this);
+			}
 		}
 	};
 

@@ -15,6 +15,7 @@ import net.duohuo.dhroid.util.LogUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.AutonomousMainFrag;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_InitBean;
@@ -104,6 +105,19 @@ public class Service_AutonomousActivity extends BaseFragmentActivity {
         }
         @Override
         public void cancleAsyncTask() {
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(Service_AutonomousActivity.this);
+            }
         }
     };
 

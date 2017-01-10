@@ -27,12 +27,14 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.adapter.HuiOrderAdapter;
 import cn.hi028.android.highcommunity.adapter.NewHuiOrderListAdapter;
 import cn.hi028.android.highcommunity.bean.NewHuiOrderBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
  * @功能：新版v2.0用户订单<br>
@@ -189,6 +191,19 @@ public class NewHuiOrderFrag extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
 
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

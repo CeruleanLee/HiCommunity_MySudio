@@ -8,6 +8,7 @@ import com.don.tools.BpiHttpHandler;
 
 import java.util.HashMap;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
@@ -71,6 +72,19 @@ public class ShareUtils {
                             public void cancleAsyncTask() {
 
                             }
+
+                            @Override
+                            public void shouldLogin(boolean isShouldLogin) {
+
+                            }
+
+                            @Override
+                            public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                                if (isShouldLogin){
+                                    HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                                    HighCommunityApplication.toLoginAgain(context);
+                                }
+                            }
                         });
                     }
                 });
@@ -133,6 +147,20 @@ public class ShareUtils {
                             @Override
                             public void cancleAsyncTask() {
 
+                            }
+
+                            @Override
+                            public void shouldLogin(boolean isShouldLogin) {
+
+                            }
+
+                            @Override
+                            public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+
+                                if (isShouldLogin){
+                                    HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                                    HighCommunityApplication.toLoginAgain(context);
+                                }
                             }
                         });
                     }

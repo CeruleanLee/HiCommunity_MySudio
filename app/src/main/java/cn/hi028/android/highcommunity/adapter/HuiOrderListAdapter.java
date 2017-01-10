@@ -27,6 +27,7 @@ import net.duohuo.dhroid.util.ListUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.MenuLeftSecondAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftThirdAct;
@@ -293,6 +294,19 @@ public class HuiOrderListAdapter extends BaseExpandableListAdapter {
                     public void cancleAsyncTask() {
                         waitPop.dismiss();
                     }
+
+                    @Override
+                    public void shouldLogin(boolean isShouldLogin) {
+
+                    }
+
+                    @Override
+                    public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                        if (isShouldLogin){
+                            HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                            HighCommunityApplication.toLoginAgain(frag.getActivity());
+                        }
+                    }
                 }, data.get(groupPosition).getId() + "");
             }
         }, new DialogInterface.OnClickListener() {
@@ -343,6 +357,19 @@ public class HuiOrderListAdapter extends BaseExpandableListAdapter {
                     @Override
                     public void cancleAsyncTask() {
                         waitPop.dismiss();
+                    }
+
+                    @Override
+                    public void shouldLogin(boolean isShouldLogin) {
+
+                    }
+
+                    @Override
+                    public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                        if (isShouldLogin){
+                            HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                            HighCommunityApplication.toLoginAgain(frag.getActivity());
+                        }
                     }
                 }, data.get(groupPosition).getId() + "");
             }

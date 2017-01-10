@@ -4,7 +4,6 @@
 
 package cn.hi028.android.highcommunity.activity.fragment;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -21,10 +20,8 @@ import com.don.tools.BpiHttpHandler;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.MainActivity;
-import cn.hi028.android.highcommunity.bean.UserInfoBean;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.RegexValidateUtil;
@@ -143,6 +140,19 @@ public class ForgetPsdFrag extends BaseFragment {
                 mWindow.dismiss();
             }
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
+        }
     };
 
     public class onCounter extends CountDownTimer {
@@ -199,6 +209,19 @@ public class ForgetPsdFrag extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
 
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

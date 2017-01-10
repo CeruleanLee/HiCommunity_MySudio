@@ -121,6 +121,19 @@ public class EditPersonalFrag extends BaseFragment {
         public void cancleAsyncTask() {
             mWaitingWindow.dismiss();
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
+        }
     };
 
     @AfterViews
@@ -237,6 +250,19 @@ public class EditPersonalFrag extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
             mWaitingWindow.dismiss();
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

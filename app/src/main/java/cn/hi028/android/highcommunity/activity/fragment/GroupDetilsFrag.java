@@ -126,6 +126,19 @@ public class GroupDetilsFrag extends BaseFragment {
         public void cancleAsyncTask() {
         	
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
+        }
     };
 
     View.OnClickListener mClicklistener = new View.OnClickListener() {
@@ -164,6 +177,19 @@ public class GroupDetilsFrag extends BaseFragment {
                         public void cancleAsyncTask() {
                             mWaitingWindow.dismiss();
                         }
+
+                        @Override
+                        public void shouldLogin(boolean isShouldLogin) {
+
+                        }
+
+                        @Override
+                        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                            if (isShouldLogin){
+                                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                                HighCommunityApplication.toLoginAgain(getActivity());
+                            }
+                        }
                     }, HighCommunityApplication.mUserInfo.getId() + "", mBean.getGid() + "");
                     break;
                 case R.id.iv_transTitle_after:
@@ -196,6 +222,19 @@ public class GroupDetilsFrag extends BaseFragment {
                         @Override
                         public void cancleAsyncTask() {
                             mWaitingWindow.dismiss();
+                        }
+
+                        @Override
+                        public void shouldLogin(boolean isShouldLogin) {
+
+                        }
+
+                        @Override
+                        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                            if (isShouldLogin){
+                                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                                HighCommunityApplication.toLoginAgain(getActivity());
+                            }
                         }
                     }, HighCommunityApplication.mUserInfo.getId() + "", mBean.getGid() + "");
                     break;

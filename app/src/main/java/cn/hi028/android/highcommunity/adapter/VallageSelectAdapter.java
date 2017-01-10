@@ -27,7 +27,6 @@ import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.VallageSelctFrag;
 import cn.hi028.android.highcommunity.bean.VallageBean;
 import cn.hi028.android.highcommunity.utils.CharacterParser;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.pinyinUtils.PinyinValComparator;
@@ -146,6 +145,19 @@ public class VallageSelectAdapter extends BaseAdapter  implements SectionIndexer
                             @Override
                             public void cancleAsyncTask() {
                                 waitPop.dismiss();
+                            }
+
+                            @Override
+                            public void shouldLogin(boolean isShouldLogin) {
+
+                            }
+
+                            @Override
+                            public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                                if (isShouldLogin){
+                                    HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                                    HighCommunityApplication.toLoginAgain(frag.getActivity());
+                                }
                             }
                         }, HighCommunityApplication.mUserInfo.getId() + "", data.get(position).getId());
                     }else{

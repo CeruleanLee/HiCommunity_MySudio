@@ -131,6 +131,19 @@ public class AutoDetail_Motion extends BaseFragment {
         public void cancleAsyncTask() {
 
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
+        }
     };
 
     private void setViewData(Auto_MotionDetailBean.MotionDetailDataEntity mBean) {
@@ -221,6 +234,19 @@ public class AutoDetail_Motion extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
             mWatingWindow.dismiss();
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

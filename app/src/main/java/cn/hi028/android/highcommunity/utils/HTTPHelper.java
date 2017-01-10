@@ -1143,6 +1143,7 @@ public class HTTPHelper {
     public static void getGdCarList2(BpiHttpHandler.IBpiHttpHandler mIbpi) {
         String url = HTTPPOSTURL + "sgoods/cart-index.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
+//        HashMap<String, String> mParamMap = new HashMap<String, String>();;
         post(mParamMap, mIbpi, url);
     }
 

@@ -26,6 +26,7 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.AddressAct;
 import cn.hi028.android.highcommunity.activity.AddressModifyAct;
@@ -123,6 +124,19 @@ public class AddressListFrag extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
 
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

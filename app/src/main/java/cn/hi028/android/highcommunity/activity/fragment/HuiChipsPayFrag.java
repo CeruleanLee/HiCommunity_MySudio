@@ -30,6 +30,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.MenuLeftSecondAct;
 import cn.hi028.android.highcommunity.activity.PaymentActivity;
@@ -37,7 +38,6 @@ import cn.hi028.android.highcommunity.activity.TicketAct;
 import cn.hi028.android.highcommunity.adapter.HuiChipsPayAdapter;
 import cn.hi028.android.highcommunity.bean.AllTicketBean;
 import cn.hi028.android.highcommunity.bean.ChipsOrderBean;
-import cn.hi028.android.highcommunity.bean.ChipsOrderResulBean;
 import cn.hi028.android.highcommunity.bean.OrderBean;
 import cn.hi028.android.highcommunity.bean.WpayBean;
 import cn.hi028.android.highcommunity.utils.CommonUtils;
@@ -263,6 +263,19 @@ public class HuiChipsPayFrag extends BaseFragment {
         public void cancleAsyncTask() {
             waitPop.dismiss();
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
+        }
     };
     BpiHttpHandler.IBpiHttpHandler mIbpiWPaySubOrder = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
@@ -295,6 +308,19 @@ public class HuiChipsPayFrag extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
             waitPop.dismiss();
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
     /**
@@ -330,6 +356,19 @@ public class HuiChipsPayFrag extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
             ll_NoticeDetails_Progress.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

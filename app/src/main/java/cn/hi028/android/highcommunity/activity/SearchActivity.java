@@ -5,6 +5,7 @@ package cn.hi028.android.highcommunity.activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -17,12 +18,9 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.support.v4.app.Fragment;
 
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
-
-import net.duohuo.dhroid.activity.BaseActivity;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -30,18 +28,16 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.CitySearchAdapter;
 import cn.hi028.android.highcommunity.adapter.GroupAdapter;
 import cn.hi028.android.highcommunity.adapter.MyCarftsAdapter;
-import cn.hi028.android.highcommunity.adapter.VallageCityAdapter;
 import cn.hi028.android.highcommunity.bean.GroupBean;
-import cn.hi028.android.highcommunity.bean.HuiOrderBean;
 import cn.hi028.android.highcommunity.bean.VallageBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
-import cn.hi028.android.highcommunity.view.ShowListUtils;
 
 /**
  * 功能：搜索<br>
@@ -242,6 +238,19 @@ public class SearchActivity extends BaseFragmentActivity implements TextWatcher 
         public void cancleAsyncTask() {
 
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(SearchActivity.this);
+            }
+        }
     };
 
     /**
@@ -341,6 +350,19 @@ public class SearchActivity extends BaseFragmentActivity implements TextWatcher 
                 public void cancleAsyncTask() {
 
                 }
+
+                @Override
+                public void shouldLogin(boolean isShouldLogin) {
+
+                }
+
+                @Override
+                public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                    if (isShouldLogin){
+                        HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                        HighCommunityApplication.toLoginAgain(SearchActivity.this);
+                    }
+                }
             }, "510104", s);
         } else if (searchType == Constacts.SEARCH_TYPE_VALLAGE && QuxianId != null) {
             HTTPHelper.getVillagesByDistrict(mVillageIbpi, QuxianId,
@@ -374,6 +396,19 @@ public class SearchActivity extends BaseFragmentActivity implements TextWatcher 
                 @Override
                 public void cancleAsyncTask() {
 
+                }
+
+                @Override
+                public void shouldLogin(boolean isShouldLogin) {
+
+                }
+
+                @Override
+                public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                    if (isShouldLogin){
+                        HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                        HighCommunityApplication.toLoginAgain(SearchActivity.this);
+                    }
                 }
             }, s.toString());
         }

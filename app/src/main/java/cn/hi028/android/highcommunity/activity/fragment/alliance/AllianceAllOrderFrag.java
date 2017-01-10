@@ -21,6 +21,7 @@ import net.duohuo.dhroid.util.LogUtil;
 
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.alliance.AllianceOderDetailActivity;
 import cn.hi028.android.highcommunity.activity.alliance.AllianceOrder;
@@ -28,6 +29,7 @@ import cn.hi028.android.highcommunity.adapter.AllianceOrderAdapter;
 import cn.hi028.android.highcommunity.bean.AllianceOrderBean;
 import cn.hi028.android.highcommunity.lisenter.OnRefreshListener;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
  * 联盟订单 全部订单
@@ -119,6 +121,20 @@ OnRefreshListener {
 		@Override
 		public void cancleAsyncTask() {
 			mProgress.setVisibility(View.GONE);
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
+
 		}
 
 	};

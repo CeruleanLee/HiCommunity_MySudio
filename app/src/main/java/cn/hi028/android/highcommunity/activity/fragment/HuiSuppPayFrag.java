@@ -6,14 +6,11 @@ package cn.hi028.android.highcommunity.activity.fragment;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -23,7 +20,6 @@ import com.don.tools.BpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
 
 import net.duohuo.dhroid.activity.BaseFragment;
-import net.duohuo.dhroid.util.ImageLoaderUtil;
 import net.duohuo.dhroid.util.ListUtils;
 import net.duohuo.dhroid.view.CustomListView;
 
@@ -32,13 +28,13 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.MenuLeftSecondAct;
 import cn.hi028.android.highcommunity.activity.PaymentActivity;
 import cn.hi028.android.highcommunity.adapter.HuiGdPayAdapter;
 import cn.hi028.android.highcommunity.bean.GoodsOrderBean;
 import cn.hi028.android.highcommunity.bean.WpayBean;
-import cn.hi028.android.highcommunity.params.HuiSuppOrderParams;
 import cn.hi028.android.highcommunity.utils.CommonUtils;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
@@ -188,6 +184,19 @@ public class HuiSuppPayFrag extends BaseFragment {
         public void cancleAsyncTask() {
             waitPop.dismiss();
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
+        }
     };
 
     public String listData() {
@@ -229,6 +238,19 @@ public class HuiSuppPayFrag extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
             ll_NoticeDetails_Progress.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

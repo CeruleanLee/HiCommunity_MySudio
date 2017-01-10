@@ -17,6 +17,7 @@ import com.don.tools.BpiHttpHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.AutonomousAct_Third;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_MotionBean;
@@ -156,6 +157,19 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
             @Override
             public void cancleAsyncTask() {
 
+            }
+
+            @Override
+            public void shouldLogin(boolean isShouldLogin) {
+
+            }
+
+            @Override
+            public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                if (isShouldLogin){
+                    HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                    HighCommunityApplication.toLoginAgain(context);
+                }
             }
         };
 

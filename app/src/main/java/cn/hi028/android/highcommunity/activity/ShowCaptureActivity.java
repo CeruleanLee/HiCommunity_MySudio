@@ -25,6 +25,7 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.bean.ActGoodsBean;
 import cn.hi028.android.highcommunity.bean.WpayBean;
@@ -281,6 +282,20 @@ float finaltotalPrice=0;int finalnum=1;
         public void cancleAsyncTask() {
             waitPop.dismiss();
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(ShowCaptureActivity.this);
+            }
+        }
     };
     BpiHttpHandler.IBpiHttpHandler mIbpiWPaySubOrder = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
@@ -318,6 +333,19 @@ float finaltotalPrice=0;int finalnum=1;
         @Override
         public void cancleAsyncTask() {
             waitPop.dismiss();
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(ShowCaptureActivity.this);
+            }
         }
     };
 //

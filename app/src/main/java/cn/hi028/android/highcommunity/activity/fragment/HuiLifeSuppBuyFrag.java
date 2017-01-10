@@ -227,6 +227,19 @@ public class HuiLifeSuppBuyFrag extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
+        }
     };
 
     @Click(R.id.btn_pay)
@@ -309,6 +322,19 @@ public class HuiLifeSuppBuyFrag extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
             waitPop.dismiss();
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

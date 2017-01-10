@@ -5,15 +5,12 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -38,10 +35,8 @@ import java.util.List;
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.ServiceSecondAct;
-import cn.hi028.android.highcommunity.adapter.AddPicAdapter;
 import cn.hi028.android.highcommunity.adapter.GridAdapter;
 import cn.hi028.android.highcommunity.bean.CertifiBean;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.RegexValidateUtil;
@@ -49,7 +44,6 @@ import cn.hi028.android.highcommunity.view.ChangeBirthDialog;
 import photo.activity.AlbumActivity;
 import photo.activity.GalleryActivity;
 import photo.util.Bimp;
-import photo.util.FileUtils;
 import photo.util.ImageItem;
 
 /**
@@ -283,6 +277,19 @@ public class SeriRepairOrderFrag extends BaseFragment {
         public void cancleAsyncTask() {
             if (null != mWaitingWindow && mWaitingWindow.isShowing())
                 mWaitingWindow.dismiss();
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 }

@@ -24,6 +24,7 @@ import net.duohuo.dhroid.util.LogUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.alliance.AllianceOderDetailActivity;
 import cn.hi028.android.highcommunity.activity.alliance.ShangJiaOrderDetailAct;
@@ -39,6 +40,7 @@ import cn.hi028.android.highcommunity.bean.OrderResult;
 import cn.hi028.android.highcommunity.bean.SubmitOrderBean;
 import cn.hi028.android.highcommunity.bean.WechatParamBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.alipay.AlipayUtils;
 import cn.hi028.android.highcommunity.utils.alipay.AlipayUtils.onPayListener;
 import cn.hi028.android.highcommunity.utils.alipay.PayResult;
@@ -408,6 +410,19 @@ OnClickListener, OnItemClickListener {
 
 		@Override
 		public void cancleAsyncTask() {
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(ShowPayActivity.this);
+			}
 		}
 	};
 

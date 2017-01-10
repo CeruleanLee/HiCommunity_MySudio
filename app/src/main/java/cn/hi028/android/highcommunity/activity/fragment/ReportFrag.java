@@ -4,15 +4,10 @@
 
 package cn.hi028.android.highcommunity.activity.fragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.res.ColorStateList;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.Gravity;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -27,10 +22,12 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.CommunityDetailAct;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.view.myradiobutton.GridRadioAdapter;
@@ -187,6 +184,19 @@ public class ReportFrag extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
             mWaitingWindow.dismiss();
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

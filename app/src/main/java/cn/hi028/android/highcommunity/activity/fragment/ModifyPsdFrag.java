@@ -7,7 +7,6 @@ package cn.hi028.android.highcommunity.activity.fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.EditText;
 
 import com.don.tools.BpiHttpHandler;
@@ -18,12 +17,10 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
-import org.w3c.dom.Text;
 
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.WelcomeAct;
-import cn.hi028.android.highcommunity.utils.CommonUtils;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
@@ -98,6 +95,19 @@ public class ModifyPsdFrag extends BaseFragment{
                 @Override
                 public void cancleAsyncTask() {
 
+                }
+
+                @Override
+                public void shouldLogin(boolean isShouldLogin) {
+
+                }
+
+                @Override
+                public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                    if (isShouldLogin){
+                        HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                        HighCommunityApplication.toLoginAgain(getActivity());
+                    }
                 }
             },oldPsd,newPsd);
         }

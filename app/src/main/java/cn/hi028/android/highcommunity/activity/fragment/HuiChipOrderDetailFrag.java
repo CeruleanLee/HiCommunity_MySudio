@@ -4,9 +4,14 @@
 
 package cn.hi028.android.highcommunity.activity.fragment;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+
+import com.don.tools.BpiHttpHandler;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.LogUtil;
@@ -16,26 +21,21 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-import android.os.AsyncTask;
-import android.util.Log;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.PopupWindow;
-import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.MenuLeftSecondAct;
 import cn.hi028.android.highcommunity.adapter.HuiGdPayAdapter;
 import cn.hi028.android.highcommunity.bean.ChipOrderDetailBean;
-import cn.hi028.android.highcommunity.bean.GoodsOrderSubmitBean;
-import cn.hi028.android.highcommunity.bean.NearbyOrderDetailBean;
 import cn.hi028.android.highcommunity.bean.chiporder.ChipOrderDetail;
 import cn.hi028.android.highcommunity.params.HuiSuppGdParams;
 import cn.hi028.android.highcommunity.utils.CommonUtils;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.TimeUtil;
-
-import com.don.tools.BpiHttpHandler;
 
 /**
  * @功能：惠生活 众筹订单详情<br>
@@ -127,6 +127,19 @@ public class HuiChipOrderDetailFrag extends BaseFragment {
 		@Override
 		public void cancleAsyncTask() {
 			ll_NoticeDetails_Progress.setVisibility(View.GONE);
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
 		}
 	};
 

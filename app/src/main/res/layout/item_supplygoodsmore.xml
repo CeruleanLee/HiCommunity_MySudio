@@ -30,6 +30,7 @@
         android:paddingRight="6dp"
         android:paddingTop="1dp"
         android:text=""
+        android:visibility="gone"
         android:textColor="@color/white"
         android:textSize="12sp" />
 

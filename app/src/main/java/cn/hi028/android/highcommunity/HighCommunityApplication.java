@@ -1,7 +1,9 @@
 package cn.hi028.android.highcommunity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -26,6 +28,8 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import cn.hi028.android.highcommunity.activity.MenuLeftAct;
+import cn.hi028.android.highcommunity.activity.WelcomeAct;
 import cn.hi028.android.highcommunity.bean.UserInfoBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.CrashHandler;
@@ -192,7 +196,16 @@ static  final String Tag="HiApplication->";
     public final static int SCREEN_ORIENTATION_HORIZONTAL = 2; // 屏幕状态：竖屏
     public static int screenOrientation = SCREEN_ORIENTATION_VERTICAL;// 当前屏幕状态，默认为竖屏
 
+public static void toLoginAgain(Context context){
+    HighCommunityApplication.isLogOut = true;
+    Intent i = new Intent(context, WelcomeAct.class);
+    i.putExtra(MenuLeftAct.ACTIVITYTAG, Constacts.MENU_LEFT_MESSAGECENTER);
+    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    context.startActivity(i);
 
+
+
+}
 
 
 }

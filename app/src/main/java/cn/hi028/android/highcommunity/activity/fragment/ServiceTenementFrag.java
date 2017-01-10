@@ -6,17 +6,14 @@ package cn.hi028.android.highcommunity.activity.fragment;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.ListUtils;
-import net.duohuo.dhroid.view.CustomListView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -29,10 +26,8 @@ import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.VallageAct;
 import cn.hi028.android.highcommunity.adapter.SeriTenementAdapter;
-import cn.hi028.android.highcommunity.bean.CityBean;
 import cn.hi028.android.highcommunity.bean.TenementBean;
 import cn.hi028.android.highcommunity.bean.TenementHouseBean;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
@@ -114,6 +109,19 @@ public class ServiceTenementFrag extends BaseFragment {
         public void cancleAsyncTask() {
             mProgress.setVisibility(View.GONE);
 
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

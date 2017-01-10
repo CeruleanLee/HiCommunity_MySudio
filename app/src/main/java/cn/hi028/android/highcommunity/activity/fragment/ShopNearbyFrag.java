@@ -23,11 +23,13 @@ import net.duohuo.dhroid.activity.BaseFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.alliance.MerchantActivity;
 import cn.hi028.android.highcommunity.adapter.ShopNearByAdapter;
 import cn.hi028.android.highcommunity.bean.NearByShopData;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
  * 联盟商家
@@ -145,6 +147,19 @@ TextView tv_nodata;
 		@Override
 		public void cancleAsyncTask() {
 
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
 		}
 
 	};

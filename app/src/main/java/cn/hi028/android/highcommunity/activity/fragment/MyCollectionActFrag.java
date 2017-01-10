@@ -30,6 +30,7 @@ import cn.hi028.android.highcommunity.adapter.MyActivityAdapter;
 import cn.hi028.android.highcommunity.bean.ActiveBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
  * @功能：我收藏的活动<br>
@@ -121,6 +122,19 @@ public class MyCollectionActFrag extends BaseFragment {
         public void cancleAsyncTask() {
             mProgress.setVisibility(View.GONE);
             mListView.onRefreshComplete();
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

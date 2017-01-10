@@ -29,6 +29,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.HuiLifeSecondAct;
 import cn.hi028.android.highcommunity.adapter.NewHuiGdcarAdapter;
@@ -143,6 +144,20 @@ public class NewHuiGdCarFrag extends BaseFragment {
 
         }
 
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
+        }
+
     };
     @OnClick({R.id.img_goods_ch, R.id.btn_pay})
     public void onClick(View view) {
@@ -206,6 +221,19 @@ public class NewHuiGdCarFrag extends BaseFragment {
                     public void cancleAsyncTask() {
                         waitPop.dismiss();
                         HighCommunityUtils.GetInstantiation().ShowToast("取消删除", 0);
+                    }
+
+                    @Override
+                    public void shouldLogin(boolean isShouldLogin) {
+
+                    }
+
+                    @Override
+                    public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                        if (isShouldLogin){
+                            HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                            HighCommunityApplication.toLoginAgain(getActivity());
+                        }
                     }
                 }, list());
             } else {

@@ -558,6 +558,19 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         public void cancleAsyncTask() {
 
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(MainActivity.this);
+            }
+        }
     };
 
     private void setleftData() {
@@ -817,6 +830,19 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             @Override
             public void cancleAsyncTask() {
 
+            }
+
+            @Override
+            public void shouldLogin(boolean isShouldLogin) {
+
+            }
+
+            @Override
+            public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                if (isShouldLogin){
+                    HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                    HighCommunityApplication.toLoginAgain(MainActivity.this);
+                }
             }
         });
     }

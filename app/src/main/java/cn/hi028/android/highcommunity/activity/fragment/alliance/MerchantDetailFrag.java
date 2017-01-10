@@ -1,9 +1,5 @@
 package cn.hi028.android.highcommunity.activity.fragment.alliance;
 
-import com.alibaba.fastjson.JSON;
-import com.don.tools.BpiHttpHandler.IBpiHttpHandler;
-
-import net.duohuo.dhroid.activity.BaseFragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -14,9 +10,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.alibaba.fastjson.JSON;
+import com.don.tools.BpiHttpHandler.IBpiHttpHandler;
+
+import net.duohuo.dhroid.activity.BaseFragment;
+
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.bean.MerchantDetailBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
+
 /**
  * 惠生活-商家联盟-item点击 -详情
  * @author Administrator
@@ -78,6 +83,20 @@ public class MerchantDetailFrag extends BaseFragment {
 
 		@Override
 		public void cancleAsyncTask() {
+
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
 
 		}
 	};

@@ -214,6 +214,19 @@ int clickPosition=-1;
             public void cancleAsyncTask() {
 
             }
+
+            @Override
+            public void shouldLogin(boolean isShouldLogin) {
+
+            }
+
+            @Override
+            public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                if (isShouldLogin){
+                    HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                    HighCommunityApplication.toLoginAgain(context);
+                }
+            }
         };
         mViewHolder.mContentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -507,6 +520,20 @@ int clickPosition=-1;
             @Override
             public void cancleAsyncTask() {
 
+            }
+
+            @Override
+            public void shouldLogin(boolean isShouldLogin) {
+
+            }
+
+            @Override
+            public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+
+                if (isShouldLogin){
+                    HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                    HighCommunityApplication.toLoginAgain(context);
+                }
             }
         };
         HTTPHelper.SupportMotion(mIbpi, id);

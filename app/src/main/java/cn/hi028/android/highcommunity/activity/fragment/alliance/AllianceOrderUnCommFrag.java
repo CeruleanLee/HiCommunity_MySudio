@@ -22,6 +22,7 @@ import net.duohuo.dhroid.util.LogUtil;
 
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.MyGoodsEvluateActivity;
 import cn.hi028.android.highcommunity.activity.alliance.AllianceOderDetailActivity;
@@ -31,6 +32,7 @@ import cn.hi028.android.highcommunity.bean.AllianceOrderBean;
 import cn.hi028.android.highcommunity.lisenter.EvaluateInterface;
 import cn.hi028.android.highcommunity.lisenter.OnRefreshListener;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
  * 联盟订单  未评价订单
@@ -121,6 +123,19 @@ public class AllianceOrderUnCommFrag extends BaseFragment implements
 		@Override
 		public void cancleAsyncTask() {
 			mProgress.setVisibility(View.GONE);
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
 		}
 	};
 

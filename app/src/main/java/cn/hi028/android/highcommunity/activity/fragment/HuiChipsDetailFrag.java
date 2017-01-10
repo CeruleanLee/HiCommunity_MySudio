@@ -5,12 +5,10 @@
 package cn.hi028.android.highcommunity.activity.fragment;
 
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -26,7 +24,6 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.ListUtils;
@@ -149,7 +146,20 @@ public class HuiChipsDetailFrag extends BaseFragment {
 		@Override
 		public void cancleAsyncTask() {
 		}
-	 };
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
+		}
+	};
 
 	 @Override
 	 public void onPause() {
@@ -206,6 +216,19 @@ public class HuiChipsDetailFrag extends BaseFragment {
 		 @Override
 		 public void cancleAsyncTask() {
 			 popWait.dismiss();
+		 }
+
+		 @Override
+		 public void shouldLogin(boolean isShouldLogin) {
+
+		 }
+
+		 @Override
+		 public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			 if (isShouldLogin){
+				 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				 HighCommunityApplication.toLoginAgain(getActivity());
+			 }
 		 }
 	 };
 

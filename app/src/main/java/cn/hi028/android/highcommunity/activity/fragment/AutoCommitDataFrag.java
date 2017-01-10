@@ -835,6 +835,20 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
             mWatingWindow.dismiss();
 
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
+
+        }
     };
     /**
      * 获取验证码的handler
@@ -875,6 +889,19 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
                 mWindow.dismiss();
             }
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
+        }
     };
     List<Auto_UnitBean.UnitDataEntity> mUnitList;
     /**
@@ -908,6 +935,19 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
         public void cancleAsyncTask() {
 
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
+        }
     };
     List<Auto_DoorBean.DoorDataEntity> mDoorList;
     /**
@@ -939,6 +979,19 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
         @Override
         public void cancleAsyncTask() {
 
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

@@ -22,10 +22,12 @@ import net.duohuo.dhroid.util.LogUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.SystemMsgAdapter;
 import cn.hi028.android.highcommunity.bean.SystemMessageBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
  * @功能：消息中心页面<br>
@@ -153,6 +155,19 @@ public class SysMessageFrag extends BaseFragment {
         public void cancleAsyncTask() {
 
         }
-    };
+
+    @Override
+    public void shouldLogin(boolean isShouldLogin) {
+
+    }
+
+    @Override
+    public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+        if (isShouldLogin){
+            HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+            HighCommunityApplication.toLoginAgain(getActivity());
+        }
+    }
+};
 
 }

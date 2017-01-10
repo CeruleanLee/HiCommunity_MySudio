@@ -6,10 +6,8 @@ package cn.hi028.android.highcommunity.activity.fragment;
 
 import android.os.AsyncTask;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -17,7 +15,6 @@ import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshExpandableListView;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
@@ -31,14 +28,13 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.HuiChipOrderAdapter;
 import cn.hi028.android.highcommunity.adapter.HuiOrderAdapter;
-import cn.hi028.android.highcommunity.adapter.HuiOrderListAdapter;
 import cn.hi028.android.highcommunity.bean.ChipsOrderBean;
-import cn.hi028.android.highcommunity.bean.HuiOrderBean;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
  * @功能：用户众筹订单<br>
@@ -177,6 +173,19 @@ public class HuiChipsOrderFrag extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
 
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 }

@@ -4,11 +4,9 @@
 
 package cn.hi028.android.highcommunity.activity.fragment;
 
-import android.animation.Animator;
 import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,13 +17,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
 
 import com.don.tools.BpiHttpHandler;
-import com.nineoldandroids.view.ViewHelper;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 
@@ -33,13 +26,12 @@ import java.util.List;
 
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.GuideMainActivity;
 import cn.hi028.android.highcommunity.activity.MainActivity;
 import cn.hi028.android.highcommunity.bean.LabelBean;
 import cn.hi028.android.highcommunity.bean.UserInfoBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
-import cn.hi028.android.highcommunity.utils.LocUtils;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
  * @功能：欢迎界面<br>
@@ -72,6 +64,10 @@ public class WelcomeFrag extends BaseFragment {
 		mFragmeView.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
 		fm = getFragmentManager();
 		// startAmin();
+
+
+
+
 		toLogin();
 	}
 
@@ -278,6 +274,19 @@ public class WelcomeFrag extends BaseFragment {
 		public void cancleAsyncTask() {
 
 		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
+		}
 	};
 
 	BpiHttpHandler.IBpiHttpHandler mLabelIbpi = new BpiHttpHandler.IBpiHttpHandler() {
@@ -310,6 +319,19 @@ public class WelcomeFrag extends BaseFragment {
 		@Override
 		public void cancleAsyncTask() {
 
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
 		}
 	};
 

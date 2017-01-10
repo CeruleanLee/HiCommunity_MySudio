@@ -29,6 +29,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.CommunityMsgAdapter;
 import cn.hi028.android.highcommunity.adapter.HuiOrderAdapter;
@@ -36,6 +37,7 @@ import cn.hi028.android.highcommunity.adapter.SystemMsgAdapter;
 import cn.hi028.android.highcommunity.bean.CommunityMsgBean;
 import cn.hi028.android.highcommunity.bean.SystemMessageBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.view.MyCustomViewPager;
 
 /**
@@ -197,7 +199,20 @@ public class MyMessageFrag extends BaseFragment {
         public void cancleAsyncTask() {
 
         }
-    };
+
+    @Override
+    public void shouldLogin(boolean isShouldLogin) {
+
+    }
+
+    @Override
+    public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+        if (isShouldLogin){
+            HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+            HighCommunityApplication.toLoginAgain(getActivity());
+        }
+    }
+};
     BpiHttpHandler.IBpiHttpHandler mRelateIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
@@ -229,6 +244,19 @@ public class MyMessageFrag extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
 
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

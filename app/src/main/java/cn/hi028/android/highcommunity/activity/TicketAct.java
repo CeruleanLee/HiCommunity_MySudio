@@ -8,14 +8,13 @@ import android.widget.TextView;
 import com.don.tools.BpiHttpHandler;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-import net.duohuo.dhroid.activity.BaseActivity;
-
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.TicketAdapter;
 import cn.hi028.android.highcommunity.bean.AllTicketBean;
@@ -88,6 +87,20 @@ public class TicketAct extends BaseFragmentActivity {
         @Override
         public void cancleAsyncTask() {
 
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(TicketAct.this);
+
+            }
         }
     };
 }

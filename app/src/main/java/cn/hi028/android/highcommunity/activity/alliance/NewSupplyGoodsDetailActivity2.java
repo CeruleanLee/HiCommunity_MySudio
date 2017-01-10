@@ -51,6 +51,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.BaseFragmentActivity;
 import cn.hi028.android.highcommunity.activity.GoodImageDetailOrEvaluationActivity;
@@ -224,7 +225,8 @@ public class NewSupplyGoodsDetailActivity2 extends BaseFragmentActivity implemen
         HTTPHelper.getGdCarList2(mGetCarIbpi);
     }
 
-    IBpiHttpHandler mGetCarIbpi = new IBpiHttpHandler() {
+    IBpiHttpHandler mGetCarIbpi = new IBpiHttpHandler
+            () {
         @Override
         public void onError(int id, String message) {
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
@@ -261,6 +263,19 @@ public class NewSupplyGoodsDetailActivity2 extends BaseFragmentActivity implemen
         @Override
         public void cancleAsyncTask() {
 
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(NewSupplyGoodsDetailActivity2.this);
+            }
         }
 
     };
@@ -515,6 +530,19 @@ public class NewSupplyGoodsDetailActivity2 extends BaseFragmentActivity implemen
             if (mWatingWindow != null) {
                 mWatingWindow.dismiss();
 
+            }
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(NewSupplyGoodsDetailActivity2.this);
             }
         }
     };
@@ -924,6 +952,19 @@ public class NewSupplyGoodsDetailActivity2 extends BaseFragmentActivity implemen
         public void cancleAsyncTask() {
             waitPop.dismiss();
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(NewSupplyGoodsDetailActivity2.this);
+            }
+        }
     };
     float singlePrice = 0;
 
@@ -1103,6 +1144,19 @@ public class NewSupplyGoodsDetailActivity2 extends BaseFragmentActivity implemen
 
         @Override
         public void cancleAsyncTask() {
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(NewSupplyGoodsDetailActivity2.this);
+            }
         }
     };
 

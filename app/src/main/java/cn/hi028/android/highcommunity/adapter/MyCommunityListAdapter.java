@@ -185,6 +185,19 @@ public class MyCommunityListAdapter extends BaseFragmentAdapter {
                     public void cancleAsyncTask() {
 
                     }
+
+                    @Override
+                    public void shouldLogin(boolean isShouldLogin) {
+
+                    }
+
+                    @Override
+                    public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                        if (isShouldLogin){
+                            HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                            HighCommunityApplication.toLoginAgain(mContext);
+                        }
+                    }
                 }, HighCommunityApplication.mUserInfo.getId() + "", mBean.getMid() + "");
             }
         });
@@ -253,6 +266,19 @@ public class MyCommunityListAdapter extends BaseFragmentAdapter {
                     public void cancleAsyncTask() {
                         if (mWaitingWindow != null && mWaitingWindow.isShowing())
                             mWaitingWindow.dismiss();
+                    }
+
+                    @Override
+                    public void shouldLogin(boolean isShouldLogin) {
+
+                    }
+
+                    @Override
+                    public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                        if (isShouldLogin){
+                            HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                            HighCommunityApplication.toLoginAgain(mContext);
+                        }
                     }
                 }, HighCommunityApplication.mUserInfo.getId() + "", mBean.getMid() + "");
             }

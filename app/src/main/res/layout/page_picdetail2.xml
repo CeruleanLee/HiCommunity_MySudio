@@ -3,6 +3,7 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:id="@+id/srcollview_page_picdetail"
     android:layout_width="match_parent"
+    android:focusableInTouchMode="true"
     android:layout_height="match_parent"
     android:background="@color/Defult_Color_ShallowGrey"
     android:orientation="vertical">
@@ -45,6 +46,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
+    android:divider="@null"
     android:id="@+id/pic_noscrolllistview"
 
     ></cn.hi028.android.highcommunity.view.MyNoScrollListview>

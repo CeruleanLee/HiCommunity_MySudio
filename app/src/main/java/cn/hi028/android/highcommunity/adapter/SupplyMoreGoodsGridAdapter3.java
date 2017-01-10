@@ -21,6 +21,7 @@ import com.don.tools.BpiUniveralImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity2;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_SupportedResultBean;
@@ -86,10 +87,21 @@ public class SupplyMoreGoodsGridAdapter3 extends RecyclerView.Adapter<SupplyMore
 
             BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getCover_pic(), holder.mGoodsimg);
         }
-        holder.mTvTag.setText(mBean.getLabel());
+//        holder.mTvTag.setText(mBean.getLabel());
         holder.mTitle.setText(mBean.getName());
         holder.mNowPrice.setText("￥:" + mBean.getPrice());
-        holder.mTvTag.setText(mBean.getLabel());
+        if (mBean.getLabel()!=null&&!mBean.getLabel().equals("")){
+            holder.mTvTag.setVisibility(View.VISIBLE);
+
+            holder.mTvTag.setText(mBean.getLabel());
+
+        }else{
+            holder.mTvTag.setVisibility(View.GONE);
+        }
+
+
+
+
         Spannable spanStrikethrough = new SpannableString("￥：" + mBean.getOld_price());
         StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
 //			spanStrikethrough.setSpan(stSpan, 0, 7, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -257,6 +269,19 @@ public class SupplyMoreGoodsGridAdapter3 extends RecyclerView.Adapter<SupplyMore
         @Override
         public void cancleAsyncTask() {
             waitPop.dismiss();
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(context);
+            }
         }
     };
 

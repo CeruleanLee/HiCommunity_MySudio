@@ -16,6 +16,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.ShowVoteResultAdapter;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_VoteResultBean;
@@ -96,6 +97,19 @@ public class Auto_Five extends BaseFragmentActivity {
 
         @Override
         public void cancleAsyncTask() {
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(Auto_Five.this);
+            }
         }
     };
 

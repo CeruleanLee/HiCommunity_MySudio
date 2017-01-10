@@ -31,11 +31,8 @@ import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.CommunityDetailAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.VallageAct;
-import cn.hi028.android.highcommunity.adapter.CommunityListAdapter;
 import cn.hi028.android.highcommunity.adapter.CommunityListAdapter2;
-import cn.hi028.android.highcommunity.adapter.MyCommunityListAdapter;
 import cn.hi028.android.highcommunity.bean.CommunityBean;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
@@ -172,6 +169,19 @@ public class MyCollectionMessageFrag extends Fragment {
 		@Override
 		public void cancleAsyncTask() {
 			mListView.onRefreshComplete();
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
 		}
 	};
 

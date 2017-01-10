@@ -172,6 +172,19 @@ public class NewHuiGdcarAdapter extends BaseAdapter {
                                 mWatingWindow.dismiss();
 
                             }
+
+                            @Override
+                            public void shouldLogin(boolean isShouldLogin) {
+
+                            }
+
+                            @Override
+                            public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                                if (isShouldLogin){
+                                    HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                                    HighCommunityApplication.toLoginAgain(frag.getActivity());
+                                }
+                            }
                         }, mBean.getId(), cartType + "");
                     }
                     notifyDataSetChanged();
@@ -218,6 +231,19 @@ public class NewHuiGdcarAdapter extends BaseAdapter {
                             @Override
                             public void cancleAsyncTask() {
                                 mWatingWindow.dismiss();
+                            }
+
+                            @Override
+                            public void shouldLogin(boolean isShouldLogin) {
+
+                            }
+
+                            @Override
+                            public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                                if (isShouldLogin){
+                                    HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                                    HighCommunityApplication.toLoginAgain(frag.getActivity());
+                                }
                             }
                         }, mBean.getId(), cartType + "");
                     }

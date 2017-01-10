@@ -27,6 +27,7 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.ShakeAdapter;
 import cn.hi028.android.highcommunity.bean.ShakeBean;
@@ -124,6 +125,19 @@ public class ShakeFrag extends BaseFragment {
                             public void cancleAsyncTask() {
 
                             }
+
+                            @Override
+                            public void shouldLogin(boolean isShouldLogin) {
+
+                            }
+
+                            @Override
+                            public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                                if (isShouldLogin){
+                                    HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                                    HighCommunityApplication.toLoginAgain(getActivity());
+                                }
+                            }
                         });
                     }
                 }, 2000);
@@ -170,6 +184,19 @@ public class ShakeFrag extends BaseFragment {
             @Override
             public void cancleAsyncTask() {
 
+            }
+
+            @Override
+            public void shouldLogin(boolean isShouldLogin) {
+
+            }
+
+            @Override
+            public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                if (isShouldLogin){
+                    HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                    HighCommunityApplication.toLoginAgain(getActivity());
+                }
             }
         });
     }

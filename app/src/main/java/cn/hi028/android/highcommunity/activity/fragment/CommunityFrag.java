@@ -25,6 +25,7 @@ import com.lidroid.xutils.util.LogUtils;
 
 import net.duohuo.dhroid.util.LogUtil;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.MainActivity;
 import cn.hi028.android.highcommunity.activity.VallageAct;
@@ -273,6 +274,19 @@ public void setIsClick(boolean isGetInitMessage){
             mProgress.setVisibility(View.GONE);
             mListView.onRefreshComplete();
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
+        }
     };
     /***
      * 专为resume刷新
@@ -336,6 +350,19 @@ public void setIsClick(boolean isGetInitMessage){
         public void cancleAsyncTask() {
             mProgress.setVisibility(View.GONE);
             mListView.onRefreshComplete();
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

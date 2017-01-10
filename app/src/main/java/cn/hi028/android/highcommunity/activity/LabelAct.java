@@ -351,6 +351,19 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
                                         public void cancleAsyncTask() {
                                             mWaitingWindow.dismiss();
                                         }
+
+                                        @Override
+                                        public void shouldLogin(boolean isShouldLogin) {
+
+                                        }
+
+                                        @Override
+                                        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                                            if (isShouldLogin){
+                                                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                                                HighCommunityApplication.toLoginAgain(LabelAct.this);
+                                            }
+                                        }
                                     }, mLabelId);
                                 }
                             }, null);
@@ -427,6 +440,19 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
         public void cancleAsyncTask() {
 
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(LabelAct.this);
+            }
+        }
     };
 
     BpiHttpHandler.IBpiHttpHandler mLocationIbpi = new BpiHttpHandler.IBpiHttpHandler() {
@@ -456,6 +482,19 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
         @Override
         public void cancleAsyncTask() {
 
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(LabelAct.this);
+            }
         }
     };
 
@@ -651,6 +690,19 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
         @Override
         public void cancleAsyncTask() {
 
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(LabelAct.this);
+            }
         }
     };
 

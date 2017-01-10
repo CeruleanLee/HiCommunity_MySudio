@@ -100,7 +100,8 @@ public class CitySearchAdapter extends BaseAdapter {
                 } else {
                     final PopupWindow waitPop = HighCommunityUtils.GetInstantiation().ShowPopupWindow(act, v, Gravity.CENTER, "小区选择中...");
                     if (HighCommunityUtils.isLogin()) {
-                        HTTPHelper.IsSelectVillage(new BpiHttpHandler.IBpiHttpHandler() {
+                        HTTPHelper.IsSelectVillage(new BpiHttpHandler.IBpiHttpHandler
+                                () {
                             @Override
                             public void onError(int id, String message) {
                                 waitPop.dismiss();
@@ -129,6 +130,19 @@ public class CitySearchAdapter extends BaseAdapter {
                             @Override
                             public void cancleAsyncTask() {
                                 waitPop.dismiss();
+                            }
+
+                            @Override
+                            public void shouldLogin(boolean isShouldLogin) {
+
+                            }
+
+                            @Override
+                            public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                                if (isShouldLogin){
+                                    HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                                    HighCommunityApplication.toLoginAgain(act);
+                                }
                             }
                         }, HighCommunityApplication.mUserInfo.getId() + "", data.get(position).getId());
                     } else {

@@ -195,7 +195,20 @@ public class AutoCommitAct extends BaseFragmentActivity {
         @Override
         public void cancleAsyncTask() {
         }
-    };
+
+    @Override
+    public void shouldLogin(boolean isShouldLogin) {
+
+    }
+
+    @Override
+    public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+        if (isShouldLogin){
+            HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+            HighCommunityApplication.toLoginAgain(AutoCommitAct.this);
+        }
+    }
+};
 
     @OnClick({R.id.commitAct_img_back, R.id.commit_but_checkAgain})
     public void onClick(View view) {

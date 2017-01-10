@@ -4,7 +4,6 @@
 
 package cn.hi028.android.highcommunity.activity.fragment;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,7 +11,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
-import com.don.tools.GeneratedClassUtils;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
@@ -29,13 +27,11 @@ import java.util.List;
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.ServiceAct;
-import cn.hi028.android.highcommunity.activity.ServiceSecondAct;
 import cn.hi028.android.highcommunity.adapter.NoticeAdapter;
 import cn.hi028.android.highcommunity.bean.NoticeBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
-import cn.hi028.android.highcommunity.utils.wchatpay.Constants;
 
 /**
  * @功能：物业和政务公告<br>
@@ -151,6 +147,19 @@ public class ServiceNoticeFrag extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
             mProgress.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

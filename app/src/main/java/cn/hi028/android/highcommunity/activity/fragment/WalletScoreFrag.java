@@ -31,7 +31,6 @@ import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.MyIntegralCore;
 import cn.hi028.android.highcommunity.adapter.WalletScoreAdapter;
 import cn.hi028.android.highcommunity.bean.ScoreBean;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
@@ -110,6 +109,19 @@ public class WalletScoreFrag extends BaseFragment implements OnClickListener {
 		public void cancleAsyncTask() {
 
 		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
+		}
 	};
 
 	@Click(R.id.tv_walletscore_rules)
@@ -168,6 +180,19 @@ public class WalletScoreFrag extends BaseFragment implements OnClickListener {
 		@Override
 		public void cancleAsyncTask() {
 			mWaitingWindow.dismiss();
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
 		}
 	};
 

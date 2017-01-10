@@ -27,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftThirdAct;
@@ -113,6 +114,19 @@ public class HuiCommOrderFrag extends BaseFragment{
                 @Override
                 public void cancleAsyncTask() {
                     waitPop.dismiss();
+                }
+
+                @Override
+                public void shouldLogin(boolean isShouldLogin) {
+
+                }
+
+                @Override
+                public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                    if (isShouldLogin){
+                        HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                        HighCommunityApplication.toLoginAgain(getActivity());
+                    }
                 }
             }, params.toString(),data.getId()+"");
         }

@@ -25,6 +25,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.ShowPayActivity;
 import cn.hi028.android.highcommunity.activity.alliance.GoodsDetailActivity3;
@@ -37,6 +38,7 @@ import cn.hi028.android.highcommunity.bean.SubmitOrderBean;
 import cn.hi028.android.highcommunity.lisenter.PayPop2FragFace;
 import cn.hi028.android.highcommunity.lisenter.ShopAddSubListener;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.view.PaylistPopupWindow;
 /**
  * 惠生活-商家联盟-item点击 -商品
@@ -171,6 +173,20 @@ public class MerchantShopFrag extends BaseFragment implements OnClickListener,
 
 		@Override
 		public void cancleAsyncTask() {
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
+
 		}
 	};
 
@@ -555,6 +571,19 @@ public class MerchantShopFrag extends BaseFragment implements OnClickListener,
 
 		@Override
 		public void cancleAsyncTask() {
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
 		}
 	};
 	

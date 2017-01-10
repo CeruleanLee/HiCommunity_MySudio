@@ -126,6 +126,19 @@ public class GroupAdapter extends BaseFragmentAdapter {
                         public void cancleAsyncTask() {
                             mWaitingWindow.dismiss();
                         }
+
+                        @Override
+                        public void shouldLogin(boolean isShouldLogin) {
+
+                        }
+
+                        @Override
+                        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                            if (isShouldLogin){
+                                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                                HighCommunityApplication.toLoginAgain(mContext);
+                            }
+                        }
                     }, HighCommunityApplication.mUserInfo.getId() + "", mBean.getId() + "");
                 } else {
                     HTTPHelper.CancelAttention(new BpiHttpHandler.IBpiHttpHandler() {
@@ -156,6 +169,19 @@ public class GroupAdapter extends BaseFragmentAdapter {
                         @Override
                         public void cancleAsyncTask() {
                             mWaitingWindow.dismiss();
+                        }
+
+                        @Override
+                        public void shouldLogin(boolean isShouldLogin) {
+
+                        }
+
+                        @Override
+                        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                            if (isShouldLogin){
+                                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                                HighCommunityApplication.toLoginAgain(mContext);
+                            }
                         }
                     }, HighCommunityApplication.mUserInfo.getId() + "", mBean.getId() + "");
                 }

@@ -7,8 +7,6 @@ package cn.hi028.android.highcommunity.activity.fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -29,16 +27,16 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.SearchActivity;
 import cn.hi028.android.highcommunity.activity.VallageAct;
-import cn.hi028.android.highcommunity.adapter.VallageCityAdapter;
 import cn.hi028.android.highcommunity.adapter.VallageSelectAdapter;
-import cn.hi028.android.highcommunity.bean.CityBean;
 import cn.hi028.android.highcommunity.bean.CountyBean;
 import cn.hi028.android.highcommunity.bean.VallageBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
  * @功能：小区选择界面<br>
@@ -121,6 +119,19 @@ public class VallageSelctFrag extends BackHandledFragment implements MyLetterLis
         @Override
         public void cancleAsyncTask() {
 
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

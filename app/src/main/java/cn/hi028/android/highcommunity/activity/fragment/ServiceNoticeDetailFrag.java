@@ -7,11 +7,9 @@ package cn.hi028.android.highcommunity.activity.fragment;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
-import com.don.tools.BpiUniveralImage;
 import com.don.tools.TimeFormat;
 
 import net.duohuo.dhroid.activity.BaseFragment;
@@ -21,12 +19,13 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.ServiceSecondAct;
 import cn.hi028.android.highcommunity.adapter.SimplePageAdapter;
 import cn.hi028.android.highcommunity.bean.NoticeDetailsBean;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
  * @功能：通知详情<br>
@@ -105,6 +104,19 @@ public class ServiceNoticeDetailFrag extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
             mProgress.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

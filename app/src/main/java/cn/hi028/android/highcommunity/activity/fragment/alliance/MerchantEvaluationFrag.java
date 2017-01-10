@@ -1,6 +1,13 @@
 package cn.hi028.android.highcommunity.activity.fragment.alliance;
 
-import java.util.ArrayList;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
 import com.don.tools.BpiHttpHandler.IBpiHttpHandler;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -8,22 +15,17 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
+import net.duohuo.dhroid.activity.BaseFragment;
+
+import java.util.ArrayList;
+
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.EvaluationAdapter;
-import cn.hi028.android.highcommunity.adapter.EvalueAdapter;
 import cn.hi028.android.highcommunity.bean.MerchantEvaluationInfoListBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
-import cn.hi028.android.highcommunity.utils.wchatpay.Util;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
-import net.duohuo.dhroid.activity.BaseFragment;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
+
 /**
  * 惠生活-商家联盟-item点击 -评估
  * @author Administrator
@@ -108,6 +110,19 @@ public class MerchantEvaluationFrag extends BaseFragment implements
 		@Override
 		public void cancleAsyncTask() {
 
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
 		}
 	};
 

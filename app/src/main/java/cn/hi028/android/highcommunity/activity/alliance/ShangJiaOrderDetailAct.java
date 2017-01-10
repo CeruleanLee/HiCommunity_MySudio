@@ -4,15 +4,6 @@
 
 package cn.hi028.android.highcommunity.activity.alliance;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.xutils.x;
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.ViewInject;
-
-import com.don.tools.BpiHttpHandler.IBpiHttpHandler;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -22,6 +13,20 @@ import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.don.tools.BpiHttpHandler.IBpiHttpHandler;
+
+import net.duohuo.dhroid.util.LogUtil;
+import net.duohuo.dhroid.view.CustomListView;
+
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.OderDetailsProductAdapter;
 import cn.hi028.android.highcommunity.bean.GoodsOrderSubmitBean;
@@ -29,9 +34,8 @@ import cn.hi028.android.highcommunity.bean.NearbyOrderDetailBean;
 import cn.hi028.android.highcommunity.bean.NearbyOrderdetail2.NearbyOrderDeatai_Root;
 import cn.hi028.android.highcommunity.utils.CommonUtils;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.TimeUtil;
-import net.duohuo.dhroid.util.LogUtil;
-import net.duohuo.dhroid.view.CustomListView;
 /**
  * 商家订单详情
  * @author Administrator
@@ -153,7 +157,20 @@ String orderSendToDeatailAct;
 		@Override
 		public void cancleAsyncTask() {
 		}
-		
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(ShangJiaOrderDetailAct.this);
+			}
+		}
+
 	};
 	
 	@Override

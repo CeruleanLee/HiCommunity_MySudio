@@ -26,13 +26,14 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.VallageAct;
-import cn.hi028.android.highcommunity.adapter.VallageCityAdapter;
 import cn.hi028.android.highcommunity.adapter.VallageCountyAdapter;
 import cn.hi028.android.highcommunity.bean.CityBean;
 import cn.hi028.android.highcommunity.bean.CountyBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
  * @功能：小区选择界面<br>
@@ -130,6 +131,19 @@ public class VallageCountyFrag extends BackHandledFragment {
         @Override
         public void cancleAsyncTask() {
 
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

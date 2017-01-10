@@ -27,6 +27,7 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.ServiceSecondAct;
 import cn.hi028.android.highcommunity.adapter.CarftsAdapter;
@@ -146,6 +147,19 @@ public class ServiceCarftsFrag extends BaseFragment {
 		@Override
 		public void cancleAsyncTask() {
 			mProgress.setVisibility(View.GONE);
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
 		}
 	};
 }

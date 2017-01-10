@@ -25,6 +25,7 @@ import cn.hi028.android.highcommunity.activity.AutoCommitAct;
 import cn.hi028.android.highcommunity.activity.AutonomousAct_Second;
 import cn.hi028.android.highcommunity.bean.Autonomous.Auto_InitBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.view.ECAlertDialog;
 
 /**
@@ -168,6 +169,19 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
 
         @Override
         public void cancleAsyncTask() {
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

@@ -229,6 +229,19 @@ public class CommDetailAdapter extends BaseFragmentAdapter {
                             mWatingWindow.dismiss();
                         }
                     }
+
+                    @Override
+                    public void shouldLogin(boolean isShouldLogin) {
+
+                    }
+
+                    @Override
+                    public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                        if (isShouldLogin){
+                            HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                            HighCommunityApplication.toLoginAgain(mFrag.getActivity());
+                        }
+                    }
                 }, HighCommunityApplication.mUserInfo.getId() + "", mBean.getParentId());
             }
         });

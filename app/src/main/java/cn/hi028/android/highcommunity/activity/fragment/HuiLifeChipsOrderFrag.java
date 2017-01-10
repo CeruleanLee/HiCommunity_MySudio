@@ -8,18 +8,14 @@ package cn.hi028.android.highcommunity.activity.fragment;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
@@ -32,21 +28,13 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.AddressAct;
-import cn.hi028.android.highcommunity.activity.HuiLifeSecondAct;
 import cn.hi028.android.highcommunity.activity.PaymentActivity;
 import cn.hi028.android.highcommunity.bean.AddressBean;
-import cn.hi028.android.highcommunity.bean.ChipsBean;
-import cn.hi028.android.highcommunity.bean.HSuppGdDefBean;
-import cn.hi028.android.highcommunity.bean.HuiSupportBean;
 import cn.hi028.android.highcommunity.params.HuiChipsOrderparams;
 import cn.hi028.android.highcommunity.params.HuiSuppGdParams;
-import cn.hi028.android.highcommunity.params.HuiSuppOrderParams;
 import cn.hi028.android.highcommunity.utils.CommonUtils;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
@@ -176,6 +164,19 @@ public class HuiLifeChipsOrderFrag extends BaseFragment {
         @Override
         public void cancleAsyncTask() {
             popWait.dismiss();
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

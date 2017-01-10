@@ -197,6 +197,19 @@ public class RegisterFrag extends BaseFragment {
 				mWindow.dismiss();
 			}
 		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
+		}
 	};
 
 	BpiHttpHandler.IBpiHttpHandler mRegisterIbpi = new BpiHttpHandler.IBpiHttpHandler() {
@@ -238,6 +251,16 @@ public class RegisterFrag extends BaseFragment {
 			if (null != mWindow && mWindow.isShowing()) {
 				mWindow.dismiss();
 			}
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+
 		}
 	};
 

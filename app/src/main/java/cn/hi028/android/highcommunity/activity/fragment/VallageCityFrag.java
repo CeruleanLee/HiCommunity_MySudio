@@ -44,6 +44,7 @@ import cn.hi028.android.highcommunity.bean.VallageSelectBean;
 import cn.hi028.android.highcommunity.utils.CharacterParser;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.LocUtils;
 import cn.hi028.android.highcommunity.utils.pinyinUtils.PinyinCityComparator;
 
@@ -208,6 +209,19 @@ public class VallageCityFrag extends BackHandledFragment implements MyLetterList
         @Override
         public void cancleAsyncTask() {
             mProgress.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

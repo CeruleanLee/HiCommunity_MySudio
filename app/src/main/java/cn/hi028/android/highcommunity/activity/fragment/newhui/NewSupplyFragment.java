@@ -30,6 +30,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.SupplyCategoryListAdapter2;
 import cn.hi028.android.highcommunity.adapter.SupplyPurchaseListAdapter;
@@ -296,6 +297,23 @@ progress_layout.setVisibility(View.GONE);
             if (mWatingWindow!=null){
 
                 mWatingWindow.dismiss();
+            }
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast("去登陆", 0);
+
+
+            }
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
             }
         }
     };

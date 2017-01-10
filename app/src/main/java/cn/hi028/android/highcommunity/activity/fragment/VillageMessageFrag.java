@@ -28,7 +28,6 @@ import cn.hi028.android.highcommunity.activity.VallageAct;
 import cn.hi028.android.highcommunity.adapter.CommunityListAdapter;
 import cn.hi028.android.highcommunity.bean.CommunityBean;
 import cn.hi028.android.highcommunity.bean.CommunityListBean;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
@@ -164,6 +163,19 @@ public class VillageMessageFrag extends Fragment {
         @Override
         public void cancleAsyncTask() {
             mListView.onRefreshComplete();
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
 

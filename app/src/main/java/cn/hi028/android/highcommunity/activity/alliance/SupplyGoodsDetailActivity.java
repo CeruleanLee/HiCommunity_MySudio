@@ -51,6 +51,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.BaseFragmentActivity;
 import cn.hi028.android.highcommunity.activity.GoodImageDetailOrEvaluationActivity;
@@ -280,6 +281,19 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         @Override
         public void cancleAsyncTask() {
 
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(SupplyGoodsDetailActivity.this);
+            }
         }
 
     };
@@ -551,6 +565,19 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
             if (mWatingWindow != null) {
                 mWatingWindow.dismiss();
 
+            }
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(SupplyGoodsDetailActivity.this);
             }
         }
     };
@@ -960,6 +987,19 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
         public void cancleAsyncTask() {
             waitPop.dismiss();
         }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(SupplyGoodsDetailActivity.this);
+            }
+        }
     };
     float singlePrice = 0;
 
@@ -1139,6 +1179,19 @@ public class SupplyGoodsDetailActivity extends BaseFragmentActivity implements
 
         @Override
         public void cancleAsyncTask() {
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(SupplyGoodsDetailActivity.this);
+            }
         }
     };
 

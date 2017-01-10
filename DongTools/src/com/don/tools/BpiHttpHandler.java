@@ -1,10 +1,10 @@
 package com.don.tools;
 
+import android.os.AsyncTask;
+
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.os.AsyncTask;
 
 /**
  * @author dong 2014年1月4日 15:25:51
@@ -64,23 +64,32 @@ public class BpiHttpHandler extends AsyncDefaultHttppHandler {
                 boolean isSuccess = jsonSuccess.getBoolean(TAG_SUCCESS);
                 int code = jsonSuccess.getInt(TAG_CODE);
                 String msg = jsonSuccess.getString(TAG_MSG);
-                if (isSuccess) {
-                    String data = "";
-                    if (jsonSuccess.has(TAG_CONTENT)) {
-                        data = jsonSuccess.getString(TAG_CONTENT);
-                        Debug.verbose(DongConstants.EDUCATIONHTTPTAG,
-                                "resolve data String :" + data);
-                        if (mAsyncTask != null && !mAsyncTask.isCancelled()) {
-                            mAsyncTask.execute(data);
+                if (msg.contains("请先登陆")) {
+                    this.mhttpHandler.shouldLoginAgain(true,msg);
+//                    HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+//                    HighCommunityApplication.toLoginAgain(getActivity());
+
+                } else {
+
+//                    this.mhttpHandler.shouldLogin(false);
+                    if (isSuccess) {
+                        String data = "";
+                        if (jsonSuccess.has(TAG_CONTENT)) {
+                            data = jsonSuccess.getString(TAG_CONTENT);
+                            Debug.verbose(DongConstants.EDUCATIONHTTPTAG,
+                                    "resolve data String :" + data);
+                            if (mAsyncTask != null && !mAsyncTask.isCancelled()) {
+                                mAsyncTask.execute(data);
+                            } else {
+                                mhttpHandler.cancleAsyncTask();
+                                mAsyncTask = null;
+                            }
                         } else {
-                            mhttpHandler.cancleAsyncTask();
-                            mAsyncTask = null;
+                            this.mhttpHandler.onSuccess(msg);
                         }
                     } else {
-                        this.mhttpHandler.onSuccess(msg);
+                        this.mhttpHandler.onError(code, msg);
                     }
-                } else {
-                    this.mhttpHandler.onError(code, msg);
                 }
             } catch (JSONException e) {
                 Debug.verbose(DongConstants.EDUCATIONHTTPTAG,
@@ -151,5 +160,16 @@ public class BpiHttpHandler extends AsyncDefaultHttppHandler {
          * 中断操作 dong
          **/
         public void cancleAsyncTask();
+
+        /**
+         * 判断是否跳转登陆界面
+         * @param isShouldLogin
+         */
+        public void shouldLogin(boolean isShouldLogin);
+        /**
+         * 判断是否跳转登陆界面
+         * @param isShouldLogin
+         */
+        public void shouldLoginAgain(boolean isShouldLogin,String msg);
     }
 }

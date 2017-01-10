@@ -39,6 +39,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.BaseFragmentActivity;
 import cn.hi028.android.highcommunity.activity.GoodImageDetailOrEvaluationActivity;
@@ -51,6 +52,7 @@ import cn.hi028.android.highcommunity.bean.SubmitOrderBean;
 import cn.hi028.android.highcommunity.lisenter.PayPop2FragFace;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
+import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.view.DrawableCenterTextView;
 import cn.hi028.android.highcommunity.view.NoScrollListview;
 import cn.hi028.android.highcommunity.view.PaylistPopupWindow;
@@ -371,6 +373,19 @@ OnClickListener, PayPop2FragFace {
 		@Override
 		public void cancleAsyncTask() {
 
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(GoodsDetailActivity3.this);
+			}
 		}
 	};
 	/** 传递给商品评价的列表 **/
@@ -847,6 +862,19 @@ OnClickListener, PayPop2FragFace {
 
 		@Override
 		public void cancleAsyncTask() {
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(GoodsDetailActivity3.this);
+			}
 		}
 	};
 

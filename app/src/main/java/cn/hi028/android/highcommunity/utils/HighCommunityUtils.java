@@ -408,6 +408,19 @@ public class HighCommunityUtils extends DongUtils {
 								&& mWaitingWindow.isShowing())
 							mWaitingWindow.dismiss();
 					}
+
+					@Override
+					public void shouldLogin(boolean isShouldLogin) {
+
+					}
+
+					@Override
+					public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+						if (isShouldLogin){
+							HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+							HighCommunityApplication.toLoginAgain(context);
+						}
+					}
 				}, mid + "");
 			}
 		});
@@ -457,6 +470,19 @@ public class HighCommunityUtils extends DongUtils {
 											&& mWaitingWindow.isShowing())
 										mWaitingWindow.dismiss();
 								}
+
+								@Override
+								public void shouldLogin(boolean isShouldLogin) {
+
+								}
+
+								@Override
+								public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+									if (isShouldLogin){
+										HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+										HighCommunityApplication.toLoginAgain(context);
+									}
+								}
 							}, HighCommunityApplication.mUserInfo.getId() + "",
 							mid + "");
 				} else {
@@ -497,6 +523,19 @@ public class HighCommunityUtils extends DongUtils {
 							if (null != mWaitingWindow
 									&& mWaitingWindow.isShowing())
 								mWaitingWindow.dismiss();
+						}
+
+						@Override
+						public void shouldLogin(boolean isShouldLogin) {
+
+						}
+
+						@Override
+						public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+							if (isShouldLogin){
+								HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+								HighCommunityApplication.toLoginAgain(context);
+							}
 						}
 					}, HighCommunityApplication.mUserInfo.getId() + "", mid
 							+ "");
@@ -648,6 +687,19 @@ public class HighCommunityUtils extends DongUtils {
 								&& mWaitingWindow.isShowing())
 							mWaitingWindow.dismiss();
 					}
+
+					@Override
+					public void shouldLogin(boolean isShouldLogin) {
+
+					}
+
+					@Override
+					public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+						if (isShouldLogin){
+							HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+							HighCommunityApplication.toLoginAgain(context);
+						}
+					}
 				}, mid + "");
 			}
 		});
@@ -698,6 +750,19 @@ public class HighCommunityUtils extends DongUtils {
 											&& mWaitingWindow.isShowing())
 										mWaitingWindow.dismiss();
 								}
+
+								@Override
+								public void shouldLogin(boolean isShouldLogin) {
+
+								}
+
+								@Override
+								public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+									if (isShouldLogin){
+										HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+										HighCommunityApplication.toLoginAgain(context);
+									}
+								}
 							}, HighCommunityApplication.mUserInfo.getId() + "",
 							mid + "");
 				} else {
@@ -738,6 +803,19 @@ public class HighCommunityUtils extends DongUtils {
 							if (null != mWaitingWindow
 									&& mWaitingWindow.isShowing())
 								mWaitingWindow.dismiss();
+						}
+
+						@Override
+						public void shouldLogin(boolean isShouldLogin) {
+
+						}
+
+						@Override
+						public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+							if (isShouldLogin){
+								HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+								HighCommunityApplication.toLoginAgain(context);
+							}
 						}
 					}, HighCommunityApplication.mUserInfo.getId() + "", mid
 							+ "");
@@ -891,6 +969,19 @@ public class HighCommunityUtils extends DongUtils {
 											&& mWaitingWindow.isShowing())
 										mWaitingWindow.dismiss();
 								}
+
+								@Override
+								public void shouldLogin(boolean isShouldLogin) {
+
+								}
+
+								@Override
+								public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+									if (isShouldLogin){
+										HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+										HighCommunityApplication.toLoginAgain(context);
+									}
+								}
 							}, HighCommunityApplication.mUserInfo.getId() + "",
 							mid + "");
 				} else {
@@ -932,6 +1023,19 @@ public class HighCommunityUtils extends DongUtils {
 									if (null != mWaitingWindow
 											&& mWaitingWindow.isShowing())
 										mWaitingWindow.dismiss();
+								}
+
+								@Override
+								public void shouldLogin(boolean isShouldLogin) {
+
+								}
+
+								@Override
+								public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+									if (isShouldLogin){
+										HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+										HighCommunityApplication.toLoginAgain(context);
+									}
 								}
 							}, HighCommunityApplication.mUserInfo.getId() + "",
 							mid + "");
@@ -980,6 +1084,19 @@ public class HighCommunityUtils extends DongUtils {
 						if (null != mWaitingWindow
 								&& mWaitingWindow.isShowing())
 							mWaitingWindow.dismiss();
+					}
+
+					@Override
+					public void shouldLogin(boolean isShouldLogin) {
+
+					}
+
+					@Override
+					public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+						if (isShouldLogin){
+							HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+							HighCommunityApplication.toLoginAgain(context);
+						}
 					}
 				}, mid + "");
 			}

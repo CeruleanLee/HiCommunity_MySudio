@@ -13,13 +13,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.don.tools.BpiHttpHandler;
 
 import net.duohuo.dhroid.util.LogUtil;
 
-import com.don.tools.BpiHttpHandler;
+import java.util.ArrayList;
+import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.ShowPayActivity;
 import cn.hi028.android.highcommunity.bean.AllianceOrderBean;
@@ -297,6 +298,19 @@ public class AllianceOrderAdapter extends BaseFragmentAdapter {
 		@Override
 		public void cancleAsyncTask() {
 		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(mContext);
+			}
+		}
 	};
 	/**
 	 * 确认订单操作
@@ -331,6 +345,20 @@ public class AllianceOrderAdapter extends BaseFragmentAdapter {
 		public void cancleAsyncTask() {
 			// TODO Auto-generated method stub
 
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(mContext);
+			}
 		}
 	};
 
@@ -372,6 +400,19 @@ public class AllianceOrderAdapter extends BaseFragmentAdapter {
 		public void cancleAsyncTask() {
 			// TODO Auto-generated method stub
 
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(mContext);
+			}
 		}
 	};
 }

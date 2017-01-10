@@ -4,7 +4,6 @@
 
 package cn.hi028.android.highcommunity.adapter;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,19 +19,14 @@ import com.don.tools.BpiHttpHandler;
 import net.duohuo.dhroid.util.ListUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.VallageAct;
 import cn.hi028.android.highcommunity.activity.fragment.VallageCityFrag;
 import cn.hi028.android.highcommunity.bean.VallageCityBean;
-import cn.hi028.android.highcommunity.utils.CharacterParser;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
-import cn.hi028.android.highcommunity.utils.pinyinUtils.PinyinCityComparator;
 
 /**
  * @功能：小区城市选择适配器<br>
@@ -148,6 +142,19 @@ public class VallageCityAdapter extends BaseAdapter implements SectionIndexer {
                             @Override
                             public void cancleAsyncTask() {
                                 waitPop.dismiss();
+                            }
+
+                            @Override
+                            public void shouldLogin(boolean isShouldLogin) {
+
+                            }
+
+                            @Override
+                            public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                                if (isShouldLogin){
+                                    HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                                    HighCommunityApplication.toLoginAgain(frag.getActivity());
+                                }
                             }
                         }, HighCommunityApplication.mUserInfo.getId() + "", data.get(position).getVallage().getId());
                     } else {

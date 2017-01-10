@@ -39,6 +39,7 @@ import net.duohuo.dhroid.util.LogUtil;
 import net.duohuo.dhroid.view.AutoScrollViewPager;
 import net.duohuo.dhroid.view.CirclePageIndicator;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.ServiceAct;
 import cn.hi028.android.highcommunity.activity.Service_AutonomousActivity;
@@ -247,6 +248,19 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
         @Override
         public void cancleAsyncTask() {
 
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
         }
     };
     AdapterView.OnItemClickListener mItemClickListener = new AdapterView.OnItemClickListener() {

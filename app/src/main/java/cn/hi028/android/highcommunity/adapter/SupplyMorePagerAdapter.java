@@ -43,18 +43,7 @@ this.vp=vp;
         Log.d(Tag,"getItem-SIZE="+mFragList.size());
 
         return mFragList.get(arg0);
-//        } else if (arg0 == 4) {
-//            if (mPublicMotionFrag == null) {
-//                Log.d(Tag, "new mPublicMotionFrag()");
-//                mPublicMotionFrag = new AutoFrag_Motion_forback1027();
-//            }
-//            return mPublicMotionFrag;
-//        } else  {
-//            if (myMotionFrag == null) {
-//                Log.d(Tag, "new myMotionFrag()");
-//                myMotionFrag = new AutoFrag_myMotion();
-//            }
-//            return myMotionFrag;
+
     }
 
     @Override

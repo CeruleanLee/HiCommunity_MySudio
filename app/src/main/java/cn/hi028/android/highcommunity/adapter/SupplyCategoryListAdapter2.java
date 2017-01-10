@@ -126,7 +126,7 @@ int n=0;
 //            mViewHolder. mBigGoodsimg.setImageURI(Constacts.IMAGEHTTP + mBean.getGoods().get(0).getCover_pic());
                BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(0).getCover_pic(), mViewHolder. mBigGoodsimg);
            }
-           if (mBean.getGoods().get(0).getLabel()!=null){
+           if (mBean.getGoods().get(0).getLabel()!=null&&!mBean.getGoods().get(0).getLabel().equals("")){
 
                mViewHolder.mbigTvTag.setText(mBean.getGoods().get(0).getLabel());
            }else{
@@ -155,7 +155,7 @@ int n=0;
 //            mViewHolder. msmallGoodsimg1.setImageURI(Constacts.IMAGEHTTP + mBean.getGoods().get(1).getCover_pic());
                BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(1).getCover_pic(), mViewHolder. msmallGoodsimg1);
            }
-           if (mBean.getGoods().get(1).getLabel()!=null){
+           if (mBean.getGoods().get(1).getLabel()!=null&&!mBean.getGoods().get(1).getLabel().equals("")){
 
                mViewHolder. msmallTvTag1.setText(mBean.getGoods().get(1).getLabel());
            }else{
@@ -181,7 +181,7 @@ int n=0;
 //            mViewHolder.msmallGoodsimg2.setImageURI(Constacts.IMAGEHTTP + mBean.getGoods().get(2).getCover_pic());
                BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getGoods().get(2).getCover_pic(), mViewHolder.msmallGoodsimg2);
            }
-           if (mBean.getGoods().get(1).getLabel()!=null){
+           if (mBean.getGoods().get(2).getLabel()!=null&&!mBean.getGoods().get(2).getLabel().equals("")){
 
                mViewHolder.msmallTvTag2.setText(mBean.getGoods().get(2).getLabel());
            }else{

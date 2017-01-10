@@ -102,6 +102,16 @@ ImageView goBack;
 			// TODO Auto-generated method stub
 
 		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+
+		}
 	};
 	OnEvaluateBean bean;
 

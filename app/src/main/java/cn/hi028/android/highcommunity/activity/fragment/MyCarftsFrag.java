@@ -31,9 +31,9 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.ServiceSecondAct;
-import cn.hi028.android.highcommunity.adapter.CarftsAdapter;
 import cn.hi028.android.highcommunity.adapter.MyCarftsAdapter;
 import cn.hi028.android.highcommunity.bean.CarftsBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
@@ -150,6 +150,19 @@ public class MyCarftsFrag extends BaseFragment {
 		public void cancleAsyncTask() {
 			mWaitingWindow.dismiss();
 		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
+		}
 	};
 
 	AdapterView.OnItemClickListener mItemListener = new AdapterView.OnItemClickListener() {
@@ -213,6 +226,19 @@ public class MyCarftsFrag extends BaseFragment {
 		@Override
 		public void cancleAsyncTask() {
 			mProgress.setVisibility(View.GONE);
+		}
+
+		@Override
+		public void shouldLogin(boolean isShouldLogin) {
+
+		}
+
+		@Override
+		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+			if (isShouldLogin){
+				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+				HighCommunityApplication.toLoginAgain(getActivity());
+			}
 		}
 	};
 }

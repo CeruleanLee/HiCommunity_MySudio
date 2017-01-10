@@ -23,6 +23,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.AutoNamelist_YWHAdapter;
 import cn.hi028.android.highcommunity.adapter.AutoNamelist_YZAdapter;
@@ -407,6 +408,21 @@ public class AutoFrag_NameList extends BaseFragment {
 
         @Override
         public void cancleAsyncTask() {
+
+        }
+
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
+
+        }
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+
+            if (isShouldLogin){
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
 
         }
     };
