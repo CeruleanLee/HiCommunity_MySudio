@@ -2,17 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-
+    android:layout_height="fill_parent"
+android:paddingTop="-5dp"
     android:orientation="vertical">
-
+    <View
+        android:id="@+id/dividerlayou"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/Defult_Color_ShallowGrey"/>
     <RelativeLayout
         android:id="@+id/item_cate_layout_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
+        android:paddingBottom="6dp"
 
-        android:paddingTop="8dp">
+        android:paddingTop="6dp">
 
         <ImageView
             android:id="@+id/category_tag"
@@ -59,7 +63,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="240dp"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -172,7 +176,7 @@
             <RelativeLayout
                 android:id="@+id/item_category_smallpic1"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="120dp"
 
 >
 
@@ -185,14 +189,14 @@
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="130dp"
+                        android:layout_height="120dp"
                         android:padding="7dp"
 >
 
                         <ImageView
                             android:id="@+id/category_small_goodsimg_goodsimg"
                             android:layout_width="100dp"
-                            android:layout_height="130dp"
+                            android:layout_height="120dp"
                             android:scaleType="fitXY"
                             android:src="@mipmap/default_no_pic"
                            />
@@ -280,7 +284,7 @@
             <RelativeLayout
                 android:id="@+id/item_category_smallpic2"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="120dp"
 
 >
 
@@ -294,14 +298,14 @@
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="130dp"
+                        android:layout_height="120dp"
                         android:padding="7dp"
 >
 
                         <ImageView
                             android:id="@+id/category_small_goodsimg_goodsimg2"
                             android:layout_width="100dp"
-                            android:layout_height="130dp"
+                            android:layout_height="120dp"
                     android:scaleType="fitXY"
                             android:src="@mipmap/default_no_pic"
                           />

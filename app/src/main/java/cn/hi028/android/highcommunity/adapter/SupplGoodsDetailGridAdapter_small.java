@@ -27,7 +27,7 @@ import cn.hi028.android.highcommunity.utils.Constacts;
  * @作者： Lee_yting<br>
  * @时间：2016/11/28<br>
  */
-public class SupplGoodsDetailGridAdapter extends BaseFragmentAdapter {
+public class SupplGoodsDetailGridAdapter_small extends BaseFragmentAdapter {
     public static final String TAG = "SupplyMoreGoodsGridAdapter：";
     List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.RecommendEntity> mList
             = new ArrayList<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.RecommendEntity>();
@@ -36,7 +36,7 @@ public class SupplGoodsDetailGridAdapter extends BaseFragmentAdapter {
 
     Auto_SupportedResultBean.SupportedResultDataEntity mResultData;
 
-    public SupplGoodsDetailGridAdapter(List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.RecommendEntity> list, Context context) {
+    public SupplGoodsDetailGridAdapter_small(List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.RecommendEntity> list, Context context) {
         super();
         this.mList = list;
         if (this.mList == null) {
@@ -90,26 +90,13 @@ public class SupplGoodsDetailGridAdapter extends BaseFragmentAdapter {
 
             BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getCover_pic(), mViewHolder.mGoodsimg);
         }
-
-
-        if (mBean.getLabel()!=null&&!mBean.getLabel().equals("")){
-
-            mViewHolder.mTvTag.setVisibility(View.VISIBLE);
-
-            mViewHolder.mTvTag.setText(mBean.getLabel());
-
-        }else{
-            mViewHolder.mTvTag.setVisibility(View.GONE);
-
-
-        }
-
+        mViewHolder.mTvTag.setText(mBean.getLabel());
         mViewHolder.mTitle.setText(mBean.getName());
         mViewHolder.mNowPrice.setText("￥:"+mBean.getPrice());
-        if (mBean.getOld_price()!=null&&!mBean.getOld_price().equals("")&&!mBean.getOld_price().equals("0")){
+        mViewHolder.mTvTag.setText(mBean.getLabel());
+        if (mBean.getOld_price()!=null&&!mBean.getOld_price().equals("")&&!mBean.getOld_price().equals("null")){
 
 
-            mViewHolder.mOldPrice.setVisibility(View.VISIBLE);
 
 
             Spannable spanStrikethrough = new SpannableString("￥：" + mBean.getOld_price());
@@ -123,9 +110,6 @@ public class SupplGoodsDetailGridAdapter extends BaseFragmentAdapter {
 
             }
             mViewHolder.mOldPrice.setText(spanStrikethrough);
-        }else{
-            mViewHolder.mOldPrice.setVisibility(View.GONE);
-
         }
         mViewHolder.mSaledNum.setText("已售"+mBean.getSale());
 

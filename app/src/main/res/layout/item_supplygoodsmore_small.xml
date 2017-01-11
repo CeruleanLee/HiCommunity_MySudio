@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/supplygoodsmore_goodsimg"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="130dp"
         android:scaleType="fitXY"
         android:src="@mipmap/default_no_pic" />
 
@@ -64,14 +64,14 @@
             android:layout_height="wrap_content"
 
             android:text=""
-            android:textSize="13sp"
+            android:textSize="15sp"
             android:textColor="@color/red" />
         <TextView
             android:id="@+id/supplygoodsmore_oldPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="10sp"
+            android:textSize="11sp"
             android:layout_marginLeft="6dp"
             android:layout_alignBottom="@id/supplygoodsmore_nowPrice"
             android:layout_toRightOf="@id/supplygoodsmore_nowPrice"
@@ -83,15 +83,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="11sp"
+            android:textSize="12sp"
           android:layout_marginTop="4dp"
             android:layout_below="@id/supplygoodsmore_nowPrice"
             android:textColor="@color/old_price_color" />
         <ImageView
-            android:layout_below="@id/supplygoodsmore_nowPrice"
             android:id="@+id/supplygoodsmore_shopcart"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:src="@mipmap/img_supply_cart_big" />
     </RelativeLayout>

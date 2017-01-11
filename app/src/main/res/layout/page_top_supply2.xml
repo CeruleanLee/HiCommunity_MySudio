@@ -17,7 +17,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="230dp">
+            android:layout_height="280dp">
 
             <net.duohuo.dhroid.view.AutoScrollViewPager
                 android:id="@+id/view_pager"

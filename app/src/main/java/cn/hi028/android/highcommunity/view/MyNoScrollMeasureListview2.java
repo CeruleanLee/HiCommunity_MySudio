@@ -4,19 +4,22 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
-public class MyNoScrollMeasureListview extends ListView{
+/***
+ *
+ */
+public class MyNoScrollMeasureListview2 extends ListView{
 
 public boolean isMeasure=false;
 
-	public MyNoScrollMeasureListview(Context context, AttributeSet attrs, int defStyleAttr) {
+	public MyNoScrollMeasureListview2(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 
-	public MyNoScrollMeasureListview(Context context, AttributeSet attrs) {
+	public MyNoScrollMeasureListview2(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
-	public MyNoScrollMeasureListview(Context context) {
+	public MyNoScrollMeasureListview2(Context context) {
 		super(context);
 	}
 

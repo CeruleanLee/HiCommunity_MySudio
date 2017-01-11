@@ -2,8 +2,6 @@ package cn.hi028.android.highcommunity.view.nine;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -66,8 +64,8 @@ public class RatioImageView extends ImageView {
             case MotionEvent.ACTION_DOWN:
                 Drawable drawable = getDrawable();
                 if (drawable != null) {
-                    drawable.mutate().setColorFilter(Color.GRAY,
-                            PorterDuff.Mode.MULTIPLY);
+//                    drawable.mutate().setColorFilter(Color.GRAY,
+//                            PorterDuff.Mode.MULTIPLY);
                 }
                 break;
             case MotionEvent.ACTION_MOVE:

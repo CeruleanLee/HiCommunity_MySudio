@@ -88,7 +88,7 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
     String goodsId;
     String standardId = "";
 
-    Handler mHandler = new Handler();
+//    Handler mHandler = new Handler();
     /**
      * 购物车价格合计
      **/
@@ -164,18 +164,40 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
-                    if (SupplyGoodsDetailActivity2.this.hasWindowFocus() && mViewPager != null) {
-                        mWaittingPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity2.this, caramount, Gravity.CENTER);
+                    if (SupplyGoodsDetailActivity2.this.hasWindowFocus() && back != null) {
+                        mWaittingPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity2.this, back, Gravity.CENTER);
                     }
                     break;
             }
         }
 
     };
+    Handler mHandler = new Handler();
+    Runnable mRunable = new Runnable() {
+        @Override
+        public void run() {
+            Log.d(Tag, "mRunable   run");
 
+            if (progress_layout!=null&&layout_hasData!=null){
+
+    progress_layout.setVisibility(View.GONE);
+    layout_hasData.setVisibility(View.VISIBLE);
+}
+
+
+
+//            if (mWaittingPop!=null){
+//
+//                mWaittingPop.dismiss();
+//            }
+        }
+    };
     private void initData() {
-        popupHandler.sendEmptyMessageDelayed(0, 50);
-//        mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity.this, caramount, Gravity.CENTER);
+//        popupHandler.sendEmptyMessageDelayed(0, 50);
+
+//        if (SupplyGoodsDetailActivity2.this.hasWindowFocus() && back != null) {
+//            mWaittingPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(SupplyGoodsDetailActivity2.this, back, Gravity.CENTER);
+//        }
         HTTPHelper.getGdCarList2(mGetCarIbpi);
     }
 
@@ -198,10 +220,14 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
         @Override
         public void onSuccess(Object message) {
             Log.d(Tag, "onSuccess");
-            if (null == message)
+//            if (mWaittingPop != null) {
+//                mWaittingPop.dismiss();
+//            }
+            if (null == message) {
                 return;
-            progress_layout.setVisibility(View.GONE);
-            layout_hasData.setVisibility(View.VISIBLE);
+            }
+//            progress_layout.setVisibility(View.GONE);
+//            layout_hasData.setVisibility(View.VISIBLE);
 
             mCarPriceSum = 0.00f;
             List<NewSupplyCarlistBean.SupplyCarlistDataEntity> mlist = (List<NewSupplyCarlistBean.SupplyCarlistDataEntity>) message;
@@ -241,6 +267,9 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (mWaittingPop != null) {
+                mWaittingPop.dismiss();
+            }
             if (isShouldLogin){
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(SupplyGoodsDetailActivity2.this);
@@ -284,18 +313,21 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
         }
         @Override
         public void onSuccess(Object message) {
-            if (mWaittingPop != null) {
-                mWaittingPop.dismiss();
-            }
-            layout_hasData.setVisibility(View.VISIBLE);
+//            if (mWaittingPop != null) {
+//                mWaittingPop.dismiss();
+//            }
+//            progress_layout.setVisibility(View.GONE);
+//            layout_hasData.setVisibility(View.VISIBLE);
             tv_mynodata.setVisibility(View.GONE);
             if (message == null) return;
             goodsdata = (NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity) message;
             Log.e(Tag, "商品详情数据message-" + message);
             Log.e(Tag, "商品详情数据-" + goodsdata.toString());
             goodsId = goodsdata.getId();
+            mHandler.postDelayed(mRunable,300);
             setCarAmount(goodsdata);
             initViewNew();
+
 //            setUi(goodsdata);
 //            mPicDetail.setChecked(true);
         }

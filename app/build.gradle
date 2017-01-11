@@ -22,8 +22,8 @@ android {
         applicationId "cn.hi028.android.highcommunity"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 157
-        versionName "2.5.0"
+        versionCode 158
+        versionName "2.5.1"
 
         multiDexEnabled true
 
@@ -122,6 +122,9 @@ dependencies {
     //虚线
 
     compile 'com.github.dongjunkun:CouponView:1.0.3'
+    compile 'com.fang:dashview:v1.0.0'
+
+
 }
 
 apt {

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="5dp"
 
     android:paddingTop="5dp">
@@ -22,35 +23,23 @@
 
         android:text="中国"
         android:textSize="13sp" />
-    <yyydjk.com.library.CouponView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/couponView"
-        android:layout_marginTop="5dp"
-        android:layout_below="@id/ac_shop_origin"
+
+    <com.fang.dashview.DashView
+
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/Defult_Color_LineGrey"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        app:cv_dash_line_color="@color/Defult_Color_LineGrey"
-        app:cv_dash_line_gap="15dp"
-        app:cv_dash_line_height="0.5dp"
-        app:cv_dash_line_length="5dp"
-        app:cv_dash_line_margin_bottom="5dp"
-        app:cv_dash_line_margin_left="5dp"
-        app:cv_dash_line_margin_right="5dp"
-        app:cv_dash_line_margin_top="8dp"
-        app:cv_is_dash_line_bottom="false"
-        app:cv_is_dash_line_left="false"
-        app:cv_is_dash_line_right="false"
-        app:cv_is_dash_line_top="true"
-        app:cv_is_semicircle_bottom="false"
-        app:cv_is_semicircle_left="false"
-        app:cv_is_semicircle_right="false"
-        app:cv_is_semicircle_top="false"
-        app:cv_semicircle_color="#aaaaaaaa"
-        app:cv_semicircle_gap="4dp"
-        app:cv_semicircle_radius="4dp">
-    </yyydjk.com.library.CouponView>
+        android:layout_marginTop="5dp"
+        android:layout_height="1dp"
+        app:dashWidth="2dp"
+        app:lineWidth="4dp"
+        app:lineColor="@color/Defult_Color_LineGrey"
+        app:dashOrientation="0"
+        app:lineHeight="0.5dp"
+        android:layout_below="@id/ac_shop_origin"
+        />
+
+
+
+
+
 
 </RelativeLayout>

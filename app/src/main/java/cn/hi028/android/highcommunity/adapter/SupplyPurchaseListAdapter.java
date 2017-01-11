@@ -28,7 +28,7 @@ import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.MBitmapHolder;
 import cn.hi028.android.highcommunity.utils.TimeUtil;
 import cn.hi028.android.highcommunity.view.CutdownTextView;
-import cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview;
+import cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview2;
 
 /**
  * @功能：直供商品限时抢购adapter<br>
@@ -87,25 +87,20 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
             mViewHolder.mProgressBar = (ProgressBar) convertView.findViewById(R.id.flashsale_progressBar);
             mViewHolder.mTvProgress = (TextView) convertView.findViewById(R.id.flashsale_tv_progress);
             mViewHolder.flashsaleTvKucun = (TextView) convertView.findViewById(R.id.flashsale_tv_kucun);
-
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
 
         /**************/
-        if(parent instanceof MyNoScrollMeasureListview &&((MyNoScrollMeasureListview) parent).isMeasure){
+        if(parent instanceof MyNoScrollMeasureListview2 &&((MyNoScrollMeasureListview2) parent).isMeasure){
 //            if(((MyNoScrollMeasureListview) parent).isMeasure){
             Log.e(TAG,"~~~isMeasure");
             Log.e(TAG,"~~~isMeasure position---"+position);
             return convertView;
 //            }
         }
-        Log.e(TAG,"~~!  isMeasure ~position---"+position);
-
-        Log.e(TAG,"~~~!  isMeasure");
-
-
+        Log.d(TAG,"~~!  isMeasure ~position---"+position);
         final NewSupplyBean.NewSupplyDataEntity.PurchaseEntity mBean = mList.get(position);
 
         if (mBean.getCover_pic() == null || mBean.getCover_pic().equals("")) {

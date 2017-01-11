@@ -124,4 +124,25 @@ public class HuiLifeFrag extends BaseFragment {
         Log.e(Tag,"---onResume ");
         super.onResume();
     }
+
+
+
+
+    @Override
+    public void onPause() {
+        Log.e(Tag, "---onPause ");
+
+        super.onPause();
+    }
+
+
+    @Override
+    public void onStop() {
+        Log.e(Tag, "---onStop ");
+
+
+        super.onStop();
+    }
+
+
 }

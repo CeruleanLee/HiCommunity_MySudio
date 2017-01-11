@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_third_service_selector"
+    android:background="@color/white"
     android:orientation="vertical">
-
+<!--    android:background="@drawable/bg_third_service_selector"-->
+    <View
+        android:id="@+id/dividerlayou"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/Defult_Color_ShallowGrey"/>
     <RelativeLayout
+        android:layout_below="@id/dividerlayou"
+        android:id="@+id/layout11"
         android:layout_width="match_parent"
         android:layout_height="180dp">
 
@@ -62,6 +69,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:layout_below="@id/layout11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -134,4 +142,4 @@
             android:textColor="#aaaaaa"
             android:textSize="10dp" />
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

@@ -1,24 +1,23 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
     android:id="@+id/supply_scrollview"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/Defult_Color_ShallowGrey"
-    android:scrollbars="none"
-    tools:context="cn.hi028.android.highcommunity.activity.fragment.newhui.NewSupplyFragment">
+    android:scrollbars="none">
 
     <LinearLayout
         android:id="@+id/container_newsupply"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:orientation="vertical"
         android:visibility="visible">
 
-        <LinearLayout
+        <!--<LinearLayout
             android:id="@+id/progress_layout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -42,12 +41,12 @@
                 android:layout_marginLeft="5dp"
                 android:text="正在加载..." />
 
-        </LinearLayout>
+        </LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/layout_hasdata"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:visibility="gone">
 
@@ -64,25 +63,25 @@
                 android:visibility="gone" />
 
 
+            <cn.hi028.android.highcommunity.view.LinearLayoutForListView
+                android:id="@+id/supply_category_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical"
 
-    <cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview
-        android:id="@+id/supply_category_listview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@android:color/white"
-        android:divider="@color/Defult_Color_ShallowGrey"
-        android:dividerHeight="10dip"
-        android:listSelector="@drawable/bg_third_service_selector">
-
-    </cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview>
-
+                >
+<!-- android:divider="@color/Defult_Color_ShallowGrey"
+                android:dividerHeight="10dip"
+                android:listSelector="@drawable/bg_third_service_selector"-->
+            </cn.hi028.android.highcommunity.view.LinearLayoutForListView>
 
 
             <RelativeLayout
                 android:id="@+id/layout_splashTV"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginTop="30dp">
 
                 <TextView
@@ -111,18 +110,19 @@
                     android:background="@color/Defult_Color_LineGrey" />
             </RelativeLayout>
 
+<!-- android:divider="@color/Defult_Color_ShallowGrey"
+                android:dividerHeight="10dip"
+                android:orientation="vertical"
+                android:listSelector="@drawable/bg_third_service_selector"-->
+            <cn.hi028.android.highcommunity.view.LinearLayoutForListView
+                android:id="@+id/supply_purchase_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                >
 
-    <cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview
-        android:id="@+id/supply_purchase_listview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@android:color/white"
-        android:divider="@color/Defult_Color_ShallowGrey"
-        android:dividerHeight="10dip"
-        android:listSelector="@drawable/bg_third_service_selector">
-
-    </cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview>
-
+            </cn.hi028.android.highcommunity.view.LinearLayoutForListView>
 
 
             <RelativeLayout
@@ -161,13 +161,17 @@
             </RelativeLayout>
 
 
-            <cn.hi028.android.highcommunity.view.nine.MyNineGridView xmlns:lyt="http://schemas.android.com/apk/res-auto"
+            <cn.hi028.android.highcommunity.view.nine.MyNineGridView
+                xmlns:lyt="http://schemas.android.com/apk/res-auto"
 
                 android:id="@+id/piclistView"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_marginBottom="30dp"
                 android:cacheColorHint="@android:color/transparent"
+                android:clickable="false"
+
+                android:focusable="false"
                 android:gravity="center"
                 android:horizontalSpacing="12dp"
                 android:listSelector="@android:color/transparent"

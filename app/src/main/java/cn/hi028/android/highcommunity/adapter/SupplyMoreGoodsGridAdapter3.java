@@ -101,18 +101,23 @@ public class SupplyMoreGoodsGridAdapter3 extends RecyclerView.Adapter<SupplyMore
 
 
 
+if (mBean.getOld_price()!=null&&!mBean.getOld_price().equals("")&&!mBean.getOld_price().equals("0")){
+    holder.mOldPrice.setVisibility(View.VISIBLE);
 
-        Spannable spanStrikethrough = new SpannableString("￥：" + mBean.getOld_price());
-        StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
+    Spannable spanStrikethrough = new SpannableString("￥：" + mBean.getOld_price());
+    StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
 //			spanStrikethrough.setSpan(stSpan, 0, 7, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 //        Log.e(TAG,"长度--->"+spanStrikethrough.length());
-        try {
-            spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+    try {
+        spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
-        } catch (Exception ex) {
+    } catch (Exception ex) {
 
-        }
-        holder.mOldPrice.setText(spanStrikethrough);
+    }
+    holder.mOldPrice.setText(spanStrikethrough);
+}else{
+    holder.mOldPrice.setVisibility(View.GONE);
+}
         holder.mSaledNum.setText("已售" + mBean.getSale());
 
         holder.mShopcart.setOnClickListener(new View.OnClickListener() {

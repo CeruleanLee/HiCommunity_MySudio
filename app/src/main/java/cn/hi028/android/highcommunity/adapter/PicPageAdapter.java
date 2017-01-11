@@ -63,7 +63,7 @@ public class PicPageAdapter extends RecyclingPagerAdapter {
         if (view == null) {
             holder = new ViewHolder();
             view = holder.imageView = new ImageView(context);
-            holder.imageView.setScaleType(ScaleType.CENTER_CROP);
+            holder.imageView.setScaleType(ScaleType.FIT_XY);
             holder.imageView.setLayoutParams(new AbsListView.LayoutParams(-1, -1));
             view.setTag(holder);
         } else {

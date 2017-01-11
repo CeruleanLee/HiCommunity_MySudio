@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -38,7 +37,7 @@ import cn.hi028.android.highcommunity.bean.NewSupplyBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
-import cn.hi028.android.highcommunity.view.MyNoScrollMeasureListview;
+import cn.hi028.android.highcommunity.view.LinearLayoutForListView;
 import cn.hi028.android.highcommunity.view.nine.MyNineGridView;
 import okhttp3.Call;
 import okhttp3.Request;
@@ -56,12 +55,12 @@ public class NewSupplyFragment extends BaseFragment {
     public static boolean isFistRequestHttp = true;
     View view;
     @Bind(R.id.supply_category_listview)
-    MyNoScrollMeasureListview  mCategoryListview;
+    LinearLayoutForListView mCategoryListview;
     @Bind(R.id.supply_purchase_listview)
-    MyNoScrollMeasureListview mPurchaseListview;
+    LinearLayoutForListView mPurchaseListview;
 
-    @Bind(R.id.pg_progress)
-    ProgressBar mProgress;
+//    @Bind(R.id.pg_progress)
+//    ProgressBar mProgress;
     @Bind(R.id.tv_NoticeDetails_noData)
     TextView mNodata;
     @Bind(R.id.supply_scrollview)
@@ -71,8 +70,8 @@ public class NewSupplyFragment extends BaseFragment {
     @Bind(R.id.container_newsupply)
     LinearLayout containerNewsupply;
 
-    @Bind(R.id.progress_layout)
-    LinearLayout progress_layout;
+//    @Bind(R.id.progress_layout)
+//    LinearLayout progress_layout;
 
     @Bind(R.id.layout_hasdata)
     LinearLayout layout_hasdata;
@@ -145,11 +144,11 @@ public class NewSupplyFragment extends BaseFragment {
             Log.e(Tag, "onSuccess");
 
             containerNewsupply.setVisibility(View.VISIBLE);
-            progress_layout.setVisibility(View.GONE);
+//            progress_layout.setVisibility(View.GONE);
             layout_hasdata.setVisibility(View.VISIBLE);
             Log.e(Tag, "onSuccess  1");
 
-            mProgress.setVisibility(View.GONE);
+//            mProgress.setVisibility(View.GONE);
             Log.e(Tag, "onSuccess  2");
 
             mNodata.setVisibility(View.GONE);
@@ -189,7 +188,7 @@ if (getActivity().hasWindowFocus()){
 
         mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), view, Gravity.CENTER);
 }
-progress_layout.setVisibility(View.GONE);
+//progress_layout.setVisibility(View.GONE);
         layout_hasdata.setVisibility(View.GONE);
         HTTPHelper.GetNewSupplyGoods(mIbpi);
         Log.e(Tag, "   initData");
@@ -213,10 +212,10 @@ progress_layout.setVisibility(View.GONE);
 
                 mWatingWindow.dismiss();
             }
-            progress_layout.setVisibility(View.GONE);
+//            progress_layout.setVisibility(View.GONE);
             layout_hasdata.setVisibility(View.GONE);
             containerNewsupply.setVisibility(View.VISIBLE);
-            mProgress.setVisibility(View.GONE);
+//            mProgress.setVisibility(View.GONE);
             mNodata.setVisibility(View.VISIBLE);
             mNodata.setText(message);
         }
@@ -226,13 +225,8 @@ progress_layout.setVisibility(View.GONE);
             Log.e(Tag, "onSuccess");
 
             containerNewsupply.setVisibility(View.VISIBLE);
-            progress_layout.setVisibility(View.GONE);
+//            progress_layout.setVisibility(View.GONE);
             layout_hasdata.setVisibility(View.VISIBLE);
-            Log.e(Tag, "onSuccess  1");
-
-            mProgress.setVisibility(View.GONE);
-            Log.e(Tag, "onSuccess  2");
-
             mNodata.setVisibility(View.GONE);
             Log.e(Tag, "onSuccess  3");
 
@@ -244,11 +238,13 @@ progress_layout.setVisibility(View.GONE);
             Log.e(Tag, "onSuccess  5");
 
             mBean = (NewSupplyBean.NewSupplyDataEntity) message;
-            Log.e(Tag, "onSuccess  6");
             if (mBean!=null){
-                if (mBean.getCategory()!=null){
+                Log.e(Tag, "onSuccess  6");
+                if (mBean.getCategory()!=null&&mBean.getCategory().size()>0){
 
                     initCategoryList(mBean);
+                }else{
+
                 }
                 if (mBean.getPurchase()!=null&&mBean.getPurchase().size()>0){
 
@@ -303,7 +299,7 @@ progress_layout.setVisibility(View.GONE);
         @Override
         public void shouldLogin(boolean isShouldLogin) {
             if (isShouldLogin){
-                HighCommunityUtils.GetInstantiation().ShowToast("去登陆", 0);
+//                HighCommunityUtils.GetInstantiation().ShowToast("去登陆", 0);
 
 
             }
@@ -311,6 +307,10 @@ progress_layout.setVisibility(View.GONE);
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (mWatingWindow!=null){
+
+                mWatingWindow.dismiss();
+            }
             if (isShouldLogin){
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
@@ -336,17 +336,19 @@ progress_layout.setVisibility(View.GONE);
         piclistView.setUrlList(imgUrlList, idList);
 
     }
+   SupplyPurchaseListAdapter mPurchaseAdapter;
 
     /**
      * 填充限时抢购数据
      **/
     private void initPurchaseList(NewSupplyBean.NewSupplyDataEntity mBean) {
-        final SupplyPurchaseListAdapter mPurchaseAdapter = new SupplyPurchaseListAdapter(mBean.getPurchase(), getActivity());
+        mPurchaseAdapter = new SupplyPurchaseListAdapter(mBean.getPurchase(), getActivity());
         mPurchaseListview.setAdapter(mPurchaseAdapter);
 
     }
 
     public CountDownTimer countDownTimer;
+    SupplyCategoryListAdapter2 mCategoryAdapter;
 
     /**
      * 填充分类列表数据
@@ -356,7 +358,7 @@ progress_layout.setVisibility(View.GONE);
     private void initCategoryList(NewSupplyBean.NewSupplyDataEntity mBean) {
         Log.e(Tag, "initCategoryList");
 
-        SupplyCategoryListAdapter2 mCategoryAdapter = new SupplyCategoryListAdapter2(mBean.getCategory(), getActivity());
+        mCategoryAdapter = new SupplyCategoryListAdapter2(mBean.getCategory(), getActivity());
 
         Log.e(Tag, "setAdapter");
 
@@ -377,10 +379,41 @@ progress_layout.setVisibility(View.GONE);
     @Override
     public void onResume() {
         Log.e(Tag, "---onResume ");
-        super.onResume();
         if (isFistRequestHttp) {
+            Log.e(Tag, "---onResume  1 ");
+
             isFistRequestHttp = false;
 //            initData();
+        }else{
+            Log.e(Tag, "---onResume  2 ");
+            initData();
+//            mScrollview.scrollTo(0,120);
         }
+
+        super.onResume();
+    }
+
+
+    @Override
+    public void onPause() {
+        Log.e(Tag, "---onPause ");
+
+        super.onPause();
+    }
+
+
+    @Override
+    public void onStop() {
+        Log.e(Tag, "---onStop ");
+
+
+        super.onStop();
+    }
+
+    @Override
+    public void onDetach() {
+        Log.e(Tag, "---onDetach ");
+
+        super.onDetach();
     }
 }
