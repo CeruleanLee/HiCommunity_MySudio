@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/Defult_Color_ShallowGrey"
     android:orientation="vertical">
-
+<!--    android:background="@color/Defult_Color_ShallowGrey"
+-->
     <LinearLayout
         android:id="@+id/ll_welcomeAct"
         android:layout_width="match_parent"

@@ -1,1 +1,1 @@
-include ':app', ':DongTools', ':pulltorefresh', ':slidinglibrary', ':pickerview'
+include ':app', ':DongTools', ':pulltorefresh', ':slidinglibrary', ':pickerview', ':verticalslide'

@@ -135,7 +135,7 @@ public class NewHuiGdcarAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (mBean.getNum() < mBean.getStorage()) {
-                    mBean.setNum(mBean.getNum() + 1);
+
                     cartType = 1;
                     if (TextUtils.isEmpty(HighCommunityApplication.mUserInfo.getToken())) {
                         HighCommunityUtils.GetInstantiation().ShowToast("请先登录再操作", 0);
@@ -144,17 +144,23 @@ public class NewHuiGdcarAdapter extends BaseAdapter {
                         HTTPHelper.changeGdCarNum(new BpiHttpHandler.IBpiHttpHandler() {
                             @Override
                             public void onError(int id, String message) {
-                                mWatingWindow.dismiss();
+                                if (mWatingWindow!=null){
+
+                                    mWatingWindow.dismiss();
+                                }
                                 HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
 
                             }
 
                             @Override
                             public void onSuccess(Object message) {
-                                mWatingWindow.dismiss();
+                                if (mWatingWindow!=null){
+
+                                    mWatingWindow.dismiss();
+                                }
                                 Log.e(Tag, "加入购物车 onSuccess 返回数据：" + message.toString());
 //                                HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
-
+                                mBean.setNum(mBean.getNum() + 1);
                             }
 
                             @Override
@@ -169,7 +175,10 @@ public class NewHuiGdcarAdapter extends BaseAdapter {
 
                             @Override
                             public void cancleAsyncTask() {
-                                mWatingWindow.dismiss();
+                                if (mWatingWindow!=null){
+
+                                    mWatingWindow.dismiss();
+                                }
 
                             }
 
@@ -180,6 +189,10 @@ public class NewHuiGdcarAdapter extends BaseAdapter {
 
                             @Override
                             public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                                if (mWatingWindow!=null){
+
+                                    mWatingWindow.dismiss();
+                                }
                                 if (isShouldLogin){
                                     HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                                     HighCommunityApplication.toLoginAgain(frag.getActivity());
@@ -197,7 +210,7 @@ public class NewHuiGdcarAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (mBean.getNum() > 0) {
-                    mBean.setNum(mBean.getNum() - 1);
+
                     cartType = 0;
                     if (TextUtils.isEmpty(HighCommunityApplication.mUserInfo.getToken())) {
                         HighCommunityUtils.GetInstantiation().ShowToast("请先登录再操作", 0);
@@ -207,7 +220,10 @@ public class NewHuiGdcarAdapter extends BaseAdapter {
                         HTTPHelper.changeGdCarNum(new BpiHttpHandler.IBpiHttpHandler() {
                             @Override
                             public void onError(int id, String message) {
-                                mWatingWindow.dismiss();
+                                if (mWatingWindow!=null){
+
+                                    mWatingWindow.dismiss();
+                                }
 
                                 HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
 
@@ -215,8 +231,12 @@ public class NewHuiGdcarAdapter extends BaseAdapter {
 
                             @Override
                             public void onSuccess(Object message) {
-                                mWatingWindow.dismiss();
+                                if (mWatingWindow!=null){
+
+                                    mWatingWindow.dismiss();
+                                }
                                 Log.e(Tag, "加入购物车 onSuccess 返回数据：" + message.toString());
+                                mBean.setNum(mBean.getNum() - 1);
                             }
 
                             @Override
@@ -230,7 +250,11 @@ public class NewHuiGdcarAdapter extends BaseAdapter {
 
                             @Override
                             public void cancleAsyncTask() {
-                                mWatingWindow.dismiss();
+
+                                if (mWatingWindow!=null){
+
+                                    mWatingWindow.dismiss();
+                                }
                             }
 
                             @Override
@@ -240,6 +264,10 @@ public class NewHuiGdcarAdapter extends BaseAdapter {
 
                             @Override
                             public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+                                if (mWatingWindow!=null){
+
+                                    mWatingWindow.dismiss();
+                                }
                                 if (isShouldLogin){
                                     HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                                     HighCommunityApplication.toLoginAgain(frag.getActivity());

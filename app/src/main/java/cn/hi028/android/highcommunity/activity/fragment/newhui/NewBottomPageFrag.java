@@ -277,8 +277,7 @@ public class NewBottomPageFrag extends BaseFragment {
             if (msg.getDetail().startsWith("http")) {
 
                 Log.e(Tag, "getPicDetail 图文详情url:" + msg.getDetail());
-//                loadPicDetail(msg.getDetail());
-//                isNoWebDetail = false;
+
             } else {
                 Log.e(Tag, "图文详情:" + msg.getDetail());
 
@@ -291,10 +290,8 @@ public class NewBottomPageFrag extends BaseFragment {
 
                 for (int i = 0; i < allElements.size(); i++) {
                     if (i == allElements.size()) {
-
                         lastElement = allElements.get(i);
                         Log.e(Tag, "终标签：" + lastElement.toString());
-
                     }
                 }
                 Elements media = document.select("[src]");
@@ -370,8 +367,6 @@ public class NewBottomPageFrag extends BaseFragment {
             tv_nopicurl.getLayoutParams().width = 50;
 //            tv_nopicurl.getLayoutParams().width= CommonUtils.px2dip(50);
         }
-
-
         if (null != msg.getSupply()) {
             tv_Hishequ.setText("—— 本商品由" + msg.getSupply() + "所有 ——");
         } else {

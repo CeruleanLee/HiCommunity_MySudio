@@ -20,12 +20,12 @@
 
             <TextView
                 android:id="@+id/tv_goods_reduce"
-                android:layout_width="24dp"
+                android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:singleLine="true"
                 android:text="-"
                 android:textColor="@color/Defult_Color_MidGrey"

@@ -216,4 +216,9 @@ public class NewHuiOrderFrag extends BaseFragment {
         }
         mPager.setCurrentItem(currentPo);
     }
+    public boolean onKeyDown() {
+//        if (mAdapter != null)
+//            return mAdapter.onBackPress();
+        return true;
+    }
 }

@@ -130,6 +130,13 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             if (null == mFrag)
                 return;
             mFrag.setCurrentPage(0);
+        }else if (intent.getIntExtra("actFlag", 0) == 0x66) {
+            tabSelector(3);
+            ActFrag mFrag = (ActFrag) getSupportFragmentManager()
+                    .findFragmentByTag(ActFrag.FRAGMENTTAG);
+            if (null == mFrag)
+                return;
+//            mFrag.setCurrentPage(0);
         }
     }
 

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.don.tools.BpiUniveralImage;
@@ -87,6 +88,8 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
             mViewHolder.mProgressBar = (ProgressBar) convertView.findViewById(R.id.flashsale_progressBar);
             mViewHolder.mTvProgress = (TextView) convertView.findViewById(R.id.flashsale_tv_progress);
             mViewHolder.flashsaleTvKucun = (TextView) convertView.findViewById(R.id.flashsale_tv_kucun);
+            mViewHolder.layout11 = (RelativeLayout) convertView.findViewById(R.id.layout11);
+            mViewHolder.layout22 = (RelativeLayout) convertView.findViewById(R.id.layout22);
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
@@ -157,6 +160,24 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
                 context.startActivity(mIntent);
             }
         });
+        mViewHolder.layout11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(context, "详情:"+mBean.getId(), Toast.LENGTH_SHORT).show();
+                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity2.class);
+                mIntent.putExtra("id",mBean.getId());
+                context.startActivity(mIntent);
+            }
+        });
+        mViewHolder.layout22.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(context, "详情:"+mBean.getId(), Toast.LENGTH_SHORT).show();
+                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity2.class);
+                mIntent.putExtra("id",mBean.getId());
+                context.startActivity(mIntent);
+            }
+        });
 
 
 
@@ -190,6 +211,7 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
         TextView mTvProgress;
         TextView flashsaleTvKucun;
         CutdownTextView mCounterTime2;
+        RelativeLayout layout11,layout22;
 
     }
 

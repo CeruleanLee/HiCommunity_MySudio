@@ -17,6 +17,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.NewHuiLifePagerAdapter;
+import cn.hi028.android.highcommunity.view.MyCustomViewPager;
 
 /**
  * @功能：惠生活模块<br>
@@ -32,7 +33,7 @@ public class HuiLifeFrag extends BaseFragment {
     View view;
     NewHuiLifePagerAdapter mPagerAdapter;
     @Bind(R.id.vp_huilife_viewpager)
-    ViewPager mViewPager;
+    MyCustomViewPager mViewPager;
     private MyChangeListener4HuiLife mlistenerHuiLife;
 
     @Override
@@ -70,7 +71,7 @@ public class HuiLifeFrag extends BaseFragment {
 
     void initView() {
         Log.d(Tag,"initView");
-
+        mViewPager.setPagingEnabled(false);
         mPagerAdapter = new NewHuiLifePagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {

@@ -22,7 +22,7 @@ android {
         applicationId "cn.hi028.android.highcommunity"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 158
+        versionCode 160
         versionName "2.5.1"
 
         multiDexEnabled true
@@ -92,7 +92,7 @@ dependencies {
 
     //    compile 'com.bigkoo:pickerview:2.1.1'
     compile files('libs/core_3.2.0.jar')
-//        compile 'com.android.support:appcompat-v7:23.4.0'
+    //        compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     //    compile 'com.tamic:browse:1.0.0'
@@ -114,17 +114,14 @@ dependencies {
     //    compile 'org.jsoup:jsoup:1.10.1'
     compile files('libs/jsoup-1.10.1.jar')
     compile 'com.zhy:base-adapter:2.0.0'
-
-    compile 'com.lzy.widget:view-core:0.2.3'
-    compile'com.squareup.okhttp3:okhttp:3.2.0'
+    //    compile 'com.lzy.widget:view-core:0.2.3'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.squareup.okio:okio:1.5.0'
     compile 'com.zhy:okhttputils:2.6.2'
     //虚线
-
     compile 'com.github.dongjunkun:CouponView:1.0.3'
     compile 'com.fang:dashview:v1.0.0'
-
-
+    compile project(':verticalslide')
 }
 
 apt {

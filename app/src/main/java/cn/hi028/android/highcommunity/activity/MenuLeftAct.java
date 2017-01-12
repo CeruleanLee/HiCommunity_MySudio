@@ -20,7 +20,6 @@ import org.androidannotations.annotations.ViewById;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.HuiChipsOrderFrag;
 import cn.hi028.android.highcommunity.activity.fragment.HuiChipsOrderFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.HuiOrderFrag;
 import cn.hi028.android.highcommunity.activity.fragment.MessageCenterFrag;
 import cn.hi028.android.highcommunity.activity.fragment.MessageCenterFrag_;
 import cn.hi028.android.highcommunity.activity.fragment.MyCarftsFrag;
@@ -67,7 +66,7 @@ public class MenuLeftAct extends BaseFragmentActivity {
     @ViewById(R.id.tv_right_name)
     TextView tv_right_name;
     NewHuiGdCarFrag mGdCarment;
-
+    FragmentManager fm;
     @AfterViews
     void initView() {
     	Log.d(Tag,"------MenuLeftAct");
@@ -78,7 +77,8 @@ public class MenuLeftAct extends BaseFragmentActivity {
         int intentPage = getIntent().getIntExtra(INTENTTAG, -1);
         if (-1 == flag)
             return;
-        FragmentManager fm = getSupportFragmentManager();
+
+        fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         switch (flag) {
 //            case Constacts.MENU_LEFT_USERINFO_EDIT:
@@ -133,13 +133,12 @@ public class MenuLeftAct extends BaseFragmentActivity {
             case Constacts.MENU_LEFT_ORDER:
                 mTitle.setText("我的订单");
                 Log.d(Tag,"------goto我的订单");
-//                HuiOrderFrag mOrder = (HuiOrderFrag) new HuiOrderFrag_();
+
                 NewHuiOrderFrag mOrder = (NewHuiOrderFrag) new NewHuiOrderFrag_();
                 if(intentPage!=-1){
 //                    mOrder.
                 }
-
-                ft.replace(R.id.ll_menuleft_layout, mOrder, HuiOrderFrag.FRAGMENTTAG);
+                ft.replace(R.id.ll_menuleft_layout, mOrder, NewHuiOrderFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_LEFT_ZHONGCOU:
                 mTitle.setText("我的众筹");
@@ -200,15 +199,29 @@ public class MenuLeftAct extends BaseFragmentActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        MyMessageFrag mMyMessageFrag = (MyMessageFrag) getSupportFragmentManager()
-//                .findFragmentByTag(MyMessageFrag.FRAGMENTTAG);
+        NewHuiOrderFrag mNewHuiOrderFrag = (NewHuiOrderFrag) getSupportFragmentManager()
+                .findFragmentByTag(NewHuiOrderFrag.FRAGMENTTAG);
         MyCollectionSwitchFrag mCollection = (MyCollectionSwitchFrag) getSupportFragmentManager()
                 .findFragmentByTag(MyCollectionSwitchFrag.FRAGMENTTAG);
+        Log.d(Tag,"------ready to back to act ");
+
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-//            if (mMyMessageFrag != null && mMyMessageFrag.onKeyDown()) {
-//            if (mMyMessageFrag != null ) {
-//                return true;
-//            } else
+            if (mNewHuiOrderFrag != null ) {
+                Log.d(Tag,"------ back to act ");
+
+                Intent intent=new Intent(this,MainActivity.class);
+
+                Log.d(Tag,"------ back to act2 ");
+                intent.putExtra("actFlag", 0x66);
+                Log.d(Tag,"------ back to act3 ");
+                startActivity(intent);
+                Log.d(Tag,"------ back to act4 ");
+                MenuLeftAct.this.finish();
+                return true;
+            } else{
+                Log.d(Tag,"------ mNewHuiOrderFrag null  ");
+
+            }
             if (mCollection != null && mCollection.onKeyDown()) {
                 return true;
             }
@@ -218,7 +231,29 @@ public class MenuLeftAct extends BaseFragmentActivity {
 
     @Click(R.id.img_back)
     void back() {
-        this.finish();
+//        NewHuiOrderFrag mNewHuiOrderFrag = (NewHuiOrderFrag) getSupportFragmentManager().findFragmentByTag(NewHuiOrderFrag.FRAGMENTTAG);
+        NewHuiOrderFrag mNewHuiOrderFrag = (NewHuiOrderFrag) fm.findFragmentByTag(NewHuiOrderFrag.FRAGMENTTAG);
+        Log.d(Tag,"------back  ");
+
+        if (mNewHuiOrderFrag != null ) {
+            Log.d(Tag,"------ ready to back  ");
+
+            Intent intent=new Intent(this,MainActivity.class);
+            Log.d(Tag,"------ ready to back intent  ");
+
+            intent.putExtra("actFlag", 0x66);
+            Log.d(Tag,"------ ready to back intent2  ");
+
+            startActivity(intent);
+            Log.d(Tag,"------ ready to back intent 3 ");
+
+            MenuLeftAct.this.finish();
+        }else{
+            Log.d(Tag,"------ mNewHuiOrderFrag null  ");
+
+            this.finish();
+        }
+
     }
 
     @Click(R.id.tv_right_name)

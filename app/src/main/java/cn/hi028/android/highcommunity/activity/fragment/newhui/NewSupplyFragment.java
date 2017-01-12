@@ -1,6 +1,12 @@
 package cn.hi028.android.highcommunity.activity.fragment.newhui;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -15,6 +21,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
 import com.google.gson.Gson;
@@ -212,10 +219,8 @@ if (getActivity().hasWindowFocus()){
 
                 mWatingWindow.dismiss();
             }
-//            progress_layout.setVisibility(View.GONE);
             layout_hasdata.setVisibility(View.GONE);
             containerNewsupply.setVisibility(View.VISIBLE);
-//            mProgress.setVisibility(View.GONE);
             mNodata.setVisibility(View.VISIBLE);
             mNodata.setText(message);
         }
@@ -225,7 +230,6 @@ if (getActivity().hasWindowFocus()){
             Log.e(Tag, "onSuccess");
 
             containerNewsupply.setVisibility(View.VISIBLE);
-//            progress_layout.setVisibility(View.GONE);
             layout_hasdata.setVisibility(View.VISIBLE);
             mNodata.setVisibility(View.GONE);
             Log.e(Tag, "onSuccess  3");
@@ -236,7 +240,11 @@ if (getActivity().hasWindowFocus()){
                 return;
             }
             Log.e(Tag, "onSuccess  5");
+            if (mWatingWindow!=null){
 
+//                mWatingWindow.dismiss();
+                mHandler.postDelayed(mRunable,500);
+            }
             mBean = (NewSupplyBean.NewSupplyDataEntity) message;
             if (mBean!=null){
                 Log.e(Tag, "onSuccess  6");
@@ -253,26 +261,24 @@ if (getActivity().hasWindowFocus()){
                 }else{
                     layout_splashTV.setVisibility(View.GONE);
                 }
-                if (mBean.getMerchant()!=null&&mBean.getMerchant().size()>0){
-
-                    initmerchantList(mBean);
-
-
-                }else{
-                    layout_merchantTV.setVisibility(View.GONE);
-                }
+                layout_merchantTV.setVisibility(View.GONE);
+//                if (mBean.getMerchant()!=null&&mBean.getMerchant().size()>0){
+//
+//                    initmerchantList(mBean);
+//
+//
+//                }else{
+//                    layout_merchantTV.setVisibility(View.GONE);
+//                }
 
 
             }
             if (isFistRequest){
                 isFistRequest=false;
 
-                mHandler.postDelayed(mRunable,1000);
+//                mHandler.postDelayed(mRunable,500);
             }else{
-                if (mWatingWindow!=null){
 
-                    mWatingWindow.dismiss();
-                }
 
             }
 
@@ -374,6 +380,7 @@ if (getActivity().hasWindowFocus()){
         super.onDestroyView();
         ButterKnife.unbind(this);
         mHandler.removeCallbacks(mRunable);
+        unregistNetworkReceiver();
     }
 
     @Override
@@ -386,10 +393,10 @@ if (getActivity().hasWindowFocus()){
 //            initData();
         }else{
             Log.e(Tag, "---onResume  2 ");
-            initData();
+//            initData();
 //            mScrollview.scrollTo(0,120);
         }
-
+        registNetworkReceiver();
         super.onResume();
     }
 
@@ -416,4 +423,58 @@ if (getActivity().hasWindowFocus()){
 
         super.onDetach();
     }
+
+
+
+
+    /****
+     * 与网络状态相关
+     */
+    private BroadcastReceiver receiver;
+
+    private void registNetworkReceiver() {
+        if (receiver == null) {
+            receiver = new NetworkReceiver();
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+            getActivity().registerReceiver(receiver, filter);
+        }
+    }
+
+    private void unregistNetworkReceiver() {
+        getActivity().unregisterReceiver(receiver);
+    }
+
+    public class NetworkReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+                ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+                if (networkInfo != null && networkInfo.isAvailable()) {
+                    int type = networkInfo.getType();
+                    if (ConnectivityManager.TYPE_WIFI == type) {
+
+                    } else if (ConnectivityManager.TYPE_MOBILE == type) {
+
+                    } else if (ConnectivityManager.TYPE_ETHERNET == type) {
+
+                    }
+                    //有网络
+                    Log.e(Tag,"有网络");
+//                    initData();
+                    isNoNetwork = false;
+                } else {
+                    //没有网络
+                    Log.e(Tag,"没有网络");
+                    Toast.makeText(getActivity(), "没有网络", Toast.LENGTH_SHORT).show();
+                    isNoNetwork = true;
+                }
+            }
+        }
+    }
+
+    private boolean isNoNetwork;
+
 }

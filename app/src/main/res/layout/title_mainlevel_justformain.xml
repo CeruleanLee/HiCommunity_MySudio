@@ -94,6 +94,7 @@
                 style="@style/My_RadioButton_Style2"
                 android:background="@drawable/maintitle_rbut_selector_newlife_supply"
                 android:checked="true"
+                android:visibility="gone"
                 android:text="直供" />
 
             <RadioButton
@@ -101,7 +102,7 @@
                 style="@style/My_RadioButton_Style2"
                 android:checked="false"
                 android:background="@drawable/maintitle_rbut_selector_newlife_chips"
-
+android:visibility="gone"
                 android:text="众筹" />
         </RadioGroup>
         <ImageView
