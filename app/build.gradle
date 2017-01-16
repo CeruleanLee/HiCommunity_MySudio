@@ -122,6 +122,9 @@ dependencies {
     compile 'com.github.dongjunkun:CouponView:1.0.3'
     compile 'com.fang:dashview:v1.0.0'
     compile project(':verticalslide')
+
+    //沉浸式状态栏
+    compile 'com.jaeger.statusbaruitl:library:1.2.5'
 }
 
 apt {
