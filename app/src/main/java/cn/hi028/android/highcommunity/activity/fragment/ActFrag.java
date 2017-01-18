@@ -149,6 +149,8 @@ public class ActFrag extends BaseFragment {
         Log.e(Tag, "onCreateView");
         mFragmeView = LayoutInflater.from(getActivity()).inflate(R.layout.frag_myusercenter_act, null);
         ButterKnife.bind(this, mFragmeView);
+//        ((MainActivity)getActivity()).goneTitleBar();
+
         iniView();
         ViewGroup parent = (ViewGroup) mFragmeView.getParent();
         if (parent != null) {

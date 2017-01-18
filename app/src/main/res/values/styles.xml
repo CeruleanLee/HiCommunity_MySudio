@@ -1,14 +1,25 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" mce_bogus="1" parent="android:Theme.Light">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+
+        <item name="android:windowActionBar">false</item>
+        <item name="windowActionBar">false</item>
         <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+        <item name="windowNoTitle">true</item>
         <item name="android:typeface">serif</item>
         <item name="android:textColor">@color/defult_text_color</item>
-        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/Defult_Color_AppGreen</item>
+        <item name="colorPrimaryDark">@color/Defult_Color_AppGreen</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:theme">@android:style/Theme.Translucent.NoTitleBar</item>
     </style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+    </style>
+
     <!-- <item name="android:typeface">serif</item>  -->
     <style name="AnimationActivity" mce_bogus="1" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/anim_enter</item>

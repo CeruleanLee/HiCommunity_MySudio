@@ -35,7 +35,7 @@ import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.BaseFragmentActivity;
 import cn.hi028.android.highcommunity.activity.GoodImageDetailOrEvaluationActivity;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
-import cn.hi028.android.highcommunity.activity.fragment.newhui.NewBottomPageFrag;
+import cn.hi028.android.highcommunity.activity.fragment.newhui.NewBottomPageFrag2;
 import cn.hi028.android.highcommunity.activity.fragment.newhui.NewTopPageFrag;
 import cn.hi028.android.highcommunity.adapter.PicPageAdapter;
 import cn.hi028.android.highcommunity.bean.Autonomous.NewSupplyCarlistBean;
@@ -95,7 +95,7 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
     float mCarPriceSum;
     private VerticalSlide verticalSlide;
     private NewTopPageFrag topFragment;
-    private NewBottomPageFrag bottomFragment;
+    private NewBottomPageFrag2 bottomFragment;
     private FloatingActionButton fab;
     PopupWindow mWaittingPop;
 
@@ -145,7 +145,7 @@ public class SupplyGoodsDetailActivity2 extends BaseFragmentActivity implements
         if (goodsdata != null) {
             bundle2.putParcelable("goodsdata", goodsdata);
         }
-        bottomFragment = new NewBottomPageFrag();
+        bottomFragment = new NewBottomPageFrag2();
         bottomFragment.setArguments(bundle2);
         transaction.replace(R.id.second, bottomFragment);
 

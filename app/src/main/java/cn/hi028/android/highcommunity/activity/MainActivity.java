@@ -33,6 +33,7 @@ import com.don.tools.GeneratedClassUtils;
 import com.don.view.CircleImageView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
+import com.jaeger.library.StatusBarUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import net.duohuo.dhroid.activity.ActivityTack;
@@ -397,8 +398,28 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                     HighCommunityApplication.mUserInfo.getId() + "");
         }
     }
+    public void goneTitleBar(){
+        Log.e(Tag, "goneTitleBar ");
 
+        titleBar.setVisibility(View.GONE);
+        Log.e(Tag, "goneTitleBar ok");
+
+
+    }
+    public void visibleTitleBar(){
+        Log.e(Tag, "goneTitleBar ");
+
+        titleBar.setVisibility(View.GONE);
+        Log.e(Tag, "goneTitleBar ok");
+
+
+    }
+View titleBar;
     void initView() {
+        titleBar =this.findViewById(R.id.title);
+
+
+
         mTitle = (TextView) this.findViewById(R.id.tv_mainlevel_title);
         mLeftMenu = (ImageView) this.findViewById(R.id.tv_mainlevel_LeftButton);
         mRightMenu = (ImageView) this.findViewById(R.id.iv_mainlevel_RightButton);
@@ -425,6 +446,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         mRightMenu.setOnClickListener(mTitleListener);
 //        mLeftMenu.setOnClickListener(mTitleListener);
 //        mStatusHight.setVisibility(View.GONE);
+        goneTitleBar();
     }
 
     /**
@@ -863,15 +885,16 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 //        getMsgNum();
         Log.d(Tag,"tabSelector:" + position);
         if (0 == position) {
+//            visibleTitleBar();
             mTitle.setVisibility(View.GONE);
             mGroup.setVisibility(View.VISIBLE);
             mNewHuiLifeGroup.setVisibility(View.GONE);
 
         } else if (position==2){
+//            visibleTitleBar();
             mTitle.setVisibility(View.GONE);
             mGroup.setVisibility(View.GONE);
             mNewHuiLifeGroup.setVisibility(View.VISIBLE);
-
 
         }else {
             mGroup.setVisibility(View.GONE);
@@ -921,7 +944,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 tabSelector(2);
                 break;
             case R.id.main_tab_five://
-                mTitle.setText("个人中心");
+                mTitle.setText(" ");
                 tabSelector(3);
                 break;
             case R.id.tx_LeftFrag_userlocation_layout:
@@ -1066,6 +1089,8 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         }
 
     }
-
-
+    @Override
+    protected void setStatusBar() {
+        StatusBarUtil.setTranslucentForImageViewInFragment(MainActivity.this,0, null);
+    }
 }

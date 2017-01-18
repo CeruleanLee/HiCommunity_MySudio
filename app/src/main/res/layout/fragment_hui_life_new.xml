@@ -3,6 +3,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/Defult_Color_AppGreen"
+        android:layout_height="@dimen/title_height">
+
+
+
+        <RadioGroup
+            android:id="@+id/rg_title_newHuilifegroup"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_maintitle_rg_huilife"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <RadioButton
+                android:id="@+id/rb_title_supply"
+                style="@style/My_RadioButton_Style2"
+                android:background="@drawable/maintitle_rbut_selector_newlife_supply"
+                android:checked="true"
+                android:text="直供"
+                android:visibility="visible" />
+
+            <RadioButton
+                android:id="@+id/rb_title_chips"
+                style="@style/My_RadioButton_Style2"
+                android:background="@drawable/maintitle_rbut_selector_newlife_chips"
+                android:checked="false"
+                android:text="众筹"
+                android:visibility="visible" />
+        </RadioGroup>
+
+
+
+
+    </RelativeLayout>
 
     <cn.hi028.android.highcommunity.view.MyCustomViewPager
         android:id="@+id/vp_huilife_viewpager"

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lzy.widget.vertical.VerticalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/srcollview_page_picdetail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Defult_Color_ShallowGrey"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/ll_NoticeDetails_Progress"
+            layout="@layout/progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_NoticeDetails_noData"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="暂无图文详情数据"
+            android:textColor="@color/Defult_Color_DeepGrey"
+            android:visibility="gone"
+
+            />
+
+        <LinearLayout
+            android:id="@+id/page1_tv_showhtml"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
+            android:visibility="gone"></LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_nopicurl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text=""
+            android:visibility="visible" />
+        <TextView
+            android:id="@+id/tv_webview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text=""
+            android:visibility="visible" />
+
+        <cn.hi028.android.highcommunity.view.ScrollWebView
+            android:id="@+id/page1_good_detail_webview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/page1_shopdetail_tv_Hishequ"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:gravity="center"
+
+            android:text="—— 本商品由xxx所有 ——"
+            android:textColor="#aaaaaa" />
+
+        <TextView
+            android:id="@+id/page1_shopdetail_tv_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="35dp"
+            android:background="#22aaaaaa"
+            android:gravity="center"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:text="商品推荐"
+            android:textColor="#666666" />
+
+        <cn.hi028.android.highcommunity.view.NoScroolGridView
+            android:id="@+id/page1_shopdetail_recommendGoods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/Defult_Color_ShallowGrey"
+            android:columnWidth="70dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:horizontalSpacing="12dp"
+            android:listSelector="#00000000"
+            android:numColumns="2"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="@dimen/margin_12">
+
+        </cn.hi028.android.highcommunity.view.NoScroolGridView>
+    </LinearLayout>
+
+</com.lzy.widget.vertical.VerticalScrollView>

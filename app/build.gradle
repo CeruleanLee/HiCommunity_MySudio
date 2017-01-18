@@ -12,8 +12,8 @@ bugly {
 //    all*.exclude group: 'com.android.support', module: 'support-v4'
 //}
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.1'
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
     useLibrary 'org.apache.http.legacy'
     dexOptions {
         javaMaxHeapSize "4g"
@@ -21,7 +21,7 @@ android {
     defaultConfig {
         applicationId "cn.hi028.android.highcommunity"
         minSdkVersion 16
-        targetSdkVersion 22
+        targetSdkVersion 25
         versionCode 160
         versionName "2.5.1"
 
@@ -93,8 +93,10 @@ dependencies {
     //    compile 'com.bigkoo:pickerview:2.1.1'
     compile files('libs/core_3.2.0.jar')
     //        compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
+//    compile 'com.android.support:appcompat-v7:23.1.1'
+//    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:design:25.1.0'
     //    compile 'com.tamic:browse:1.0.0'
     compile 'com.blankj:utilcode:1.2.1'
     compile 'com.android.support:multidex:1.0.1'
@@ -125,6 +127,8 @@ dependencies {
 
     //沉浸式状态栏
     compile 'com.jaeger.statusbaruitl:library:1.2.5'
+    //滑动返回
+    compile 'cn.bingoogolapple:bga-swipebacklayout:1.0.7'
 }
 
 apt {

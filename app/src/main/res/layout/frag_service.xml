@@ -2,33 +2,58 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <!-- android:baselineAligned="_baseline" -->
+
 
     <RelativeLayout
         android:id="@+id/service_scrollView_LinearLayoutContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone" >
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:background="@color/Defult_Color_AppGreen">
+
+
+            <TextView
+
+                android:id="@+id/tv_mainlevel_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="服务"
+                android:textColor="@color/defult_color_white"
+                android:textSize="@dimen/font_extra_large"
+                android:visibility="visible" />
+            <!--            android:background="@drawable/bg_maintitle_radiogroup"
+            -->
+
+        </RelativeLayout>
 
         <com.handmark.pulltorefresh.library.PullToRefreshScrollView
             android:id="@+id/service_scrollView_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/title"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:scrollbars="none" >
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp" >
+                    android:layout_height="150dp">
 
                     <net.duohuo.dhroid.view.AutoScrollViewPager
                         android:id="@+id/view_pager"
@@ -36,8 +61,7 @@
                         android:layout_height="fill_parent"
                         android:background="@android:color/white" />
 
-                    <net.duohuo.dhroid.view.CirclePageIndicator
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                    <net.duohuo.dhroid.view.CirclePageIndicator xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/home_cpi"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -55,7 +79,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <View
                         android:layout_width="match_parent"
@@ -88,8 +112,8 @@
                         android:stretchMode="columnWidth"
 
                         />
-<!--     android:horizontalSpacing="0.25dip"
-                        android:verticalSpacing="0.25dip"-->
+                    <!--     android:horizontalSpacing="0.25dip"
+                                            android:verticalSpacing="0.25dip"-->
                     <View
                         android:layout_width="wrap_content"
                         android:layout_height="0.125dip"
@@ -114,7 +138,7 @@
                         android:layout_height="90dip"
                         android:background="@color/defult_color_white"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal" >
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:id="@+id/ll_service_tenement2"
@@ -124,7 +148,7 @@
                             android:background="@drawable/bg_third_service_selector"
                             android:clickable="true"
                             android:gravity="center"
-                            android:orientation="vertical" >
+                            android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -146,7 +170,7 @@
                             android:background="@drawable/bg_third_service_selector"
                             android:clickable="true"
                             android:gravity="center"
-                            android:orientation="vertical" >
+                            android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -168,7 +192,7 @@
                             android:background="@drawable/bg_third_service_selector"
                             android:clickable="true"
                             android:gravity="center"
-                            android:orientation="vertical" >
+                            android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -190,7 +214,7 @@
                             android:background="@drawable/bg_third_service_selector"
                             android:clickable="true"
                             android:gravity="center"
-                            android:orientation="vertical" >
+                            android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -229,7 +253,7 @@
                         android:layout_height="90dip"
                         android:background="@color/defult_color_white"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal" >
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:id="@+id/ll_service_voluntary"
@@ -240,7 +264,7 @@
                             android:clickable="true"
                             android:gravity="center"
                             android:orientation="vertical"
-                            android:visibility="visible" >
+                            android:visibility="visible">
 
 
                             <ImageView
@@ -263,7 +287,7 @@
                             android:background="@drawable/bg_third_service_selector"
                             android:clickable="true"
                             android:gravity="center"
-                            android:orientation="vertical" >
+                            android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -285,7 +309,7 @@
                             android:background="@drawable/bg_third_service_selector"
                             android:clickable="true"
                             android:gravity="center"
-                            android:orientation="vertical" >
+                            android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -307,7 +331,7 @@
                             android:background="@drawable/bg_third_service_selector"
                             android:clickable="true"
                             android:gravity="center"
-                            android:orientation="vertical" >
+                            android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -346,7 +370,7 @@
                         android:layout_height="90dip"
                         android:background="@color/defult_color_white"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal" >
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:id="@+id/ll_service_craftsman"
@@ -356,7 +380,7 @@
                             android:background="@drawable/bg_third_service_selector"
                             android:clickable="true"
                             android:gravity="center"
-                            android:orientation="vertical" >
+                            android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -378,7 +402,7 @@
                             android:background="@drawable/bg_third_service_selector"
                             android:clickable="true"
                             android:gravity="center"
-                            android:orientation="vertical" >
+                            android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="wrap_content"

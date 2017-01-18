@@ -3,7 +3,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/Defult_Color_AppGreen"
+        android:layout_height="@dimen/title_height">
 
+
+
+
+        <RadioGroup
+            android:id="@+id/rg_maintitle_group"
+            android:layout_width="wrap_content"
+            android:layout_height="25dip"
+            android:layout_centerInParent="true"
+
+            android:background="@drawable/bg_maintitle_rg_huilife"
+            android:orientation="horizontal"
+            android:visibility="visible">
+            <!-- style="@style/My_RadioButton_Style"-->
+            <RadioButton
+                android:id="@+id/rb_maintitle_leftbutton"
+                style="@style/My_RadioButton_Style2"
+                android:background="@drawable/maintitle_rbut_selector_newlife_supply"
+                android:checked="true"
+                android:text="社区" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+
+            <RadioButton
+                android:id="@+id/rb_maintitle_rightbutton"
+                style="@style/My_RadioButton_Style2"
+                android:background="@drawable/maintitle_rbut_selector_newlife_middle"
+
+                android:text="群组" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+
+            <RadioButton
+                android:id="@+id/rb_maintitle_rightbutton_right"
+                style="@style/My_RadioButton_Style2"
+                android:background="@drawable/maintitle_rbut_selector_newlife_chips"
+
+                android:text="活动" />
+        </RadioGroup>
+
+
+    </RelativeLayout>
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_neighbor_viewpager"
         android:layout_width="match_parent"

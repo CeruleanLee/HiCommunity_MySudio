@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/Defult_Color_AppGreen"
-    android:orientation="vertical">
+    android:orientation="vertical"
+  >
 
     <!--<include layout="@layout/title_status_height" />-->
 
@@ -18,8 +19,8 @@
             android:clickable="true"
             android:paddingLeft="@dimen/padding_12"
             android:paddingRight="42dp"
-            android:visibility="gone"
-            android:src="@mipmap/img_title_left" />
+            android:src="@mipmap/img_title_left"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/iv_mainlevel_LeftNewMessage"
@@ -29,8 +30,8 @@
             android:layout_marginTop="14dip"
             android:layout_toRightOf="@id/tv_mainlevel_LeftButton"
             android:clickable="true"
-            android:visibility="gone"
-            android:src="@mipmap/img_title_new_message" />
+            android:src="@mipmap/img_title_new_message"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_mainlevel_title"
@@ -41,38 +42,42 @@
             android:textColor="@color/defult_color_white"
             android:textSize="@dimen/font_extra_large"
             android:visibility="gone" />
-<!--            android:background="@drawable/bg_maintitle_radiogroup"
--->
+        <!--            android:background="@drawable/bg_maintitle_radiogroup"
+        -->
         <RadioGroup
             android:id="@+id/rg_maintitle_group"
             android:layout_width="wrap_content"
             android:layout_height="25dip"
-            android:background="@drawable/bg_maintitle_rg_huilife"
-
             android:layout_centerInParent="true"
+
+            android:background="@drawable/bg_maintitle_rg_huilife"
             android:orientation="horizontal"
             android:visibility="visible">
-<!-- style="@style/My_RadioButton_Style"-->
+            <!-- style="@style/My_RadioButton_Style"-->
             <RadioButton
                 android:id="@+id/rb_maintitle_leftbutton"
                 style="@style/My_RadioButton_Style2"
                 android:background="@drawable/maintitle_rbut_selector_newlife_supply"
                 android:checked="true"
                 android:text="社区" />
-<View
-    android:layout_width="0.5dp"
-    android:layout_height="match_parent"
-    android:background="@color/white"/>
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+
             <RadioButton
                 android:id="@+id/rb_maintitle_rightbutton"
                 style="@style/My_RadioButton_Style2"
                 android:background="@drawable/maintitle_rbut_selector_newlife_middle"
 
                 android:text="群组" />
+
             <View
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:background="@color/white"/>
+                android:background="@color/white" />
+
             <RadioButton
                 android:id="@+id/rb_maintitle_rightbutton_right"
                 style="@style/My_RadioButton_Style2"
@@ -80,6 +85,7 @@
 
                 android:text="活动" />
         </RadioGroup>
+
         <RadioGroup
             android:id="@+id/rg_title_newHuilifegroup"
             android:layout_width="wrap_content"
@@ -94,17 +100,18 @@
                 style="@style/My_RadioButton_Style2"
                 android:background="@drawable/maintitle_rbut_selector_newlife_supply"
                 android:checked="true"
-                android:visibility="gone"
-                android:text="直供" />
+                android:text="直供"
+                android:visibility="gone" />
 
             <RadioButton
                 android:id="@+id/rb_title_chips"
                 style="@style/My_RadioButton_Style2"
-                android:checked="false"
                 android:background="@drawable/maintitle_rbut_selector_newlife_chips"
-android:visibility="gone"
-                android:text="众筹" />
+                android:checked="false"
+                android:text="众筹"
+                android:visibility="gone" />
         </RadioGroup>
+
         <ImageView
             android:id="@+id/iv_mainlevel_RightButton"
             android:layout_width="wrap_content"

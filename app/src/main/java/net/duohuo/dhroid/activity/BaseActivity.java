@@ -2,19 +2,22 @@ package net.duohuo.dhroid.activity;
 
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.jaeger.library.StatusBarUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import net.duohuo.dhroid.BaseApplication;
 import net.duohuo.dhroid.Const;
 
+import cn.hi028.android.highcommunity.R;
+
 /***
  * @author duohuo-jinghao
  */
-public class BaseActivity extends FragmentActivity {
+public class BaseActivity extends AppCompatActivity {
     public BaseApplication getBaseApplication() {
         return (BaseApplication) getApplication();
     }
@@ -25,8 +28,12 @@ public class BaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         tack.addActivity(this);
+    }
+    protected void setStatusBar() {
+        StatusBarUtil.setColor(this, getResources().getColor(R.color.red),0);
     }
 
 
@@ -51,6 +58,7 @@ public class BaseActivity extends FragmentActivity {
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
+        setStatusBar();
         if (Const.auto_inject) {
 //            InjectUtil.inject(this);
         }

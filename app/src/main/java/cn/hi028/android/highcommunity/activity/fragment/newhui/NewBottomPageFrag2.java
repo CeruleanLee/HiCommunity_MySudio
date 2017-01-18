@@ -7,7 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -28,10 +29,8 @@ import java.util.List;
 import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.HuiOrderAdapter;
-import cn.hi028.android.highcommunity.adapter.PicDetailListAdapter;
 import cn.hi028.android.highcommunity.adapter.SupplGoodsDetailGridAdapter;
 import cn.hi028.android.highcommunity.adapter.SupplyGoodsDetailCommentAdapter;
-import cn.hi028.android.highcommunity.bean.Autonomous.PicBean;
 import cn.hi028.android.highcommunity.bean.NewSupplyGoodsDetailBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.view.MyNoScrollListview;
@@ -39,13 +38,13 @@ import cn.hi028.android.highcommunity.view.NoScroolGridView;
 import cn.hi028.android.highcommunity.view.ScrollWebView;
 
 /**
- * @功能：新版直供商品详情 下半页   用的是listview <br>
+ * @功能：新版直供商品详情 下半页  高度固定的webview <br>
  * @作者： Lee_yting<br>
  * @时间：2016/11/28<br>
  */
-public class NewBottomPageFrag extends BaseFragment {
-    public static final String Tag = "NewBottomPageFrag--->";
-    public static final String FRAGMENTTAG = "NewBottomPageFrag";
+public class NewBottomPageFrag2 extends BaseFragment {
+    public static final String Tag = "NewBottomPageFrag2--->";
+    public static final String FRAGMENTTAG = "NewBottomPageFrag2";
     public static boolean isFistRequest = true;
     public static boolean isFistRequestHttp = true;
     View view;
@@ -184,7 +183,6 @@ public class NewBottomPageFrag extends BaseFragment {
         adapter.setViewList(viewList);
         mPager.setCurrentItem(0);
 
-
     }
 
     /**
@@ -244,127 +242,78 @@ public class NewBottomPageFrag extends BaseFragment {
 
         return view;
     }
-
+    ScrollWebView detail_webview;
+    public static String HTTPHOST=Constacts.IMAGEHTTP;
     /**
      * 返回图文详情的view
      **/
     View getPicDetail(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
         Log.e(Tag, "getPicDetail");
 
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.page_picdetail2, null);
-
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.page_picdetail_webview, null);
         View mProgress = view.findViewById(R.id.ll_NoticeDetails_Progress);
         VerticalScrollView mScrollView1 = (VerticalScrollView) view.findViewById(R.id.srcollview_page_picdetail);
-        LinearLayout layout_showhtml = (LinearLayout) view.findViewById(R.id.page1_tv_showhtml);
-        MyNoScrollListview pic_noscrolllistview = (MyNoScrollListview) view.findViewById(R.id.pic_noscrolllistview);
 
-        List<PicBean> imguilList = new ArrayList<PicBean>();
+        detail_webview = (ScrollWebView) view.findViewById(R.id.page1_good_detail_webview);
+//        webView.setWebViewClient(new MyWebViewClient());
+        detail_webview.getSettings().setDefaultTextEncodingName("utf-8");
+        detail_webview.getSettings().setAppCacheEnabled(true);// 设置启动缓存
+        detail_webview.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        detail_webview.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        detail_webview.getSettings().setJavaScriptEnabled(true);
+        detail_webview.getSettings().setDisplayZoomControls(false);// 设置显示缩放按钮
+        detail_webview.getSettings().setSupportZoom(true); // 支持缩放
+        detail_webview.getSettings().setBuiltInZoomControls(true);
 
-//        ImageView img_showhtml = (ImageView) view.findViewById(R.id.page1_img_showhtml);
+        detail_webview.getSettings().setUseWideViewPort(true);//让webview读取网页设置的viewport，pc版网页
+        detail_webview.getSettings().setLoadWithOverviewMode(true);
+//        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);//适应内容大小
+        detail_webview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);//适应屏幕，内容将自动缩放
+        detail_webview.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+//        detail_webview.setVerticalScrollBarEnabled(false);  //取消Vertical ScrollBar显示
 
-        ScrollWebView detail_webview = (ScrollWebView) view.findViewById(R.id.page1_good_detail_webview);
         TextView tv_Hishequ = (TextView) view.findViewById(R.id.page1_shopdetail_tv_Hishequ);
         TextView tv_nopicurl = (TextView) view.findViewById(R.id.tv_nopicurl);
+        TextView tv_webview = (TextView) view.findViewById(R.id.tv_webview);
         NoScroolGridView recommendGoodsGview = (NoScroolGridView) view.findViewById(R.id.page1_shopdetail_recommendGoods);
         mProgress.setVisibility(View.GONE);
-        TextView mNodata = (TextView) view.findViewById(R.id.tv_NoticeDetails_noData);
-
-        PicDetailListAdapter mPicDetailListAdapter = new PicDetailListAdapter(imguilList, getActivity());
-        pic_noscrolllistview.setEmptyView(mNodata);
-        pic_noscrolllistview.setAdapter(mPicDetailListAdapter);
+//        TextView mNodata = (TextView) view.findViewById(R.id.tv_NoticeDetails_noData);
+//        PicDetailListAdapter mPicDetailListAdapter = new PicDetailListAdapter(imguilList, getActivity());
+//        pic_noscrolllistview.setEmptyView(mNodata);
+//        pic_noscrolllistview.setAdapter(mPicDetailListAdapter);
         Element lastElement = null;
-        if (null != msg.getDetail()) {
+        boolean iSNoData=true;
+        if (null != msg.getDetail()){
+            if (msg.getDetail().endsWith("</p>")){
+                iSNoData=false;
+            }else{
+                iSNoData=true;
+            }
+        }
+        if (null != msg.getDetail()&&!iSNoData) {
             if (msg.getDetail().startsWith("http")) {
-
                 Log.e(Tag, "getPicDetail 图文详情url:" + msg.getDetail());
-
             } else {
+                tv_nopicurl.setVisibility(View.GONE);
+                detail_webview.setVisibility(View.VISIBLE);
                 Log.e(Tag, "图文详情:" + msg.getDetail());
-
-//                Log.e(Tag, "解析图文详情" + Html.fromHtml(msg.getDetail()));
-//                tv_showhtml.setMovementMethod(LinkMovementMethod.getInstance());
-//                tv_showhtml.setText(Html.fromHtml(msg.getDetail()));
-                Document document = Jsoup.parse(msg.getDetail());
-                Log.d(Tag, "document:" + document.text());
-
-
-                Elements allElements = document.getAllElements();
-                Log.e(Tag, "after allElements"+allElements.toString() + "," + allElements.text());
-
-                for (int i = 0; i < allElements.size(); i++) {
-                    if (i == allElements.size()) {
-                        lastElement = allElements.get(i);
-                        Log.e(Tag, "终标签：" + lastElement.toString());
+                Document doc = Jsoup.parse(msg.getDetail());
+                Elements pngs = doc.select("img[src]");
+                for (Element element : pngs) {
+                    String imgUrl = element.attr("src");
+                    if (imgUrl.trim().startsWith("/")) {
+                        imgUrl =HTTPHOST + imgUrl;
+                        element.attr("src", imgUrl);
                     }
                 }
-                Elements media = document.select("[src]");
-                if (media != null) {
-                    for (int i = 0; i < media.size(); i++) {
-                        Element src = media.get(i);
-
-                        if (src.tagName().equals("img")) {
-                            Log.e(Tag, src.tagName() + "," + src.attr("src") + "," + src.attr("width") + "," + src.attr("height") + "," + src.attr("alt"));
-                            PicBean mPicbean = new PicBean();
-                            if (src.attr("height") != null && !src.attr("height").equals("")) {
-//                               html_img.getLayoutParams().height=Integer.parseInt(src.attr("height"));
-                                Log.e(Tag, "height ! ");
-
-                                mPicbean.setHeight(src.attr("height"));
-
-                            } else {
-                                Log.e(Tag, "height null ");
-                            }
-                            if (src.attr("src") != null && !src.attr("src").equals("")) {
-                                Log.e(Tag, "src ! null uri:" + Constacts.IMAGEHTTP + src.attr("src"));
-                                mPicbean.setImgUrl(src.attr("src"));
-                            }
-                            imguilList.add(mPicbean);
-                            mPicDetailListAdapter.AddNewData(imguilList);
-                        } else {
-                            Log.e(Tag, src.tagName() + ",_____________" + src.attr("src"));
-                        }
-                    }
-
-
-//                    for (Element src : media) {
-//                        if (src.tagName().equals("img")) {
-//                            Log.e(Tag, src.tagName() + "," + src.attr("src") + "," + src.attr("width") + "," + src.attr("height") + "," + src.attr("alt"));
-//                            PicBean mPicbean = new PicBean();
-//                            if (src.attr("height") != null && !src.attr("height").equals("")) {
-////                               html_img.getLayoutParams().height=Integer.parseInt(src.attr("height"));
-//                                Log.e(Tag, "height ! ");
-//
-//                                mPicbean.setHeight(src.attr("height"));
-//
-//                            } else {
-//                                Log.e(Tag, "height null ");
-//                            }
-//                            if (src.attr("src") != null && !src.attr("src").equals("")) {
-//                                Log.e(Tag, "src ! null uri:" + Constacts.IMAGEHTTP + src.attr("src"));
-//                                mPicbean.setImgUrl(src.attr("src"));
-//                            }
-//
-//                        } else {
-//                            Log.e(Tag, src.tagName() + ",_____________" + src.attr("src"));
-//                        }
-//                    }
-                } else {
-                    Log.e(Tag, "img null   显示text");
-
-                    if (lastElement != null) {
-                        Log.e(Tag, "img null   lastElement!=null");
-
-                        Log.e(Tag, "img null   lastElement!=null222" + lastElement.text());
-
-                        tv_nopicurl.setText(lastElement.text());
-//                        mGridview.addHeaderView(tv);
-
-                    }
-                }
-
-
+               String newsBody = doc.toString();
+                Log.e(Tag, "newsBody:" + newsBody);
+                detail_webview.loadDataWithBaseURL(null, newsBody, "text/html",
+                        "utf-8", null);
             }
         } else {
+            tv_nopicurl.setVisibility(View.VISIBLE);
+            detail_webview.setVisibility(View.GONE);
             Log.e(Tag, "图文详情url: null");
             tv_nopicurl.setText("暂无图文详情");
             tv_nopicurl.getLayoutParams().width = 50;
@@ -374,8 +323,6 @@ public class NewBottomPageFrag extends BaseFragment {
             tv_Hishequ.setText("—— 本商品由" + msg.getSupply() + "所有 ——");
         } else {
             tv_Hishequ.setVisibility(View.INVISIBLE);
-
-
         }
 //        mGridview.addHeaderView(tv_Hishequ);
         //set推荐商品
@@ -398,6 +345,4 @@ public class NewBottomPageFrag extends BaseFragment {
         super.onResume();
 
     }
-
-
 }
