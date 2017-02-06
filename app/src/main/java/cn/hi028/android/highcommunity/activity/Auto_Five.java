@@ -25,15 +25,12 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.view.LinearForVoteResult;
 
 public class Auto_Five extends BaseFragmentActivity {
-
-    String Tag = "~~~ AutoAct_Four";
-
-    public static final String ACTIVITYTAG = "AutoAct_Four";
-    public static final String INTENTTAG = "AutoAct_Four";
+    String Tag = "~~~ Auto_Five";
+    public static final String ACTIVITYTAG = "Auto_Five";
+    public static final String INTENTTAG = "Auto_Five";
     String title_id;
     @Bind(R.id.auto_four_img_back)
     ImageView mImgBack;
-
     @Bind(R.id.four_content_title)
     TextView mrContentTitle;
     @Bind(R.id.four_listiew)
@@ -51,7 +48,6 @@ public class Auto_Five extends BaseFragmentActivity {
         setContentView(R.layout.act_auto_act_four);
         ButterKnife.bind(this);
         title_id = getIntent().getStringExtra("title_id");
-//        initView();
         initDtas();
     }
 
@@ -73,11 +69,9 @@ public class Auto_Five extends BaseFragmentActivity {
                 return;
             }
             mData= (Auto_VoteResultBean.VoteResultDataEntity) message;
-//            Log.d(Tag, "onSuccess message 不空");
             mList.add(mData);
             setData();
             mAdapter = new ShowVoteResultAdapter(Auto_Five.this,mList);
-//                mList = mData.getOptions();
             mListiew.setAdapter(mAdapter);
             mfourBack.setVisibility(View.VISIBLE);
         }
@@ -118,7 +112,6 @@ public class Auto_Five extends BaseFragmentActivity {
         switch (view.getId()) {
             case R.id.auto_four_img_back:
                 this.finish();
-
 //                onBackPressed();
                 break;
             case R.id.four_back:

@@ -47,7 +47,6 @@ import cn.hi028.android.highcommunity.view.ECAlertDialog;
  */
 @EFragment(resName = "frag_userinfo")
 public class UserInfoFrag extends BaseFragment {
-
     public static final String FRAGMENTTAG = "UserInfoFrag";
     @ViewById(R.id.tv_UserInfo_title)
     TextView mTitle;
@@ -75,7 +74,6 @@ public class UserInfoFrag extends BaseFragment {
         public void onError(int id, String message) {
             mWaitingWindow.dismiss();
             if (id == 1002) {
-
                 ECAlertDialog.buildAlert(getActivity(), "你还未认证,是否去认证?", "去认证", "取消", new DialogInterface.OnClickListener() {
 
                     @Override
@@ -143,7 +141,6 @@ public class UserInfoFrag extends BaseFragment {
     };
     @AfterViews
     void initView() {
-//        mProgress.setVisibility(View.VISIBLE);
         uid = getActivity().getIntent().getStringExtra(MenuLeftAct.INTENTTAG);
         String UserId = HighCommunityApplication.mUserInfo.getId() + "";
         if (UserId.equals(uid)) {

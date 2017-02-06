@@ -43,9 +43,7 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @时间：2016-2-16<br>
  */
 public class MyCollectionMessageFrag extends Fragment {
-
 	public static final String FRAGMENTTAG = "MyCollectionMessageFrag";
-	//	private View view;
 	private int mCount = -1;
 	CommunityListAdapter2 mAdapter;
 	private PullToRefreshListView mListView;
@@ -58,8 +56,6 @@ public class MyCollectionMessageFrag extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
-
 		View view = inflater.inflate(R.layout.frag_mycollection_message, null);
 		findView(view);
 
@@ -68,9 +64,6 @@ public class MyCollectionMessageFrag extends Fragment {
 			parent.removeView(view);
 		initView();
 		return view;
-
-
-
 	}
 
 	private void findView(View view) {

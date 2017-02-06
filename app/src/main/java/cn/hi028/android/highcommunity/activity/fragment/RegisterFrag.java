@@ -38,16 +38,12 @@ import cn.hi028.android.highcommunity.utils.RegexValidateUtil;
  * @时间：2015/12/10<br>
  */
 public class RegisterFrag extends BaseFragment {
-
 	public static final String FRAGMENTTAG = "RegisterFrag";
-
 	private View mFragmeView;
 	private EditText mPhone, mIdnetfyCode, mPassword, mPsdRepeat;
 	private TextView mGetIdentfy, mRegist, mAgree;
 	private onCounter mCounter;
-
 	private PopupWindow mWindow;
-
 	private CheckBox mAgreebox;
 
 	@Override
@@ -64,8 +60,6 @@ public class RegisterFrag extends BaseFragment {
 	}
 
 	private void initView() {
-		// mFragmeView = LayoutInflater.from(getActivity()).inflate(
-		// R.layout.frag_register, null);
 		mPhone = (EditText) mFragmeView.findViewById(R.id.et_register_phone);
 		mIdnetfyCode = (EditText) mFragmeView
 				.findViewById(R.id.et_register_identifycode);

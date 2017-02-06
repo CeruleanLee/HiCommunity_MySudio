@@ -26,7 +26,6 @@ import cn.hi028.android.highcommunity.activity.fragment.AutoFrag_Vote;
  * @时间：2016/10/9<br>
  */
 public class AutonomousAct_Second extends BaseFragmentActivity {
-
     public static final int TAG_NOTIC = 0;
     public static final int TAG_VOTE = 1;
     public static final int TAG_NAMELIST = 2;
@@ -40,8 +39,6 @@ public class AutonomousAct_Second extends BaseFragmentActivity {
     TextView tv_Title;
     @Bind(R.id.auto_sec_fraglayout)
     LinearLayout auto_Fraglayout;
-//    @Bind(R.id.title_status_height)
-//    LinearLayout mHeight;
 int owner_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +50,7 @@ int owner_id;
     }
 
     private void initView() {
-//        if (!super.isVersionBiger()) {
-//            mHeight.setVisibility(View.GONE);
-//        }
         int tag = getIntent().getIntExtra("title", -1);
-
         owner_id = getIntent().getIntExtra("owner_id",-1);
         if (tag == -1) return;
         FragmentManager fm = getSupportFragmentManager();

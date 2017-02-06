@@ -30,10 +30,8 @@ import cn.hi028.android.highcommunity.activity.fragment.ReportFrag;
  */
 @EActivity(resName = "act_comm_detail")
 public class CommunityDetailAct extends BaseFragmentActivity {
-
     public static final String ACTIVITYTAG = "CommunityDetailAct";
     public static final String INTENTTAG = "CommunityDetailActIntent";
-
     @ViewById(R.id.tv_secondtitle_name)
     TextView mTitle;
     @ViewById(R.id.title_secondTitle_Hight)
@@ -41,7 +39,6 @@ public class CommunityDetailAct extends BaseFragmentActivity {
     String flag;
     CommunityDetilsFrag mDetails = null;
     Boolean isMePra;
-
     @AfterViews
     void initView() {
         if (!super.isVersionBiger()) {

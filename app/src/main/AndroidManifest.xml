@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="cn.hi028.android.highcommunity">
 
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
@@ -25,7 +26,6 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.Manifest.permission.STATUS_BAR" />
     <uses-permission android:name="android.Manifest.permission.EXPAND_STATUS_BAR" />
-
     <!-- 允许一个程序获取信息有关当前或最近运行的任务，一个缩略的任务状态，是否活动等等 -->
     <uses-permission android:name="android.Manifest.permission.STATUS_BAR_SERVICE" />
     <!-- 允许使用PowerManager的 WakeLocks保持进程在休眠时从屏幕消失 -->
@@ -40,7 +40,6 @@
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <!-- 添加可以向外拨打电话的权限 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
     <!-- 这个权限用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 这个权限用于访问GPS定位 -->
@@ -362,10 +361,6 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.alliance.GoodsDetailActivity2"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.alliance.GoodsDetailActivity3"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
@@ -392,16 +387,11 @@
             android:configChanges="orientation|keyboardHidden"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />-->
-        <activity
-            android:name="cn.hi028.android.highcommunity.activity.NewSupplyMoreAct_2"
+      <!--  <activity
+            android:name="cn.hi028.android.highcommunity.activity.NewSupplyMoreAct2"
             android:configChanges="orientation|keyboardHidden"
             android:windowSoftInputMode="stateHidden|adjustResize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="cn.hi028.android.highcommunity.TestScroll.textActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" />-->
         <activity
             android:name="cn.hi028.android.highcommunity.activity.NewSupplyMoreAct3"
             android:configChanges="orientation|keyboardHidden"
@@ -414,11 +404,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="cn.hi028.android.highcommunity.activity.alliance.SupplyGoodsDetailActivity2"
-            android:configChanges="orientation|keyboardHidden"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="cn.hi028.android.highcommunity.activity.alliance.NewSupplyGoodsDetailActivity2"
             android:configChanges="orientation|keyboardHidden"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
@@ -447,6 +432,7 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
+            tools:replace="android:configChanges"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <!-- 友盟更新 -->
         <service
@@ -567,9 +553,18 @@
                 <category android:name="cn.hi028.android.highcommunity" />
             </intent-filter>
         </receiver>
+        <!--监听网络状态变化-->
+        <receiver
+            android:name="cn.hi028.android.highcommunity.receivers.NetBroadCastReciver"
+            >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+            </intent-filter>
 
+        </receiver>
         <!--
-          &lt;!&ndash;监听网络状态变化&ndash;&gt;
           <receiver android:name="cn.hi028.android.highcommunity.utils.NetworkReceiver">
               <intent-filter>
                  <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
@@ -589,6 +584,22 @@
         <activity android:name=".activity.AutoAct_Four" />
         <activity android:name=".activity.ShowCaptureActivity" />
         <activity android:name=".activity.Auto_Five"></activity>
+
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="cn.hi028.android.highcommunity.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/rc_file_path" />
+        </provider>
+
+
+
+
+
     </application>
 
 </manifest>

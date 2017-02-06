@@ -43,7 +43,6 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 public class GroupMessageFrag extends Fragment {
 
     public static final String FRAGMENTTAG = "GroupMessageFrag";
-//    private View mFragmeView;
     private int mCount = -1;
     GroupMessageListAdapter mAdapter;
     private PullToRefreshListView mListView;
@@ -58,16 +57,10 @@ public class GroupMessageFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         	View view=inflater.inflate(R.layout.frag_groupmessage_list, null);
             initView(view);
-        
-//        ViewGroup parent = (ViewGroup) view.getParent();
-//        if (parent != null)
-//            parent.removeView(view);
         return view;
     }
 
     private void initView(View view) {
-//        mFragmeView = LayoutInflater.from(getActivity()).inflate(
-//                R.layout.frag_groupmessage_list, null);
         vid = getActivity().getIntent().getStringExtra(GroupMessageAct.INTENTTAG);
         mProgess = view.findViewById(R.id.progress_GroupMessage);
         mListView = (PullToRefreshListView) view.findViewById(R.id.ptrlv_GroupMessage_listview);
@@ -116,7 +109,6 @@ public class GroupMessageFrag extends Fragment {
     private void initData() {
 		// TODO Auto-generated method stub
     	mCount = -1;
-		
     	HTTPHelper.GetGroupMessage(mIbpi, HighCommunityApplication.mUserInfo.getId(), vid);
 	}
 
@@ -145,12 +137,9 @@ public class GroupMessageFrag extends Fragment {
             mListView.onRefreshComplete();
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
-
         @Override
         public void onSuccess(Object message) {
         	LogUtil.d("---群组消息返回数据：---"+message.toString());
-        	
-        	
             if (null == message)
                 return;
             mList = (CommunityListBean) message;
@@ -171,7 +160,6 @@ public class GroupMessageFrag extends Fragment {
 
         @Override
         public void setAsyncTask(AsyncTask asyncTask) {
-
         }
 
         @Override

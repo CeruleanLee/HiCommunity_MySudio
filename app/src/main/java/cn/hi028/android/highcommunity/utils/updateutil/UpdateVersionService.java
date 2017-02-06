@@ -16,7 +16,7 @@ import java.io.File;
 import cn.hi028.android.highcommunity.R;
 
 /**
- * Created by LG on 2016/10/2.
+ * Created by LYT on 2016/10/2.
  */
 public class UpdateVersionService extends Service implements FileDownloader.DownloadCallback {
     private FileDownloader fileDownloader;
@@ -65,7 +65,7 @@ public class UpdateVersionService extends Service implements FileDownloader.Down
     @Override
     public void success(final File file) {
         reset();
-//        notiBuilder.setContentTitle("清单");
+//        notiBuilder.setContentTitle(" ");
 //        notiBuilder.setContentText("下载完成，请点击安装");
 //        notiBuilder.setProgress(0,0,false);
 //        notificationManager.notify(

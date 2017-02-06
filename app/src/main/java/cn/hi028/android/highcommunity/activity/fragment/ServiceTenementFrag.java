@@ -54,7 +54,6 @@ public class ServiceTenementFrag extends BaseFragment {
         adapter = new SeriTenementAdapter(this);
         lv_tenement.setEmptyView(tv_Nodata);
         lv_tenement.setAdapter(adapter);
-//       +
     }
 
     @Override

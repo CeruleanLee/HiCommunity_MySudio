@@ -24,121 +24,118 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
  * 惠生活-商家联盟-item点击 -详情
- * @author Administrator
  *
+ * @author Administrator
  */
 public class MerchantDetailFrag extends BaseFragment {
 
-	TextView name;
-	TextView introduction;
-	TextView address;
-	TextView time;
-	TextView telephone;
-	/***/
-	private String id;
+    TextView name;
+    TextView introduction;
+    TextView address;
+    TextView time;
+    TextView telephone;
+    private String id;
 
-	public void setMyId(String id2) {
-		this.id = id2;
-	}
+    public void setMyId(String id2) {
+        this.id = id2;
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.frag_merchant_detail, null);
-		initView(view);
-		init();
-		return view;
-	}
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.frag_merchant_detail, null);
+        initView(view);
+        init();
+        return view;
+    }
 
-	private void init() {
-		HTTPHelper.GetMerchantDetail(mIbpi, id);
-	}
+    private void init() {
+        HTTPHelper.GetMerchantDetail(mIbpi, id);
+    }
 
-	private IBpiHttpHandler mIbpi = new IBpiHttpHandler() {
+    private IBpiHttpHandler mIbpi = new IBpiHttpHandler() {
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
+        }
 
-		@Override
-		public void setAsyncTask(AsyncTask asyncTask) {
+        @Override
+        public void onSuccess(Object message) {
+            if (message != null) {
+                MerchantDetailBean bean = JSON.parseObject(message.toString(),
+                        MerchantDetailBean.class);
+                setUi(bean);
+            }
+        }
 
-		}
+        @Override
+        public Object onResolve(String result) {
+            Log.e("==========", result);
+            return result;
+        }
 
-		@Override
-		public void onSuccess(Object message) {
-			if (message != null) {
-				MerchantDetailBean bean = JSON.parseObject(message.toString(),
-						MerchantDetailBean.class);
-				setUi(bean);
-			}
-		}
+        @Override
+        public void onError(int id, String message) {
 
-		@Override
-		public Object onResolve(String result) {
-			Log.e("==========", result);
-			return result;
-		}
+        }
 
-		@Override
-		public void onError(int id, String message) {
+        @Override
+        public void cancleAsyncTask() {
 
-		}
+        }
 
-		@Override
-		public void cancleAsyncTask() {
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
 
-		}
+        }
 
-		@Override
-		public void shouldLogin(boolean isShouldLogin) {
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin) {
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
 
-		}
+        }
+    };
 
-		@Override
-		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-			if (isShouldLogin){
-				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
-				HighCommunityApplication.toLoginAgain(getActivity());
-			}
+    private void initView(View view) {
+        name = (TextView) view.findViewById(R.id.frag_mer_detail_merchant_name);
+        introduction = (TextView) view
+                .findViewById(R.id.frag_merchant_introduction);
+        address = (TextView) view.findViewById(R.id.frag_merchant_address);
+        time = (TextView) view.findViewById(R.id.frag_merchant_time);
+        telephone = (TextView) view.findViewById(R.id.frag_merchant_telephone);
+        telephone.setOnClickListener(new OnClickListener() {
 
-		}
-	};
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent intent2 = new Intent(Intent.ACTION_CALL, Uri
+                        .parse("tel:"
+                                + telephone
+                                .getText()
+                                .toString()
+                                .trim()
+                                .substring(
+                                        5,
+                                        telephone.getText().toString()
+                                                .trim().length())));
+                startActivity(intent2);
+            }
+        });
+    }
 
-	private void initView(View view) {
-		name = (TextView) view.findViewById(R.id.frag_mer_detail_merchant_name);
-		introduction = (TextView) view
-				.findViewById(R.id.frag_merchant_introduction);
-		address = (TextView) view.findViewById(R.id.frag_merchant_address);
-		time = (TextView) view.findViewById(R.id.frag_merchant_time);
-		telephone = (TextView) view.findViewById(R.id.frag_merchant_telephone);
-		telephone.setOnClickListener(new OnClickListener() {
+    /**
+     * 得到数据展示
+     *
+     * @param bean
+     **/
+    protected void setUi(MerchantDetailBean bean) {
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent2 = new Intent(Intent.ACTION_CALL, Uri
-						.parse("tel:"
-								+ telephone
-										.getText()
-										.toString()
-										.trim()
-										.substring(
-												5,
-												telephone.getText().toString()
-														.trim().length())));
-				startActivity(intent2);
-			}
-		});
-	}
-
-	/**
-	 * 得到数据展示
-	 * 
-	 * @param bean
-	 **/
-	protected void setUi(MerchantDetailBean bean) {
-
-		name.setText("商家名称：" + bean.getShop_name());
-		introduction.setText("商家简介：" + bean.getIntro());
-		address.setText("地址：" + bean.getAddress());
-		time.setText("配送时间：" + bean.getDelivery());
-		telephone.setText("商家电话：" + bean.getTel());
-	}
+        name.setText("商家名称：" + bean.getShop_name());
+        introduction.setText("商家简介：" + bean.getIntro());
+        address.setText("地址：" + bean.getAddress());
+        time.setText("配送时间：" + bean.getDelivery());
+        telephone.setText("商家电话：" + bean.getTel());
+    }
 }

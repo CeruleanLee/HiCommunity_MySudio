@@ -34,7 +34,6 @@ import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.view.LoadingView;
-import cn.hi028.android.highcommunity.view.LoadingView.OnLoadingViewListener;
 
 /**
  * @功能：厨房众筹<br>
@@ -55,7 +54,6 @@ public class HuiChipsFrag extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_hui_chips, null);
-
         findView(view);
         initView();
         return view;
@@ -94,16 +92,6 @@ public class HuiChipsFrag extends BaseFragment {
         HTTPHelper.GetHuiChipsList(mIbpi);
 
     }
-
-    OnLoadingViewListener onLoadingViewListener = new OnLoadingViewListener() {
-
-        @Override
-        public void onTryAgainClick() {
-//			if(!isNoNetwork)
-//				HTTPHelper.GetThirdService(mIbpi);
-//			Toast.makeText(getActivity(), "------------OnLoadingViewListener", 0).show();
-        }
-    };
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
@@ -111,10 +99,8 @@ public class HuiChipsFrag extends BaseFragment {
             if (mWatingWindow != null) {
                 mWatingWindow.dismiss();
             }
-//            if (message.equals("无数据")) {
                 mNoData.setText(message);
                 mNoData.setVisibility(View.VISIBLE);
-//            }
         }
 
         @Override

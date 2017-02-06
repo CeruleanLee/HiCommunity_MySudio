@@ -6,21 +6,17 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.don.tools.BpiUniveralImage;
 import com.jeremyfeinstein.slidingmenu.lib.R;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -41,10 +37,6 @@ import photo.zoom.ViewPagerFixed;
 
 /**
  * 这是个用户图片浏览的界面
- *
- * @author ling
- * @version 2016年2月23日  13:13:53
- * @QQ:513198868
  */
 public class PhotoScanActivity extends BaseActivity {
     private Intent intent;
@@ -146,8 +138,6 @@ public class PhotoScanActivity extends BaseActivity {
             public void onLoadingCancelled(String s, View view) {
             }
         });
-//        v.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-//                LayoutParams.MATCH_PARENT));
         img.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
             public void onPhotoTap(View view, float x, float y) {
@@ -157,9 +147,7 @@ public class PhotoScanActivity extends BaseActivity {
         listViews.add(v);
     }
 
-    // 返回按钮添加的监听器
     private class BackListener implements OnClickListener {
-
         public void onClick(View v) {
             intent.setClass(PhotoScanActivity.this, ImageFile.class);
             startActivity(intent);
@@ -168,14 +156,7 @@ public class PhotoScanActivity extends BaseActivity {
 
     public void isShowOkBt() {
         if (Bimp.tempSelectBitmap.size() > 0) {
-//            send_bt.setText(Res.getString("finish") + "(" + (Bimp.tempSelectBitmap.size() - 1) + "/" + PublicWay.num + ")");
-//            send_bt.setPressed(true);
-//            send_bt.setClickable(true);
-//            send_bt.setTextColor(Color.WHITE);
         } else {
-//            send_bt.setPressed(false);
-//            send_bt.setClickable(false);
-//            send_bt.setTextColor(Color.parseColor("#E1E0DE"));
         }
     }
 

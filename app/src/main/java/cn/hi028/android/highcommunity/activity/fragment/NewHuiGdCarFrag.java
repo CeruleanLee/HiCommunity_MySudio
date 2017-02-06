@@ -76,9 +76,7 @@ public class NewHuiGdCarFrag extends BaseFragment {
 
     public void initView() {
         Log.d(Tag, "initView");
-
         mProgress.setVisibility(View.VISIBLE);
-
         mListView.setAdapter(adapter);
         mListView.setEmptyView(mNodata);
         mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
@@ -95,15 +93,11 @@ public class NewHuiGdCarFrag extends BaseFragment {
 
             }
         });
-
-
     }
-
     @Override
     public void onResume() {
         super.onResume();
         HTTPHelper.getGdCarList2(mIbpi);
-
     }
 
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
@@ -116,8 +110,6 @@ public class NewHuiGdCarFrag extends BaseFragment {
 
         @Override
         public void onSuccess(Object message) {
-            Log.d(Tag, "onSuccess");
-
             mProgress.setVisibility(View.GONE);
             if (null == message)
                 return;
@@ -252,8 +244,6 @@ public class NewHuiGdCarFrag extends BaseFragment {
                 mIntent.putExtra(HuiLifeSecondAct.ACTIVITYTAG, Constacts.NEW_HUILIFE_ORDER);
                 mIntent.putExtra("carIdList", list());
                 mIntent.putExtra(HuiLifeSecondAct.INTENTTAG, 1);
-                //TODO 这里要改
-//                NewHuiBuyFrag.listData = list;
                 startActivity(mIntent);
             } else {
                 HighCommunityUtils.GetInstantiation().ShowToast("所选商品为零，不能结算", 0);

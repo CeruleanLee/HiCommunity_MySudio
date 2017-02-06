@@ -1,15 +1,11 @@
 package cn.hi028.android.highcommunity.utils;
 
-import cn.hi028.android.highcommunity.view.NoScroolGridView;
 import android.util.SparseIntArray;
 import android.view.View;
 import android.view.ViewGroup;
 
-//public class GridViewUtils {
+import cn.hi028.android.highcommunity.view.NoScroolGridView;
 
-//	static SparseIntArray mGvWidth = new SparseIntArray();
-//	static int mWidth ;
-//	static int mHeight ;
 
 public class GridViewUtils {
 
@@ -52,19 +48,3 @@ public class GridViewUtils {
 		}
 	}
 }
-//	public static void updateGridViewLayoutParams(NoScroolGridView gridView) {
-//		int childs = gridView.getAdapter().getCount();
-////		for (int i = 0; i < childs; i++) {
-////			
-////			View childView = gridView.getAdapter().getView(i, null, gridView);
-//////			childView.measure(0, 0);
-////			mWidth += childView.getMeasuredWidth();
-////			mHeight=childView.getMeasuredHeight();
-////		}
-////		mWidth=width;
-//		LayoutParams params = (LayoutParams) gridView.getLayoutParams();
-//		params.width = childs*70;
-//		params.height = 70;
-//		gridView.setLayoutParams(params);
-//	}
-//}

@@ -54,9 +54,7 @@ import photo.util.ImageItem;
 //@EFragment(resName = "frag_activitycreate")
 public class ActivityCreateFrag extends BaseFragment {
     public static final String Tag = "ActivityCreateFrag->";
-
     public static final String FRAGMENTTAG = "ActivityCreateFrag";
-
     @Bind(R.id.ptrgv_activityCreate_PostImage)
     PullToRefreshGridView mGridView;
     @Bind(R.id.et_activityCreate_name)
@@ -98,7 +96,6 @@ public class ActivityCreateFrag extends BaseFragment {
     /**
      * 初始化VIew
      */
-//    @AfterViews
     void initView() {
         mAdapter = new GridAdapter(getActivity());
         mGridView.setMode(PullToRefreshBase.Mode.DISABLED);
@@ -136,7 +133,6 @@ public class ActivityCreateFrag extends BaseFragment {
 
     @Override
     public void onResume() {
-//        mAdapter.notifyDataSetChanged();
         setHeight();
         super.onResume();
     }
@@ -234,14 +230,6 @@ public class ActivityCreateFrag extends BaseFragment {
             HighCommunityUtils.GetInstantiation().ShowToast("请输入联系方式", 0);
             isClicked = false;
             return;
-//        } else if (TextUtils.isEmpty(qq)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("请输入QQ号码", 0);
-//            isClicked = false;
-//            return;
-//        } else if (TextUtils.isEmpty(weixin)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("请输入微信号", 0);
-//            isClicked = false;
-//            return;
         } else if (mImages.size() < 1) {
             HighCommunityUtils.GetInstantiation().ShowToast("请选择图片", 0);
             isClicked = false;
@@ -284,7 +272,6 @@ public class ActivityCreateFrag extends BaseFragment {
             startActivity(intent);
             getActivity().overridePendingTransition(com.jeremyfeinstein.slidingmenu.lib.R.anim.activity_translate_in,
                     com.jeremyfeinstein.slidingmenu.lib.R.anim.activity_translate_out);
-//            pop.dismiss();
         }
     };
 

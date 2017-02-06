@@ -27,10 +27,8 @@ import cn.hi028.android.highcommunity.utils.Constacts;
  */
 @EActivity(resName = "act_setting")
 public class SettingAct extends BaseFragmentActivity {
-
     public static final String ACTIVITYTAG = "SettingAct";
     public static final String INTENTTAG = "SettingActIntent";
-
     @ViewById(R.id.tv_secondtitle_name)
     TextView mTitle;
     @ViewById(R.id.title_secondTitle_Hight)

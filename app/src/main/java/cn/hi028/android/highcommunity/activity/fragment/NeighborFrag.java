@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.duohuo.dhroid.activity.BaseFragment;
-import net.duohuo.dhroid.util.LogUtil;
 
 import java.lang.reflect.Field;
 
@@ -28,12 +27,13 @@ import cn.hi028.android.highcommunity.adapter.NeighborViewPagerAdapter;
  * @时间：2015-12-08<br>
  */
 public class NeighborFrag extends BaseFragment {
-final String Tag="NeighborFrag--->";
+    final String Tag = "NeighborFrag--->";
     public static final String FRAGMENTTAG = "NeighborFrag";
     private View mFragmeView;
     private NeighborViewPagerAdapter mAdapter;
     private MyChangeListener myChangelistener;
     private ViewPager mViewPager;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -43,9 +43,7 @@ final String Tag="NeighborFrag--->";
     @Override
     public void onDetach() {
         super.onDetach();
-        LogUtil.d(Tag+"onDetach");
         try {
-            //参数是固定写法
             Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
             childFragmentManager.setAccessible(true);
             childFragmentManager.set(this, null);
@@ -58,8 +56,7 @@ final String Tag="NeighborFrag--->";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    	 LogUtil.d(Tag+"onCreateView");
-    	if (mFragmeView == null) {
+        if (mFragmeView == null) {
             initView();
         }
         ViewGroup parent = (ViewGroup) mFragmeView.getParent();
@@ -69,11 +66,9 @@ final String Tag="NeighborFrag--->";
     }
 
     private void initView() {
-    	LogUtil.d(Tag+"initView");
         mFragmeView = LayoutInflater.from(getActivity()).inflate(
                 R.layout.frag_neighbor, null);
         mViewPager = (ViewPager) mFragmeView.findViewById(R.id.vp_neighbor_viewpager);
-       
         mAdapter = new NeighborViewPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -84,10 +79,6 @@ final String Tag="NeighborFrag--->";
             @Override
             public void onPageSelected(int i) {
                 myChangelistener.onChange(i);
-//                if (i == 0) {
-//                } else {
-//                    myChangelistener.onChange(false);
-//                }
             }
 
             @Override
@@ -95,16 +86,15 @@ final String Tag="NeighborFrag--->";
 
             }
         });
-       
+
     }
-   
+
     public void setCurrentPage(int page) {
-    	 LogUtil.d(Tag+"setCurrentPage");
         if (page == 0) {
             mViewPager.setCurrentItem(0);
-        } else if (page == 1){
+        } else if (page == 1) {
             mViewPager.setCurrentItem(1);
-        }else {
+        } else {
             mViewPager.setCurrentItem(2);
         }
     }

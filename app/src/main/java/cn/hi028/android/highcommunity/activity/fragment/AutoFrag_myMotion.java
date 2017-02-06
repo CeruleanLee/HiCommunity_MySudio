@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +38,10 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 public class AutoFrag_myMotion extends BaseFragment {
     public static final String Tag = "~~~AutoFrag_myMotion~~~";
     public static final String FRAGMENTTAG = "AutoFrag_myMotion";
-    /**创建提案**/
-    public static final int TAG_CREAT_MOTION=7;
+    /**
+     * 创建提案
+     **/
+    public static final int TAG_CREAT_MOTION = 7;
     AutoMyMoitionAdapter mAdapter;
     List<Auto_MotionBean.MotionDataEntity> mList;
     @Bind(R.id.tv_Automotion_Nodata)
@@ -52,7 +53,6 @@ public class AutoFrag_myMotion extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(Tag, "onCreateView");
         View view = inflater.inflate(R.layout.frag_auto_motion, null);
         ButterKnife.bind(this, view);
         initView();
@@ -60,29 +60,21 @@ public class AutoFrag_myMotion extends BaseFragment {
     }
 
     void initView() {
-        Log.d(Tag, "initView");
         mList = new ArrayList<Auto_MotionBean.MotionDataEntity>();
-
-DisplayMetrics mdm=new DisplayMetrics();
+        DisplayMetrics mdm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(mdm);
-
-
-        mAdapter = new AutoMyMoitionAdapter(mList, getActivity(), getActivity().getWindow().getDecorView(),mdm.widthPixels,mListview);
+        mAdapter = new AutoMyMoitionAdapter(mList, getActivity(), getActivity().getWindow().getDecorView(), mdm.widthPixels, mListview);
         mListview.setEmptyView(tv_Nodata);
         mListview.setAdapter(mAdapter);
-//        initDatas();
     }
 
     private void initDatas() {
-
         HTTPHelper.GetMyMotion(mIbpi);
     }
-
 
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            Log.d(Tag, "---~~~onError");
             tv_Nodata.setText(message);
         }
 
@@ -91,12 +83,10 @@ DisplayMetrics mdm=new DisplayMetrics();
             mList = (List<Auto_MotionBean.MotionDataEntity>) message;
             mAdapter.AddNewData(mList);
             mListview.setAdapter(mAdapter);
-
         }
 
         @Override
         public Object onResolve(String result) {
-//			Log.e("renk", result);
             return HTTPHelper.ResolveMotionDataEntity(result);
         }
 
@@ -117,24 +107,24 @@ DisplayMetrics mdm=new DisplayMetrics();
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
         }
     };
+
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(Tag, "onPause");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(Tag, "onResume");
         initDatas();
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -143,17 +133,13 @@ DisplayMetrics mdm=new DisplayMetrics();
 
     @OnClick(R.id.img_Automotion_creat)
     public void onClick() {
-
         ceratMotion();
-
     }
-    private void ceratMotion() {
 
+    private void ceratMotion() {
         Intent mIntent_report = new Intent(getActivity(), AutonomousAct_Third.class);
         mIntent_report.putExtra("title", TAG_CREAT_MOTION);
-//        mIntent_report.putExtra("owner_id", owner_id);
         startActivity(mIntent_report);
-
     }
 
 

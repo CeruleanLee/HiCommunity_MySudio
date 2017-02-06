@@ -77,7 +77,6 @@ public class SettingFrag extends BaseFragment {
 
     @Click(R.id.tv_settings_AboutUs)
     void aboutus() {
-//        CrashReport.testJavaCrash();
         mIntent.putExtra(SettingAct.ACTIVITYTAG, Constacts.MENU_LEFTSECOND_SETTINGABOUTUS);
         startActivity(mIntent);
     }
@@ -129,28 +128,6 @@ public class SettingFrag extends BaseFragment {
         }else{
             Toast.makeText(getActivity(), "已经是最新版本了", Toast.LENGTH_SHORT).show();
         }
-//        UmengUpdateAgent.setUpdateAutoPopup(false);
-//
-//        UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
-//            @Override
-//            public void onUpdateReturned(int i, UpdateResponse updateResponse) {
-//                switch (i) {
-//                    case UpdateStatus.Yes: // has update
-//                        UmengUpdateAgent.showUpdateDialog(getActivity(), updateResponse);
-//                        break;
-//                    case UpdateStatus.No: // has no update
-//                        Toast.makeText(getActivity(), "已经是最新版本了", Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case UpdateStatus.NoneWifi: // none wifi
-//                        Toast.makeText(getActivity(), "没有wifi连接， 只在wifi下更新", Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case UpdateStatus.Timeout: // time out
-//                        Toast.makeText(getActivity(), "超时", Toast.LENGTH_SHORT).show();
-//                        break;
-//                }
-//            }
-//        });
-//        UmengUpdateAgent.forceUpdate(getActivity());
     }
 
     @Click(R.id.tv_settings_Logout)
@@ -177,24 +154,4 @@ public class SettingFrag extends BaseFragment {
         CookieManager.getInstance().removeAllCookie();
     }
 
-    private  void clear(){
-
-////        CacheManage
-//        File file = CacheManager.getCacheFileBaseDir();
-//        if (file != null && file.exists() && file.isDirectory()) {
-//
-//            for (File item : file.listFiles()) {
-//
-//                item.delete();
-//
-//            }
-//
-//            file.delete();
-//
-//        }
-//
-//        getActivity().deleteDatabase("webview.db");
-//
-//        getActivity().deleteDatabase("webviewCache.db");
-    }
 }

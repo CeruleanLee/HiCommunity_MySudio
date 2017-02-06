@@ -108,7 +108,6 @@ public class NewHuiGdcarAdapter extends BaseAdapter {
                 Log.d(Tag, "mViewHolder.img_goods_pic null");
             }
         }
-//		ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + mBean.getCover_pic(), viewHolder.img_goods_pic);
         viewHolder.tv_goods_name.setText(mBean.getName());
         viewHolder.tv_goods_price.setText(mBean.getPrice() + "");
 //		viewHolder.tv_total_pay.setText("小计：￥"+CommonUtils.f2Bi(mBean.getSum());
@@ -159,7 +158,6 @@ public class NewHuiGdcarAdapter extends BaseAdapter {
                                     mWatingWindow.dismiss();
                                 }
                                 Log.e(Tag, "加入购物车 onSuccess 返回数据：" + message.toString());
-//                                HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
                                 mBean.setNum(mBean.getNum() + 1);
                             }
 

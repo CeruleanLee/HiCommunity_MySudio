@@ -80,20 +80,17 @@ public class AutoDetail_Inquiry extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(Tag,  "onCreateView");
+        Log.d(Tag, "onCreateView");
         View view = inflater.inflate(R.layout.frag_auto_detail_inquiry, null);
         ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
         watch_id = bundle.getString("inquiry_id");
         Log.d(Tag, "owner_id:" + watch_id);
-//        watch_id = getActivity().getIntent().getStringExtra("reportDetail_id");
-
         initView();
         return view;
     }
 
     Auto_InquiryDetailAdapter mAdapter;
-
     String content;
 
     private void initView() {
@@ -155,7 +152,6 @@ public class AutoDetail_Inquiry extends BaseFragment {
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            LogUtil.d(Tag + "---~~~onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
@@ -169,13 +165,10 @@ public class AutoDetail_Inquiry extends BaseFragment {
             mList = mBean.getReply();
             mAdapter.AddNewData(mList);
             mCommentListview.setAdapter(mAdapter);
-
-
         }
 
         @Override
         public Object onResolve(String result) {
-            LogUtil.d(Tag + " ~~~result" + result);
             return HTTPHelper.ResolveInquiryDetailDataEntity(result);
         }
 
@@ -195,7 +188,7 @@ public class AutoDetail_Inquiry extends BaseFragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -203,30 +196,28 @@ public class AutoDetail_Inquiry extends BaseFragment {
     };
 
     private void setHeadData() {
-        if (mBean==null ) {
+        if (mBean == null) {
             return;
-//            mInforLayout.setVisibility(View.GONE);
         } else {
             ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + mBean.getHead_pic(), mHeadImage);
             mHeadName.setText(mBean.getName());
             mHeadContent.setText(mBean.getContent());
             mHeadTime.setText(TimeUtil.getDayAllTime(Long.parseLong(mBean.getCreate_time())));
         }
-
-
     }
 
     CircleImageView mHeadImage;
     TextView mHeadName;
     TextView mHeadContent;
     TextView mHeadTime;
+
     private void initHeader() {
         LinearLayout header = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.head_auto_inquiry_detail, null);
         mHeadImage = (CircleImageView) header.findViewById(R.id.inquiry_Head_Image);
         mHeadName = (TextView) header.findViewById(R.id.inquiry_Head_Name);
         mHeadContent = (TextView) header.findViewById(R.id.inquiry_Head_Content);
         mHeadTime = (TextView) header.findViewById(R.id.inquiry_Head_time);
-        mCommentListview.addHeaderView(header,null,false);
+        mCommentListview.addHeaderView(header, null, false);
     }
 
     BpiHttpHandler.IBpiHttpHandler mCommentIbpi = new BpiHttpHandler.IBpiHttpHandler() {
@@ -272,7 +263,7 @@ public class AutoDetail_Inquiry extends BaseFragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -280,7 +271,6 @@ public class AutoDetail_Inquiry extends BaseFragment {
     };
 
     private void initSpoker() {
-//        CommunityFrag.isNeedRefresh = true;
         this.isReplay = false;
         mSpeakerContent.setHint("");
 //对监督的评论
@@ -288,13 +278,16 @@ public class AutoDetail_Inquiry extends BaseFragment {
         ParentId = "0";
         mSpeakerContent.setText("");
     }
+
     public void finish() {
     }
+
     @Override
     public void onPause() {
         super.onPause();
         LogUtil.d(Tag + "onPause");
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -306,5 +299,4 @@ public class AutoDetail_Inquiry extends BaseFragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-
 }

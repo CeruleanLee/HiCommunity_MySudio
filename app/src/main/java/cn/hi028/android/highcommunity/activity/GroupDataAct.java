@@ -24,7 +24,6 @@ import cn.hi028.android.highcommunity.activity.fragment.*;
  */
 @EActivity(resName = "act_groupdata")
 public class GroupDataAct extends BaseFragmentActivity {
-
     public static final String ACTIVITYTAG = "GroupDataAct";
     public static final String INTENTTAG = "GroupDataActIntent";
 
@@ -51,7 +50,6 @@ public class GroupDataAct extends BaseFragmentActivity {
             mCreate.onActivityResult(requestCode, resultCode, data);
         }
         if (resultCode == 000) {
-            System.out.println("哈哈哈哈 i'm back");
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

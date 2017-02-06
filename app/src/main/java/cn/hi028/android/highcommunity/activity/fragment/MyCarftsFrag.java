@@ -49,9 +49,7 @@ import cn.hi028.android.highcommunity.view.ECAlertDialog;
  */
 @EFragment(resName = "frag_service_carfts")
 public class MyCarftsFrag extends BaseFragment {
-
 	public static final String FRAGMENTTAG = "MyCarftsFrag";
-
 	@ViewById(R.id.progress_serviceCarfts)
 	View mProgress;
 	@ViewById(R.id.tv_serviceCarfts_Nodata)

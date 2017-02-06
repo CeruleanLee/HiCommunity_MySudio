@@ -22,7 +22,6 @@ public class SupplyMorePagerAdapter extends FragmentPagerAdapter {
     public SupplyMorePagerAdapter(FragmentManager fm,int mFragListSize) {
         super(fm);
         Log.d(Tag, "MotionPagerAdapter");
-this.vp=vp;
         Log.d(Tag,"SIZE="+mFragList.size());
         while (mFragList.size()<mFragListSize){
             SupplyShopMoreFrag mPublicMotionFrag = new SupplyShopMoreFrag();
@@ -35,13 +34,7 @@ this.vp=vp;
     public Fragment getItem(int arg0) {
         page = arg0;
         Log.d(Tag,"getItem--->"+arg0);
-//        if (arg0==0||arg0==1||mFragList.size()-1 < arg0) {
-//            Log.d(Tag, "new mPublicMotionFrag()");
-//            SupplyShopMoreFrag mPublicMotionFrag = new SupplyShopMoreFrag();
-//            mFragList.add(arg0, mPublicMotionFrag);
-//        }
         Log.d(Tag,"getItem-SIZE="+mFragList.size());
-
         return mFragList.get(arg0);
 
     }

@@ -35,7 +35,6 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  */
 @EFragment(resName = "frag_noticedetails")
 public class ServiceNoticeDetailFrag extends BaseFragment {
-
     public static final String FRAGMENTTAG = "ServiceNoticeDetailFrag";
 
     @ViewById(R.id.tv_NoticeDetails_title)

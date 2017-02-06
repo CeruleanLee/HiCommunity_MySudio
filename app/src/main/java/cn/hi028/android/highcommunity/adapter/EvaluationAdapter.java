@@ -70,7 +70,6 @@ public class EvaluationAdapter extends MyBaseAdapter<MerchantEvaluationInfoListB
 		content.setText("     " + bean.getContent());
 		//		Picasso.with(context).load(Constacts.IMAGEHTTP + bean.getHead_pic())
 		//				.into(head);
-
 		bitmapUtils.display(head, Constacts.IMAGEHTTP + bean.getHead_pic(), new BitmapLoadCallBack<ImageView>() {
 
 			@Override

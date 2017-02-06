@@ -91,7 +91,6 @@ public class Auto_ReportDetailAdapter extends BaseFragmentAdapter {
             convertView = layoutInflater.inflate(R.layout.item_reportdetail_replay, null);
             mViewHolder.mAvatar = (CircleImageView) convertView.findViewById(R.id.item_reportdetail_Image);
             mViewHolder.mName = (TextView) convertView.findViewById(R.id.item_reportdetail_Name);
-//            mViewHolder.mTime = (TextView) convertView.findViewById(R.id.item_reportdetail_time);
             mViewHolder.mContent = (TextView) convertView.findViewById(R.id.item_reportdetail_Content);
             mViewHolder.mReplyLayout = (LinearLayout) convertView.findViewById(R.id.item_reportdetail_reply);
             convertView.setTag(mViewHolder);
@@ -101,7 +100,6 @@ public class Auto_ReportDetailAdapter extends BaseFragmentAdapter {
         final Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity mBean = mList.get(position);
         ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + mBean.getPic(), mViewHolder.mAvatar);
         mViewHolder.mName.setText(mBean.getFrom_name() + "：");
-//        mViewHolder.mTime.setText(TimeUtil.getDescriptionTimeFromTimestamp(Long.parseLong(mBean.getReply_time() + "")));
         mViewHolder.mContent.setText(mBean.getContent());
         if (mBean.getSub_reply().size() > 0) {
             mViewHolder.mReplyLayout.setVisibility(View.VISIBLE);
@@ -138,7 +136,6 @@ public class Auto_ReportDetailAdapter extends BaseFragmentAdapter {
                         mTempReplies = mBean;
                         avoidHintColor(view);
                         mTempReply = new Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity.SubReplyEntity();
-//                        mTempReply.setGid(hostId);
                         mTempReply.setFrom_id(HighCommunityApplication.mUserInfo.getId());
                         mTempReply.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
                         mTempReply.setTo_name(From_name);
@@ -161,7 +158,6 @@ public class Auto_ReportDetailAdapter extends BaseFragmentAdapter {
                         mFrag.setText("回复:" + To_name, To_id, mBean.getId() + "", true);
                         mTempReplies = mBean;
                         mTempReply = new Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity.SubReplyEntity();
-//                     mTempReply.setGid(hostId);
                         mTempReply.setFrom_id(HighCommunityApplication.mUserInfo.getId());
                         mTempReply.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
                         mTempReply.setTo_name(To_name);
@@ -179,8 +175,6 @@ public class Auto_ReportDetailAdapter extends BaseFragmentAdapter {
         mViewHolder.mName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(mContext, "点击了主评论name ", Toast.LENGTH_SHORT).show();
-                Log.d(Tag, "主评论id： " + mBean.getId() + "");
                 //对监督主评论的回复   parentid=主评论id
                 mTempReplies = mBean;
                 mFrag.setText("回复:" + mBean.getFrom_name(), mBean.getFrom_id() + "", mBean.getId() + "", true);

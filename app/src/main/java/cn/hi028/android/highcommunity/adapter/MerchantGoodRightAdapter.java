@@ -1,25 +1,21 @@
 package cn.hi028.android.highcommunity.adapter;
 
-import java.util.List;
-
-import org.xutils.db.converter.IntegerColumnConverter;
-
-import net.duohuo.dhroid.activity.BaseFragment;
-import net.duohuo.dhroid.util.LogUtil;
-
-import com.squareup.picasso.Picasso;
-
-import android.R.integer;
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import net.duohuo.dhroid.activity.BaseFragment;
+import net.duohuo.dhroid.util.LogUtil;
+
+import java.util.List;
+
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.fragment.alliance.MerchantShopFrag;
 import cn.hi028.android.highcommunity.bean.Goods_info;
 import cn.hi028.android.highcommunity.lisenter.ShopAddSubListener;
 import cn.hi028.android.highcommunity.utils.Constacts;
@@ -106,9 +102,6 @@ public class MerchantGoodRightAdapter extends MyBaseAdapter<Goods_info>
 	public void onClick(View v) {
 		int count = Integer.parseInt((String) v.getTag());
 		switch (v.getId()) {
-//		case R.id.item_merchant_goods_list_rigth_iv:
-//			shopListener.goDetail(count);
-//			break;
 		case R.id.item_merchant_goods_right_sub_iv:
 			shopListener.sub(count);
 			break;

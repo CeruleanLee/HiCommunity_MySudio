@@ -185,33 +185,23 @@ OnClickListener, OnItemClickListener {
 
 		mBtnWeiXin.setChecked(true);// 设置默认微信选中img_payment_checked
 		witchType = WECHAT;
-		//		mBtnWeiXin.setBackgroundResource(isChecked);
-		//		mBtnAli.setBackgroundResource(isNotChecked);
-
 		mBtnWeiXin.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				mBtnWeiXin.setChecked(true);
 				mBtnAli.setChecked(false);
-				//				mBtnWeiXin.setBackgroundResource(isChecked);
-				//				mBtnAli.setBackgroundResource(isNotChecked);
-
 				Toast.makeText(ShowPayActivity.this, "微信支付选中",
 						Toast.LENGTH_SHORT).show();
 
 			}
 		});
-
 		mBtnAli.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				mBtnWeiXin.setChecked(false);
 				mBtnAli.setChecked(true);
-				//				mBtnAli.setBackgroundResource(isChecked);
-				//				mBtnWeiXin.setBackgroundResource(isNotChecked);
-
 				Toast.makeText(ShowPayActivity.this, "支付宝支付选中",
 						Toast.LENGTH_SHORT).show();
 
@@ -287,7 +277,7 @@ OnClickListener, OnItemClickListener {
 		if (mIsPaying) {
 			return;
 		}
-		finish();//是不是你提交订单的时候出问题了 没提交到服务器
+		finish();
 	}
 
 	/**
@@ -327,7 +317,6 @@ OnClickListener, OnItemClickListener {
 				break;
 			case ALIPAY:
 				mAliBean = (AliParamBean) message;
-				Log.d("------=-====------",mAliBean.getOut_trade_no());
 				if (mAliBean != null) {
 					AlipayUtils.getInstance().payGoods(ShowPayActivity.this,
 							mAliBean.getNotify_url(), mAliBean.getSubject(),
@@ -337,7 +326,6 @@ OnClickListener, OnItemClickListener {
 						@Override
 						public void onPay(PayResult payResult) {
 							// 这里就是你支付过后返回的消息 成功or失败
-
 							payResult.getResult();
 							String resultStatus = payResult
 									.getResultStatus();
@@ -432,11 +420,6 @@ OnClickListener, OnItemClickListener {
 		// TODO 跳转到activity
 		Intent intent = new Intent(this, AllianceOderDetailActivity.class);
 		intent.putExtra("order_num", mOrderNumber);
-//		Bundle bundle = new Bundle();
-//		bundle.putSerializable("onItemClick.addr", mOrderBean.getAddress());
-//		bundle.putSerializable("onItemClick.good", mOrderBean.getGoods_info()
-//				.get(position));
-//		intent.putExtras(bundle);
 		startActivity(intent);
 	}
 

@@ -137,7 +137,6 @@ public class CommunityDetilsFrag extends BaseFragment {
 		mid = getActivity().getIntent().getIntExtra(CommunityDetailAct.INTENTTAG, 0);
 		boolean flag = getActivity().getIntent().getBooleanExtra(FRAGMENTTAG, false);
 		if (mid != 0)
-			//			waitWindow2=HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), view, Gravity.CENTER);
 			HTTPHelper.GetMessageDetails2(mIbpi, mid);
 		if (flag) {
 			InputMethodManager mManager = (InputMethodManager) mSpeakerContent.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -188,8 +187,6 @@ public class CommunityDetilsFrag extends BaseFragment {
 		mainComment=(ImageView) header.findViewById(R.id.tv_commDetails_Maincomment);
 		mPicLayout= header.findViewById(R.id.layout_piclist);
 		layout_Assist= header.findViewById(R.id.layout_Assist);
-		//        mList.getRefreshableView().addHeaderView(header);
-		//        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		mList.addHeaderView(header);
 
 	}
@@ -239,15 +236,6 @@ public class CommunityDetilsFrag extends BaseFragment {
 			}
 		}
 	};
-
-//	@Click(R.id.civl_commDetails_avatar)
-//	void toUser() {
-//		Intent mDetails = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftAct.class));
-//		mDetails.putExtra(MenuLeftAct.ACTIVITYTAG, Constacts.MENU_LEFT_USERINFO);
-//		mDetails.putExtra(MenuLeftAct.INTENTTAG, mBean.getId() + "");
-//		startActivity(mDetails);
-//	}
-
 	@Click(R.id.ev_communitydetails_spokerButton)
 	void Comment() {
 		if (TextUtils.isEmpty(HighCommunityApplication.mUserInfo.getToken())) {
@@ -355,7 +343,6 @@ public class CommunityDetilsFrag extends BaseFragment {
 		mForm.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-//				Log.e(Tag, "点击来自xxx---type--->" + mViewHolder.mFrom.getText().toString() + ",---id--->" + mBean.getId());
 				if (mBean.getGid()!=null||mBean.getGid()!="") {
 					//跳转到群资料
 					Intent mInt = new Intent(getActivity(), GeneratedClassUtils.get(GroupDataAct.class));
@@ -374,24 +361,9 @@ public class CommunityDetilsFrag extends BaseFragment {
 		Log.e(Tag,"mBean.getLike()--->"+mBean.getLike());
 		if (mBean.getLike()>0) {
 			mPicLayout.setVisibility(View.VISIBLE);
-
-//		if (mBean.getPraises().size()>0) {
-			//        	mAssist.setChecked(true);
-//			mAssist.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_zan2));
-			//        	mAssist.setImageResource(R.mipmap.tag_community_item_assist_h);
 		}else {
 			mPicLayout.setVisibility(View.GONE);
-//			layout_Assist.setVisibility(View.GONE);
-//			mAssist.setVisibility(View.GONE);
-
-
-			//			mAssist.setChecked(false);
-			//			mAssist.setImageDrawable(getResources().getDrawable(R.drawable.tag_community_item_assist));
-			//			mAssist.setImageResource(R.mipmap.tag_community_item_assist);;
 		}
-
-
-		//        mAssist.setText("赞:" + mBean.getLike());
 		mAssisGrid.setAdapter(mAssistAdapter);
 		if (mBean.getPraises() != null && !mBean.getPraises().equals("null") && mBean.getPraises().get(0) != null) {
 			mAssistAdapter.AddNewData(mBean.getPraises());

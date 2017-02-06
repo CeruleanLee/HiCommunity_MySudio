@@ -27,15 +27,12 @@ public class ConstantsFrag extends BaseFragment {
     public static final String FRAGMENTTAG = "ConstantsFrag";
     @ViewById(R.id.tv_version)
     TextView tv_version;
-
     @AfterViews
     void initView() {
         tv_version.setText("嗨社区 " + getVersion()+" ");
     }
-
     /**
      * 获取版本号
-     *
      * @return 当前应用的版本号
      */
     private String getVersion() {

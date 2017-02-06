@@ -28,9 +28,7 @@ public class MerchantImgGridAdapter extends BaseFragmentAdapter {
 
 static final String Tag="MerchantImgGridAdapter:";
     Context mContent;
-//    List<NewSupplyBean.NewSupplyDataEntity.MerchantEntity> mList = new ArrayList<NewSupplyBean.NewSupplyDataEntity.MerchantEntity>();
     List<NewSupplyBean.NewSupplyDataEntity.MerchantEntity> mList;
-
     public MerchantImgGridAdapter(List<NewSupplyBean.NewSupplyDataEntity.MerchantEntity> mList,Context mContent) {
         this.mContent = mContent;
         this.mList = mList;
@@ -75,22 +73,6 @@ static final String Tag="MerchantImgGridAdapter:";
             BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getLogo(), mViewHolder.mImage);
         }
         Log.d(Tag,"disPlay   ok");
-
-//        mViewHolder.mImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                UrlsBean mUrls = new UrlsBean();
-//                for (int i = 0; i < mList.size(); i++) {
-//                    mUrls.getmUrlList().add(Constacts.IMAGEHTTP + mList.get(i).getBig());
-//                }
-//                CommunityFrag.isNeedRefresh = false;
-//                Intent mBigPhoto = new Intent(mContent, PhotoScanActivity.class);
-//                mBigPhoto.putExtra("data", mUrls);
-//                mBigPhoto.putExtra("ID", position);
-//                mContent.startActivity(mBigPhoto);
-//                ((Activity) mContent).overridePendingTransition(R.anim.dyn_pic_scan_miss, R.anim.dyn_pic_scan_miss_no);
-//            }
-//        });
 
         return view;
     }

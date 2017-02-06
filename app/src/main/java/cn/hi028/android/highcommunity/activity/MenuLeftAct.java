@@ -45,18 +45,16 @@ import cn.hi028.android.highcommunity.activity.fragment.WalletSwitchFrag_;
 import cn.hi028.android.highcommunity.utils.Constacts;
 
 /**
- * @功能：菜单的二级页面统统都在这里<br>  从侧边栏点进去的所有项目都在这个界面加载   联盟订单没有经过这里
+ * @功能：菜单的二级页面统统都在这里<br> 从侧边栏点进去的所有项目都在这个界面加载   联盟订单没有经过这里
  * @作者： 赵海<br>
  * @版本：1.0<br>
  * @时间：2015/12/28<br>
  */
 @EActivity(resName = "act_menu_left")
 public class MenuLeftAct extends BaseFragmentActivity {
-
     public static final String ACTIVITYTAG = "MenuLeftAct";
     public static final String INTENTTAG = "MenuLeftActIntent";
     public static final String Tag = "MenuLeftAct:";
-
     @ViewById(R.id.tv_secondtitle_name)
     TextView mTitle;
     @ViewById(R.id.title_menuleft_layout)
@@ -69,7 +67,7 @@ public class MenuLeftAct extends BaseFragmentActivity {
     FragmentManager fm;
     @AfterViews
     void initView() {
-    	Log.d(Tag,"------MenuLeftAct");
+        Log.d(Tag, "------MenuLeftAct");
         if (!super.isVersionBiger()) {
             mHight.setVisibility(View.GONE);
         }
@@ -77,106 +75,90 @@ public class MenuLeftAct extends BaseFragmentActivity {
         int intentPage = getIntent().getIntExtra(INTENTTAG, -1);
         if (-1 == flag)
             return;
-
         fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         switch (flag) {
-//            case Constacts.MENU_LEFT_USERINFO_EDIT:
-//                mTitleLayout.setVisibility(View.GONE);
-//
-//                Intent mModify = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftSecondAct.class));
-//                mModify.putExtra(MenuLeftSecondAct.ACTIVITYTAG, Constacts.MENU_LEFTSECOND_PERSONAL);
-//                mModify.putExtra(MenuLeftSecondAct.INTENTTAG, mBean);
-//                startActivity(mModify);
-//
-//
-//
-//                break;
             case Constacts.MENU_LEFT_USERINFO:
                 mTitleLayout.setVisibility(View.GONE);
-                Log.d(Tag,"------gotoUSERINFO");
                 UserInfoFrag mPersonal = (UserInfoFrag) new UserInfoFrag_();
                 ft.replace(R.id.ll_menuleft_layout, mPersonal, PersonalAuthFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_LEFT_TOPIC:
                 mTitle.setText("我的话题");
-                Log.d(Tag,"------goto我我的话题");
+                Log.d(Tag, "------goto我我的话题");
                 MyTopicFrag mMyTopicFrag = new MyTopicFrag();
                 ft.replace(R.id.ll_menuleft_layout, mMyTopicFrag, MyTopicFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_LEFT_COLLECTION:
                 mTitle.setText("我的收藏");
-                Log.d(Tag,"------goto我的收藏");
+                Log.d(Tag, "------goto我的收藏");
                 MyCollectionSwitchFrag mCollection = (MyCollectionSwitchFrag) new MyCollectionSwitchFrag_();
                 ft.replace(R.id.ll_menuleft_layout, mCollection, MyCollectionSwitchFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_LEFT_WALLET:
                 mTitle.setText("我的钱包");
-                Log.d(Tag,"------goto我的钱包");
+                Log.d(Tag, "------goto我的钱包");
                 WalletSwitchFrag mSwitch = (WalletSwitchFrag) new WalletSwitchFrag_();
                 ft.replace(R.id.ll_menuleft_layout, mSwitch, WalletSwitchFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_LEFT_GDCAR://购物车
                 mTitle.setText("购物车");
-                Log.d(Tag,"------goto购物车");
+                Log.d(Tag, "------goto购物车");
                 tv_right_name.setVisibility(View.VISIBLE);
-//                mGdCarment = (HuiSuppGdCarFrag) new HuiSuppGdCarFrag_();
                 mGdCarment = new NewHuiGdCarFrag();
                 ft.replace(R.id.ll_menuleft_layout, mGdCarment, ServicePaymentFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_LEFT_BILL:
                 mTitle.setText("物业账单");
-                Log.d(Tag,"------goto物业账单");
+                Log.d(Tag, "------goto物业账单");
                 TenementBillFrag mBill = (TenementBillFrag) new TenementBillFrag_();
                 ft.replace(R.id.ll_menuleft_layout, mBill, TenementBillFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_LEFT_ORDER:
                 mTitle.setText("我的订单");
-                Log.d(Tag,"------goto我的订单");
-
+                Log.d(Tag, "------goto我的订单");
                 NewHuiOrderFrag mOrder = (NewHuiOrderFrag) new NewHuiOrderFrag_();
-                if(intentPage!=-1){
-//                    mOrder.
+                if (intentPage != -1) {
                 }
                 ft.replace(R.id.ll_menuleft_layout, mOrder, NewHuiOrderFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_LEFT_ZHONGCOU:
                 mTitle.setText("我的众筹");
-                Log.d(Tag,"------goto我的众筹");
+                Log.d(Tag, "------goto我的众筹");
                 HuiChipsOrderFrag mChipsOrder = (HuiChipsOrderFrag) new HuiChipsOrderFrag_();
                 ft.replace(R.id.ll_menuleft_layout, mChipsOrder, HuiChipsOrderFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_LEFT_CARFTS:
                 mTitle.setText("我的手艺");
-                Log.d(Tag,"------goto我的手艺");
+                Log.d(Tag, "------goto我的手艺");
                 MyCarftsFrag mCarfts = (MyCarftsFrag) new MyCarftsFrag_();
                 ft.replace(R.id.ll_menuleft_layout, mCarfts, MyCarftsFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_LEFT_SETTING:
                 mTitle.setText("设置");
-                Log.d(Tag,"------goto设置");
+                Log.d(Tag, "------goto设置");
                 SettingFrag mSetting = (SettingFrag) new SettingFrag_();
                 ft.replace(R.id.ll_menuleft_layout, mSetting, SettingFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_LEFT_MESSAGECENTER:
                 mTitle.setText("与我相关");
-                Log.d(Tag,"------goto消息");
+                Log.d(Tag, "------goto消息");
                 MessageCenterFrag mMessage = (MessageCenterFrag) new MessageCenterFrag_();
 
                 ft.replace(R.id.ll_menuleft_layout, mMessage, MessageCenterFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_MYMESSAGE:
                 mTitle.setText("与我相关");
-                Log.d(Tag,"------goto与我相关");
+                Log.d(Tag, "------goto与我相关");
                 MyMessageFrag mMyMessage = (MyMessageFrag) new MyMessageFrag();
 
                 ft.replace(R.id.ll_menuleft_layout, mMyMessage, MyMessageFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_SYSMESSAGE:
                 mTitle.setText("系统消息");
-                Log.d(Tag,"------goto系统消息");
+                Log.d(Tag, "------goto系统消息");
                 SysMessageFrag mSysMessage = (SysMessageFrag) new SysMessageFrag();
-                Log.d(Tag,"------goto系统消息2");
+                Log.d(Tag, "------goto系统消息2");
 
                 ft.replace(R.id.ll_menuleft_layout, mSysMessage, SysMessageFrag.FRAGMENTTAG);
                 break;
@@ -203,24 +185,14 @@ public class MenuLeftAct extends BaseFragmentActivity {
                 .findFragmentByTag(NewHuiOrderFrag.FRAGMENTTAG);
         MyCollectionSwitchFrag mCollection = (MyCollectionSwitchFrag) getSupportFragmentManager()
                 .findFragmentByTag(MyCollectionSwitchFrag.FRAGMENTTAG);
-        Log.d(Tag,"------ready to back to act ");
-
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (mNewHuiOrderFrag != null ) {
-                Log.d(Tag,"------ back to act ");
-
-                Intent intent=new Intent(this,MainActivity.class);
-
-                Log.d(Tag,"------ back to act2 ");
+            if (mNewHuiOrderFrag != null) {
+                Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("actFlag", 0x66);
-                Log.d(Tag,"------ back to act3 ");
                 startActivity(intent);
-                Log.d(Tag,"------ back to act4 ");
                 MenuLeftAct.this.finish();
                 return true;
-            } else{
-                Log.d(Tag,"------ mNewHuiOrderFrag null  ");
-
+            } else {
             }
             if (mCollection != null && mCollection.onKeyDown()) {
                 return true;
@@ -231,26 +203,13 @@ public class MenuLeftAct extends BaseFragmentActivity {
 
     @Click(R.id.img_back)
     void back() {
-//        NewHuiOrderFrag mNewHuiOrderFrag = (NewHuiOrderFrag) getSupportFragmentManager().findFragmentByTag(NewHuiOrderFrag.FRAGMENTTAG);
         NewHuiOrderFrag mNewHuiOrderFrag = (NewHuiOrderFrag) fm.findFragmentByTag(NewHuiOrderFrag.FRAGMENTTAG);
-        Log.d(Tag,"------back  ");
-
-        if (mNewHuiOrderFrag != null ) {
-            Log.d(Tag,"------ ready to back  ");
-
-            Intent intent=new Intent(this,MainActivity.class);
-            Log.d(Tag,"------ ready to back intent  ");
-
+        if (mNewHuiOrderFrag != null) {
+            Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("actFlag", 0x66);
-            Log.d(Tag,"------ ready to back intent2  ");
-
             startActivity(intent);
-            Log.d(Tag,"------ ready to back intent 3 ");
-
             MenuLeftAct.this.finish();
-        }else{
-            Log.d(Tag,"------ mNewHuiOrderFrag null  ");
-
+        } else {
             this.finish();
         }
 

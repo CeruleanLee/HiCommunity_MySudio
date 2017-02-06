@@ -16,7 +16,6 @@ import org.androidannotations.annotations.ViewById;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.MyCollectionSwitchAdapter;
-import cn.hi028.android.highcommunity.adapter.WalletSwitchAdapter;
 
 /**
  * @功能：我的收藏切换页面<br>
@@ -26,7 +25,6 @@ import cn.hi028.android.highcommunity.adapter.WalletSwitchAdapter;
  */
 @EFragment(resName = "frag_mycollectionswitch")
 public class MyCollectionSwitchFrag extends BaseFragment {
-
     public static final String FRAGMENTTAG = "MyCollectionSwitchFrag";
     private MyCollectionSwitchAdapter mAdapter;
     @ViewById(R.id.vp_MyCollectionSwitch_viewpager)

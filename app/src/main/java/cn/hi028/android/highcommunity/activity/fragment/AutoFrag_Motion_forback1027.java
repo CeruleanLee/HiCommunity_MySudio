@@ -34,12 +34,13 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @作者： Lee_yting<br>
  * @时间：2016/10/11<br>
  */
-
 public class AutoFrag_Motion_forback1027 extends BaseFragment {
     public static final String Tag = "~~~AutoFrag_Motion~~~";
     public static final String FRAGMENTTAG = "AutoFrag_Motion";
-    /**创建提案**/
-    public static final int TAG_CREAT_MOTION=7;
+    /**
+     * 创建提案
+     **/
+    public static final int TAG_CREAT_MOTION = 7;
     AutoMoitionAdapter mAdapter;
     List<Auto_MotionBean.MotionDataEntity> mList;
     @Bind(R.id.tv_Automotion_Nodata)
@@ -51,7 +52,6 @@ public class AutoFrag_Motion_forback1027 extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(Tag,"onCreateView");
         View view = inflater.inflate(R.layout.frag_auto_public_motion, null);
         ButterKnife.bind(this, view);
         initView();
@@ -59,12 +59,11 @@ public class AutoFrag_Motion_forback1027 extends BaseFragment {
     }
 
     void initView() {
-        Log.d(Tag,"initView");
+        Log.d(Tag, "initView");
         mList = new ArrayList<Auto_MotionBean.MotionDataEntity>();
         mAdapter = new AutoMoitionAdapter(mList, getActivity(), getActivity().getWindow().getDecorView());
         mListview.setEmptyView(tv_Nodata);
         mListview.setAdapter(mAdapter);
-//        initDatas();
     }
 
     private void initDatas() {
@@ -76,7 +75,6 @@ public class AutoFrag_Motion_forback1027 extends BaseFragment {
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            Log.d(Tag,"---~~~onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
@@ -85,19 +83,6 @@ public class AutoFrag_Motion_forback1027 extends BaseFragment {
             mList = (List<Auto_MotionBean.MotionDataEntity>) message;
             mAdapter.AddNewData(mList);
             mListview.setAdapter(mAdapter);
-//			mLoadingView.loadSuccess();
-//			mLoadingView.setVisibility(View.GONE);
-//			LogUtil.d(Tag+"---~~~initViewonSuccess");
-////						if (null == message) return;
-//			LogUtil.d(Tag+"---~~~ initView   message:"+message);
-//			ThirdServiceBean mBean = (ThirdServiceBean) message;
-//			mAdapter.AddNewData(mBean.getServices());
-//			mGridView.setAdapter(mAdapter);
-//			pagerAdapter.setImageIdList(mBean.getBanners());
-//			HighCommunityUtils.GetInstantiation()
-//			.setThirdServiceGridViewHeight(mGridView, mAdapter, 4);
-//			tatalLayout.setVisibility(View.VISIBLE);
-
         }
 
         @Override
@@ -123,24 +108,24 @@ public class AutoFrag_Motion_forback1027 extends BaseFragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
         }
     };
+
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(Tag,"onPause");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(Tag,"onResume");
         initDatas();
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -153,11 +138,11 @@ public class AutoFrag_Motion_forback1027 extends BaseFragment {
         ceratMotion();
 
     }
+
     private void ceratMotion() {
 
         Intent mIntent_report = new Intent(getActivity(), AutonomousAct_Third.class);
         mIntent_report.putExtra("title", TAG_CREAT_MOTION);
-//        mIntent_report.putExtra("owner_id", owner_id);
         startActivity(mIntent_report);
 
     }

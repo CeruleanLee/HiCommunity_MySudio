@@ -10,10 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.don.tools.BpiUniveralImage;
 import com.don.view.CircleImageView;
 
 import net.duohuo.dhroid.util.ImageLoaderUtil;
@@ -79,11 +77,6 @@ public class LabelGrideAdapter extends BaseFragmentAdapter {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
         final LabelBean mbean = mList.get(i);
-//        if (mList.size() == i && !CanDelete) {
-//            convertView.setVisibility(View.GONE);
-//        } else {
-//            convertView.setVisibility(View.VISIBLE);
-//        }
         if (TextUtils.isEmpty(mbean.getPic())) {
             ImageLoaderUtil.disPlay("drawable://" + R.mipmap.img_label_new, mViewHolder.mImage);
         } else {

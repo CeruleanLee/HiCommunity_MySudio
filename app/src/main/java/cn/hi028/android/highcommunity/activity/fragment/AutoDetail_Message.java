@@ -86,8 +86,6 @@ public class AutoDetail_Message extends BaseFragment {
         Bundle bundle = getArguments();
         watch_id = bundle.getString("message_id");
         Log.d(Tag, "owner_id:" + watch_id);
-//        watch_id = getActivity().getIntent().getStringExtra("reportDetail_id");
-
         initView();
         return view;
     }
@@ -101,11 +99,8 @@ public class AutoDetail_Message extends BaseFragment {
         mCommentListview.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
         mList = new ArrayList<Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity>();
         mRepresentList = new ArrayList<Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity>();
-
         mAdapter = new Auto_MessageDetailAdapter(mList, getActivity(), this,false);
         mRepresentAdapter = new Auto_MessageDetailAdapter(mRepresentList, getActivity(), this,true);
-
-
         mCommentListview.setAdapter(mAdapter);
         mRepresentListview.setAdapter(mRepresentAdapter);
 
@@ -161,7 +156,6 @@ public class AutoDetail_Message extends BaseFragment {
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            Log.e(Tag, "---~~~onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
@@ -193,7 +187,6 @@ public class AutoDetail_Message extends BaseFragment {
 
         @Override
         public Object onResolve(String result) {
-            Log.e(Tag, " ~~~result" + result);
             return HTTPHelper.ResolveInquiryDetailDataEntity(result);
         }
 
@@ -223,7 +216,6 @@ public class AutoDetail_Message extends BaseFragment {
     private void setHeadData() {
         if (mBean == null) {
             return;
-//            mInforLayout.setVisibility(View.GONE);
         } else {
             ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + mBean.getHead_pic(), mHeadImage);
             mHeadName.setTextColor(0xff1fc796);
@@ -300,7 +292,6 @@ public class AutoDetail_Message extends BaseFragment {
     };
 
     private void initSpoker() {
-//        CommunityFrag.isNeedRefresh = true;
         this.isReplay = false;
         mSpeakerContent.setHint("");
 //对监督的评论

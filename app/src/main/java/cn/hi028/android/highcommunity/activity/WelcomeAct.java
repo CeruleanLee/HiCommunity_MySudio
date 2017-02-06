@@ -61,8 +61,6 @@ public class WelcomeAct extends BaseActivity {
 		// getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		ActivityTack.getInstanse().clear();
 		super.onCreate(savedInstanceState);
-//		UmengUpdateAgent.setUpdateOnlyWifi(false);
-//		UmengUpdateAgent.update(this);
 		mWelcomeLayout = (LinearLayout) this.findViewById(R.id.ll_welcomeAct);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -71,7 +69,6 @@ public class WelcomeAct extends BaseActivity {
 		LocUtils.startLocation(this, null);
 		GetScreenParams();
 		ft = getSupportFragmentManager();
-//		 MyPushMessageReceiver.MessageCount = 0;
 		//TODO  后续加引导页的话加载这个位置    加引导页蒙层的话在mainAct加
 		if (isFirstRun()){}
 		if (!HighCommunityApplication.isLogOut) {
@@ -88,10 +85,6 @@ public class WelcomeAct extends BaseActivity {
 					mLoginFragment.FRAGMENTTAG);
 			fm.commit();
 		}
-
-		// HighCommunityApplication.SoftKeyHight =
-		// HighCommunityUtils.GetInstantiation().dip2px(getDpi() -
-		// HighCommunityUtils.DisplayMetricsHeight);
 	}
 
 	private int getDpi() {
@@ -259,15 +252,7 @@ public class WelcomeAct extends BaseActivity {
 //		HighCommunityApplication.bigImgWith=(HighCommunityApplication.screenWidth - CommonUtils.dip2px(this, 20)-CommonUtils.dip2px(this, 16)) / 2;/2/大图的宽
 		bigImgHeight=every*6-CommonUtils.dip2px(this, 45)-3*pading;
 		//因为高太多，有减掉了40 -pading 8*2
-//		bigImgHeight=(HighCommunityApplication.screenWidth - CommonUtils.dip2px(this, 20)-CommonUtils.dip2px(this, 40)-CommonUtils.dip2px(this, 16)) / 2;
 		HighCommunityApplication.bigImgHeight=bigImgHeight;
 		HighCommunityApplication.smallImgWith=3*every;
-
-
-
-
-
 	}
-	
-	
 }

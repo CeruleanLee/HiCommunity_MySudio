@@ -25,12 +25,10 @@ import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
 import com.google.gson.Gson;
-import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +46,6 @@ import cn.hi028.android.highcommunity.view.LinearLayoutForListView;
 import cn.hi028.android.highcommunity.view.nine.MyNineGridView;
 import okhttp3.Call;
 import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * @功能：新版直供商品<br> 直供主页
@@ -65,9 +62,6 @@ public class NewSupplyFragment extends BaseFragment {
     LinearLayoutForListView mCategoryListview;
     @Bind(R.id.supply_purchase_listview)
     LinearLayoutForListView mPurchaseListview;
-
-//    @Bind(R.id.pg_progress)
-//    ProgressBar mProgress;
     @Bind(R.id.tv_NoticeDetails_noData)
     TextView mNodata;
     @Bind(R.id.supply_scrollview)
@@ -76,13 +70,8 @@ public class NewSupplyFragment extends BaseFragment {
     MyNineGridView piclistView;
     @Bind(R.id.container_newsupply)
     LinearLayout containerNewsupply;
-
-//    @Bind(R.id.progress_layout)
-//    LinearLayout progress_layout;
-
     @Bind(R.id.layout_hasdata)
     LinearLayout layout_hasdata;
-
     @Bind(R.id.layout_splashTV)
     RelativeLayout layout_splashTV;
     @Bind(R.id.layout_merchantTV)
@@ -102,50 +91,36 @@ public class NewSupplyFragment extends BaseFragment {
     Runnable mRunable = new Runnable() {
         @Override
         public void run() {
-            if (mWatingWindow!=null){
+            if (mWatingWindow != null) {
 
                 mWatingWindow.dismiss();
             }
         }
     };
-    public abstract class MyCallback extends Callback<NewSupplyBean>
-    {
 
-        public NewSupplyBean parseNetworkResponse(Response response) throws IOException
-        {
-            String string = response.body().string();
-            NewSupplyBean user = new Gson().fromJson(string, NewSupplyBean.class);
-            return user;
-        }
-    }
-    public class MyStringCallback extends StringCallback
-    {
+    public class MyStringCallback extends StringCallback {
         @Override
-        public void onBefore(Request request, int id)
-        {
+        public void onBefore(Request request, int id) {
 
-            Log.e(Tag, "onBefore" );
+            Log.e(Tag, "onBefore");
         }
 
         @Override
-        public void onAfter(int id)
-        {
+        public void onAfter(int id) {
 
 
-            Log.e(Tag, "onAfter" );
+            Log.e(Tag, "onAfter");
         }
 
         @Override
-        public void onError(Call call, Exception e, int id)
-        {
+        public void onError(Call call, Exception e, int id) {
             e.printStackTrace();
-            Log.e(Tag, "onResponse：onError" );
+            Log.e(Tag, "onResponse：onError");
 
         }
 
         @Override
-        public void onResponse(String response, int id)
-        {
+        public void onResponse(String response, int id) {
             Log.e(Tag, "onResponse：complete" + response);
             NewSupplyBean mNewSupplyBean = new Gson().fromJson(response, NewSupplyBean.class);
             Log.e(Tag, "onSuccess");
@@ -172,43 +147,30 @@ public class NewSupplyFragment extends BaseFragment {
             Log.e(Tag, "onSuccess  6");
 
             initCategoryList(mBean);
-            if (mWatingWindow!=null){
+            if (mWatingWindow != null) {
 
                 mWatingWindow.dismiss();
             }
 
 
-
-
-
         }
 
         @Override
-        public void inProgress(float progress, long total, int id)
-        {
+        public void inProgress(float progress, long total, int id) {
             Log.e(Tag, "inProgress:" + progress);
         }
     }
 
     private void initData() {
-if (getActivity().hasWindowFocus()){
+        if (getActivity().hasWindowFocus()) {
 
-        mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), view, Gravity.CENTER);
-}
-//progress_layout.setVisibility(View.GONE);
+            mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), view, Gravity.CENTER);
+        }
         layout_hasdata.setVisibility(View.GONE);
         HTTPHelper.GetNewSupplyGoods(mIbpi);
         Log.e(Tag, "   initData");
-
-
         String url = "http://028hi.cn/api/sgoods/home.html";
-        Log.e(Tag, "   initData  2");
-
 //        OkHttpUtils.post().url(url).build().execute(new MyStringCallback());
-//
-
-
-
     }
 
     NewSupplyBean.NewSupplyDataEntity mBean;
@@ -228,57 +190,36 @@ if (getActivity().hasWindowFocus()){
         @Override
         public void onSuccess(Object message) {
             Log.e(Tag, "onSuccess");
-
             containerNewsupply.setVisibility(View.VISIBLE);
             layout_hasdata.setVisibility(View.VISIBLE);
             mNodata.setVisibility(View.GONE);
-            Log.e(Tag, "onSuccess  3");
 
             if (null == message) {
-                Log.e(Tag, "onSuccess  4");
-
                 return;
             }
-            Log.e(Tag, "onSuccess  5");
-            if (mWatingWindow!=null){
-
-//                mWatingWindow.dismiss();
-                mHandler.postDelayed(mRunable,500);
+            if (mWatingWindow != null) {
+                mHandler.postDelayed(mRunable, 500);
             }
             mBean = (NewSupplyBean.NewSupplyDataEntity) message;
-            if (mBean!=null){
+            if (mBean != null) {
                 Log.e(Tag, "onSuccess  6");
-                if (mBean.getCategory()!=null&&mBean.getCategory().size()>0){
+                if (mBean.getCategory() != null && mBean.getCategory().size() > 0) {
 
                     initCategoryList(mBean);
-                }else{
+                } else {
 
                 }
-                if (mBean.getPurchase()!=null&&mBean.getPurchase().size()>0){
-
+                if (mBean.getPurchase() != null && mBean.getPurchase().size() > 0) {
                     initPurchaseList(mBean);
-
-                }else{
+                } else {
                     layout_splashTV.setVisibility(View.GONE);
                 }
                 layout_merchantTV.setVisibility(View.GONE);
-//                if (mBean.getMerchant()!=null&&mBean.getMerchant().size()>0){
-//
-//                    initmerchantList(mBean);
-//
-//
-//                }else{
-//                    layout_merchantTV.setVisibility(View.GONE);
-//                }
-
 
             }
-            if (isFistRequest){
-                isFistRequest=false;
-
-//                mHandler.postDelayed(mRunable,500);
-            }else{
-
+            if (isFistRequest) {
+                isFistRequest = false;
+            } else {
 
             }
 
@@ -296,7 +237,7 @@ if (getActivity().hasWindowFocus()){
 
         @Override
         public void cancleAsyncTask() {
-            if (mWatingWindow!=null){
+            if (mWatingWindow != null) {
 
                 mWatingWindow.dismiss();
             }
@@ -304,20 +245,17 @@ if (getActivity().hasWindowFocus()){
 
         @Override
         public void shouldLogin(boolean isShouldLogin) {
-            if (isShouldLogin){
-//                HighCommunityUtils.GetInstantiation().ShowToast("去登陆", 0);
-
-
+            if (isShouldLogin) {
             }
         }
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (mWatingWindow!=null){
+            if (mWatingWindow != null) {
 
                 mWatingWindow.dismiss();
             }
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -329,20 +267,19 @@ if (getActivity().hasWindowFocus()){
      **/
     private void initmerchantList(NewSupplyBean.NewSupplyDataEntity mBean) {
         Log.e(Tag, "0填充商家");
-
         List<String> imgUrlList = new ArrayList<String>();
         List<String> idList = new ArrayList<String>();
 
         for (int i = 0; i < mBean.getMerchant().size(); i++) {
             imgUrlList.add(i, Constacts.IMAGEHTTP + mBean.getMerchant().get(i).getLogo());
             idList.add(i, mBean.getMerchant().get(i).getId());
-
         }
         Log.e(Tag, "imgUrlList-----" + imgUrlList.size());
         piclistView.setUrlList(imgUrlList, idList);
 
     }
-   SupplyPurchaseListAdapter mPurchaseAdapter;
+
+    SupplyPurchaseListAdapter mPurchaseAdapter;
 
     /**
      * 填充限时抢购数据
@@ -362,17 +299,9 @@ if (getActivity().hasWindowFocus()){
      * @param mBean
      */
     private void initCategoryList(NewSupplyBean.NewSupplyDataEntity mBean) {
-        Log.e(Tag, "initCategoryList");
-
         mCategoryAdapter = new SupplyCategoryListAdapter2(mBean.getCategory(), getActivity());
-
-        Log.e(Tag, "setAdapter");
-
         mCategoryListview.setAdapter(mCategoryAdapter);
         Log.e(Tag, "setAdapter ok");
-
-
-
     }
 
     @Override
@@ -387,14 +316,8 @@ if (getActivity().hasWindowFocus()){
     public void onResume() {
         Log.e(Tag, "---onResume ");
         if (isFistRequestHttp) {
-            Log.e(Tag, "---onResume  1 ");
-
             isFistRequestHttp = false;
-//            initData();
-        }else{
-            Log.e(Tag, "---onResume  2 ");
-//            initData();
-//            mScrollview.scrollTo(0,120);
+        } else {
         }
         registNetworkReceiver();
         super.onResume();
@@ -404,7 +327,6 @@ if (getActivity().hasWindowFocus()){
     @Override
     public void onPause() {
         Log.e(Tag, "---onPause ");
-
         super.onPause();
     }
 
@@ -412,20 +334,14 @@ if (getActivity().hasWindowFocus()){
     @Override
     public void onStop() {
         Log.e(Tag, "---onStop ");
-
-
         super.onStop();
     }
 
     @Override
     public void onDetach() {
         Log.e(Tag, "---onDetach ");
-
         super.onDetach();
     }
-
-
-
 
     /****
      * 与网络状态相关
@@ -461,13 +377,12 @@ if (getActivity().hasWindowFocus()){
                     } else if (ConnectivityManager.TYPE_ETHERNET == type) {
 
                     }
-                    //有网络
-                    Log.e(Tag,"有网络");
+                    Log.e(Tag, "有网络");
 //                    initData();
                     isNoNetwork = false;
                 } else {
                     //没有网络
-                    Log.e(Tag,"没有网络");
+                    Log.e(Tag, "没有网络");
                     Toast.makeText(getActivity(), "没有网络", Toast.LENGTH_SHORT).show();
                     isNoNetwork = true;
                 }

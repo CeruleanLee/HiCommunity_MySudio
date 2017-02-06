@@ -35,10 +35,7 @@ public class AutoFrag_CreatInquiry extends BaseFragment {
     EditText mContent;
     @Bind(R.id.creatInquiry_commit)
     TextView mCommit;
-boolean isMeassage=false;
-
-
-
+    boolean isMeassage = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,7 +43,7 @@ boolean isMeassage=false;
         View view = inflater.inflate(R.layout.frag_auto_creat_inquiry, null);
         Bundle bundle = getArguments();
         owner_id = bundle.getInt("owner_id", -1);
-        isMeassage=bundle.getBoolean("isMessage",false);
+        isMeassage = bundle.getBoolean("isMessage", false);
         findView(view);
         ButterKnife.bind(this, view);
         initView();
@@ -54,26 +51,21 @@ boolean isMeassage=false;
     }
 
     private void findView(View view) {
-//        mTitle= (EditText) view.findViewById(R.id.creatReport_title);
-//        mContent= (EditText) view.findViewById(R.id.creatReport_content);
-//        mCommit= (TextView) view.findViewById(R.id.creatReport_commit);
     }
 
     private void initView() {
-        LogUtil.d(Tag + "initView");
-//        Toast.makeText(getActivity(), "isMeassage"+isMeassage, Toast.LENGTH_SHORT).show();
-        if (isMeassage){
+        if (isMeassage) {
             mContent.setHint("留言内容");
-        }else{
+        } else {
             mContent.setHint("询问内容");
         }
         mCommit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isMeassage){
+                if (isMeassage) {
 
                     HTTPHelper.AutoCreatMessage(mIbpi, owner_id + "", mContent.getText().toString());
-                }else{
+                } else {
 
                     HTTPHelper.AutoCreatInquiry(mIbpi, owner_id + "", mContent.getText().toString());
                 }
@@ -86,7 +78,6 @@ boolean isMeassage=false;
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            LogUtil.d(Tag + "---~~~onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
@@ -99,7 +90,6 @@ boolean isMeassage=false;
 
         @Override
         public Object onResolve(String result) {
-            LogUtil.d(Tag + " ~~~result" + result);
             return result;
         }
 
@@ -119,7 +109,7 @@ boolean isMeassage=false;
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -130,18 +120,12 @@ boolean isMeassage=false;
     @Override
     public void onPause() {
         super.onPause();
-        LogUtil.d(Tag + "onPause");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        LogUtil.d(Tag + "onResume");
-
-
     }
-
-
 
     @Override
     public void onDestroyView() {
@@ -152,7 +136,6 @@ boolean isMeassage=false;
     @OnClick(R.id.creatInquiry_commit)
     public void onClick() {
     }
-
 
 
 }

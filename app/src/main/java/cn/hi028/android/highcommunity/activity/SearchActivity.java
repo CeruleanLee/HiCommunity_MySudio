@@ -47,7 +47,6 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  */
 @EActivity(resName = "activtiy_search")
 public class SearchActivity extends BaseFragmentActivity implements TextWatcher {
-
     public static final String ACTIVITYTAG = "SearchActivity";
     @ViewById(R.id.tv_cancel)
     TextView tv_cancel;
@@ -142,11 +141,8 @@ public class SearchActivity extends BaseFragmentActivity implements TextWatcher 
 
             @Override
             public void onAnimationEnd(Animation animation) {
-//                viewParent.clearAnimation();
-//                viewParent.setVisibility(View.GONE);
             }
         });
-//        viewParent.startAnimation(animation);
         Intent intent = new Intent(frag.getActivity(), GeneratedClassUtils.get(SearchActivity.class));
         intent.putExtra(Constacts.SEARCH_TYPE, Constacts.SEARCH_TYPE_VALLAGE);
         intent.putExtra(ACTIVITYTAG, QuxianId);
@@ -168,7 +164,6 @@ public class SearchActivity extends BaseFragmentActivity implements TextWatcher 
         });
         lv_search.setEmptyView(tv_billpay_Nodata);
         edt_search.addTextChangedListener(this);
-        // edt_search.requestFocus();
         searchType = getIntent().getIntExtra(Constacts.SEARCH_TYPE,
                 Constacts.SEARCH_TYPE_VALLAGE);
         if (searchType == Constacts.SEARCH_TYPE_VALLAGE) {//城市搜索
@@ -188,11 +183,6 @@ public class SearchActivity extends BaseFragmentActivity implements TextWatcher 
                     mInt.putExtra(GroupDataAct.ACTIVITYTAG, "Detils");
                     mInt.putExtra(GroupDataAct.INTENTTAG, mBean.getId() + "");
                     startActivity(mInt);
-//                    Intent mInt = getIntent();
-//                    GroupBean mBean = (GroupBean) adapter.getItem(position);
-//                    mInt.putExtra(Constacts.SEARCH_RESULT, mBean.getId() + "");
-//                    setResult(0x22, mInt);
-//                    finish();
                 }
             });
         } else if (searchType == Constacts.SEARCH_TYPE_CARFTS) {//手艺人搜索
@@ -220,8 +210,6 @@ public class SearchActivity extends BaseFragmentActivity implements TextWatcher 
                 return;
             List<VallageBean> data = (List<VallageBean>) message;
             ((CitySearchAdapter) adapter).setData(data);
-//            mVillageBean = (List<VallageBean>) message;
-//            ShowListUtils.GetInstantiation().RefreshVillage(mVillageBean);
         }
 
         @Override
@@ -261,22 +249,9 @@ public class SearchActivity extends BaseFragmentActivity implements TextWatcher 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_cancel:// 取消输入
-//                SearchActivity.this.setResult(RESULT_CANCELED, null);
                 break;
             case R.id.img_clear_edt: // 清除输入内容
                 edt_search.setText("");
-//			if (searchType == ConstantsConfig.SEARCHTYPE_SEAT) {// 桌位搜索
-//				if (adapter.getData() != null) {
-//					seatAdapter.getData().clear();
-//					seatAdapter.notifyDataSetChanged();
-//				}
-//			} else if (searchType == ConstantsConfig.SEARCHTYPE_GOODS) {// 商品搜索
-//				if (goodsAdapter.getData() != null) {
-//					goodsAdapter.getData().clear();
-//					goodsAdapter.notifyDataSetChanged();
-//				}
-//
-//			}
                 break;
             default:
                 break;
@@ -303,13 +278,6 @@ public class SearchActivity extends BaseFragmentActivity implements TextWatcher 
                     ((CitySearchAdapter) adapter).notifyDataSetChanged();
                 }
             }
-//			else if (searchType == ConstantsConfig.SEARCHTYPE_GOODS) {// 商品搜索
-//				if (goodsAdapter.getData() != null) {
-//					goodsAdapter.getData().clear();
-//					goodsAdapter.notifyDataSetChanged();
-//				}
-//
-//			}
         }
 
     }

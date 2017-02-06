@@ -16,7 +16,6 @@ import com.don.tools.BpiHttpHandler;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
-import net.duohuo.dhroid.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,10 +50,10 @@ public class AutoFrag_CerSuccess extends BaseFragment {
     /**
      * 创建认证
      **/
-    public static final int TAG_CREAT_CER= 6;
+    public static final int TAG_CREAT_CER = 6;
     List<Auto_CertificationInitBean.CertificationInitDataEntity> mList = new ArrayList<Auto_CertificationInitBean.CertificationInitDataEntity>();
-//    CerSuccesstAdapter mAdapter;
     CerFailedAdapter mAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(Tag, "onCreateView");
@@ -67,28 +66,13 @@ public class AutoFrag_CerSuccess extends BaseFragment {
     void initView() {
         Log.d(Tag, "initView");
         mProgress.setVisibility(View.VISIBLE);
-
         DisplayMetrics mdm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(mdm);
-
         mProgress.setVisibility(View.VISIBLE);
         mAdapter = new CerFailedAdapter(mList, getActivity(), mdm.widthPixels);
-//        mAdapter = new CerSuccesstAdapter(mList, getActivity());
         mListView.setEmptyView(mNoData);
         mListView.setAdapter(mAdapter);
         mListView.setPullToRefreshEnabled(false);
-
-//        mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-//            @Override
-//            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//
-//            }
-//
-//            @Override
-//            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//
-//            }
-//        });
     }
 
 
@@ -117,7 +101,6 @@ public class AutoFrag_CerSuccess extends BaseFragment {
         mCreatCerIntent.setExtrasClassLoader(getClass().getClassLoader());
 
         mCreatCerIntent.putExtra("tag_creatCer", TAG_CREAT_CER);
-////        mIntent_report.putExtra("owner_id", owner_id);
         startActivity(mCreatCerIntent);
 
     }
@@ -125,7 +108,6 @@ public class AutoFrag_CerSuccess extends BaseFragment {
     @OnClick(R.id.img_cerSuccess_creat)
     public void onClick() {
         ceratCer();
-//        Toast.makeText(getActivity(),"点击创建",Toast.LENGTH_SHORT).show();
     }
 
     public void updateList(List<Auto_CertificationInitBean.CertificationInitDataEntity> mList) {
@@ -133,17 +115,13 @@ public class AutoFrag_CerSuccess extends BaseFragment {
 
     }
 
-
     private void initDatas() {
-        Log.e(Tag, "---~~~initDatas");
-
         HTTPHelper.GetOwnersList(mIbpi);
     }
 
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            Log.e(Tag, "---~~~onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
@@ -157,7 +135,6 @@ public class AutoFrag_CerSuccess extends BaseFragment {
 
         @Override
         public Object onResolve(String result) {
-            LogUtil.d(Tag + " ~~~result" + result);
             return HTTPHelper.ResolveCerDataEntity(result);
         }
 
@@ -177,7 +154,7 @@ public class AutoFrag_CerSuccess extends BaseFragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }

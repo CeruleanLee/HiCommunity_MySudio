@@ -1,6 +1,6 @@
 package cn.hi028.android.highcommunity.bean.NearbyOrderdetail2;
 
-import java.util.List;
+
 
 public class NearbyOrderDeatai_Root {
 	private boolean success;

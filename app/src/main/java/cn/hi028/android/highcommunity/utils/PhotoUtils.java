@@ -44,29 +44,6 @@ public class PhotoUtils {
         return photoUtils;
     }
 
-//	public String handleTackPicture(BaseFragment activity) {
-//		if (!isExistExternalStore()) {
-//			ToastUtil.show(activity.getActivity(), "无内存卡");
-//			return null;
-//		}
-//		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//		File file = getTackPicFilePath();
-//		if (file != null) {
-//			Uri uri = Uri.fromFile(file);
-//			if (uri != null) {
-//				intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-//			}
-//			mFilePath = file.getAbsolutePath();
-//		}
-//		activity.startActivityForResult(intent, REQUEST_CODE_TAKE_PICTURE);
-//		return file.getAbsolutePath();
-//	}
-
-//	public void handleSelectImageIntent(BaseFragment activity) {
-//		Intent i = new Intent(Intent.ACTION_PICK,
-//				MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//		activity.startActivityForResult(i, REQUEST_CODE_LOAD_IMAGE);
-//	}
 
     public static File getTackPicFilePath() {
         File localFile = new File(getExternalStorePath()

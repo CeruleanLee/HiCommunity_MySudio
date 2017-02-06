@@ -1,11 +1,5 @@
 package cn.hi028.android.highcommunity.activity;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import cn.hi028.android.highcommunity.HighCommunityApplication;
-import cn.hi028.android.highcommunity.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
@@ -25,22 +19,26 @@ import android.view.View.OnClickListener;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
+import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.webkit.WebChromeClient.FileChooserParams;
-import android.webkit.WebSettings.LayoutAlgorithm;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.hi028.android.highcommunity.HighCommunityApplication;
+import cn.hi028.android.highcommunity.R;
 /**
  *办事指南
  * @author Administrator
  *
  */
 public class Service_ManageGuideActivity extends Activity {
-
 	private WebView mWebView;
 	private ImageView back;
-
 	private ValueCallback<Uri> mUploadMessage;// 琛ㄥ崟鐨勬暟鎹俊鎭�
 	private ValueCallback<Uri[]> mUploadCallbackAboveL;
 	private final static int FILECHOOSER_RESULTCODE = 1;
@@ -105,9 +103,6 @@ public class Service_ManageGuideActivity extends Activity {
 		// 这里就是在加载页面
 		mWebView.loadUrl("http://028hi.cn/api/guide/index.html?token="
 				+ HighCommunityApplication.mUserInfo.getToken());// loadurl这个方法是直接加载链接地址
-		// mWebView.loadDataWithBaseURL(null,
-		// "http://028hi.cn/ywh/owner/index.html", "text/html", "utf-8",
-		// null);//这个方法是加载包含H5标签的内容，你服务器娶过来的应该就是包含H5标签的文字，到时候你直接把他放到上面就行了
 
 		mWebView.setWebViewClient(new WebViewClient() {
 			@Override

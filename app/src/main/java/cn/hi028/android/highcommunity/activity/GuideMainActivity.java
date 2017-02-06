@@ -22,10 +22,8 @@ import cn.hi028.android.highcommunity.R;
  * 引导页（功能介绍）
  */
 public class GuideMainActivity extends Activity {
-
     private ViewPager pager;
     private ArrayList<View> list;
-
     private PagerAdapter adapter;
 
     private ImageView curDot;
@@ -71,25 +69,8 @@ public class GuideMainActivity extends Activity {
         imge4.setLayoutParams(params);
         imge4.setScaleType(ImageView.ScaleType.FIT_XY);
         imge4.setImageResource(R.drawable.welcome_guid4);
-
-//        RelativeLayout fouth = new RelativeLayout(this);
-//        fouth.addView(imge4);
-//        TextView entery = new TextView(this);
-//        entery.setText("进入社区");
-//        entery.setTextSize(16);
-//        LinearLayout.LayoutParams tparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        tparams.gravity = Gravity.CENTER;
-//        tparams.setMargins(0, 0, 0, HighCommunityUtils.GetInstantiation().dip2px(56));
-//        entery.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
-//        fouth.addView(entery);
         pager = (ViewPager) findViewById(R.id.middle_pager);
         curDot = (ImageView) findViewById(R.id.cur_dot);
-
         list = new ArrayList<View>();
         list.add(imge1);
         list.add(imge2);

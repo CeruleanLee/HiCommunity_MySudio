@@ -114,18 +114,10 @@ public class TicketAdapter extends BaseAdapter {
             mViewHolder.ticket_unit_flag.setVisibility(View.GONE);
             mViewHolder.ticket_type.setSelected(true);
         }
-//        mViewHolder.tv_ticket_time.setTextColor(0xbfffffff);
-//        mViewHolder.tv_useType.setText(data.get(position).getUse_name());
-//        mViewHolder.tv_ticket_time.setTextSize(12);
-//        mViewHolder.tv_ticket_use.setTextColor(0xffDCF1FF);
         if (mBean.getUse_to() == 4) {
             //兑换奖品
             mViewHolder.fl_bg_prize.setVisibility(View.VISIBLE);
             mViewHolder.fl_bg.setVisibility(View.GONE);
-
-
-
-
             if (mBean.getPic() != null) {
                 mBitmapUtils.display(mViewHolder.prize_img, Constacts.IMAGEHTTP + mBean.getPic());
             }
@@ -143,29 +135,13 @@ public class TicketAdapter extends BaseAdapter {
             mViewHolder.tv_ticket_use_prize.setText("兑换码：" +mBean.getCode());
             mViewHolder.tv_ticket_useType_prize.setText("活动使用");
             mViewHolder.tv_ticket_time_prize.setText("当日有效");
-//            mViewHolder.tv_ticket_time.setTextColor(0xffffffff);
-//            mViewHolder.tv_ticket_time.setTextSize(15);
-//            mViewHolder.tv_ticket_use.setTextColor(0xffffffff);
-
         } else if (1 == data.get(position).getUse_to()) {
-
-
-
             mViewHolder.tv_ticket_use.setTextColor(act.getResources().getColor(R.color.color_ticket_least1));
             mViewHolder.fl_bg.setBackgroundResource(R.mipmap.bg_ticket_orange);
         } else if (2 == data.get(position).getUse_to()) {
-
-
-
             mViewHolder.tv_ticket_use.setTextColor(act.getResources().getColor(R.color.color_ticket_least2));
-
             mViewHolder.fl_bg.setBackgroundResource(R.mipmap.bg_ticket_blue);
         } else {
-//            mViewHolder.tv_isused.setVisibility(View.GONE);
-//            mViewHolder.prize_img.setVisibility(View.GONE);
-//            mViewHolder.tv_prize_name.setVisibility(View.GONE);
-
-
             mViewHolder.tv_ticket_use.setTextColor(act.getResources().getColor(R.color.color_ticket_least3));
             mViewHolder.fl_bg.setBackgroundResource(R.mipmap.bg_ticket_green);
         }
@@ -182,8 +158,6 @@ public class TicketAdapter extends BaseAdapter {
         });
         return convertView;
     }
-
-
     public class ViewHolder {
         ImageView ticket_type, ticket_unit_flag, prize_img;
         TextView tv_ticket, tv_isused, tv_prize_name;

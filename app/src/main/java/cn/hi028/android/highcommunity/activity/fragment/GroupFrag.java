@@ -58,8 +58,6 @@ public class GroupFrag extends BaseFragment {
     RadioButton mNew;
     @ViewById(R.id.tv_group_mine)
     RadioButton mMine;
-//    @ViewById(R.id.tv_group_search)
-//    RadioButton mSearch;
     @ViewById(R.id.et_groupclass_search)
     ImageView mKeywords;
     @ViewById(R.id.tv_group_nodata)
@@ -108,7 +106,6 @@ public class GroupFrag extends BaseFragment {
         mHot.setOnClickListener(mListener);
         mNew.setOnClickListener(mListener);
         mMine.setOnClickListener(mListener);
-//        mSearch.setOnClickListener(mListener);
         mCreate.setOnClickListener(mListener);
         mKeywords.setOnClickListener(mListener);
     }
@@ -157,14 +154,12 @@ public class GroupFrag extends BaseFragment {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.tv_group_hot:
-//                    mKeywords.setVisibility(View.GONE);
                     if (type != 0) {
                         type = 0;
                         getData(type);
                     }
                     break;
                 case R.id.tv_group_new:
-//                    mKeywords.setVisibility(View.GONE);
                     if (type != 1) {
                         type = 1;
                         getData(type);
@@ -180,25 +175,15 @@ public class GroupFrag extends BaseFragment {
                             mNew.setChecked(true);
                             return;
                         } else if (type == 3) {
-//                            mSearch.setChecked(true);
                             return;
                         }
                         return;
                     }
-//                    mKeywords.setVisibility(View.GONE);
                     if (type != 2) {
                         type = 2;
                         getData(type);
                     }
                     break;
-//                case R.id.tv_group_search:
-//                    if (mKeywords.getVisibility() == View.GONE) {
-//                        mKeywords.setVisibility(View.VISIBLE);
-//                    } else {
-//                        mKeywords.setVisibility(View.GONE);
-//                    }
-//                    type = 3;
-//                    break;
                 case R.id.tv_group_create:
                     if (HighCommunityUtils.GetInstantiation().isLogin(getActivity())) {
                         Intent mInt = new Intent(getActivity(), GeneratedClassUtils.get(GroupDataAct.class));
@@ -211,16 +196,12 @@ public class GroupFrag extends BaseFragment {
                 	Intent intent = new Intent(getActivity(), GeneratedClassUtils.get(SearchActivity.class));
                     intent.putExtra(Constacts.SEARCH_TYPE,Constacts.SEARCH_TYPE_GROUP);
                     startActivity(intent);
-//                    SearchActivity.toSearch(GroupFrag.this, mKeywords, mKeywords.getY(), mKeywords.getHeight(), Constacts.SEARCH_TYPE_GROUP);
                     break;
             }
         }
     };
 
     private void getData(int type) {
-//        if (mKeywords.getVisibility() == View.VISIBLE) {
-//            keywords = mKeywords.getText().toString().trim();
-//        }
         HTTPHelper.GetGroup(mIbpi, HighCommunityApplication.mUserInfo.getId(), type, keywords);
     }
 

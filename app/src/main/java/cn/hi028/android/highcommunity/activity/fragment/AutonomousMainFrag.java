@@ -33,11 +33,9 @@ import cn.hi028.android.highcommunity.view.ECAlertDialog;
  * @作者： Lee_yting<br>
  * @时间：2016/10/11<br>
  */
-
 public class AutonomousMainFrag extends BaseFragment implements OnClickListener {
     public static final String Tag = "~~~AutonomousMain";
     public static final String FRAGMENTTAG = "AutonomousMainFrag";
-
     public static final int TAG_NOTIC = 0;
     public static final int TAG_VOTE = 1;
     public static final int TAG_NAMELIST = 2;
@@ -77,28 +75,21 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
 
     private void initView() {
         if (context == null) {
-            Log.d(Tag, "content null");
         } else {
-
-            Log.d(Tag, "content  不null");
             mIntent = new Intent(context, AutonomousAct_Second.class);
             intent = new Intent(getActivity(), AutoCommitAct.class);
         }
-//        initDatas();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(Tag,"onCreateView");
-//        Bundle bundle = getArguments();
-//        mData = bundle.getParcelable("data");
+        Log.d(Tag, "onCreateView");
         return contentView;
     }
 
     private void initDatas() {
-        Log.d(Tag,"initDatas");
+        Log.d(Tag, "initDatas");
         HTTPHelper.InitAutoAct(mIbpi);
-        Log.d(Tag,"initDatas2");
 
     }
 
@@ -108,8 +99,6 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-//            Toast.makeText(getActivity(), "访问shibai", Toast.LENGTH_SHORT).show();
-//            HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
             errorStr = message;
             isLocationNoData = true;
         }
@@ -123,39 +112,22 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
             isLocationNoData = false;
             mStatus = mData.getStatus();
             if (mData.getType() != -1) {
-
                 HighCommunityApplication.mUserInfo.setUser_Type(mData.getType() + "");
-                Log.e(Tag,"用户业主大厅属性："+ HighCommunityApplication.mUserInfo.getUser_Type());
+                Log.e(Tag, "用户业主大厅属性：" + HighCommunityApplication.mUserInfo.getUser_Type());
             }
             if (mData.getOwner_id() != -1) {
-
                 HighCommunityApplication.mUserInfo.setOwner_id(mData.getOwner_id() + "");
             }
-//            Toast.makeText(getActivity(), "mStatus " + mStatus, Toast.LENGTH_SHORT).show();
             if (mStatus == 1) {
-
                 isVerified = true;
             } else {
                 isVerified = false;
-
             }
             if (mStatus == 0 || mStatus == -1) {
                 isCommitData = true;
             } else {
                 isCommitData = false;
             }
-//            if (mData.getStatus() == 0 || mData.getStatus() == -1) {
-//                //审核中 审核失败
-//                dataChecking();
-//            } else if (mData.getStatus() == 2) {
-//
-//                //进入提交资料页
-//                toCommitData();
-//
-//            } else if (mData.getStatus() == 1) {
-//                //进入frag
-//                toAutoFrag();
-//            }
         }
 
         @Override
@@ -178,7 +150,7 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -188,26 +160,20 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(Tag,"onPause");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(Tag,"onResume");
         initDatas();
 
     }
-
-
-
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-
 
     @OnClick({R.id.autoFrg_notic, R.id.autoFrg_vote, R.id.autoFrg_namelist, R.id.autoFrg_motion, R.id.autoFrg_supervise, R.id.autoFrg_groupchat})
     public void onClick(View view) {
@@ -222,7 +188,6 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
                 break;
             case R.id.autoFrg_vote:
                 if (isVerified) {
-
                     mIntent.putExtra("title", TAG_VOTE);
                     startActivity(mIntent);
                 } else {
@@ -231,7 +196,6 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
                 break;
             case R.id.autoFrg_namelist:
                 if (isVerified) {
-
                     mIntent.putExtra("title", TAG_NAMELIST);
                     startActivity(mIntent);
                 } else {
@@ -258,19 +222,8 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
 
                 break;
             case R.id.autoFrg_groupchat:
-                //certification
                 mIntent.putExtra("title", TAG_CERTIFICATION);
-//                mIntent.putExtra("owner_id", mData.getOwner_id());
                 startActivity(mIntent);
-
-
-//                if (isVerified) {
-//                    Toast.makeText(getActivity(), "功能完善中，敬请期待~", Toast.LENGTH_SHORT).show();
-////                mIntent.putExtra("title", TAG_GROUPCHAT);
-////                startActivity(mIntent);
-//                } else {
-//                    showDialog();
-//                }
                 break;
         }
     }
@@ -290,12 +243,10 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
     }
 
 
-
     /****
      * 该小区无数据弹窗
      */
     private void showNoDataDialog() {
-
         ECAlertDialog dialog2 = ECAlertDialog.buildAlert(getActivity(), errorStr, "确定", new DialogInterface.OnClickListener() {
 
             @Override
@@ -304,8 +255,6 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
             }
         });
         dialog2.show();
-
-
     }
 
     /****
@@ -330,8 +279,6 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
         dialog2.show();
     }
 
-    Bundle mBundle = new Bundle();
-
     /****
      * 前往资料审核弹窗
      */
@@ -340,22 +287,13 @@ public class AutonomousMainFrag extends BaseFragment implements OnClickListener 
 
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-
-//                if (mData!=null){
-//
-//                    Log.d(Tag,"mData "+mData.toString());
-//                    mBundle.putParcelable("data",mData);
-//                    start
-//                }
                 if (mData != null) {
                     intent.setExtrasClassLoader(getClass().getClassLoader());
                     intent.putExtra("isCommitData", isCommitData);
-//    intent.setClassLoader(getClass().getClassLoader());
                     intent.putExtra("mData", mData);
                     intent.putExtra("mStatus", mStatus);
                     startActivity(intent);
                 } else {
-//    Toast.makeText(getActivity(),"data null",Toast.LENGTH_SHORT).show();
                 }
             }
         }, new DialogInterface.OnClickListener() {

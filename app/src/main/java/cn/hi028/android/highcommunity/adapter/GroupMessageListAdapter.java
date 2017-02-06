@@ -238,17 +238,6 @@ public class GroupMessageListAdapter extends BaseFragmentAdapter {
 				mContext.startActivity(mCommunity);
 			}
 		});
-//		//地址监听
-//		mViewHolder.mLocation.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View view) {
-//				Intent mMessage = new Intent(mContext, GeneratedClassUtils.get(CommunityDetailAct.class));
-//				mMessage.putExtra(CommunityDetailAct.ACTIVITYTAG, "message");
-//				mMessage.putExtra(CommunityDetailAct.INTENTTAG, mBean.getVillage_name());
-//				mMessage.putExtra(VillageMessageFrag.FRAGMENTTAG, mBean.getVid());
-//				mContext.startActivity(mMessage);
-//			}
-//		});
 		//点赞监听
 		mViewHolder.mAssist.setOnClickListener(new View.OnClickListener() {
 			@Override

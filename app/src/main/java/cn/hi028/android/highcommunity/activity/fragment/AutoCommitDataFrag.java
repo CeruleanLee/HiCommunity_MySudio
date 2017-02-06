@@ -63,8 +63,6 @@ import cn.hi028.android.highcommunity.view.ECListDialog;
 public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchListener {
     public static final String Tag = "~~~AutoCommit~~~";
     public static final String FRAGMENTTAG = "AutoCommitDataFrag";
-
-
     @Bind(R.id.autoAct_ed_name)
     EditText ed_Name;
     @Bind(R.id.autoAct_ed_quName)
@@ -98,7 +96,7 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
 
     PopupWindow mPhotoPopupWindow = null, mWaitingWindow = null;
     boolean IsClicked = false;
-    int requesetPhoto = 0x000001, requestFile = 0x000002;//requestCropImage = 0x000003
+    int requesetPhoto = 0x000001, requestFile = 0x000002;
     Uri mPhotoUri = null;
     int ClickId;
     String idZUri, idFUri, epropertyUri;
@@ -120,60 +118,34 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
         Bundle bundle = getArguments();
         bundle.setClassLoader(getClass().getClassLoader());
         mData = bundle.getParcelable("data");
-        Log.e(Tag,"STATUS--->"+mData.getStatus());
-        Log.e(Tag,"mData--->"+mData.toString());
-//        if (mLastData!=null){
-//            Log.e(Tag,"mlastData--->"+mLastData.toString());
-//        }else{
-//            Log.e(Tag,"mlastData--->   null");
-//        }
-//        if (mData.getStatus() == -1) {
-//            Log.e(Tag,"保存数据   将之前的数据赋值现在的");
-//            mData = mLastData;
-//        }else if (mData.getStatus() == 2) {
-//            Log.e(Tag,"保存数据   现在的数据保存起来验证失败时使用");
-//            mLastData = mData;
-//        }
-//        Log.e(Tag,"保存操作后的 mData--->"+mData.toString());
-//        if (mLastData!=null){
-//            Log.e(Tag,"保存操作后的  mlastData--->"+mLastData.toString());
-//        }else{
-//            Log.e(Tag,"保存操作后的 mlastData--->   null");
-//        }
+        Log.e(Tag, "STATUS--->" + mData.getStatus());
+        Log.e(Tag, "mData--->" + mData.toString());
         username = HighCommunityApplication.mUserInfo.getUsername();
         Log.d(Tag, "用户名：" + username);
         initView();
         return contentView;
     }
+
     String village_id;
 
     private void initView() {
         ed_QuName.setText(mData.getVillage().getVillage_name());
         village_id = mData.getVillage().getVillage_id();
         ed_TelNum.setText(username);
-
         ed_LouNum.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 Log.d(Tag, "是否有焦点" + hasFocus);
-//                Toast.makeText(getActivity(), "是否有焦点" + hasFocus, Toast.LENGTH_SHORT).show();
-
                 if (hasFocus) {
                     mmBuildingNums.clear();
-//            Toast.makeText(getActivity(), "楼栋号被点击", Toast.LENGTH_SHORT).show();
                     setBuildingNum();
                 }
             }
         });
-
         ed_DanyuanNum.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                Log.d(Tag, "是否有焦点" + hasFocus);
-//                Toast.makeText(getActivity(), "是否有焦点" + hasFocus, Toast.LENGTH_SHORT).show();
-
                 if (hasFocus) {
-
                     mUnitNumList.clear();
                     setUnitNum();
                 }
@@ -183,35 +155,18 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 Log.d(Tag, "是否有焦点" + hasFocus);
-//                Toast.makeText(getActivity(), "是否有焦点" + hasFocus, Toast.LENGTH_SHORT).show();
-
                 if (hasFocus) {
                     mDoorNumList.clear();
                     setDoorNum();
                 }
             }
         });
-//        ed_Name.setOnClickListener(this);
-//        ed_QuName.setOnClickListener(this);
-//        ed_LouNum.setOnClickListener(this);
-//        ed_DanyuanNum.setOnClickListener(this);
-//        ed_MenNum.setOnClickListener(this);
-//        img_IdZ.setOnClickListener(this);
-//        img_IdF.setOnClickListener(this);
-//        img_Eproperty.setOnClickListener(this);
-//        but_GetviryCode.setOnClickListener(this);
-//        ed_TelNum.setOnClickListener(this);
-//        ed_PutverifyCode.setOnClickListener(this);
-//        but_Commit.setOnClickListener(this);
         activityMain.requestFocus();
         activityMain.setFocusable(true);
-
         activityMain.setOnTouchListener(this);
         ed_LouNum.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
-
                 ed_LouNum.setFocusable(true);
                 ed_LouNum.setFocusableInTouchMode(true);
                 ed_LouNum.requestFocus();
@@ -228,8 +183,6 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
         ed_DanyuanNum.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
-
                 ed_DanyuanNum.setFocusable(true);
                 ed_DanyuanNum.setFocusableInTouchMode(true);
                 ed_DanyuanNum.requestFocus();
@@ -239,7 +192,6 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
                         manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     }
                 }
-
                 return false;
             }
         });
@@ -259,134 +211,10 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
                 return false;
             }
         });
-//        activityMain.setOnClickListener(this);
 
     }
 
     private PopupWindow mWindow;
-
-
-////    @OnClick({R.id.autoAct_ed_quName, R.id.autoAct_ed_louNum, R.id.autoAct_ed_danyuanNum, R.id.autoAct_ed_menNum,  R.id.autoAct_ed_name,R.id.autoAct_ed_idZ, R.id.autoAct_ed_idF, R.id.autoAct_eproperty, R.id.auto_getviryCode, R.id.autoAct_telNum, R.id.autoAct_putverifyCode, R.id.autoAct_commit})
-//    public void onClick(View view) {
-//        if (view.getId() == R.id.autoAct_ed_louNum) {
-//            Log.d(Tag, "楼");
-//            ed_LouNum.requestFocus();
-//
-////            ed_LouNum.setChecked(true);
-////            ed_MenNum.setChecked(false);
-////            ed_DanyuanNum.setChecked(false);
-////            ed_PutverifyCode.setFocusable(false);
-////            ed_Name.setFocusable(false);
-////            ed_PutverifyCode.setFocusable(false);
-//            mmBuildingNums.clear();
-//            setBuildingNum();
-//            ClickId = R.id.autoAct_ed_louNum;
-//        } else if (view.getId() == R.id.autoAct_ed_menNum) {
-//            Log.d(Tag, "们");
-//            ed_MenNum.requestFocus();
-////            ed_Name.setFocusable(false);
-////            ed_PutverifyCode.setFocusable(false);
-////            ed_MenNum.setChecked(true);
-////            ed_LouNum.setChecked(false);
-////            ed_DanyuanNum.setChecked(false);
-////            ed_PutverifyCode.setFocusable(false);
-//            mDoorNumList.clear();
-//            setDoorNum();
-//            ClickId = R.id.autoAct_ed_menNum;
-//
-//        } else if (view.getId() == R.id.autoAct_ed_danyuanNum) {
-//            Log.d(Tag, "单元");
-//            ed_DanyuanNum.requestFocus();
-////            ed_Name.setFocusable(false);
-////            ed_PutverifyCode.setFocusable(false);
-////            ed_DanyuanNum.setChecked(true);
-////            ed_LouNum.setChecked(false);
-////            ed_MenNum.setChecked(false);
-////            ed_Name.setFocusable(false);
-////            ed_PutverifyCode.setFocusable(false);
-////                ed_LouNum.toggle();
-//            mUnitNumList.clear();
-//            setUnitNum();
-//            ClickId = R.id.autoAct_ed_danyuanNum;
-//        } else if (view.getId() == R.id.autoAct_ed_name) {
-//            Log.d(Tag, "名");
-////            ed_PutverifyCode.setFocusable(false);
-////            ed_Name.setFocusable(true);
-////            ed_PutverifyCode.se
-//            ClickId = R.id.autoAct_ed_name;
-//        } else if (view.getId() == R.id.auto_getviryCode) {
-//            Log.d(Tag, "获取");
-//            ClickId = R.id.auto_getviryCode;
-//            ed_LouNum.setChecked(false);
-//            ed_MenNum.setChecked(false);
-//            ed_DanyuanNum.setChecked(false);
-//            getVerifyCode();
-//        } else if (view.getId() == R.id.autoAct_telNum) {
-//            Log.d(Tag, "手机号");
-//            Toast.makeText(getActivity(), "系统要求使用注册手机号进行验证", Toast.LENGTH_SHORT).show();
-//            ed_LouNum.setChecked(false);
-//            ed_MenNum.setChecked(false);
-//            ed_DanyuanNum.setChecked(false);
-//            ClickId = R.id.autoAct_telNum;
-//        } else if (view.getId() == R.id.autoAct_putverifyCode) {
-//            Log.d(Tag, "put");
-////            ed_LouNum.setChecked(false);
-////            ed_MenNum.setChecked(false);
-////            ed_DanyuanNum.setChecked(false);
-////            ed_Name.setFocusable(false);
-////            ed_PutverifyCode.requestFocus();
-////            ed_PutverifyCode.setFocusable(true);
-//            ClickId = R.id.autoAct_putverifyCode;
-//        } else if (view.getId() == R.id.autoAct_commit) {
-//            Log.d(Tag, "ti");
-////                autoAct_commit:// 提交
-//            ed_LouNum.setChecked(false);
-//            ed_MenNum.setChecked(false);
-//            ed_DanyuanNum.setChecked(false);
-//            ClickId = R.id.autoAct_commit;
-//            toCommitData();
-//        } else if (view.getId() == R.id.autoAct_ed_idZ) {
-//            Log.d(Tag, "id z");
-//            ed_LouNum.setChecked(false);
-//            ed_MenNum.setChecked(false);
-//            ed_DanyuanNum.setChecked(false);
-//            ClickId = R.id.autoAct_ed_idZ;
-//            if (mPhotoPopupWindow == null) {
-//                mPhotoPopupWindow = HighCommunityUtils.GetInstantiation()
-//                        .ShowPhotoPopupWindow(getActivity(), mPhoto, mFile);
-//            }
-//            mPhotoPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0,
-//                    HighCommunityApplication.SoftKeyHight);
-//
-//        } else if (view.getId() == R.id.autoAct_ed_idF) {
-//            Log.d(Tag, "id f");
-//            ed_LouNum.setChecked(false);
-//            ed_MenNum.setChecked(false);
-//            ed_DanyuanNum.setChecked(false);
-//            ClickId = R.id.autoAct_ed_idF;
-//            if (mPhotoPopupWindow == null) {
-//                mPhotoPopupWindow = HighCommunityUtils.GetInstantiation()
-//                        .ShowPhotoPopupWindow(getActivity(), mPhoto, mFile);
-//            }
-//            mPhotoPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0,
-//                    HighCommunityApplication.SoftKeyHight);
-//
-//        } else if (view.getId() == R.id.autoAct_eproperty) {
-//            Log.d(Tag, " e");
-//            ed_LouNum.setChecked(false);
-//            ed_MenNum.setChecked(false);
-//            ed_DanyuanNum.setChecked(false);
-//            ClickId = R.id.autoAct_eproperty;
-//            if (mPhotoPopupWindow == null) {
-//                mPhotoPopupWindow = HighCommunityUtils.GetInstantiation()
-//                        .ShowPhotoPopupWindow(getActivity(), mPhoto, mFile);
-//            }
-//            mPhotoPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0,
-//                    HighCommunityApplication.SoftKeyHight);
-//
-//        }
-//    }
-
 
     List<String> mDoorNumList = new ArrayList<String>();
     ECListDialog mDoorChoice;
@@ -484,7 +312,7 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
         if (IsClicked) {
             return;
         }
-        if (mCounter!=null){
+        if (mCounter != null) {
 
             mCounter.cancel();
         }
@@ -522,12 +350,6 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
             HighCommunityUtils.GetInstantiation().ShowToast("手机号不能为空", 0);
             IsClicked = false;
             return;
-//        } else if (!RegexValidateUtil.checkMobileNumber(tel)) {
-//            HighCommunityUtils.GetInstantiation().ShowToast("手机号格式不正确", 0);
-//            IsClicked = false;
-//            return;
-
-
         } else if (TextUtils.isEmpty(idZUri)) {
             HighCommunityUtils.GetInstantiation().ShowToast("身份证正面图片不能为空", 0);
             IsClicked = false;
@@ -545,36 +367,8 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
             IsClicked = false;
             return;
         }
-//       mWaitingWindow = HighCommunityUtils
-//                .GetInstantiation()
-//                .ShowWaittingPopupWindow(getActivity(), mAvatar, Gravity.CENTER);
-
         mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(context, contentView, Gravity.CENTER);
-
-//        mHandler.postDelayed(mRunnable, 20000); // 在Handler中执行子线程并延迟3s。
-//
         HTTPHelper.Auto_Commit(mCommitIbpi, name, village_id, mBuildingID, mUnitID, mDoorId, tel, captcha, idZUri, idFUri, epropertyUri);
-
-//        RequestParams mParamMap = new RequestParams(getBaseParamMap());
-//        mParamMap.put("name", name);
-//        mParamMap.put("village_id", quStr);
-//        mParamMap.put("building_id", louStr);
-//        mParamMap.put("unit_id", UnitStr);
-//        mParamMap.put("door_id", doorStr);
-//        mParamMap.put("tel", tel);
-//        mParamMap.put("captcha", captcha);
-//        try {
-//            mParamMap.put("IDCard", ImageUtil.getImage(idZUri));
-//            mParamMap.put("IDCard_F", ImageUtil.getImage(idFUri));
-//            mParamMap.put("house_certificate", ImageUtil.getImage(epropertyUri));
-//        } catch (FileNotFoundException e) {
-//
-//        }
-////        Toast.makeText(getActivity(),"提交数据："+mParamMap.toString(),Toast.LENGTH_SHORT).show();
-//        Log.d(Tag, "提交数据：" + mParamMap.toString());
-////        Debug.verbose(DongConstants.EDUCATIONHTTPTAG, "URL:" + url
-////                + "   ling params:" + mParamMap.toString());
-
     }
 
     private PopupWindow mWatingWindow;
@@ -592,44 +386,23 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
      **/
 
     private void getVerifyCode() {
-        if (mCounter!=null){mCounter.onFinish();}
+        if (mCounter != null) {
+            mCounter.onFinish();
+        }
         mCounter = new onCounter(60000, 1000);
         mCounter.start();
         HTTPHelper.Auto_Send(mIbpi, ed_TelNum.getText().toString());
         mWindow = HighCommunityUtils.GetInstantiation()
                 .ShowWaittingPopupWindow(getActivity(), ed_TelNum, Gravity.CENTER);
-
-
-//        if (RegexValidateUtil.checkMobileNumber(ed_TelNum.getText()
-//                .toString())) {
-//            mCounter = new onCounter(60000, 1000);
-//            mCounter.start();
-//            HTTPHelper.Auto_Send(mIbpi, ed_TelNum.getText().toString());
-//            mWindow = HighCommunityUtils.GetInstantiation()
-//                    .ShowWaittingPopupWindow(getActivity(), ed_TelNum, Gravity.CENTER);
-//        } else {
-//            HighCommunityUtils.GetInstantiation().ShowToast(
-//                    "请输入正确的电话号码", 0);
-//        }
     }
 
     @OnClick({R.id.autoAct_ed_name, R.id.autoAct_ed_quName, R.id.autoAct_ed_louNum, R.id.autoAct_ed_danyuanNum, R.id.autoAct_ed_menNum, R.id.autoAct_ed_idZ, R.id.autoAct_ed_idF, R.id.autoAct_eproperty, R.id.auto_getviryCode, R.id.autoAct_telNum, R.id.autoAct_putverifyCode, R.id.autoAct_commit})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.autoAct_ed_name:
-//                setFouce(ed_Name);
                 ed_Name.setFocusable(true);
                 ed_Name.requestFocus();
                 ed_Name.setFocusableInTouchMode(true);
-//                if (getActivity().getCurrentFocus() != null && getActivity().getCurrentFocus().getWindowToken() != null) {
-//                    Log.d(Tag,"!=null");
-//                    InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//                    //切换软键盘的显示与隐藏
-//                    manager.toggleSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0, InputMethodManager.HIDE_NOT_ALWAYS);
-////                    manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-//                    Log.d(Tag,"=null ");
-//                }
-
                 ClickId = R.id.autoAct_ed_name;
                 break;
             case R.id.autoAct_ed_quName:
@@ -641,16 +414,10 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
                 break;
             case R.id.autoAct_ed_danyuanNum:
                 setFouce(ed_DanyuanNum);
-
-//                mUnitNumList.clear();
-//                setUnitNum();
                 ClickId = R.id.autoAct_ed_danyuanNum;
                 break;
             case R.id.autoAct_ed_menNum:
                 setFouce(ed_MenNum);
-
-//                mDoorNumList.clear();
-//                setDoorNum();
                 ClickId = R.id.autoAct_ed_menNum;
                 break;
             case R.id.autoAct_ed_idZ:
@@ -686,7 +453,6 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
 
                 break;
             case R.id.auto_getviryCode:
-//                setFouce(img_Eproperty);
                 ClickId = R.id.auto_getviryCode;
                 getVerifyCode();
                 break;
@@ -695,25 +461,12 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
                 ClickId = R.id.autoAct_telNum;
                 break;
             case R.id.autoAct_putverifyCode:
-//                setFouce(ed_PutverifyCode);
-
-
                 ed_PutverifyCode.setFocusable(true);
                 ed_PutverifyCode.requestFocus();
                 ed_PutverifyCode.setFocusableInTouchMode(true);
-//                if (getActivity().getCurrentFocus() != null && getActivity().getCurrentFocus().getWindowToken() != null) {
-//                    Log.d(Tag,"!=null");
-//                    InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//                    //切换软键盘的显示与隐藏
-//                    manager.toggleSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0, InputMethodManager.HIDE_NOT_ALWAYS);
-////                    manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-//                    Log.d(Tag,"=null ");
-//                }
-
                 ClickId = R.id.autoAct_putverifyCode;
                 break;
             case R.id.autoAct_commit:
-//                mCounter.onFinish();
                 ClickId = R.id.autoAct_commit;
 
                 toCommitData();
@@ -731,18 +484,9 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
             manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             Log.d(Tag, "=null ");
         } else {
-//            InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//            manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
 
     }
-//Thread thread1=new Thread(new Runnable() {
-//    @Override
-//    public void run() {
-//        Thread.sleep(1000L);
-//
-//    }
-//});
 
     private Runnable mRunnable = new Runnable() {
         @Override
@@ -790,8 +534,6 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
         @Override
         public void onError(int id, String message) {
             mWatingWindow.dismiss();
-
-            LogUtil.d(Tag + "-------------  initView   onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
@@ -802,26 +544,10 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
                     0);
             getActivity().finish();
 
-//			mLoadingView.loadSuccess();
-//			mLoadingView.setVisibility(View.GONE);
-//			LogUtil.d(Tag+"---~~~initViewonSuccess");
-////						if (null == message) return;
-//			LogUtil.d(Tag+"---~~~ initView   message:"+message);
-//			ThirdServiceBean mBean = (ThirdServiceBean) message;
-//			mAdapter.AddNewData(mBean.getServices());
-//			mGridView.setAdapter(mAdapter);
-//			pagerAdapter.setImageIdList(mBean.getBanners());
-//			HighCommunityUtils.GetInstantiation()
-//			.setThirdServiceGridViewHeight(mGridView, mAdapter, 4);
-//			tatalLayout.setVisibility(View.VISIBLE);
-
         }
 
         @Override
         public Object onResolve(String result) {
-//			Log.e("renk", result);
-//			LogUtil.d(Tag+"---~~~iresult"+result);
-//			return HTTPHelper.ResolveThirdService(result);
             return null;
         }
 
@@ -833,7 +559,6 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
         @Override
         public void cancleAsyncTask() {
             mWatingWindow.dismiss();
-
         }
 
         @Override
@@ -843,7 +568,7 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -897,7 +622,7 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -943,7 +668,7 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -988,7 +713,7 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -1026,10 +751,6 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
             if (mPhotoPopupWindow != null)
                 mPhotoPopupWindow.dismiss();
             handleSelectImageIntent();
-            // Intent intent = new Intent();
-            // intent.setType("image/*");
-            // intent.setAction(Intent.ACTION_GET_CONTENT);
-            // startActivityForResult(intent, requestFile);
         }
     };
 
@@ -1090,14 +811,11 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
                         break;
                     case R.id.autoAct_eproperty:
                         epropertyUri = CommonUtils.resolvePhotoFromIntent(getActivity(), data);
-//                        epropertyUri = mPhotoUri.getPath();
                         ImageLoaderUtil.disPlay("file://" + epropertyUri, img_Eproperty);
                         break;
                 }
             }
         }
-//        else if (requestCode == requestCropImage) {
-//        }
     }
 
     /**
@@ -1115,7 +833,6 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
         intent.putExtra("circleCrop", new String(""));
         mPhotoUri = Uri.fromFile(new File(SaveBitmap.getTheNewUrl()));
         intent.putExtra("output", mPhotoUri);
-//        startActivityForResult(intent, requestCropImage);
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -1145,21 +862,14 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
 
     }
 
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
 
-
-
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-
-
         activityMain.setFocusable(true);
         activityMain.setFocusableInTouchMode(true);
         activityMain.requestFocus();
@@ -1169,8 +879,6 @@ public class AutoCommitDataFrag extends BaseFragment implements View.OnTouchList
                 manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             }
         }
-
-
         return false;
     }
 

@@ -37,13 +37,6 @@ public class NewHuiBuyAdapter extends BaseFragmentAdapter {
     List<SupplyPayGoodsEntity> mList = new ArrayList<SupplyPayGoodsEntity>();
     Context context;
     LayoutInflater inflater;
-
-//    public NewHuiBuyAdapter(NewHuiBuyFrag frag,Context context){
-//        this.frag=frag;
-//        this.context=context;
-//        inflater = LayoutInflater.from(context);
-//    }
-
     public NewHuiBuyAdapter(NewHuiBuyFrag frag, Context context, List<SupplyPayGoodsEntity> mList) {
         this.context = context;
         this.mList = mList;
@@ -84,10 +77,6 @@ public class NewHuiBuyAdapter extends BaseFragmentAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-//        if (((MyNoScrollMeasureListview) parent).isMeasure) {
-//
-//            return convertView;
-//        }
         SupplyPayGoodsEntity mBean = mList.get(position);
         viewHolder.tv_merchant.setText(mBean.getMerchant());
         if (mBean.getTotal_amount() != -1) {
@@ -130,14 +119,6 @@ public class NewHuiBuyAdapter extends BaseFragmentAdapter {
         return layout;
     }
 
-    //
-//    @Override
-//    public void notifyDataSetChanged() {
-//        super.notifyDataSetChanged();
-//        //TODO 这里需要改
-////        frag.orderParams.setGoods(data);
-////        frag.updateOrder();
-//    }
     @Override
     public void AddNewData(Object mObject) {
         if (mObject instanceof List<?>) {

@@ -26,7 +26,6 @@ import cn.hi028.android.highcommunity.activity.fragment.*;
  */
 @EActivity(resName = "act_address")
 public class AddressAct extends BaseFragmentActivity {
-
     public static final String ACTIVITYTAG = "AddressAct";
     public static final String INTENTTAG = "AddressActIntent";
     @ViewById(R.id.tv_secondtitle_name)

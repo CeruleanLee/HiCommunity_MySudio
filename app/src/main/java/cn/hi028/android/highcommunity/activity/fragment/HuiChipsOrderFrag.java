@@ -19,7 +19,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.ListUtils;
-import net.duohuo.dhroid.util.LogUtil;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -46,14 +45,13 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 public class HuiChipsOrderFrag extends BaseFragment {
     public static final String FRAGMENTTAG = "HuiChipsOrderFrag";
     @ViewById(R.id.vPager)
-    ViewPager mPager;// 页卡内容
+    ViewPager mPager;
     @ViewById(R.id.rg_huil_ife)
     RadioGroup rg;//
-    public List<ListView> viewList; // Tab页面列表
-    public List<View> proPressList; // Tab页面列表
-    public List<TextView> noDataList; // Tab页面列表
-
-    private List<HuiChipOrderAdapter> adapterList; // Tab页面列表
+    public List<ListView> viewList;
+    public List<View> proPressList;
+    public List<TextView> noDataList;
+    private List<HuiChipOrderAdapter> adapterList;
 
     @SuppressWarnings("deprecation")
 	@AfterViews
@@ -155,9 +153,7 @@ public class HuiChipsOrderFrag extends BaseFragment {
             if (null == message)
                 return;
             List<ChipsOrderBean> data = (List<ChipsOrderBean>) message;
-            LogUtil.d("~~~众筹订单全部数据："+data.toString());
             adapterList.get(currentPo).setData(data);
-            
         }
 
         @Override

@@ -79,15 +79,12 @@ public class AutoSuperviseAdapter_Inq extends BaseFragmentAdapter {
         }
         final Auto_SuperViseBean2.SuperViseBean2DataEntity.SuperViseDataEntity mBean = mList.get(position);
         mViewHolder.mTitle.setText(mBean.getTitle());
-//        TimeUtil.getDayAllTime(Long.parseLong(mBean.getCreate_time()))
         mViewHolder.mTime.setText(TimeUtil.getYearMonthDay(Long.parseLong(mBean.getTime())));
-//        mViewHolder.mTime.setText(TimeUtil.longToDate(Long.parseLong(mBean.getCreate_time()),"yyyy年MM月dd日 HH时mm分ss秒").toString());
         if (isMessage) {
             // 跳转得到留言详情
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                Toast.makeText(context,"mBean.getId() "+mBean.getId(),Toast.LENGTH_SHORT).show();
                     Log.d("~~~", "留言adapter");
                     Intent mIntent_report = new Intent(context, AutonomousAct_Third.class);
                     mIntent_report.putExtra("title", TAG_MESSAGE_DETAIL);
@@ -100,7 +97,6 @@ public class AutoSuperviseAdapter_Inq extends BaseFragmentAdapter {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                Toast.makeText(context,"mBean.getId() "+mBean.getId(),Toast.LENGTH_SHORT).show();
                     Log.d("~~~", "询问adapter");
                     Intent mIntent_report = new Intent(context, AutonomousAct_Third.class);
                     mIntent_report.putExtra("title", TAG_INQUIRY_DETAIL);
@@ -135,29 +131,6 @@ public class AutoSuperviseAdapter_Inq extends BaseFragmentAdapter {
         notifyDataSetChanged();
     }
 
-//    /**
-//     * 动态刷新数据
-//     *
-//     * @param isReplay
-//     * @param content
-//     */
-//    public void setNewData(boolean isReplay, String content, String id) {
-//        if (isReplay) {
-//            mTempReply.setReply_content(content);
-//            mTempReplies.getReply().add(mTempReply);
-//        } else {
-//            RepliesBean mTempBean = new RepliesBean();
-//            mTempBean.setParentId(id);
-//            mTempBean.setHead_pic(HighCommunityApplication.mUserInfo.getHead_pic());
-//            mTempBean.setId(HighCommunityApplication.mUserInfo.getId() + "");
-//            mTempBean.setNick(HighCommunityApplication.mUserInfo.getNick());
-//            mTempBean.setReply_time(System.currentTimeMillis() / 1000 + "");
-//            mTempBean.setReply_content(content);
-//            mTempBean.setReply(new ArrayList<ReplyBean>());
-//            mList.add(mTempBean);
-//        }
-//        notifyDataSetChanged();
-//    }
 
     @Override
     public void RefreshData(Object mObject) {

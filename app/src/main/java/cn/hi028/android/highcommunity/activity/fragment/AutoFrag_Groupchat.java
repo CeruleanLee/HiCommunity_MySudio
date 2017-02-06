@@ -31,14 +31,12 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 public class AutoFrag_Groupchat extends BaseFragment implements OnClickListener {
     public static final String Tag = "~~~AutonomousMainFrag~~~";
     public static final String FRAGMENTTAG = "AutonomousMainFrag";
-
-    public static final int TAG_NOTIC =0;
-    public static final int TAG_VOTE =1;
-    public static final int TAG_NAMELIST =2;
-    public static final int TAG_MOTION =3;
-    public static final int TAG_SUPERVISE =4;
-    public static final int TAG_GROUPCHAT =5;
-
+    public static final int TAG_NOTIC = 0;
+    public static final int TAG_VOTE = 1;
+    public static final int TAG_NAMELIST = 2;
+    public static final int TAG_MOTION = 3;
+    public static final int TAG_SUPERVISE = 4;
+    public static final int TAG_GROUPCHAT = 5;
 
     @Bind(R.id.autoFrg_notic)
     RelativeLayout auto_Notice;
@@ -61,16 +59,12 @@ public class AutoFrag_Groupchat extends BaseFragment implements OnClickListener 
         ButterKnife.bind(this, view);
         findView(view);
         registerListener();
-
-
         initView();
         return view;
     }
 
 
     private void registerListener() {
-//		payment.setOnClickListener(this);
-//		tenement.setOnClickListener(this);
     }
 
 
@@ -87,8 +81,6 @@ public class AutoFrag_Groupchat extends BaseFragment implements OnClickListener 
     }
 
     private void initDatas() {
-
-//        HTTPHelper.GetThirdService(mIbpi);
     }
 
 
@@ -98,33 +90,15 @@ public class AutoFrag_Groupchat extends BaseFragment implements OnClickListener 
             LogUtil.d(Tag + "---~~~onError");
             LogUtil.d(Tag + "-------------  initView   onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
-//            if (!isNoNetwork) {
-//                mLoadingView.loadFailed();
-//            }
         }
 
         @Override
         public void onSuccess(Object message) {
-//			mLoadingView.loadSuccess();
-//			mLoadingView.setVisibility(View.GONE);
-//			LogUtil.d(Tag+"---~~~initViewonSuccess");
-////						if (null == message) return;
-//			LogUtil.d(Tag+"---~~~ initView   message:"+message);
-//			ThirdServiceBean mBean = (ThirdServiceBean) message;
-//			mAdapter.AddNewData(mBean.getServices());
-//			mGridView.setAdapter(mAdapter);
-//			pagerAdapter.setImageIdList(mBean.getBanners());
-//			HighCommunityUtils.GetInstantiation()
-//			.setThirdServiceGridViewHeight(mGridView, mAdapter, 4);
-//			tatalLayout.setVisibility(View.VISIBLE);
 
         }
 
         @Override
         public Object onResolve(String result) {
-//			Log.e("renk", result);
-//			LogUtil.d(Tag+"---~~~iresult"+result);
-//			return HTTPHelper.ResolveThirdService(result);
             return null;
         }
 
@@ -145,7 +119,7 @@ public class AutoFrag_Groupchat extends BaseFragment implements OnClickListener 
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -167,45 +141,43 @@ public class AutoFrag_Groupchat extends BaseFragment implements OnClickListener 
     }
 
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-Intent mIntent=new Intent(getActivity(), AutonomousAct_Second.class);
+
+    Intent mIntent = new Intent(getActivity(), AutonomousAct_Second.class);
+
     @OnClick({R.id.autoFrg_notic, R.id.autoFrg_vote, R.id.autoFrg_namelist, R.id.autoFrg_motion, R.id.autoFrg_supervise, R.id.autoFrg_groupchat})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.autoFrg_notic:
-                mIntent.putExtra("title",TAG_NOTIC);
+                mIntent.putExtra("title", TAG_NOTIC);
                 startActivity(mIntent);
                 break;
             case R.id.autoFrg_vote:
-                mIntent.putExtra("title",TAG_VOTE);
+                mIntent.putExtra("title", TAG_VOTE);
                 startActivity(mIntent);
                 break;
             case R.id.autoFrg_namelist:
-                mIntent.putExtra("title",TAG_NAMELIST);
+                mIntent.putExtra("title", TAG_NAMELIST);
                 startActivity(mIntent);
                 break;
             case R.id.autoFrg_motion:
-                mIntent.putExtra("title",TAG_MOTION);
+                mIntent.putExtra("title", TAG_MOTION);
                 startActivity(mIntent);
                 break;
             case R.id.autoFrg_supervise:
-                mIntent.putExtra("title",TAG_SUPERVISE);
+                mIntent.putExtra("title", TAG_SUPERVISE);
                 startActivity(mIntent);
                 break;
             case R.id.autoFrg_groupchat:
-                mIntent.putExtra("title",TAG_GROUPCHAT);
+                mIntent.putExtra("title", TAG_GROUPCHAT);
                 startActivity(mIntent);
                 break;
         }
     }
-
-
-
 
 
 }

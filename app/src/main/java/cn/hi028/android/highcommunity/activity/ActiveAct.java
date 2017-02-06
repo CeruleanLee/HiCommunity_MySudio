@@ -31,7 +31,6 @@ import cn.hi028.android.highcommunity.utils.Constacts;
 
 public class ActiveAct extends BaseFragmentActivity {
     public static final String Tag = "ActiveAct->";
-
     public static final String ACTIVITYTAG = "ActiveAct";
     public static final String INTENTTAG = "ActiveActIntent";
     @ViewById(R.id.tv_secondtitle_name)

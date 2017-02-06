@@ -37,7 +37,6 @@ public class TenementBillAdapter extends BaseAdapter {
     TenementBillFrag frag;
     List<BillSimpleBean> data = new ArrayList<BillSimpleBean>();
     int flagTp;
-
     public List<BillSimpleBean> getData() {
         return data;
     }

@@ -56,15 +56,6 @@ public class AutoFrag_CerChecking extends BaseFragment {
         mListView.setEmptyView(mNoData);
         mListView.setAdapter(mAdapter);
         mListView.setPullToRefreshEnabled(false);
-//        mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-//            @Override
-//            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//            }
-//            @Override
-//            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//
-//            }
-//        });
     }
     @Override
     public void onPause() {

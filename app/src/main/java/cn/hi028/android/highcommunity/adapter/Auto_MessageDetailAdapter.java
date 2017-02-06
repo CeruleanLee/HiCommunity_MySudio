@@ -91,7 +91,6 @@ this.isRepresent=isRepresent;
             convertView = layoutInflater.inflate(R.layout.item_messagedetail_replay, null);
             mViewHolder.mAvatar = (CircleImageView) convertView.findViewById(R.id.item_reportdetail_Image);
             mViewHolder.mName = (TextView) convertView.findViewById(R.id.item_reportdetail_Name);
-//            mViewHolder.mTime = (TextView) convertView.findViewById(R.id.item_reportdetail_time);
             mViewHolder.mContent = (TextView) convertView.findViewById(R.id.item_reportdetail_Content);
             mViewHolder.mReplyLayout = (LinearLayout) convertView.findViewById(R.id.item_reportdetail_reply);
             convertView.setTag(mViewHolder);
@@ -109,15 +108,12 @@ this.isRepresent=isRepresent;
 
             mViewHolder.mName.setText(mBean.getFrom_name() + "：");
         }
-//        mViewHolder.mTime.setText(TimeUtil.getDescriptionTimeFromTimestamp(Long.parseLong(mBean.getReply_time() + "")));
         mViewHolder.mContent.setText(mBean.getContent());
         if (mBean.getSub_reply().size() > 0) {
             mViewHolder.mReplyLayout.setVisibility(View.VISIBLE);
             LinearLayout.LayoutParams mparams = new LinearLayout
                     .LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             int padding = HighCommunityUtils.GetInstantiation().dip2px(8);
-
-
             mViewHolder.mReplyLayout.removeAllViews();
             for (int i = 0; i < mBean.getSub_reply().size(); i++) {
                 TextView mText = new TextView(mContext);
@@ -143,8 +139,6 @@ this.isRepresent=isRepresent;
                 final String To_name = mBean.getSub_reply().get(i).getTo_name();
                 final String To_id = mBean.getSub_reply().get(i).getTo_id() + "";//主评论人id
                 final String From_id = mBean.getSub_reply().get(i).getFrom_id() + "";//小评论里的评论人id
-                Log.d(Tag, "~~~From_name:" + From_name + ",To_name" + To_name + ",From_id" + From_id + ",To_id" + To_id);
-
                 mSpan.setSpan(new ClickableSpan() {
                     @Override
                     public void updateDrawState(TextPaint ds) {
@@ -152,17 +146,13 @@ this.isRepresent=isRepresent;
                         ds.setColor(mContext.getResources().getColor(R.color.Defult_Color_AppGreen));
                         ds.setUnderlineText(false);
                     }
-
                     @Override
                     public void onClick(View view) {
                         if (!isRepresent){
-
-                            Log.d(Tag, "点击了：" + From_name + ",hostId" + From_id + ",mBean.getId()评论id " + mBean.getId());
                             mFrag.setText("回复:" + From_name, From_id, mBean.getId() + "", true);
                             mTempReplies = mBean;
                             avoidHintColor(view);
                             mTempReply = new Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity.InquiryDetailSubReplyEntity();
-//                        mTempReply.setGid(hostId);
                             mTempReply.setFrom_id(HighCommunityApplication.mUserInfo.getId());
                             mTempReply.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
                             mTempReply.setTo_name(From_name);
@@ -181,14 +171,10 @@ this.isRepresent=isRepresent;
                     @Override
                     public void onClick(View view) {
                         if (!isRepresent){
-
                             avoidHintColor(view);
-                            Log.d(Tag, "点击了：" + To_name + ",To_id" + To_id + ",mBean.getId()评论id " + mBean.getId());
-
                             mFrag.setText("回复:" + To_name, To_id, mBean.getId() + "", true);
                             mTempReplies = mBean;
                             mTempReply = new Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity.InquiryDetailSubReplyEntity();
-//                     mTempReply.setGid(hostId);
                             mTempReply.setFrom_id(HighCommunityApplication.mUserInfo.getId());
                             mTempReply.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
                             mTempReply.setTo_name(To_name);
@@ -207,16 +193,10 @@ this.isRepresent=isRepresent;
         mViewHolder.mName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(mContext, "点击了主评论name ", Toast.LENGTH_SHORT).show();
                 if (!isRepresent){
-
-                    Log.d(Tag, "主评论id： " + mBean.getId() + "");
-                    //对监督主评论的回复   parentid=主评论id
                     mTempReplies = mBean;
                     mFrag.setText("回复:" + mBean.getFrom_name(), mBean.getFrom_id() + "", mBean.getId() + "", true);
                     mTempReply = new Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity.InquiryDetailSubReplyEntity();
-//                mTempReply.set(mBean.getId());
-
                     mTempReply.setFrom_id(HighCommunityApplication.mUserInfo.getId());
                     mTempReply.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
                     mTempReply.setTo_name(mBean.getFrom_name());
@@ -244,7 +224,6 @@ this.isRepresent=isRepresent;
             mTempBean.setPic(HighCommunityApplication.mUserInfo.getHead_pic());
             mTempBean.setFrom_id(HighCommunityApplication.mUserInfo.getId());
             mTempBean.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
-//            mTempBean.setReply_time(System.currentTimeMillis() / 1000);
             mTempBean.setContent(content);
             mTempBean.setSub_reply(new ArrayList<Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity.InquiryDetailSubReplyEntity>());
             mList.add(mTempBean);
@@ -271,6 +250,4 @@ this.isRepresent=isRepresent;
         if (view instanceof TextView)
             ((TextView) view).setHighlightColor(mFrag.getActivity().getResources().getColor(R.color.defult_color_transparent));
     }
-
-
 }

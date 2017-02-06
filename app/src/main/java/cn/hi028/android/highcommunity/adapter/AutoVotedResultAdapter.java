@@ -30,13 +30,10 @@ import cn.hi028.android.highcommunity.utils.Constacts;
  */
 public class AutoVotedResultAdapter extends BaseFragmentAdapter {
     static final String Tag="AutoVotedResultAdapter";
-
     public AddressListFrag mFrag;
     List<Auto_VoteResultBean.VoteResultDataEntity.VoteResultOptionsEntity> mList = new ArrayList<Auto_VoteResultBean.VoteResultDataEntity.VoteResultOptionsEntity>();
-
     private Context context;
     private LayoutInflater layoutInflater;
-
     public AutoVotedResultAdapter(List<Auto_VoteResultBean.VoteResultDataEntity.VoteResultOptionsEntity> list, Context context) {
         super();
         this.mList = list;
@@ -89,7 +86,6 @@ mViewHolder.mProgress= (ProgressBar) convertView.findViewById(R.id.item_votedRes
 
             }
         }
-//        BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getPic(), mViewHolder.mAvatar);
         mViewHolder.mName.setText(mBean.getOption());
         mViewHolder.mPercent.setText(mBean.getVote_percent());
         String percentStr=mBean.getVote_percent().replace("%","");
@@ -113,11 +109,9 @@ mViewHolder.mProgress= (ProgressBar) convertView.findViewById(R.id.item_votedRes
         notifyDataSetChanged();
         super.AddNewData(mObject);
     }
-
     public void ClearData() {
         mList.clear();
         notifyDataSetChanged();
     }
-
 
 }

@@ -126,24 +126,17 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
         mSLocListAdapter = new ShowLocListAdapter(mSimplePOiList, this);
         mPoiListView.setAdapter(mSLocListAdapter);
 //关键字搜索相关
-//        mSearchResultListView.setMode(PullToRefreshBase.Mode.BOTH);
-//        mSearchResultListView.onRefreshComplete();
         mSearchResultListView.setVisibility(View.GONE);
         mSearchResultListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-
-
                 Log.e(Tag, "刷新  top");
-
-
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                Log.e(Tag, "刷新  bottom loadIndex:"+loadIndex);
-                Log.e(Tag, "刷新 loadIndex: "+loadIndex);
-
+                Log.e(Tag, "刷新  bottom loadIndex:" + loadIndex);
+                Log.e(Tag, "刷新 loadIndex: " + loadIndex);
                 searchType = 1;
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (imm != null) {
@@ -156,18 +149,15 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
                 mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(ShowLocationListAct.this, mSearchBut, Gravity.CENTER);
                 mPoiSearch.searchInCity((new PoiCitySearchOption()).city(citystr).keyword(keystr).pageNum(loadIndex));
                 loadIndex++;
-                Log.e(Tag, "刷新 loadIndex2   ~~~: "+loadIndex);
+                Log.e(Tag, "刷新 loadIndex2   ~~~: " + loadIndex);
 
             }
         });
         dingwei();
-//        BDLocation location = getIntent().getParcelableExtra("BDLocation");
-
         mPoiListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e(Tag, "点击" + position + "name:" + mSimplePOiList.get(position).getName());
-//                mAddressListener.onAddressChange(list.get(position).getName());
                 Intent mIntent = new Intent();
                 mIntent.putExtra("address", mSimplePOiList.get(position).getName());
                 setResult(8, mIntent);
@@ -175,7 +165,6 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
 
             }
         });
-//        setUiForListView2();
         //搜索
         Log.e(Tag, "初始化搜索");
         sugAdapter = new ArrayAdapter<String>(this, R.layout.item_justoneline_string);
@@ -199,13 +188,11 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
             @Override
             public void afterTextChanged(Editable arg0) {
                 Log.e(Tag, "动态更新建议列表 afterTextChanged ");
-
             }
 
             @Override
             public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
                 Log.e(Tag, "动态更新建议列表 beforeTextChanged ");
-
             }
 
             @Override
@@ -235,20 +222,13 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
                                 .keyword(cs.toString()).city("成都"));
             }
         });
-
         mSearchResultListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-//                // TODO Auto-generated method stub
-//                checkPosition = position;
-//                adapter.setCheckposition(position);
-//                adapter.notifyDataSetChanged();
-//                PoiInfo ad = (PoiInfo) adapter.getItem(position);
-                Log.e(Tag, "点击name:" + position+",,,"+searchResultPoiList.get(position-1).name.toString());
-//              mAddressListener.onAddressChange(searchResultPoiList.get(position).name.toString());
+                Log.e(Tag, "点击name:" + position + ",,," + searchResultPoiList.get(position - 1).name.toString());
                 Intent mIntent = new Intent();
-                mIntent.putExtra("address", searchResultPoiList.get(position-1).name.toString());
+                mIntent.putExtra("address", searchResultPoiList.get(position - 1).name.toString());
                 setResult(8, mIntent);
                 ShowLocationListAct.this.finish();
 
@@ -260,8 +240,8 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
             @Override
             public void onClick(View v) {
                 searchType = 1;
-                loadIndex=1;
-                Log.e(Tag, "城市内搜索 点击 loadIndex: "+loadIndex);
+                loadIndex = 1;
+                Log.e(Tag, "城市内搜索 点击 loadIndex: " + loadIndex);
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (imm != null) {
                     imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),
@@ -430,7 +410,7 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
         mWatingWindow.dismiss();
         if (result == null || result.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {// 没有找到检索结果
             Log.e(Tag, "没有找到检索结果  ");
-            if (mSearchResultListView!=null){
+            if (mSearchResultListView != null) {
                 mSearchResultListView.onRefreshComplete();
             }
             Toast.makeText(ShowLocationListAct.this, "未找到结果", Toast.LENGTH_LONG).show();
@@ -447,20 +427,12 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
                 case 1:
                     searchForText(result);
                     break;
-//                case 2:
-//                    searchForNearby(result);
-//                    break;
-
             }
-
             return;
-
-
         }
 
         if (result.error == SearchResult.ERRORNO.AMBIGUOUS_KEYWORD) {
             Log.e(Tag, "接受周边地理位置结果 error  当输入关键字在本市没有找到");
-
             // 当输入关键字在本市没有找到，但在其他城市找到时，返回包含该关键字信息的城市列表
             String strInfo = "在";
             for (CityInfo cityInfo : result.getSuggestCityList()) {
@@ -468,7 +440,6 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
                 strInfo += ",";
             }
             strInfo += "找到结果";
-//            Toast.makeText(this, strInfo, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -485,7 +456,6 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
             mSearchResultListView.setVisibility(View.VISIBLE);
             if (result.getAllPoi() != null && result.getAllPoi().size() > 0) {
                 //添加StringBuffer 遍历当前页返回的POI (默认只返回10个)
-
                 sb2.append("共搜索到").append(result.getAllPoi().size()).append("个POI\n");
                 for (PoiInfo poiInfo : result.getAllPoi()) {
                     sb2.append("名称：").append(poiInfo.name).append("\n");
@@ -496,56 +466,38 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
                 if (loadIndex == 1) {
                     searchResultPoiList.clear();
                 }
-                searchResultPoiList.addAll((List<PoiInfo>)(result.getAllPoi()));
+                searchResultPoiList.addAll((List<PoiInfo>) (result.getAllPoi()));
                 if (searchResultPoiList != null) {
-                    Log.e(Tag, "搜索到的POI信息!= null  loadIndex:"+loadIndex);
-
+                    Log.e(Tag, "搜索到的POI信息!= null  loadIndex:" + loadIndex);
                     Log.e(Tag, "搜索到的POI信息:填充数据");
-
-//                    mPoiListView.setVisibility(View.GONE);
-//                    mSearchResultListView.setVisibility(View.VISIBLE);
                     if (loadIndex == 1) {
                         Log.e(Tag, "搜索到的POI信息:填充数据  loadIndex == 0");
                         mSearchAdapter = new ShowSearchListAdapter(searchResultPoiList, this);
                         mSearchResultListView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
-//                        mSearchAdapter.AddNewData(searchResultPoiList);
-
-                        Log.e(Tag, "填充数据  长度："+searchResultPoiList.size());
+                        Log.e(Tag, "填充数据  长度：" + searchResultPoiList.size());
                         mSearchResultListView.setAdapter(mSearchAdapter);
                         mSearchResultListView.onRefreshComplete();
-//                        mSearchAdapter.ClearData();
                     } else {
                         Log.e(Tag, "搜索到的POI信息:填充数据  loadIndex " + loadIndex);
-                        Log.e(Tag, "叠加 填充数据  长度："+searchResultPoiList.size());
-
-//                        mSearchAdapter.AddNewData(result.getAllPoi());
+                        Log.e(Tag, "叠加 填充数据  长度：" + searchResultPoiList.size());
                         mSearchAdapter.setData(searchResultPoiList);
                         mSearchResultListView.onRefreshComplete();
                     }
-
                 }
-
-
             }
         }
         Log.e(Tag, "接受周边地理位置结果 sb " + sb2);
-
     }
-
 
     @Override
     public void onGetPoiDetailResult(PoiDetailResult result) {
         Log.e(Tag, "接受周边地理详情结果 onGetPoiDetailResult");
-
-
     }
 
     @Override
     public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
         Toast.makeText(ShowLocationListAct.this, "onGetPoiIndoorResult", Toast.LENGTH_LONG).show();
-
     }
-
 
     /**
      * 获取在线建议搜索结果，得到requestSuggestion返回的搜索结果
@@ -576,26 +528,20 @@ public class ShowLocationListAct extends BaseFragmentActivity implements
         if (mLocationClient != null) {
             mLocationClient.stop();
         }
-
         mPoiSearch.destroy();
         mSuggestionSearch.destroy();
         super.onDestroy();
         // 在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // 在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        // 在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
-
     }
 
     @OnClick(R.id.auto_sec_img_back)

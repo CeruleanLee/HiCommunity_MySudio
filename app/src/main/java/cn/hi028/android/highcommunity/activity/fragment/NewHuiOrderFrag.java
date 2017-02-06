@@ -44,21 +44,20 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  */
 @EFragment(resName = "frag_huilife_order_vp")
 public class NewHuiOrderFrag extends BaseFragment {
-	
+
     public static final String FRAGMENTTAG = "NewHuiOrderFrag";
     public static final String Tag = "NewHuiOrderFrag：";
     @ViewById(R.id.vPager)
-    ViewPager mPager;// 页卡内容
+    ViewPager mPager;
     @ViewById(R.id.rg_huil_ife)
-    RadioGroup rg;//
-    public List<ExpandableListView> viewList; // Tab页面列表
-    public List<View> proPressList; // Tab页面列表
-    public List<TextView> noDataList; // Tab页面列表
-    private List<NewHuiOrderListAdapter> adapterList; // Tab页面列表
+    RadioGroup rg;
+    public List<ExpandableListView> viewList;
+    public List<View> proPressList;
+    public List<TextView> noDataList;
+    private List<NewHuiOrderListAdapter> adapterList;
 
     @AfterViews
     void initView() {
-    	Log.e(Tag,"------HuiOrderFrag.oncreat");
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -100,7 +99,7 @@ public class NewHuiOrderFrag extends BaseFragment {
                 if (!((RadioButton) rg.getChildAt(i)).isChecked()) {
                     ((RadioButton) rg.getChildAt(i)).setChecked(true);
                 }
-                    upateRefresh(i);
+                upateRefresh(i);
             }
 
             @Override
@@ -113,21 +112,16 @@ public class NewHuiOrderFrag extends BaseFragment {
     }
 
     public void upateRefresh(int i) {
-    	Log.e(Tag,"------进入upateRefresh");
+        Log.e(Tag, "------进入upateRefresh");
 //status   当不传时表示全部订单,0=>待付款,1=>待收货,2=>待评价
-
         if (i == 0) {
-//            HTTPHelper.GetHuiOrder(mIbpi, "order/all-order.html", HighCommunityApplication.mUserInfo.getId() + "");
-            HTTPHelper.GetHuiOrder2(mIbpi,i-1+"");
+            HTTPHelper.GetHuiOrder2(mIbpi, i - 1 + "");
         } else if (i == 1) {
-            HTTPHelper.GetHuiOrder2(mIbpi,i-1+"");
-//            HTTPHelper.GetHuiOrder(mIbpi, "order/non-payment.html", HighCommunityApplication.mUserInfo.getId() + "");
+            HTTPHelper.GetHuiOrder2(mIbpi, i - 1 + "");
         } else if (i == 2) {
-            HTTPHelper.GetHuiOrder2(mIbpi,i-1+"");
-//            HTTPHelper.GetHuiOrder(mIbpi, "order/wait-send.html", HighCommunityApplication.mUserInfo.getId() + "");
+            HTTPHelper.GetHuiOrder2(mIbpi, i - 1 + "");
         } else if (i == 3) {
-            HTTPHelper.GetHuiOrder2(mIbpi,i-1+"");
-//            HTTPHelper.GetHuiOrder(mIbpi, "order/success.html", HighCommunityApplication.mUserInfo.getId() + "");
+            HTTPHelper.GetHuiOrder2(mIbpi, i - 1 + "");
         }
     }
 
@@ -200,7 +194,7 @@ public class NewHuiOrderFrag extends BaseFragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -211,14 +205,12 @@ public class NewHuiOrderFrag extends BaseFragment {
     public void onResume() {
         super.onResume();
         if (currentPo == mPager.getCurrentItem()) {
-        	  Log.e(Tag,"------进入currentPo"+currentPo);
             upateRefresh(currentPo);
         }
         mPager.setCurrentItem(currentPo);
     }
+
     public boolean onKeyDown() {
-//        if (mAdapter != null)
-//            return mAdapter.onBackPress();
         return true;
     }
 }

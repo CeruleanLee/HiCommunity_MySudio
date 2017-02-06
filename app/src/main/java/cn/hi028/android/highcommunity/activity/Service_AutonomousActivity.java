@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
 
-import net.duohuo.dhroid.util.LogUtil;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.hi028.android.highcommunity.HighCommunityApplication;
@@ -29,7 +27,7 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @时间：2016/10/9<br>
  */
 public class Service_AutonomousActivity extends BaseFragmentActivity {
-    String Tag = "~~~1   Service_AutonomousActivity";
+    String Tag = "Service_AutonomousActivity";
     public static final String ACTIVITYTAG = "AutonomousActivity";
     public static final String INTENTTAG = "AutonomousActivityIntent";
     @Bind(R.id.autoAct_img_back)
@@ -55,10 +53,6 @@ public class Service_AutonomousActivity extends BaseFragmentActivity {
 //        initDatas();
         initViews();
     }
-    private void initDatas() {
-        LogUtil.d(Tag + "initDatas");
-//        HTTPHelper.InitAutoAct(mIbpi);
-    }
     int mStatus;
     public Auto_InitBean.Auto_Init_DataEntity mData;
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
@@ -83,18 +77,6 @@ public class Service_AutonomousActivity extends BaseFragmentActivity {
             }else{
                 isCommitData=false;
             }
-//            if (mData.getStatus() == 0 || mData.getStatus() == -1) {
-//                //审核中 审核失败
-//                dataChecking();
-//            } else if (mData.getStatus() == 2) {
-//
-//                //进入提交资料页
-//                toCommitData();
-//
-//            } else if (mData.getStatus() == 1) {
-//                //进入frag
-//                toAutoFrag();
-//            }
         }
         @Override
         public Object onResolve(String result) {

@@ -149,7 +149,6 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
         option.setAddrType("all");//返回的定位结果包含地址信息
         option.setPriority(LocationClientOption.NetWorkFirst);  //设置定位优先级
         option.setProdName("LocationDemo"); //设置产品线名称。强烈建议您使用自定义的产品线名称，方便我们以后为您提供更高效准确的定位服务。
-//        option.setScanSpan(5000);    //设置定时定位的时间间隔。单位毫秒
         option.disableCache(false);//禁止启用缓存定位
         option.setIsNeedLocationPoiList(true);
         option.setIsNeedAddress(true);// 返回的定位结果包含地址信息
@@ -157,10 +156,6 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
         mLocationClient.registerLocationListener(new BDLocationListener() {
             @Override
             public void onReceiveLocation(BDLocation location) {
-                //Receive Location
-//                mWindow.dismiss();
-//                if (mWindow.isShowing()){
-//                }
                 StringBuffer sb = new StringBuffer(256);
                 sb.append("time : ");
                 sb.append(location.getTime());
@@ -221,10 +216,8 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
                     }
                 }
                 Log.i("BaiduLocationApiDem", sb.toString());
-//                Toast.makeText(LabelAct.this,"定位信息："+location.getCity()+" "+location.getDistrict()+" "+location.getStreet()+" "+location.getAddress(),Toast.LENGTH_SHORT).show();
                 Log.i("BaiduLocationApiDem", "定位信息：" + location.getCity() + " " + location.getDistrict() + " " + location.getStreet() + " " + location.getAddress());
                 Log.i("BaiduLocationApiDem", "定位完成 setui");
-                //set 地址信息
                 if (allDetailAdress != null && !isLocationClicked) {
                     if (allDetailAdress.contains("省")) {
                         String[] split = allDetailAdress.split("省");
@@ -247,12 +240,10 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
         });//注册监听函数
         Log.e(TAG, "定位3");
         mLocationClient.start();
-        //定位点击
         mLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isLocationClicked = true;
-//                mWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(LabelAct.this, mLocation, Gravity.CENTER);
                 int requestLocation = -1;
                 if (mLocationClient.isStarted()) {
                     Log.e(TAG, "isStarted--->");
@@ -466,7 +457,6 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
             if (null == message)
                 return;
             Constacts.mUserCenter = (UserCenterBean) message;
-//            mLocation.setText(Constacts.mUserCenter.getUserInfo().getVillage());
         }
 
         @Override
@@ -498,12 +488,10 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
         }
     };
 
-    //    @Click(R.id.iv_label_back)
     void back() {
         this.finish();
     }
 
-    //    @Click(R.id.tv_label_RightnMenu)
     void publish() {
         if (clicked) {
             return;
@@ -530,8 +518,6 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
             return;
         }
         mWaitingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(this, mGridView, Gravity.CENTER);
-//        HTTPHelper.PostingMsg(mIbpi, mLabelId, content, HighCommunityApplication.mUserInfo.getId() + "",
-//                HighCommunityApplication.mUserInfo.getV_id() + "", mImages, mGid, HighCommunityApplication.mUserInfo.getToken());
         HTTPHelper.PostingMsg2(mIbpi, mLabelId, content, HighCommunityApplication.mUserInfo.getId() + "",
                 mImages, mGid, HighCommunityApplication.mUserInfo.getToken(),mLocation.getText().toString());
     }
@@ -662,19 +648,10 @@ public class LabelAct extends BaseFragmentActivity implements ShowLocationListAc
                 return;
             CommunityFrag.isNeedRefresh = true;
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
-//
             Intent goMainIntent = new Intent(LabelAct.this, MainActivity.class);
             goMainIntent.putExtra("communityFlag", 0x222);
             startActivity(goMainIntent);
             LabelAct.this.finish();
-
-//            if (type == 0) {
-//                Intent goMainIntent = new Intent(LabelAct.this, MainActivity.class);
-//                goMainIntent.putExtra("communityFlag", 0x22);
-//                startActivity(goMainIntent);
-//            } else {
-//                LabelAct.this.finish();
-//            }
         }
 
         @Override

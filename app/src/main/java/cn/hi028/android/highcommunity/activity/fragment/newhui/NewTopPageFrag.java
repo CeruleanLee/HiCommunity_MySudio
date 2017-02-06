@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -46,11 +45,7 @@ import cn.hi028.android.highcommunity.utils.TimeUtil;
 public class NewTopPageFrag extends BaseFragment implements View.OnClickListener {
     public static final String Tag = "NewTopPageFrag--->";
     public static final String FRAGMENTTAG = "NewTopPageFrag";
-    public static  boolean isFistRequest = true;
-    public static  boolean isFistRequestHttp = true;
     View view;
-
-    private PopupWindow mWatingWindow;
     private StandardChangeListener mStandardChangeListener;
 
     @Override
@@ -58,6 +53,7 @@ public class NewTopPageFrag extends BaseFragment implements View.OnClickListener
         super.onAttach(activity);
         mStandardChangeListener = (StandardChangeListener) activity;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(Tag, "onCreateView");
@@ -66,24 +62,23 @@ public class NewTopPageFrag extends BaseFragment implements View.OnClickListener
         initView();
         return view;
     }
+
     NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity goodsdata;
+
     private void initView() {
-
         Log.e(Tag, "initView");
-findView(view);
-        Bundle bundle = getArguments();//从activity传过来的Bundle
+        findView(view);
+        Bundle bundle = getArguments();
         if (bundle != null) {
-
             goodsdata = bundle.getParcelable("goodsdata");
             setUi(goodsdata);
-
             Log.e(Tag, "传过来的对象：" + goodsdata.toString());
         } else {
-
             Log.e(Tag, "传过来的对象：null");
         }
         call.setOnClickListener(this);
     }
+
     AutoScrollViewPager mViewPager;
     CirclePageIndicator mIndicator;
     RelativeLayout mCommonTitleLayout;
@@ -98,10 +93,9 @@ findView(view);
     TextView mFlashKucun;
     TextView mFlashprogressTV;
     ProgressBar mFlashProgressBar;
-    TextView mHishequTV;
     TextView name, price;
     ImageView headimg;
-    TextView subimg, addimg, kucun, conttv, detail, goodname, guige, origin;
+    TextView subimg, addimg, kucun, conttv, detail;
     /**
      * 更多商品参数  动态添加
      **/
@@ -117,11 +111,9 @@ findView(view);
     TextView caramount, mAllprice, telephone, time;
     View viewline1, viewline2, viewline3;
     ImageButton call;
-    private TextView edible, scrollText;
-    TextView guige_, origin_, edible_;
-    PopupWindow mWaittingPop;
-    private void findView(View view) {
+    private TextView scrollText;
 
+    private void findView(View view) {
         mViewPager = (AutoScrollViewPager) view.findViewById(R.id.view_pager);
         mIndicator = (CirclePageIndicator) view.findViewById(R.id.view_cpi);
         mCommonTitleLayout = (RelativeLayout) view.findViewById(R.id.goodsDetail_commonLayout);
@@ -156,19 +148,10 @@ findView(view);
         viewline2 = view.findViewById(R.id.view12);
         viewline3 = view.findViewById(R.id.view13);
         scrollText = (TextView) view.findViewById(R.id.scroll_Text);
-
-//暂时无用的---
-        goodname = (TextView) view.findViewById(R.id.shop_detail_ac_goods_name);
-        guige = (TextView) view.findViewById(R.id.ac_shop_detail_speci_tv);
-        origin = (TextView) view.findViewById(R.id.ac_shop_origin_tv);
-
-        guige_ = (TextView) view.findViewById(R.id.ac_shop_good_speci);
-        origin_ = (TextView) view.findViewById(R.id.ac_shop_origin);
-        edible_ = (TextView) view.findViewById(R.id.ac_shop_edible);
-        edible = (TextView) view.findViewById(R.id.ac_shop_edible_tv);
-
     }
+
     float singlePrice = 0;
+
     /**
      * 展示数据
      *
@@ -178,17 +161,7 @@ findView(view);
         if (msg == null) {
             return;
         }
-//        if (getActivity().hasWindowFocus()&&mViewPager!=null){
-//
-//            mWaittingPop= HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), mViewPager, Gravity.CENTER);
-//        }
         goodsdata = msg;
-
-//        if (msg.getMid().equals("0")) {//商品所属商家(0=>来自嗨社区)
-//            mHishequTV.setVisibility(View.GONE);
-//        } else {
-//            mHishequTV.setVisibility(View.GONE);
-//        }
         if (msg.getType().equals("0")) {//商品类型(0=>普通商品,1=>抢购商品,2=>非卖品,比如服务什么的)
             mCommonTitleLayout.setVisibility(View.VISIBLE);
             mFlashTitleLayout.setVisibility(View.GONE);
@@ -198,12 +171,12 @@ findView(view);
             if (null != msg.getStandard().get(0).getPrice())
                 price.setText("￥:" + msg.getStandard().get(0).getPrice());
             singlePrice = Float.parseFloat(msg.getStandard().get(0).getPrice());
-            standardId=msg.getStandard().get(0).getId();
-            mStandardChangeListener.onStandardChange(false,singlePrice,standardId);
+            standardId = msg.getStandard().get(0).getId();
+            mStandardChangeListener.onStandardChange(false, singlePrice, standardId);
             if (null != msg.getStandard().get(0).getOld_price() && !msg.getStandard().get(0).getOld_price().equals("")
                     && !msg.getStandard().get(0).getOld_price().equals("null")) {
                 Spannable spanStrikethrough = new SpannableString("￥:" + msg.getStandard().get(0).getOld_price());
-                StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
+                StrikethroughSpan stSpan = new StrikethroughSpan();
                 try {
                     spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
@@ -225,20 +198,17 @@ findView(view);
             if (null != msg.getStandard().get(0).getPrice())
                 mFlashNowPrice.setText("￥:" + msg.getStandard().get(0).getPrice());
             singlePrice = Float.parseFloat(msg.getStandard().get(0).getPrice());
-            standardId=msg.getStandard().get(0).getId();
-            mStandardChangeListener.onStandardChange(false,singlePrice,standardId);
+            standardId = msg.getStandard().get(0).getId();
+            mStandardChangeListener.onStandardChange(false, singlePrice, standardId);
 
             if (null != msg.getStandard().get(0).getOld_price() && !msg.getStandard().get(0).getOld_price().equals("")
                     && !msg.getStandard().get(0).getOld_price().equals("null")) {
                 Spannable spanStrikethrough = new SpannableString("￥:" + msg.getStandard().get(0).getOld_price());
-                StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
+                StrikethroughSpan stSpan = new StrikethroughSpan();
                 try {
                     spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-
                 } catch (Exception ex) {
-
                 }
-
                 mFlashOldPrice.setText(spanStrikethrough);
             } else {
                 mFlashOldPrice.setVisibility(View.GONE);
@@ -252,7 +222,6 @@ findView(view);
                 }
                 mFlashprogressTV.setText(msg.getPercent());
             }
-
             //set倒计时
             if (null != msg.getRemainTime()) {
                 mCounter = new onCounter(Long.parseLong(msg.getRemainTime()) * 1000 - System.currentTimeMillis(), 1000);
@@ -301,10 +270,6 @@ findView(view);
                 TextView mAttr_val = (TextView) inflateView.findViewById(R.id.ac_shop_origin_tv);
                 mAttr_name.setText(attrEntityList.get(i).getAttr_name());
                 mAttr_val.setText(attrEntityList.get(i).getAttr_val());
-
-                //TODO 加虚线
-
-
                 moreDetailGroup.addView(inflateView);
             }
         }
@@ -312,25 +277,17 @@ findView(view);
         if (msg.getStandard() != null) {
             LayoutInflater layoutInflater;
             layoutInflater = LayoutInflater.from(getActivity());
-
             mStandardList = msg.getStandard();
             Log.e(Tag, "排序前list：" + mStandardList.toString());
-
             Collections.sort(mStandardList);
             Log.e(Tag, "排序后list：" + mStandardList.toString());
-
-
             Log.e(Tag, "规格长度：" + mStandardList.size());
-
             for (int i = 0; i < mStandardList.size(); i++) {
-                Log.e(Tag, "new一个规格");
                 RadioButton newRadioBut = (RadioButton) layoutInflater.inflate(R.layout.radiobut_standard, null);
                 newRadioBut.setId(Integer.parseInt(mStandardList.get(i).getId()));
-//                newRadioBut.setWidth(0);
                 RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT,
                         RadioGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(20, 0, 0, 0);
-//                newRadioBut.setBackground(getDrawable(R.drawable.bg_selector_but_coner_green_stroke));
                 newRadioBut.setBackgroundResource(R.drawable.bg_selector_but_coner_green_stroke);
                 newRadioBut.setLayoutParams(layoutParams);
                 newRadioBut.setText(mStandardList.get(i).getName());
@@ -340,7 +297,6 @@ findView(view);
 
             mStandardLayout.setVisibility(View.GONE);
         }
-
         //电话
         if (null != msg.getTel()) {
             telephone.setText(msg.getTel());
@@ -361,17 +317,15 @@ findView(view);
                     if (checkedId == Integer.parseInt(mStandardList.get(i).getId())) {
                         standardId = mStandardList.get(i).getId();
                         Log.e(Tag, "规格id:" + standardId);
-                        if (goodsdata.getType().equals("0")) {//商品类型(0=>普通商品,1=>抢购商品,2=>非卖品,比如服务什么的)
+                        if (goodsdata.getType().equals("0")) {
                             if (mStandardList.get(i).getPrice() != null)
                                 price.setText("￥:" + mStandardList.get(i).getPrice());
                             singlePrice = Float.parseFloat(mStandardList.get(i).getPrice());
-//TODO
-                            mStandardChangeListener.onStandardChange(false, singlePrice,standardId);
-//                            updateCarNum(false, singlePrice);
+                            mStandardChangeListener.onStandardChange(false, singlePrice, standardId);
                             if (null != mStandardList.get(i).getOld_price() && !mStandardList.get(i).getOld_price().equals("")
                                     && !mStandardList.get(i).getOld_price().equals("null")) {
                                 Spannable spanStrikethrough = new SpannableString("￥:" + mStandardList.get(i).getOld_price());
-                                StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
+                                StrikethroughSpan stSpan = new StrikethroughSpan();
                                 try {
                                     spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
@@ -389,16 +343,11 @@ findView(view);
                             if (null != mStandardList.get(i).getPrice())
                                 mFlashNowPrice.setText("￥:" + mStandardList.get(i).getPrice());
                             singlePrice = Float.parseFloat(mStandardList.get(i).getPrice());
-//TODO
-                            mStandardChangeListener.onStandardChange(false, singlePrice,standardId);
-
-//                            updateCarNum(false, singlePrice);
-
-
+                            mStandardChangeListener.onStandardChange(false, singlePrice, standardId);
                             if (null != mStandardList.get(i).getOld_price() && !mStandardList.get(i).getOld_price().equals("")
                                     && !mStandardList.get(i).getOld_price().equals("null")) {
                                 Spannable spanStrikethrough = new SpannableString("￥:" + mStandardList.get(i).getOld_price());
-                                StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
+                                StrikethroughSpan stSpan = new StrikethroughSpan();
                                 try {
                                     spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
@@ -421,11 +370,8 @@ findView(view);
         if (mStandardRadiogroup.getChildCount() > 0) {
             ((RadioButton) (mStandardRadiogroup.getChildAt(0))).setChecked(true);
         }
-
-        //设置底部的数据
-//        setBottomPageUI(msg);
-
     }
+
     String standardId = "";
     public PicPageAdapter pagerAdapter;
     private String telPhone = "";
@@ -436,13 +382,6 @@ findView(view);
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.call:
-//                if(telPhone==null||telPhone.equals("")){
-//                    Toast.makeText(getActivity(),"客服电话为空",Toast.LENGTH_SHORT).show();
-//                }else{
-//
-//                    Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + telPhone));
-//                    startActivity(intent2);
-//                }
                 if (!TextUtils.isEmpty(telPhone)) {
                     HighCommunityUtils.GetInstantiation().callDialogPhone(
                             getActivity(), telPhone);
@@ -469,6 +408,7 @@ findView(view);
         }
 
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -479,12 +419,9 @@ findView(view);
     @Override
     public void onResume() {
         super.onResume();
-
     }
 
     public interface StandardChangeListener {
-        public void onStandardChange(boolean isAddCar, float singlePrice,String standardId);
+        public void onStandardChange(boolean isAddCar, float singlePrice, String standardId);
     }
-
-
 }

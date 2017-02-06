@@ -23,10 +23,6 @@ import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.adapter.AutoNamelist_YZAdapter;
 
 
-/**
- * Created by yetwish on 2015-05-11
- */
-
 public class SearchView extends LinearLayout implements View.OnClickListener {
     public static final String Tag = "SearchView:";
     /**

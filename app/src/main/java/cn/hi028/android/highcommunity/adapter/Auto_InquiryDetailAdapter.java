@@ -91,7 +91,6 @@ public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
             convertView = layoutInflater.inflate(R.layout.item_reportdetail_replay, null);
             mViewHolder.mAvatar = (CircleImageView) convertView.findViewById(R.id.item_reportdetail_Image);
             mViewHolder.mName = (TextView) convertView.findViewById(R.id.item_reportdetail_Name);
-//            mViewHolder.mTime = (TextView) convertView.findViewById(R.id.item_reportdetail_time);
             mViewHolder.mContent = (TextView) convertView.findViewById(R.id.item_reportdetail_Content);
             mViewHolder.mReplyLayout = (LinearLayout) convertView.findViewById(R.id.item_reportdetail_reply);
             convertView.setTag(mViewHolder);
@@ -101,7 +100,6 @@ public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
         final Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity mBean = mList.get(position);
         ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + mBean.getPic(), mViewHolder.mAvatar);
         mViewHolder.mName.setText(mBean.getFrom_name() + "：");
-//        mViewHolder.mTime.setText(TimeUtil.getDescriptionTimeFromTimestamp(Long.parseLong(mBean.getReply_time() + "")));
         mViewHolder.mContent.setText(mBean.getContent());
         if (mBean.getSub_reply().size() > 0) {
             mViewHolder.mReplyLayout.setVisibility(View.VISIBLE);
@@ -122,7 +120,6 @@ public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
                 final String To_name = mBean.getSub_reply().get(i).getTo_name();
                 final String To_id = mBean.getSub_reply().get(i).getTo_id() + "";//主评论人id
                 final String From_id = mBean.getSub_reply().get(i).getFrom_id() + "";//小评论里的评论人id
-                Log.d(Tag, "~~~From_name:" + From_name + ",To_name" + To_name + ",From_id" + From_id + ",To_id" + To_id);
                 mSpan.setSpan(new ClickableSpan() {
                     @Override
                     public void updateDrawState(TextPaint ds) {
@@ -130,7 +127,6 @@ public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
                         ds.setColor(mContext.getResources().getColor(R.color.Defult_Color_AppGreen));
                         ds.setUnderlineText(false);
                     }
-
                     @Override
                     public void onClick(View view) {
                         Log.d(Tag, "点击了：" + From_name + ",hostId" + From_id + ",mBean.getId()评论id " + mBean.getId());
@@ -138,7 +134,6 @@ public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
                         mTempReplies = mBean;
                         avoidHintColor(view);
                         mTempReply = new Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity.InquiryDetailSubReplyEntity();
-//                        mTempReply.setGid(hostId);
                         mTempReply.setFrom_id(HighCommunityApplication.mUserInfo.getId());
                         mTempReply.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
                         mTempReply.setTo_name(From_name);
@@ -161,7 +156,6 @@ public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
                         mFrag.setText("回复:" + To_name, To_id, mBean.getId() + "", true);
                         mTempReplies = mBean;
                         mTempReply = new Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity.InquiryDetailSubReplyEntity();
-//                     mTempReply.setGid(hostId);
                         mTempReply.setFrom_id(HighCommunityApplication.mUserInfo.getId());
                         mTempReply.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
                         mTempReply.setTo_name(To_name);
@@ -179,14 +173,10 @@ public class Auto_InquiryDetailAdapter extends BaseFragmentAdapter {
         mViewHolder.mName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(mContext, "点击了主评论name ", Toast.LENGTH_SHORT).show();
-                Log.d(Tag, "主评论id： " + mBean.getId() + "");
                 //对监督主评论的回复   parentid=主评论id
                 mTempReplies = mBean;
                 mFrag.setText("回复:" + mBean.getFrom_name(), mBean.getFrom_id() + "", mBean.getId() + "", true);
                 mTempReply = new Auto_InquiryDetailBean.InquiryDetailDataEntity.InquiryDetailReplyEntity.InquiryDetailSubReplyEntity();
-//                mTempReply.set(mBean.getId());
-
                 mTempReply.setFrom_id(HighCommunityApplication.mUserInfo.getId());
                 mTempReply.setFrom_name(HighCommunityApplication.mUserInfo.getNick());
                 mTempReply.setTo_name(mBean.getFrom_name());

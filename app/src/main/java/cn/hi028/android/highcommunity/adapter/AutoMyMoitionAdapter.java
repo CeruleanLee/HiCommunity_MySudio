@@ -53,7 +53,7 @@ public class AutoMyMoitionAdapter extends BaseFragmentAdapter {
     private LayoutInflater layoutInflater;
     View view;
     Auto_SupportedResultBean.SupportedResultDataEntity mResultData;
-    // 屏幕宽度,由于我们用的是HorizontalScrollView,所以按钮选项应该在屏幕外
+    // 屏幕宽度,由于是HorizontalScrollView,所以按钮选项应该在屏幕外
     private int mScreentWidth;
     private View view2,view3;
     private ListView listView;
@@ -127,7 +127,6 @@ int clickPosition=-1;
         final Auto_MotionBean.MotionDataEntity mBean = mList.get(position);
         mViewHolder.mTitle.setText(mBean.getTitle());
         mViewHolder.mTime.setText(TimeUtil.getYearMonthDay(Long.parseLong(mBean.getCreate_time())));
-//        mViewHolder.mTime.setText(TimeUtil.longToDate(Long.parseLong(mBean.getCreate_time()),"yyyy年MM月dd日 HH时mm分ss秒").toString());
         mViewHolder.mTv_Support.setText("支持率：" + mBean.getVote_percent() + "%");
         if (mBean.getIsSuggest().equals("1")) {
             mViewHolder.mBut_Support.setChecked(true);
@@ -137,7 +136,6 @@ int clickPosition=-1;
             mViewHolder.mBut_Support.setChecked(false);
             mViewHolder.mBut_Support.setText(" 支持 ");
         }
-        //if (mBean.getIsSuggest().equals("1"))
         //位置放到view里   方便知道点击的是那一条item
         mViewHolder.but_delete.setTag(position);
         mViewHolder.mBut_Support.setTag(position);
@@ -156,22 +154,6 @@ int clickPosition=-1;
                 Log.e(TAG,"clickPosition--->"+clickPosition);
                 Log.e(TAG,"v.getTag()--->"+v.getTag());
                 HTTPHelper.SupportMotion(mIbpi, mBean.getId());
-//                Log.e(TAG,"监听里的 支持按钮  被点击的按钮--->"+mViewHolder.mBut_Support.getTag()+"传过去的参数  id--->"+mBean.getId());
-////                String percentPer=supportHttp(mBean.getId());
-////                HTTPHelper.SupportMotion(mIbpi, mBean.getId());
-//                ViewHolder mVh= (ViewHolder) clickView.getTag();
-//                mVh.mBut_Support.setChecked(true);
-//                mVh.mBut_Support.setText(" 6支持 ");
-////
-//                Log.e(TAG,"监听里的   支持按钮的tag--->"+mViewHolder.mBut_Support.getTag()+"监听里的  支支持文字的tag--->"+mViewHolder.mTv_Support.getTag());
-//
-//                Log.e(TAG,"保存下来的  支持按钮的tag--->"+mVh.mBut_Support.getTag()+"保存下拉的   支支持文字的tag--->"+mVh.mTv_Support.getTag());
-//                if (percentPer!=null&&percentPer!=""){
-//                    mVh.mTv_Support.setText("支持率："+percentPer+"%");
-//                }else{
-//                    Log.e(TAG,"mResultData null");
-//                }
-
             }
         });
 
@@ -194,7 +176,6 @@ int clickPosition=-1;
                 Toast.makeText(context, "已支持", Toast.LENGTH_SHORT).show();
                 mList.get(clickPosition).setVote_percent(mResultData.getVote_percent() + "");
                 mList.get(clickPosition).setIsSuggest("1");
-//                AddNewData(mList);
                 notifyDataSetChanged();
 
             }
@@ -260,7 +241,6 @@ int clickPosition=-1;
                         int dY = Math.abs(y - Y3);
                         int dX = Math.abs(x - x3);
                         if (dX > dY && dX > 20) {
-//          v.requestdis
                         }
                         break;
                     case MotionEvent.ACTION_UP:
@@ -302,11 +282,6 @@ int clickPosition=-1;
         if (mViewHolder.mHSView.getScrollX() != 0) {
             mViewHolder.mHSView.scrollTo(0, 0);
         }
-
-        // 设置背景颜色,设置填充内容.
-//        mViewHolder.content.setBackgroundResource(colors.get(position));
-//        mViewHolder.tvContent.setText("" + R.color.blue);
-
         // 设置监听事件
         mViewHolder.but_delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -321,44 +296,6 @@ int clickPosition=-1;
             }
         });
 
-//        mDeleteIbpi = new BpiHttpHandler.IBpiHttpHandler() {
-//            @Override
-//            public void onError(int id, String message) {
-//                Log.e(TAG, "onError");
-//                HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
-//
-//            }
-//
-//            @Override
-//            public void onSuccess(Object message) {
-//                Log.e(TAG, "onSuccess");
-//                if (message == null) return;
-//
-//                mResultData = (Auto_SupportedResultBean.SupportedResultDataEntity) message;
-//                Toast.makeText(context, "已支持", Toast.LENGTH_SHORT).show();
-//                mBean.setVote_percent(mResultData.getVote_percent() + "");
-//                mBean.setIsSuggest("1");
-////                AddNewData(mList);
-//                notifyDataSetChanged();
-//
-//            }
-//
-//            @Override
-//            public Object onResolve(String result) {
-//
-//                return HTTPHelper.ResolveSupportedResultData(result);
-//            }
-//
-//            @Override
-//            public void setAsyncTask(AsyncTask asyncTask) {
-//
-//            }
-//
-//            @Override
-//            public void cancleAsyncTask() {
-//
-//            }
-//        };
 
 
         return convertView;
@@ -405,7 +342,6 @@ int clickPosition=-1;
             @Override
             public void onFailure(HttpException arg0, String arg1) {
                 Log.e(TAG, "http 访问失败的 arg1--->" + arg1.toString());
-//            HighCommunityUtils.GetInstantiation().ShowToast(arg1.toString(), 0);
                 Toast.makeText(context, arg1.toString(), Toast.LENGTH_SHORT).show();
 
 
@@ -419,7 +355,6 @@ int clickPosition=-1;
                 //                ResponseGoodsItem responseGoodsItem = new Gson().fromJson(content, ResponseGoodsItem.class);
                 if (mInitBean != null) {
                     Toast.makeText(context, mInitBean.getMsg(), Toast.LENGTH_SHORT).show();
-//                HighCommunityUtils.GetInstantiation().ShowToast(mInitBean.getMsg(), 0);
                 }
             }
         });
@@ -431,8 +366,6 @@ int clickPosition=-1;
         final int[] num = new int[1];
         String url = "http://028hi.cn/api/ywatch/suggest.html";
         RequestParams params = new RequestParams();
-//        params.addBodyParameter("uid", HighCommunityApplication.mUserInfo.getId()+"");
-//        params.addBodyParameter("id", id);
         params.addBodyParameter("uid",122+"");
         params.addBodyParameter("id", 33+"");
         Log.e(TAG,"id--->"+id+"uid--->"+HighCommunityApplication.mUserInfo.getId());
@@ -458,12 +391,6 @@ int clickPosition=-1;
                     }
 
                 }
-//                mResultData = (Auto_SupportedResultBean.SupportedResultDataEntity) message;
-//                Toast.makeText(context, "已支持", Toast.LENGTH_SHORT).show();
-//                mList.get(position).setVote_percent(mResultData.getVote_percent() + "");
-//                mList.get(position).setIsSuggest("1");
-////                AddNewData(mList);
-//                notifyDataSetChanged();
             }
         });
         return mPercentStr[0];
@@ -471,8 +398,6 @@ int clickPosition=-1;
 
     private  void support(String id){
         final String[] str = {""};
-//        BpiHttpHandler.IBpiHttpHandler mIbpi=new BpiHttpHandler().IBpiHttpHandler(){
-//
 //        }
         mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
             @Override
@@ -489,20 +414,6 @@ int clickPosition=-1;
 
                 mResultData = (Auto_SupportedResultBean.SupportedResultDataEntity) message;
                 Toast.makeText(context, "已支持", Toast.LENGTH_SHORT).show();
-//str[0] =mResultData.getVote_percent()+"";
-//                if (mInitBean != null) {
-//                    Toast.makeText(context, mInitBean.getMsg(), Toast.LENGTH_SHORT).show();
-//                    Auto_SupportedResultBean.SupportedResultDataEntity mSupportedData=mInitBean.getData();
-//                    if (mSupportedData!=null){
-//                        mPercentStr[0] = mSupportedData.getVote_percent()+"";
-////                        num[0] =mSupportedData.getVote_percent();
-//                    }
-//
-//                }
-//                mBean.setVote_percent(mResultData.getVote_percent() + "");
-//                mBean.setIsSuggest("1");
-////                AddNewData(mList);
-//                notifyDataSetChanged();
 
             }
 
@@ -537,8 +448,5 @@ int clickPosition=-1;
             }
         };
         HTTPHelper.SupportMotion(mIbpi, id);
-
-
-//return str[0];
     }
 }

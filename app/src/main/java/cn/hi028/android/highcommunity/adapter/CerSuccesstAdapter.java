@@ -87,10 +87,7 @@ public class CerSuccesstAdapter extends BaseFragmentAdapter {
         mBitmapUtils.display(mViewHolder.mImgCerPropertye, Constacts.IMAGEHTTP + mBean.getHouse_certificate());
         if (mBean.getStatus().equals("1")) {
             //已认证
-//            mViewHolder.mImgTag.setImageDrawable(context.getResources().getDrawable());
             mViewHolder.mImgTag.setImageResource(R.mipmap.img_cersuccess);
-//            mBitmapUtils.display(mViewHolder.mImgTag, "drawable://" + R.mipmap.img_cersuccess);
-//            mBitmapUtils.display(mViewHolder.mImgTag, Constacts.IMAGEHTTP + mBean.getIDCard());
         } else if (mBean.getStatus().equals("0")) {
             //认证中
             mViewHolder.mImgTag.setImageResource(R.mipmap.img_cerchecking);
@@ -98,10 +95,6 @@ public class CerSuccesstAdapter extends BaseFragmentAdapter {
             //认证失败
             mViewHolder.mImgTag.setImageResource(R.mipmap.img_cerfalied);
         }
-//        TimeUtil.getDayAllTime(Long.parseLong(mBean.getCreate_time()))
-//        mViewHolder.mTime.setText(TimeUtil.longToDate(Long.parseLong(mBean.getCreate_time()),"yyyy年MM月dd日 HH时mm分ss秒").toString());
-
-
         mViewHolder.mImgCerIdZ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

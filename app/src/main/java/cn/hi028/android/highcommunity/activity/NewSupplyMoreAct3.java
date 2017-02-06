@@ -55,11 +55,8 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
     RadioGroup mRgSort;
     @Bind(R.id.HorizontalScrollView)
     HorizontalScrollView mHorizontalScrollView;
-    //    @Bind(R.id.id_stickynavlayout_viewpager)
     ViewPager mViewpager;
     public static final int categray_with = (int) (HighCommunityApplication.screenWidth / 3);
-
-    //    private SimpleViewPagerIndicator mIndicator;
     List<RadioButton> mRadioButList = new ArrayList<RadioButton>();
     List<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreCategoryEntity> mDataCategory = new ArrayList<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreCategoryEntity>();
 
@@ -89,23 +86,16 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
             finish();
         }
         category_id = Integer.parseInt(str_category_id);
-//        mySortChangeListener= (MySortChangeListener) this;
-//        initView();
         mViewpager = (ViewPager) findViewById(R.id.id_stickynavlayout_viewpager);
-//        mIndicator = (SimpleViewPagerIndicator) findViewById(R.id.id_stickynavlayout_indicator);
-//        mIndicator.setTitles(mTitles);
-
         initDatas();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     private void initDatas() {
-
         HTTPHelper.GetSupplyGoodsListMore(mIbpi, category_id + "", 1 + "");
     }
 
@@ -114,90 +104,55 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            Log.d(Tag, "---~~~onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
         @Override
         public void onSuccess(Object message) {
             if (message == null) return;
-
-
             SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity mData = (SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity) message;
             mDataCategory = mData.getCategory();
-
-
             mHorizontalScrollView.removeAllViews();
             RadioGroup mGroup = new RadioGroup(NewSupplyMoreAct3.this);
             mGroup.setLayoutParams(new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT));
             mGroup.setOrientation(LinearLayout.HORIZONTAL);
-
             mRgCategory.removeAllViews();
             Log.e(Tag, "mDataCategory.size(): " + mDataCategory.size());
             if (mDataCategory.size() > 4) {
                 isCategorySizeMuch = true;
-//                mRgCategory.getLayoutParams().width = RadioGroup.LayoutParams.MATCH_PARENT;
             } else {
                 isCategorySizeMuch = false;
-//                mRgCategory.getLayoutParams().width = RadioGroup.LayoutParams.MATCH_PARENT;
             }
 
             RadioButton defaultRadioBut = (RadioButton) LayoutInflater.from(NewSupplyMoreAct3.this).inflate(R.layout.radiobut_newsupplymore, null);
             defaultRadioBut.setId(0);
             if (isCategorySizeMuch) {
-//                defaultRadioBut.setWidth(0);
-//                defaultRadioBut.setLayoutParams(new RadioGroup.LayoutParams(rbutWith, RadioGroup.LayoutParams.MATCH_PARENT));
                 defaultRadioBut.setLayoutParams(new RadioGroup.LayoutParams(categray_with, RadioGroup.LayoutParams.MATCH_PARENT));
 
             } else {
 
-//                defaultRadioBut.setWidth(0);
                 defaultRadioBut.setLayoutParams(new RadioGroup.LayoutParams(categray_with, RadioGroup.LayoutParams.MATCH_PARENT));
             }
 
             defaultRadioBut.setText("所有");
             mRgCategory.addView(defaultRadioBut);
-//            mGroup.addView(defaultRadioBut);
-
             for (int i = 0; i < mDataCategory.size(); i++) {
                 RadioButton newRadioBut = (RadioButton) LayoutInflater.from(NewSupplyMoreAct3.this).inflate(R.layout.radiobut_newsupplymore, null);
                 newRadioBut.setId(Integer.parseInt(mDataCategory.get(i).getId()));
                 if (isCategorySizeMuch) {
-                    Log.e(Tag, "isCategorySizeMuch ");
-
-//                    newRadioBut.setWidth(rbutWith);
-//                    newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(rbutWith, RadioGroup.LayoutParams.MATCH_PARENT));
-//                    newRadioBut.setWidth(80);
                     newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(categray_with, RadioGroup.LayoutParams.MATCH_PARENT));
                 } else {
                     Log.e(Tag, "isCategorySizeMuch false ");
-
-//                    newRadioBut.setWidth(80);
                     newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(categray_with, RadioGroup.LayoutParams.MATCH_PARENT));
-//                    newRadioBut.setWidth(0);
-//                    newRadioBut.setLayoutParams(new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.MATCH_PARENT, 1f));
                 }
 
                 newRadioBut.setText(mDataCategory.get(i).getName());
                 mRgCategory.addView(newRadioBut);
-//                mGroup.addView(newRadioBut);
             }
             Log.e(Tag, "mRgCategory.size(): " + mRgCategory.getChildCount());
             Log.e(Tag, "mGroup.size(): " + mGroup.getChildCount());
-//            ((RadioButton) (mRgCategory.getChildAt(0))).setChecked(true);
-
-//            for (int i = 0; i < mRgCategory.getChildCount(); i++) {
-//                if (mRgCategory.getChildAt(i).getId() == category_id) {
-//
-//                    ((RadioButton) (mRgCategory.getChildAt(i))).setChecked(true);
-//
-//                }
-//            }
-
-//            mHorizontalScrollView.addView(mGroup);
             mHorizontalScrollView.addView(mRgCategory);
             Log.e(Tag, "mHorizontalScrollView.size(): " + mHorizontalScrollView.getChildCount());
-
             initView();
         }
 
@@ -231,10 +186,8 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
     };
 
     private void initView() {
-
         mPagerAdapter = new SupplyMorePagerAdapter(getSupportFragmentManager(), mRgCategory.getChildCount());
         mViewpager.setAdapter(mPagerAdapter);
-
         mViewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -250,11 +203,6 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
                         Log.e(Tag, " onPageSelected  i == k");
                         ((RadioButton) (mRgCategory.getChildAt(i))).setChecked(true);
                     }
-//                    else {
-//                        Log.e(Tag," onPageSelected  i != k");
-//                        ((RadioButton) (mRgCategory.getChildAt(k))).setChecked(false);
-//
-//                    }
                 }
             }
 
@@ -269,19 +217,14 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 Log.e(Tag, "mRgCategory setOnCheckedChangeListener");
                 for (int i = 0; i < mRgCategory.getChildCount(); i++) {
-
                     if (mRgCategory.getChildAt(i).getId() == checkedId) {
-
                         setCurrentPage(i);
                         Log.e(Tag, "横向滑动的距离：" + categray_with * i);
-//                        mHorizontalScrollView.scrollTo(categray_with*i,0);
                         mHorizontalScrollView.smoothScrollTo(categray_with * i, 0);
                     }
 
-
                 }
                 category_id = checkedId;
-//                mPagerAdapter.updateFragmentData(category_id,1);
                 mPagerAdapter.updateFragmentData(page, category_id + "", sort);
             }
         });
@@ -289,7 +232,6 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 Log.e(Tag, "mRgSort ChangeListener");
-
                 if (checkedId != R.id.supplyMore_rb_price) {
                     mRbPrice.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.mipmap.img_sort_none), null);
 
@@ -298,35 +240,24 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
                     case R.id.supplyMore_rb_newest:
                         sort = 1;
                         mPagerAdapter.updateFragmentData(page, category_id + "", sort);
-
-//                        setCurrentPage(4);
                         break;
                     case R.id.supplyMore_rb_nums:
                         sort = 2;
                         mPagerAdapter.updateFragmentData(page, category_id + "", sort);
-
-//                        setCurrentPage(4);
                         break;
                     case R.id.supplyMore_rb_price:
                         if (isSortAsc) {
-//                            mRbPrice.setCompoundDrawables(null,null,getResources().getDrawable(R.mipmap.img_sort_top),null);
                             mRbPrice.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.mipmap.img_sort_top), null);
 
                             sort = 3;
                             isSortAsc = !isSortAsc;
                         } else {
-//                            mRbPrice.setCompoundDrawables(null,null,getResources().getDrawable(R.mipmap.img_sort_foot),null);
                             mRbPrice.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.mipmap.img_sort_foot), null);
                             sort = 4;
                             isSortAsc = !isSortAsc;
 
                         }
-//                        mPagerAdapter.updateFragmentData(category_id,sort);
-
-//                        setCurrentPage(4);
                         break;
-
-
                 }
             }
         });
@@ -334,9 +265,7 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 if (isSortAsc) {
-//                            mRbPrice.setCompoundDrawables(null,null,getResources().getDrawable(R.mipmap.img_sort_top),null);
                     mRbPrice.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.mipmap.img_sort_top), null);
-
                     sort = 3;
                     isSortAsc = !isSortAsc;
                 } else {
@@ -352,31 +281,21 @@ public class NewSupplyMoreAct3 extends FragmentActivity {
         for (int i = 0; i < mRgCategory.getChildCount(); i++) {
             if (mRgCategory.getChildAt(i).getId() == category_id) {
                 Log.e(Tag, "初始设置 选中but:" + category_id);
-
                 ((RadioButton) (mRgCategory.getChildAt(i))).setChecked(true);
                 setCurrentPage(i);
                 final int finalI = i;
                 Log.e(Tag, "准备Handler  横向滑动");
-
-
                 new Handler().postDelayed((new Runnable() {
                             @Override
                             public void run() {
                                 Log.e(Tag, "Handler  横向滑动");
                                 mHorizontalScrollView.smoothScrollTo(((RadioButton) mRgCategory.getChildAt(finalI)).getLeft() - 100, 0);
                             }
-                        }),
-                        300);
+                        }), 300);
             }
 
 
         }
-//        Log.e(Tag,"初始设置  横向滑动的距离："+categray_with*category_id);
-//        mHorizontalScrollView.scrollTo(categray_with*category_id,0);
-//        category_id = checkedId;
-//                mPagerAdapter.updateFragmentData(category_id,1);
-//        mPagerAdapter.updateFragmentData(page, category_id + "", sort);
-
 
     }
 

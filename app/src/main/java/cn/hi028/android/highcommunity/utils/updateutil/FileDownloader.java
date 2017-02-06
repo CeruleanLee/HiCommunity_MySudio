@@ -19,7 +19,6 @@ import java.net.URL;
  * Created by Lee_yting on 2016/10/5.gg
  */
 public class FileDownloader {
-
     private Context context;
     private static final int MSG_START_DOWNLOAD = 1;
     private static final int MSG_DOWNLOADNG = 2;

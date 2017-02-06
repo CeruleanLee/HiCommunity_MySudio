@@ -21,8 +21,6 @@ import cn.hi028.android.highcommunity.utils.Constacts;
 
 /**
  * ImagePagerAdapter
- *
- * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2014-2-23
  */
 public class SimplePageAdapter extends RecyclingPagerAdapter {
 
@@ -38,8 +36,6 @@ public class SimplePageAdapter extends RecyclingPagerAdapter {
 
     @Override
     public int getCount() {
-        // Infinite loop
-//        return ListUtils.getSize(getImageIdList());
         return imageIdList.size();
     }
 

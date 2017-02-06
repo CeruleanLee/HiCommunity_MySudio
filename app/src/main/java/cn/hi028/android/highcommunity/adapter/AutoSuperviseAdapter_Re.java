@@ -75,13 +75,10 @@ public class AutoSuperviseAdapter_Re extends BaseFragmentAdapter {
         }
         final Auto_SuperViseBean2.SuperViseBean2DataEntity.SuperViseDataEntity mBean = mList.get(position);
         mViewHolder.mTitle.setText(mBean.getTitle());
-//        TimeUtil.getDayAllTime(Long.parseLong(mBean.getCreate_time()))
         mViewHolder.mTime.setText(TimeUtil.getYearMonthDay(Long.parseLong(mBean.getTime())));
-//        mViewHolder.mTime.setText(TimeUtil.longToDate(Long.parseLong(mBean.getCreate_time()),"yyyy年MM月dd日 HH时mm分ss秒").toString());
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context,"position "+position,Toast.LENGTH_SHORT).show();
                 Log.d("~~~","报告adapter");
                 Intent mIntent_report=new Intent(context, AutonomousAct_Third.class);
                 mIntent_report.putExtra("title",TAG_REPORT_DETAIL);
@@ -89,28 +86,17 @@ public class AutoSuperviseAdapter_Re extends BaseFragmentAdapter {
                 context.startActivity(mIntent_report);
             }
         });
-
-
-
-
         return convertView;
-
-
-
-
     }
-
 
     class ViewHolder {
         TextView mTitle;
         TextView mTime;
     }
-
     @Override
     public void AddNewData(Object mObject) {
         if (mObject instanceof List<?>) {
             mList = (List<Auto_SuperViseBean2.SuperViseBean2DataEntity.SuperViseDataEntity>) mObject;
-
         }
         notifyDataSetChanged();
         super.AddNewData(mObject);
@@ -120,6 +106,5 @@ public class AutoSuperviseAdapter_Re extends BaseFragmentAdapter {
         mList.clear();
         notifyDataSetChanged();
     }
-
 
 }

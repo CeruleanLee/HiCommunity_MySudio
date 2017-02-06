@@ -46,9 +46,7 @@ import cn.hi028.android.highcommunity.view.ShowListUtils;
  */
 @EFragment(resName = "frag_personalauth")
 public class PersonalAuthFrag extends BaseFragment {
-
     public static final String FRAGMENTTAG = "PersonalAuthFrag";
-
     @ViewById(R.id.et_personalauth_name)
     EditText mName;
     @ViewById(R.id.et_personalauth_phone)
@@ -79,7 +77,6 @@ public class PersonalAuthFrag extends BaseFragment {
         mQuxian.setOnClickListener(mClick);
         mXiaoqu.setOnClickListener(mClick);
     }
-
     View.OnClickListener mClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -102,30 +99,11 @@ public class PersonalAuthFrag extends BaseFragment {
                         return;
                     }
                     SearchActivity.toSearch(PersonalAuthFrag.this, mXiaoqu, mXiaoqu.getLineHeight(), QuxianId);
-//                    mListWindow = ShowListUtils.GetInstantiation().ShowVillageList(getActivity(),
-//                            mXiaoqu, mListener, mVillageBean, mInputBack);
                     break;
             }
         }
     };
 
-//    HighCommunityUtils.InputCallBack mInputBack = new HighCommunityUtils.InputCallBack() {
-//        @Override
-//        public void onInput(String input) {
-//            HTTPHelper.getVillagesByDistrict(mVillageIbpi, QuxianId,
-//                    Constacts.location.getLongitude() + "", Constacts.location.getLatitude() + "", input);
-//        }
-//    };
-
-
-//    AdapterView.OnItemClickListener mListener = new AdapterView.OnItemClickListener() {
-//        @Override
-//        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//            XiaoquId = mVillageBean.get(i).getId() + "";
-//            mXiaoqu.setText(mVillageBean.get(i).getName());
-//            mListWindow.dismiss();
-//        }
-//    };
 
     ShowListUtils.OnItemClickBack mBack = new ShowListUtils.OnItemClickBack() {
         @Override

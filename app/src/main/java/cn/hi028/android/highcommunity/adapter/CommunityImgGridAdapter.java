@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.MainActivity;
 import cn.hi028.android.highcommunity.activity.PhotoScanActivity;
 import cn.hi028.android.highcommunity.activity.fragment.CommunityFrag;
 import cn.hi028.android.highcommunity.bean.PicBean;
@@ -32,7 +31,6 @@ import cn.hi028.android.highcommunity.utils.Constacts;
  * @时间：2015/12/30<br>
  */
 public class CommunityImgGridAdapter extends BaseFragmentAdapter {
-
     Context mContent;
     List<PicBean> mList = new ArrayList<PicBean>();
 

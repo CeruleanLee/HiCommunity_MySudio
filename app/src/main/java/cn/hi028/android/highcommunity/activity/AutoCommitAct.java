@@ -37,10 +37,8 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  */
 public class AutoCommitAct extends BaseFragmentActivity {
     String Tag = "AutoCommitAct--->";
-
     public static final String ACTIVITYTAG = "AutoCommitAct";
     public static final String INTENTTAG = "AutoCommitAct";
-    boolean isVerified, isCommitData;
     @Bind(R.id.commitAct_img_back)
     ImageView img_Back;
     @Bind(R.id.commit_nodata)
@@ -57,7 +55,6 @@ public class AutoCommitAct extends BaseFragmentActivity {
     LinearLayout layout_CheckFail;
     @Bind(R.id.commit_but_checkAgain)
     Button but_CheckAgain;
-    int mStatus;
     public Auto_InitBean.Auto_Init_DataEntity mData;
     int tag_creatCer;
 
@@ -67,33 +64,18 @@ public class AutoCommitAct extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_autcommit);
         ButterKnife.bind(this);
-//        isCommitData = getIntent().getBooleanExtra("isCommitData", false);
-        Log.e(Tag, "oncreat2");
         getIntent().setExtrasClassLoader(getClass().getClassLoader());
         tag_creatCer = getIntent().getIntExtra("tag_creatCer", -1);
-//        mData=getIntent().getParcelableExtra("mData");
-//        Toast.makeText(this,"isCommitData:"+isCommitData+"mStatus"+mStatus,Toast.LENGTH_SHORT).show();
-//        if (mData!=null){
-//            Toast.makeText(this,"传过来的status:"+mData.getStatus(),Toast.LENGTH_SHORT).show();
-//
-//        }else {
-//            Toast.makeText(this,"过来的data  null",Toast.LENGTH_SHORT).show();
-//
-//        }
 //初始化HttpUtils
-        Log.e(Tag, "oncreat3");
         mHttpUtils = new HttpUtils();
         mHttpUtils.configCurrentHttpCacheExpiry(0);
         mHttpUtils.configSoTimeout(4000);
         mHttpUtils.configTimeout(4000);
-
-        Log.e(Tag, "oncreat4");
         if (tag_creatCer == 6) {
             initDatas();
         } else {
             initHttp();
         }
-
     }
 
     private HttpUtils mHttpUtils;
@@ -101,8 +83,6 @@ public class AutoCommitAct extends BaseFragmentActivity {
     private void initDatas() {
         Log.e(Tag, "initDatas ");
         HTTPHelper.AutoGetVillage(mIbpi);
-//        Log.e(Tag,"mdata.getatus:"+mData.getStatus());
-        Log.e(Tag, "initDatas 2");
     }
 
     private void initHttp() {
@@ -111,7 +91,6 @@ public class AutoCommitAct extends BaseFragmentActivity {
         RequestParams params = new RequestParams();
         params.addBodyParameter("token", HighCommunityApplication.mUserInfo.getToken());
         mHttpUtils.send(HttpRequest.HttpMethod.POST, url, params, new RequestCallBack<String>() {
-
             @Override
             public void onFailure(HttpException arg0, String arg1) {
                 Log.e(Tag, "http 访问失败的 arg1--->" + arg1.toString());
@@ -123,8 +102,6 @@ public class AutoCommitAct extends BaseFragmentActivity {
                 String content = arg0.result;
                 Log.e(Tag, "http 访问success的 content--->" + content);
                 Auto_InitBean mInitBean = new Gson().fromJson(content, Auto_InitBean.class);
-                //                ResponseGoodsItem responseGoodsItem = new Gson().fromJson(content, ResponseGoodsItem.class);
-//                List<GoodsItem> list = responseGoodsItem.getResult().list;
                 if (mInitBean != null) {
                     mData = mInitBean.getData();
                     tv_CheckFail.setText("原因：" + mInitBean.getMsg());
@@ -140,9 +117,6 @@ public class AutoCommitAct extends BaseFragmentActivity {
             Log.e(Tag, "mStatus 2");
             //填写资料
             toCommitData();
-//            layout_CommitData.setVisibility(View.VISIBLE);
-//            layout_Checking.setVisibility(View.GONE);
-//            layout_CheckFail.setVisibility(View.GONE);
         } else if (mData.getStatus() == 0) {
             Log.e(Tag, "mStatus 0");
 //正在审核
@@ -158,7 +132,8 @@ public class AutoCommitAct extends BaseFragmentActivity {
         }
 
     }
-//TODO 审核失败传数据传错了   应该是list   改了之后没注意忘记改了
+
+    //TODO 审核失败传数据传错了   应该是list   改了之后没注意忘记改了
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
@@ -176,15 +151,10 @@ public class AutoCommitAct extends BaseFragmentActivity {
                 toCommitData();
                 Log.e(Tag, "onSuccess message toCommitData!!!!!!");
             }
-//            tv_CheckFail.setText(message.toString());
-//            initView();
         }
 
         @Override
         public Object onResolve(String result) {
-
-            Log.e(Tag, "commitAct_Result--->" + result);
-
             return HTTPHelper.ResolveVillageDataEntity(result);
         }
 
@@ -196,19 +166,19 @@ public class AutoCommitAct extends BaseFragmentActivity {
         public void cancleAsyncTask() {
         }
 
-    @Override
-    public void shouldLogin(boolean isShouldLogin) {
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
 
-    }
-
-    @Override
-    public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-        if (isShouldLogin){
-            HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
-            HighCommunityApplication.toLoginAgain(AutoCommitAct.this);
         }
-    }
-};
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin) {
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(AutoCommitAct.this);
+            }
+        }
+    };
 
     @OnClick({R.id.commitAct_img_back, R.id.commit_but_checkAgain})
     public void onClick(View view) {
@@ -229,10 +199,7 @@ public class AutoCommitAct extends BaseFragmentActivity {
         Log.e(Tag, "toCommitData");
         FragmentManager fm2 = getSupportFragmentManager();
         FragmentTransaction ft2 = fm2.beginTransaction();
-//
-//        ft.commit();
         AutoCommitDataFrag mCommitFrag = new AutoCommitDataFrag();
-
         Bundle mBundle = new Bundle();
         if (mData != null) {
             Log.e(Tag, "toCommitData mData no null");
@@ -250,8 +217,7 @@ public class AutoCommitAct extends BaseFragmentActivity {
     }
 
 
-
-    private  void toShowFailedMsg(){
+    private void toShowFailedMsg() {
         FragmentManager fm3 = getSupportFragmentManager();
         FragmentTransaction ft3 = fm3.beginTransaction();
         AutoFrag_CerFailedMsg mFailedMsgFrag = new AutoFrag_CerFailedMsg();
@@ -269,12 +235,6 @@ public class AutoCommitAct extends BaseFragmentActivity {
         layout_CommitData.setVisibility(View.VISIBLE);
         layout_Checking.setVisibility(View.GONE);
         layout_CheckFail.setVisibility(View.GONE);
-//
-//        layout_CheckFail.setVisibility(View.VISIBLE);
-//        layout_Checking.setVisibility(View.GONE);
-//        layout_CommitData.setVisibility(View.GONE);
-
-
     }
 
 }

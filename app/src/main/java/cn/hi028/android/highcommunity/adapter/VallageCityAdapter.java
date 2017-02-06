@@ -36,22 +36,17 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  */
 public class VallageCityAdapter extends BaseAdapter implements SectionIndexer {
     VallageCityFrag frag;
-
     public List<VallageCityBean> getData() {
         return data;
     }
-
     public void setData(List<VallageCityBean> data) {
         this.data = data;
-
         notifyDataSetChanged();
     }
-
     @Override
     public int getItemViewType(int position) {
         return (data.get(position).getType() == 0 || data.get(position).getType() == 1) ? 0 : 1;
     }
-
     @Override
     public int getViewTypeCount() {
         return 2;

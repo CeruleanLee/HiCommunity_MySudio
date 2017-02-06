@@ -56,7 +56,6 @@ import cn.hi028.android.highcommunity.utils.pinyinUtils.PinyinCityComparator;
  */
 @EFragment(resName = "frag_villagechoice")
 public class VallageCityFrag extends BackHandledFragment implements MyLetterListView.OnTouchingLetterChangedListener {
-
     public static final String FRAGMENTTAG = "VallageCityFrag";
     @ViewById(R.id.ll_village)
     LinearLayout ll_village;

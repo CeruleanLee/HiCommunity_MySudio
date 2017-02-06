@@ -18,7 +18,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshExpandableListView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
-import net.duohuo.dhroid.util.LogUtil;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -37,27 +36,26 @@ import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
- * @功能：用户订单<br>  从侧边栏我的订单跳过来的订单
+ * @功能：用户订单<br> 从侧边栏我的订单跳过来的订单
  * @作者： 赵海<br>
  * @版本：1.0<br>
  * @时间：2016-01-27<br>
  */
 @EFragment(resName = "frag_huilife_order_vp")
 public class HuiOrderFrag extends BaseFragment {
-	
+
     public static final String FRAGMENTTAG = "HuiOrderFrag";
     @ViewById(R.id.vPager)
-    ViewPager mPager;// 页卡内容
+    ViewPager mPager;
     @ViewById(R.id.rg_huil_ife)
     RadioGroup rg;//
-    public List<ExpandableListView> viewList; // Tab页面列表
-    public List<View> proPressList; // Tab页面列表
-    public List<TextView> noDataList; // Tab页面列表
-    private List<HuiOrderListAdapter> adapterList; // Tab页面列表
+    public List<ExpandableListView> viewList;
+    public List<View> proPressList;
+    public List<TextView> noDataList;
+    private List<HuiOrderListAdapter> adapterList;
 
     @AfterViews
     void initView() {
-    	LogUtil.d("------HuiOrderFrag.oncreat");
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -99,7 +97,7 @@ public class HuiOrderFrag extends BaseFragment {
                 if (!((RadioButton) rg.getChildAt(i)).isChecked()) {
                     ((RadioButton) rg.getChildAt(i)).setChecked(true);
                 }
-                    upateRefresh(i);
+                upateRefresh(i);
             }
 
             @Override
@@ -112,7 +110,6 @@ public class HuiOrderFrag extends BaseFragment {
     }
 
     public void upateRefresh(int i) {
-    	LogUtil.d("------进入upateRefresh");
         if (i == 0) {
             HTTPHelper.GetHuiOrder(mIbpi, "order/all-order.html", HighCommunityApplication.mUserInfo.getId() + "");
         } else if (i == 1) {
@@ -192,7 +189,7 @@ public class HuiOrderFrag extends BaseFragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -202,9 +199,7 @@ public class HuiOrderFrag extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        LogUtil.d("------进入onResume");
         if (currentPo == mPager.getCurrentItem()) {
-        	  LogUtil.d("------进入currentPo"+currentPo);
             upateRefresh(currentPo);
         }
         mPager.setCurrentItem(currentPo);

@@ -4,16 +4,18 @@
 
 package cn.hi028.android.highcommunity.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.duohuo.dhroid.util.ImageLoaderUtil;
-import net.duohuo.dhroid.view.SquareImageView;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+
+import net.duohuo.dhroid.util.ImageLoaderUtil;
+import net.duohuo.dhroid.view.SquareImageView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.bean.PicBean;
 import cn.hi028.android.highcommunity.utils.Constacts;
@@ -61,9 +63,6 @@ public class HuiSuppPicAdapter extends BaseAdapter {
         SquareImageView image = new SquareImageView(context);
         image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         ImageLoaderUtil.disPlay(Constacts.IMAGEHTTP + data.get(position).getSmall(), image, R.mipmap.default_no_pic, null);
-//		LayoutParams params=new LayoutParams(data.size()*70,70);
-//		parent.setLayoutParams(params);
-        
         return image;
     }
 }

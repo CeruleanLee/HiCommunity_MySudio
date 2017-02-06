@@ -10,8 +10,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import net.duohuo.dhroid.util.LogUtil;
-
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
@@ -35,7 +33,6 @@ import cn.hi028.android.highcommunity.utils.Constacts;
  */
 @EActivity(resName = "act_menusecond_left")
 public class MenuLeftThirdAct extends BaseFragmentActivity {
-
     public static final String ACTIVITYTAG = "MenuLeftThirdAct";
     public static final String INTENTTAG = "MenuLeftThirdActIntent";
 
@@ -48,7 +45,6 @@ public class MenuLeftThirdAct extends BaseFragmentActivity {
 
     @AfterViews
     void initView() {
-LogUtil.d("------MenuLeftThirdAct");
         if (!super.isVersionBiger()) {
             mHight.setVisibility(View.GONE);
         }

@@ -79,14 +79,10 @@ public class ShowSearchListAdapter extends BaseFragmentAdapter {
             mList.addAll((List<PoiInfo>) mObject);
         notifyDataSetChanged();
         super.RefreshData(mObject);
-
-//        notifyDataSetChanged();
-////        super.AddNewData(mObject);
     }
 
 
     public void setData(List<PoiInfo> mObject) {
-//        mList.clear();
         mList = mObject;
         notifyDataSetChanged();
     }

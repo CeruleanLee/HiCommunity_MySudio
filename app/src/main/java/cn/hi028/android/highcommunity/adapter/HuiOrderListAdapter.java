@@ -46,9 +46,6 @@ import cn.hi028.android.highcommunity.view.ECAlertDialog;
  * @时间：2015年10月9日<br>
  */
 public class HuiOrderListAdapter extends BaseExpandableListAdapter {
-    /**
-     *
-     */
     HuiOrderFrag frag;
     private List<HuiOrderBean> data = new ArrayList<HuiOrderBean>();
     int flagTp;

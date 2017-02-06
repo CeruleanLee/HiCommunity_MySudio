@@ -48,7 +48,6 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 public class VallageSelctFrag extends BackHandledFragment implements MyLetterListView.OnTouchingLetterChangedListener {
     @ViewById(R.id.ll_village)
     LinearLayout ll_village;
-
     public static final String FRAGMENTTAG = "VallageCityFrag";
     @ViewById(R.id.fl_vallage_search)
     FrameLayout fl_vallage_search;

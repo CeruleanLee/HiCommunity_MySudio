@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,6 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  */
 public class MyTopicFrag extends Fragment {
     public static final String TAG = "MyTopicFrag";
-
     public static final String FRAGMENTTAG = "MyTopicFrag";
     private View mFragmeView;
     private int mCount = -1;
@@ -54,6 +52,7 @@ public class MyTopicFrag extends Fragment {
             parent.removeView(mFragmeView);
         return mFragmeView;
     }
+
     private void initView() {
         mFragmeView = LayoutInflater.from(getActivity()).inflate(
                 R.layout.frag_community_list_mytopic, null);
@@ -99,17 +98,10 @@ public class MyTopicFrag extends Fragment {
             if (null == message)
                 return;
             mList = (CommunityListBean) message;
-            if (null == mList||mList.getData()==null)
+            if (null == mList || mList.getData() == null)
                 return;
             mAdapter.ClearData();
             mAdapter.AddNewData(mList.getData());
-            Log.e(TAG,"AddNewData onSuccess");
-//            if (mCount == 0) {
-//            } else if (mCount == 1) {
-//                mAdapter.RefreshData(mList.getData());
-//            } else if (mCount == -1) {
-//                mAdapter.SetData(mList.getData());
-//            }
             mListView.onRefreshComplete();
         }
 
@@ -135,7 +127,7 @@ public class MyTopicFrag extends Fragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }

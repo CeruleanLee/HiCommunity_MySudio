@@ -64,7 +64,6 @@ public class ShakeFrag extends BaseFragment {
 
     @AfterViews
     void initView() {
-//        img_shake_time.setVisibility(View.INVISIBLE);
         WindowManager wm = getActivity().getWindowManager();
         int height = wm.getDefaultDisplay().getHeight();
         fl_shake.setMinimumHeight(height - DhUtil.dip2px(getActivity(), 48));

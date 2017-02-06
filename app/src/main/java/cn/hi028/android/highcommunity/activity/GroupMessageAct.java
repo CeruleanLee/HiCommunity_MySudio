@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.don.tools.GeneratedClassUtils;
@@ -33,7 +32,6 @@ import cn.hi028.android.highcommunity.utils.Constacts;
  */
 @EActivity(resName = "act_groupmessage")
 public class GroupMessageAct extends BaseFragmentActivity {
-
     public static final String ACTIVITYTAG = "GroupMessageAct";
     public static final String INTENTTAG = "GroupMessageActIntent";
     @ViewById(R.id.tv_secondtitle_name)

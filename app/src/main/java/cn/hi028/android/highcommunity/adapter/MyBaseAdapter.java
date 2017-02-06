@@ -1,21 +1,16 @@
 package cn.hi028.android.highcommunity.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import cn.hi028.android.highcommunity.R;
 import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public abstract class MyBaseAdapter<T> extends BaseAdapter {
 	protected Context context;
@@ -64,15 +59,13 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
 	}
 
 	/**
-	 * �÷�����Ҫ����ʵ�֣���Ҫ����item���ֵ�resource id
-	 * 
+	 *
 	 * @return
 	 */
 	public abstract int getItemResource(int pos);
 
 	/**
-	 * ʹ�ø�getItemView�����滻ԭ����getView��������Ҫ����ʵ��
-	 * 
+	 *
 	 * @param position
 	 * @param parent
 	 * @param holder
@@ -93,59 +86,6 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		// final View v = convertView;
-		// if (isAnimation && position > lastPosition) {
-		// Animation animation = null;
-		// if (animationid[0] == 0) {
-		// switch (random.nextInt(2)) {
-		// case 0:
-		// animation = AnimationUtils.loadAnimation(
-		// convertView.getContext(), R.anim.item_bottom_in_1);
-		// break;
-		// case 1:
-		// animation = AnimationUtils.loadAnimation(
-		// convertView.getContext(), R.anim.item_bottom_in_2);
-		// break;
-		// }
-		// } else {
-		// int pos = position % numCount;
-		// int n = numCount / 2;
-		// if (pos < n) {
-		// animation = AnimationUtils.loadAnimation(
-		// convertView.getContext(), animationid[0]);
-		// if (pos == 0) {
-		// animation.setDuration(700);
-		// }
-		// } else {
-		// animation = AnimationUtils.loadAnimation(
-		// convertView.getContext(), animationid[1]);
-		// if (pos == numCount - 1) {
-		// animation.setDuration(700);
-		// }
-		// }
-		// }
-		// convertView.startAnimation(animation);
-		// animation.setAnimationListener(new AnimationListener() {
-		// @Override
-		// public void onAnimationStart(Animation animation) {
-		// // TODO Auto-generated method stub
-		//
-		// }
-		//
-		// @Override
-		// public void onAnimationRepeat(Animation animation) {
-		// // TODO Auto-generated method stub
-		// v.clearAnimation();
-		// }
-		//
-		// @Override
-		// public void onAnimationEnd(Animation animation) {
-		// // TODO Auto-generated method stub
-		// v.clearAnimation();
-		// }
-		// });
-		// lastPosition = position;
-		// }
 		return getItemView(position, convertView, holder, parent);
 	}
 

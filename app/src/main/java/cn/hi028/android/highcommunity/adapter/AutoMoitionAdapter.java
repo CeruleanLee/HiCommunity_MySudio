@@ -87,7 +87,6 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
         final Auto_MotionBean.MotionDataEntity mBean = mList.get(position);
         mViewHolder.mTitle.setText(mBean.getTitle());
         mViewHolder.mTime.setText(TimeUtil.getYearMonthDay(Long.parseLong(mBean.getCreate_time())));
-//        mViewHolder.mTime.setText(TimeUtil.longToDate(Long.parseLong(mBean.getCreate_time()),"yyyy年MM月dd日 HH时mm分ss秒").toString());
         mViewHolder.mTv_Support.setText("支持率：" + mBean.getVote_percent() + "%");
         if (mBean.getIsSuggest().equals("1")) {
             mViewHolder.mBut_Support.setChecked(true);
@@ -97,22 +96,12 @@ public class AutoMoitionAdapter extends BaseFragmentAdapter {
             mViewHolder.mBut_Support.setChecked(false);
             mViewHolder.mBut_Support.setText(" 支持 ");
         }
-        // if (mBean.getIsSuggest().equals("1"))
         final View finalConvertView = convertView;
         mViewHolder.mBut_Support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickPosition=position;
                 HTTPHelper.SupportMotion(mIbpi, mBean.getId());
-//                mViewHolder.mBut_Support.setChecked(true);
-//                mViewHolder.mBut_Support.setText(" 已支持 ");
-//                if (mResultData!=null){
-//                    mViewHolder.mTv_Support.setText("支持率："+mResultData.getVote_percent()+"%");
-//                }else{
-//                    Log.e(TAG,"mResultData null");
-//
-//                }
-
             }
         });
         convertView.setOnClickListener(new View.OnClickListener() {

@@ -86,11 +86,6 @@ public class AutoNamelist_YWHAdapter extends BaseFragmentAdapter {
             @Override
             public void onClick(View v) {
 
-//                    Intent mDetails = new Intent(context, GeneratedClassUtils.get(MenuLeftAct.class));
-//                mDetails.putExtra(MenuLeftAct.ACTIVITYTAG, Constacts.MENU_LEFT_USERINFO);
-//                mDetails.putExtra(MenuLeftAct.INTENTTAG, mBean.getId() + "");
-//                startActivity(mDetails);
-
             }
         });
 

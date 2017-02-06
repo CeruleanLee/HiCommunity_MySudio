@@ -3,15 +3,14 @@
  **************************************************************************/
 package cn.hi028.android.highcommunity.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.bean.CitysBean;
@@ -24,7 +23,6 @@ import cn.hi028.android.highcommunity.bean.CitysBean;
  * @时间：2016/1/26<br>
  */
 public class CityListAdapter extends BaseFragmentAdapter {
-
     Context mContext;
     List<CitysBean> mlist = new ArrayList<CitysBean>();
     CitysBean bean;

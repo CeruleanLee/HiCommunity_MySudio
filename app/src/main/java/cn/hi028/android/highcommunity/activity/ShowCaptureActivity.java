@@ -83,7 +83,6 @@ static final String Tag="ShowCaptureActivity:";
         captureStr = getIntent().getStringExtra("result");
         tv.setVisibility(View.GONE);
         Log.e(Tag,"captureStr---"+captureStr.toString());
-//        byte[] decode = Base64.decode(captureStr.getBytes());
         String s=decode(captureStr);
         Log.e(Tag,"decode---"+s.toString());
         mTitle.setText("订单支付");
@@ -94,7 +93,6 @@ static final String Tag="ShowCaptureActivity:";
 
     }
 
-    // 将 BASE64 编码的字符串 s 进行解码
     public static String getFromBASE64(String s) {
         if (s == null) return null;
         sun.misc.BASE64Decoder decoder = new BASE64Decoder();
@@ -105,7 +103,6 @@ static final String Tag="ShowCaptureActivity:";
             return null;
         }
     }
-
     // 解密
     public String decode(String s) {
         byte[] b = null;
@@ -128,16 +125,12 @@ static final String Tag="ShowCaptureActivity:";
           return;
         }
         mMap=new HashMap();
-//        String testStr="http://wap.fbrrr.com/access?phone=13568949782&from=290101&token=a869f855d12b4d88818bb560d6b7fc21";
-//        String[] split1 = testStr.split("\\?");
-//        Log.e(Tag,"1---"+split1.toString()+"---"+split1.length);
         String[] split2 = captureStr.split("&");
         Log.e(Tag,"2---"+split2.toString()+"---"+split2.length);
         for (int i = 0; i < split2.length; i++) {
             String[] split3 = split2[i].split("=");
             mMap.put(split3[0],split3[1]);
         }
-        Log.e(Tag,"3---"+mMap.toString());
 setView(mMap);
 
     }
@@ -179,7 +172,6 @@ float finaltotalPrice=0;int finalnum=1;
                     int nowNUm=Integer.parseInt(tvGoodsNum.getText().toString())- 1;
                     finalnum=nowNUm;
                     tvGoodsNum.setText(nowNUm+"");
-//                    (float)(Math.round(a*100))/100
              float nowTotalPrice=(float)Math.round(nowNUm*Float.parseFloat(mMap.get("price").toString())*100)/100;
                     finaltotalPrice=nowTotalPrice;
                     tvGoodsTotal.setText("合计金额￥"+nowTotalPrice);
@@ -300,21 +292,17 @@ float finaltotalPrice=0;int finalnum=1;
     BpiHttpHandler.IBpiHttpHandler mIbpiWPaySubOrder = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            Log.e(Tag,"onError:"+message);
             waitPop.dismiss();
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
-
         @Override
         public void onSuccess(Object message) {
-            Log.e(Tag,"onSuccess:"+message.toString());
             waitPop.dismiss();
             if (null == message) {
                 return;
             }
             WXPayEntryActivity.toFrag = 3;
             WpayBean mBean = (WpayBean) message;
-
             Log.e(Tag,"WpayBean:"+mBean.toString());
             WchatPayUtils.getInstance().apay(ShowCaptureActivity.this, mBean.getAppid(), mBean.getPartnerid(), mBean.getPrepayid(), mBean.getNoncestr(), mBean.getPackages(), mBean.getSign(), mBean.getTimestamp());
 
@@ -348,7 +336,6 @@ float finaltotalPrice=0;int finalnum=1;
             }
         }
     };
-//
     public void showMsgDialog(int x) {
         String msg;
         if (x==1){

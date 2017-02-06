@@ -37,22 +37,17 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  */
 public class CitySearchAdapter extends BaseAdapter {
     SearchActivity act;
-
     public CitySearchAdapter(SearchActivity act) {
         this.act = act;
     }
-
     public List<VallageBean> getData() {
         return data;
     }
-
     public void setData(List<VallageBean> data) {
         this.data = data;
         notifyDataSetChanged();
     }
-
     List<VallageBean> data = new ArrayList<VallageBean>();
-
     @Override
     public int getCount() {
         return ListUtils.getSize(data);

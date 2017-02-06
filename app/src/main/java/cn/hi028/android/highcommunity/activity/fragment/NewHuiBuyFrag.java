@@ -104,12 +104,9 @@ public class NewHuiBuyFrag extends BaseFragment {
     FrameLayout fl_yhq;
     @Bind(R.id.btn_pay)
     Button btn_pay;
-    //    public static HuiSupportBean entyBean;
-    //    public static List<NewSupplyCarlistBean.SupplyCarlistDataEntity> listData;
     int type = 0;
     public HuiSuppOrderParams2 orderParams;
     SupplyPayConsignEntity mConsign;//订单参数
-    //    HSuppGdDefBean data;
     PopupWindow waitPop, mWaittingPop;
     NewHuiBuyAdapter adapter;
     View view;
@@ -133,7 +130,6 @@ public class NewHuiBuyFrag extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(Tag, "onCreateView");
         view = inflater.inflate(R.layout.frag_newhui_buy, null);
         ButterKnife.bind(this, view);
         fragment = this;
@@ -143,8 +139,6 @@ public class NewHuiBuyFrag extends BaseFragment {
         orderType = bundle.getInt("orderType", -1);
         Log.d(Tag, "carIdList=" + carIdList);
         Log.d(Tag, "order_num=" + order_num);
-
-//        initView();
         WchatPayUtils.getInstance().init(getActivity());
         initData();
         return view;
@@ -209,23 +203,6 @@ public class NewHuiBuyFrag extends BaseFragment {
             }
         });
         type = getActivity().getIntent().getIntExtra(HuiLifeSecondAct.INTENTTAG, 0);
-//        fl_huiLife_addressChooice.setVisibility(View.GONE);
-//        if (type == 0) {
-//            NewSupplyCarlistBean.SupplyCarlistDataEntity gdParams = new NewSupplyCarlistBean.SupplyCarlistDataEntity();
-//            gdParams.setId(entyBean.getGid() + "");
-//            gdParams.setStorage(entyBean.getNumber());
-//            gdParams.setName(entyBean.getGoods_name());
-//            gdParams.setCover_pic(entyBean.getPic().get(0).getSmall());
-//            gdParams.setPrice(entyBean.getPrice());
-//            gdParams.setNum(1);
-//            List<NewSupplyCarlistBean.SupplyCarlistDataEntity> dataGdParams = new ArrayList<NewSupplyCarlistBean.SupplyCarlistDataEntity>();
-//            dataGdParams.add(gdParams);
-//            adapter.setData(dataGdParams);
-//            HTTPHelper.GetHuiSuppGoodsMsg(mIbpi, HighCommunityApplication.mUserInfo.getId() + "", entyBean.getGid() + "");
-//        } else {
-//            adapter.setData(listData);
-//            HTTPHelper.GetHuiSuppGoodsMsg(mIbpi, HighCommunityApplication.mUserInfo.getId() + "", listData.get(0).getId() + "");
-//        }
 
         rgPay.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -296,8 +273,6 @@ public class NewHuiBuyFrag extends BaseFragment {
 
     private void initData() {
         if (getActivity().hasWindowFocus()) {
-
-//            mWaittingPop = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), btn_pay, Gravity.CENTER);
         }
 
         if (orderType == -1) return;
@@ -337,7 +312,6 @@ public class NewHuiBuyFrag extends BaseFragment {
             }
             if (null == message) {
                 Log.e(Tag, "onSuccess:null ");
-
                 return;
             }
             progress_layout.setVisibility(View.GONE);
@@ -360,13 +334,11 @@ public class NewHuiBuyFrag extends BaseFragment {
                 return;
             }
             Log.e(Tag, "onSuccess:" + mBean.toString());
-
             orderParams = new HuiSuppOrderParams2();
             orderParams.setToken(HighCommunityApplication.mUserInfo.getToken());
             Log.e(Tag, "onSuccess:" + mBean.getTotal_fee() + "," + mBean.getZero_money());
             orderParams.setTotal_amount(mBean.getTotal_fee());
             orderParams.setTotal_fee(mBean.getTotal_fee());
-//            orderParams.setZero_money(mBean.getZero_money());
             if (orderType == 0 && carIdList != null) {
 
                 orderParams.setCart_ids(carIdList);
@@ -379,8 +351,6 @@ public class NewHuiBuyFrag extends BaseFragment {
             setFee(mBean);
             setUserAddress(mBean);
             initView();
-//            HSuppGdDefBean data = (HSuppGdDefBean) message;
-//            updateData(data);
         }
 
         @Override
@@ -421,7 +391,7 @@ public class NewHuiBuyFrag extends BaseFragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -436,8 +406,6 @@ public class NewHuiBuyFrag extends BaseFragment {
     private void setUserAddress(NewSupplyPaydetailBean.SupplyPayDataEntity mBean) {
         mConsign = mBean.getConsign();
         updateData(mConsign);
-//        if (mConsign != null) {
-//        }
     }
 
     /**
@@ -465,14 +433,9 @@ public class NewHuiBuyFrag extends BaseFragment {
      * @param mBean
      */
     private void setOrderList(NewSupplyPaydetailBean.SupplyPayDataEntity mBean) {
-//        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//
-//        cl_goods.setLayoutParams(layoutParams);
         mList = mBean.getGoods();
         adapter = new NewHuiBuyAdapter(NewHuiBuyFrag.this, getActivity(), mList);
         cl_goods.setAdapter(adapter);
-
-
     }
 
     /**
@@ -488,7 +451,6 @@ public class NewHuiBuyFrag extends BaseFragment {
             if (null == message)
                 return;
             HSuppGdDefBean data = (HSuppGdDefBean) message;
-//            updateData(data);
         }
 
         @Override
@@ -512,14 +474,13 @@ public class NewHuiBuyFrag extends BaseFragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
         }
     };
 
-    //    @Click(R.id.btn_pay)
     void payClick() {
         if (HighCommunityUtils.isLogin(getActivity())) {
 
@@ -535,7 +496,7 @@ public class NewHuiBuyFrag extends BaseFragment {
             JSONObject params = new JSONObject();
             try {
                 params.put("token", HighCommunityApplication.mUserInfo.getToken());
-                if (orderParams.getTicket_id()!=0) {
+                if (orderParams.getTicket_id() != 0) {
                     params.put("ticket_id", orderParams.getTicket_id());
                 }
                 if (orderParams.getZero_money() != 0.0f) {
@@ -553,30 +514,16 @@ public class NewHuiBuyFrag extends BaseFragment {
                 if (orderParams.getOrder_num() != null && !orderParams.getOrder_num().equals("")) {
                     params.put("order_num", orderParams.getCart_ids());
                 }
-//                JSONArray jsonArray = new JSONArray();
-//                for (int i = 0; i < ListUtils.getSize(orderParams.getGoods()); i++) {
-//                    JSONObject goods = new JSONObject();
-//                    goods.put("goods_id", orderParams.getGoods().get(i).getGid());
-//                    goods.put("goods_price", orderParams.getGoods().get(i).getPrice());
-//                    goods.put("number", orderParams.getGoods().get(i).getNum());
-//                    jsonArray.put(goods);
-//                }
                 Log.e(Tag, "params:" + params.toString());
                 Log.e(Tag, "orderParams:" + orderParams.toString());
                 if (orderType == 0) {
-
-
                     HTTPHelper.submitNewHuiOrder(mIbpiOrder, orderParams.getTicket_id() + "", orderParams.getZero_money() + "", orderParams.getPay_type() + "",
                             orderParams.getAddress_id() + "", orderParams.getTotal_amount() + "", orderParams.getTotal_fee() + "",
                             orderParams.getMark(), orderParams.getCart_ids(), orderType + "");
-                    Log.e(Tag, "------a2");
                 } else if (orderType == 1) {
                     HTTPHelper.submitNewHuiOrder(mIbpiOrder, orderParams.getTicket_id() + "", orderParams.getZero_money() + "", orderParams.getPay_type() + "",
                             orderParams.getAddress_id() + "", orderParams.getTotal_amount() + "", orderParams.getTotal_fee() + "",
                             orderParams.getMark(), orderParams.getOrder_num(), orderType + "");
-                    Log.e(Tag, "------a2");
-
-
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -600,17 +547,12 @@ public class NewHuiBuyFrag extends BaseFragment {
             if (null == message)
                 return;
             Log.e(Tag, "payType == " + payType);
-
             Log.e(Tag, "message：" + message.toString());
-
             if (payType == -1) return;
             if (payType == 2) {
                 NewPaySuccessBean.PaySuccessDataEntity mBean = (NewPaySuccessBean.PaySuccessDataEntity) message;
                 Log.e(Tag, "mBean == " + mBean.toString());
-
-
-
-                AlipayUtils.getInstance().payGoods(getActivity(), mBean.getSubject(), mBean.getBody(), mBean.getTotal_fee(),mBean.getOld_fee(), mBean.getOut_trade_no(), mBean.getTicket_id(),
+                AlipayUtils.getInstance().payGoods(getActivity(), mBean.getSubject(), mBean.getBody(), mBean.getTotal_fee(), mBean.getOld_fee(), mBean.getOut_trade_no(), mBean.getTicket_id(),
                         mBean.getZero_money(), mBean.getNotify_url(), new AlipayUtils.onPayListener() {
 
                             @Override
@@ -639,9 +581,7 @@ public class NewHuiBuyFrag extends BaseFragment {
                         });
             } else if (payType == 1) {
                 WXPayEntryActivity.toFrag = 4;
-
                 mWpayBean = (WpayBean) message;
-
                 Log.e(Tag, "WpayBean:" + mWpayBean.toString());
                 WchatPayUtils.getInstance().apay(getActivity(), mWpayBean.getAppid(), mWpayBean.getPartnerid(), mWpayBean.getPrepayid(), mWpayBean.getNoncestr(), mWpayBean.getPackages(), mWpayBean.getSign(), mWpayBean.getTimestamp());
 
@@ -654,11 +594,9 @@ public class NewHuiBuyFrag extends BaseFragment {
         public Object onResolve(String result) {
             if (payType == 1) {
                 Log.e(Tag, "payType == 1" + result);
-
                 return HTTPHelper.ResolveHotGoodsWXOrder(result);
             } else if (payType == 2) {
                 Log.e(Tag, "payType == 2" + result);
-
                 return HTTPHelper.ResolveNewHuiOrder(result);
 
             }
@@ -682,7 +620,7 @@ public class NewHuiBuyFrag extends BaseFragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -698,12 +636,6 @@ public class NewHuiBuyFrag extends BaseFragment {
         mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 0);
         Constacts.mUserCenter.setOrder(0);
         fragment.getActivity().startActivity(mLeftjump);
-
-//        Toast.makeText(fragment.getActivity(),"结束本页，去订单列表，再从订单列表到详情",Toast.LENGTH_SHORT).show();
-//        Intent mIntent = new Intent(fragment.getActivity(), GeneratedClassUtils.get(MenuLeftSecondAct.class));
-//        mIntent.putExtra(MenuLeftSecondAct.ACTIVITYTAG, Constacts.MENU_LEFTSECOND_ORDER_DETAIL);
-//        mIntent.putExtra(MenuLeftSecondAct.INTENTTAG, mBean.geti + "");
-//        fragment.startActivity(mIntent);
         fragment.getActivity().finish();
     }
 
@@ -714,12 +646,6 @@ public class NewHuiBuyFrag extends BaseFragment {
         mLeftjump.putExtra(MenuLeftAct.INTENTTAG, 1);
         Constacts.mUserCenter.setOrder(1);
         fragment.getActivity().startActivity(mLeftjump);
-
-//        Toast.makeText(fragment.getActivity(),"结束本页，去订单列表，再从订单列表到详情",Toast.LENGTH_SHORT).show();
-//        Intent mIntent = new Intent(fragment.getActivity(), GeneratedClassUtils.get(MenuLeftSecondAct.class));
-//        mIntent.putExtra(MenuLeftSecondAct.ACTIVITYTAG, Constacts.MENU_LEFTSECOND_ORDER_DETAIL);
-//        mIntent.putExtra(MenuLeftSecondAct.INTENTTAG, mBean.geti + "");
-//        fragment.startActivity(mIntent);
         fragment.getActivity().finish();
     }
 
@@ -738,7 +664,6 @@ public class NewHuiBuyFrag extends BaseFragment {
                 @Override
                 public void onClick(DialogInterface arg0, int arg1) {
                     toOrderDetail();
-//                getActivity().finish();
                 }
             });
         } else {
@@ -747,7 +672,6 @@ public class NewHuiBuyFrag extends BaseFragment {
                 @Override
                 public void onClick(DialogInterface arg0, int arg1) {
                     toOrderTopayDetail();
-//                getActivity().finish();
                 }
             });
         }
@@ -755,13 +679,11 @@ public class NewHuiBuyFrag extends BaseFragment {
         dialog2.show();
     }
 
-    //    @Click(R.id.fl_huiLife_addressChooice)
     void ChooiceAddress() {
         Intent mAddress = new Intent(getActivity(), GeneratedClassUtils.get(AddressAct.class));
         startActivityForResult(mAddress, 0x21);
     }
 
-    //    @Click(R.id.fl_huiLife_NoAddress)
     void CreateAddress() {
         Intent mAddress = new Intent(getActivity(), GeneratedClassUtils.get(AddressAct.class));
         startActivityForResult(mAddress, 0x21);
@@ -774,9 +696,7 @@ public class NewHuiBuyFrag extends BaseFragment {
         if (data != null && requestCode == 0x21 && resultCode == 0x22) {
             Bundle bundle = data.getBundleExtra("data");
             AddressBean address = bundle.getParcelable("address");
-//            AddressBean address = (AddressBean) data.getSerializableExtra("address");
             orderParams.setAddress_id(Integer.parseInt(address.getId()));
-//            orderParams.setAid(address.getId());
             tv_reserve_name.setText(address.getReal_name());
             tv_reserve_phone.setText(address.getTel());
             tv_reserve_address.setText(address.getAddress());
@@ -793,7 +713,6 @@ public class NewHuiBuyFrag extends BaseFragment {
             orderParams.setTicket_id(Integer.parseInt(aticketBean.getTid()));
             orderParams.setTicket_value(aticketBean.getTicket_value());
             float realToatal = orderParams.getTotal_amount() - orderParams.getTicket_value();
-//            orderParams.setTotal_fee(realToatal);
             if (realToatal < orderParams.getZero_money()) {
                 edt_pay_num.setText("");
             }
@@ -810,10 +729,7 @@ public class NewHuiBuyFrag extends BaseFragment {
         if (mConsign != null) {
             Log.e(Tag, "mConsign != null");
             fl_huiLife_addressChooice.setVisibility(View.VISIBLE);
-
-
             orderParams.setAddress_id(mConsign.getId());
-
             tv_reserve_name.setText(mConsign.getName());
             tv_reserve_phone.setText(mConsign.getTel());
             tv_reserve_address.setText(mConsign.getAddress());
@@ -825,7 +741,6 @@ public class NewHuiBuyFrag extends BaseFragment {
             mNoAddress.setVisibility(View.GONE);
         } else {
             Log.e(Tag, "mConsign = null");
-
             mNoAddress.setVisibility(View.VISIBLE);
             fl_huiLife_addressChooice.setVisibility(View.GONE);
         }
@@ -835,23 +750,13 @@ public class NewHuiBuyFrag extends BaseFragment {
 
     public void updateOrder() {
         Log.e(Tag, "updateOrder:" + orderParams.toString());
-//        float parseFloat = Float.parseFloat(edt_pay_num.getText().toString());
         Log.e(Tag, "parseFloat:" + orderParams.getZero_money());
-
         orderParams.setTotal_fee((float) (Math.round((orderParams.getTotal_amount() - orderParams.getZero_money() - orderParams.getTicket_value()) * 100)) / 100);
         tv_total_pay.setText("合计金额￥" + CommonUtils.f2Bi(orderParams.getTotal_amount()));
         tv_total_actual.setText("￥" + CommonUtils.f2Bi(orderParams.getTotal_fee()));
 
         Log.e(Tag, "orderParams.getTotal_amount()--" + orderParams.getTotal_amount() + ",tv_coupon.toString()--" + tv_coupon.getText().toString()
                 + ",orderParams.getTicket_value()--" + orderParams.getTicket_value());
-
-//        if (orderParams.getTotal_amount() < 100 && tv_coupon.getText().toString().contains("￥")) {
-//            tv_coupon.setText(" - ");
-//            tv_total_actual.setText("￥" + CommonUtils.f2Bi(orderParams.getTotal_fee()) + orderParams.getTicket_value());
-//            orderParams.setTicket_value(0.0f);
-////            tv_coupon.setText("￥" + orderParams.getTicket_value() + "");
-//        }
-
         if (orderParams.getTotal_amount() <= 0 || orderParams.getTotal_fee() <= 0) {
             if (orderParams.getTotal_amount() <= 0) {
                 tv_total_pay.setText("合计金额￥" + 0.0 + "");
@@ -862,9 +767,7 @@ public class NewHuiBuyFrag extends BaseFragment {
         } else {
             btn_pay.setClickable(true);
             btn_pay.setBackgroundResource(R.color.Defult_Color_AppBotton);
-
         }
-
 
     }
 
@@ -873,15 +776,4 @@ public class NewHuiBuyFrag extends BaseFragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-
-//    @Override
-//    public void onWindowFocusChanged(boolean hasFocus) {
-//        // TODO Auto-generated method stub
-//        super.onWindowFocusChanged(hasFocus);
-//        if(hasFocus){
-//
-////            showPopupWindow(getApplicationContext());
-//        }
-//    }
-
 }

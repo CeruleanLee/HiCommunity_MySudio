@@ -52,7 +52,6 @@ public class CommDetailAdapter extends BaseFragmentAdapter {
     RepliesBean mTempReplies = new RepliesBean();
     ReplyBean mTempReply = new ReplyBean();
     PopupWindow mWatingWindow;
-
     public CommDetailAdapter(CommunityDetilsFrag mContext) {
 
         this.mFrag = mContext;

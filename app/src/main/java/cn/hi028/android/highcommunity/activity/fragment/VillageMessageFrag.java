@@ -35,7 +35,7 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @功能：特定小区的信息流<br>
  * @作者： 李凌云<br>
  * @版本：1.0<br>
- * @时间：2016-2-16<br>
+ * @时间：2016-2-16<br> v2.0 作废
  */
 public class VillageMessageFrag extends Fragment {
 

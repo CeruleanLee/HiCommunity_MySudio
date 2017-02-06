@@ -11,7 +11,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import net.duohuo.dhroid.util.LogUtil;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -19,7 +18,22 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.activity.fragment.*;
+import cn.hi028.android.highcommunity.activity.fragment.PersonalAuthFrag;
+import cn.hi028.android.highcommunity.activity.fragment.PersonalAuthFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.SeriRepairJJFrag;
+import cn.hi028.android.highcommunity.activity.fragment.SeriRepairJJFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.SeriRepairOrderFrag;
+import cn.hi028.android.highcommunity.activity.fragment.SeriRepairOrderFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.SeriRepairRecordFrag;
+import cn.hi028.android.highcommunity.activity.fragment.SeriRepairRecordFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.ServiceCaftsDetailFrag;
+import cn.hi028.android.highcommunity.activity.fragment.ServiceCaftsDetailFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.ServiceNoticeDetailFrag;
+import cn.hi028.android.highcommunity.activity.fragment.ServiceNoticeDetailFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.ServicePaymentDetailFrag;
+import cn.hi028.android.highcommunity.activity.fragment.ServicePaymentDetailFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.ServiceTenDetailFrag;
+import cn.hi028.android.highcommunity.activity.fragment.ServiceTenDetailFrag_;
 import cn.hi028.android.highcommunity.utils.Constacts;
 
 /**
@@ -42,7 +56,6 @@ public class ServiceSecondAct extends BaseFragmentActivity {
 
     @AfterViews
     void intView() {
-    	LogUtil.d("------ServiceSecondAct");
         if (!super.isVersionBiger()) {
             mHight.setVisibility(View.GONE);
         }

@@ -58,14 +58,4 @@ public class BaseFragmentActivity extends BaseActivity {
         }
         win.setAttributes(winParams);
     }
-
-
-//    protected void setStatusBar() {
-//        StatusBarUtil.setColor(this, getResources().getColor(R.color.Defult_Color_AppGreen));
-//    }
-
-
-
-
-
 }

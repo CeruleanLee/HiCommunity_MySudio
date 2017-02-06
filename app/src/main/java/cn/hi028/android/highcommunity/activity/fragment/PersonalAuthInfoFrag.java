@@ -29,7 +29,6 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  */
 @EFragment(resName = "frag_personalauth_info")
 public class PersonalAuthInfoFrag extends BaseFragment {
-
     public static final String FRAGMENTTAG = "PersonalAuthInfoFrag";
 
     @ViewById(R.id.et_personalauth_name)

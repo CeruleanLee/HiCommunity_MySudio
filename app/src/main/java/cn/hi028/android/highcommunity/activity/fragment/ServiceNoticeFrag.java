@@ -96,10 +96,6 @@ public class ServiceNoticeFrag extends BaseFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String id = mAdapter.getItem(i - 1).getId();
                 BrowseActivity.toBrowseActivity(getActivity(), "公告", url + id);
-//                Intent mIntent = new Intent(getActivity(), GeneratedClassUtils.get(BrowseActivity.class));
-//                mIntent.putExtra(ServiceSecondAct.ACTIVITYTAG, Constacts.SERVICENOTICE_DETAILS);
-//                mIntent.putExtra(ServiceSecondAct.INTENTTAG, url + id);
-//                startActivity(mIntent);
             }
         });
     }

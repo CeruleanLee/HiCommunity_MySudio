@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
-import net.duohuo.dhroid.util.LogUtil;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -18,9 +17,14 @@ import org.androidannotations.annotations.ViewById;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.EditPersonalFrag;
-import cn.hi028.android.highcommunity.activity.fragment.*;
+import cn.hi028.android.highcommunity.activity.fragment.EditPersonalFrag_;
 import cn.hi028.android.highcommunity.activity.fragment.HuiChipOrderDetailFrag;
+import cn.hi028.android.highcommunity.activity.fragment.HuiChipOrderDetailFrag_;
 import cn.hi028.android.highcommunity.activity.fragment.HuiOrderDetailFrag;
+import cn.hi028.android.highcommunity.activity.fragment.NewHuiOrderDetailFrag;
+import cn.hi028.android.highcommunity.activity.fragment.NewHuiOrderDetailFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.ServicePaymentDetailFrag;
+import cn.hi028.android.highcommunity.activity.fragment.ServicePaymentDetailFrag_;
 import cn.hi028.android.highcommunity.utils.Constacts;
 
 /**
@@ -31,10 +35,8 @@ import cn.hi028.android.highcommunity.utils.Constacts;
  */
 @EActivity(resName = "act_menusecond_left")
 public class MenuLeftSecondAct extends BaseFragmentActivity {
-
     public static final String ACTIVITYTAG = "MenuLeftAct";
     public static final String INTENTTAG = "MenuLeftActIntent";
-
     @ViewById(R.id.tv_secondtitle_name)
     TextView mTitle;
     @ViewById(R.id.title_menulef)
@@ -44,7 +46,6 @@ public class MenuLeftSecondAct extends BaseFragmentActivity {
 
     @AfterViews
     void initView() {
-    	LogUtil.d("------MenuLeftSecondAct");
         if (!super.isVersionBiger()) {
             mHight.setVisibility(View.GONE);
         }
@@ -67,7 +68,6 @@ public class MenuLeftSecondAct extends BaseFragmentActivity {
             case Constacts.MENU_LEFTSECOND_ORDER_DETAIL://订单详情
                 mTitle.setText("订单详情");
                 NewHuiOrderDetailFrag mOrder = (NewHuiOrderDetailFrag) new NewHuiOrderDetailFrag_();
-//                HuiOrderDetailFrag mOrder = (HuiOrderDetailFrag) new HuiOrderDetailFrag_();
                 ft.replace(R.id.ll_menuleftSecond_layout, mOrder, HuiOrderDetailFrag.FRAGMENTTAG);
                 break;
             case Constacts.MENU_LEFTSECOND_CHIP_ORDER_DETAIL://众筹订单详情

@@ -48,19 +48,20 @@ import cn.hi028.android.highcommunity.view.MyCustomViewPager;
  */
 @EFragment(resName = "frag_message_center_my")
 public class MyMessageFrag extends BaseFragment {
-
     public static final String TAG = "~MsgCenterFrag->";
     public static final String FRAGMENTTAG = "MyMessageFrag";
     @ViewById(R.id.vp_MessageCenter_ViewPager)
     MyCustomViewPager mPager;// 页卡内容
     @ViewById(R.id.rg_Message_Center)
     RadioGroup rg;//
-    /**当前页**/
+    /**
+     * 当前页
+     **/
     int currentPo = 0;
-    public List<ListView> listViewList; // Tab页面列表
-    public List<View> proPressList; // Tab页面列表
-    public List<TextView> noDataList; // Tab页面列表
-    private List<BaseAdapter> adapterList; // Tab页面列表
+    public List<ListView> listViewList;
+    public List<View> proPressList;
+    public List<TextView> noDataList;
+    private List<BaseAdapter> adapterList;
 
     @AfterViews
     void initView() {
@@ -120,19 +121,21 @@ public class MyMessageFrag extends BaseFragment {
         HTTPHelper.GetRelatedMsg(mRelateIbpi);
         mPager.setCurrentItem(0);
     }
-    List<SystemMessageBean.SystemMsgDataEntity> mSystemMsgList=new ArrayList<SystemMessageBean.SystemMsgDataEntity>();
-/**应该是系统消息的view**/
+
+    List<SystemMessageBean.SystemMsgDataEntity> mSystemMsgList = new ArrayList<SystemMessageBean.SystemMsgDataEntity>();
+
+    /**
+     * 应该是系统消息的view
+     **/
     View getPageView() {
-        Log.e(TAG,"getPageView");
+        Log.e(TAG, "getPageView");
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.frag_system_message, null);
-        SystemMsgAdapter adapter=new SystemMsgAdapter(getActivity(),mSystemMsgList);
-//        NoticeAdapter adapter = new NoticeAdapter(getActivity());
-      /**改到这里了 **/
+        SystemMsgAdapter adapter = new SystemMsgAdapter(getActivity(), mSystemMsgList);
         PullToRefreshListView ptfl = (PullToRefreshListView) view.findViewById(R.id.sysMsg_listView);
         View mProgress = view.findViewById(R.id.ll_sysMsg_Progress);
         ptfl.getRefreshableView().setDivider(null);
         ptfl.getRefreshableView().setDividerHeight(DhUtil.dip2px(getActivity(), 20));
-        ptfl.getRefreshableView().setPadding(20,-20,20,40);
+        ptfl.getRefreshableView().setPadding(20, -20, 20, 40);
         mProgress.setVisibility(View.VISIBLE);
         TextView mNodata = (TextView) view.findViewById(R.id.tv_sysMsg_noData);
         proPressList.add(mProgress);
@@ -144,7 +147,10 @@ public class MyMessageFrag extends BaseFragment {
         listViewList.add(lv_list);
         return view;
     }
-/**返回与我相关的view**/
+
+    /**
+     * 返回与我相关的view
+     **/
     View getRelatedList() {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.frag_chip_order, null);
         CommunityMsgAdapter adapter = new CommunityMsgAdapter(getActivity());
@@ -152,8 +158,7 @@ public class MyMessageFrag extends BaseFragment {
         View mProgress = view.findViewById(R.id.ll_NoticeDetails_Progress);
         ptfl.getRefreshableView().setDivider(null);
         ptfl.getRefreshableView().setDividerHeight(DhUtil.dip2px(getActivity(), 20));
-        ptfl.getRefreshableView().setPadding(20,-20,20,40);
-
+        ptfl.getRefreshableView().setPadding(20, -20, 20, 40);
         mProgress.setVisibility(View.GONE);
         TextView mNodata = (TextView) view.findViewById(R.id.tv_NoticeDetails_noData);
         proPressList.add(mProgress);
@@ -166,7 +171,10 @@ public class MyMessageFrag extends BaseFragment {
         listViewList.add(lv_list);
         return view;
     }
-/**系统相关的网络**/
+
+    /**
+     * 系统相关的网络
+     **/
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
@@ -200,19 +208,19 @@ public class MyMessageFrag extends BaseFragment {
 
         }
 
-    @Override
-    public void shouldLogin(boolean isShouldLogin) {
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
 
-    }
-
-    @Override
-    public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-        if (isShouldLogin){
-            HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
-            HighCommunityApplication.toLoginAgain(getActivity());
         }
-    }
-};
+
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin) {
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
+        }
+    };
     BpiHttpHandler.IBpiHttpHandler mRelateIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
@@ -253,11 +261,10 @@ public class MyMessageFrag extends BaseFragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
         }
     };
-
 }

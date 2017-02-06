@@ -15,8 +15,6 @@ import android.widget.TextView;
 
 import com.don.tools.BpiHttpHandler;
 
-import net.duohuo.dhroid.util.LogUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +91,6 @@ public class AllianceOrderAdapter extends BaseFragmentAdapter {
 		} else {
 			mViewHolder = (ViewHolder) convertView.getTag();
 		}
-		LogUtil.d("------mList"+ mList.toString());
 		final AllianceOrderBean mBean = mList.get(position);
 		if (!TextUtils.isEmpty(mBean.getShop_name())) {
 			mViewHolder.mAllianceStoreName.setText(mBean.getShop_name());
@@ -178,7 +175,6 @@ public class AllianceOrderAdapter extends BaseFragmentAdapter {
 				@Override
 				public void onClick(View v) {
 					HTTPHelper.ConfirmOrder(mIbpiConfirm, mBean.getOrder_num());
-//					Toast.makeText(mContext, "确认收货成功，快去评价吧~", 0).show();
 					notifyDataSetChanged();
 				}
 			});
@@ -206,7 +202,6 @@ public class AllianceOrderAdapter extends BaseFragmentAdapter {
 			mViewHolder.mBtnAction.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					// TODO 跳转去评价
 					if (face != null)
 						face.goEvaluate(mBean.getOrder_num(), position);
 					Log.e("renk", mBean.toString());
@@ -239,7 +234,6 @@ public class AllianceOrderAdapter extends BaseFragmentAdapter {
 		TextView mAllianceOrderNumber;
 		TextView mBtnCancleAction;
 		TextView mBtnAction;
-
 		RelativeLayout mForActionBefore;
 		LinearLayout mForActionAfter;
 		LinearLayout mActionBtnLayout;

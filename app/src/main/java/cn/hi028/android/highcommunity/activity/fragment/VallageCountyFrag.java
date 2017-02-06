@@ -44,9 +44,6 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 @EFragment(resName = "frag_villagechoice")
 public class VallageCountyFrag extends BackHandledFragment {
     CityBean cityBean;
-    //    public VallageCountyFrag(CityBean cityBean){
-//        this.cityBean = cityBean;
-//    }
     public static final String FRAGMENTTAG = "VallageCountyFrag";
     @ViewById(R.id.fl_vallage_search)
     FrameLayout fl_vallage_search;
@@ -147,14 +144,6 @@ public class VallageCountyFrag extends BackHandledFragment {
         }
     };
 
-    //    public void toCountySelect(){
-//        VallageCountyFrag second = new VallageCountyFrag();
-//        FragmentManager fm = getFragmentManager();
-//        FragmentTransaction ft = fm.beginTransaction();
-//        ft.replace(R.id.fragment, second);
-//        ft.addToBackStack("tag");
-//        ft.commit();
-//    }
     @Override
     public boolean onBackPressed() {
         return false;

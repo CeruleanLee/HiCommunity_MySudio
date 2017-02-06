@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.don.tools.BpiHttpHandler;
 
 import net.duohuo.dhroid.activity.BaseFragment;
-import net.duohuo.dhroid.util.LogUtil;
 import net.duohuo.dhroid.view.CustomListView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -82,14 +81,11 @@ public class HuiChipOrderDetailFrag extends BaseFragment {
 
 	@AfterViews
 	void initView() {
-		LogUtil.d("------HuiChipOrderDetailFrag -initView");
 		fl_order_op.setVisibility(View.GONE);
 		adapter = new HuiGdPayAdapter(this);
 		cl_goods.setAdapter(adapter);
 		out_trade_no = getActivity().getIntent().getStringExtra(
 				MenuLeftSecondAct.INTENTTAG);
-		LogUtil.d("~~~众筹订单详情 订单号~："+out_trade_no);
-//		Log.e("renk", "showPayActivity---->" + out_trade_no + "");
 		ll_NoticeDetails_Progress.setVisibility(View.VISIBLE);
 		HTTPHelper.getChipOrderDetail(mIbpiOrder, out_trade_no);
 	}
@@ -108,7 +104,6 @@ public class HuiChipOrderDetailFrag extends BaseFragment {
 			if (null == message)
 				return;
 			ChipOrderDetailBean bean = (ChipOrderDetailBean) message;
-			LogUtil.d("~~~众筹订单数据："+message.toString());
 			updateData(bean);
 			Log.e("renk", bean.toString());
 		}
@@ -131,7 +126,6 @@ public class HuiChipOrderDetailFrag extends BaseFragment {
 
 		@Override
 		public void shouldLogin(boolean isShouldLogin) {
-
 		}
 
 		@Override
@@ -148,41 +142,6 @@ public class HuiChipOrderDetailFrag extends BaseFragment {
 	 *
 	 * @param bean
 	 */
-
-//	public void updateData(ChipOrderDetail bean) {
-//		data = bean;
-//		HuiSuppGdParams goodsBean = new HuiSuppGdParams();
-//		List<HuiSuppGdParams> list = new ArrayList<HuiSuppGdParams>();
-//		List<GoodsOrderSubmitBean> beans = bean.getGoods_info();
-//		if (beans == null) {
-//			// return;
-//		} else {
-//			for (GoodsOrderSubmitBean orderBean : beans) {
-//
-//				goodsBean.setNumber(orderBean.getNumber());
-//				goodsBean.setGoods_name(orderBean.getGoods_name());
-//				goodsBean.setGoods_price(orderBean.getGoods_price());
-//				goodsBean.setPic(Arrays.asList(new String[] { orderBean
-//						.getThumb_pic() }));
-//				list.add(goodsBean);
-//			}
-//		}
-//		list.add(goodsBean);
-//		adapter.setData(list);
-//		tv_order_id.setText("订单号：" + bean.getOut_trade_no());
-//		tv_order_time.setText("下单时间："
-//				+ TimeUtil.getDayAllTime(bean.getCreate_time()));
-//		tv_reserve_name.setText(bean.getConsign());
-//		tv_reserve_phone.setText(bean.getTel());
-//		tv_reserve_address.setText(bean.getAddress());
-//		// tv_coupon.setText(bean.getTicket_value() + "");
-//		// tv_reserve_wallet.setText(bean.getZero_money() + "");
-//		tv_total_pay.setText("￥" + bean.getTotal_price() + "");
-//		tv_price.setText("￥" + CommonUtils.f2Bi(bean.getTotal_price()));
-//		tv_order_operate1.setVisibility(View.GONE);
-//		tv_order_operate2.setVisibility(View.GONE);
-//	}
-
 	public void updateData(ChipOrderDetailBean bean) {
 
 		HuiSuppGdParams goodsBean = new HuiSuppGdParams();

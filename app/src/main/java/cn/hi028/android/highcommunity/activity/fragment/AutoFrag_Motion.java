@@ -46,12 +46,10 @@ public class AutoFrag_Motion extends BaseFragment {
     MyCustomViewPager mViewPager;
     View view;
     MotionPagerAdapter mPagerAdapter;
-//    private MyChangeListener myChangelistener;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-//        myChangelistener = (MyChangeListener) activity;
     }
 
     @Override
@@ -59,7 +57,6 @@ public class AutoFrag_Motion extends BaseFragment {
         super.onDetach();
         LogUtil.d(Tag+"onDetach");
         try {
-            //参数是固定写法
             Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
             childFragmentManager.setAccessible(true);
             childFragmentManager.set(this, null);
@@ -72,7 +69,6 @@ public class AutoFrag_Motion extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogUtil.d(Tag + "onCreateView");
         view = inflater.inflate(R.layout.frag_auto_motion_twopage, null);
         ButterKnife.bind(this, view);
         initView();
@@ -80,7 +76,6 @@ public class AutoFrag_Motion extends BaseFragment {
     }
 
     void initView() {
-        LogUtil.d(Tag + "initView");
         mViewPager.setPagingEnabled(false);
         mPagerAdapter = new MotionPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
@@ -95,11 +90,9 @@ public class AutoFrag_Motion extends BaseFragment {
                 if (i == 0) {
                     but_motionList.setChecked(true);
                     but_Mymotion.setChecked(false);
-//                    myChangelistener.onChange(true);
                 } else {
                     but_Mymotion.setChecked(true);
                     but_motionList.setChecked(false);
-//                    myChangelistener.onChange(false);
                 }
             }
 
@@ -131,19 +124,9 @@ setCurrentPage(0);
            mViewPager.setCurrentItem(1);
        }
    }
-
-
-
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
-    }
-
-
-    public interface MyChangeListener {
-        public void onChange(boolean flag);
     }
 }

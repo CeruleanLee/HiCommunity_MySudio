@@ -96,7 +96,6 @@ public class VallageAct extends BaseFragmentActivity implements
 		Intent intent = new Intent(frag.getActivity(),
 				GeneratedClassUtils.get(VallageAct.class));
 		intent.putExtra(TYPE, type);
-//		intent.putExtra(ISTOMAINACT, toMainAct);
 		if (requestData==0) {
 			frag.startActivity(intent);
 		} else {
@@ -147,8 +146,6 @@ public class VallageAct extends BaseFragmentActivity implements
 		Intent intent = getIntent();
 		intent.putExtra("AD",address);
 		setResult(RESULT_VILLAGE_CODE, intent);
-
-//	finish();
 	}
 
 	@Override

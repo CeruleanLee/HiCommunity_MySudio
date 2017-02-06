@@ -48,9 +48,7 @@ import cn.hi028.android.highcommunity.utils.PhotoUtils;
  */
 @EFragment(resName = "frag_creategroup")
 public class CreateGroupFrag extends BaseFragment {
-
     public static final String FRAGMENTTAG = "CreateGroupFrag";
-
     @ViewById(R.id.civ_creategroup_avatar)
     CircleImageView mAvatar;
     @ViewById(R.id.civ_creategroup_name)
@@ -59,7 +57,6 @@ public class CreateGroupFrag extends BaseFragment {
     EditText mIntro;
     @ViewById(R.id.tv_secondtitle_name)
     TextView mTitle;
-
     int requesetPhoto = 0x000001, requestFile = 0x000002,
             requestCropImage = 0x000003;
     PopupWindow mPhotoPopupWindow = null, mWaitingWindow;

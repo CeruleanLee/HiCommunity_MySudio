@@ -312,11 +312,6 @@ OnClickListener, PayPop2FragFace {
 			}  
 		});
 
-
-
-
-		//		moreDetailGroup.setVisibility(View.GONE);
-		// toSeeMore.setChecked(false);
 		mPicDetail=(RadioButton) bottom_View.findViewById(R.id.ac_shopdetail_mypicdetail);
 		mCommentDetail=(RadioButton) bottom_View.findViewById(R.id.ac_shopdetail_mycommentdetail);
 		mWebview=(ScrollWebView) bottom_View.findViewById(R.id.ac_good_detail_webview);
@@ -328,10 +323,6 @@ OnClickListener, PayPop2FragFace {
 		viewline3 = top_view.findViewById(R.id.view13);
 
 		scrollText=(TextView) top_view.findViewById(R.id.scroll_Text);
-		//		mScrollView2=(ScrollView) findViewById(R.id.scrollView2);
-		//		mScrollView2.smoothScrollTo(0, 20);
-
-		LogUtil.d("~~~ top_view.getHeight()=="+top_view.getHeight());
 
 	}
 
@@ -350,9 +341,6 @@ OnClickListener, PayPop2FragFace {
 		@Override
 		public void onSuccess(Object message) {
 			goodsdata=(GoodsData) message;
-			LogUtil.d("~~~商品详情数据message~~~---"+message);
-			LogUtil.d("~~~商品详情数据~~~---"+goodsdata.toString());
-			//			switchFragment(0);
 			setUi((GoodsData) message);
 			mPicDetail.setChecked(true);
 		}
@@ -393,8 +381,7 @@ OnClickListener, PayPop2FragFace {
 
 	/**
 	 * 展示数据
-	 * 
-//	 * @param message
+	 *
 	 **/
 	public void setUi(GoodsData msg) {
 		if (msg == null) {
@@ -473,13 +460,11 @@ OnClickListener, PayPop2FragFace {
 		}else {
 			mWebview.setVisibility(View.GONE);
 			tv_noData.setText("暂无图文详情");
-//			tv_noData.setVisibility(View.VISIBLE);
 		}
 		if (null != msg.getComments()){
 			comment = msg.getComments();
 			EvaluationAdapter mEvaluationAdapter = new EvaluationAdapter(GoodsDetailActivity3.this, comment);
 			mEvaluationAdapter.setType(2);
-//			mCommentListview.setEmptyView(tv_empty);
 			mCommentListview.setAdapter(mEvaluationAdapter);
 			setCarAmount();
 
@@ -491,7 +476,6 @@ OnClickListener, PayPop2FragFace {
 		WebSettings mSetting = mWebview.getSettings();
 		mSetting.setJavaScriptEnabled(true); 
 		mSetting.setDefaultTextEncodingName("utf-8");
-		//		mSetting.setDisplayZoomControls(false);
 		mSetting.setUseWideViewPort(true);
 		mSetting.setLoadWithOverviewMode(true);
 		mSetting.setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS); 
@@ -502,28 +486,12 @@ OnClickListener, PayPop2FragFace {
 			}
 			@Override
 			public void onPageFinished(WebView view, String url) {
-				//	super.onPageFinished(view, url);
-				//	layoutCall.setVisibility(View.VISIBLE);
 			}
 		});
 		LogUtil.d("----------准备loadUrl-------------："+contentdetail);
 		mWebview.loadUrl(contentdetail);
-		// contentevaluation = (ArrayList<String>) msg.getComments();
-		//		aboutCallService(msg);
 	}
-
-	//	private void aboutCallService(GoodsData msg) {
-	//		if (null != msg.getTel()) {
-	//			telephone.setText("客服电话：" + msg.getTel());
-	//			telPhone = msg.getTel();
-	//		}
-	//		if (null != msg.getDelivery())
-	//			time.setText("服务时间：" + msg.getDelivery());
-	//	}
-
 	String contentdetail;
-	ArrayList<String> contentevaluation;
-
 	/** 返回 */
 	public void goBack() {
 		Intent data = new Intent();
@@ -554,20 +522,6 @@ OnClickListener, PayPop2FragFace {
 		case R.id.ac_good_title_go_back:
 			goBack();
 			break;
-			// 图文详情
-			//		case R.id.ac_shop_look_map_detail:
-			//			bundle.putInt("type", 0);
-			//			bundle.putString("detail", contentdetail);
-			//			intent.putExtras(bundle);
-			//			startActivity(intent);
-			//			break;
-			//			// 评价
-			//		case R.id.ac_shop_look_good_detail:
-			//			bundle.putInt("type", 1);
-			//			bundle.putSerializable("data", goodsdata);
-			//			intent.putExtras(bundle);
-			//			startActivity(intent);
-			//			break;
 		case R.id.ac_shop_goods_right_add_iv:
 			good_count++;
 			goods_count++;
@@ -667,7 +621,6 @@ OnClickListener, PayPop2FragFace {
 				}
 			}
 			break;
-			// activity 中点击去支付
 		case R.id.ac_shop_car_go_pay:
 			if (good_count==0) {
 				Toast.makeText(GoodsDetailActivity3.this, "请选择商品数量", Toast.LENGTH_SHORT).show();
@@ -709,7 +662,7 @@ OnClickListener, PayPop2FragFace {
 			break;
 		case R.id.call:
 			Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+ telPhone));
-			startActivity(intent2);
+//			startActivity(intent2);
 			break;
 
 		}
@@ -777,7 +730,6 @@ OnClickListener, PayPop2FragFace {
 
 	@Override
 	public void goPay(ArrayList<Goods_info> popBackList) {
-		// popwindow 点击去支付，
 		StringBuffer sb = new StringBuffer();
 		sb.append("[");
 		for (int i = 0; i < popBackList.size(); i++) {

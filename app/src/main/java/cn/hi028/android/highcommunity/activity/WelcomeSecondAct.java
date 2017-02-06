@@ -19,7 +19,6 @@ import org.androidannotations.annotations.ViewById;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.ForgetPsdFrag;
 import cn.hi028.android.highcommunity.activity.fragment.RegisterFrag;
-import cn.hi028.android.highcommunity.activity.fragment.WelcomeFrag;
 
 /**
  * @功能：忘记密码、注册等页面<br>
@@ -29,9 +28,7 @@ import cn.hi028.android.highcommunity.activity.fragment.WelcomeFrag;
  */
 @EActivity(resName = "act_welcome_second")
 public class WelcomeSecondAct extends BaseFragmentActivity {
-
     public static final String ACTIVITYTAG = "WelcomeSecondAct";
-
     @ViewById(R.id.tv_secondtitle_name)
     TextView mTitle;
     @ViewById(R.id.title_secondTitle_Hight)

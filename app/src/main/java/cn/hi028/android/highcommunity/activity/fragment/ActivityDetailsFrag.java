@@ -42,12 +42,11 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @功能：活动详情<br>
  * @作者： 李凌云<br>
  * @版本：1.0<br>
- * @时间：2016/1/13<br>
+ * @时间：2016/1/13<br>   换了注解
  */
 //@EFragment(resName = "frag_activitydetails")
 public class ActivityDetailsFrag extends BaseFragment {
     public static final String Tag = "ActivityDetails->";
-
     public static final String FRAGMENTTAG = "ActivityDetailsFrag";
    @Bind(R.id.ptrlv_activitydetails_listview)
     PullToRefreshListView mlistView;
@@ -55,15 +54,12 @@ public class ActivityDetailsFrag extends BaseFragment {
     ImageView mReplay;
    @Bind(R.id.tv_activitydetails_join)
     TextView mJoin;
-
    @Bind(R.id.progress_ActivityDetails)
     View mProgress;
    @Bind(R.id.tv_ActivityDetails_Nodata)
     TextView mNodata;
-
     String replayBG_grey="#aaaaaa";
     String replayBG_blue="#545BDD";
-    
     public PicPageAdapter pagerAdapter;
     public PopupWindow mWindow;
     String rid = "";
@@ -71,7 +67,6 @@ public class ActivityDetailsFrag extends BaseFragment {
     String ReplayContent = "";
     boolean isReplay = false;
     boolean isReplayCanRepaly=false;
-
     AutoScrollViewPager mViewPage;
     CirclePageIndicator mDicator;
     TextView mTitle, mNumber, mLocation, mDeadTime, mName, UnJoin, mQQ, mWeixin, mPhone, mContent, mAssistNumber;
@@ -208,8 +203,6 @@ public class ActivityDetailsFrag extends BaseFragment {
                
                 mReplay.setBackgroundColor(Color.parseColor(replayBG_grey));
                 isReplayCanRepaly=false;
-//                mReplay.setBackgroundResource(R.color.Defult_Color_Grey);
-//                mReplay.setClickable(false);
             } else {
                 UnJoin.setVisibility(View.GONE);
                 mJoinedLayout.setVisibility(View.VISIBLE);
@@ -222,8 +215,6 @@ public class ActivityDetailsFrag extends BaseFragment {
                
                 mReplay.setBackgroundColor(Color.parseColor(replayBG_blue));
                 isReplayCanRepaly=true;
-                
-//                mReplay.setClickable(true);
             }
             mContent.setText(mBean.getDetail().get(0).getContent());
             mAssistPicAdapter.AddNewData(mBean.getMembers());
@@ -259,8 +250,6 @@ public class ActivityDetailsFrag extends BaseFragment {
             }
         }
     };
-
-//    @Click(R.id.tv_activitydetails_replay)
     void replay() {
     	if (isReplayCanRepaly) {
 			

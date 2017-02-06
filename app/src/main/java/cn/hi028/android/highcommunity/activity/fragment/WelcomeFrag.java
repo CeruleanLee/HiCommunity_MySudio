@@ -63,11 +63,6 @@ public class WelcomeFrag extends BaseFragment {
 				R.layout.frag_welcome, null);
 		mFragmeView.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
 		fm = getFragmentManager();
-		// startAmin();
-
-
-
-
 		toLogin();
 	}
 
@@ -78,18 +73,8 @@ public class WelcomeFrag extends BaseFragment {
 				String token = HighCommunityApplication.share.getString(
 						Constacts.APPTOKEN, "");
 				if (TextUtils.isEmpty(token)) {
-					//
 					if (!getActivity().isFinishing())
-						// if
-						// (HighCommunityApplication.share.getBoolean("isfirst",
-						// true)) {
-						// Intent guide = new Intent(getActivity(),
-						// GuideMainActivity.class);
-						// startActivity(guide);
-						// getActivity().finish();
-						// } else {
 						toLoginFragment();
-					// }
 				} else {
 					HTTPHelper.Token(mIbpi, token);
 				}
@@ -100,7 +85,6 @@ public class WelcomeFrag extends BaseFragment {
 	public static ObjectAnimator nope(View view) {
 		int delta = view.getResources().getDimensionPixelOffset(
 				R.dimen.spacing_medium);
-
 		PropertyValuesHolder pvhTranslateX = PropertyValuesHolder.ofKeyframe(
 				View.TRANSLATION_X, Keyframe.ofFloat(0f, 0),
 				Keyframe.ofFloat(.10f, -delta), Keyframe.ofFloat(.26f, delta),

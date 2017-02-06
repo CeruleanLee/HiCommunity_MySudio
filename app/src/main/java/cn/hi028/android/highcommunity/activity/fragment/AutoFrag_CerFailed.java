@@ -65,21 +65,6 @@ public class AutoFrag_CerFailed extends BaseFragment {
         mListView.setEmptyView(mNoData);
         mListView.setAdapter(mAdapter);
         mListView.setPullToRefreshEnabled(false);
-//        mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-//            @Override
-//            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//
-//            }
-//
-//            @Override
-//            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//
-//            }
-//        });
-    }
-
-    private void initDatas() {
-
     }
 
 
@@ -106,7 +91,6 @@ public class AutoFrag_CerFailed extends BaseFragment {
 
         Intent mIntent_report = new Intent(getActivity(), AutonomousAct_Third.class);
         mIntent_report.putExtra("title", TAG_CREAT_MOTION);
-//        mIntent_report.putExtra("owner_id", owner_id);
         startActivity(mIntent_report);
 
     }

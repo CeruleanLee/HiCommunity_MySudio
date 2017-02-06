@@ -51,7 +51,6 @@ public class AutoFrag_CerFailedMsg extends BaseFragment {
 
     void initView() {
         Log.d(Tag, "initView");
-
         DisplayMetrics mdm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(mdm);
 
@@ -60,30 +59,12 @@ public class AutoFrag_CerFailedMsg extends BaseFragment {
         mListView.setEmptyView(mNoData);
         mListView.setAdapter(mAdapter);
         mListView.setPullToRefreshEnabled(false);
-//        mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-//            @Override
-//            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//
-//            }
-//
-//            @Override
-//            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//
-//            }
-//        });
     }
-
-    private void initDatas() {
-
-    }
-
-
     @Override
     public void onPause() {
         super.onPause();
         Log.d(Tag, "onPause");
     }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -95,13 +76,4 @@ public class AutoFrag_CerFailedMsg extends BaseFragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-
-
-
-
-    public void updateList(List<Auto_CertificationInitBean.CertificationInitDataEntity> mList) {
-        this.mList = mList;
-
-    }
-
 }

@@ -7,7 +7,6 @@ package cn.hi028.android.highcommunity.activity.fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -106,7 +105,6 @@ public class HuiSuppPayFrag extends BaseFragment {
 
     @Click(R.id.btn_pay)
     public void onPay() {
-    	Log.d("--------", order.getOut_trade_no());
         if (HighCommunityUtils.isLogin(getActivity())) {
             if (CommonUtils.floatTo(order.getReal_pri()) > 0) {
                 if (order != null && payType == 1) {
@@ -255,7 +253,6 @@ public class HuiSuppPayFrag extends BaseFragment {
     };
 
     public void updateData(GoodsOrderBean bean) {
-        
         adapter.setData(bean.getGoods());
         tv_reserve_name.setText(bean.getReal_name());
         tv_reserve_phone.setText(bean.getTel());

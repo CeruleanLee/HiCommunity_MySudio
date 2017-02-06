@@ -29,17 +29,16 @@ import cn.hi028.android.highcommunity.utils.Constacts;
  */
 @EActivity(resName = "act_huilife_second")
 public class HuiLifeSecondAct extends BaseFragmentActivity {
-
     public static final String Tag = "HuiLifeSecondAct";
     public static final String ACTIVITYTAG = "HuiLifeSecondAct";
     public static final String INTENTTAG = "HuiLifeSecondActIntent";
-
     @ViewById(R.id.tv_secondtitle_name)
     TextView mTitle;
     @ViewById(R.id.title_secondTitle_Hight)
     View mHight;
-    String carIdList,order_num;
+    String carIdList, order_num;
     boolean isFromOrder;
+
     @AfterViews
     void intView() {
         if (!super.isVersionBiger()) {
@@ -49,28 +48,26 @@ public class HuiLifeSecondAct extends BaseFragmentActivity {
 
         carIdList = getIntent().getStringExtra("carIdList");
         order_num = getIntent().getStringExtra("order_num");
-        isFromOrder = getIntent().getBooleanExtra("isFromOrder",false);
+        isFromOrder = getIntent().getBooleanExtra("isFromOrder", false);
 
-        Log.e(Tag,"传过来的数据：carIdList："+carIdList);
-        Log.e(Tag,"传过来的数据：order_num："+order_num);
+        Log.e(Tag, "传过来的数据：carIdList：" + carIdList + ",order_num：" + order_num);
         if (flag == -1)
             return;
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         switch (flag) {
             case Constacts.NEW_HUILIFE_ORDER:
-                Log.e(Tag,"ready to 订单支付");
                 mTitle.setText("订单支付");
                 NewHuiBuyFrag mNewHuiBuyFrag = new NewHuiBuyFrag();
-                Bundle mBundle=new Bundle();
-                if (!isFromOrder&&carIdList!=null&&carIdList!=""){
-                    mBundle.putString("carIdList",carIdList);
-                    mBundle.putInt("orderType",0);
+                Bundle mBundle = new Bundle();
+                if (!isFromOrder && carIdList != null && carIdList != "") {
+                    mBundle.putString("carIdList", carIdList);
+                    mBundle.putInt("orderType", 0);
                     mNewHuiBuyFrag.setArguments(mBundle);
                     ft.replace(R.id.ll_huilife_second_layout, mNewHuiBuyFrag, ServiceNoticeDetailFrag.FRAGMENTTAG);
-                }else if (isFromOrder&&order_num!=null&&order_num!=""){
-                    mBundle.putString("order_num",order_num);
-                    mBundle.putInt("orderType",1);
+                } else if (isFromOrder && order_num != null && order_num != "") {
+                    mBundle.putString("order_num", order_num);
+                    mBundle.putInt("orderType", 1);
                     mNewHuiBuyFrag.setArguments(mBundle);
                     ft.replace(R.id.ll_huilife_second_layout, mNewHuiBuyFrag, ServiceNoticeDetailFrag.FRAGMENTTAG);
 

@@ -21,10 +21,6 @@ import android.widget.RelativeLayout;
 import java.util.List;
 
 import cn.hi028.android.highcommunity.R;
-
-/**
- * Created by zhouweixian on 2016/1/23.
- */
 public class GuideView extends RelativeLayout implements ViewTreeObserver.OnGlobalLayoutListener {
     private final String TAG = getClass().getSimpleName();
     private Context mContent;

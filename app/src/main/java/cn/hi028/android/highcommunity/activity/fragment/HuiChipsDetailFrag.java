@@ -239,7 +239,6 @@ public class HuiChipsDetailFrag extends BaseFragment {
 		 mCounter = new onCounter(Long.parseLong(data.getEnd_time()) * 1000, 1000);
 		 mCounter.start();
 		 tv_count.setText("库存" + data.getStorage() + "件");
-//		 tv_name.setText(ToSBC(data.getR_name()));
 		 tv_name.setText(data.getR_name());
 		 tv_info.setText(data.getR_describe());
 		 pagerAdapter.setImageIdList(data.getR_pic());
@@ -258,10 +257,7 @@ public class HuiChipsDetailFrag extends BaseFragment {
 
 		 YAxis leftAxis = lc_chips.getAxisLeft();
 		 leftAxis.removeAllLimitLines();
-		 //        leftAxis.setAxisMaxValue(220f);
-		 //        leftAxis.setAxisMinValue(-50f);
 		 leftAxis.setStartAtZero(false);
-
 		 leftAxis.setTextSize(8f);
 		 leftAxis.setTextColor(getResources().getColor(R.color.color_blue_gray));
 		 leftAxis.setDrawAxisLine(false);
@@ -322,12 +318,9 @@ public class HuiChipsDetailFrag extends BaseFragment {
 		 set1.setDrawValues(false);
 		 set1.setFillAlpha(65);
 		 set1.setCircleColorHole(getResources().getColor(R.color.Defult_Color_AppGreen));
-		 //        set1.setFillColor(getResources().getColor(R.color.Defult_Color_AppGreen));
 		 ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
 		 dataSets.add(set1); // add the datasets
-		 // create a data object with the datasets
 		 LineData list = new LineData(xVals, dataSets);
-		 // set data
 		 lc_chips.setData(list);
 	 }
 

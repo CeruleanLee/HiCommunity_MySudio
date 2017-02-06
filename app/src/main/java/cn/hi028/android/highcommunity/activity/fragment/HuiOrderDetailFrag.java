@@ -94,11 +94,8 @@ public class HuiOrderDetailFrag extends BaseFragment {
     }
     @AfterViews
     void initView() {
-    	Log.e(Tag,"------HuiOrderDetailFrag-initView");
         adapter = new HuiGdPayAdapter(this);
         if (adapter==null){
-            Log.e(Tag,"adapter null");
-
         }
         if (cl_goods==null){
             Log.e(Tag,"cl_goods  null");

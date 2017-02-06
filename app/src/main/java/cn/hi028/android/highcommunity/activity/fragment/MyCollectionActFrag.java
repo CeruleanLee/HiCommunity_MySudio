@@ -40,7 +40,6 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  */
 @EFragment(resName = "frag_mycollection_act")
 public class MyCollectionActFrag extends BaseFragment {
-
     public static final String FRAGMENTTAG = "MyCollectionActFrag";
     @ViewById(R.id.ptrlv_activity_listView)
     PullToRefreshListView mListView;
@@ -50,7 +49,6 @@ public class MyCollectionActFrag extends BaseFragment {
     TextView mNodata;
     @ViewById(R.id.tv_activity_create)
     TextView mCreate;
-
     List<ActiveBean> mlist;
     MyActivityAdapter mAdapter;
 
@@ -62,18 +60,10 @@ public class MyCollectionActFrag extends BaseFragment {
         mAdapter = new MyActivityAdapter(getActivity());
         mListView.setAdapter(mAdapter);
         mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-//        mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
-//            @Override
-//            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-//                new GetDataTask().execute();
-//            }
-//        });
         mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//                HTTPHelper.GetMyCollectActivityList(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
                 new GetDataTask().execute();
-
             }
 
             @Override
@@ -161,8 +151,6 @@ public class MyCollectionActFrag extends BaseFragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             HTTPHelper.GetMyCollectActivityList(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
-            // Call onRefreshComplete when the list has been refreshed.
-            //				mListView.onRefreshComplete();
         }
     }
 }

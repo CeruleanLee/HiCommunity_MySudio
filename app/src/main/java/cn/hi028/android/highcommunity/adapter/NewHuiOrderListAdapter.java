@@ -69,8 +69,6 @@ public class NewHuiOrderListAdapter extends BaseExpandableListAdapter {
     @Override
     public int getChildrenCount(int groupPosition) {
         return ListUtils.getSize(mList.get(groupPosition).getList());
-//        return data.get(groupPosition).getList().size();
-//        return groupPosition;
     }
 
     @Override
@@ -112,7 +110,6 @@ public class NewHuiOrderListAdapter extends BaseExpandableListAdapter {
         }
         NewHuiOrderBean newHuiOrderBean = mList.get(groupPosition);
 
-//        holder.tv_orderId.setText("订单号：" + newHuiOrderBean.getOrder_num());
         holder.tv_merchant.setText(newHuiOrderBean.getMerchant());
         if (newHuiOrderBean.getStatus() == 0) {
             holder.tv_order_state.setText("待付款");
@@ -200,10 +197,6 @@ public class NewHuiOrderListAdapter extends BaseExpandableListAdapter {
             holder.tv_order_operate2.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Intent mIntent = new Intent(frag.getActivity(), GeneratedClassUtils.get(PaymentActivity.class));
-//                    mIntent.putExtra(PaymentActivity.ACTIVITYTAG, Constacts.HUILIFE_SUPPORT_PAY);
-//                    mIntent.putExtra(PaymentActivity.INTENTTAG, mList.get(groupPosition).getId() + "");
-//                    frag.startActivity(mIntent);
                     Intent mIntent = new Intent(frag.getActivity(), GeneratedClassUtils.get(HuiLifeSecondAct.class));
                     mIntent.putExtra(HuiLifeSecondAct.ACTIVITYTAG, Constacts.NEW_HUILIFE_ORDER);
                     mIntent.putExtra("order_num", mList.get(groupPosition).getOrder_num() + "");
@@ -413,7 +406,6 @@ public class NewHuiOrderListAdapter extends BaseExpandableListAdapter {
 
             this.mList.clear();
             this.mList = data;
-//            this.data.addAll(data);
         }
         notifyDataSetChanged();
 

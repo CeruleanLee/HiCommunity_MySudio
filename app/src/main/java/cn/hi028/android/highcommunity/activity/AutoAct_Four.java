@@ -27,9 +27,7 @@ import cn.hi028.android.highcommunity.view.LinearForVoteResult;
  * 投票结果展示
  */
 public class AutoAct_Four extends BaseFragmentActivity {
-
     String Tag = "~~~ AutoAct_Four";
-
     public static final String ACTIVITYTAG = "AutoAct_Four";
     public static final String INTENTTAG = "AutoAct_Four";
     String vote_id;
@@ -54,14 +52,10 @@ String vote_title="";
         ButterKnife.bind(this);
         vote_id = getIntent().getStringExtra("vote_id");
         vote_title = getIntent().getStringExtra("vote_title");
-//        initView();
         initDtas();
     }
 
     private void initView() {
-
-
-//        mListiew.addFooterView(mfourBack);
         mListiew.setAdapter(mAdapter);
 
     }
@@ -88,7 +82,6 @@ String vote_title="";
             mList = (List<Auto_VoteResultBean.VoteResultDataEntity>) message;
             setData();
             mAdapter = new ShowVoteResultAdapter(AutoAct_Four.this,mList);
-//                mList = mData.getOptions();
                 mListiew.setAdapter(mAdapter);
             mfourBack.setVisibility(View.VISIBLE);
         }
@@ -129,11 +122,8 @@ String vote_title="";
         switch (view.getId()) {
             case R.id.auto_four_img_back:
                 this.finish();
-
-//                onBackPressed();
                 break;
             case R.id.four_back:
-//                onBackPressed();
                 this.finish();
                 break;
         }

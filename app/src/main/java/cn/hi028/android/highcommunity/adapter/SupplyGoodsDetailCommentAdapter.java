@@ -85,8 +85,6 @@ static final String Tag="SupplyGoodsDetailCommentAdapter:";
         mViewHolder.merchantname.setVisibility(View.GONE);
 
         mViewHolder.time.setText(TimeUtil.longToString(Long.parseLong(mBean.getTime())*1000,"yyyy年MM月dd日"));
-//        mViewHolder.time.setText(TimeUtil.getDayAllTime(Long.parseLong(mBean.getTime())));
-//        mViewHolder.time.setText(getTime(Long.parseLong(mBean.getTime())));
         mViewHolder.content.setText(mBean.getContent());
         return convertView;
     }

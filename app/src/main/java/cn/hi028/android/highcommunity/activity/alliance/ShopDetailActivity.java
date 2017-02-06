@@ -1,8 +1,6 @@
 package cn.hi028.android.highcommunity.activity.alliance;
 
 
-import cn.hi028.android.highcommunity.R;
-import cn.hi028.android.highcommunity.view.DownHint;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Build;
@@ -16,6 +14,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import cn.hi028.android.highcommunity.R;
+import cn.hi028.android.highcommunity.view.DownHint;
 /**
  * 联盟商家 商品详情
  * @author Administrator
@@ -23,7 +24,6 @@ import android.webkit.WebViewClient;
  */
 public class ShopDetailActivity extends Activity {
 	private WebView webView;
-	// String url2 = "http://tv.cctv.com/cctv1/";
 	String url = "";
 	private DownHint down;  
 	@Override
@@ -32,9 +32,7 @@ public class ShopDetailActivity extends Activity {
 		setContentView(R.layout.activity_shop_detail);
 		webView = (WebView) findViewById(R.id.webView);
 		down = (DownHint) findViewById(R.id.down_load_hint);
-		
 		down.showProgress("正在努力加载…");
-
 		url = getIntent().getStringExtra("url");
 		Log.e("url", url);
 		// 修改ua使得web端正确判断
@@ -51,7 +49,6 @@ public class ShopDetailActivity extends Activity {
 		// settings.setBlockNetworkImage(false);
 		// webView加载web资源
 		webView.setVisibility(View.VISIBLE);
-
 		// WebSettings webSettings = webView.getSettings();
 		settings.setDefaultTextEncodingName("utf-8");
 

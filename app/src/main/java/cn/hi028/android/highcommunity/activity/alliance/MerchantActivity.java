@@ -96,8 +96,6 @@ public class MerchantActivity extends BaseFragmentActivity implements
 			transation.add(R.id.ac_merchant_content_ll, fragments.get(index));
 		}
 		transation.show(fragments.get(index));
-		// transation.replace(R.id.ac_merchant_content_ll,
-		// fragments.get(index));
 		transation.addToBackStack("" + index);
 		currentFragment = fragments.get(index);
 		transation.commit();
@@ -113,10 +111,6 @@ public class MerchantActivity extends BaseFragmentActivity implements
 			onBackPressed();
 			break;
 		}
-		/*
-		 * if (v == back) { this.finish(); }
-		 */
-
 	}
 
 	@Override
@@ -143,7 +137,6 @@ public class MerchantActivity extends BaseFragmentActivity implements
 	@Override
 	protected void onResume() {
 		super.onResume();
-		// oncheck(index);
 		Log.e("renk", "OnResume");
 		Log.e("renk", "OnResume" + ++onresume);
 
@@ -159,8 +152,6 @@ public class MerchantActivity extends BaseFragmentActivity implements
 			} else {
 				shop.setBackCallCount(null);
 			}
-			
-//			Toast.makeText(this, "requse" + requse + "" + result, 0).show();
 			Log.e("renk", "onActivityResult>meac");
 			
 		}
@@ -170,7 +161,6 @@ public class MerchantActivity extends BaseFragmentActivity implements
 	@Override
 	public void onBackPressed() {
 		finish();
-		
 	}
 	
 }

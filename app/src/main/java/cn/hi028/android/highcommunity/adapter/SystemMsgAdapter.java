@@ -33,9 +33,7 @@ public class SystemMsgAdapter extends BaseFragmentAdapter {
     static final String Tag = "~~~ SystemMsgAdapter:";
     public Context mContext;
     public int flag = 0;
-    //    private List<NoticeBean> mList = new ArrayList<NoticeBean>();
     List<SystemMessageBean.SystemMsgDataEntity> mList=new ArrayList<SystemMessageBean.SystemMsgDataEntity>();
-
     public SystemMsgAdapter(Context mContext, List<SystemMessageBean.SystemMsgDataEntity> mList) {
         this.mContext = mContext;
         this.mList = mList;
@@ -99,9 +97,6 @@ public class SystemMsgAdapter extends BaseFragmentAdapter {
                     mViewHolder.mOrderId.setVisibility(View.VISIBLE);
                     mViewHolder.mOrderId.setText("运单号：" + mBean.getOrder_num());
                 }
-//                else{
-//                    mViewHolder.mOrderId.setVisibility(View.GONE);
-//                }
                 break;
             case 2://优惠券
                 mViewHolder.mTime.setVisibility(View.GONE);
@@ -111,14 +106,6 @@ public class SystemMsgAdapter extends BaseFragmentAdapter {
                     BpiUniveralImage.displayImage("drawable://" + R.mipmap.img_sysmsg_coupon, mViewHolder.mPic);
                 }
                 mViewHolder.mTimeRight.setText(TimeFormat.TimedateFormat(Long.parseLong(mBean.getCreate_time()) * 1000));
-//                else {
-//                    if (mViewHolder.mPic != null) {
-//                        BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getPic(), mViewHolder.mPic);
-//                    } else {
-//                        Log.d("~~~", "mViewHolder.mYWHAvatar null");
-//                    }
-//                }
-
                 break;
             case 3://积分
 
@@ -139,7 +126,6 @@ public class SystemMsgAdapter extends BaseFragmentAdapter {
         } else if(title.indexOf("恭喜")!=-1) {
             Log.d(Tag,"2 ");
             mViewHolder.mTitle.setTextColor(0xff2D8719);
-            //#2D8719
         }else if (title.indexOf("订单")!=-1){
             Log.d(Tag,"3 ");
 

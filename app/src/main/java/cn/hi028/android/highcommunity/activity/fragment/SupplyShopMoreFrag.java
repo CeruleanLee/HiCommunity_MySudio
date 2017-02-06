@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,36 +44,23 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
             = new ArrayList<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity>();
     SupplyMoreGoodsGridAdapter3 mAdapter;
 
-
     @Bind(R.id.id_stickynavlayout_innerscrollview)
     RecyclerView mGridview;
-
     private PopupWindow mWatingWindow;
-
     View view;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(Tag, "onCreateView");
         view = inflater.inflate(R.layout.frag_supply_more, null);
         ButterKnife.bind(this, view);
-//        vp.setObjectForPosition(view,1);
         initView();
         return view;
     }
 
     void initView() {
-        Log.d(Tag, "initView");
         mAdapter = new SupplyMoreGoodsGridAdapter3(mList, getActivity());
-//        mGridview.setMode(PullToRefreshBase.Mode.DISABLED);
         mGridview.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-
-//        mGridview.setAdapter(mAdapter);
-        //RecycleView 增加边距
         int spacingInPixels = 8;
-//        mGridview.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
-//        mGridview.addItemDecoration(new SpaceItemDecoration2(10));
         mGridview.addItemDecoration(new SpaceItemDecoration3(18));
         mGridview.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new SupplyMoreGoodsGridAdapter3.OnRecyclerViewItemClickListener() {
@@ -82,23 +68,10 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
             @Override
             public void onItemClick(View view, SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity data) {
                 Intent mIntent = new Intent(getActivity(), SupplyGoodsDetailActivity2.class);
-//                Intent mIntent = new Intent(getActivity(), NewSupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id", data.getId());
                 getActivity().startActivity(mIntent);
             }
         });
-
-//        mGridview.addItemDecoration(new MyItemDecoration());
-
-//        mAdapter = new SupplyMoreGoodsGridAdapter(mList, getActivity());
-//        mList = new ArrayList<SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity.SupplyMoreGoodsEntity>();
-////        List<Auto_MotionBean.MotionDataEntity> list, Context context, View view, int screenWidth, ListView listView
-//        DisplayMetrics mdm = new DisplayMetrics();
-//        getActivity().getWindowManager().getDefaultDisplay().getMetrics(mdm);
-////        mAdapter = new AutoMyMoitionAdapter(mList, getActivity(), getActivity().getWindow().getDecorView(), mdm.widthPixels, mGridview);
-//
-//        mGridview.setEmptyView(mNodata);
-//        mGridview.setAdapter(mAdapter);
         initDatas();
     }
 
@@ -109,57 +82,38 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
     int sort = 1;
 
     private void initDatas() {
-        if (view!=null){
-
-            mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(),view, Gravity.CENTER);
+        if (view != null) {
+            mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), view, Gravity.CENTER);
         }
-        Log.e(Tag, "调用 initDatas+category_id：" + category_id + " sort " + sort);
-
         HTTPHelper.GetSupplyGoodsListMore(mIbpi, category_id, sort + "");
     }
-
 
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            if (mWatingWindow!=null){
-
+            if (mWatingWindow != null) {
                 mWatingWindow.dismiss();
             }
-            Log.d(Tag, "---~~~onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
         @Override
         public void onSuccess(Object message) {
-            Log.d(Tag, "---~~~onSuccess");
-       if (mWatingWindow!=null){
+            if (mWatingWindow != null) {
 
-            mWatingWindow.dismiss();
-        }
+                mWatingWindow.dismiss();
+            }
             if (message == null) return;
             SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity mData = (SupplyGoodsMoreBean.SupplyGoodsMoreDataEntity) message;
             mList.clear();
             mAdapter.ClearData();
-//           if (mList.size()>0){
-//               Log.d(Tag, "---~~~clear1");
-//
-//               mList.clear();
-//           }
-//            if (mAdapter.getCount()>0){
-//                Log.d(Tag, "---~~~clear2");
-//                mAdapter.ClearData();
-//            }
             mList = mData.getGoods();
             mAdapter.AddNewData(mList);
-//            HighCommunityUtils.GetInstantiation().setThirdServiceGridViewHeight(mGridview, mAdapter, 4);
-//            mGridview.setAdapter(mAdapter);
 
         }
 
         @Override
         public Object onResolve(String result) {
-//			Log.e("renk", result);
             return HTTPHelper.ResolveSupplyMoreGoodsListDataEntity(result);
         }
 
@@ -170,11 +124,10 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
 
         @Override
         public void cancleAsyncTask() {
-            if (mWatingWindow!=null){
+            if (mWatingWindow != null) {
 
                 mWatingWindow.dismiss();
             }
-//            mWatingWindow.dismiss();
 
         }
 
@@ -185,7 +138,7 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -195,17 +148,14 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(Tag, "onPause");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(Tag, "onResume");
         if (mWatingWindow != null) {
             mWatingWindow.dismiss();
         }
-//        initDatas();
     }
 
     @Override
@@ -217,14 +167,12 @@ public class SupplyShopMoreFrag extends BaseFragment implements NewSupplyMoreAct
 
     @Override
     public void onSortChange(String category_id, int sort) {
-        Log.e(Tag, "调用 onSortChange");
         this.category_id = category_id;
         this.sort = sort;
         initDatas();
     }
 
     public void updateSort(String category_id, int sort) {
-        Log.e(Tag, "调用 updateSort");
         this.category_id = category_id;
         this.sort = sort;
         initDatas();

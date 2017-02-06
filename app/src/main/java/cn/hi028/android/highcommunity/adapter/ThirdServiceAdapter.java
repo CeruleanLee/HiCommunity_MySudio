@@ -13,9 +13,6 @@ import android.widget.TextView;
 
 import com.don.tools.BpiUniveralImage;
 import com.lidroid.xutils.BitmapUtils;
-import com.lidroid.xutils.bitmap.callback.BitmapLoadCallBack;
-
-import net.duohuo.dhroid.util.ImageLoaderUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,8 +73,6 @@ public class ThirdServiceAdapter extends BaseFragmentAdapter {
         final ServiceBean mBean = mList.get(i);
         int pad = HighCommunityUtils.GetInstantiation().dip2px(8);
         mViewHolder.mPic.setPadding(pad, pad, pad, pad);
-//        mBitmapUtils.display(mViewHolder.mPic, Constacts.IMAGEHTTP + mBean.getPic());
-        
         BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getPic(), mViewHolder.mPic);
         mViewHolder.mName.setText(mBean.getName());
         return convertView;

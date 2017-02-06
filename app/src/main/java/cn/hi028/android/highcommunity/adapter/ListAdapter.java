@@ -71,9 +71,7 @@ public class ListAdapter extends BaseFragmentAdapter {
         holder.textView.setText(dataList.get(position).name);
         holder.textAddress.setText(dataList.get(position).address);
         if (checkPosition == position) {
-//            holder.imageLl.setVisibility(View.VISIBLE);
         } else {
-//            holder.imageLl.setVisibility(View.GONE);
         }
 
 
@@ -83,7 +81,6 @@ public class ListAdapter extends BaseFragmentAdapter {
     class ViewHolder {
         TextView textView;
         TextView textAddress;
-//        ImageView imageLl;
     }
 
     @Override

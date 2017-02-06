@@ -28,15 +28,15 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 public class AutoFrag_CreatReport extends BaseFragment {
     public static final String Tag = "~~~AutoFrag_CreatReport~~~";
     public static final String FRAGMENTTAG = "AutoFrag_CreatReport";
-EditText mTitle,mContent;
-TextView mCommit;
+    EditText mTitle, mContent;
+    TextView mCommit;
     int owner_id;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.d(Tag + "onCreateView");
         View view = inflater.inflate(R.layout.frag_auto_creat_report, null);
         Bundle bundle = getArguments();
-        owner_id = bundle.getInt("owner_id",-1);
+        owner_id = bundle.getInt("owner_id", -1);
         findView(view);
         ButterKnife.bind(this, view);
         initView();
@@ -44,17 +44,16 @@ TextView mCommit;
     }
 
     private void findView(View view) {
-        mTitle= (EditText) view.findViewById(R.id.creatReport_title);
-        mContent= (EditText) view.findViewById(R.id.creatReport_content);
-        mCommit= (TextView) view.findViewById(R.id.creatReport_commit);
+        mTitle = (EditText) view.findViewById(R.id.creatReport_title);
+        mContent = (EditText) view.findViewById(R.id.creatReport_content);
+        mCommit = (TextView) view.findViewById(R.id.creatReport_commit);
     }
 
     private void initView() {
-        LogUtil.d(Tag + "initView");
         mCommit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HTTPHelper.AutoCreatReport(mIbpi,owner_id+"",mTitle.getText().toString(),mContent.getText().toString());
+                HTTPHelper.AutoCreatReport(mIbpi, owner_id + "", mTitle.getText().toString(), mContent.getText().toString());
             }
         });
 
@@ -67,6 +66,7 @@ TextView mCommit;
             LogUtil.d(Tag + "---~~~onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
+
         @Override
         public void onSuccess(Object message) {
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
@@ -76,13 +76,14 @@ TextView mCommit;
 
         @Override
         public Object onResolve(String result) {
-			LogUtil.d(Tag+" ~~~result"+result);
+            LogUtil.d(Tag + " ~~~result" + result);
             return result;
         }
 
         @Override
         public void setAsyncTask(AsyncTask asyncTask) {
         }
+
         @Override
         public void cancleAsyncTask() {
 
@@ -95,7 +96,7 @@ TextView mCommit;
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -118,16 +119,11 @@ TextView mCommit;
     }
 
 
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-
-
-
 
 
 }

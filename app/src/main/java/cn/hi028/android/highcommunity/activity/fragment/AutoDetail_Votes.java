@@ -120,10 +120,6 @@ public class AutoDetail_Votes extends BaseFragment {
         LogUtil.d(Tag + "initView");
         radioAnswers = new ArrayList<String>();
         mutilOptionsAnswers = new ArrayList<String>();
-//        mProgress.setVisibility(View.VISIBLE);
-//        mCommentListview.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-//        mList = new ArrayList<Auto_ReportDetailBean.ReportDetailDataEntity.ReportDetailReplyEntity>();
-//        mAdapter = new Auto_ReportDetailAdapter(mList, getActivity(), this);
         mSubmit.setOnClickListener(new submitOnClickListener());
         initDatas();
     }
@@ -133,7 +129,6 @@ public class AutoDetail_Votes extends BaseFragment {
         Log.d(Tag, "initDatas");
         questionList = new ArrayList<Auto_QuestionDeatailBean.QuestionDeatailDataEntity.QuestionDeatailTitlesEntity>();
         answerList = new ArrayList<Auto_QuestionDeatailBean.QuestionDeatailDataEntity.QuestionDeatailTitlesEntity.QuestionDeatailOptionsEntity>();
-//        que_view.
         test_layout.removeAllViews();
         if (is_voted == 1) {
             Log.d(Tag, "initDatas==1");
@@ -145,19 +140,13 @@ public class AutoDetail_Votes extends BaseFragment {
             mSubmit.setVisibility(View.VISIBLE);
             mWatchResult.setVisibility(View.GONE);
             mback.setVisibility(View.GONE);
-
             HTTPHelper.GetQuestionDetail(mIbpi, question_id);
-
         }
-
-
     }
-
 
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            LogUtil.d(Tag + "---~~~onError");
             mProgress.setVisibility(View.GONE);
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
@@ -193,11 +182,9 @@ public class AutoDetail_Votes extends BaseFragment {
 
                 }
                 answerList = questionList.get(i).getOptions();
-//                radioAnswers, mutilOptionsAnswers
                 if (is_voted == 1) {
                     Log.d(Tag, "准备已参与布局");
                     if (questionList.get(i).getType().equals("1") && radioAnswers != null) {//单选
-//                        set(txt_que, questionList.get(i).getName(), 0);
                         for (int x = 0; x < answerList.size(); x++) {
                             Log.d(Tag, "1 answerList.get(x).getId()--->" + answerList.get(x).getId());
                             for (int y = 0; y < radioAnswers.size(); y++) {
@@ -216,7 +203,6 @@ public class AutoDetail_Votes extends BaseFragment {
                                 Log.d(Tag, "2 radioAnswers.get(y)--->" + mutilOptionsAnswers.get(y));
                                 if (answerList.get(x).getId().equals(mutilOptionsAnswers.get(y))) {
                                     Log.d(Tag, "2 多选等了");
-
                                     answerList.get(x).setAns_state(1);
                                 }
                                 ;
@@ -250,7 +236,6 @@ public class AutoDetail_Votes extends BaseFragment {
                             txt_ans.setTextColor(Color.parseColor("#EA5514"));
                             image.setBackgroundResource(R.drawable.multiselect_true);
                         }
-//                        image.setBackgroundDrawable(getResources().getDrawable(R.drawable.multiselect_false));
                     } else {
                         //单选
                         if (answerList.get(j).getAns_state() == 0) {
@@ -262,7 +247,6 @@ public class AutoDetail_Votes extends BaseFragment {
                             txt_ans.setTextColor(Color.parseColor("#EA5514"));
                             image.setBackgroundResource(R.drawable.radio_true);
                         }
-//                        image.setBackgroundDrawable(getResources().getDrawable(R.drawable.radio_false));
                     }
                     Log.e("---", "------" + image);
                     imglist2.add(image);
@@ -275,21 +259,11 @@ public class AutoDetail_Votes extends BaseFragment {
 
                     add_layout.addView(ans_view);
                 }
- /*for(int r=0; r<imglist2.size();r++){
-                Log.e("---", "imglist2--------"+imglist2.get(r));
-            }*/
-
                 imglist.add(imglist2);
 
                 test_layout.addView(que_view);
 
             }
-//            mList = mBean.getReply();
-//            mAdapter.AddNewData(mList);
-//            mCommentListview.setAdapter(mAdapter);
-//            mList = (List<Auto_NoticeListBean.NoticeListDataEntity>) message;
-//            mAdapter.AddNewData(mList);
-//            mListview.setAdapter(mAdapter);
             if (is_voted == 1) {
 
                 mSubmit.setVisibility(View.GONE);
@@ -333,7 +307,7 @@ public class AutoDetail_Votes extends BaseFragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -347,11 +321,9 @@ public class AutoDetail_Votes extends BaseFragment {
         //为了加载问题后面的* 和*多选
         // TODO Auto-generated method stub
         String w;
-//        if (questionList.size() == 1) {
-            if (questionList.get(0).getMax_option().equals("1")) {
-                return;
-            }
-//        }
+        if (questionList.get(0).getMax_option().equals("1")) {
+            return;
+        }
 
         if (type == 1) {
 
@@ -375,8 +347,6 @@ public class AutoDetail_Votes extends BaseFragment {
     @OnClick({R.id.back, R.id.watchResult})
     public void onClick(View view) {
         switch (view.getId()) {
-//            case R.id.submit:
-//                break;
             case R.id.back:
                 getActivity().onBackPressed();
                 break;
@@ -388,12 +358,10 @@ public class AutoDetail_Votes extends BaseFragment {
         }
     }
 
-
     class answerItemOnClickListener implements View.OnClickListener {
         private int i;
         private int j;
         private TextView txt;
-        //        List<Auto_QuestionDeatailBean.QuestionDeatailDataEntity.QuestionDeatailTitlesEntity.QuestionDeatailOptionsEntity> answerList;
         int mutilOptionCount = 0;
         private List<Auto_QuestionDeatailBean.QuestionDeatailDataEntity.QuestionDeatailTitlesEntity.QuestionDeatailOptionsEntity> the_answer_lists;
 
@@ -410,27 +378,15 @@ public class AutoDetail_Votes extends BaseFragment {
         public void onClick(View arg0) {
             // TODO Auto-generated method stub
             //判断当前问题是单选还是多选
-            /*Log.e("------", "选择了-----第"+i+"题");
-            for(int q=0;q<imglist.size();q++){
-                for(int w=0;w<imglist.get(q).size();w++){
-//                  Log.e("---", "共有------"+imglist.get(q).get(w));
-                }
-            }
-            Log.e("----", "点击了---"+imglist.get(i).get(j));*/
-
-            if (questionList.get(i).getType().equals("2") ) {
+            if (questionList.get(i).getType().equals("2")) {
                 //多选
                 if (the_answer_lists.get(j).getAns_state() == 0) {
                     //如果未被选中
-//                    txt.setTextColor(Color.parseColor("#EA5514"));
-//                    imglist.get(i).get(j).setBackgroundDrawable(getResources().getDrawable(R.drawable.multiselect_true));
                     imglist.get(i).get(j).setBackgroundResource(R.drawable.multiselect_true);
                     the_answer_lists.get(j).setAns_state(1);
                     mutilOptionCount++;
                     questionList.get(i).setQue_state(1);
                 } else {
-//                    txt.setTextColor(Color.parseColor("#595757"));
-//                    imglist.get(i).get(j).setBackgroundDrawable(getResourcesces().getDrawable(R.drawable.multiselect_false));
                     imglist.get(i).get(j).setBackgroundResource(R.drawable.multiselect_false);
                     the_answer_lists.get(j).setAns_state(0);
                     mutilOptionCount--;
@@ -447,35 +403,26 @@ public class AutoDetail_Votes extends BaseFragment {
 //                单选
                 for (int z = 0; z < the_answer_lists.size(); z++) {
                     the_answer_lists.get(z).setAns_state(0);
-//                    txt.setTextColor(Color.parseColor("#595757"));//灰色
                     imglist.get(i).get(z).setBackgroundDrawable(getResources().getDrawable(R.drawable.radio_false));
                 }
                 if (the_answer_lists.get(j).getAns_state() == 0) {
                     //如果当前未被选中
-
-//                    txt.setTextColor(Color.parseColor("#EA5514"));//红色
                     imglist.get(i).get(j).setBackgroundDrawable(getResources().getDrawable(R.drawable.radio_true));
                     the_answer_lists.get(j).setAns_state(1);
                     questionList.get(i).setQue_state(1);
                 } else {
                     //如果当前已被选中
-//                    txt.setTextColor(Color.parseColor("#595757"));//灰色
                     imglist.get(i).get(j).setBackgroundDrawable(getResources().getDrawable(R.drawable.radio_false));
                     the_answer_lists.get(j).setAns_state(0);
                     questionList.get(i).setQue_state(0);
                 }
 
             }
-            //判断当前选项是否选中
         }
 
     }
 
     class submitOnClickListener implements View.OnClickListener {
-        //        private Page page;
-//        public submitOnClickListener(Page page){
-//            this.page=page;
-//        }
         public submitOnClickListener() {
             super();
         }
@@ -490,7 +437,6 @@ public class AutoDetail_Votes extends BaseFragment {
             JSONArray optionIdArray = new JSONArray();
             List<Title_CommitQuestionAnswer> mAnswerList = new ArrayList<Title_CommitQuestionAnswer>();
             //点击提交的时候，先判断状态，如果有未答完的就提示，如果没有再把每条答案提交（包含问卷ID 问题ID 及答案ID）
-            //注：不用管是否是一个问题的答案，就以答案的个数为准来提交上述格式的数据
             for (int i = 0; i < questionList.size(); i++) {
                 Title_CommitQuestionAnswer mCommitAnswer = new Title_CommitQuestionAnswer();
                 answerList = questionList.get(i).getOptions();
@@ -507,17 +453,7 @@ public class AutoDetail_Votes extends BaseFragment {
                         if (answerList.get(j).getAns_state() == 1) {
                             JSONObject json = new JSONObject();
                             try {
-//                                if (questionList.get(i).getType() == 1 + "") {
-//                                    //单选
-//                                    selectedoptions.add(answerList.get(j).getId());
-//                                } else if (questionList.get(i).getType() == 2 + "") {
-//                                    //多选
-//                                    selectedoptions.add(answerList.get(j).getId());
-//
-//                                }
                                 selectedoptions.add(answerList.get(j).getId());
-//                                json.put("psychologicalId", page.getPage
-// Id());
                                 json.put("questionId", questionList.get(i).getId());
                                 json.put("optionId", answerList.get(j).getId());
                                 jsonArray.add(json);
@@ -541,40 +477,22 @@ public class AutoDetail_Votes extends BaseFragment {
                     JSONArray mJsonArray = new JSONArray();
                     JSONObject jsonObject_inner = null;
                     for (int z = 0; z < mAnswerList.size(); z++) {
-
                         jsonObject_inner = new JSONObject();
-//                        JSONArray jsonArray_Inner = JSONArray.fromObject(mAnswerList.get(z).getMutilOptionId());
                         JSONArray jsonArray_Inner = new JSONArray();
                         List<String> MutilOptionId = mAnswerList.get(z).getMutilOptionId();
                         for (int w = 0; w < MutilOptionId.size(); w++) {
                             jsonArray_Inner.add(MutilOptionId.get(w));
                         }
-
                         jsonObject_inner.put(mAnswerList.get(z).getId(), jsonArray_Inner);
-//
                         mJsonArray.add(jsonObject_inner);
                     }
                     Log.e(Tag, "mJsonArray--->" + mJsonArray.toString());
-
                     if (mJsonArray.size() == 1 && Integer.parseInt(questionList.get(0).getMax_option()) != 0 && mAnswerList.get(0).getMutilOptionId().size() > Integer.parseInt(questionList.get(0).getMax_option())) {
                         Toast.makeText(getActivity(), "最多可选" + questionList.get(0).getMax_option() + "项", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     mWatingWindow = HighCommunityUtils.GetInstantiation().ShowWaittingPopupWindow(getActivity(), rootView, Gravity.CENTER);
                     HTTPHelper.commitAnswers(mCommentIbpi, question_id, mJsonArray.toString());
-//                    for (int item = 0; item < jsonArray.size(); item++) {
-//
-//                        JSONObject job;
-//                        try {
-//                            job = jsonArray.getJSONObject(item);
-//                            Log.e("----", "quesitionId--------" + job.get("quesitionId"));
-//                            Log.e("----", "answerId--------" + job.get("answerId"));
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }  // 遍历 jsonarray 数组，把每一个对象转成 json 对象
-//
-//                    }
-
                 }
 
             }
@@ -588,7 +506,6 @@ public class AutoDetail_Votes extends BaseFragment {
         public void onError(int id, String message) {
             mWatingWindow.dismiss();
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
-//            mAdapter.notifyDataSetChanged();
         }
 
         @Override
@@ -625,7 +542,7 @@ public class AutoDetail_Votes extends BaseFragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -635,26 +552,15 @@ public class AutoDetail_Votes extends BaseFragment {
     BpiHttpHandler.IBpiHttpHandler mAnswersIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
-//            mAdapter.notifyDataSetChanged();
         }
 
         @Override
         public void onSuccess(Object message) {
-//            HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
             mAnswersBean = (AutoDetail_QuestionVotedBean.QuestionVotedDataEntity) message;
             radioAnswers = mAnswersBean.getRadio();
             mutilOptionsAnswers = mAnswersBean.getCheckbox();
-//            Log.d(Tag, "radioAnswers---" + radioAnswers.toString());
-//            Log.d(Tag, "mutilOptionsAnswers---" + mutilOptionsAnswers.toString());
             HTTPHelper.GetQuestionDetail(mIbpi, question_id);
-//            if (isReplay) {
-//                mAdapter.setNewData(isReplay, content, null);
-//            } else {
-//                mAdapter.setNewData(isReplay, content, message.toString());
-//            }
-//            initDatas();
         }
 
 
@@ -681,30 +587,22 @@ public class AutoDetail_Votes extends BaseFragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
         }
     };
 
-    /**********
-     * --------------------------------------------------------------------
-     **********/
-
     @Override
     public void onPause() {
         super.onPause();
-        LogUtil.d(Tag + "onPause");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        LogUtil.d(Tag + "onResume");
-
     }
-
 
     @Override
     public void onDestroyView() {

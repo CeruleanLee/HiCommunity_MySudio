@@ -53,7 +53,6 @@ public class HuiCommOrderFrag extends BaseFragment{
     @ViewById(R.id.btn_comment)
     Button btn_comment;
    NewHuiCommOrderAdapter adapter;
-//    HuiOrderBean data;
     NewHuiOrderBean data;
     @AfterViews
     void initView(){
@@ -71,13 +70,11 @@ public class HuiCommOrderFrag extends BaseFragment{
             try {
                 for (int i=0;i<ListUtils.getSize(adapter.getData());i++){
                     JSONObject goods=new JSONObject();
-//                    goods.put("user_id", HighCommunityApplication.mUserInfo.getId()+"");
                     goods.put("gid",adapter.getData().get(i).getGoods_id()+"");
                     goods.put("content",adapter.getData().get(i).getComment());
                     params.put(goods);
                 }
                 jsonParams.put("info",params);
-//                jsonParams.put("order_id",data.getId());
             } catch (JSONException e) {
                 e.printStackTrace();
             }

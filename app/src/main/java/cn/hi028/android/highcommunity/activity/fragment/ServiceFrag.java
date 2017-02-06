@@ -31,7 +31,6 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
-import com.lidroid.xutils.util.LogUtils;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.activity.BrowseActivity;
@@ -134,7 +133,6 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
     }
 
     void initView() {
-        Log.d(Tag, "initView---isFirstRun---");
         mHttpUtils = MHttpHolder.getHttpUtils();
         mLoadingView.setOnLoadingViewListener(onLoadingViewListener);
         //		Log.d(Tag," initView   startLoading");
@@ -145,22 +143,14 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
         mAdapter = new ThirdServiceAdapter(getActivity());
         mGridView.setMode(PullToRefreshBase.Mode.DISABLED);
         mGridView.setOnItemClickListener(mItemClickListener);
-		initDatas();
-
-//		if (isFirstShowGuid){
-//			isFirstShowGuid=false;
-//			showGuid();
-//
-//		}
+        initDatas();
     }
 
     boolean isFirstShowGuid = true;
 
     private void initDatas() {
         Log.d(Tag, "initDatas");
-
         mLoadingView.startLoading();
-        Log.d(Tag, "---startLoading");
         HTTPHelper.GetThirdService(mIbpi);
         viewPager.startAutoScroll();
     }
@@ -198,17 +188,12 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
 
         @Override
         public void onTryAgainClick() {
-//            if (!isNoNetwork)
-//                initDatas();
-            //				HTTPHelper.GetThirdService(mIbpi);
-            //			Toast.makeText(getActivity(), "------------OnLoadingViewListener", 0).show();
         }
     };
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
             Log.d(Tag, "---~~~onError");
-            Log.d(Tag, "-------------  initView   onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
             if (!isNoNetwork) {
                 mLoadingView.loadFailed();
@@ -219,9 +204,6 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
         public void onSuccess(Object message) {
             mLoadingView.loadSuccess();
             mLoadingView.setVisibility(View.GONE);
-            Log.d(Tag, "---~~~initViewonSuccess");
-//						if (null == message) return;
-            Log.d(Tag, "---~~~ initView   message:" + message);
             ThirdServiceBean mBean = (ThirdServiceBean) message;
             mAdapter.AddNewData(mBean.getServices());
             mGridView.setAdapter(mAdapter);
@@ -236,7 +218,6 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
         @Override
         public Object onResolve(String result) {
             Log.e("renk", result);
-            Log.d(Tag, "---~~~iresult" + result);
             return HTTPHelper.ResolveThirdService(result);
         }
 
@@ -257,7 +238,7 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -308,23 +289,6 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
                 Log.e(Tag, "http 访问success的 content--->" + content);
                 BrowseActivity.toBrowseActivity(getActivity(), mServie.getName(),
                         mServie.getUrl());
-//				Auto_SupportedResultBean mInitBean = new Gson().fromJson(content, Auto_SupportedResultBean.class);
-//				//                ResponseGoodsItem responseGoodsItem = new Gson().fromJson(content, ResponseGoodsItem.class);
-//				if (mInitBean != null) {
-//					Toast.makeText(context, mInitBean.getMsg(), Toast.LENGTH_SHORT).show();
-//					Auto_SupportedResultBean.SupportedResultDataEntity mSupportedData=mInitBean.getData();
-//					if (mSupportedData!=null){
-//						mPercentStr[0] = mSupportedData.getVote_percent()+"";
-////                        num[0] =mSupportedData.getVote_percent();
-//					}
-//
-//				}
-//                mResultData = (Auto_SupportedResultBean.SupportedResultDataEntity) message;
-//                Toast.makeText(context, "已支持", Toast.LENGTH_SHORT).show();
-//                mList.get(position).setVote_percent(mResultData.getVote_percent() + "");
-//                mList.get(position).setIsSuggest("1");
-////                AddNewData(mList);
-//                notifyDataSetChanged();
             }
         });
 
@@ -343,11 +307,7 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
         super.onResume();
         viewPager.startAutoScroll();
         Log.d(Tag, "onResume");
-//        initDatas();
-        //		mLoadingView.startLoading();
-//		registNetworkReceiver();
     }
-
 
     /****
      * 与网络状态相关
@@ -383,21 +343,11 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
                     } else if (ConnectivityManager.TYPE_ETHERNET == type) {
 
                     }
-                    //有网络
-                    //					Toast.makeText(getActivity(), "有网络", 0).show();
-                    LogUtils.d("有网络");
-                    //					if(nextPage == 1){
                     initDatas();
-                    //					HTTPHelper.GetThirdService(mIbpi);
-                    //					}
                     isNoNetwork = false;
                 } else {
-                    //没有网络
-                    LogUtils.d("没有网络");
                     Toast.makeText(getActivity(), "没有网络", Toast.LENGTH_SHORT).show();
-                    //					if(nextPage == 1){
                     mLoadingView.noNetwork();
-                    //					}
                     isNoNetwork = true;
                 }
             }
@@ -458,41 +408,12 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
                 break;
         }
 
-        //
-        //	one.setOnClickListener(new OnClickListener() {
-        //
-        //			@Override
-        //			public void onClick(View v) {
-        //				// TODO Auto-generated method stub
-        //				mIntent.putExtra(ServiceAct.ACTIVITYTAG, Constacts.SERVICE_NOTICE_ONE);
-        //				startActivity(mIntent);
-        //
-        //			}
-        //		});
-
 
     }
 
-    /**
-     * 判断程序是否第一次运行
-     *
-     * @return
-     */
-//	private boolean isFirstRun(){
-//		boolean isFirstRun = AppSharedPreference.getBooleanValue(getActivity().getApplicationContext(), "app", "is_first_run", true);
-//		if(isFirstRun){
-//			AppSharedPreference.putValue(getActivity().getApplicationContext(), "app", "is_first_run", false);
-//		}
-//		return isFirstRun;
-//	}
     GuideView guideView1;
 
     private void showGuid() {
-//		final ImageView img = new ImageView(getActivity());
-////        img.setImageResource(R.mipmap.img_new_task_guide);
-//
-//		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//		img.setLayoutParams(layoutParams);
 
         TextView tv = new TextView(getContext());
         tv.setText("新增业主大厅");
@@ -500,43 +421,14 @@ public class ServiceFrag extends BaseFragment implements OnClickListener {
         tv.setTextSize(30);
         tv.setGravity(Gravity.CENTER);
 
-
-//		TextView tv2 = new TextView(this);
-//		tv2.setText("消息中心");
-//		tv2.setTextColor(getResources().getColor(R.color.white));
-//		tv2.setTextSize(30);
-//		tv2.setGravity(Gravity.CENTER);
-//
-//		TextView tv3 = new TextView(this);
-//		tv3.setText("活动");
-//		tv3.setTextColor(getResources().getColor(R.color.white));
-//		tv3.setTextSize(30);
-//		tv3.setGravity(Gravity.CENTER);
-//        GuideView.Builder
-//                .newInstance(this)      // 必须调用
-//                .setTargetView(view)    // 必须调用，设置需要Guide的View
-//                .setCustomTipsView(iv)  // 必须调用，设置GuideView，可以使任意View的实例，比如ImageView 或者TextView
-//                .setDirction(GuideView.Direction.LEFT_BOTTOM)   // 设置GuideView 相对于TargetView的位置，有八种，不设置则默认在屏幕左上角,其余的可以显示在右上，右下等等
-//                .setShape(GuideView.MyShape.RECTANGULAR)   // 设置显示形状，支持圆形，椭圆，矩形三种样式，矩形可以是圆角矩形，
-//                .setBackGround(getResources().getColor(R.color.shadow)) // 设置背景颜色，默认透明
-//                .setOnclickExit(null)   // 设置点击消失，可以传入一个Callback，执行被点击后的操作
-//                .setRadius(32)          // 设置圆形或矩形透明区域半径，默认是targetView的显示矩形的半径，如果是矩形，这里是设置矩形圆角大小
-//                .setCenter(300, 300)    // 设置圆心，默认是targetView的中心
-//                .setOffset(200, 60)     // 设置偏移，一般用于微调GuideView的位置
-//                .showOnce()             // 设置首次显示，设置后，显示一次后，不再显示
-//                .build()                // 必须调用，Buider模式，返回GuideView实例
-//                .show();                // 必须调用，显示GuideView
-
         guideView1 = GuideView.Builder.newInstance(getContext()).setTargetView(tatalLayout).setCustomGuideView(tv)
                 .setDirction(GuideView.Direction.RIGHT_TOP).setShape(GuideView.MyShape.RECTANGULAR)
                 .setBgColor(getResources().getColor(R.color.shadow)).setOnclickListener(new GuideView.OnClickCallback() {
                     @Override
                     public void onClickedGuideView() {
                         guideView1.hide();
-//                        guidview2.show();
                     }
                 }).build();
-
         guideView1.show();
 
 

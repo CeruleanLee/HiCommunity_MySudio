@@ -15,7 +15,7 @@ public class NeighborViewPagerAdapter extends FragmentPagerAdapter {
     CommunityFrag mCommuFrag;
     GroupFrag mGroupFrag;
     ActFrag_NewV mActFrag;
-    final String Tag="------------NeighborFrag";
+    final String Tag="-NeighborFrag";
     public NeighborViewPagerAdapter(FragmentManager fm) {
         super(fm);
         LogUtil.d(Tag+"NeighborViewPagerAdapter");

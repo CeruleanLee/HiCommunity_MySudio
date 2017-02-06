@@ -16,7 +16,6 @@ import android.support.v4.view.ViewPager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StrikethroughSpan;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +29,6 @@ import android.widget.Toast;
 
 import com.don.tools.BpiHttpHandler;
 import com.don.tools.GeneratedClassUtils;
-import com.lidroid.xutils.util.LogUtils;
 
 import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.ListUtils;
@@ -60,7 +58,7 @@ import cn.hi028.android.highcommunity.view.PagerListView;
  * @时间：2016-01-15<br>
  */
 public class HuiSupplyFrag extends BaseFragment implements ViewPager.OnPageChangeListener {
-
+    public static final String Tag = "HuiSupplyFrag--->";
     private View mFragmeView;
     ViewPager viewPager;
     RelativeLayout pager_layout;
@@ -101,7 +99,6 @@ public class HuiSupplyFrag extends BaseFragment implements ViewPager.OnPageChang
         super.onActivityCreated(savedInstanceState);
     }
 
-    public static final String Tag = "HuiSupplyFrag--->";
     private int childCount;
 
     void initView() {
@@ -126,25 +123,6 @@ public class HuiSupplyFrag extends BaseFragment implements ViewPager.OnPageChang
         viewPager.requestFocus();
         viewPager.setPageMargin(getResources().getDimensionPixelSize(R.dimen.page_margin));
         viewPager.setOnPageChangeListener(this);
-        //        pager_layout.setOnTouchListener(new View.OnTouchListener() {
-        //
-        //                                            @Override
-        //                                            public boolean onTouch(View v, MotionEvent event) {
-        //                                                switch (event.getAction()) {
-        //                                                    case MotionEvent.ACTION_DOWN:// 手指按下时
-        //                                                        ((MainActivity) getActivity()).menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
-        //                                                        break;
-        //                                                    case MotionEvent.ACTION_MOVE:// 手指移动时
-        //                                                        break;
-        //                                                    case MotionEvent.ACTION_UP:// 手指离开时
-        //                                                        ((MainActivity) getActivity()).menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-        //                                                        break;
-        //                                                }
-        //                                                return viewPager.dispatchTouchEvent(event);
-        //                                            }
-        //                                        }
-        //        );
-
         initData();
 
 
@@ -269,7 +247,7 @@ public class HuiSupplyFrag extends BaseFragment implements ViewPager.OnPageChang
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -314,7 +292,7 @@ public class HuiSupplyFrag extends BaseFragment implements ViewPager.OnPageChang
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -348,14 +326,6 @@ public class HuiSupplyFrag extends BaseFragment implements ViewPager.OnPageChang
         updateData();
     }
 
-    //    public int getCurrentPo() {
-    //        int curr = currentPositon % ListUtils.getSize(viewPagerAdapter.getData());
-    //        if (curr < 0) {
-    //            curr = ListUtils.getSize(viewPagerAdapter.getData()) + curr;
-    //        }
-    //        return curr;
-    //    }
-
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (pager_layout != null) {
@@ -377,8 +347,6 @@ public class HuiSupplyFrag extends BaseFragment implements ViewPager.OnPageChang
             original_price.setVisibility(View.VISIBLE);
             Spannable spanStrikethrough = new SpannableString("￥" + viewPagerAdapter.getData().get(currentPositon).getOriginal_price());
             StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
-//			spanStrikethrough.setSpan(stSpan, 0, 7, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-            Log.e(Tag, "长度--->" + spanStrikethrough.length());
             try {
                 spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             } catch (Exception ex) {
@@ -397,10 +365,6 @@ public class HuiSupplyFrag extends BaseFragment implements ViewPager.OnPageChang
         int picCount = viewPagerAdapter.getData().get(currentPositon).getPic().size();
         picAdapter.setData(viewPagerAdapter.getData().get(currentPositon).getPic());
         GridViewUtils.updateGridViewLayoutParams(cg_pic, 7);
-
-        //		int childCount = cg_pic.getAdapter().getCount();
-        //		LayoutParams params=new LayoutParams(3*70, 70);
-        //		cg_pic.setLayoutParams(params);
         commentAdapter.setData(viewPagerAdapter.getData().get(currentPositon).getGoods_comment());
     }
 
@@ -438,16 +402,9 @@ public class HuiSupplyFrag extends BaseFragment implements ViewPager.OnPageChang
                     } else if (ConnectivityManager.TYPE_ETHERNET == type) {
 
                     }
-                    //有网络
-                    //					Toast.makeText(getActivity(), "有网络", 0).show();
-                    LogUtils.d("有网络");
-                    //					if(nextPage == 1){
                     initData();
-                    //					}
                     isNoNetwork = false;
                 } else {
-                    //没有网络
-                    LogUtils.d("没有网络");
                     Toast.makeText(getActivity(), "没有网络", Toast.LENGTH_SHORT).show();
                     //					if(nextPage == 1){
                     mLoadingView.noNetwork();
@@ -459,6 +416,4 @@ public class HuiSupplyFrag extends BaseFragment implements ViewPager.OnPageChang
     }
 
     private boolean isNoNetwork;
-
-
 }

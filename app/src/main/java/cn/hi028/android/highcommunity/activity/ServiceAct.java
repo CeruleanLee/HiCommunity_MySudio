@@ -4,14 +4,12 @@
 
 package cn.hi028.android.highcommunity.activity;
 
-import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import net.duohuo.dhroid.util.LogUtil;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -20,15 +18,21 @@ import org.androidannotations.annotations.ViewById;
 
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.fragment.ServiceBeCarftsFrag;
-import cn.hi028.android.highcommunity.activity.fragment.*;
+import cn.hi028.android.highcommunity.activity.fragment.ServiceBeCarftsFrag_;
 import cn.hi028.android.highcommunity.activity.fragment.ServiceCarftsFrag;
+import cn.hi028.android.highcommunity.activity.fragment.ServiceCarftsFrag_;
 import cn.hi028.android.highcommunity.activity.fragment.ServiceNoticeFrag;
+import cn.hi028.android.highcommunity.activity.fragment.ServiceNoticeFrag_;
 import cn.hi028.android.highcommunity.activity.fragment.ServicePaymentFrag;
+import cn.hi028.android.highcommunity.activity.fragment.ServicePaymentFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.ServiceTenementFrag;
+import cn.hi028.android.highcommunity.activity.fragment.ServiceTenementFrag_;
+import cn.hi028.android.highcommunity.activity.fragment.ShakeFrag;
+import cn.hi028.android.highcommunity.activity.fragment.ShakeFrag_;
+import cn.hi028.android.highcommunity.utils.Constacts;
+
 //import cn.hi028.android.highcommunity.activity.fragment.ServiceRepairFrag;
 //import cn.hi028.android.highcommunity.activity.fragment.ServiceRepairFrag_;
-import cn.hi028.android.highcommunity.activity.fragment.ServiceTenementFrag;
-import cn.hi028.android.highcommunity.activity.fragment.ShakeFrag;
-import cn.hi028.android.highcommunity.utils.Constacts;
 
 /**
  * @功能：服务的二级页面统统都在这里<br>
@@ -38,7 +42,6 @@ import cn.hi028.android.highcommunity.utils.Constacts;
  */
 @EActivity(resName = "act_service")
 public class ServiceAct extends BaseFragmentActivity {
-
     public static final String ACTIVITYTAG = "ServiceAct";
     public static final String INTENTTAG = "ServiceActIntent";
 
@@ -52,7 +55,6 @@ public class ServiceAct extends BaseFragmentActivity {
 
     @AfterViews
     void initView() {
-    	LogUtil.d("------ServiceAct");
         if (!super.isVersionBiger()) {
             mHight.setVisibility(View.GONE);
         }
@@ -76,7 +78,6 @@ public class ServiceAct extends BaseFragmentActivity {
                 break;
             case Constacts.SERVICE_REPAIR:
                 mTitle.setText("报修");
-//                ServiceRepairFrag mTenementFrag = (ServiceRepairFrag) new ServiceRepairFrag_();
                 ft.replace(R.id.ll_service_layout, mTenementFrag, ServiceTenementFrag.FRAGMENTTAG);
                 break;
             case Constacts.SERVICE_NOTICE:
@@ -115,8 +116,6 @@ public class ServiceAct extends BaseFragmentActivity {
                 break;
         }
         ft.commit();
-//        if ()
-
     }
 
     @Click(R.id.img_right)

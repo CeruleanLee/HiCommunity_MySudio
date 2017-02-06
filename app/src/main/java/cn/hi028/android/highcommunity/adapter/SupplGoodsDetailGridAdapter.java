@@ -44,7 +44,6 @@ public class SupplGoodsDetailGridAdapter extends BaseFragmentAdapter {
         }
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
-//        bitmapUtils = MBitmapHolder.getBitmapUtils(context);
 
     }
 
@@ -114,8 +113,6 @@ public class SupplGoodsDetailGridAdapter extends BaseFragmentAdapter {
 
             Spannable spanStrikethrough = new SpannableString("￥：" + mBean.getOld_price());
             StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
-//			spanStrikethrough.setSpan(stSpan, 0, 7, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-//        Log.e(TAG,"长度--->"+spanStrikethrough.length());
             try {
                 spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
@@ -133,10 +130,6 @@ public class SupplGoodsDetailGridAdapter extends BaseFragmentAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context,"到详情 id:"+mBean.getId(),Toast.LENGTH_SHORT).show();
-////                Intent mIntent=new Intent(context, SupplyGoodsDetailActivity.class);
-////                mIntent.putExtra("id",mBean.getId());
-////                context.startActivity(mIntent);
                 Intent mIntent = new Intent(context, SupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id", mBean.getId());
                 context.startActivity(mIntent);

@@ -70,6 +70,8 @@ import photo.util.Res;
  */
 public class MainActivity extends BaseFragmentActivity implements View.OnClickListener, NeighborFrag.MyChangeListener,HuiLifeFrag.MyChangeListener4HuiLife {
     static  final String Tag="MainActivity--->";
+    public static String TAG = "MainActivity";
+
     /**
      * 底部tabs
      **/
@@ -103,21 +105,16 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     private ImageView mLeftMenu, mRightMenu, mRightTop, mLeftTop;
     LinearLayout mLeftLocation_layout;
     private int mTouchMode = -1;
-    // public static boolean isForeground = false;
-    public static String TAG = "MainActivity";
 
     private PopupWindow mWindow;
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        Log.d(Tag,"------------进入onNewIntent");
         setIntent(intent);
 //		来自labelact
         if (intent.getIntExtra("communityFlag", 0) == 0x22) {
 //            tabSelector(1);
-//			NeighborFrag mFra
-//
-// g = (NeighborFrag) getSupportFragmentManager()
+//			NeighborFrag mFrag = (NeighborFrag) getSupportFragmentManager()
 //					.findFragmentByTag(NeighborFrag.FRAGMENTTAG);
             ServiceFrag mFrag = (ServiceFrag)
                     getSupportFragmentManager().findFragmentByTag(ServiceFrag.FRAGMENTTAG);
@@ -169,7 +166,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             registerMessageReceiver();
             Log.d("userinfor", "用户信息：" + HighCommunityApplication.mUserInfo.toString());
         }
-//定位init
         Log.e(TAG,"准备定位");
         mLocationClient = new LocationClient(this); //声明LocationClie
         Log.e(TAG,"准备定位2");
@@ -178,27 +174,16 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         option.setAddrType("all");//返回的定位结果包含地址信息
         option.setCoorType("bd09ll");//返回的定位结果是百度经纬度,默认值gcj02
         option.setPriority(LocationClientOption.NetWorkFirst);  //设置定位优先级
-//        option.setPriority(LocationClientOption.GpsFirst); // 设置GPS优先
         option.setProdName("LocationDemo"); //设置产品线名称。强烈建议您使用自定义的产品线名称，方便我们以后为您提供更高效准确的定位服务。
-//        option.setScanSpan(5000);    //设置定时定位的时间间隔。单位毫秒
         option.disableCache(false);//禁止启用缓存定位
-
-//      option.setPoiNumber(5);    //最多返回POI个数
-//      option.setPoiDistance(1000); //poi查询距离
-//      option.setPoiExtraInfo(true);  //是否需要POI的电话和地址等详细信息
         mLocationClient.setLocOption(option);
         mLocationClient.registerLocationListener(new BDLocationListener() {
             @Override
             public void onReceiveLocation(BDLocation location) {
-                //Receive Location
-//                mWindow.dismiss();
-//                if (mWindow.isShowing()){
-//}
                 Log.i("BaiduLocationApiDem","1,"+ location.getAddress().address+"2,"+location.getAddress().city+"3,"+
                         location.getAddrStr()+"4,"+location.getCity()+"5,"+location.getCountry()+"6,"+location.getStreet()+"7,"+
                         location.hasAddr()
                 );
-
                 StringBuffer sb = new StringBuffer(256);
                 sb.append("time : ");
                 sb.append(location.getTime());
@@ -262,10 +247,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 Toast.makeText(MainActivity.this,"定位信息："+location.getCity()+" "+location.getDistrict()+" "+location.getStreet()+" "+location.getAddress(),Toast.LENGTH_SHORT).show();
             }
         });//注册监听函数
-        Log.e(TAG,"定位3");
-
     }
-
     public void setTag() {
         Log.d(Tag,"唯一标识：" + HighCommunityApplication.mUserInfo.getId());
         JPushInterface.setAliasAndTags(getApplicationContext(),
@@ -305,7 +287,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
     @Override
     protected void onResume() {
-        // isForeground = true;
         super.onResume();
         int checkNum=getIntent().getIntExtra("checkupdata",-1);
         if (checkNum==6){
@@ -315,13 +296,8 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             }else{
                 Toast.makeText(MainActivity.this, "已经是最新版本了", Toast.LENGTH_SHORT).show();
             }
-//            new UpdateUtil(MainActivity.this, getApplicationContext()).initUpdate();?
-
         }
     }
-
-
-
     @Override
     protected void onDestroy() {
         if (HighCommunityUtils.isLogin()) {
@@ -330,7 +306,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         super.onDestroy();
     }
 
-    // for receive customer msg from jpush server
     private MessageReceiver mMessageReceiver;
     public static final String MESSAGE_RECEIVED_ACTION = "cn.hi028.android.highcommunity.related";
     public static final String KEY_TITLE = "title";
@@ -367,8 +342,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
                 String messge = intent.getStringExtra(KEY_MESSAGE);
                 int extras = intent.getIntExtra(KEY_EXTRAS, 0);
-                // StringBuilder showMsg = new StringBuilder();
-                // showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
                 if (extras == 1) {
                     mRightTop.setVisibility(View.GONE);
                 } else {
@@ -417,9 +390,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 View titleBar;
     void initView() {
         titleBar =this.findViewById(R.id.title);
-
-
-
         mTitle = (TextView) this.findViewById(R.id.tv_mainlevel_title);
         mLeftMenu = (ImageView) this.findViewById(R.id.tv_mainlevel_LeftButton);
         mRightMenu = (ImageView) this.findViewById(R.id.iv_mainlevel_RightButton);
@@ -435,17 +405,13 @@ View titleBar;
         MiddleButton = (ImageView) this.findViewById(R.id.main_tab_third);
         mGroup.setVisibility(View.VISIBLE);
         mNewHuiLifeGroup.setVisibility(View.VISIBLE);
-//        mLeftMenu.setVisibility(View.VISIBLE);
         mRightMenu.setVisibility(View.VISIBLE);
-//        mLeftMenu.setOnClickListener(mTitleListener);
         mLeftButton.setOnClickListener(mTitleListener);
         mRightButton.setOnClickListener(mTitleListener);
         mRightButton_right.setOnClickListener(mTitleListener);
         mSupplyBut.setOnClickListener(mTitleListener);
         mChipsBut.setOnClickListener(mTitleListener);
         mRightMenu.setOnClickListener(mTitleListener);
-//        mLeftMenu.setOnClickListener(mTitleListener);
-//        mStatusHight.setVisibility(View.GONE);
         goneTitleBar();
     }
 
@@ -456,7 +422,6 @@ View titleBar;
         menu = new SlidingMenu(this);
         menu.setMode(SlidingMenu.LEFT);
         menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
-//        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
         menu.setShadowWidthRes(R.dimen.shadow_width);
         menu.setShadowDrawable(R.drawable.shadow);
         menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);//// 设置滑动菜单视图的宽度
@@ -550,12 +515,9 @@ View titleBar;
             @Override
             public void onOpened() {
                 if (HighCommunityApplication.mUserInfo.getId() != 0){
-
-//                    HTTPHelper.getUserCenter(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
                 }
             }
         });
-//        menu.setVisibility(View.GONE);
     }
 
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
@@ -620,12 +582,6 @@ View titleBar;
                 mLeftSex.setSelected(true);
             }
             mTopicNum.setVisibility(View.GONE);
-            // if (Constacts.mUserCenter.getMessage() == 0) {
-            // } else {
-            // leftFlag = true;
-            // mTopicNum.setVisibility(View.VISIBLE);
-            // mTopicNum.setText("+" + Constacts.mUserCenter.getMessage());
-            // }
             if (Constacts.mUserCenter.getOrder() == 0) {
                 mLeftOrderNum.setVisibility(View.GONE);
             } else {
@@ -663,13 +619,7 @@ View titleBar;
                 mLeftZhongCouNum.setText(Constacts.mUserCenter.getCho() + "");
             }
             mLeftWalletNum.setVisibility(View.GONE);
-            // if (Constacts.mUserCenter.getWallet() == 0) {
-            // } else {
-            // mLeftWalletNum.setVisibility(View.VISIBLE);
-            // mLeftWalletNum.setText(Constacts.mUserCenter.getWallet());
-            // }
             if (leftFlag) {
-//                mLeftTop.setVisibility(View.VISIBLE);
             } else {
                 mLeftTop.setVisibility(View.GONE);
             }
@@ -747,19 +697,8 @@ View titleBar;
                         break;
                     case R.id.ll_leftMenu_MyMsg://我的消息
                         Log.d(TAG,"点击我的消息");
-//                        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
-//                                Constacts.MENU_MYMESSAGE);
-//                        Constacts.mUserCenter.setCho(0);
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_MESSAGECENTER);
-//                        if (HighCommunityUtils.isLogin(MainActivity.this)) {
-//                            mRightTop.setVisibility(View.GONE);
-////                            Intent mLeftjump = new Intent(MainActivity.this,
-////                                    GeneratedClassUtils.get(MenuLeftAct.class));
-//                            mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
-//                                    Constacts.MENU_LEFT_MESSAGECENTER);
-////                            startActivity(mLeftjump);
-//                        }
                         break;
                     case R.id.ll_leftMenu_SysMsg://系统消息
                         Log.d(TAG,"点击系统消息");
@@ -782,7 +721,6 @@ View titleBar;
      * 初始化菜单
      */
     private void initMenu(Bundle savedInstanceState) {
-        Log.d(Tag,"------------进入initMenu");
         if (savedInstanceState != null) {
             FragmentManager manager = getSupportFragmentManager();
             manager.popBackStackImmediate(null, 1);
@@ -810,7 +748,6 @@ View titleBar;
             menu_tvs[i].setOnClickListener(this);
         }
         MiddleButton.setOnClickListener(this);
-        Log.d(Tag,"------------进入initMenu   end");
         tabSelector(1);
         mTitle.setText("服务");
 
@@ -882,16 +819,13 @@ View titleBar;
      * @param position 0-邻里 1-服务 2-惠生活 3-活动
      */
     private void tabSelector(int position) {
-//        getMsgNum();
         Log.d(Tag,"tabSelector:" + position);
         if (0 == position) {
-//            visibleTitleBar();
             mTitle.setVisibility(View.GONE);
             mGroup.setVisibility(View.VISIBLE);
             mNewHuiLifeGroup.setVisibility(View.GONE);
 
         } else if (position==2){
-//            visibleTitleBar();
             mTitle.setVisibility(View.GONE);
             mGroup.setVisibility(View.GONE);
             mNewHuiLifeGroup.setVisibility(View.VISIBLE);
@@ -911,7 +845,6 @@ View titleBar;
             }
             if (i==position) {
                 //TODO
-                //这里出了问题 明天调试
                 Log.e(Tag,"选中的position："+i+",fragment"+fragments.get(position).getTag());
                 ft.show(fragments.get(position));
 //                ft.commit();
@@ -950,7 +883,6 @@ View titleBar;
             case R.id.tx_LeftFrag_userlocation_layout:
             case R.id.tx_LeftFrag_userlocation:
                 VallageAct.toStartAct(MainActivity.this, 1, false);
-                // finish();
                 break;
             default:
                 break;
@@ -981,25 +913,18 @@ View titleBar;
                     mHuiLifeFrag.setCurrentPage(1);
                     break;
                 case R.id.tv_mainlevel_LeftButton:
-//                    mWindow = HighCommunityUtils.GetInstantiation()
-//                            .ShowWaittingPopupWindow(MainActivity.this, mLeftMenu, Gravity.CENTER);
                     int requestLocation=-1;
                     Toast.makeText(getApplicationContext(),"点击左上角",Toast.LENGTH_SHORT).show();
                     if (mLocationClient.isStarted()){
                         Log.e(TAG,"isStarted--->");
 
                         mLocationClient.stop();
-//                        requestLocation = mLocationClient.requestLocation();
 
                     }else{
                         mLocationClient.start();
                         mLocationClient.requestLocation();
-//                        requestLocation = mLocationClient.requestLocation();
                     }
                     Log.e(TAG,"requestLocation--->");
-
-//                    mLeftTop.setVisibility(View.GONE);
-//                    menu.showMenu();
                     break;
                 case R.id.iv_mainlevel_RightButton:
                     if (HighCommunityUtils.isLogin(MainActivity.this)) {
@@ -1010,18 +935,6 @@ View titleBar;
                         startActivity(intent);
                     }
 
-//                    startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
-
-
-
-//                    if (HighCommunityUtils.isLogin(MainActivity.this)) {
-//                        mRightTop.setVisibility(View.GONE);
-//                        Intent mLeftjump = new Intent(MainActivity.this,
-//                                GeneratedClassUtils.get(MenuLeftAct.class));
-//                        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
-//                                Constacts.MENU_LEFT_MESSAGECENTER);
-//                        startActivity(mLeftjump);
-//                    }
                     break;
             }
         }

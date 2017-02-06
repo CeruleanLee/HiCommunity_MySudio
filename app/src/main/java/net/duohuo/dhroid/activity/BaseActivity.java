@@ -33,7 +33,7 @@ public class BaseActivity extends AppCompatActivity {
         tack.addActivity(this);
     }
     protected void setStatusBar() {
-        StatusBarUtil.setColor(this, getResources().getColor(R.color.red),0);
+        StatusBarUtil.setColor(this, getResources().getColor(R.color.Defult_Color_AppGreen),0);
     }
 
 

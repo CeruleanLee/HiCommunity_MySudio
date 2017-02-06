@@ -17,7 +17,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
-import net.duohuo.dhroid.util.LogUtil;
 
 import java.util.List;
 
@@ -32,136 +31,129 @@ import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 
 /**
- * 
  * @author Administrator
- *联盟订单未支付状态下的frg
+ *         联盟订单未支付状态下的frg
  */
-public class AllianceOrderUnPayFrag extends BaseFragment implements OnRefreshListener{
-	/**正在加载的页面**/
-	View mProgress;
-	/**emptyview界面**/
-	TextView mNodata;
-	PullToRefreshListView mUnPayListView;
+public class AllianceOrderUnPayFrag extends BaseFragment implements OnRefreshListener {
+    /**
+     * 正在加载的页面
+     **/
+    View mProgress;
+    /**
+     * emptyview界面
+     **/
+    TextView mNodata;
+    PullToRefreshListView mUnPayListView;
+    private AllianceOrderAdapter mUnPayAdapter = null;
 
-	private AllianceOrderAdapter mUnPayAdapter = null;
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		LogUtil.d("------AllianceOrderUnPayFrag-onCreate");
-	}
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_alliance_unpay_order,
-				container, false);
-		mProgress = view.findViewById(R.id.progress_ticket_notice);
-		mNodata = (TextView) view.findViewById(R.id.tv_ticket_Nodata);
-		mUnPayListView = (PullToRefreshListView) view.findViewById(R.id.unpay_listView);
-		mUnPayListView.setVisibility(View.VISIBLE);
-		mUnPayAdapter = new AllianceOrderAdapter(getActivity(),AllianceOrder.TAB_UNPAY, this, null);
-		mUnPayListView.setAdapter(mUnPayAdapter);
-		mUnPayListView.setEmptyView(mNodata);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
-		mUnPayListView.setOnItemClickListener(listener);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_alliance_unpay_order,
+                container, false);
+        mProgress = view.findViewById(R.id.progress_ticket_notice);
+        mNodata = (TextView) view.findViewById(R.id.tv_ticket_Nodata);
+        mUnPayListView = (PullToRefreshListView) view.findViewById(R.id.unpay_listView);
+        mUnPayListView.setVisibility(View.VISIBLE);
+        mUnPayAdapter = new AllianceOrderAdapter(getActivity(), AllianceOrder.TAB_UNPAY, this, null);
+        mUnPayListView.setAdapter(mUnPayAdapter);
+        mUnPayListView.setEmptyView(mNodata);
+        mUnPayListView.setOnItemClickListener(listener);
+        mUnPayListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+            @Override
+            public void onRefresh(
+                    PullToRefreshBase<ListView> refreshView) {
+                HTTPHelper.GetAllianceList(mIbpi, AllianceOrder.TAB_UNPAY);
+            }
+        });
+        return view;
+    }
 
-		mUnPayListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
-			@Override
-			public void onRefresh(
-					PullToRefreshBase<ListView> refreshView) {
-				HTTPHelper.GetAllianceList(mIbpi,AllianceOrder.TAB_UNPAY);
-			}
-		});
-		return view;
-	}
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        mProgress.setVisibility(View.VISIBLE);
+        HTTPHelper.GetAllianceList(mIbpi, AllianceOrder.TAB_UNPAY);
+    }
 
-	@Override
-	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-		mProgress.setVisibility(View.VISIBLE);
-		HTTPHelper.GetAllianceList(mIbpi, AllianceOrder.TAB_UNPAY);
-	}
+    private BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
+        @Override
+        public void setAsyncTask(AsyncTask asyncTask) {
+        }
 
-	private BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
+        @Override
+        public void onSuccess(Object message) {
+            mProgress.setVisibility(View.GONE);
+            resetUi((List<AllianceOrderBean>) message);
+        }
 
-		@Override
-		public void setAsyncTask(AsyncTask asyncTask) {
+        @Override
+        public Object onResolve(String result) {
+            return HTTPHelper.ResolveAllianceOrderBean(result);
+        }
 
-		}
+        @Override
+        public void onError(int id, String message) {
+            mProgress.setVisibility(View.GONE);
+        }
 
-		@Override
-		public void onSuccess(Object message) {
-			LogUtil.d("------联盟订单未支付状态成功请求数据后的message："+message);
-			mProgress.setVisibility(View.GONE);
-			resetUi((List<AllianceOrderBean>) message);
-		}
+        @Override
+        public void cancleAsyncTask() {
+            mProgress.setVisibility(View.GONE);
+        }
 
-		@Override
-		public Object onResolve(String result) {
-			return HTTPHelper.ResolveAllianceOrderBean(result);
-		}
+        @Override
+        public void shouldLogin(boolean isShouldLogin) {
 
-		@Override
-		public void onError(int id, String message) {
-			LogUtil.d("------联盟订单未支付状态请求数据失败："+message);
-			mProgress.setVisibility(View.GONE);
-		}
+        }
 
-		@Override
-		public void cancleAsyncTask() {
-			mProgress.setVisibility(View.GONE);
-		}
+        @Override
+        public void shouldLoginAgain(boolean isShouldLogin, String msg) {
+            if (isShouldLogin) {
+                HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
+                HighCommunityApplication.toLoginAgain(getActivity());
+            }
+        }
+    };
 
-		@Override
-		public void shouldLogin(boolean isShouldLogin) {
+    private void resetUi(List<AllianceOrderBean> allianceOrderBeans) {
+        if (allianceOrderBeans.size() < 1) {
+            mNodata.setVisibility(View.VISIBLE);
+        } else {
+            mNodata.setVisibility(View.GONE);
+        }
+        mUnPayAdapter.AddNewData(allianceOrderBeans);
+        mUnPayListView.onRefreshComplete();
+    }
 
-		}
+    @Override
+    public void onRefresh() {
+        HTTPHelper.GetAllianceList(mIbpi, AllianceOrder.TAB_UNPAY);
+    }
 
-		@Override
-		public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-			if (isShouldLogin){
-				HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
-				HighCommunityApplication.toLoginAgain(getActivity());
-			}
-		}
-	};
+    OnItemClickListener listener = new OnItemClickListener() {
 
-	private void resetUi(List<AllianceOrderBean> allianceOrderBeans) {
-		if (allianceOrderBeans.size() < 1) {
-			mNodata.setVisibility(View.VISIBLE);
-		} else {
-			mNodata.setVisibility(View.GONE);
-		}
-		mUnPayAdapter.AddNewData(allianceOrderBeans);
-		mUnPayListView.onRefreshComplete();
-	}
+        @Override
+        public void onItemClick(AdapterView<?> view, View arg1, int arg2, long arg3) {
+            AllianceOrderBean info = (AllianceOrderBean) view
+                    .getItemAtPosition(arg2);
+            String num = info.getOrder_num();
+            Intent intent = new Intent(getActivity(), AllianceOderDetailActivity.class);
+            intent.putExtra("order_num", num);
+            getActivity().startActivity(intent);
+        }
+    };
 
-	@Override
-	public void onRefresh() {
-		LogUtil.d("--------进入刷新");
-		HTTPHelper.GetAllianceList(mIbpi, AllianceOrder.TAB_UNPAY);
-	}
+    public void onResume() {
+        super.onResume();
+        onRefresh();
 
+    }
 
-	OnItemClickListener listener=new OnItemClickListener() {
-
-		@Override
-		public void onItemClick(AdapterView<?> view, View arg1, int arg2, long arg3) {
-			LogUtil.d("------item点击");
-			AllianceOrderBean info = (AllianceOrderBean) view
-					.getItemAtPosition(arg2);
-			String num = info.getOrder_num();
-			Intent intent = new Intent(getActivity(), AllianceOderDetailActivity.class);
-			intent.putExtra("order_num", num);
-			LogUtil.d("------order_num="+num);
-			getActivity().startActivity(intent);
-		}
-	};
-	public void onResume() {
-		
-		super.onResume();
-        LogUtil.d("------进入onResume");
-        
-		onRefresh();
-		
-	};
+    ;
 
 }

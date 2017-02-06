@@ -34,7 +34,6 @@ import cn.hi028.android.highcommunity.utils.Constacts;
  */
 public class NewHuiCommOrderAdapter extends BaseAdapter {
     BaseFragment frag;
-
     public List<NewHuiSuppGdParams> getData() {
         return data;
     }

@@ -41,7 +41,6 @@ public class MerchantEvaluationFrag extends BaseFragment implements
 	EvaluationAdapter adapter;
 	ArrayList<MerchantEvaluationInfoListBean> listbean;
 	private int page = 1;
-
 	public void setMyId(String id) {
 		this.id = id;
 	}
@@ -54,9 +53,6 @@ public class MerchantEvaluationFrag extends BaseFragment implements
 				.findViewById(R.id.evalution_frag_refreshview);
 		listView = (ListView) view.findViewById(R.id.evalution_frag_list);
 		init();
-		
-		
-		
 		return view;
 	}
 
@@ -86,14 +82,9 @@ public class MerchantEvaluationFrag extends BaseFragment implements
 			} else {
 				listbean = (ArrayList<MerchantEvaluationInfoListBean>) message;
 			}
- 
-			
-			
 			adapter = new EvaluationAdapter(getActivity(), listbean);
 			listView.setAdapter(adapter);
 			adapter.notifyDataSetChanged();
-			
-		
 			refreshview.setRefreshing(false);
 		}
 
@@ -130,7 +121,6 @@ public class MerchantEvaluationFrag extends BaseFragment implements
 	public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
 		page = 1;
 		HTTPHelper.GetMerchantEvaluation(mIbpi, id, page);
-
 	}
 
 	@Override
@@ -141,7 +131,6 @@ public class MerchantEvaluationFrag extends BaseFragment implements
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
-
 	}
 
 }

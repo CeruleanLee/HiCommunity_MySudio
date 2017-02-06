@@ -259,16 +259,6 @@ public class CommunityAdapter extends BaseFragmentAdapter {
                 mContext.startActivity(mCommunity);
             }
         });
-//        mViewHolder.mLocation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent mMessage = new Intent(mContext, GeneratedClassUtils.get(CommunityDetailAct.class));
-//                mMessage.putExtra(CommunityDetailAct.ACTIVITYTAG, "message");
-//                mMessage.putExtra(CommunityDetailAct.INTENTTAG, mBean.getVillage_name());
-//                mMessage.putExtra(VillageMessageFrag.FRAGMENTTAG, mBean.getVid());
-//                mContext.startActivity(mMessage);
-//            }
-//        });
         mViewHolder.mAssist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -284,7 +274,6 @@ public class CommunityAdapter extends BaseFragmentAdapter {
 
                     @Override
                     public void onSuccess(Object message) {
-//                        HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
                         mBean.setP_count(mBean.getP_count() + 1);
                         mBean.setPra(true);
                         notifyDataSetChanged();

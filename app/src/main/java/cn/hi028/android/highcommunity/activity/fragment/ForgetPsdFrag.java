@@ -39,9 +39,7 @@ public class ForgetPsdFrag extends BaseFragment {
     private EditText mPhone, mIdnetfyCode, mPassword, mPsdRepeat;
     private TextView mGetIdentfy, mRegist;
     private onCounter mCounter;
-
     private PopupWindow mWindow;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mFragmeView = inflater.inflate(
@@ -54,16 +52,13 @@ public class ForgetPsdFrag extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         initView();
     }
-
     private void initView() {
-
         mPhone = (EditText) mFragmeView.findViewById(R.id.et_forget_phone);
         mIdnetfyCode = (EditText) mFragmeView.findViewById(R.id.et_forget_identifycode);
         mPassword = (EditText) mFragmeView.findViewById(R.id.et_forget_password);
         mPsdRepeat = (EditText) mFragmeView.findViewById(R.id.et_forget_psdrepeat);
         mGetIdentfy = (TextView) mFragmeView.findViewById(R.id.tv_forget_getIdentyCode);
         mRegist = (TextView) mFragmeView.findViewById(R.id.tv_forget_button);
-
         mGetIdentfy.setOnClickListener(mListener);
         mRegist.setOnClickListener(mListener);
     }

@@ -65,14 +65,12 @@ public class NewBottomPageFrag2 extends BaseFragment {
 
         Log.e(Tag, "initView");
         findView(view);
-        Bundle bundle = getArguments();//从activity传过来的Bundle
+        Bundle bundle = getArguments();
         if (bundle != null) {
-
             goodsdata = bundle.getParcelable("goodsdata");
             setBottomPageUI(goodsdata);
             Log.e(Tag, "传过来的对象：" + goodsdata.toString());
         } else {
-
             Log.e(Tag, "传过来的对象：null");
         }
 
@@ -86,19 +84,9 @@ public class NewBottomPageFrag2 extends BaseFragment {
 
     private void findView(View view) {
         mRadioGroup = (RadioGroup) view.findViewById(R.id.ac_shopdetail_RadioGroup);
-        // toSeeMore.setChecked(false);
         mPicDetail = (RadioButton) view.findViewById(R.id.ac_shopdetail_mypicdetail);
         mCommentDetail = (RadioButton) view.findViewById(R.id.ac_shopdetail_mycommentdetail);
         mPager = (ViewPager) view.findViewById(R.id.detail_pager);
-//        mWebview = (ScrollWebView) view.findViewById(R.id.ac_good_detail_webview);
-//        mCommentListview = (NoScrollListview) view.findViewById(R.id.ac_good_evaluation_listview);
-//        tv_pic_nodata = (TextView) view.findViewById(R.id.ac_good_picdetail_nodata);
-//        mRecommendGridView = (NoScroolGridView) view.findViewById(R.id.ac_shopdetail_recommendGoods);
-        //		mScrollView2=(ScrollView) findViewById(R.id.scrollView2);
-        //		mScrollView2.smoothScrollTo(0, 20);
-//        mPager.setPagingEnabled(false);
-
-
     }
 
     /**
@@ -107,11 +95,7 @@ public class NewBottomPageFrag2 extends BaseFragment {
      * @param msg
      */
     private void setBottomPageUI(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
-
-
         initPager(msg);
-
-
     }
 
     private void initPager(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
@@ -120,25 +104,6 @@ public class NewBottomPageFrag2 extends BaseFragment {
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                if (checkedId == R.id.ac_shopdetail_mypicdetail) {
-//                    if (isNoWebDetail) {
-//                        mWebview.setVisibility(View.GONE);
-////    tv_noData.setText("暂无图文详情");
-//                        tv_pic_nodata.setVisibility(View.VISIBLE);
-//                    } else {
-//
-//                        mWebview.setVisibility(View.VISIBLE);
-//                        tv_pic_nodata.setVisibility(View.GONE);
-//                    }
-//                    mCommentListview.setVisibility(View.GONE);
-//
-//                } else if (checkedId == R.id.ac_shopdetail_mycommentdetail) {
-//
-//                    mWebview.setVisibility(View.GONE);
-//                    mCommentListview.setVisibility(View.VISIBLE);
-//
-//
-//                }
                 if (checkedId == R.id.ac_shopdetail_mypicdetail) {
                     if (currentPo != 0)
                         mPager.setCurrentItem(0);
@@ -202,26 +167,18 @@ public class NewBottomPageFrag2 extends BaseFragment {
     View getCommentPageView(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
         Log.e(Tag, "getCommentPageView");
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.page_commentlistdetail2, null);
-        VerticalScrollView mScrollView2 = (VerticalScrollView) view.findViewById(R.id.srcollview_page_comment);
-
         MyNoScrollListview evaluation_listview = (MyNoScrollListview) view.findViewById(R.id.page2_evaluation_listview);
         TextView tv_Hishequ = (TextView) view.findViewById(R.id.page2_shopdetail_tv_Hishequ);
         NoScroolGridView shopdetail_recommendGoods = (NoScroolGridView) view.findViewById(R.id.page2_shopdetail_recommendGoods);
-        View mProgress = view.findViewById(R.id.ll_sysMsg_Progress);
         TextView mNodata = (TextView) view.findViewById(R.id.tv_NoticeDetails_noData);
         evaluation_listview.setEmptyView(mNodata);
-
         //set评价内容
         if (null != msg.getComment()) {
             List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.CommentEntity> mCommentList = msg.getComment();
             //排序
             Collections.sort(mCommentList);
-
-
-
             SupplyGoodsDetailCommentAdapter mEvaluationAdapter = new SupplyGoodsDetailCommentAdapter(mCommentList, getActivity());
             evaluation_listview.setAdapter(mEvaluationAdapter);
-//            setCarAmount();
         }
 
         if (null != msg.getSupply()) {
@@ -229,8 +186,6 @@ public class NewBottomPageFrag2 extends BaseFragment {
             tv_Hishequ.setText("—— 本商品由" + msg.getSupply() + "所有 ——");
         } else {
             tv_Hishequ.setVisibility(View.INVISIBLE);
-
-
         }
         //set推荐商品
         if (msg.getRecommend() != null) {
@@ -238,24 +193,21 @@ public class NewBottomPageFrag2 extends BaseFragment {
             SupplGoodsDetailGridAdapter mAdapter = new SupplGoodsDetailGridAdapter(mRecommendList, getActivity());
             shopdetail_recommendGoods.setAdapter(mAdapter);
         }
-
-
         return view;
     }
+
     ScrollWebView detail_webview;
-    public static String HTTPHOST=Constacts.IMAGEHTTP;
+    public static String HTTPHOST = Constacts.IMAGEHTTP;
+
     /**
      * 返回图文详情的view
      **/
     View getPicDetail(NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity msg) {
         Log.e(Tag, "getPicDetail");
-
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.page_picdetail_webview, null);
         View mProgress = view.findViewById(R.id.ll_NoticeDetails_Progress);
         VerticalScrollView mScrollView1 = (VerticalScrollView) view.findViewById(R.id.srcollview_page_picdetail);
-
         detail_webview = (ScrollWebView) view.findViewById(R.id.page1_good_detail_webview);
-//        webView.setWebViewClient(new MyWebViewClient());
         detail_webview.getSettings().setDefaultTextEncodingName("utf-8");
         detail_webview.getSettings().setAppCacheEnabled(true);// 设置启动缓存
         detail_webview.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
@@ -267,30 +219,22 @@ public class NewBottomPageFrag2 extends BaseFragment {
 
         detail_webview.getSettings().setUseWideViewPort(true);//让webview读取网页设置的viewport，pc版网页
         detail_webview.getSettings().setLoadWithOverviewMode(true);
-//        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);//适应内容大小
         detail_webview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);//适应屏幕，内容将自动缩放
         detail_webview.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-//        detail_webview.setVerticalScrollBarEnabled(false);  //取消Vertical ScrollBar显示
-
         TextView tv_Hishequ = (TextView) view.findViewById(R.id.page1_shopdetail_tv_Hishequ);
         TextView tv_nopicurl = (TextView) view.findViewById(R.id.tv_nopicurl);
         TextView tv_webview = (TextView) view.findViewById(R.id.tv_webview);
         NoScroolGridView recommendGoodsGview = (NoScroolGridView) view.findViewById(R.id.page1_shopdetail_recommendGoods);
         mProgress.setVisibility(View.GONE);
-//        TextView mNodata = (TextView) view.findViewById(R.id.tv_NoticeDetails_noData);
-//        PicDetailListAdapter mPicDetailListAdapter = new PicDetailListAdapter(imguilList, getActivity());
-//        pic_noscrolllistview.setEmptyView(mNodata);
-//        pic_noscrolllistview.setAdapter(mPicDetailListAdapter);
-        Element lastElement = null;
-        boolean iSNoData=true;
-        if (null != msg.getDetail()){
-            if (msg.getDetail().endsWith("</p>")){
-                iSNoData=false;
-            }else{
-                iSNoData=true;
+        boolean iSNoData = true;
+        if (null != msg.getDetail()) {
+            if (msg.getDetail().endsWith("</p>")) {
+                iSNoData = false;
+            } else {
+                iSNoData = true;
             }
         }
-        if (null != msg.getDetail()&&!iSNoData) {
+        if (null != msg.getDetail() && !iSNoData) {
             if (msg.getDetail().startsWith("http")) {
                 Log.e(Tag, "getPicDetail 图文详情url:" + msg.getDetail());
             } else {
@@ -302,11 +246,11 @@ public class NewBottomPageFrag2 extends BaseFragment {
                 for (Element element : pngs) {
                     String imgUrl = element.attr("src");
                     if (imgUrl.trim().startsWith("/")) {
-                        imgUrl =HTTPHOST + imgUrl;
+                        imgUrl = HTTPHOST + imgUrl;
                         element.attr("src", imgUrl);
                     }
                 }
-               String newsBody = doc.toString();
+                String newsBody = doc.toString();
                 Log.e(Tag, "newsBody:" + newsBody);
                 detail_webview.loadDataWithBaseURL(null, newsBody, "text/html",
                         "utf-8", null);
@@ -317,14 +261,12 @@ public class NewBottomPageFrag2 extends BaseFragment {
             Log.e(Tag, "图文详情url: null");
             tv_nopicurl.setText("暂无图文详情");
             tv_nopicurl.getLayoutParams().width = 50;
-//            tv_nopicurl.getLayoutParams().width= CommonUtils.px2dip(50);
         }
         if (null != msg.getSupply()) {
             tv_Hishequ.setText("—— 本商品由" + msg.getSupply() + "所有 ——");
         } else {
             tv_Hishequ.setVisibility(View.INVISIBLE);
         }
-//        mGridview.addHeaderView(tv_Hishequ);
         //set推荐商品
         if (msg.getRecommend() != null) {
             List<NewSupplyGoodsDetailBean.SupplyGoodsDetailDataEntity.RecommendEntity> mRecommendList = msg.getRecommend();

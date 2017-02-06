@@ -32,7 +32,6 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @作者： Lee_yting<br>
  * @时间：2016/10/11<br>
  */
-
 public class AutoFrag_Notice extends BaseFragment {
     public static final String Tag = "~~~AutonomousMainFrag~~~";
     public static final String FRAGMENTTAG = "AutoFrag_Notice";
@@ -51,6 +50,7 @@ public class AutoFrag_Notice extends BaseFragment {
         initView();
         return view;
     }
+
     private void initView() {
         LogUtil.d(Tag + "initView");
         mList = new ArrayList<Auto_NoticeListBean.NoticeListDataEntity>();
@@ -60,7 +60,7 @@ public class AutoFrag_Notice extends BaseFragment {
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String url="http://028hi.cn/ywh/notice/detail.html?id="+mList.get(position).getId();
+                String url = "http://028hi.cn/ywh/notice/detail.html?id=" + mList.get(position).getId();
                 BrowseActivity.toBrowseActivity(getActivity(), "公告详情", url);
             }
         });
@@ -75,71 +75,56 @@ public class AutoFrag_Notice extends BaseFragment {
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            LogUtil.d(Tag + "---~~~onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
+
         @Override
         public void onSuccess(Object message) {
             mList = (List<Auto_NoticeListBean.NoticeListDataEntity>) message;
             mAdapter.AddNewData(mList);
             mListview.setAdapter(mAdapter);
-
-
         }
 
         @Override
         public Object onResolve(String result) {
-			LogUtil.d(Tag+" ~~~result"+result);
             return HTTPHelper.ResolveAutoNoticeListEntity(result);
         }
 
         @Override
         public void setAsyncTask(AsyncTask asyncTask) {
         }
+
         @Override
         public void cancleAsyncTask() {
-
         }
 
         @Override
         public void shouldLogin(boolean isShouldLogin) {
-
         }
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
         }
     };
 
-
     @Override
     public void onPause() {
         super.onPause();
-        LogUtil.d(Tag + "onPause");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        LogUtil.d(Tag + "onResume");
         initDatas();
-
     }
-
-
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-
-
-
-
-
 }

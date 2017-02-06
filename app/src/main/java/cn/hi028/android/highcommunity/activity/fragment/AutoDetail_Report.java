@@ -87,8 +87,6 @@ public class AutoDetail_Report extends BaseFragment {
         Bundle bundle = getArguments();
         watch_id = bundle.getString("reportDetail_id");
         Log.d(Tag, "reportDetail_id:" + watch_id);
-//        watch_id = getActivity().getIntent().getStringExtra("reportDetail_id");
-
         initView();
         return view;
     }
@@ -159,7 +157,6 @@ public class AutoDetail_Report extends BaseFragment {
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-            LogUtil.d(Tag + "---~~~onError");
             HighCommunityUtils.GetInstantiation().ShowToast(message, 0);
         }
 
@@ -173,16 +170,10 @@ public class AutoDetail_Report extends BaseFragment {
             mList = mBean.getReply();
             mAdapter.AddNewData(mList);
             mCommentListview.setAdapter(mAdapter);
-//            mList = (List<Auto_NoticeListBean.NoticeListDataEntity>) message;
-//            mAdapter.AddNewData(mList);
-//            mListview.setAdapter(mAdapter);
-
-
         }
 
         @Override
         public Object onResolve(String result) {
-            LogUtil.d(Tag + " ~~~result" + result);
             return HTTPHelper.ResolveReportDetailDataEntity(result);
         }
 
@@ -202,7 +193,7 @@ public class AutoDetail_Report extends BaseFragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -231,13 +222,12 @@ public class AutoDetail_Report extends BaseFragment {
         mReportTime = (TextView) header.findViewById(R.id.reportdetail_time);
         mContent = (TextView) header.findViewById(R.id.reportdetail_content);
         mInforLayout = (LinearLayout) header.findViewById(R.id.inforLayout);
-        mCommentListview.addHeaderView(header,null,false);
+        mCommentListview.addHeaderView(header, null, false);
     }
 
     BpiHttpHandler.IBpiHttpHandler mCommentIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
-
             HighCommunityUtils.GetInstantiation().ShowToast(message.toString(), 0);
             mAdapter.notifyDataSetChanged();
         }
@@ -249,11 +239,6 @@ public class AutoDetail_Report extends BaseFragment {
                 InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             }
-//            if (isReplay) {
-//                mAdapter.setNewData(isReplay, content, null);
-//            } else {
-//                mAdapter.setNewData(isReplay, content, message.toString());
-//            }
             initSpoker();
             initDatas();
         }
@@ -282,7 +267,7 @@ public class AutoDetail_Report extends BaseFragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -290,7 +275,6 @@ public class AutoDetail_Report extends BaseFragment {
     };
 
     private void initSpoker() {
-//        CommunityFrag.isNeedRefresh = true;
         this.isReplay = false;
         mSpeakerContent.setHint("");
 //对监督的评论
@@ -300,15 +284,7 @@ public class AutoDetail_Report extends BaseFragment {
     }
 
     public void finish() {
-//        Intent result = new Intent();
-//        result.putExtra("PinLun", mPraisesNum);
-//        getActivity().setResult(getActivity().RESULT_OK, result);
     }
-
-
-    /**********
-     * --------------------------------------------------------------------
-     **********/
 
     @Override
     public void onPause() {
@@ -323,15 +299,11 @@ public class AutoDetail_Report extends BaseFragment {
     }
 
 
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-
-
 
 
 }

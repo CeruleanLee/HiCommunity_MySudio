@@ -73,9 +73,7 @@ public class AutoVoteList_Q_Adapter extends BaseFragmentAdapter {
         }
         final Auto_VoteList_Vote.VoteVVDataEntity mBean = mList.get(position);
         mViewHolder.mTitle.setText(mBean.getTitle());
-//        TimeUtil.getDayAllTime(Long.parseLong(mBean.getCreate_time()))
         mViewHolder.mTime.setText(TimeUtil.getYearMonthDay(Long.parseLong(mBean.getCreate_time())));
-//        mViewHolder.mTime.setText(TimeUtil.longToDate(Long.parseLong(mBean.getCreate_time()),"yyyy年MM月dd日 HH时mm分ss秒").toString());
         mViewHolder.mbuilding.setText("适用于：" + mBean.getBuilding());
 if (mBean.getIs_voted()==1){
     mViewHolder.mIsJoin.setVisibility(View.VISIBLE);
@@ -85,7 +83,6 @@ if (mBean.getIs_voted()==1){
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context,"mBean.getId() "+mBean.getId(),Toast.LENGTH_SHORT).show();
                 //这里要跳去选举详情
                 Intent mIntent_report=new Intent(context, AutonomousAct_Third.class);
                 mIntent_report.putExtra("title",TAG_VOTE_DETAIL);
@@ -96,11 +93,8 @@ if (mBean.getIs_voted()==1){
                 context.startActivity(mIntent_report);
             }
         });
-
-
         return convertView;
     }
-
 
     @Override
     public void AddNewData(Object mObject) {
@@ -115,8 +109,6 @@ if (mBean.getIs_voted()==1){
         mList.clear();
         notifyDataSetChanged();
     }
-
-
     class ViewHolder {
         TextView mTitle;
         TextView mTime;

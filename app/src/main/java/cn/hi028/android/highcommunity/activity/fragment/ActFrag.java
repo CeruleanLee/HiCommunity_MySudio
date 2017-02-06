@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -138,19 +137,14 @@ public class ActFrag extends BaseFragment {
     LinearLayout mSetting;
     @Bind(R.id.ptrsv_leftmenu_layout)
     ScrollView mLeftLayout;
-
     private View mFragmeView;
     PullToRefreshListView mListView;
-
-    private PopupWindow mWindow;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.e(Tag, "onCreateView");
         mFragmeView = LayoutInflater.from(getActivity()).inflate(R.layout.frag_myusercenter_act, null);
         ButterKnife.bind(this, mFragmeView);
-//        ((MainActivity)getActivity()).goneTitleBar();
-
         iniView();
         ViewGroup parent = (ViewGroup) mFragmeView.getParent();
         if (parent != null) {
@@ -163,16 +157,9 @@ public class ActFrag extends BaseFragment {
      * 初始化VIew
      */
     void iniView() {
-        Log.e(Tag, "iniView");
-//		 mListView.setEmptyView(mNodata);
-//		 mListView.setAdapter(mAdapter);
-//		 mListView.setMode(PullToRefreshBase.Mode.BOTH);
         findView(mFragmeView);
         initData();
-
     }
-
-
 
     /**
      * 找控件
@@ -181,13 +168,10 @@ public class ActFrag extends BaseFragment {
 
         myinforEdit.setOnClickListener(mLeftMenuListener);
         mAvatar.setOnClickListener(mLeftMenuListener);
-//        mUserinfo.setOnClickListener(mLeftMenuListener);
-        //TODO  新增
         mOrder_all_layout.setOnClickListener(mLeftMenuListener);
         mOrder_Topay_layout.setOnClickListener(mLeftMenuListener);
         mOrder_Torec_layout.setOnClickListener(mLeftMenuListener);
         mOrder_Com_layout.setOnClickListener(mLeftMenuListener);
-
         mTopic.setOnClickListener(mLeftMenuListener);
         mCollection.setOnClickListener(mLeftMenuListener);
         mCart.setOnClickListener(mLeftMenuListener);
@@ -202,8 +186,6 @@ public class ActFrag extends BaseFragment {
         //TODO 取消这两个点击
         mLeftName.setOnClickListener(mLeftMenuListener);
         mOrder.setOnClickListener(mLeftMenuListener);
-        //
-        //TODO
         mAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,17 +196,17 @@ public class ActFrag extends BaseFragment {
                 }
             }
         });
-        mBean=new PersonalInfoBean();
-
+        mBean = new PersonalInfoBean();
         myinforEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HTTPHelper.getPersonalInfo(mIbpi2, HighCommunityApplication.mUserInfo.getId()+"");
+                HTTPHelper.getPersonalInfo(mIbpi2, HighCommunityApplication.mUserInfo.getId() + "");
 
             }
         });
 
     }
+
     BpiHttpHandler.IBpiHttpHandler mIbpi2 = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {
@@ -264,7 +246,7 @@ public class ActFrag extends BaseFragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
@@ -308,15 +290,12 @@ public class ActFrag extends BaseFragment {
 
         @Override
         public void shouldLoginAgain(boolean isShouldLogin, String msg) {
-            if (isShouldLogin){
+            if (isShouldLogin) {
                 HighCommunityUtils.GetInstantiation().ShowToast(msg, 0);
                 HighCommunityApplication.toLoginAgain(getActivity());
             }
         }
     };
-    /**
-     * 左侧菜单控件监听器
-     */
     View.OnClickListener mLeftMenuListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -330,10 +309,7 @@ public class ActFrag extends BaseFragment {
             }
             if (HighCommunityUtils.isLogin(getActivity())) {
                 switch (view.getId()) {
-
-//                    case R.id.rl_leftmenu_userinfo:
                     case R.id.img_LeftFrag_Avatar:
-//                    case R.id.tx_LeftFrag_userName:
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_USERINFO);
                         mLeftjump.putExtra(MenuLeftAct.INTENTTAG,
@@ -421,24 +397,12 @@ public class ActFrag extends BaseFragment {
                         break;
                     case R.id.ll_leftMenu_MyMsg://我的消息
                         Log.d(Tag, "点击我的消息");
-//                        mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
-//                                Constacts.MENU_MYMESSAGE);
-//                        Constacts.mUserCenter.setCho(0);
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_LEFT_MESSAGECENTER);
                         getActivity().startActivity(mLeftjump);
-//                        if (HighCommunityUtils.isLogin(getActivity())) {
-//                            mRightTop.setVisibility(View.GONE);
-////                            Intent mLeftjump = new Intent(getActivity(),
-////                                    GeneratedClassUtils.get(MenuLeftAct.class));
-//                            mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
-//                                    Constacts.MENU_LEFT_MESSAGECENTER);
-////                            startActivity(mLeftjump);
-//                        }
                         break;
                     case R.id.ll_leftMenu_SysMsg://系统消息
                         Log.d(Tag, "点击系统消息");
-
                         mLeftjump.putExtra(MenuLeftAct.ACTIVITYTAG,
                                 Constacts.MENU_SYSMESSAGE);
                         Constacts.mUserCenter.setCho(0);
@@ -447,24 +411,14 @@ public class ActFrag extends BaseFragment {
                     case R.id.tx_LeftFrag_userlocation_layout:
                     case R.id.tx_LeftFrag_userlocation:
                         VallageAct.toStartAct(ActFrag.this, 1, 1);
-//                        Intent mLocIntent = new Intent(getActivity(), VallageAct.class);
-//                        mLocIntent.putExtra(TYPE,1);
-////                    startActivity(mModify);
-//                        startActivityForResult(mLocIntent, REQUEST_VILLAGE_CODE);
-
-//                        startActivityForResult();
-                        // finish();
                         break;
                 }
-//                if (view.getId() != R.id.ll_leftMenu_setting) {
-////					setleftData();
-//                    getActivity().startActivity(mLeftjump);
-//                }
             }
 
         }
     };
     public static String TYPE = "type";
+
     private void setleftData() {
         boolean leftFlag = false, rightFlag = false;
         if (Constacts.mUserCenter != null) {
@@ -478,13 +432,13 @@ public class ActFrag extends BaseFragment {
             } else {
                 mLeftSex.setSelected(true);
             }
-             if (Constacts.mUserCenter.getMessage() == 0) {
-                 mTopicNum.setVisibility(View.GONE);
-             } else {
-             leftFlag = true;
-             mTopicNum.setVisibility(View.VISIBLE);
-             mTopicNum.setText(Constacts.mUserCenter.getMessage()+"");
-             }
+            if (Constacts.mUserCenter.getMessage() == 0) {
+                mTopicNum.setVisibility(View.GONE);
+            } else {
+                leftFlag = true;
+                mTopicNum.setVisibility(View.VISIBLE);
+                mTopicNum.setText(Constacts.mUserCenter.getMessage() + "");
+            }
             if (Constacts.mUserCenter.getFee() == 0) {
                 mLeftBillNum.setVisibility(View.GONE);
             } else {
@@ -499,13 +453,6 @@ public class ActFrag extends BaseFragment {
                 mLeftCartNum.setVisibility(View.VISIBLE);
                 mLeftCartNum.setText(Constacts.mUserCenter.getCart() + "");
             }
-//            if (Constacts.mUserCenter.getOrder() == 0) {
-//                mLeftOrderNum.setVisibility(View.GONE);
-//            } else {
-//                leftFlag = true;
-//                mLeftOrderNum.setVisibility(View.VISIBLE);
-//                mLeftOrderNum.setText(Constacts.mUserCenter.getOrder() + "");
-//            }
             if (Constacts.mUserCenter.getCho() == 0) {
                 mLeftZhongCouNum.setVisibility(View.GONE);
             } else {
@@ -513,14 +460,14 @@ public class ActFrag extends BaseFragment {
                 mLeftZhongCouNum.setVisibility(View.VISIBLE);
                 mLeftZhongCouNum.setText(Constacts.mUserCenter.getCho() + "");
             }
-             if (Constacts.mUserCenter.getWallet() == 0) {
-                 mLeftWalletNum.setVisibility(View.GONE);
-             } else {
-             mLeftWalletNum.setVisibility(View.GONE);
-             mLeftWalletNum.setText(Constacts.mUserCenter.getWallet()+"");
-             }
+            if (Constacts.mUserCenter.getWallet() == 0) {
+                mLeftWalletNum.setVisibility(View.GONE);
+            } else {
+                mLeftWalletNum.setVisibility(View.GONE);
+                mLeftWalletNum.setText(Constacts.mUserCenter.getWallet() + "");
+            }
 
-            if (Constacts.mUserCenter.getSorder()!=null) {
+            if (Constacts.mUserCenter.getSorder() != null) {
                 UserCenterBean.UserCenterOrder sorder = Constacts.mUserCenter.getSorder();
                 if (Constacts.mUserCenter.getOrder() == 0) {
                     mOrder_allNum.setVisibility(View.GONE);
@@ -552,9 +499,6 @@ public class ActFrag extends BaseFragment {
                 }
             }
 
-
-
-
             if (leftFlag) {
 //                mLeftTop.setVisibility(View.VISIBLE);
             } else {
@@ -568,45 +512,37 @@ public class ActFrag extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (isFirst){
-isFirst=false;
-        }else {
-
+        if (isFirst) {
+            isFirst = false;
+        } else {
             initData();
         }
     }
 
     private void initData() {
-//        if (HighCommunityApplication.mUserInfo.getId() != 0){
-Log.e(Tag,"initdata");
-            HTTPHelper.getUserCenter(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
-//        }
-
+        Log.e(Tag, "initdata");
+        HTTPHelper.getUserCenter(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
     }
-boolean isFirst=true;
+
+    boolean isFirst = true;
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
     public static int REQUEST_VILLAGE_CODE = 0x15;
     public static int RESULT_VILLAGE_CODE = 0x15;
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_VILLAGE_CODE&&resultCode==RESULT_VILLAGE_CODE) {
+        if (requestCode == REQUEST_VILLAGE_CODE && resultCode == RESULT_VILLAGE_CODE) {
             Log.e(Tag, "requestCode==0X1024:" + resultCode);
-//            if (requestCode != RESULT_VILLAGE_CODE) {
-//                Log.e(Tag, "requestCode:" + requestCode);
-//
-//                return;
-//            }
             Log.e(Tag, "requestCode2:" + requestCode);
-data.getStringExtra("AD");
-            Log.e(Tag, "data.getStringExtra(Constacts.SEARCH_RESULT);:" +data.getStringExtra("AD"));
-
+            data.getStringExtra("AD");
+            Log.e(Tag, "data.getStringExtra(Constacts.SEARCH_RESULT);:" + data.getStringExtra("AD"));
             String address2 = data.getStringExtra("address");
-
-//            this.mLocation.setText(address2);
         }
     }
 }

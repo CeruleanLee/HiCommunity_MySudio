@@ -83,10 +83,8 @@ public class AddressListFrag extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-//        HTTPHelper.getAddressList(mIbpi, HighCommunityApplication.mUserInfo.getId() + "");
         HTTPHelper.getAddressList2(mIbpi);
     }
-
     BpiHttpHandler.IBpiHttpHandler mIbpi = new BpiHttpHandler.IBpiHttpHandler() {
         @Override
         public void onError(int id, String message) {

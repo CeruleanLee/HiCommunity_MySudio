@@ -42,7 +42,6 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  */
 @EFragment(resName = "frag_walletscore")
 public class WalletScoreFrag extends BaseFragment implements OnClickListener {
-
 	public static final String FRAGMENTTAG = "WalletScoreFrag";
 	@ViewById(R.id.tv_walletscore_rules)
 	TextView mRules;
@@ -198,7 +197,5 @@ public class WalletScoreFrag extends BaseFragment implements OnClickListener {
 
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
-		// TODO Auto-generated method stub
-
 	}
 }

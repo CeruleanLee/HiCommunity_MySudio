@@ -1241,7 +1241,7 @@ public class HTTPHelper {
      **/
     public static void getAddressDistrist(BpiHttpHandler.IBpiHttpHandler mIbpi,
                                           String city_code) {
-        String url = HTTPPOSTURL + "api/get-districts-by-city.html";
+        String url = HTTPPOSTURL + "http://028hi.cn/api/api/get-districts-by-city.html";
         HashMap<String, String> mParamMap = getBaseParamMap();
         mParamMap.put("city_code", city_code);
         post(mParamMap, mIbpi, url);

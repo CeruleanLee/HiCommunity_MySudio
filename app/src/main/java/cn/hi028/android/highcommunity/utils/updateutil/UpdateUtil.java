@@ -39,8 +39,6 @@ public class UpdateUtil implements View.OnClickListener {
     int nowVersionName;
     static boolean isUpdate;
     HashMap<String, String> mHashMap;
-//    private CheckAppUpdateResponse parseObject;
-    //    int versionCode;
     Context context;
     Activity act;
     private static final int NO_UPDATE = 0;
@@ -50,18 +48,13 @@ public class UpdateUtil implements View.OnClickListener {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case NO_UPDATE:
-//                    Toast.makeText(context, "不需要更新", Toast.LENGTH_SHORT).show();
-//                        mProgress.setProgress(progress);
                     break;
                 case UPDATE:
-//                    Toast.makeText(context, "需要更新", Toast.LENGTH_SHORT).show();
                     if (act != null) {
                         showNoticeDialog();
 
                     } else {
                         Log.d(Tag,"~~~~~~act null ");
-//                        Toast.makeText(context, "act null", Toast.LENGTH_SHORT).show();
-
                     }
 //                    安装APK
 //                        installApk();
@@ -104,16 +97,9 @@ public class UpdateUtil implements View.OnClickListener {
         String updateContent;
         //如果文件存在且文件md5值正确
         if (isLoaded) {
-//            if (isLoaded = FileUtils.isLoaded(FileDownloader.getFilePath(parseObject.getNew_md5() + ".apk"), parseObject.getNew_md5())) {
 //TODO 更新  判断是否已下载
-//            updateContent = String.format(context.getString(R.string.Update_loaded_Content),
-//                    AppVerison.getAppVersionName(context),
-//                    parseObject.getVersion(),
-//                    parseObject.getUpdate_log());
                 updateContent = "暂时还没有下载";
             } else {
-//                updateContent = String.format(context.getString(R.string.Update_Content), getAppVersionName(context), mHashMap.get("version"),
-//                        "暂无", mHashMap.get("content"));
             updateContent = String.format(context.getString(R.string.Update_Content2), getAppVersionName(context), mHashMap.get("version"),mHashMap.get("content"));
             }
             updateContentTv.setText(updateContent.replace("\\n", "\n").replace("\\r", "\r"));
@@ -127,20 +113,11 @@ public class UpdateUtil implements View.OnClickListener {
             } else if (v == mUpdateOkBtn) {
                 dialog.dismiss();
                 if (isLoaded) {
-                    //去安装
-//                    Toast.makeText(context, "准备去安装", Toast.LENGTH_LONG).show();
-//                Log.d("UpdateVersionService", "正在安装");
-//                String fileName = FileDownloader.getFilePath(parseObject.getNew_md5() + ".apk");
-//                Intent intent = new Intent(Intent.ACTION_VIEW);
-//                intent.setDataAndType(Uri.fromFile(new File(fileName)), "application/vnd.android.package-archive");
-//                context.startActivity(intent);
                 } else {
                     //下载新版本
                     Intent intent = new Intent(context, UpdateService.class);
                     intent.putExtra("update_url", "http://028hi.cn:8080/" + mHashMap.get("filepath"));
                     intent.putExtra("App_Name", "嗨社区");
-//                intent.putExtra("MD5", parseObject.getNew_md5());
-//                intent.putExtra("delta", parseObject.isDelta());
                     context.startService(intent);
                     Toast.makeText(context, "新版本正在后台下载", Toast.LENGTH_LONG).show();
                 }
@@ -152,7 +129,6 @@ public class UpdateUtil implements View.OnClickListener {
             Log.d(Tag,"UpdateUtil");
             this.act = act;
             this.context = context;
-//            parseObject=new CheckAppUpdateResponse();
         }
 
 
@@ -384,14 +360,6 @@ public class UpdateUtil implements View.OnClickListener {
      */
     public  void initUpdate(){
         checkUpdate();
-//    if (checkIsToUpdate()){
-//
-//        mUpdateHandler.sendEmptyMessage(UPDATE);
-//
-//
-//    }else{
-//        mUpdateHandler.sendEmptyMessage(NO_UPDATE);
-//    }
 }
 
 }

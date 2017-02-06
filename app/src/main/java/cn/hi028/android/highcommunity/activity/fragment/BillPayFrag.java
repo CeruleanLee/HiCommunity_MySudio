@@ -175,13 +175,6 @@ public class BillPayFrag extends BaseFragment {
             mBean = (CouponBean) message;
             mTotal.setText("￥" + mBean.getTotal());
             mWallet.setText("零钱包（共" + mBean.getMoney() + "元）");
-//            if (mBean.getTickets().size() > 0) {
-//                mDiscount.setText("￥" + mBean.getTickets().get(0).getDiscount() * mBean.getTotal());
-//                mRealPrice.setText(mBean.getTotal() + "");
-//            } else {
-//
-//
-//            }
             mDiscount.setText("0");
             mRealPrice.setText(mBean.getTotal() + "");
         }

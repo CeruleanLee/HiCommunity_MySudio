@@ -95,13 +95,9 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
 
-        /**************/
         if(parent instanceof MyNoScrollMeasureListview2 &&((MyNoScrollMeasureListview2) parent).isMeasure){
-//            if(((MyNoScrollMeasureListview) parent).isMeasure){
-            Log.e(TAG,"~~~isMeasure");
             Log.e(TAG,"~~~isMeasure position---"+position);
             return convertView;
-//            }
         }
         Log.d(TAG,"~~!  isMeasure ~position---"+position);
         final NewSupplyBean.NewSupplyDataEntity.PurchaseEntity mBean = mList.get(position);
@@ -112,12 +108,8 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
             BpiUniveralImage.displayImage(Constacts.IMAGEHTTP + mBean.getCover_pic(), mViewHolder.mImg);
         }
         mViewHolder.mNowPrice.setText("￥:"+mBean.getPrice());
-//        mViewHolder.mPastPrice.setText("￥:"+mBean.getOld_price());
-
         Spannable spanStrikethrough = new SpannableString("￥" + mBean.getOld_price());
         StrikethroughSpan stSpan = new StrikethroughSpan();  //设置删除线样式
-//			spanStrikethrough.setSpan(stSpan, 0, 7, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-//        Log.e(TAG,"长度--->"+spanStrikethrough.length());
         try {
             spanStrikethrough.setSpan(stSpan, 0, spanStrikethrough.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
@@ -133,17 +125,12 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
         }
         mViewHolder.mTvProgress.setText(mBean.getPercent());
         mViewHolder.flashsaleTvKucun.setText("共"+mBean.getStorage()+"份");
-//        Log.e(TAG,"剩余时间--->"+Long.parseLong(mBean.getRemainTime()));
         long nowTime = System.currentTimeMillis();
-//        Log.e(TAG,"现在时间--->"+nowTime);
         long time22 = Long.parseLong(mBean.getRemainTime())*1000 - nowTime;
-//        Log.e(TAG,"时间222--->"+time22);
-
         startCutdown(mViewHolder.mCounterTime, position,(time22),1000);
         mViewHolder.mTojoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context,"去抢购"+mBean.getId(),Toast.LENGTH_SHORT).show();
                 Intent mIntent=new Intent(context, SupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id",mBean.getId());
                 context.startActivity(mIntent);
@@ -154,7 +141,6 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context, "详情:"+mBean.getId(), Toast.LENGTH_SHORT).show();
                 Intent mIntent=new Intent(context, SupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id",mBean.getId());
                 context.startActivity(mIntent);
@@ -163,7 +149,6 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
         mViewHolder.layout11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context, "详情:"+mBean.getId(), Toast.LENGTH_SHORT).show();
                 Intent mIntent=new Intent(context, SupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id",mBean.getId());
                 context.startActivity(mIntent);
@@ -172,21 +157,15 @@ public class SupplyPurchaseListAdapter extends BaseFragmentAdapter {
         mViewHolder.layout22.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context, "详情:"+mBean.getId(), Toast.LENGTH_SHORT).show();
                 Intent mIntent=new Intent(context, SupplyGoodsDetailActivity2.class);
                 mIntent.putExtra("id",mBean.getId());
                 context.startActivity(mIntent);
             }
         });
 
-
-
         return convertView;
     }
-
     BitmapUtils bitmapUtils;
-
-
     @Override
     public void AddNewData(Object mObject) {
         if (mObject instanceof List<?>) {

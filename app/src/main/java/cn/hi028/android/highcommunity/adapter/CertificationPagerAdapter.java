@@ -20,7 +20,6 @@ import cn.hi028.android.highcommunity.bean.Autonomous.Auto_CertificationInitBean
  */
 
 public class CertificationPagerAdapter extends FragmentPagerAdapter {
-
     final String Tag = "CertificationPagerAdapter";
     AutoFrag_CerSuccess mCerSuccessFrag;
     AutoFrag_CerChecking mCerChecking;

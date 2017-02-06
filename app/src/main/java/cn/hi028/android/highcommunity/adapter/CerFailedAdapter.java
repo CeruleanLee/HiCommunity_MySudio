@@ -42,13 +42,11 @@ import cn.hi028.android.highcommunity.utils.MBitmapHolder;
  * @时间：2016/10/28<br>
  */
 public class CerFailedAdapter extends BaseFragmentAdapter {
-
     final String Tag = "-CerSuccesstAdapter->";
     List<Auto_CertificationInitBean.CertificationInitDataEntity> mList = new ArrayList<Auto_CertificationInitBean.CertificationInitDataEntity>();
     private Context context;
     private LayoutInflater layoutInflater;
     BitmapUtils mBitmapUtils;
-
     // 屏幕宽度,由于我们用的是HorizontalScrollView,所以按钮选项应该在屏幕外
     private int mScreentWidth;
     private View view2, view3;
@@ -77,7 +75,6 @@ public class CerFailedAdapter extends BaseFragmentAdapter {
         mSupportHttpUtils.configSoTimeout(4000);
         mSupportHttpUtils.configTimeout(4000);
         Log.e(Tag, "屏幕宽度--->" + mScreentWidth);
-
     }
 
     @Override
@@ -129,10 +126,7 @@ public class CerFailedAdapter extends BaseFragmentAdapter {
         mBitmapUtils.display(mViewHolder.mImgCerPropertye, Constacts.IMAGEHTTP + mBean.getHouse_certificate());
         if (mBean.getStatus().equals("1")) {
             //已认证
-//            mViewHolder.mImgTag.setImageDrawable(context.getResources().getDrawable());
             mViewHolder.mImgTag.setImageResource(R.mipmap.img_cersuccess);
-//            mBitmapUtils.display(mViewHolder.mImgTag, "drawable://" + R.mipmap.img_cersuccess);
-//            mBitmapUtils.display(mViewHolder.mImgTag, Constacts.IMAGEHTTP + mBean.getIDCard());
         } else if (mBean.getStatus().equals("0")) {
             //认证中
             mViewHolder.mImgTag.setImageResource(R.mipmap.img_cerchecking);
@@ -191,10 +185,8 @@ public class CerFailedAdapter extends BaseFragmentAdapter {
             }
             //位置放到view里   方便知道点击的是那一条item
             mViewHolder.but_delete.setTag(position);
-
             convertView.setOnTouchListener(new View.OnTouchListener() {
                 private int x, y;
-
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     switch (event.getAction()) {
@@ -213,7 +205,6 @@ public class CerFailedAdapter extends BaseFragmentAdapter {
                             int dY = Math.abs(y - Y3);
                             int dX = Math.abs(x - x3);
                             if (dX > dY && dX > 20) {
-//          v.requestdis
                             }
                             break;
                         case MotionEvent.ACTION_UP:
@@ -262,8 +253,6 @@ public class CerFailedAdapter extends BaseFragmentAdapter {
 
                     deleteHttp(mBean.getId());
                     mList.remove(position);
-
-//
                     // 刷新ListView内容
                     notifyDataSetChanged();
                 }
@@ -272,15 +261,8 @@ public class CerFailedAdapter extends BaseFragmentAdapter {
             mViewHolder.but_delete.setVisibility(View.GONE);
             mViewHolder.mReason.setVisibility(View.GONE);
         }
-
-
-//        TimeUtil.getDayAllTime(Long.parseLong(mBean.getCreate_time()))
-//        mViewHolder.mTime.setText(TimeUtil.longToDate(Long.parseLong(mBean.getCreate_time()),"yyyy年MM月dd日 HH时mm分ss秒").toString());
-
-
         return convertView;
     }
-
     @Override
     public void AddNewData(Object mObject) {
         if (mObject instanceof List<?>) {
@@ -302,8 +284,6 @@ public class CerFailedAdapter extends BaseFragmentAdapter {
         ImageView mImgCerIdZ;
         ImageView mImgCerIdF;
         ImageView mImgCerPropertye, mImgTag;
-
-
         HorizontalScrollView mHSView;
         View mContentLayout;
         Button but_delete;
@@ -317,14 +297,10 @@ public class CerFailedAdapter extends BaseFragmentAdapter {
         params.addBodyParameter("token", HighCommunityApplication.mUserInfo.getToken());
         params.addBodyParameter("id", id);
         mHttpUtils.send(HttpRequest.HttpMethod.POST, url, params, new RequestCallBack<String>() {
-
             @Override
             public void onFailure(HttpException arg0, String arg1) {
                 Log.e(Tag, "http 访问失败的 arg1--->" + arg1.toString());
-//            HighCommunityUtils.GetInstantiation().ShowToast(arg1.toString(), 0);
                 Toast.makeText(context, arg1.toString(), Toast.LENGTH_SHORT).show();
-
-
             }
 
             @Override
@@ -332,10 +308,8 @@ public class CerFailedAdapter extends BaseFragmentAdapter {
                 String content = arg0.result;
                 Log.e(Tag, "http 访问success的 content--->" + content);
                 CommonHttpResultBean mInitBean = new Gson().fromJson(content, CommonHttpResultBean.class);
-                //                ResponseGoodsItem responseGoodsItem = new Gson().fromJson(content, ResponseGoodsItem.class);
                 if (mInitBean != null) {
                     Toast.makeText(context, mInitBean.getMsg(), Toast.LENGTH_SHORT).show();
-//                HighCommunityUtils.GetInstantiation().ShowToast(mInitBean.getMsg(), 0);
                 }
             }
         });

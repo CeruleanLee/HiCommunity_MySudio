@@ -23,13 +23,11 @@ import cn.hi028.android.highcommunity.view.MyCustomViewPager;
  * @功能：惠生活模块<br>
  * @作者： renk<br>
  * @版本：1.1<br>
- * @时间：2015-12-08<br>
+ * @时间：2015-12-08<br> 2.0作废
  */
 public class HuiLifeFrag extends BaseFragment {
     public static final String Tag = "HuiLifeNewFrag--->";
     public static final String FRAGMENTTAG = "HuiLifeFrag";
-
-
     View view;
     NewHuiLifePagerAdapter mPagerAdapter;
     @Bind(R.id.vp_huilife_viewpager)
@@ -63,9 +61,6 @@ public class HuiLifeFrag extends BaseFragment {
         view = inflater.inflate(R.layout.fragment_hui_life_new, null);
         ButterKnife.bind(this, view);
         initView();
-//        ViewGroup parent = (ViewGroup) view.getParent();
-//        if (parent != null)
-//            parent.removeView(view);
         return view;
     }
 
@@ -83,21 +78,12 @@ public class HuiLifeFrag extends BaseFragment {
             @Override
             public void onPageSelected(int i) {
                 mlistenerHuiLife.onHuiLifeChange(i);
-//                if (i == 0) {
-//
-//                } else {
-//
-//                    mlistenerHuiLife.onHuiLifeChange(1);
-//                }
             }
-
             @Override
             public void onPageScrollStateChanged(int i) {
 
             }
         });
-
-//        setCurrentPage(0);
     }
 
     public void setCurrentPage(int page) {
@@ -108,13 +94,11 @@ public class HuiLifeFrag extends BaseFragment {
         }
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-
 
     public interface MyChangeListener4HuiLife {
         void onHuiLifeChange(int i);
@@ -122,26 +106,17 @@ public class HuiLifeFrag extends BaseFragment {
 
     @Override
     public void onResume() {
-        Log.e(Tag,"---onResume ");
         super.onResume();
     }
 
-
-
-
     @Override
     public void onPause() {
-        Log.e(Tag, "---onPause ");
-
         super.onPause();
     }
 
 
     @Override
     public void onStop() {
-        Log.e(Tag, "---onStop ");
-
-
         super.onStop();
     }
 

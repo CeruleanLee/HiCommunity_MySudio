@@ -45,16 +45,14 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 public class TenementBillFrag extends BaseFragment {
     public static final String FRAGMENTTAG = "TenementBillFrag";
     @ViewById(R.id.vp_tenement_ViewPager)
-    ViewPager mPager;// 页卡内容
+    ViewPager mPager;
     @ViewById(R.id.rg_tenement_bill)
-    RadioGroup rg;//
-
+    RadioGroup rg;
     int currentPo = 0;
-    public List<ListView> viewList; // Tab页面列表
-    public List<View> proPressList; // Tab页面列表
-    public List<TextView> noDataList; // Tab页面列表
-
-    private List<TenementBillAdapter> adapterList; // Tab页面列表
+    public List<ListView> viewList;
+    public List<View> proPressList;
+    public List<TextView> noDataList;
+    private List<TenementBillAdapter> adapterList;
 
     @AfterViews
     void initView() {

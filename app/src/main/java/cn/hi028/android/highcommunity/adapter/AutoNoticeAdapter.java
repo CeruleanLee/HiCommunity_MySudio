@@ -72,9 +72,7 @@ public class AutoNoticeAdapter extends BaseFragmentAdapter {
         }
         final Auto_NoticeListBean.NoticeListDataEntity mBean = mList.get(position);
         mViewHolder.mTitle.setText(mBean.getTitle());
-//        TimeUtil.getDayAllTime(Long.parseLong(mBean.getCreate_time()))
         mViewHolder.mTime.setText(TimeUtil.getYearMonthDay(Long.parseLong(mBean.getCreate_time())));
-//        mViewHolder.mTime.setText(TimeUtil.longToDate(Long.parseLong(mBean.getCreate_time()),"yyyy年MM月dd日 HH时mm分ss秒").toString());
         return convertView;
     }
 

@@ -56,7 +56,6 @@ public class AboutUsFrag extends BaseFragment {
     @Click(R.id.tv_AboutUs_ContactUs)
     void constactUs() {
         Intent mIntent = new Intent(getActivity(), GeneratedClassUtils.get(MenuLeftThirdAct.class));
-//        Intent mIntent=null;
         mIntent.putExtra(MenuLeftThirdAct.ACTIVITYTAG, Constacts.MENU_LEFTSECOND_SETTINGCONSTACT);
         startActivity(mIntent);
     }

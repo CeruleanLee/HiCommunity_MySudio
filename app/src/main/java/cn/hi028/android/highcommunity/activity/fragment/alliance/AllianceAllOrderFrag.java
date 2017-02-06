@@ -8,16 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.don.tools.BpiHttpHandler;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import net.duohuo.dhroid.activity.BaseFragment;
-import net.duohuo.dhroid.util.LogUtil;
 
 import java.util.List;
 
@@ -35,14 +34,11 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * 联盟订单 全部订单
  * Created by Administrator on 2016/8/11.
  */
-public class AllianceAllOrderFrag extends BaseFragment implements
-OnRefreshListener {
+public class AllianceAllOrderFrag extends BaseFragment implements OnRefreshListener {
 	View mProgress;
 	TextView mNodata;
 	PullToRefreshListView mAllOrderListView;
-
 	private AllianceOrderAdapter mAllOrderAdapter = null;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -78,13 +74,11 @@ OnRefreshListener {
 
 		@Override
 		public void onItemClick(AdapterView<?> view, View arg1, int arg2, long arg3) {
-			LogUtil.d("------item点击");
 			AllianceOrderBean info = (AllianceOrderBean) view
 					.getItemAtPosition(arg2);
 			String num = info.getOrder_num();
 			Intent intent = new Intent(getActivity(), AllianceOderDetailActivity.class);
 			intent.putExtra("order_num", num);
-			LogUtil.d("------order_num="+num);
 			getActivity().startActivity(intent);
 		}
 	};
@@ -98,7 +92,6 @@ OnRefreshListener {
 
 		@Override
 		public void setAsyncTask(AsyncTask asyncTask) {
-
 		}
 
 		@Override
@@ -154,10 +147,7 @@ OnRefreshListener {
 		HTTPHelper.GetAllianceList(mIbpi, AllianceOrder.TAB_ALL_ORDER);
 	}
 	public void onResume() {
-
 		super.onResume();
-		LogUtil.d("------进入onResume");
-
 		onRefresh();
 
 	};
