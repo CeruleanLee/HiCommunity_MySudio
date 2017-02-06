@@ -1,5 +1,6 @@
 package cn.hi028.android.highcommunity;
 
+import android.app.ActivityManager;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,6 +23,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import net.duohuo.dhroid.BaseApplication;
 
+import org.androidannotations.annotations.App;
 import org.xutils.x;
 
 import java.lang.reflect.Field;
@@ -37,6 +39,8 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import cn.hi028.android.highcommunity.utils.MyLocationListener;
 import cn.hi028.android.highcommunity.view.ECAlertDialog;
 import cn.jpush.android.api.JPushInterface;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 import okhttp3.OkHttpClient;
 
 /**
@@ -66,7 +70,7 @@ static  final String Tag="HiApplication->";
 
     @Override
     public void onCreate() {
-        Log.d(Tag,"~~~初始化App");
+        Log.d(Tag,"初始化App");
         super.onCreate();
 
         JPushInterface.setDebugMode(true); // 设置开启日志,发布时请关闭日志
@@ -97,6 +101,7 @@ static  final String Tag="HiApplication->";
             e.printStackTrace();
         }
         Fresco.initialize(this);
+        RongIM.init(this);
         mDongUtils = HighCommunityUtils.GetInstantiation();
         BpiHttpClient.initCookies(this);
         HighCommunityUtils.GetInstantiation().SetApplicationContext(this);
@@ -206,6 +211,17 @@ public static void toLoginAgain(Context context){
 
 
 }
+    public static String getCurProcessName(Context context) {
+        int pid = android.os.Process.myPid();
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningAppProcessInfo appProcess : activityManager.getRunningAppProcesses()) {
+            if (appProcess.pid == pid) {
+                return appProcess.processName;
+            }
+        }
+        return null;
+    }
+
 
 
 }
