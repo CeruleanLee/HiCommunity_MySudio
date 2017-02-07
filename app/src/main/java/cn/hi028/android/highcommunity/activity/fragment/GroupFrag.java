@@ -33,13 +33,12 @@ import cn.hi028.android.highcommunity.HighCommunityApplication;
 import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.GroupDataAct;
 import cn.hi028.android.highcommunity.activity.GroupMessageAct;
-import cn.hi028.android.highcommunity.activity.SearchActivity;
 import cn.hi028.android.highcommunity.adapter.GroupAdapter;
 import cn.hi028.android.highcommunity.adapter.GroupMineAdapter;
 import cn.hi028.android.highcommunity.bean.GroupBean;
-import cn.hi028.android.highcommunity.utils.Constacts;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
+import io.rong.imkit.RongIM;
 
 /**
  * @功能：群组列表<br>
@@ -185,17 +184,26 @@ public class GroupFrag extends BaseFragment {
                     }
                     break;
                 case R.id.tv_group_create:
-                    if (HighCommunityUtils.GetInstantiation().isLogin(getActivity())) {
-                        Intent mInt = new Intent(getActivity(), GeneratedClassUtils.get(GroupDataAct.class));
-                        mInt.putExtra(GroupDataAct.ACTIVITYTAG, "Create");
-                        startActivity(mInt);
+//                    if (HighCommunityUtils.GetInstantiation().isLogin(getActivity())) {
+//                        Intent mInt = new Intent(getActivity(), GeneratedClassUtils.get(GroupDataAct.class));
+//                        mInt.putExtra(GroupDataAct.ACTIVITYTAG, "Create");
+//                        startActivity(mInt);
+//                    }
+
+                    if (RongIM.getInstance()!=null){
+                        RongIM.getInstance().startConversationList(getActivity());
                     }
                     break;
                 case R.id.et_groupclass_search:
                 	
-                	Intent intent = new Intent(getActivity(), GeneratedClassUtils.get(SearchActivity.class));
-                    intent.putExtra(Constacts.SEARCH_TYPE,Constacts.SEARCH_TYPE_GROUP);
-                    startActivity(intent);
+//                	Intent intent = new Intent(getActivity(), GeneratedClassUtils.get(SearchActivity.class));
+//                    intent.putExtra(Constacts.SEARCH_TYPE,Constacts.SEARCH_TYPE_GROUP);
+//                    startActivity(intent);
+
+
+                    if (RongIM.getInstance()!=null){
+                        RongIM.getInstance().startPrivateChat(getActivity(),"116","私聊测试");
+                    }
                     break;
             }
         }

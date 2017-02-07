@@ -73,7 +73,7 @@ import photo.util.Res;
  */
 public class MainActivity extends BaseFragmentActivity implements View.OnClickListener, NeighborFrag.MyChangeListener,HuiLifeFrag.MyChangeListener4HuiLife {
     static  final String Tag="MainActivity--->";
-    public static String TAG = "MainActivity";
+    public static String TAG = "MainActivity--->";
 
     /**
      * 底部tabs
@@ -159,7 +159,10 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         new UpdateUtil(MainActivity.this, getApplicationContext()).initUpdate();
         Res.init(this);
         //TODO 还没调试完
-        connect(HighCommunityApplication.mUserInfo.getId()+"");
+        Log.d(TAG, "connect  1");
+//调试   福利彩票
+        connect("F2sMSChp+KkI6SSaEWUnITkc36aZPpJZqj81iEXN8zId1Zx5/yGTsbphE0dY6jOh96NnNqVdWJIYgvzyeiwnVg==");
+        Log.d(TAG, "connect  2");
 
         initView();
         initLeftMenu();
@@ -1010,7 +1013,8 @@ View titleBar;
     }
     @Override
     protected void setStatusBar() {
-        StatusBarUtil.setTranslucentForImageViewInFragment(MainActivity.this,0, null);
+//        StatusBarUtil.setTranslucentForImageViewInFragment(MainActivity.this,0, null);
+        StatusBarUtil.setColor(this,0xffffffff);
     }
 
     /**
@@ -1023,8 +1027,10 @@ View titleBar;
      * @return RongIM  客户端核心类的实例。
      */
     private void connect(String token) {
+        Log.d(Tag, "--connect" );
 
         if (getApplicationInfo().packageName.equals(HighCommunityApplication.getCurProcessName(getApplicationContext()))) {
+            Log.d(Tag, "--connect  ===" );
 
             RongIM.connect(token, new RongIMClient.ConnectCallback() {
 
@@ -1034,6 +1040,7 @@ View titleBar;
                  */
                 @Override
                 public void onTokenIncorrect() {
+                    Log.d(Tag, "--onTokenIncorrect" );
 
                 }
 
@@ -1043,7 +1050,7 @@ View titleBar;
                  */
                 @Override
                 public void onSuccess(String userid) {
-                    Log.d("LoginActivity", "--onSuccess" + userid);
+                    Log.d(Tag, "--onSuccess" + userid);
 //                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
 //                    finish();
                     NToast.shortToast(MainActivity.this,"连接融云成功: userid"+userid);
@@ -1055,11 +1062,14 @@ View titleBar;
                  */
                 @Override
                 public void onError(RongIMClient.ErrorCode errorCode) {
+                    Log.d(Tag, "--onError" + errorCode);
                     NToast.shortToast(MainActivity.this,"连接融云fail: errorCode"+errorCode);
 
                 }
             });
         }
+        Log.d(Tag, "--connect  !===" );
+
     }
 
 

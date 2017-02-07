@@ -23,7 +23,6 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import net.duohuo.dhroid.BaseApplication;
 
-import org.androidannotations.annotations.App;
 import org.xutils.x;
 
 import java.lang.reflect.Field;
@@ -40,7 +39,6 @@ import cn.hi028.android.highcommunity.utils.MyLocationListener;
 import cn.hi028.android.highcommunity.view.ECAlertDialog;
 import cn.jpush.android.api.JPushInterface;
 import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
 import okhttp3.OkHttpClient;
 
 /**
@@ -207,8 +205,6 @@ public static void toLoginAgain(Context context){
     i.putExtra(MenuLeftAct.ACTIVITYTAG, Constacts.MENU_LEFT_MESSAGECENTER);
     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
     context.startActivity(i);
-
-
 
 }
     public static String getCurProcessName(Context context) {
