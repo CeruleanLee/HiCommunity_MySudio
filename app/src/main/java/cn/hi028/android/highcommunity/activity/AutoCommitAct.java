@@ -108,6 +108,9 @@ public class AutoCommitAct extends BaseFragmentActivity {
                     initView();
                 }
             }
+
+
+
         });
     }
 

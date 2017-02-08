@@ -7,6 +7,7 @@ package cn.hi028.android.highcommunity.activity.fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,6 @@ import com.don.view.CircleImageView;
 import com.don.view.DrawableCenterTextView;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-import net.duohuo.dhroid.activity.BaseFragment;
 import net.duohuo.dhroid.util.ImageLoaderUtil;
 
 import butterknife.Bind;
@@ -32,7 +32,6 @@ import cn.hi028.android.highcommunity.R;
 import cn.hi028.android.highcommunity.activity.AddressAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftAct;
 import cn.hi028.android.highcommunity.activity.MenuLeftSecondAct;
-import cn.hi028.android.highcommunity.activity.VallageAct;
 import cn.hi028.android.highcommunity.activity.alliance.AllianceOrder;
 import cn.hi028.android.highcommunity.bean.PersonalInfoBean;
 import cn.hi028.android.highcommunity.bean.UserCenterBean;
@@ -46,7 +45,7 @@ import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
  * @版本：2.0<br>
  * @时间：2016/12/19<br>
  */
-public class ActFrag extends BaseFragment {
+public class ActFrag extends Fragment {
     public static final String Tag = "ActFrag~~~";
     public static final String FRAGMENTTAG = "ActFrag";
     @Bind(R.id.myinfor_edit)
@@ -410,7 +409,7 @@ public class ActFrag extends BaseFragment {
                         break;
                     case R.id.tx_LeftFrag_userlocation_layout:
                     case R.id.tx_LeftFrag_userlocation:
-                        VallageAct.toStartAct(ActFrag.this, 1, 1);
+//                        VallageAct.toStartAct(this, 1, 1);
                         break;
                 }
             }

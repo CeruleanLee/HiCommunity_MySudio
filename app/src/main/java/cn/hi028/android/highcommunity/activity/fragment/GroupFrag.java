@@ -39,6 +39,8 @@ import cn.hi028.android.highcommunity.bean.GroupBean;
 import cn.hi028.android.highcommunity.utils.HTTPHelper;
 import cn.hi028.android.highcommunity.utils.HighCommunityUtils;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.model.CSCustomServiceInfo;
+import io.rong.imlib.model.Conversation;
 
 /**
  * @功能：群组列表<br>
@@ -159,29 +161,52 @@ public class GroupFrag extends BaseFragment {
                     }
                     break;
                 case R.id.tv_group_new:
-                    if (type != 1) {
-                        type = 1;
-                        getData(type);
-                    }
+//                    if (type != 1) {
+//                        type = 1;
+//                        getData(type);
+//                    }
+                    //首先需要构造使用客服者的用户信息
+                    CSCustomServiceInfo.Builder csBuilder = new CSCustomServiceInfo.Builder();
+                    CSCustomServiceInfo csInfo = csBuilder.nickName("融云").build();
+
+/**
+ * 启动客户服聊天界面。
+ *
+ * @param context           应用上下文。
+ * @param customerServiceId 要与之聊天的客服 Id。
+ * @param title             聊天的标题，如果传入空值，则默认显示与之聊天的客服名称。
+ * @param customServiceInfo 当前使用客服者的用户信息。{@link io.rong.imlib.model.CSCustomServiceInfo}
+ */
+                    RongIM.getInstance().startCustomerServiceChat(getActivity(), "KEFU148514008440782", "在线客服",csInfo);
                     break;
                 case R.id.tv_group_mine:
-                    if (!HighCommunityUtils.isLogin()) {
-                        HighCommunityUtils.GetInstantiation().ShowToast("游客模式下,不能查看", 0);
-                        if (type == 0) {
-                            mHot.setChecked(true);
-                            return;
-                        } else if (type == 1) {
-                            mNew.setChecked(true);
-                            return;
-                        } else if (type == 3) {
-                            return;
-                        }
-                        return;
-                    }
-                    if (type != 2) {
-                        type = 2;
-                        getData(type);
-                    }
+//                    if (!HighCommunityUtils.isLogin()) {
+//                        HighCommunityUtils.GetInstantiation().ShowToast("游客模式下,不能查看", 0);
+//                        if (type == 0) {
+//                            mHot.setChecked(true);
+//                            return;
+//                        } else if (type == 1) {
+//                            mNew.setChecked(true);
+//                            return;
+//                        } else if (type == 3) {
+//                            return;
+//                        }
+//                        return;
+//                    }
+//                    if (type != 2) {
+//                        type = 2;
+//                        getData(type);
+//                    }
+
+                    /**
+                     * 启动系统会话聊天界面。
+                     *
+                     * @param context          应用上下文。
+                     * @param conversationType 开启会话类型。
+                     * @param targetId         目标 Id；
+                     * @param title            聊天的标题，如果传入空值，则默认显示会话的名称。
+                     */
+                    RongIM.getInstance().startConversation(getActivity(), Conversation.ConversationType.SYSTEM, "116", "标题");
                     break;
                 case R.id.tv_group_create:
 //                    if (HighCommunityUtils.GetInstantiation().isLogin(getActivity())) {

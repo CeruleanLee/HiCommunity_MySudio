@@ -104,6 +104,7 @@ import cn.hi028.android.highcommunity.bean.PersonalInfoBean;
 import cn.hi028.android.highcommunity.bean.RepairBean;
 import cn.hi028.android.highcommunity.bean.RepairJJBean;
 import cn.hi028.android.highcommunity.bean.RepairJinJBean;
+import cn.hi028.android.highcommunity.bean.RongYunBean;
 import cn.hi028.android.highcommunity.bean.ScoreBean;
 import cn.hi028.android.highcommunity.bean.ShakeBean;
 import cn.hi028.android.highcommunity.bean.ShakeUser;
@@ -3447,6 +3448,8 @@ public class HTTPHelper {
         return gson.fromJson(result, UserCenterBean.class);
     }
 
+
+
     /**
      * 解析修改地址时获取的address数据
      */
@@ -4151,5 +4154,24 @@ public class HTTPHelper {
     }
 
 
+    /**
+     * 获取融云token
+     *
+     * @param mIbpi
+     */
+    public static void getRongToken(BpiHttpHandler.IBpiHttpHandler mIbpi) {
+        String url = "http://028hi.cn/rc/chat/get-token.html";
+        HashMap<String, String> mParamMap = getBaseParamMap();
+        post(mParamMap, mIbpi, url);
+    }
+
+
+
+    /**
+     * 解析融云
+     */
+    public static RongYunBean ResolveRongYunBean(String result) {
+        return gson.fromJson(result, RongYunBean.class);
+    }
 }
 

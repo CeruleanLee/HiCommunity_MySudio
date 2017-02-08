@@ -1,33 +1,67 @@
 <resources>
 
+    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
+    <!--<style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--&lt;!&ndash;所有的控件都不自动大写&ndash;&gt;-->
+        <!--<item name="android:textAllCaps">false</item>-->
+        <!--<item name="android:windowActionBar">false</item>-->
+        <!--<item name="windowActionBar">false</item>-->
+        <!--<item name="android:windowAnimationStyle">@style/AnimationActivity</item>-->
+        <!--<item name="windowNoTitle">true</item>-->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--&lt;!&ndash;控制各个控件被选中时的颜色&ndash;&gt;-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+
+    <!--</style>-->
+
+    <!--&lt;!&ndash;<style name="AppTheme" parent="AppBaseTheme">&ndash;&gt;-->
+
+    <!--<style name="AppTheme" mce_bogus="1" parent="android:Theme.Light">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--&lt;!&ndash;所有的控件都不自动大写&ndash;&gt;-->
+        <!--<item name="android:textAllCaps">false</item>-->
+        <!--<item name="android:windowActionBar">false</item>-->
+        <!--<item name="windowActionBar">false</item>-->
+        <!--<item name="android:windowAnimationStyle">@style/AnimationActivity</item>-->
+        <!--<item name="windowNoTitle">true</item>-->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--&lt;!&ndash;控制各个控件被选中时的颜色&ndash;&gt;-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+    <!--</style>-->
+
+    <!--<style name="AnimationActivity" mce_bogus="1" parent="@android:style/Animation.Activity">-->
+        <!--<item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>-->
+        <!--<item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>-->
+        <!--<item name="android:activityCloseEnterAnimation">@anim/slide_in_right</item>-->
+        <!--<item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>-->
+    <!--</style>-->
+
     <!-- Base application theme. -->
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" mce_bogus="1" parent="android:Theme.Light">
         <!-- Customize your theme here. -->
-        <!--所有的控件都不自动大写-->
-        <item name="android:textAllCaps">false</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="windowActionBar">false</item>
         <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
-        <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <!--控制各个控件被选中时的颜色-->
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-
+        <item name="android:typeface">serif</item>
+        <item name="android:textColor">@color/defult_text_color</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:theme">@android:style/Theme.Translucent.NoTitleBar</item>
+    </style>
+    <!-- <item name="android:typeface">serif</item>  -->
+    <style name="AnimationActivity" mce_bogus="1" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/back_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/back_exit</item>
     </style>
 
-    <style name="AppTheme" parent="AppBaseTheme">
 
-    </style>
 
-    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
-        <item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>
-        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
-        <item name="android:activityCloseEnterAnimation">@anim/slide_in_right</item>
-        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
-    </style>
     <!-- 底部导航栏 -->
     <style name="tb_tv">
         <item name="android:layout_width">wrap_content</item>

@@ -2,7 +2,7 @@ package net.duohuo.dhroid.activity;
 
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -17,14 +17,12 @@ import cn.hi028.android.highcommunity.R;
 /***
  * @author duohuo-jinghao
  */
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends FragmentActivity {
     public BaseApplication getBaseApplication() {
         return (BaseApplication) getApplication();
     }
 
-
     private ActivityTack tack = ActivityTack.getInstanse();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +31,7 @@ public class BaseActivity extends AppCompatActivity {
         tack.addActivity(this);
     }
     protected void setStatusBar() {
-        StatusBarUtil.setColor(this, getResources().getColor(R.color.Defult_Color_AppGreen),0);
+        StatusBarUtil.setColor(this, getResources().getColor(R.color.Defult_Color_transparent),0);
     }
 
 
@@ -58,7 +56,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        setStatusBar();
+//        setStatusBar();
         if (Const.auto_inject) {
 //            InjectUtil.inject(this);
         }
@@ -88,6 +86,7 @@ public class BaseActivity extends AppCompatActivity {
 //			super.startActivity(intent);
 //		} else {
 //		}
-//
 //	}
+
+
 }
